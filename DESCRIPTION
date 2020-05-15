@@ -1,0 +1,23 @@
+Package: pkgreport
+Title: Plumber API to report package structure and function
+Version: 0.0.0.001
+Authors@R: c(
+    person("Mark", "Padgham", email="mark.padgham@email.com", role=c("aut", "cre")))
+Description: Plumber API to report package structure and function.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+NeedsCompilation: yes
+Depends: R (>= 3.5.0)
+Imports:
+    packgraph,
+    plumber
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/mpadge/pkgreport
+BugReports: https://github.com/mpadge/pkgreport/issues
+RoxygenNote: 7.1.0
+Roxygen: list(markdown = TRUE)
+Language: en-GB
