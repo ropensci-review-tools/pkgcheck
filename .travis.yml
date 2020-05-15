@@ -1,11 +1,8 @@
 language: R
 cache: packages
 
-r_packages:
-    - remotes
-
 before_install:
-    Rscript -e 'source("https://install-github.me/r-lib/pkgapi");remotes::install_github("mpadge/packgraph")'
+    Rscript -e 'source("https://install-github.me/r-lib/pkgapi");install.packages("remotes");remotes::install_github("mpadge/packgraph")'
 
 #after_success: Rscript -e "covr::codecov()"
 
