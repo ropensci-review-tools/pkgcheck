@@ -15,7 +15,7 @@ A \code{processx} process which must be actively stopped with \code{ps$kill()}.
 \description{
 The API exposes the two POST points of
 \itemize{
-\item dlurl Download the given URL to \code{tempdir()}
+\item report Download the given URL to \code{tempdir()}
 \item pgstats Analyse the package held at location returned from \code{dlurl} and
 return a formatted report
 }

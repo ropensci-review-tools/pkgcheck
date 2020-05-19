@@ -4,14 +4,16 @@
 \alias{pr_report}
 \title{pr_report}
 \usage{
-pr_report(dl, port = 8000)
+pr_report(u, port = 8000)
 }
 \arguments{
-\item{dl}{Location of downloaded repository as returned from \link{pr_dl}}
+\item{u}{URL of package repository}
 
-\item{port}{Port used to set up API with \link{serve_api}}
+\item{port}{Port at which plumber API has been served via \link{serve_api}.}
+}
+\value{
+Report on repository
 }
 \description{
 Query plumber API (set up with \link{serve_api}) for a report on a repository
-downloaded locally with the \link{pr_dl} function.
 }
