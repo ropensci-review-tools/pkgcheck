@@ -2,31 +2,33 @@
 
 #* Download a package from URL
 #* @param u The URL for a repo
-#* @post /dlurl
+#* @post /report
 function(u){
-    u <- "https://github.com/ropensci/osmdata/"
     pkg_name <- tail (strsplit (u, "/") [[1]], 1)
-    if (substring (u, nchar (u), nchar (u)) == "/")
-        u <- substring (u, 1, nchar (u) - 1)
-    u <- paste0 (u, "/archive/master.zip")
 
-    f <- file.path (tempdir (), "master.zip")
-    if (!file.exists (f))
+    get_exdir <- function () {
+        exdir <- Sys.getenv ("pkgreport_dir")
+        ifelse (exdir != "", exdir, tempdir ())
+    }
+
+    download_repo <- function (u, pkg_name) {
+        if (substring (u, nchar (u), nchar (u)) == "/")
+            u <- substring (u, 1, nchar (u) - 1)
+        u <- paste0 (u, "/archive/master.zip")
+
+        f <- file.path (get_exdir (), paste0 (pkg_name, "-master.zip"))
         download.file (u, destfile = f)
+        return (f)
+    }
 
-    flist <- unzip (f, exdir = tempdir ())
+    local_repo <- file.path (get_exdir (),
+                             paste0 (pkg_name, "-master"))
+    local_zip <- paste0 (local_repo, ".zip")
+    if (!file.exists (local_zip))
+        f <- download_repo (u, pkg_name)
 
-    return (file.path (tempdir (), paste0 (pkg_name, "-master")))
-}
-
-#* Get packgraph stats for a downloaded pkg
-#* @param filepath Path to downloaded package on server
-#* @post /pgstats
-function(f){
-    if (!file.exists (f))
-        return (FALSE)
-
-    g <- packgraph::pg_graph (f, plot = FALSE)
+    flist <- unzip (local_zip, exdir = get_exdir ())
+    g <- packgraph::pg_graph (local_repo, plot = FALSE)
     res <- packgraph::pg_report (g)
 
     return (res)
