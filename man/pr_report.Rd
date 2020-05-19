@@ -4,7 +4,7 @@
 \alias{pr_report}
 \title{pr_report}
 \usage{
-pr_report(u, port = 8000)
+pr_report(u, port = 8000L)
 }
 \arguments{
 \item{u}{URL of package repository}

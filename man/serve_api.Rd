@@ -4,10 +4,12 @@
 \alias{serve_api}
 \title{serve plumber API to report on packages}
 \usage{
-serve_api(port = 8000)
+serve_api(port = 8000L, bg = FALSE)
 }
 \arguments{
 \item{port}{Port for API to be served on}
+
+\item{bg}{Run process in background, otherwise this function is blocking}
 }
 \value{
 A \code{processx} process which must be actively stopped with \code{ps$kill()}.
