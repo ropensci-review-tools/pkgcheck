@@ -1,0 +1,16 @@
+on: push
+
+name: push-to-gitlab
+
+jobs:
+  push-to-gitlab:
+    runs-on: macOS-latest
+    if: "!(contains(github.event.head_commit.message, 'nogl'))"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Gitlab push
+        run |
+          git config --global user.name "mpadge"
+          git config --global user.email "mark.padgham@email.com"
+          git remote set-url gitlab git@gitlab.com:mpadge/pkgreport.git
+          git push gitlab master
