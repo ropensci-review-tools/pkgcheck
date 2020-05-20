@@ -14,7 +14,7 @@ source("https://install-github.me/r-lib/pkgapi")
 ```
 (or `remotes::install_github()` will also work).
 
-```{r load, echo = FALSE}
+```{r load, echo = FALSE, message = FALSE}
 devtools::load_all (".", export_all = FALSE)
 ```
 ```{r load-fakey, eval = FALSE}
@@ -25,7 +25,7 @@ library (pkgreport)
 
 ## Usage
 
-Set up a local host at specified port:
+Set up a local host at specified port, currently only configured to serve on `localhost`:
 
 ```{r serve}
 port <- 8000
@@ -40,11 +40,12 @@ function, and a corresponding report on the software generated with
 `pr_report()`:
 
 ```{r demo-fakey, eval = FALSE}
-dl <- pr_dl ("https://github.com/ropensci/osmdata", port = port)
-res <- pr_report (dl, port = port)
+u <- "https://github.com/ropensci/osmdata"
+res <- pr_report (u, port = port)
 res
 ```
 ```{r demo, echo = FALSE}
+#saveRDS (res, "res.Rds")
 readRDS ("res.Rds")
 ```
 
