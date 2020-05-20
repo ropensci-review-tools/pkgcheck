@@ -42,9 +42,8 @@ The returned object, `ps`, is a
 background R process hosting the local API. This process must be
 manually killed once finished, as demonstrated below.
 
-A specified repository can then be locally downloaded with the `pr_dl()`
-function, and a corresponding report on the software generated with
-`pr_report()`:
+A report on the structure of a specified software repository can then be
+generated with the `pr_report()` function:
 
 ``` r
 u <- "https://github.com/ropensci/osmdata"
@@ -106,7 +105,7 @@ Finally, kill the `processx` process hosting the local API:
 ps
 ```
 
-    ## PROCESS 'R', running, pid 24928.
+    ## PROCESS 'R', running, pid 25626.
 
 ``` r
 chk <- ps$kill()

@@ -36,9 +36,8 @@ The returned object, `ps`, is a [`processx`](https://github.com/r-lib/processx)
 object identifying a background R process hosting the local API. This process
 must be manually killed once finished, as demonstrated below.
 
-A specified repository can then be locally downloaded with the `pr_dl()`
-function, and a corresponding report on the software generated with
-`pr_report()`:
+A report on the structure of a specified software repository can then be
+generated with the `pr_report()` function:
 
 ```{r demo-fakey, eval = FALSE}
 u <- "https://github.com/ropensci/osmdata"
