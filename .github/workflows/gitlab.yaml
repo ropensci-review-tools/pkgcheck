@@ -1,3 +1,13 @@
+# TODO on gitlab:
+# Repo Settings ->
+#   Repository ->
+#     Protected Branches ->
+#       Unprotect master (or whichever) branch
+#
+# TODO on github:
+# store all necessary variables as secrets, including gitlab password (here as
+# GLPW)
+
 name: gitlab
 
 on: push
@@ -6,7 +16,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    #if: "!(contains(github.event.head_commit.message, 'nogl'))"
+    # push won't mirror on gitlab if commit message contains "[nogl]"
+    if: "!(contains(github.event.head_commit.message, '[nogl]'))"
 
     steps:
     - uses: actions/checkout@v2
