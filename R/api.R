@@ -7,10 +7,10 @@
 #' return a formatted report
 #' }
 #' @param port Port for API to be served on
-#' @param bg Run process in background, otherwise this function is blocking
+#' @param bg If `FALSE`, run process as a blocking foreground process
 #' @return A `processx` process which must be actively stopped with `ps$kill()`.
 #' @export
-serve_api <- function (port = 8000L, bg = FALSE) {
+serve_api <- function (port = 8000L, bg = TRUE) {
     r <- plumber::plumb (file.path (here::here (), "R", "plumber.R"))
     ps <- NULL
     if (bg) {
