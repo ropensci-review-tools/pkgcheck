@@ -8,7 +8,7 @@
 # store all necessary variables as secrets, including gitlab password (here as
 # GLPW)
 
-name: gitlab
+name: push-to-gitlab
 
 on: push
 
