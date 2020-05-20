@@ -18,4 +18,4 @@ jobs:
           sudo git clone https://${{secrets.UNAME}}:${{secrets.GH_TOKEN}}@github.com/mpadge/pkgreport
           sudo git fetch --unshallow origin
           sudo git remote add gitlab https://${{secrets.UNAME}}:${{secrets.GLPW}}@gitlab.com/mpadge/pkgreport.git
-          sudo git push --force gitlab master
+          sudo git push gitlab master
