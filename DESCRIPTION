@@ -11,8 +11,10 @@ NeedsCompilation: yes
 Depends: R (>= 3.4.0)
 Imports:
     callr,
+    ghql,
     here,
     httr,
+    jsonlite,
     magrittr,
     packgraph,
     plumber
