@@ -127,7 +127,7 @@ return a formatted report</p></li>
 
     </div>
 
-    <pre class="usage"><span class='fu'>serve_api</span>(<span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>8000L</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>serve_api</span>(<span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>8000L</span>, <span class='kw'>cache_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>bg</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,6 +135,11 @@ return a formatted report</p></li>
     <tr>
       <th>port</th>
       <td><p>Port for API to be served on</p></td>
+    </tr>
+    <tr>
+      <th>cache_dir</th>
+      <td><p>Directory where previously downloaded repositories are
+cached</p></td>
     </tr>
     <tr>
       <th>bg</th>
