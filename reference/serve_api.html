@@ -40,12 +40,9 @@
 
 
 <meta property="og:title" content="serve plumber API to report on packages — serve_api" />
-<meta property="og:description" content="The API exposes the two POST points of
-report Download the given URL to tempdir()
-pgstats Analyse the package held at location returned from dlurl and
-return a formatted report
-
-" />
+<meta property="og:description" content="The API exposes the single POST points of report to download software from
+the given URL and return a textual analysis of its structure and
+functionality." />
 
 
 
@@ -119,15 +116,12 @@ return a formatted report
     </div>
 
     <div class="ref-description">
-    <p>The API exposes the two POST points of</p><ul>
-<li><p>report Download the given URL to <code><a href='https://rdrr.io/r/base/tempfile.html'>tempdir()</a></code></p></li>
-<li><p>pgstats Analyse the package held at location returned from <code>dlurl</code> and
-return a formatted report</p></li>
-</ul>
-
+    <p>The API exposes the single POST points of <code>report</code> to download software from
+the given URL and return a textual analysis of its structure and
+functionality.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>serve_api</span>(<span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>8000L</span>, <span class='kw'>cache_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>bg</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>serve_api</span>(<span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>8000L</span>, <span class='kw'>cache_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
