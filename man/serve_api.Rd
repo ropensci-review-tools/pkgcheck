@@ -4,10 +4,13 @@
 \alias{serve_api}
 \title{serve plumber API to report on packages}
 \usage{
-serve_api(port = 8000L, bg = TRUE)
+serve_api(port = 8000L, cache_dir = tempdir(), bg = TRUE)
 }
 \arguments{
 \item{port}{Port for API to be served on}
+
+\item{cache_dir}{Directory where previously downloaded repositories are
+cached}
 
 \item{bg}{If \code{FALSE}, run process as a blocking foreground process}
 }

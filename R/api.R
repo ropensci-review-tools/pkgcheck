@@ -7,15 +7,22 @@
 #' return a formatted report
 #' }
 #' @param port Port for API to be served on
+#' @param cache_dir Directory where previously downloaded repositories are
+#' cached
 #' @param bg If `FALSE`, run process as a blocking foreground process
 #' @return A `processx` process which must be actively stopped with `ps$kill()`.
 #' @export
-serve_api <- function (port = 8000L, bg = TRUE) {
+serve_api <- function (port = 8000L, cache_dir = tempdir (), bg = TRUE) {
     r <- plumber::plumb (file.path (here::here (), "R", "plumber.R"))
+    e <- callr::rcmd_safe_env ()
+    e <- c (e, cache_dir = cache_dir)
+    if (!file.exists (cache_dir))
+        dir.create (cache_dir, recursive = TRUE)
     ps <- NULL
     if (bg) {
         f <- function (r, port = 8000L) r$run (port = port)
-        ps <- callr::r_bg (f, list (r = r, port = as.integer (port)))
+        ps <- callr::r_bg (f, list (r = r, port = as.integer (port)),
+                           env = e)
     } else
         r$run (port = as.integer (port))
     return (ps)
