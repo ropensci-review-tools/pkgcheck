@@ -127,7 +127,7 @@ return a formatted report</p></li>
 
     </div>
 
-    <pre class="usage"><span class='fu'>serve_api</span>(<span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>8000L</span>, <span class='kw'>cache_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>bg</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>serve_api</span>(<span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>8000L</span>, <span class='kw'>cache_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>bg</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,6 +144,11 @@ cached</p></td>
     <tr>
       <th>bg</th>
       <td><p>If <code>FALSE</code>, run process as a blocking foreground process</p></td>
+    </tr>
+    <tr>
+      <th>debug</th>
+      <td><p>For background processes: If <code>TRUE</code>, dump output logs to
+<code>/tmp/out</code> and <code>/tmp/err</code></p></td>
     </tr>
     </table>
 
