@@ -10,21 +10,33 @@
 #' @param cache_dir Directory where previously downloaded repositories are
 #' cached
 #' @param bg If `FALSE`, run process as a blocking foreground process
+#' @param debug For background processes: If `TRUE`, dump output logs to
+#' `/tmp/out` and `/tmp/err`
 #' @return A `processx` process which must be actively stopped with `ps$kill()`.
 #' @export
-serve_api <- function (port = 8000L, cache_dir = tempdir (), bg = TRUE) {
+serve_api <- function (port = 8000L, cache_dir = tempdir (), bg = TRUE, debug = FALSE) {
     r <- plumber::plumb (file.path (here::here (), "R", "plumber.R"))
+
     e <- callr::rcmd_safe_env ()
     e <- c (e, cache_dir = cache_dir)
     if (!file.exists (cache_dir))
         dir.create (cache_dir, recursive = TRUE)
+
     ps <- NULL
     if (bg) {
         f <- function (r, port = 8000L) r$run (port = port)
+
+        sout <- serr <- "|"
+        if (debug) {
+            sout <- "/tmp/out"
+            serr <- "/tmp/err"
+        }
+
         ps <- callr::r_bg (f, list (r = r, port = as.integer (port)),
-                           env = e)
+                           env = e, stdout = sout, stderr = serr)
     } else
         r$run (port = as.integer (port))
+
     return (ps)
 }
 
@@ -37,8 +49,8 @@ serve_api <- function (port = 8000L, cache_dir = tempdir (), bg = TRUE) {
 #' @return Report on repository
 #' @export
 pr_report <- function (u, port = 8000L) {
-    x <- sprintf ("http://localhost:%s/report?u=%s", as.integer (port), u) %>%
+    sprintf ("http://localhost:%s/report?u=%s", as.integer (port), u) %>%
         httr::POST () %>%
-        httr::content ()
-    return (unlist (x))
+        httr::content () %>%
+        unlist ()
 }

@@ -4,7 +4,7 @@
 \alias{serve_api}
 \title{serve plumber API to report on packages}
 \usage{
-serve_api(port = 8000L, cache_dir = tempdir(), bg = TRUE)
+serve_api(port = 8000L, cache_dir = tempdir(), bg = TRUE, debug = FALSE)
 }
 \arguments{
 \item{port}{Port for API to be served on}
@@ -13,6 +13,9 @@ serve_api(port = 8000L, cache_dir = tempdir(), bg = TRUE)
 cached}
 
 \item{bg}{If \code{FALSE}, run process as a blocking foreground process}
+
+\item{debug}{For background processes: If \code{TRUE}, dump output logs to
+\verb{/tmp/out} and \verb{/tmp/err}}
 }
 \value{
 A \code{processx} process which must be actively stopped with \code{ps$kill()}.
