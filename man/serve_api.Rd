@@ -4,7 +4,7 @@
 \alias{serve_api}
 \title{serve plumber API to report on packages}
 \usage{
-serve_api(port = 8000L, cache_dir = tempdir(), bg = TRUE, debug = FALSE)
+serve_api(port = 8000L, cache_dir = NULL, bg = TRUE, debug = FALSE)
 }
 \arguments{
 \item{port}{Port for API to be served on}
@@ -21,10 +21,7 @@ cached}
 A \code{processx} process which must be actively stopped with \code{ps$kill()}.
 }
 \description{
-The API exposes the two POST points of
-\itemize{
-\item report Download the given URL to \code{tempdir()}
-\item pgstats Analyse the package held at location returned from \code{dlurl} and
-return a formatted report
-}
+The API exposes the single POST points of \code{report} to download software from
+the given URL and return a textual analysis of its structure and
+functionality.
 }

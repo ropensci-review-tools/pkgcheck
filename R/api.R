@@ -1,11 +1,9 @@
 #' serve plumber API to report on packages
 #'
-#' The API exposes the two POST points of
-#' \itemize{
-#' \item report Download the given URL to `tempdir()`
-#' \item pgstats Analyse the package held at location returned from `dlurl` and
-#' return a formatted report
-#' }
+#' The API exposes the single POST points of `report` to download software from
+#' the given URL and return a textual analysis of its structure and
+#' functionality.
+#'
 #' @param port Port for API to be served on
 #' @param cache_dir Directory where previously downloaded repositories are
 #' cached
@@ -14,13 +12,17 @@
 #' `/tmp/out` and `/tmp/err`
 #' @return A `processx` process which must be actively stopped with `ps$kill()`.
 #' @export
-serve_api <- function (port = 8000L, cache_dir = tempdir (), bg = TRUE, debug = FALSE) {
+serve_api <- function (port = 8000L, cache_dir = NULL, bg = TRUE, debug = FALSE) {
     r <- plumber::plumb (file.path (here::here (), "R", "plumber.R"))
+
+    if (is.null (cache_dir)) { # allows tempdir() to be passed for CRAN tests
+        cache_dir <- file.path (rappdirs::user_cache_dir (), "pkgreport")
+        if (!file.exists (cache_dir))
+            dir.create (cache_dir, recursive = TRUE)
+    }
 
     e <- callr::rcmd_safe_env ()
     e <- c (e, cache_dir = cache_dir)
-    if (!file.exists (cache_dir))
-        dir.create (cache_dir, recursive = TRUE)
 
     ps <- NULL
     if (bg) {

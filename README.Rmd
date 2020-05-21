@@ -32,15 +32,12 @@ Sys.setenv ("GITHUB_QL" = "<my_token>")
 This can also be set permanently by putting this line in your `~/.Renviron`
 file (or creating this if it does not yet exist).
 
-The package also works by locally caching previously analysed packages. This is
-done by default in `tempdir()`, but can be directed to a specified and enduring
-location by setting another environmental variable:
-```{r cache_dir, eval = FALSE}
-Sys.setenv ("PKGREP_CACHE" = "/path/to/cache/directory/")
+The package also works by locally caching previously analysed packages, in
+a `pkgreport` subdirectory of the location determined by
+```{r, rappdirs, eval = FALSE}
+rappdirs::user_cache_dir()
 ```
-Again, this can be set via `~/.Renviron` to obviate need to set this directory
-manually each time.
-
+You may manually erase the contents of this subdirectory at any time at no risk.
 
 
 ## Usage
