@@ -27,6 +27,31 @@ source("https://install-github.me/r-lib/pkgapi")
 library (pkgreport)
 ```
 
+Also uses the [github GraphQL API](https://developer.github.com/v4)
+which requires a local github token to be stored with an unambiguous
+name including `GITHUB` and maybe `QL`, if alternative `GITHIB` tokens
+already exist. This can be obtained from github (via your user
+settings), and stored using
+
+``` r
+Sys.setenv ("GITHUB_QL" = "<my_token>")
+```
+
+This can also be set permanently by putting this line in your
+`~/.Renviron` file (or creating this if it does not yet exist).
+
+The package also works by locally caching previously analysed packages.
+This is done by default in `tempdir()`, but can be directed to a
+specified and enduring location by setting another environmental
+variable:
+
+``` r
+Sys.setenv ("PKGREP_CACHE" = "/path/to/cache/directory/")
+```
+
+Again, this can be set via `~/.Renviron` to obviate need to set this
+directory manually each time.
+
 ## Usage
 
 Set up a local host at specified port, currently only configured to
@@ -105,7 +130,7 @@ Finally, kill the `processx` process hosting the local API:
 ps
 ```
 
-    ## PROCESS 'R', running, pid 25626.
+    ## PROCESS 'R', running, pid 12580.
 
 ``` r
 chk <- ps$kill()
