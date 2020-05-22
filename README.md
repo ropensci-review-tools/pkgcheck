@@ -13,15 +13,17 @@ Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repo
 <!-- badges: end -->
 
 Plumber API to report on package structure and function. Uses
-functionality provided by the [`r-lib/pkgapi`
-package](https://github.com/r-lib/pkgapi), which is not on CRAN and must
-first be installed with
+functionality provided by the packages
+[`r-lib/pkgapi`](https://github.com/r-lib/pkgapi) and
+[`packgraph`](https://github.com/mpadge/packgraph) which are not on CRAN
+and must first be installed with
 
 ``` r
-source("https://install-github.me/r-lib/pkgapi")
+source("https://install-github.me/r-lib/pkgapi") #or `remotes::install_github()`
+remotes::install_github("mpadge/packgraph")
 ```
 
-(or `remotes::install_github()` will also work).
+The package can then be loaded the usual way:
 
 ``` r
 library (pkgreport)
@@ -128,7 +130,7 @@ Finally, kill the `processx` process hosting the local API:
 ps
 ```
 
-    ## PROCESS 'R', running, pid 2967.
+    ## PROCESS 'R', running, pid 3200.
 
 ``` r
 chk <- ps$kill()
