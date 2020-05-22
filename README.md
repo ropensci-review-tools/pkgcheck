@@ -7,7 +7,7 @@ status](https://github.com/mpadge/pkgreport/workflows/R-CMD-check/badge.svg)](ht
 [![gitlab
 push](https://github.com/mpadge/pkgreport/workflows/push-to-gitlab/badge.svg)](https://github.com/mpadge/pkgreport/actions?query=workflow%3Apush-to-gitlab)
 [![Travis build
-status](https://travis-ci.org/mpadge/pkgreport?branch=master)](https://travis-ci.org/mpadge/pkgreport)
+status](https://travis-ci.org/mpadge/pkgreport.svg?branch=master)](https://travis-ci.org/mpadge/pkgreport)
 [![Project Status:
 Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
@@ -128,7 +128,7 @@ Finally, kill the `processx` process hosting the local API:
 ps
 ```
 
-    ## PROCESS 'R', running, pid 13931.
+    ## PROCESS 'R', running, pid 2967.
 
 ``` r
 chk <- ps$kill()
