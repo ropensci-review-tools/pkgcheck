@@ -71,9 +71,10 @@
 <a href="#pkgreport" class="anchor"></a>pkgreport</h1></div>
 <!-- badges: start -->
 
-<p>Plumber API to report on package structure and function. Uses functionality provided by the <a href="https://github.com/r-lib/pkgapi"><code>r-lib/pkgapi</code> package</a>, which is not on CRAN and must first be installed with</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"https://install-github.me/r-lib/pkgapi"</span>)</pre></div>
-<p>(or <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github()</a></code> will also work).</p>
+<p>Plumber API to report on package structure and function. Uses functionality provided by the packages <a href="https://github.com/r-lib/pkgapi"><code>r-lib/pkgapi</code></a> and <a href="https://github.com/mpadge/packgraph"><code>packgraph</code></a> which are not on CRAN and must first be installed with</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"https://install-github.me/r-lib/pkgapi"</span>) <span class="co">#or `remotes::install_github()`</span>
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"mpadge/packgraph"</span>)</pre></div>
+<p>The package can then be loaded the usual way:</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span> (<span class="no">pkgreport</span>)</pre></div>
 <p>Also uses the <a href="https://developer.github.com/v4">github GraphQL API</a> which requires a local github token to be stored with an unambiguous name including <code>GITHUB</code> and maybe <code>QL</code>, if alternative <code>GITHIB</code> tokens already exist. This can be obtained from github (via your user settings), and stored using</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span> (<span class="st">"GITHUB_QL"</span> <span class="kw">=</span> <span class="st">"&lt;my_token&gt;"</span>)</pre></div>
@@ -141,7 +142,7 @@
 <span id="cb7-47"><a href="#cb7-47"></a><span class="co">## [47] ""</span></span></code></pre></div>
 <p>Finally, kill the <code>processx</code> process hosting the local API:</p>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="no">ps</span></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## PROCESS 'R', running, pid 2967.</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## PROCESS 'R', running, pid 3200.</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="r"><span class="no">chk</span> <span class="kw">&lt;-</span> <span class="no">ps</span>$<span class="fu">kill</span>()
 <span class="no">ps</span></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">## PROCESS 'R', finished.</span></span></code></pre></div>
