@@ -13,7 +13,13 @@
 #' @return A `processx` process which must be actively stopped with `ps$kill()`.
 #' @export
 serve_api <- function (port = 8000L, cache_dir = NULL, bg = TRUE, debug = FALSE) {
-    r <- plumber::plumb (file.path (here::here (), "R", "plumber.R"))
+    ip <- data.frame (installed.packages ())
+
+    #f <- file.path (here::here (), "R", "plumber.R")
+    f <- file.path (ip$LibPath [ip$Package == "pkgreport"],
+                    "pkgreport", "plumber.R")
+
+    r <- plumber::plumb (f)
 
     if (is.null (cache_dir)) { # allows tempdir() to be passed for CRAN tests
         cache_dir <- file.path (rappdirs::user_cache_dir (), "pkgreport")
