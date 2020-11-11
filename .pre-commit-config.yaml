@@ -35,7 +35,6 @@ repos:
     -   id: lintr
     -   id: readme-rmd-rendered
     -   id: parsable-R
-    -   id: no-browser-statement
     -   id: deps-in-desc
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.3.0
@@ -52,3 +51,7 @@ repos:
         language: fail
         files: '\.Rhistory|\.RData|\.Rds|\.rds$'
         # `exclude: <regex>` to allow committing specific files.
+    -   id: description version
+        name: Version has been incremeneted in DESCRIPTION
+        entry: /home/smexus/bin/precommit/description
+        language: script

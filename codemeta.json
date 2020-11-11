@@ -1,20 +1,22 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "pkgreport",
-  "description": "Plumber API to report package structure and function.",
+  "description": "Plumber API to report package structure and\n    function.",
   "name": "pkgreport: Plumber API to report package structure and function",
   "codeRepository": "https://github.com/mpadge/pkgreport",
   "issueTracker": "https://github.com/mpadge/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1",
+  "version": "0.0.1.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "4.0.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.0 (2020-04-24)",
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
   "author": [
     {
       "@type": "Person",
@@ -170,7 +172,7 @@
     }
   ],
   "readme": "https://github.com/mpadge/pkgreport/blob/master/README.md",
-  "fileSize": "5.101KB",
+  "fileSize": "37.078KB",
   "contIntegration": "https://travis-ci.org/mpadge/pkgreport",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }
