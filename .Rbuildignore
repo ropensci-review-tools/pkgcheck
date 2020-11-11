@@ -2,6 +2,7 @@
 ^\.travis\.yml$
 ^_pkgdown\.yml$
 ^README\.md$
+^Dockerfile$
 ^makefile$
 ^appveyor\.yml$
 ^aaa.Rmd$
