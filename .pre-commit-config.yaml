@@ -32,7 +32,7 @@ repos:
           .*\.sh|
           .*\.RData
           )$
-    -   id: lintr
+          #-   id: lintr
     -   id: readme-rmd-rendered
     -   id: parsable-R
     -   id: deps-in-desc
@@ -54,4 +54,8 @@ repos:
     -   id: description version
         name: Version has been incremeneted in DESCRIPTION
         entry: /home/smexus/bin/precommit/description
+        language: script
+    -   id: custom lintr
+        name: lintr
+        entry: /home/smexus/bin/precommit/lintr
         language: script

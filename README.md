@@ -1,4 +1,5 @@
-# pkgreport
+pkgreport
+=========
 
 <!-- badges: start -->
 
@@ -6,8 +7,6 @@
 status](https://github.com/mpadge/pkgreport/workflows/R-CMD-check/badge.svg)](https://github.com/mpadge/pkgreport/actions?query=workflow%3AR-CMD-check)
 [![gitlab
 push](https://github.com/mpadge/pkgreport/workflows/push-to-gitlab/badge.svg)](https://github.com/mpadge/pkgreport/actions?query=workflow%3Apush-to-gitlab)
-[![Travis build
-status](https://travis-ci.org/mpadge/pkgreport.svg?branch=master)](https://travis-ci.org/mpadge/pkgreport)
 [![Project Status:
 Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
@@ -18,16 +17,12 @@ functionality provided by the packages
 [`packgraph`](https://github.com/mpadge/packgraph) which are not on CRAN
 and must first be installed with
 
-``` r
-source("https://install-github.me/r-lib/pkgapi") #or `remotes::install_github()`
-remotes::install_github("mpadge/packgraph")
-```
+    source("https://install-github.me/r-lib/pkgapi") # or `remotes::install_github()`
+    remotes::install_github("mpadge/packgraph")
 
 The package can then be loaded the usual way:
 
-``` r
-library (pkgreport)
-```
+    library(pkgreport)
 
 Also uses the [github GraphQL API](https://developer.github.com/v4)
 which requires a local github token to be stored with an unambiguous
@@ -35,9 +30,7 @@ name including `GITHUB` and maybe `QL`, if alternative `GITHIB` tokens
 already exist. This can be obtained from github (via your user
 settings), and stored using
 
-``` r
-Sys.setenv ("GITHUB_QL" = "<my_token>")
-```
+    Sys.setenv("GITHUB_QL" = "<my_token>")
 
 This can also be set permanently by putting this line in your
 `~/.Renviron` file (or creating this if it does not yet exist).
@@ -45,22 +38,19 @@ This can also be set permanently by putting this line in your
 The package also works by locally caching previously analysed packages,
 in a `pkgreport` subdirectory of the location determined by
 
-``` r
-rappdirs::user_cache_dir()
-```
+    rappdirs::user_cache_dir()
 
 You may manually erase the contents of this subdirectory at any time at
 no risk.
 
-## Usage
+Usage
+-----
 
 Set up a local host at specified port, currently only configured to
 serve on `localhost`:
 
-``` r
-port <- 8000
-ps <- serve_api (port = port)
-```
+    port <- 8000
+    ps <- serve_api(port = port)
 
 The returned object, `ps`, is a
 [`processx`](https://github.com/r-lib/processx) object identifying a
@@ -70,11 +60,9 @@ manually killed once finished, as demonstrated below.
 A report on the structure of a specified software repository can then be
 generated with the `pr_report()` function:
 
-``` r
-u <- "https://github.com/ropensci/osmdata"
-res <- pr_report (u, port = port)
-res
-```
+    u <- "https://github.com/ropensci/osmdata"
+    res <- pr_report(u, port = port)
+    res
 
     ##  [1] "## osmdata"                                                                                                                                                                     
     ##  [2] ""                                                                                                                                                                               
@@ -126,15 +114,11 @@ res
 
 Finally, kill the `processx` process hosting the local API:
 
-``` r
-ps
-```
+    ps
 
-    ## PROCESS 'R', running, pid 3200.
+    ## PROCESS 'R', running, pid 24334.
 
-``` r
-chk <- ps$kill()
-ps
-```
+    chk <- ps$kill()
+    ps
 
     ## PROCESS 'R', finished.

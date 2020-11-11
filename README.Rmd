@@ -3,7 +3,6 @@
 <!-- badges: start -->
 [![R build status](https://github.com/mpadge/pkgreport/workflows/R-CMD-check/badge.svg)](https://github.com/mpadge/pkgreport/actions?query=workflow%3AR-CMD-check)
 [![gitlab push](https://github.com/mpadge/pkgreport/workflows/push-to-gitlab/badge.svg)](https://github.com/mpadge/pkgreport/actions?query=workflow%3Apush-to-gitlab)
-[![Travis build status](https://travis-ci.org/mpadge/pkgreport.svg?branch=master)](https://travis-ci.org/mpadge/pkgreport)
 [![Project Status: Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
 
@@ -12,16 +11,16 @@ provided by the packages [`r-lib/pkgapi`](https://github.com/r-lib/pkgapi) and
 [`packgraph`](https://github.com/mpadge/packgraph) which are not on CRAN and
 must first be installed with
 ```{r pkgapi, eval = FALSE}
-source("https://install-github.me/r-lib/pkgapi") #or `remotes::install_github()`
+source("https://install-github.me/r-lib/pkgapi") # or `remotes::install_github()`
 remotes::install_github("mpadge/packgraph")
 ```
 
 The package can then be loaded the usual way:
 ```{r load, echo = FALSE, message = FALSE}
-devtools::load_all (".", export_all = FALSE)
+devtools::load_all(".", export_all = FALSE)
 ```
 ```{r load-fakey, eval = FALSE}
-library (pkgreport)
+library(pkgreport)
 ```
 
 Also uses the [github GraphQL API](https://developer.github.com/v4) which
@@ -29,7 +28,7 @@ requires a local github token to be stored with an unambiguous name including
 `GITHUB` and maybe `QL`, if alternative `GITHIB` tokens already exist. This can
 be obtained from github (via your user settings), and stored using
 ```{r ghtok, eval = FALSE}
-Sys.setenv ("GITHUB_QL" = "<my_token>")
+Sys.setenv("GITHUB_QL" = "<my_token>")
 ```
 This can also be set permanently by putting this line in your `~/.Renviron`
 file (or creating this if it does not yet exist).
@@ -48,7 +47,7 @@ Set up a local host at specified port, currently only configured to serve on `lo
 
 ```{r serve}
 port <- 8000
-ps <- serve_api (port = port)
+ps <- serve_api(port = port)
 ```
 The returned object, `ps`, is a [`processx`](https://github.com/r-lib/processx)
 object identifying a background R process hosting the local API. This process
@@ -59,12 +58,12 @@ generated with the `pr_report()` function:
 
 ```{r demo-fakey, eval = FALSE}
 u <- "https://github.com/ropensci/osmdata"
-res <- pr_report (u, port = port)
+res <- pr_report(u, port = port)
 res
 ```
 ```{r demo, echo = FALSE}
-#saveRDS (res, "res.Rds")
-readRDS ("res.Rds")
+# saveRDS (res, "res.Rds")
+readRDS("res.Rds")
 ```
 
 
@@ -74,5 +73,3 @@ ps
 chk <- ps$kill()
 ps
 ```
-
-
