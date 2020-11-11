@@ -12,40 +12,48 @@
 #' `/tmp/out` and `/tmp/err`
 #' @return A `processx` process which must be actively stopped with `ps$kill()`.
 #' @export
-serve_api <- function (port = 8000L, cache_dir = NULL, bg = TRUE, debug = FALSE) {
-    ip <- data.frame (installed.packages ())
+serve_api <- function(
+                      port = 8000L,
+                      cache_dir = NULL,
+                      bg = TRUE,
+                      debug = FALSE) {
+  ip <- data.frame(installed.packages())
 
-    #f <- file.path (here::here (), "R", "plumber.R")
-    f <- file.path (ip$LibPath [ip$Package == "pkgreport"],
-                    "pkgreport", "plumber.R")
+  f <- file.path(
+    ip$LibPath [ip$Package == "pkgreport"],
+    "pkgreport", "plumber.R"
+  )
 
-    r <- plumber::plumb (f)
+  r <- plumber::plumb(f)
 
-    if (is.null (cache_dir)) { # allows tempdir() to be passed for CRAN tests
-        cache_dir <- file.path (rappdirs::user_cache_dir (), "pkgreport")
-        if (!file.exists (cache_dir))
-            dir.create (cache_dir, recursive = TRUE)
+  if (is.null(cache_dir)) { # allows tempdir() to be passed for CRAN tests
+    cache_dir <- file.path(rappdirs::user_cache_dir(), "pkgreport")
+    if (!file.exists(cache_dir)) {
+      dir.create(cache_dir, recursive = TRUE)
+    }
+  }
+
+  e <- callr::rcmd_safe_env()
+  e <- c(e, cache_dir = cache_dir)
+
+  ps <- NULL
+  if (bg) {
+    f <- function(r, port = 8000L) r$run(port = port)
+
+    sout <- serr <- "|"
+    if (debug) {
+      sout <- "/tmp/out"
+      serr <- "/tmp/err"
     }
 
-    e <- callr::rcmd_safe_env ()
-    e <- c (e, cache_dir = cache_dir)
+    ps <- callr::r_bg(f, list(r = r, port = as.integer(port)),
+      env = e, stdout = sout, stderr = serr
+    )
+  } else {
+    r$run(port = as.integer(port))
+  }
 
-    ps <- NULL
-    if (bg) {
-        f <- function (r, port = 8000L) r$run (port = port)
-
-        sout <- serr <- "|"
-        if (debug) {
-            sout <- "/tmp/out"
-            serr <- "/tmp/err"
-        }
-
-        ps <- callr::r_bg (f, list (r = r, port = as.integer (port)),
-                           env = e, stdout = sout, stderr = serr)
-    } else
-        r$run (port = as.integer (port))
-
-    return (ps)
+  return(ps)
 }
 
 
@@ -56,9 +64,9 @@ serve_api <- function (port = 8000L, cache_dir = NULL, bg = TRUE, debug = FALSE)
 #' @param port Port at which plumber API has been served via \link{serve_api}.
 #' @return Report on repository
 #' @export
-pr_report <- function (u, port = 8000L) {
-    sprintf ("http://localhost:%s/report?u=%s", as.integer (port), u) %>%
-        httr::POST () %>%
-        httr::content () %>%
-        unlist ()
+pr_report <- function(u, port = 8000L) {
+  sprintf("http://localhost:%s/report?u=%s", as.integer(port), u) %>%
+    httr::POST() %>%
+    httr::content() %>%
+    unlist()
 }
