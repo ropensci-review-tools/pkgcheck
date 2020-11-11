@@ -3,7 +3,7 @@
 #* Download a package from URL
 #* @param u The URL for a repo
 #* @post /report
-function(u){
+function (u) {
     pkg_name <- tail (strsplit (u, "/") [[1]], 1)
     org <- tail (strsplit (u, "/") [[1]], 2) [1]
 
@@ -22,8 +22,7 @@ function(u){
 
     local_repo <- file.path (cache_dir, paste0 (pkg_name, "-master"))
     local_zip <- paste0 (local_repo, ".zip")
-    if (!file.exists (local_zip) | repo_updated)
-    {
+    if (!file.exists (local_zip) | repo_updated) {
         message ("downloading repo ...")
         f <- download_repo (u, pkg_name)
     }
@@ -31,7 +30,7 @@ function(u){
     flist <- unzip (local_zip, exdir = cache_dir)
     g <- packgraph::pg_graph (local_repo, plot = FALSE)
     res <- packgraph::pg_report (g)
-    
+
     message ("unlinking ", local_repo)
     chk <- unlink (local_repo, recursive = TRUE)
 

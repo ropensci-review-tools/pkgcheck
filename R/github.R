@@ -16,7 +16,7 @@ get_gh_token <- function (token = "") {
     return (unique (toks))
 }
 
-get_qry <- function (gh_cli, org, repo, endCursor = NULL, branch = "master") {
+get_qry <- function (gh_cli, org, repo, branch = "master") {
     q <- paste0 ("{
         repository(owner:\"", org, "\", name:\"", repo, "\") {
             branch0: ref(qualifiedName: \"", branch, "\") {
@@ -39,7 +39,7 @@ get_qry <- function (gh_cli, org, repo, endCursor = NULL, branch = "master") {
     }
     }")
     qry <- ghql::Query$new()
-    qry$query('get_commits', q)
+    qry$query ("get_commits", q)
 
     return (qry)
 }
@@ -59,4 +59,3 @@ get_latest_commit <- function (org, repo) {
 
     return (x$data$repository$branch0$target$history$nodes)
 }
-
