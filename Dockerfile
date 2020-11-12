@@ -17,5 +17,5 @@ RUN install2.r plumber \
         && R -e "remotes::install_github('mpadge/pkgreport')"
 
 EXPOSE 8000
-ENTRYPOINT ["R", "-e", "pr <- plumber::plumb(commandArgs()[4]); pr$run(host='0.0.0.0', port=8000)"]
-CMD ["/usr/local/lib/R/site-library/plumber/examples/04-mean-sum/plumber.R"]
+ENTRYPOINT ["R", "-e", "ps <- pkgreport::serve_api(port=8000)"]
+CMD ["/usr/local/lib/R/site-library/pkgreport/plumber.R"]
