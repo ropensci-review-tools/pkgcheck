@@ -15,14 +15,11 @@ RUN install2.r \
   devtools \
 && installGithub.r \
       r-lib/pkgapi \
-      mpadge/packgraph \
-      mpadge/pkgreport
+      ropenscilabs/packgraph \
+      ropenscilabs/pkgreport
 
 RUN echo "#!/bin/bash\nRscript -e 'pkgreport::serve_api(port=8000, bg = FALSE)'" > /server_api.sh \
   && chmod a+x /server_api.sh
 
 CMD /server_api.sh
 EXPOSE 8000
-
-
-

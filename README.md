@@ -4,9 +4,9 @@ pkgreport
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/mpadge/pkgreport/workflows/R-CMD-check/badge.svg)](https://github.com/mpadge/pkgreport/actions?query=workflow%3AR-CMD-check)
+status](https://github.com/ropenscilabs/pkgreport/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/pkgreport/actions?query=workflow%3AR-CMD-check)
 [![gitlab
-push](https://github.com/mpadge/pkgreport/workflows/push-to-gitlab/badge.svg)](https://github.com/mpadge/pkgreport/actions?query=workflow%3Apush-to-gitlab)
+push](https://github.com/ropenscilabs/pkgreport/workflows/push-to-gitlab/badge.svg)](https://github.com/ropenscilabs/pkgreport/actions?query=workflow%3Apush-to-gitlab)
 [![Project Status:
 Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
@@ -14,15 +14,19 @@ Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repo
 Plumber API to report on package structure and function. Uses
 functionality provided by the packages
 [`r-lib/pkgapi`](https://github.com/r-lib/pkgapi) and
-[`packgraph`](https://github.com/mpadge/packgraph) which are not on CRAN
-and must first be installed with
+[`packgraph`](https://github.com/ropenscilabs/packgraph) which are not
+on CRAN and must first be installed with
 
-    source("https://install-github.me/r-lib/pkgapi") # or `remotes::install_github()`
-    remotes::install_github("mpadge/packgraph")
+``` r
+source("https://install-github.me/r-lib/pkgapi") # or `remotes::install_github()`
+remotes::install_github("ropenscilabs/packgraph")
+```
 
 The package can then be loaded the usual way:
 
-    library(pkgreport)
+``` r
+library(pkgreport)
+```
 
 Also uses the [github GraphQL API](https://developer.github.com/v4)
 which requires a local github token to be stored with an unambiguous
@@ -30,7 +34,9 @@ name including `GITHUB` and maybe `QL`, if alternative `GITHIB` tokens
 already exist. This can be obtained from github (via your user
 settings), and stored using
 
-    Sys.setenv("GITHUB_QL" = "<my_token>")
+``` r
+Sys.setenv("GITHUB_QL" = "<my_token>")
+```
 
 This can also be set permanently by putting this line in your
 `~/.Renviron` file (or creating this if it does not yet exist).
@@ -38,7 +44,9 @@ This can also be set permanently by putting this line in your
 The package also works by locally caching previously analysed packages,
 in a `pkgreport` subdirectory of the location determined by
 
-    rappdirs::user_cache_dir()
+``` r
+rappdirs::user_cache_dir()
+```
 
 You may manually erase the contents of this subdirectory at any time at
 no risk.
@@ -49,8 +57,10 @@ Usage
 Set up a local host at specified port, currently only configured to
 serve on `localhost`:
 
-    port <- 8000
-    ps <- serve_api(port = port)
+``` r
+port <- 8000
+ps <- serve_api(port = port)
+```
 
 The returned object, `ps`, is a
 [`processx`](https://github.com/r-lib/processx) object identifying a
@@ -60,9 +70,11 @@ manually killed once finished, as demonstrated below.
 A report on the structure of a specified software repository can then be
 generated with the `pr_report()` function:
 
-    u <- "https://github.com/ropensci/osmdata"
-    res <- pr_report(u, port = port)
-    res
+``` r
+u <- "https://github.com/ropensci/osmdata"
+res <- pr_report(u, port = port)
+res
+```
 
     ##  [1] "## osmdata"                                                                                                                                                                     
     ##  [2] ""                                                                                                                                                                               
@@ -114,11 +126,15 @@ generated with the `pr_report()` function:
 
 Finally, kill the `processx` process hosting the local API:
 
-    ps
+``` r
+ps
+```
 
-    ## PROCESS 'R', running, pid 24334.
+    ## PROCESS 'R', running, pid 2604.
 
-    chk <- ps$kill()
-    ps
+``` r
+chk <- ps$kill()
+ps
+```
 
     ## PROCESS 'R', finished.

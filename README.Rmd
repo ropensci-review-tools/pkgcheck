@@ -1,18 +1,18 @@
 # pkgreport
 
 <!-- badges: start -->
-[![R build status](https://github.com/mpadge/pkgreport/workflows/R-CMD-check/badge.svg)](https://github.com/mpadge/pkgreport/actions?query=workflow%3AR-CMD-check)
-[![gitlab push](https://github.com/mpadge/pkgreport/workflows/push-to-gitlab/badge.svg)](https://github.com/mpadge/pkgreport/actions?query=workflow%3Apush-to-gitlab)
+[![R build status](https://github.com/ropenscilabs/pkgreport/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/pkgreport/actions?query=workflow%3AR-CMD-check)
+[![gitlab push](https://github.com/ropenscilabs/pkgreport/workflows/push-to-gitlab/badge.svg)](https://github.com/ropenscilabs/pkgreport/actions?query=workflow%3Apush-to-gitlab)
 [![Project Status: Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
 
 Plumber API to report on package structure and function. Uses functionality
 provided by the packages [`r-lib/pkgapi`](https://github.com/r-lib/pkgapi) and
-[`packgraph`](https://github.com/mpadge/packgraph) which are not on CRAN and
+[`packgraph`](https://github.com/ropenscilabs/packgraph) which are not on CRAN and
 must first be installed with
 ```{r pkgapi, eval = FALSE}
 source("https://install-github.me/r-lib/pkgapi") # or `remotes::install_github()`
-remotes::install_github("mpadge/packgraph")
+remotes::install_github("ropenscilabs/packgraph")
 ```
 
 The package can then be loaded the usual way:
