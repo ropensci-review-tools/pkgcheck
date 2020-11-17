@@ -1,4 +1,4 @@
-FROM rocker/r-base
+FROM rocker/tidyverse:4.0.3
 MAINTAINER Mark Padgham <mark.padgham@email.com>
 
 RUN apt-get update -qq && apt-get install -y \
@@ -9,12 +9,20 @@ RUN apt-get update -qq && apt-get install -y \
   libsodium-dev \
   libxml2-dev
 
-RUN install2.r plumber \
-        remotes \
-        devtools \
-        && Rscript -e "remotes::install_github('r-lib/pkgapi')" \
-        && Rscript -e "remotes::install_github('mpadge/packgraph')" \
-        && Rscript -e "remotes::install_github('mpadge/pkgreport')"
+RUN install2.r \
+  plumber \
+  remotes \
+  devtools \
+&& installGithub.r \
+      r-lib/pkgapi \
+      mpadge/packgraph \
+      mpadge/pkgreport
 
+RUN echo "#!/bin/bash\nRscript -e 'pkgreport::serve_api(port=8000, bg = FALSE)'" > /server_api.sh \
+  && chmod a+x /server_api.sh
+
+CMD /server_api.sh
 EXPOSE 8000
-ENTRYPOINT ["R", "-e", "ps <- pkgreport::serve_api(port=8000)"]
+
+
+
