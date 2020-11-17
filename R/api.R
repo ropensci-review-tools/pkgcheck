@@ -38,7 +38,7 @@ serve_api <- function(
 
   ps <- NULL
   if (bg) {
-    f <- function(r, port = 8000L) r$run(port = port)
+    f <- function(r, port = port) r$run(port = port)
 
     sout <- serr <- "|"
     if (debug) {
@@ -46,8 +46,12 @@ serve_api <- function(
       serr <- "/tmp/err"
     }
 
-    ps <- callr::r_bg(f, list(r = r, port = as.integer(port)),
-      env = e, stdout = sout, stderr = serr
+    ps <- callr::r_bg(f, list(r = r,
+                              port = as.integer(port)
+                              ),
+                      env = e,
+                      stdout = sout,
+                      stderr = serr
     )
   } else {
     r$run(port = as.integer(port))
