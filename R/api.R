@@ -54,6 +54,7 @@ serve_api <- function(
                       stderr = serr
     )
   } else {
+    Sys.setenv ("cache_dir" = cache_dir)
     r$run(port = as.integer(port))
   }
 
