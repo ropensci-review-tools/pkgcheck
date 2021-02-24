@@ -1,9 +1,13 @@
 
 get_gh_token <- function (token = "") {
+
     e <- Sys.getenv ()
-    if (token != "")
+    if (token != "") {
+
         toks <- e [grep (token, names (e))]
-    else {
+
+    } else {
+
         toks <- e [grep ("GITHUB", names (e))]
         if (length (toks) > 1)
             toks <- toks [grep ("QL", names (toks))]

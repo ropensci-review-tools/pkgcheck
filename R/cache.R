@@ -16,30 +16,42 @@
 #' has not changed; otherwise TRUE.
 #' @export
 check_cache <- function (org, repo, cache_dir = tempdir ()) {
+
     cmt <- get_latest_commit (org = org, repo = repo)
+
     f <- file.path (cache_dir, "commit_oids.Rds")
+
     if (file.exists (f)) {
+
         dat <- readRDS (f)
+
     } else {
+
         dat <- data.frame (matrix (nrow = 0, ncol = 3))
         names (dat) <- c ("orgrepo", "oid", "authoredDate")
+
     }
 
     orgrepo <- paste0 (org, "/", repo)
     updated <- FALSE
+
     if (orgrepo %in% dat$orgrepo) {
+
         if (dat$oid [dat$orgrepo == orgrepo] != cmt$oid) {
+
             dat$oid [dat$orgrepo == orgrepo] <- cmt$oid
             dat$authoredDate [dat$orgrepo == orgrepo] <- cmt$authoredDate
             saveRDS (dat, f)
             updated <- TRUE
         }
     } else {
+
         dat <- rbind (dat, data.frame (orgrepo = orgrepo,
                                        oid = cmt$oid,
                                        authoredDate = cmt$authoredDate))
         saveRDS (dat, f)
         updated <- TRUE
     }
+
     return (updated)
 }

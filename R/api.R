@@ -17,6 +17,7 @@ serve_api <- function(
                       cache_dir = NULL,
                       bg = TRUE,
                       debug = FALSE) {
+
   ip <- data.frame(installed.packages())
 
   f <- file.path(
@@ -27,6 +28,7 @@ serve_api <- function(
   r <- plumber::plumb(f)
 
   if (is.null(cache_dir)) { # allows tempdir() to be passed for CRAN tests
+
     cache_dir <- file.path(rappdirs::user_cache_dir(), "pkgreport")
     if (!file.exists(cache_dir)) {
       dir.create(cache_dir, recursive = TRUE)
@@ -37,28 +39,33 @@ serve_api <- function(
   e <- c(e, cache_dir = cache_dir)
 
   ps <- NULL
+
   if (bg) {
+
     f <- function(r, port = port) r$run(port = port)
 
     sout <- serr <- "|"
     if (debug) {
+
       sout <- "/tmp/out"
       serr <- "/tmp/err"
     }
 
-    ps <- callr::r_bg(f, list(r = r,
-                              port = as.integer(port)
-                              ),
-                      env = e,
-                      stdout = sout,
-                      stderr = serr
+    ps <- callr::r_bg (f, list (r = r,
+                                port = as.integer(port)
+                                ),
+                       env = e,
+                       stdout = sout,
+                       stderr = serr
     )
   } else {
+
     Sys.setenv ("cache_dir" = cache_dir)
-    r$run(port = as.integer(port))
+    r$run(port = as.integer (port))
+
   }
 
-  return(ps)
+  return (ps)
 }
 
 
@@ -70,6 +77,7 @@ serve_api <- function(
 #' @return Report on repository
 #' @export
 pr_report <- function(u, port = 8000L) {
+
   sprintf("http://localhost:%s/report?u=%s", as.integer(port), u) %>%
     httr::POST() %>%
     httr::content() %>%
