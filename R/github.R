@@ -16,7 +16,24 @@ get_gh_token <- function (token = "") {
     return (unique (toks))
 }
 
-get_qry <- function (gh_cli, org, repo, branch = "master") {
+default_branch_qry <- function (gh_cli, org, repo) {
+
+    q <- paste0 ("{
+            repository(owner:\"", org, "\", name:\"", repo, "\") {
+                       defaultBranchRef {
+                           name
+                       }
+                    }
+            }")
+
+    qry <- ghql::Query$new()
+    qry$query ("default_branch", q)
+
+    return (qry)
+}
+
+commits_qry <- function (gh_cli, org, repo, branch = "main") {
+
     q <- paste0 ("{
         repository(owner:\"", org, "\", name:\"", repo, "\") {
             branch0: ref(qualifiedName: \"", branch, "\") {
@@ -38,6 +55,7 @@ get_qry <- function (gh_cli, org, repo, branch = "master") {
         }
     }
     }")
+
     qry <- ghql::Query$new()
     qry$query ("get_commits", q)
 
@@ -45,6 +63,7 @@ get_qry <- function (gh_cli, org, repo, branch = "master") {
 }
 
 get_latest_commit <- function (org, repo) {
+
     token <- get_gh_token ()
 
     gh_cli <- ghql::GraphqlClient$new (
@@ -52,8 +71,12 @@ get_latest_commit <- function (org, repo) {
         headers = list (Authorization = paste0 ("Bearer ", token))
     )
 
+    qry <- default_branch_qry (gh_cli, org = org, repo = repo)
+    x <- gh_cli$exec(qry$queries$default_branch) %>%
+        jsonlite::fromJSON ()
+    branch <- x$data$repository$defaultBranchRef$name
 
-    qry <- get_qry (gh_cli, org = org, repo = repo)
+    qry <- commits_qry (gh_cli, org = org, repo = repo, branch = branch)
     x <- gh_cli$exec(qry$queries$get_commits) %>%
         jsonlite::fromJSON ()
 
