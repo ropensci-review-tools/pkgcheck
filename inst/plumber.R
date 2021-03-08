@@ -10,7 +10,7 @@ function (u) {
 
     cache_dir <- Sys.getenv ("cache_dir")
     repo_updated <- pkgreport::check_cache (org, pkg_name, cache_dir)
-    branch <- get_default_branch (org, pkg_name)
+    branch <- pkgreport::get_default_branch (org, pkg_name)
 
     download_repo <- function (u, pkg_name, branch) {
 
@@ -43,7 +43,7 @@ function (u) {
 }
 
 #* @get /mean
-getmean <- function (n = 10){
+getmean <- function (n = 10) {
 
     return (mean (rnorm (n)))
 }
