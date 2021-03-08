@@ -76,7 +76,11 @@ ps
 
 ### With Dockerfile
 
-In a local directory holding a clone of this repo:
+The server associated with this package can only be built by cloning this
+repository, and modifying the associated
+[`Dockerfile`](https://github.com/ropenscilabs/pkgreport/blob/master/Dockerfile)
+by inserting a GitHub token (as `GITHUB_PAT`). Then in the local directory
+holding a clone of this repo:
 
 ```
 docker build -t pkgreport .

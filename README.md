@@ -128,7 +128,7 @@ Finally, kill the `processx` process hosting the local API:
 ps
 ```
 
-    ## PROCESS 'R', running, pid 9087.
+    ## PROCESS 'R', running, pid 36441.
 
 ``` r
 chk <- ps$kill()
@@ -139,7 +139,11 @@ ps
 
 ### With Dockerfile
 
-In a local directory holding a clone of this repo:
+The server associated with this package can only be built by cloning
+this repository, and modifying the associated
+[`Dockerfile`](https://github.com/ropenscilabs/pkgreport/blob/master/Dockerfile)
+by inserting a GitHub token (as `GITHUB_PAT`). Then in the local
+directory holding a clone of this repo:
 
     docker build -t pkgreport .
     docker run -it -p 8000:8000 --rm pkgreport
