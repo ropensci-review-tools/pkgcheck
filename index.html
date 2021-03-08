@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgreport</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.021</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.023</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@
 <p>Finally, kill the <code>processx</code> process hosting the local API:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ps</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## PROCESS 'R', running, pid 9087.</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## PROCESS 'R', running, pid 36441.</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">chk</span> <span class="op">&lt;-</span> <span class="va">ps</span><span class="op">$</span><span class="fu">kill</span><span class="op">(</span><span class="op">)</span>
 <span class="va">ps</span></code></pre></div>
@@ -154,7 +154,7 @@
 <div id="with-dockerfile" class="section level3">
 <h3 class="hasAnchor">
 <a href="#with-dockerfile" class="anchor"></a>With Dockerfile</h3>
-<p>In a local directory holding a clone of this repo:</p>
+<p>The server associated with this package can only be built by cloning this repository, and modifying the associated <a href="https://github.com/ropenscilabs/pkgreport/blob/master/Dockerfile" class="external-link"><code>Dockerfile</code></a> by inserting a GitHub token (as <code>GITHUB_PAT</code>). Then in the local directory holding a clone of this repo:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>docker build <span class="op">-</span>t pkgreport .</span>
 <span id="cb12-2"><a href="#cb12-2"></a>docker run <span class="op">-</span>it <span class="op">-</span>p <span class="dv">8000</span><span class="op">:</span><span class="dv">8000</span> <span class="op">--</span>rm pkgreport</span></code></pre></div>
 </div>
