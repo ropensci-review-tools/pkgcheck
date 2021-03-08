@@ -1,5 +1,4 @@
-pkgreport
-=========
+# pkgreport
 
 <!-- badges: start -->
 
@@ -51,8 +50,7 @@ rappdirs::user_cache_dir()
 You may manually erase the contents of this subdirectory at any time at
 no risk.
 
-Usage
------
+## Usage
 
 Set up a local host at specified port, currently only configured to
 serve on `localhost`:
@@ -130,7 +128,7 @@ Finally, kill the `processx` process hosting the local API:
 ps
 ```
 
-    ## PROCESS 'R', running, pid 2604.
+    ## PROCESS 'R', running, pid 9087.
 
 ``` r
 chk <- ps$kill()
@@ -138,3 +136,10 @@ ps
 ```
 
     ## PROCESS 'R', finished.
+
+### With Dockerfile
+
+In a local directory holding a clone of this repo:
+
+    docker build -t pkgreport .
+    docker run -it -p 8000:8000 --rm pkgreport

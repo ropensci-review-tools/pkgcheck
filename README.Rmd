@@ -73,3 +73,12 @@ ps
 chk <- ps$kill()
 ps
 ```
+
+### With Dockerfile
+
+In a local directory holding a clone of this repo:
+
+```
+docker build -t pkgreport .
+docker run -it -p 8000:8000 --rm pkgreport
+```
