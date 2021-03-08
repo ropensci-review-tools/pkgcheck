@@ -6,13 +6,14 @@
 \alias{pkgreport-package}
 \title{pkgreport: Plumber API to report package structure and function}
 \description{
-Plumber API to report package structure and function.
+Plumber API to report package structure and
+    function.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/mpadge/pkgreport}
-  \item Report bugs at \url{https://github.com/mpadge/pkgreport/issues}
+  \item \url{https://github.com/ropenscilabs/pkgreport}
+  \item Report bugs at \url{https://github.com/ropenscilabs/pkgreport/issues}
 }
 
 }
