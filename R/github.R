@@ -66,6 +66,14 @@ commits_qry <- function (gh_cli, org, repo, branch = "main") {
     return (qry)
 }
 
+#' get_default_branch
+#'
+#' @note This function is not intended to be called directly, and is only
+#' exported to enable it to be used within the \pkg{plumber} API.
+#'
+#' @inheritParams check_cache
+#' @return Name of default branch on GitHub
+#' @export
 get_default_branch <- function (org, repo) {
 
     token <- get_gh_token ()
@@ -92,11 +100,7 @@ get_latest_commit <- function (org, repo) {
         headers = list (Authorization = paste0 ("Bearer ", token))
     )
 
-    #branch <- get_default_branch (org, repo)
-    qry <- default_branch_qry (gh_cli, org = org, repo = repo)
-    x <- gh_cli$exec(qry$queries$default_branch) %>%
-        jsonlite::fromJSON ()
-    branch <- x$data$repository$defaultBranchRef$name
+    branch <- get_default_branch (org, repo)
 
     qry <- commits_qry (gh_cli, org = org, repo = repo, branch = branch)
     x <- gh_cli$exec(qry$queries$get_commits) %>%
