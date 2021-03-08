@@ -36,13 +36,14 @@ serve_api <- function(
   }
 
   e <- callr::rcmd_safe_env()
-  e <- c(e, cache_dir = cache_dir)
+  e <- c (e, cache_dir = cache_dir)
 
   ps <- NULL
 
   if (bg) {
 
-    f <- function(r, port = port) r$run(port = port)
+    f <- function (r, port = port)
+        r$run (port = port)
 
     sout <- serr <- "|"
     if (debug) {
@@ -61,7 +62,7 @@ serve_api <- function(
   } else {
 
     Sys.setenv ("cache_dir" = cache_dir)
-    r$run(port = as.integer (port))
+    r$run (host = "0.0.0.0", port = as.integer (port))
 
   }
 
