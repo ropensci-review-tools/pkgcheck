@@ -92,7 +92,11 @@ get_latest_commit <- function (org, repo) {
         headers = list (Authorization = paste0 ("Bearer ", token))
     )
 
-    branch <- get_default_branch (org, repo)
+    #branch <- get_default_branch (org, repo)
+    qry <- default_branch_qry (gh_cli, org = org, repo = repo)
+    x <- gh_cli$exec(qry$queries$default_branch) %>%
+        jsonlite::fromJSON ()
+    branch <- x$data$repository$defaultBranchRef$name
 
     qry <- commits_qry (gh_cli, org = org, repo = repo, branch = branch)
     x <- gh_cli$exec(qry$queries$get_commits) %>%
