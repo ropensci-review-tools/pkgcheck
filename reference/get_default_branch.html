@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>pr_report — pr_report • pkgreport</title>
+<title>get_default_branch — get_default_branch • pkgreport</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="pr_report — pr_report" />
-<meta property="og:description" content="Query plumber API (set up with serve_api) for a report on a repository" />
+<meta property="og:title" content="get_default_branch — get_default_branch" />
+<meta property="og:description" content="get_default_branch" />
 
 
 
@@ -110,33 +110,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>pr_report</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/api.R'><code>R/api.R</code></a></small>
-    <div class="hidden name"><code>pr_report.Rd</code></div>
+    <h1>get_default_branch</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/github.R'><code>R/github.R</code></a></small>
+    <div class="hidden name"><code>get_default_branch.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Query plumber API (set up with <a href='serve_api.html'>serve_api</a>) for a report on a repository</p>
+    <p>get_default_branch</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pr_report</span><span class='op'>(</span><span class='va'>u</span>, port <span class='op'>=</span> <span class='fl'>8000L</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_default_branch</span><span class='op'>(</span><span class='va'>org</span>, <span class='va'>repo</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>u</th>
-      <td><p>URL of package repository</p></td>
+      <th>org</th>
+      <td><p>Github organization</p></td>
     </tr>
     <tr>
-      <th>port</th>
-      <td><p>Port at which plumber API has been served via <a href='serve_api.html'>serve_api</a>.</p></td>
+      <th>repo</th>
+      <td><p>Github repository</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Report on repository</p>
+    <p>Name of default branch on GitHub</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>This function is not intended to be called directly, and is only
+exported to enable it to be used within the <span class="pkg">plumber</span> API.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
