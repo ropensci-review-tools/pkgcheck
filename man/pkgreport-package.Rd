@@ -6,8 +6,7 @@
 \alias{pkgreport-package}
 \title{pkgreport: Plumber API to report package structure and function}
 \description{
-Plumber API to report package structure and
-    function.
+Plumber API to report package structure and function.
 }
 \seealso{
 Useful links:
