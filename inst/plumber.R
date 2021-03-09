@@ -34,7 +34,7 @@ function (u) {
 
     flist <- unzip (local_zip, exdir = cache_dir)
     g <- packgraph::pg_graph (local_repo, plot = FALSE)
-    res <- packgraph::pg_report (g)
+    res <- packgraph::pg_report (g, exported_only = FALSE)
 
     message ("unlinking ", local_repo)
     chk <- unlink (local_repo, recursive = TRUE)
