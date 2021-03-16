@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgreport",
   "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.027",
+  "version": "0.0.1.28",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -92,6 +92,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=ghql"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "goodpractice",
+      "name": "goodpractice",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=goodpractice"
     },
     {
       "@type": "SoftwareApplication",
@@ -179,6 +191,6 @@
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgreport/blob/master/README.md",
-  "fileSize": "40.486KB",
+  "fileSize": "45.466KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }
