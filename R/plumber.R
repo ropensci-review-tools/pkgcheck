@@ -43,7 +43,7 @@ function (u) {
 }
 
 #* @get /mean
-getmean <- function (n = 10) {
+function (n = 10) {
 
     return (mean (rnorm (n)))
 }
