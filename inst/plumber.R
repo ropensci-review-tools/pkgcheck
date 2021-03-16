@@ -1,6 +1,6 @@
 # plumber.R
 
-#* Download a package from URL
+#* Return report from package URL
 #* @param u The URL for a repo
 #* @post /report
 function (u) {
