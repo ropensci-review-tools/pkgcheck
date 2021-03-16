@@ -18,7 +18,7 @@ serve_api <- function(
                       bg = TRUE,
                       debug = FALSE) {
 
-  ip <- data.frame(installed.packages())
+  ip <- data.frame (utils::installed.packages())
 
   f <- file.path(
     ip$LibPath [ip$Package == "pkgreport"],
