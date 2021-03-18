@@ -11,7 +11,8 @@ RUN apt-get update -qq && apt-get install -y \
   libglpk-dev \
   libsodium-dev \
   libxml2-dev \
-  texlive-fonts-extra
+  texlive-fonts-extra \
+  texinfo
 
 RUN install2.r \
   plumber \
