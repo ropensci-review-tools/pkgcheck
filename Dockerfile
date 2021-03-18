@@ -10,7 +10,8 @@ RUN apt-get update -qq && apt-get install -y \
   libcurl4-gnutls-dev \
   libglpk-dev \
   libsodium-dev \
-  libxml2-dev
+  libxml2-dev \
+  texlive-fonts-extra
 
 RUN install2.r \
   plumber \
