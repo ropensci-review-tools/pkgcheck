@@ -82,11 +82,14 @@ function (u) {
     chk <- unlink (local_repo, recursive = TRUE)
 
     # -------------- extract components:
+    # -------------- covr:
     covr <- capture.output (print (gp$covr),
                             type = "message")
 
+    # -------------- cyclocomp:
     cyc <- gp$cyclocomp [which (gp$cyclocomp$cyclocomp > 1), ] # data.frame
 
+    # -------------- lintr:
     lint_file <- vapply (gp$lintr, function (i) i$filename, character (1))
     lint_line <- vapply (gp$lintr, function (i) i$line_number, integer (1))
     lint_type <- vapply (gp$lintr, function (i) i$type, character (1))
@@ -97,7 +100,20 @@ function (u) {
                          message = lint_message,
                          stringsAsFactors = FALSE)
 
-    res <- list (covr = covr,
+    # -------------- rcmdcheck:
+    r <- gp$rcmdcheck
+    rcmd <- list ()
+    if (length (r$errors) > 0)
+        rcmd$error <- r$error
+    if (length (r$warnings) > 0)
+        rcmd$warnings <- r$warnings
+    if (length (r$notes) > 0)
+        rcmd$notes <- r$notes
+    if (length (r$test_fail) > 0)
+        rcmd$test_fail <- r$test_fail
+
+    res <- list (rcmd = rcmd,
+                 covr = covr,
                  cyclocomp = cyc,
                  lint = lints)
 
