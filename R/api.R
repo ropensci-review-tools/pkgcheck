@@ -7,15 +7,13 @@
 #' @param port Port for API to be served on
 #' @param cache_dir Directory where previously downloaded repositories are
 #' cached
-#' @param bg If `FALSE`, run process as a blocking foreground process
 #' @param debug For background processes: If `TRUE`, dump output logs to
 #' `/tmp/out` and `/tmp/err`
-#' @return A `processx` process which must be actively stopped with `ps$kill()`.
+#' @return Nothing; calling this starts a blocking process.
 #' @export
 serve_api <- function(
                       port = 8000L,
                       cache_dir = NULL,
-                      bg = TRUE,
                       debug = FALSE) {
 
     ip <- data.frame (utils::installed.packages())
@@ -35,38 +33,8 @@ serve_api <- function(
         }
     }
 
-    e <- callr::rcmd_safe_env()
-    e <- c (e, cache_dir = cache_dir)
-
-    ps <- NULL
-
-    if (bg) {
-
-        f <- function (r, port = port)
-            r$run (port = port)
-
-        sout <- serr <- "|"
-        if (debug) {
-
-            sout <- "/tmp/out"
-            serr <- "/tmp/err"
-        }
-
-        ps <- callr::r_bg (f, list (r = r,
-                                    port = as.integer(port)
-                                    ),
-                           env = e,
-                           stdout = sout,
-                           stderr = serr
-        )
-    } else {
-
-        Sys.setenv ("cache_dir" = cache_dir)
-        r$run (host = "0.0.0.0", port = as.integer (port))
-
-    }
-
-    return (ps)
+    Sys.setenv ("cache_dir" = cache_dir)
+    r$run (host = "0.0.0.0", port = as.integer (port))
 }
 
 
