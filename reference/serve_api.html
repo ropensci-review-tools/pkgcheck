@@ -82,7 +82,7 @@ functionality." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgreport</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.032</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.034</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@ the given URL and return a textual analysis of its structure and
 functionality.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>serve_api</span><span class='op'>(</span>port <span class='op'>=</span> <span class='fl'>8000L</span>, cache_dir <span class='op'>=</span> <span class='cn'>NULL</span>, bg <span class='op'>=</span> <span class='cn'>TRUE</span>, debug <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>serve_api</span><span class='op'>(</span>port <span class='op'>=</span> <span class='fl'>8000L</span>, cache_dir <span class='op'>=</span> <span class='cn'>NULL</span>, debug <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,10 +138,6 @@ functionality.</p>
 cached</p></td>
     </tr>
     <tr>
-      <th>bg</th>
-      <td><p>If <code>FALSE</code>, run process as a blocking foreground process</p></td>
-    </tr>
-    <tr>
       <th>debug</th>
       <td><p>For background processes: If <code>TRUE</code>, dump output logs to
 <code>/tmp/out</code> and <code>/tmp/err</code></p></td>
@@ -150,7 +146,7 @@ cached</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>processx</code> process which must be actively stopped with <code>ps$kill()</code>.</p>
+    <p>Nothing; calling this starts a blocking process.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
