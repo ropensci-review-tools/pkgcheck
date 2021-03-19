@@ -18,55 +18,55 @@ serve_api <- function(
                       bg = TRUE,
                       debug = FALSE) {
 
-  ip <- data.frame (utils::installed.packages())
+    ip <- data.frame (utils::installed.packages())
 
-  f <- file.path(
-    ip$LibPath [ip$Package == "pkgreport"],
-    "pkgreport", "plumber.R"
-  )
-
-  r <- plumber::plumb(f)
-
-  if (is.null(cache_dir)) { # allows tempdir() to be passed for CRAN tests
-
-    cache_dir <- file.path(rappdirs::user_cache_dir(), "pkgreport")
-    if (!file.exists(cache_dir)) {
-      dir.create(cache_dir, recursive = TRUE)
-    }
-  }
-
-  e <- callr::rcmd_safe_env()
-  e <- c (e, cache_dir = cache_dir)
-
-  ps <- NULL
-
-  if (bg) {
-
-    f <- function (r, port = port)
-        r$run (port = port)
-
-    sout <- serr <- "|"
-    if (debug) {
-
-      sout <- "/tmp/out"
-      serr <- "/tmp/err"
-    }
-
-    ps <- callr::r_bg (f, list (r = r,
-                                port = as.integer(port)
-                                ),
-                       env = e,
-                       stdout = sout,
-                       stderr = serr
+    f <- file.path(
+                   ip$LibPath [ip$Package == "pkgreport"],
+                   "pkgreport", "plumber.R"
     )
-  } else {
 
-    Sys.setenv ("cache_dir" = cache_dir)
-    r$run (host = "0.0.0.0", port = as.integer (port))
+    r <- plumber::plumb(f)
 
-  }
+    if (is.null(cache_dir)) { # allows tempdir() to be passed for CRAN tests
 
-  return (ps)
+        cache_dir <- file.path(rappdirs::user_cache_dir(), "pkgreport")
+        if (!file.exists(cache_dir)) {
+            dir.create(cache_dir, recursive = TRUE)
+        }
+    }
+
+    e <- callr::rcmd_safe_env()
+    e <- c (e, cache_dir = cache_dir)
+
+    ps <- NULL
+
+    if (bg) {
+
+        f <- function (r, port = port)
+            r$run (port = port)
+
+        sout <- serr <- "|"
+        if (debug) {
+
+            sout <- "/tmp/out"
+            serr <- "/tmp/err"
+        }
+
+        ps <- callr::r_bg (f, list (r = r,
+                                    port = as.integer(port)
+                                    ),
+                           env = e,
+                           stdout = sout,
+                           stderr = serr
+        )
+    } else {
+
+        Sys.setenv ("cache_dir" = cache_dir)
+        r$run (host = "0.0.0.0", port = as.integer (port))
+
+    }
+
+    return (ps)
 }
 
 
@@ -79,8 +79,8 @@ serve_api <- function(
 #' @export
 pr_report <- function(u, port = 8000L) {
 
-  sprintf("http://localhost:%s/report?u=%s", as.integer(port), u) %>%
-    httr::POST() %>%
-    httr::content() %>%
-    unlist()
+    sprintf("http://localhost:%s/report?u=%s", as.integer(port), u) %>%
+        httr::POST() %>%
+        httr::content() %>%
+        unlist()
 }
