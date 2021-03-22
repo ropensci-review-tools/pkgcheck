@@ -23,18 +23,47 @@ serve_api <- function(
                    "pkgreport", "plumber.R"
     )
 
-    r <- plumber::plumb(f)
+    if (is.null (cache_dir)) { # allows tempdir() to be passed for CRAN tests
 
-    if (is.null(cache_dir)) { # allows tempdir() to be passed for CRAN tests
-
-        cache_dir <- file.path(rappdirs::user_cache_dir(), "pkgreport")
-        if (!file.exists(cache_dir)) {
-            dir.create(cache_dir, recursive = TRUE)
+        cache_dir <- file.path (rappdirs::user_cache_dir (), "pkgreport")
+        if (!file.exists (cache_dir)) {
+            dir.create (cache_dir, recursive = TRUE)
         }
     }
 
     Sys.setenv ("cache_dir" = cache_dir)
-    r$run (host = "0.0.0.0", port = as.integer (port))
+
+    log_dir <- here::here ("logs")
+    Sys.setenv ("log_dir" = log_dir)
+    if (!fs::dir_exists (log_dir))
+        fs::dir_create (log_dir)
+
+    log_file <- tempfile ("pkgreport_", log_dir, ".log")
+    Sys.setenv ("log_file" = log_file)
+    logger::log_appender (logger::appender_tee (log_file))
+
+    convert_empty <- function(string) {
+        ifelse (string == "", "-", string)
+    }
+
+    pr <- plumber::plumb (f)
+
+    pr$registerHooks(
+      list(
+        preroute = function() {
+          # Start timer for log info
+          tictoc::tic()
+        },
+        postroute = function(req, res) {
+          end <- tictoc::toc(quiet = TRUE)          # nolint
+          # Log details about the request and the response
+          # TODO: Sanitize log details - perhaps in convert_empty
+          logger::log_info('{convert_empty(req$REMOTE_ADDR)} "{convert_empty(req$HTTP_USER_AGENT)}" {convert_empty(req$HTTP_HOST)} {convert_empty(req$REQUEST_METHOD)} {convert_empty(req$PATH_INFO)} {convert_empty(res$status)} {round(end$toc - end$tic, digits = getOption("digits", 5))}')          # nolint
+        }
+      )
+    )
+
+    pr$run (host = "0.0.0.0", port = as.integer (port))
 }
 
 

@@ -1,6 +1,6 @@
 Package: pkgreport
 Title: Plumber API to report package structure and function
-Version: 0.0.1.034
+Version: 0.0.1.035
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -14,16 +14,20 @@ Depends:
     R (>= 3.4.0)
 Imports:
     callr,
+    fs,
     ghql,
+    glue,
     goodpractice,
     here,
     httr,
     jsonlite,
+    logger,
     magrittr,
     packgraph,
     pkgapi,
     plumber,
-    rappdirs
+    rappdirs,
+    tictoc
 Suggests: 
     knitr,
     rmarkdown
