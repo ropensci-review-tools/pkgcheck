@@ -125,3 +125,21 @@ function (n = 10) {
 
     return (mean (rnorm (n)))
 }
+
+#* Get log
+#* @param n Get n latest log entries
+#* @get /log
+function (n = 10) {
+
+    log_dir <- Sys.getenv ("log_dir")
+    log_file <- Sys.getenv ("log_file")
+
+    ret <- "no log file present"
+
+    if (file.exists (log_file)) {
+        ret <- readLines (log_file)
+        ret <- rev (tail (ret, n))
+    }
+
+    return (ret)
+}
