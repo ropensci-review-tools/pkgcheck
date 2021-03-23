@@ -142,10 +142,20 @@ function (u) {
     if (length (r$test_fail) > 0)
         rcmd$test_fail <- r$test_fail
 
+    # -------------- any other components which fail:
+    checks <- vapply (x$checks, function (i) {
+                         ret <- TRUE
+                         if (is.logical (i) & length (i) == 1)
+                             ret <- i
+                         return (ret)   },
+                         logical (1))
+    fails <- names (checks [which (!checks)])
+
     res <- list (rcmd = rcmd,
                  covr = covr,
                  cyclocomp = cyc,
-                 lint = lints)
+                 lint = lints,
+                 check_fails = fails)
     res <- res [which (vapply (res, length, integer (1)) > 0)]
 
     return (jsonlite::toJSON (res))
