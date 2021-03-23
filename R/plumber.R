@@ -110,7 +110,8 @@ function (u) {
                             type = "message")
 
     # -------------- cyclocomp:
-    cyc <- gp$cyclocomp [which (gp$cyclocomp$cyclocomp > 1), ] # data.frame
+    cyc_threshold <- 5 # report all fns >= this value
+    cyc <- gp$cyclocomp [which (gp$cyclocomp$cyclocomp > cyc_threshold), ] # data.frame
 
     # -------------- lintr:
     lint_file <- vapply (gp$lintr, function (i) i$filename, character (1))
@@ -122,6 +123,12 @@ function (u) {
                          type = lint_type,
                          message = lint_message,
                          stringsAsFactors = FALSE)
+    # lintr reports library calls in tests dir, which are okay
+    index <- which (grepl ("^tests", lints$file) &
+                    grepl ("^Avoid library", lints$message))
+    lints <- lints [-index, ]
+    if (nrow (lints) == 0)
+        lints <- list ()
 
     # -------------- rcmdcheck:
     r <- gp$rcmdcheck
@@ -139,6 +146,7 @@ function (u) {
                  covr = covr,
                  cyclocomp = cyc,
                  lint = lints)
+    res <- res [which (vapply (res, length, integer (1)) > 0)]
 
     return (jsonlite::toJSON (res))
 }

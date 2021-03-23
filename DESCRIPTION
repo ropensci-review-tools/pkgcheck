@@ -1,6 +1,6 @@
 Package: pkgreport
 Title: Plumber API to report package structure and function
-Version: 0.0.1.040
+Version: 0.0.1.041
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
