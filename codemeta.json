@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgreport",
   "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.036",
+  "version": "0.0.1.37",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -227,6 +227,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "remotes",
+      "name": "remotes",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=remotes"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "tictoc",
       "name": "tictoc",
       "provider": {
@@ -236,9 +248,21 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=tictoc"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "withr",
+      "name": "withr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=withr"
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgreport/blob/master/README.md",
-  "fileSize": "49.258KB",
+  "fileSize": "52.166KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

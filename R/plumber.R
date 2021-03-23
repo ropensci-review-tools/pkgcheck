@@ -76,7 +76,12 @@ function (u) {
 
     flist <- unzip (local_zip, exdir = cache_dir)
 
-    gp <- goodpractice::goodpractice (local_repo)
+    withr::with_temp_libpaths ({
+        remotes::install_local (local_repo,
+                                upgrade = "never",
+                                dependencies = TRUE)
+        gp <- goodpractice::goodpractice (local_repo)
+    })
 
     message ("unlinking ", local_repo)
     chk <- unlink (local_repo, recursive = TRUE)
