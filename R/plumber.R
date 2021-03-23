@@ -76,12 +76,30 @@ function (u) {
 
     flist <- unzip (local_zip, exdir = cache_dir)
 
-    withr::with_temp_libpaths ({
-        remotes::install_local (local_repo,
-                                upgrade = "never",
-                                dependencies = TRUE)
-        gp <- goodpractice::goodpractice (local_repo)
-    })
+    # check whether gp is cached:
+    cmt <- pkgreport::get_latest_commit (org = org, repo = pkg_name)
+    fname <- paste0 (pkg_name, "_", substring (cmt$oid, 1, 8))
+    gp_cache_dir <- file.path (cache_dir, "gp_reports")
+    gp_cache_file <- file.path (gp_cache_dir, fname)
+
+    if (file.exists (gp_cache_file)) {
+
+        gp <- readRDS (gp_cache_file)
+
+    } else {
+
+        if (!file.exists (gp_cache_dir))
+            dir.create (gp_cache_dir, recursive = TRUE)
+
+        withr::with_temp_libpaths ({
+            remotes::install_local (local_repo,
+                                    upgrade = "never",
+                                    dependencies = TRUE)
+            gp <- goodpractice::goodpractice (local_repo)
+        })
+
+        saveRDS (gp, gp_cache_file)
+    }
 
     message ("unlinking ", local_repo)
     chk <- unlink (local_repo, recursive = TRUE)
