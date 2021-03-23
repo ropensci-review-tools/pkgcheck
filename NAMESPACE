@@ -2,6 +2,7 @@
 
 export(check_cache)
 export(get_default_branch)
+export(get_latest_commit)
 export(pr_report)
 export(serve_api)
 importFrom(magrittr,"%>%")

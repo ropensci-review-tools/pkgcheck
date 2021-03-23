@@ -91,6 +91,14 @@ get_default_branch <- function (org, repo) {
     return (branch)
 }
 
+#' get_latest_commit
+#'
+#' @note This function is not intended to be called directly, and is only
+#' exported to enable it to be used within the \pkg{plumber} API.
+#'
+#' @inheritParams check_cache
+#' @return Details of latest commit including OID hash
+#' @export
 get_latest_commit <- function (org, repo) {
 
     token <- get_gh_token ()
