@@ -1,6 +1,6 @@
 Package: pkgreport
 Title: Plumber API to report package structure and function
-Version: 0.0.1.039
+Version: 0.0.1.040
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -28,6 +28,7 @@ Imports:
     plumber,
     rappdirs,
     remotes,
+    roxygen2,
     tictoc,
     withr
 Suggests: 
