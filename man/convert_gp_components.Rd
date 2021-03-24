@@ -4,10 +4,19 @@
 \alias{convert_gp_components}
 \title{Convert \pkg{goodpractice} components into templated report}
 \usage{
-convert_gp_components(x)
+convert_gp_components(
+  x,
+  control = list(cyclocomp_threshold = 15, covr_threshold = 70, digits = 2)
+)
 }
 \arguments{
 \item{x}{List of components of \pkg{goodpractice} report}
+
+\item{control}{A named list of parameters potentially including
+\code{cyclocomp_threshold}, \code{covr_threshold}, and \code{covr_digits}, where
+reports are generated for cyclocomplexity values above threshold, and
+coverage values below threshold (given as percentage). \code{digits} controls the
+number of digits printed in coverage reports.}
 }
 \value{
 Markdown-formatted report of contents of \code{x}

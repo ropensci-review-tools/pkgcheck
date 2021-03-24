@@ -4,10 +4,19 @@
 \alias{process_gp}
 \title{process 'goodpractice' report}
 \usage{
-process_gp(gp)
+process_gp(
+  gp,
+  control = list(cyclocomp_threshold = 15, covr_threshold = 70, digits = 2)
+)
 }
 \arguments{
 \item{gp}{A 'goodpractice' object as returned by \pkg{goodpractice}}
+
+\item{control}{A named list of parameters potentially including
+\code{cyclocomp_threshold}, \code{covr_threshold}, and \code{covr_digits}, where
+reports are generated for cyclocomplexity values above threshold, and
+coverage values below threshold (given as percentage). \code{digits} controls the
+number of digits printed in coverage reports.}
 }
 \value{
 Markdown-formatted report

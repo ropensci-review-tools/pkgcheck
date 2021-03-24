@@ -47,13 +47,21 @@ get_gp_report <- function (u, local_repo) {
 #' Extract various components from 'goodpractice' report and convert into format
 #' to be returned by endpoint
 #' @param gp A 'goodpractice' object as returned by \pkg{goodpractice}
+#' @param control A named list of parameters potentially including
+#' `cyclocomp_threshold`, `covr_threshold`, and `covr_digits`, where
+#' reports are generated for cyclocomplexity values above threshold, and
+#' coverage values below threshold (given as percentage). `digits` controls the
+#' number of digits printed in coverage reports.
 #' @return Markdown-formatted report
 #' @export
-process_gp <- function (gp) {
+process_gp <- function (gp,
+                        control = list (cyclocomp_threshold = 15,
+                                        covr_threshold = 70,
+                                        digits = 2)) {
 
     gp <- extract_gp_components (gp)
 
-    return (convert_gp_components (gp))
+    return (convert_gp_components (gp, control = control))
 }
 
 
@@ -66,7 +74,9 @@ extract_gp_components <- function (gp) {
     group <- "filename"
     by <- "line"
     df <- covr::tally_coverage (covr, by = by)
-    percents <- tapply(df$value, df[[group]], FUN = function(x) (sum(x > 0) / length(x)) * 100)
+    percents <- tapply (df$value,
+                        df[[group]],
+                        FUN = function (x) (sum (x > 0) / length (x)) * 100)
     overall_percentage <- covr::percent_coverage(df, by = by)
     covr <- c (package = overall_percentage,
                percents)
@@ -74,8 +84,7 @@ extract_gp_components <- function (gp) {
                         percent = as.numeric (covr))
 
     # -------------- cyclocomp:
-    cyc_threshold <- 5 # report all fns >= this value
-    cyc <- gp$cyclocomp [which (gp$cyclocomp$cyclocomp > cyc_threshold), ] # data.frame
+    cyc <- gp$cyclocomp
 
     # -------------- lintr:
     lint_file <- vapply (gp$lintr, function (i) i$filename, character (1))
@@ -128,16 +137,25 @@ extract_gp_components <- function (gp) {
 
 #' Convert \pkg{goodpractice} components into templated report
 #'
+#' @inheritParams process_gp
 #' @param x List of components of \pkg{goodpractice} report
 #' @return Markdown-formatted report of contents of `x`
 #' @export
-convert_gp_components <- function (x) {
+convert_gp_components <- function (x,
+                                   control = list (cyclocomp_threshold = 15,
+                                                   covr_threshold = 70,
+                                                   digits = 2)) {
 
     rcmd <- rcmd_report (x)
-    covr <- covr_report (x)
-    cycl <- cyclo_report (x)
+    covr <- covr_report (x, control)
+    cycl <- cyclo_report (x, control)
 
-    return (c (rcmd, covr, cycl))
+    res <- c (rcmd, covr, cycl)
+
+    if (length (res) == 0)
+        res <- "goodpractice found no issues; this package is awesome!"
+
+    return (res)
 }
 
 rcmd_report <- function (x) {
@@ -188,14 +206,30 @@ dump_one_rcmd_type <- function (rcmd, type = "errors") {
     return (ret)
 }
 
-covr_report <- function (x, digits = 2) {
+covr_report <- function (x,
+                         control = list (cyclocomp_threshold = 15,
+                                         covr_threshold = 70,
+                                         digits = 2)) {
+
+    if ("covr_threshold" %in% names (control))
+        covr_threshold <- control$covr_threshold
+    else
+        covr_threshold <- 70
+
+    if ("digits" %in% names (control))
+        digits <- control$digits
+    else
+        digits <- 2
 
     pkg_line <- which (x$covr$source == "package")
     pkg_cov <- x$covr$percent [pkg_line]
-    
+
+    if (pkg_cov >= covr_threshold)
+        return (NULL)
+
     covr <- x$covr [-pkg_line, ]
 
-    covr <- covr [covr$percent < 100, ]
+    covr <- covr [covr$percent < covr_threshold, ]
 
     res <- c ("### Test Coverage",
               "",
@@ -221,9 +255,17 @@ covr_report <- function (x, digits = 2) {
     return (res)
 }
 
-cyclo_report <- function (x, cyc_threshold = 5) {
+cyclo_report <- function (x,
+                          control = list (cyclocomp_threshold = 15,
+                                          covr_threshold = 70,
+                                          digits = 2)) {
 
-    cyc <- x$cyclocomp [x$cyclocomp$cyclocomp >= cyc_threshold, ]
+    if ("cyclocomp_threshold" %in% names (control))
+        cyc_thr <- control$cyclocomp_threshold
+    else
+        cyc_thr <- 15
+
+    cyc <- x$cyclocomp [x$cyclocomp$cyclocomp >= cyc_thr, ]
 
     ret <- NULL
 
@@ -233,7 +275,7 @@ cyclo_report <- function (x, cyc_threshold = 5) {
     msg <- "The following function"
     if (nrow (cyc) > 1)
         msg <- paste0 (msg, "s")
-    msg <- paste0 (msg, " have cyclocomplexity >= ", cyc_threshold, ":")
+    msg <- paste0 (msg, " have cyclocomplexity >= ", cyc_thr, ":")
     res <- c ("### Cyclocomplexity",
               "",
               msg,

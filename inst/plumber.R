@@ -34,7 +34,12 @@ function (u) {
     message ("unlinking ", local_repo)
     chk <- unlink (local_repo, recursive = TRUE)
 
-    res <- pkgreport::process_gp (gp)
+    control <- list (cyclocomp_threshold = 15,
+                     covr_threshold = 70,
+                     digits = 2)
+
+    res <- pkgreport::process_gp (gp,
+                                  control = control)
 
     return (res)
 }
