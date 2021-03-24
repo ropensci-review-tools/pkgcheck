@@ -65,19 +65,3 @@ serve_api <- function(
 
     pr$run (host = "0.0.0.0", port = as.integer (port))
 }
-
-
-#' pr_report
-#'
-#' Query plumber API (set up with \link{serve_api}) for a report on a repository
-#' @param u URL of package repository
-#' @param port Port at which plumber API has been served via \link{serve_api}.
-#' @return Report on repository
-#' @export
-pr_report <- function(u, port = 8000L) {
-
-    sprintf("http://localhost:%s/report?u=%s", as.integer(port), u) %>%
-        httr::POST() %>%
-        httr::content() %>%
-        unlist()
-}
