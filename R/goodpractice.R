@@ -147,9 +147,12 @@ rcmd_report <- function (x) {
     if (!"rcmd" %in% names (x))
         return (ret)
 
+    ret <- c ("### R CMD check",
+              "")
+
     rcmd <- x$rcmd
 
-    ret <- dump_one_rcmd_type (rcmd, "errors")
+    ret <- c (ret, dump_one_rcmd_type (rcmd, "errors"))
     ret <- c (ret, dump_one_rcmd_type (rcmd, "warnings"))
     ret <- c (ret, dump_one_rcmd_type (rcmd, "notes"))
     ret <- c (ret, dump_one_rcmd_type (rcmd, "test_fails"))
@@ -227,11 +230,13 @@ cyclo_report <- function (x, cyc_threshold = 5) {
     if (nrow (cyc) == 0)
         return (ret)
 
-    res <- "The following function"
+    msg <- "The following function"
     if (nrow (cyc) > 1)
-        res <- paste0 (res, "s")
-    res <- c (paste0 (res, " have cyclocomplexity >= ",
-                      cyc_threshold, ":"),
+        msg <- paste0 (msg, "s")
+    msg <- paste0 (msg, " have cyclocomplexity >= ", cyc_threshold, ":")
+    res <- c ("### Cyclocomplexity",
+              "",
+              msg,
               "",
               "function | cyclocomplexity",
               "--- | ---")
