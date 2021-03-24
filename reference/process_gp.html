@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>get_latest_commit — get_latest_commit • pkgreport</title>
+<title>process 'goodpractice' report — process_gp • pkgreport</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="get_latest_commit — get_latest_commit" />
-<meta property="og:description" content="get_latest_commit" />
+<meta property="og:title" content="process 'goodpractice' report — process_gp" />
+<meta property="og:description" content="Extract various components from 'goodpractice' report and convert into format
+to be returned by endpoint" />
 
 
 
@@ -111,37 +112,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>get_latest_commit</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/github.R'><code>R/github.R</code></a></small>
-    <div class="hidden name"><code>get_latest_commit.Rd</code></div>
+    <h1>process 'goodpractice' report</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/goodpractice.R'><code>R/goodpractice.R</code></a></small>
+    <div class="hidden name"><code>process_gp.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>get_latest_commit</p>
+    <p>Extract various components from 'goodpractice' report and convert into format
+to be returned by endpoint</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_latest_commit</span><span class='op'>(</span><span class='va'>org</span>, <span class='va'>repo</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>process_gp</span><span class='op'>(</span><span class='va'>gp</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>org</th>
-      <td><p>Github organization</p></td>
-    </tr>
-    <tr>
-      <th>repo</th>
-      <td><p>Github repository</p></td>
+      <th>gp</th>
+      <td><p>A 'goodpractice' object as returned by <span class="pkg">goodpractice</span></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Details of latest commit including OID hash</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This function is not intended to be called directly, and is only
-exported to enable it to be used within the <span class="pkg">plumber</span> API.</p>
+    <p>Markdown-formatted report</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
