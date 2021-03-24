@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgreport</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.051</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.052</span>
       </span>
     </div>
 
@@ -120,7 +120,10 @@
     <p>Convert <span class="pkg">goodpractice</span> components into templated report</p>
     </div>
 
-    <pre class="usage"><span class='fu'>convert_gp_components</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>convert_gp_components</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cyclocomp_threshold <span class='op'>=</span> <span class='fl'>15</span>, covr_threshold <span class='op'>=</span> <span class='fl'>70</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,6 +131,14 @@
     <tr>
       <th>x</th>
       <td><p>List of components of <span class="pkg">goodpractice</span> report</p></td>
+    </tr>
+    <tr>
+      <th>control</th>
+      <td><p>A named list of parameters potentially including
+<code>cyclocomp_threshold</code>, <code>covr_threshold</code>, and <code>covr_digits</code>, where
+reports are generated for cyclocomplexity values above threshold, and
+coverage values below threshold (given as percentage). <code>digits</code> controls the
+number of digits printed in coverage reports.</p></td>
     </tr>
     </table>
 
