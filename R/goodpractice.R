@@ -60,8 +60,18 @@ process_gp <- function (gp) {
 extract_gp_components <- function (gp) {
 
     # -------------- covr:
-    covr <- capture.output (print (gp$covr),
-                            type = "message")
+    # from covr::print.coverage
+    # https://github.com/r-lib/covr/blob/master/R/summary_functions.R
+    covr <- gp$covr$coverage
+    group <- "filename"
+    by <- "line"
+    df <- covr::tally_coverage (covr, by = by)
+    percents <- tapply(df$value, df[[group]], FUN = function(x) (sum(x > 0) / length(x)) * 100)
+    overall_percentage <- covr::percent_coverage(df, by = by)
+    covr <- c (package = overall_percentage,
+               percents)
+    covr <- data.frame (source = names (covr),
+                        percent = as.numeric (covr))
 
     # -------------- cyclocomp:
     cyc_threshold <- 5 # report all fns >= this value
@@ -175,22 +185,18 @@ dump_one_rcmd_type <- function (rcmd, type = "errors") {
     return (ret)
 }
 
-covr_report <- function (x) {
+covr_report <- function (x, digits = 2) {
 
-    pkg <- x$package
+    pkg_line <- which (x$covr$source == "package")
+    pkg_cov <- x$covr$percent [pkg_line]
+    
+    covr <- x$covr [-pkg_line, ]
 
-    covr <- do.call (rbind, strsplit (x$covr, ": "))
-    covr <- data.frame (source = covr [, 1],
-                        cov = as.numeric (gsub ("%", "", covr [, 2])))
-    pkg_line <- grep (paste0 (pkg, "\\s?Coverage$"), covr$source)
-    pkg_cov <- covr$cov [pkg_line]
-    covr <- covr [-pkg_line, ]
-
-    covr <- covr [covr$cov < 100, ]
+    covr <- covr [covr$percent < 100, ]
 
     res <- c ("### Test Coverage",
               "",
-              paste0 ("Package: ", pkg_cov))
+              paste0 ("Package: ", round (pkg_cov, digits = digits)))
 
     if (nrow (covr) > 0) {
         res <- c (res,
@@ -201,7 +207,10 @@ covr_report <- function (x) {
                   "--- | ---")
         for (i in seq.int (nrow (covr))) {
             res <- c (res,
-                      paste0 (covr$source [i], " | ", covr$cov [i], "%"))
+                      paste0 (covr$source [i],
+                              " | ",
+                              round (covr$percent [i], digits = digits),
+                              "%"))
         }
     }
     res <- c (res, "")
