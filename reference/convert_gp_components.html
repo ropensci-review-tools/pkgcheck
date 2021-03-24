@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Count number of example lines per function — num_ex_lines • pkgreport</title>
+<title>Convert goodpractice components into templated report — convert_gp_components • pkgreport</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Count number of example lines per function — num_ex_lines" />
-<meta property="og:description" content="Count number of example lines per function" />
+<meta property="og:title" content="Convert goodpractice components into templated report — convert_gp_components" />
+<meta property="og:description" content="Convert goodpractice components into templated report" />
 
 
 
@@ -111,30 +111,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Count number of example lines per function</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/example_lines.R'><code>R/example_lines.R</code></a></small>
-    <div class="hidden name"><code>num_ex_lines.Rd</code></div>
+    <h1>Convert <span class="pkg">goodpractice</span> components into templated report</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/goodpractice.R'><code>R/goodpractice.R</code></a></small>
+    <div class="hidden name"><code>convert_gp_components.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Count number of example lines per function</p>
+    <p>Convert <span class="pkg">goodpractice</span> components into templated report</p>
     </div>
 
-    <pre class="usage"><span class='fu'>num_ex_lines</span><span class='op'>(</span><span class='va'>local_repo</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>convert_gp_components</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>local_repo</th>
-      <td><p>Path to local source repository</p></td>
+      <th>x</th>
+      <td><p>List of components of <span class="pkg">goodpractice</span> report</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.frame</code> of function names and counts of numbers of lines of
-example code.</p>
+    <p>Markdown-formatted report of contents of <code>x</code></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
