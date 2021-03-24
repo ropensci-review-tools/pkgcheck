@@ -36,7 +36,7 @@ function (u) {
 
     res <- pkgreport::process_gp (gp)
 
-    return (jsonlite::toJSON (res))
+    return (res)
 }
 
 #* @get /mean

@@ -53,7 +53,7 @@ process_gp <- function (gp) {
 
     gp <- extract_gp_components (gp)
 
-    return (gp)
+    return (convert_gp_components (gp))
 }
 
 
@@ -88,13 +88,13 @@ extract_gp_components <- function (gp) {
     r <- gp$rcmdcheck
     rcmd <- list ()
     if (length (r$errors) > 0)
-        rcmd$error <- r$error
+        rcmd$errors <- r$errors
     if (length (r$warnings) > 0)
         rcmd$warnings <- r$warnings
     if (length (r$notes) > 0)
         rcmd$notes <- r$notes
     if (length (r$test_fail) > 0)
-        rcmd$test_fail <- r$test_fail
+        rcmd$test_fails <- r$test_fail # note plural!
 
     # -------------- any other components which fail:
     checks <- vapply (gp$checks, function (i) {
@@ -104,12 +104,133 @@ extract_gp_components <- function (gp) {
                          return (ret)   },
                          logical (1))
     fails <- names (checks [which (!checks)])
+    if (length (fails) > 0)
+        rcmd$check_fails <- fails
 
     # return result
-    res <- list (rcmd = rcmd,
+    res <- list (package = unname (gp$package),
+                 rcmd = rcmd,
                  covr = covr,
                  cyclocomp = cyc,
-                 lint = lints,
-                 check_fails = fails)
+                 lint = lints)
     res <- res [which (vapply (res, length, integer (1)) > 0)]
+}
+
+#' Convert \pkg{goodpractice} components into templated report
+#'
+#' @param x List of components of \pkg{goodpractice} report
+#' @return Markdown-formatted report of contents of `x`
+#' @export
+convert_gp_components <- function (x) {
+
+    rcmd <- rcmd_report (x)
+    covr <- covr_report (x)
+    cycl <- cyclo_report (x)
+
+    return (c (rcmd, covr, cycl))
+}
+
+rcmd_report <- function (x) {
+
+    ret <- NULL
+
+    if (!"rcmd" %in% names (x))
+        return (ret)
+
+    rcmd <- x$rcmd
+
+    ret <- dump_one_rcmd_type (rcmd, "errors")
+    ret <- c (ret, dump_one_rcmd_type (rcmd, "warnings"))
+    ret <- c (ret, dump_one_rcmd_type (rcmd, "notes"))
+    ret <- c (ret, dump_one_rcmd_type (rcmd, "test_fails"))
+    ret <- c (ret, dump_one_rcmd_type (rcmd, "check_fails"))
+
+    return (ret)
+}
+
+dump_one_rcmd_type <- function (rcmd, type = "errors") {
+
+    ret <- NULL
+
+    if (!type %in% names (rcmd))
+        return (ret)
+
+    msg <- paste0 ("R CMD check generated the following ",
+                   gsub ("s$", "", type))
+    if (length (rcmd [[type]]) > 1)
+        msg <- paste0 (msg, "s")
+    msg <- paste0 (msg, ":")
+
+    ret <- c (ret,
+              msg,
+              "")
+
+    for (i in seq.int (rcmd [[type]])) {
+        ret <- c (ret,
+                  paste0 (i, ". ", rcmd [[type]] [i]))
+    }
+
+    ret <- c (ret, "")
+
+    return (ret)
+}
+
+covr_report <- function (x) {
+
+    pkg <- x$package
+
+    covr <- do.call (rbind, strsplit (x$covr, ": "))
+    covr <- data.frame (source = covr [, 1],
+                        cov = as.numeric (gsub ("%", "", covr [, 2])))
+    pkg_line <- grep (paste0 (pkg, "\\s?Coverage$"), covr$source)
+    pkg_cov <- covr$cov [pkg_line]
+    covr <- covr [-pkg_line, ]
+
+    covr <- covr [covr$cov < 100, ]
+
+    res <- c ("### Test Coverage",
+              "",
+              paste0 ("Package: ", pkg_cov))
+
+    if (nrow (covr) > 0) {
+        res <- c (res,
+                  "",
+                  "The following files are not completely covered by tests:",
+                  "",
+                  "file | coverage",
+                  "--- | ---")
+        for (i in seq.int (nrow (covr))) {
+            res <- c (res,
+                      paste0 (covr$source [i], " | ", covr$cov [i], "%"))
+        }
+    }
+    res <- c (res, "")
+
+    return (res)
+}
+
+cyclo_report <- function (x, cyc_threshold = 5) {
+
+    cyc <- x$cyclocomp [x$cyclocomp$cyclocomp >= cyc_threshold, ]
+
+    ret <- NULL
+
+    if (nrow (cyc) == 0)
+        return (ret)
+
+    res <- "The following function"
+    if (nrow (cyc) > 1)
+        res <- paste0 (res, "s")
+    res <- c (paste0 (res, " have cyclocomplexity >= 15:"),
+              "",
+              "function | cyclocomplexity",
+              "--- | ---")
+
+    for (i in seq.int (nrow (cyc)))
+        res <- c (res,
+                  paste0 (cyc$name [i], " | ", cyc$cyclocomp [i]))
+
+    res <- c (res, "")
+
+    return (res)
 }
