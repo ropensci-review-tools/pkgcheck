@@ -221,7 +221,8 @@ cyclo_report <- function (x, cyc_threshold = 5) {
     res <- "The following function"
     if (nrow (cyc) > 1)
         res <- paste0 (res, "s")
-    res <- c (paste0 (res, " have cyclocomplexity >= 15:"),
+    res <- c (paste0 (res, " have cyclocomplexity >= ",
+                      cyc_threshold, ":"),
               "",
               "function | cyclocomplexity",
               "--- | ---")
