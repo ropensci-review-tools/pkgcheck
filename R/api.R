@@ -54,12 +54,12 @@ serve_api <- function(
     }
 
     # --------- start system deps
-    Sys.setenv ("pkgreport_sys_deps" = sys_deps)
+    Sys.setenv ("pkgrep_sys_deps" = sys_deps)
     if (sys_deps) {
         if (any (!c ("os", "os_release") %in% names (sys_config)))
             stop ("sys_config must have 'os' and 'os_release' items")
-        Sys.setenv ("pkgreport_os" = sys_config$os)
-        Sys.setenv ("pkgreport_os_release" = sys_config$os_release)
+        Sys.setenv ("pkgrep_os" = sys_config$os)
+        Sys.setenv ("pkgrep_os_release" = sys_config$os_release)
     }
     # --------- end system deps
 
