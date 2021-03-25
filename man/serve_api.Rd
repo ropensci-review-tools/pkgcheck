@@ -4,25 +4,13 @@
 \alias{serve_api}
 \title{serve plumber API to report on packages}
 \usage{
-serve_api(
-  port = 8000L,
-  cache_dir = NULL,
-  sys_deps = TRUE,
-  sys_config = list(os = "ubuntu", os_release = "18.04"),
-  debug = FALSE
-)
+serve_api(port = 8000L, cache_dir = NULL, debug = FALSE)
 }
 \arguments{
 \item{port}{Port for API to be served on}
 
 \item{cache_dir}{Directory where previously downloaded repositories are
 cached}
-
-\item{sys_deps}{If \code{TRUE}, install system dependencies in order to locally
-load packages for the \code{gp} endpoint.}
-
-\item{sys_config}{A list of \code{os} an \code{os_release} on which any \code{sys_deps} are
-to be installed.}
 
 \item{debug}{For background processes: If \code{TRUE}, dump output logs to
 \verb{/tmp/out} and \verb{/tmp/err}}
