@@ -70,18 +70,21 @@ extract_gp_components <- function (gp) {
     # -------------- covr:
     # from covr::print.coverage
     # https://github.com/r-lib/covr/blob/master/R/summary_functions.R
-    covr <- gp$covr$coverage
-    group <- "filename"
-    by <- "line"
-    df <- covr::tally_coverage (covr, by = by)
-    percents <- tapply (df$value,
-                        df[[group]],
-                        FUN = function (x) (sum (x > 0) / length (x)) * 100)
-    overall_percentage <- covr::percent_coverage(df, by = by)
-    covr <- c (package = overall_percentage,
-               percents)
-    covr <- data.frame (source = names (covr),
-                        percent = as.numeric (covr))
+    covr <- list ()
+    if (is.list (gp$covr)) {
+        covr <- gp$covr$coverage
+        group <- "filename"
+        by <- "line"
+        df <- covr::tally_coverage (covr, by = by)
+        percents <- tapply (df$value,
+                            df[[group]],
+                            FUN = function (x) (sum (x > 0) / length (x)) * 100)
+        overall_percentage <- covr::percent_coverage(df, by = by)
+        covr <- c (package = overall_percentage,
+                   percents)
+        covr <- data.frame (source = names (covr),
+                            percent = as.numeric (covr))
+    }
 
     # -------------- cyclocomp:
     cyc <- gp$cyclocomp
@@ -210,6 +213,12 @@ covr_report <- function (x,
                          control = list (cyclocomp_threshold = 15,
                                          covr_threshold = 70,
                                          digits = 2)) {
+
+    if (!"covr" %in% names (x))
+        return (c ("### Test Coverage",
+                   "",
+                   "ERROR: Test Coverage Failed",
+                   ""))
 
     if ("covr_threshold" %in% names (control))
         covr_threshold <- control$covr_threshold
