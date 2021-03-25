@@ -7,6 +7,10 @@
 #' @param port Port for API to be served on
 #' @param cache_dir Directory where previously downloaded repositories are
 #' cached
+#' @param sys_deps If `TRUE`, install system dependencies in order to locally
+#' load packages for the `gp` endpoint.
+#' @param sys_config A list of `os` an `os_release` on which any `sys_deps` are
+#' to be installed.
 #' @param debug For background processes: If `TRUE`, dump output logs to
 #' `/tmp/out` and `/tmp/err`
 #' @return Nothing; calling this starts a blocking process.
@@ -14,6 +18,9 @@
 serve_api <- function(
                       port = 8000L,
                       cache_dir = NULL,
+                      sys_deps = TRUE,
+                      sys_config = list (os = "ubuntu",
+                                         os_release = "18.04"),
                       debug = FALSE) {
 
     ip <- data.frame (utils::installed.packages())
@@ -45,6 +52,16 @@ serve_api <- function(
     convert_empty <- function(string) {
         ifelse (string == "", "-", string)
     }
+
+    # --------- start system deps
+    Sys.setenv ("pkgreport_sys_deps" = sys_deps)
+    if (sys_deps) {
+        if (any (!c ("os", "os_release") %in% names (sys_config)))
+            stop ("sys_config must have 'os' and 'os_release' items")
+        Sys.setenv ("pkgreport_os" = sys_config$os)
+        Sys.setenv ("pkgreport_os_release" = sys_config$os_release)
+    }
+    # --------- end system deps
 
     pr <- plumber::plumb (f)
 
