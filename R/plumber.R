@@ -41,6 +41,8 @@ function (u) {
     res <- pkgreport::process_gp (gp,
                                   control = control)
 
+    res <- paste0 (res, collapse = "\n")
+
     return (res)
 }
 
