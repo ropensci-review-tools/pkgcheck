@@ -23,6 +23,7 @@ serve_api <- function(
                    "pkgreport", "plumber.R"
     )
 
+    # ----------cache_dir set up----------
     if (is.null (cache_dir)) { # allows tempdir() to be passed for CRAN tests
 
         cache_dir <- file.path (rappdirs::user_cache_dir (), "pkgreport")
@@ -33,6 +34,7 @@ serve_api <- function(
 
     Sys.setenv ("cache_dir" = cache_dir)
 
+    # ----------log_dir set up----------
     log_dir <- here::here ("logs")
     Sys.setenv ("log_dir" = log_dir)
     if (!fs::dir_exists (log_dir))
@@ -46,6 +48,12 @@ serve_api <- function(
         ifelse (string == "", "-", string)
     }
 
+    # ----------local static dir set up----------
+    static_dir <- file.path (here::here (), "static")
+    if (!file.exists (static_dir))
+        dir.create (static_dir, recursive = TRUE)
+
+    # ----------plumber process set up----------
     pr <- plumber::pr (f)
 
     #pr$registerHooks(
@@ -63,6 +71,8 @@ serve_api <- function(
         }
       )
     )
+
+    pr <- plumber::pr_static(pr, "/assets", "./static")
 
     plumber::pr_run (pr,
                      host = "0.0.0.0",
