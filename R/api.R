@@ -46,9 +46,10 @@ serve_api <- function(
         ifelse (string == "", "-", string)
     }
 
-    pr <- plumber::plumb (f)
+    pr <- plumber::pr (f)
 
-    pr$registerHooks(
+    #pr$registerHooks(
+    plumber::pr_hooks (
       list(
         preroute = function() {
           # Start timer for log info
@@ -63,5 +64,5 @@ serve_api <- function(
       )
     )
 
-    pr$run (host = "0.0.0.0", port = as.integer (port))
+    plumber::pr_run (host = "0.0.0.0", port = as.integer (port))
 }
