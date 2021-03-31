@@ -49,12 +49,14 @@ serve_api <- function(
     }
 
     # ----------local static dir set up----------
-    static_dir <- file.path (here::here (), "static")
+    static_dir <- file.path (cache_dir, "static")
     if (!file.exists (static_dir))
         dir.create (static_dir, recursive = TRUE)
 
     # ----------plumber process set up----------
     pr <- plumber::pr (f)
+
+    pr <- plumber::pr_static(pr, "/assets", static_dir)
 
     #pr$registerHooks(
     pr <- plumber::pr_hooks (pr,
@@ -71,8 +73,6 @@ serve_api <- function(
         }
       )
     )
-
-    pr <- plumber::pr_static(pr, "/assets", "./static")
 
     plumber::pr_run (pr,
                      host = "0.0.0.0",
