@@ -10,36 +10,24 @@ function (u) {
     local_zip <- paste0 (local_repo, ".zip")
     flist <- unzip (local_zip, exdir = cache_dir)
 
-    tempfiles_old <- list.files (tempdir (), full.names = TRUE)
-    g <- packgraph::pg_graph (local_repo, plot = TRUE)
-    res <- packgraph::pg_report (g, exported_only = FALSE)
-
-    # ---------copy vis.js network diagram to local static dir----------
-    tempfiles_new <- list.files (tempdir (), full.names = TRUE)
-    tempfiles_new <- tempfiles_new [which (!tempfiles_new %in%
-                                           tempfiles_old)]
-    visjs <- grep ("viewhtml", tempfiles_new, value = TRUE)
     visjs_dir <- file.path (cache_dir, "static") # in api.R
     repo <- tail (strsplit (u, "/") [[1]], 1)
     org <- tail (strsplit (u, "/") [[1]], 2) [1]
     commit <- pkgreport::get_latest_commit (org, repo)
     oid <- substring (commit$oid, 1, 8)
-    visjs_new <- file.path (visjs_dir, paste0 (repo, "_", oid))
-    dir.create (visjs_new, showWarnings = FALSE, recursive = TRUE)
+    visjs_file <- paste0 (repo, "_", oid, ".html")
 
-    if (!file.exists (visjs_new)) {
-        file.copy (list.files (visjs, full.names = TRUE),
-                   visjs_new,
-                   recursive = TRUE)
-    }
+    g <- packgraph::pg_graph (local_repo,
+                              vis_save = file.path (visjs_dir, visjs_file))
+    res <- packgraph::pg_report (g, exported_only = FALSE)
 
-    index_file <- paste0 ("http://127.0.0.1:8000/assets/",
-                          repo, "_", oid, "/index.html")
+
+    visjs_url <- paste0 ("http://127.0.0.1:8000/assets/", visjs_file)
 
     res <- c (res,
               "",
               paste0 ("[Click here](",
-                      index_file,
+                      visjs_url,
                       ") for interactive visualisation of network"))
 
     message ("unlinking ", local_repo)
