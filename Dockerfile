@@ -28,7 +28,8 @@ RUN apt-get update -qq && apt-get install -y \
   texlive-fonts-recommended \
   texlive-latex-extra \
   texlive-fonts-extra \
-  texinfo
+  texinfo \
+  pandoc
 
 RUN install2.r \
   plumber \
