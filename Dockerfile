@@ -24,6 +24,9 @@ RUN apt-get update -qq && apt-get install -y \
   libglpk-dev \
   libsodium-dev \
   libxml2-dev \
+  texlive-latex-base \
+  texlive-fonts-recommended \
+  texlive-latex-extra \
   texlive-fonts-extra \
   texinfo
 
