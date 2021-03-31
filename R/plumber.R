@@ -14,6 +14,7 @@ function (u) {
     g <- packgraph::pg_graph (local_repo, plot = TRUE)
     res <- packgraph::pg_report (g, exported_only = FALSE)
 
+    # ---------copy vis.js network diagram to local static dir----------
     tempfiles_new <- list.files (tempdir (), full.names = TRUE)
     tempfiles_new <- tempfiles_new [which (!tempfiles_new %in%
                                            tempfiles_old)]
@@ -21,7 +22,7 @@ function (u) {
     visjs_dir <- file.path (cache_dir, "static") # in api.R
     repo <- tail (strsplit (u, "/") [[1]], 1)
     org <- tail (strsplit (u, "/") [[1]], 2) [1]
-    commit <- get_latest_commit (org, repo)
+    commit <- pkgreport::get_latest_commit (org, repo)
     oid <- substring (commit$oid, 1, 8)
     visjs_new <- file.path (visjs_dir, paste0 (repo, "_", oid))
     dir.create (visjs_new, showWarnings = FALSE, recursive = TRUE)
