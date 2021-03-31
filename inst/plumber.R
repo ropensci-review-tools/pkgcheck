@@ -16,6 +16,8 @@ function (u) {
     message ("unlinking ", local_repo)
     chk <- unlink (local_repo, recursive = TRUE)
 
+    res <- paste0 (res, collapse = "\n")
+
     return (res)
 }
 
