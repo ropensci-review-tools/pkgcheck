@@ -19,7 +19,7 @@ function (u) {
 
     g <- packgraph::pg_graph (local_repo,
                               vis_save = file.path (visjs_dir, visjs_file))
-    res <- packgraph::pg_report (g, exported_only = FALSE)
+    res <- packgraph::pg_report (g)
 
 
     visjs_url <- paste0 ("http://127.0.0.1:8000/assets/", visjs_file)
