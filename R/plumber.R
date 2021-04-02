@@ -17,6 +17,10 @@ function (u) {
     oid <- substring (commit$oid, 1, 8)
     visjs_file <- paste0 (repo, "_", oid, ".html")
 
+    # pg_graph directly calls pkgapi::map_package which requires all system deps
+    remotes::install_deps (pkgdir = local_repo,
+                           dependencies = TRUE)
+
     g <- packgraph::pg_graph (local_repo,
                               vis_save = file.path (visjs_dir, visjs_file))
     res <- packgraph::pg_report (g)

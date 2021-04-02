@@ -29,6 +29,12 @@ get_gp_report <- function (u, local_repo) {
         if (!file.exists (gp_cache_dir))
             dir.create (gp_cache_dir, recursive = TRUE)
 
+        # install deps into main system
+        # Advantage: avoids constant re-install for each check
+        # Disadvantage: system bloat
+        remotes::install_deps (pkgdir = local_repo,
+                               dependencies = TRUE)
+
         withr::with_temp_libpaths ({
             remotes::install_local (local_repo,
                                     upgrade = "never",
