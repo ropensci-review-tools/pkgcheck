@@ -115,14 +115,16 @@ extract_gp_components <- function (gp) {
     # -------------- rcmdcheck:
     r <- gp$rcmdcheck
     rcmd <- list ()
-    if (length (r$errors) > 0)
-        rcmd$errors <- r$errors
-    if (length (r$warnings) > 0)
-        rcmd$warnings <- r$warnings
-    if (length (r$notes) > 0)
-        rcmd$notes <- r$notes
-    if (length (r$test_fail) > 0)
-        rcmd$test_fails <- r$test_fail # note plural!
+    if (length (rcmd) > 0) {
+        if (length (r$errors) > 0)
+            rcmd$errors <- r$errors
+        if (length (r$warnings) > 0)
+            rcmd$warnings <- r$warnings
+        if (length (r$notes) > 0)
+            rcmd$notes <- r$notes
+        if (length (r$test_fail) > 0)
+            rcmd$test_fails <- r$test_fail # note plural!
+    }
 
     # -------------- any other components which fail:
     checks <- vapply (gp$checks, function (i) {

@@ -29,7 +29,8 @@ RUN apt-get update -qq && apt-get install -y \
   texlive-latex-extra \
   texlive-fonts-extra \
   texinfo \
-  pandoc
+  pandoc \
+  pandoc-citeproc
 
 RUN install2.r \
   plumber \
