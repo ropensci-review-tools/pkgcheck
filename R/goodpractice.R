@@ -287,34 +287,37 @@ cyclo_report <- function (x,
                                           covr_threshold = 70,
                                           digits = 2)) {
 
-    if ("cyclocomp_threshold" %in% names (control))
+    if ("cyclocomp_threshold" %in% names (control)) {
         cyc_thr <- control$cyclocomp_threshold
-    else
+    } else {
         cyc_thr <- 15
+    }
+
+    ret <- c ("### Cyclocomplexity",
+              "")
 
     cyc <- x$cyclocomp [x$cyclocomp$cyclocomp >= cyc_thr, ]
 
-    ret <- NULL
+    if (methods::is (cyc, "try-error")) {
+        ret <- c (ret, paste0 (cyc))
+    } else if (nrow (cyc) == 0) {
+        ret <- NULL
+    } else {
 
-    if (nrow (cyc) == 0)
-        return (ret)
+        msg <- "The following function"
+        if (nrow (cyc) > 1)
+            msg <- paste0 (msg, "s")
+        msg <- paste0 (msg, " have cyclocomplexity >= ", cyc_thr, ":")
+        ret <- c (ret,
+                  msg,
+                  "",
+                  "function | cyclocomplexity",
+                  "--- | ---")
 
-    msg <- "The following function"
-    if (nrow (cyc) > 1)
-        msg <- paste0 (msg, "s")
-    msg <- paste0 (msg, " have cyclocomplexity >= ", cyc_thr, ":")
-    res <- c ("### Cyclocomplexity",
-              "",
-              msg,
-              "",
-              "function | cyclocomplexity",
-              "--- | ---")
+        for (i in seq.int (nrow (cyc)))
+            ret <- c (ret,
+                      paste0 (cyc$name [i], " | ", cyc$cyclocomp [i]))
+    }
 
-    for (i in seq.int (nrow (cyc)))
-        res <- c (res,
-                  paste0 (cyc$name [i], " | ", cyc$cyclocomp [i]))
-
-    res <- c (res, "")
-
-    return (res)
+    return (ret)
 }
