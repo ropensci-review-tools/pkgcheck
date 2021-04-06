@@ -19,7 +19,8 @@ function (u) {
 
     # pg_graph directly calls pkgapi::map_package which requires all system deps
     remotes::install_deps (pkgdir = local_repo,
-                           dependencies = TRUE)
+                           dependencies = TRUE,
+                           upgrade = "always")
 
     g <- packgraph::pg_graph (local_repo,
                               vis_save = file.path (visjs_dir, visjs_file))
