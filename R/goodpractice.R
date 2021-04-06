@@ -116,7 +116,9 @@ extract_gp_components <- function (gp) {
     # -------------- rcmdcheck:
     r <- gp$rcmd
     rcmd <- list ()
-    if (length (r) > 0) {
+    if (methods::is (r, "try-error")) {
+        rcmd$errors <- paste0 (r)
+    } else if (length (r) > 0) {
         if (length (r$errors) > 0)
             rcmd$errors <- r$errors
         if (length (r$warnings) > 0)
