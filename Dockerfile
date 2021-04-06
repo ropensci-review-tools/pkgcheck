@@ -19,8 +19,11 @@ RUN echo "GITHUB_PAT='<my_github_token>'" > ~/.Renviron
 # netbase is critical:
 # https://github.com/commercialhaskell/stack/issues/2372#issuecomment-234113085
 # https://github.com/tensorflow/haskell/issues/182
+#
+# cargo is necessary for any rust pkgs
 
 RUN apt-get update -qq && apt-get install -y \
+  cargo \
   git-core \
   libgit2-dev \
   libssl-dev \
