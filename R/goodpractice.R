@@ -180,6 +180,8 @@ rcmd_report <- function (x) {
               "")
 
     rcmd <- x$rcmd
+    if (methods::is (rcmd, "try-error"))
+        return (rcmd)
 
     ret <- c (ret, dump_one_rcmd_type (rcmd, "errors"))
     ret <- c (ret, dump_one_rcmd_type (rcmd, "warnings"))
@@ -226,6 +228,11 @@ covr_report <- function (x,
         return (c ("### Test Coverage",
                    "",
                    "ERROR: Test Coverage Failed",
+                   ""))
+    if (methods::is (x$covr, "try-error"))
+        return (c ("### Test Coverage",
+                   "",
+                   paste0 (gp$covr),
                    ""))
 
     if ("covr_threshold" %in% names (control))
