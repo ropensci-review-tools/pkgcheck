@@ -33,7 +33,8 @@ get_gp_report <- function (u, local_repo) {
         # Advantage: avoids constant re-install for each check
         # Disadvantage: system bloat
         remotes::install_deps (pkgdir = local_repo,
-                               dependencies = TRUE)
+                               dependencies = TRUE,
+                               upgrade = "always")
 
         withr::with_temp_libpaths ({
             remotes::install_local (local_repo,
