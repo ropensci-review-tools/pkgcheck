@@ -293,14 +293,16 @@ cyclo_report <- function (x,
         cyc_thr <- 15
     }
 
+    cyc <- x$cyclocomp
+
     ret <- c ("### Cyclocomplexity",
               "")
 
-    if (methods::is (x$cyclocomp, "try-error")) {
+    if (methods::is (cyc, "try-error")) {
         ret <- c (ret, paste0 (cyc))
     } else {
 
-        cyc <- x$cyclocomp [x$cyclocomp$cyclocomp >= cyc_thr, ]
+        cyc <- cyc [cyc$cyclocomp >= cyc_thr, ]
 
         if (nrow (cyc) == 0) {
             ret <- NULL
