@@ -296,27 +296,30 @@ cyclo_report <- function (x,
     ret <- c ("### Cyclocomplexity",
               "")
 
-    cyc <- x$cyclocomp [x$cyclocomp$cyclocomp >= cyc_thr, ]
-
     if (methods::is (cyc, "try-error")) {
         ret <- c (ret, paste0 (cyc))
-    } else if (nrow (cyc) == 0) {
-        ret <- NULL
     } else {
 
-        msg <- "The following function"
-        if (nrow (cyc) > 1)
-            msg <- paste0 (msg, "s")
-        msg <- paste0 (msg, " have cyclocomplexity >= ", cyc_thr, ":")
-        ret <- c (ret,
-                  msg,
-                  "",
-                  "function | cyclocomplexity",
-                  "--- | ---")
+        cyc <- x$cyclocomp [x$cyclocomp$cyclocomp >= cyc_thr, ]
 
-        for (i in seq.int (nrow (cyc)))
+        if (nrow (cyc) == 0) {
+            ret <- NULL
+        } else {
+
+            msg <- "The following function"
+            if (nrow (cyc) > 1)
+                msg <- paste0 (msg, "s")
+            msg <- paste0 (msg, " have cyclocomplexity >= ", cyc_thr, ":")
             ret <- c (ret,
-                      paste0 (cyc$name [i], " | ", cyc$cyclocomp [i]))
+                      msg,
+                      "",
+                      "function | cyclocomplexity",
+                      "--- | ---")
+
+            for (i in seq.int (nrow (cyc)))
+                ret <- c (ret,
+                          paste0 (cyc$name [i], " | ", cyc$cyclocomp [i]))
+        }
     }
 
     return (ret)
