@@ -9,8 +9,8 @@
 #' @export
 get_gp_report <- function (u, local_repo) {
 
-    repo <- tail (strsplit (u, "/") [[1]], 1)
-    org <- tail (strsplit (u, "/") [[1]], 2) [1]
+    repo <- utils::tail (strsplit (u, "/") [[1]], 1)
+    org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
 
     cache_dir <- Sys.getenv ("cache_dir")
 

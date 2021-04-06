@@ -5,8 +5,8 @@
 #' @export
 dl_gh_repo <- function (u) {
 
-    repo <- tail (strsplit (u, "/") [[1]], 1)
-    org <- tail (strsplit (u, "/") [[1]], 2) [1]
+    repo <- utils::tail (strsplit (u, "/") [[1]], 1)
+    org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
 
     cache_dir <- Sys.getenv ("cache_dir")
     repo_updated <- pkgreport::check_cache (org, repo, cache_dir)
@@ -19,7 +19,7 @@ dl_gh_repo <- function (u) {
         u <- paste0 (u, "/archive/", branch, ".zip")
 
         f <- file.path (cache_dir, paste0 (repo, "-", branch, ".zip"))
-        download.file (u, destfile = f)
+        utils::download.file (u, destfile = f)
         return (f)
     }
 

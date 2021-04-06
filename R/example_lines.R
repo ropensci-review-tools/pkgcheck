@@ -28,8 +28,8 @@ num_ex_lines <- function (local_repo) {
                             fn <- roxygen2::block_get_tag_value (i, "name")
                             fn <- unique (c (fn, i$object$alias))
                             exs <- roxygen2::block_get_tag_value (i, "examples")
-                            exs <- capture.output (print (exs),
-                                                   type = "output")
+                            exs <- utils::capture.output (print (exs),
+                                                          type = "output")
                             ret <- cbind (fn, rep (length (exs), length (fn)))
                         }
                         return (ret)
