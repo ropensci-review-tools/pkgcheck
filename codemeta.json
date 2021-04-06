@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgreport",
   "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.082",
+  "version": "0.0.1.83",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.4 (2021-02-15)",
+  "runtimePlatform": "R version 4.0.5 (2021-03-31)",
   "author": [
     {
       "@type": "Person",
@@ -287,6 +287,6 @@
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgreport/blob/master/README.md",
-  "fileSize": "88.912KB",
+  "fileSize": "90.384KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

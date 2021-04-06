@@ -16,6 +16,10 @@ RUN add-apt-repository --yes "ppa:edd/r-4.0" \
 
 RUN echo "GITHUB_PAT='<my_github_token>'" > ~/.Renviron
 
+# netbase is critical:
+# https://github.com/commercialhaskell/stack/issues/2372#issuecomment-234113085
+# https://github.com/tensorflow/haskell/issues/182
+
 RUN apt-get update -qq && apt-get install -y \
   git-core \
   libgit2-dev \
@@ -24,6 +28,7 @@ RUN apt-get update -qq && apt-get install -y \
   libglpk-dev \
   libsodium-dev \
   libxml2-dev \
+  netbase \
   texlive-latex-base \
   texlive-fonts-recommended \
   texlive-latex-extra \
