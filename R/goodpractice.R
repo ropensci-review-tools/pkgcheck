@@ -296,7 +296,7 @@ cyclo_report <- function (x,
     ret <- c ("### Cyclocomplexity",
               "")
 
-    if (methods::is (cyc, "try-error")) {
+    if (methods::is (x$cyclocomp, "try-error")) {
         ret <- c (ret, paste0 (cyc))
     } else {
 
