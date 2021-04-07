@@ -9,12 +9,21 @@
 #' cached
 #' @param debug For background processes: If `TRUE`, dump output logs to
 #' `/tmp/out` and `/tmp/err`
+#' @param os Name of operating system, passed to \pkg{remotes} package to
+#' install system dependencies.
+#' @param os_release Name of operating system release, passed to \pkg{remotes}
+#' package to install system dependencies.
 #' @return Nothing; calling this starts a blocking process.
 #' @export
 serve_api <- function(
                       port = 8000L,
                       cache_dir = NULL,
-                      debug = FALSE) {
+                      debug = FALSE,
+                      os = "ubuntu",
+                      os_release = "20.04") {
+
+    Sys.setenv ("pkgreport_os" = os)
+    Sys.setenv ("pkgreport_os_release" = os_release)
 
     ip <- data.frame (utils::installed.packages())
 

@@ -4,7 +4,13 @@
 \alias{serve_api}
 \title{serve plumber API to report on packages}
 \usage{
-serve_api(port = 8000L, cache_dir = NULL, debug = FALSE)
+serve_api(
+  port = 8000L,
+  cache_dir = NULL,
+  debug = FALSE,
+  os = "ubuntu",
+  os_release = "20.04"
+)
 }
 \arguments{
 \item{port}{Port for API to be served on}
@@ -14,6 +20,12 @@ cached}
 
 \item{debug}{For background processes: If \code{TRUE}, dump output logs to
 \verb{/tmp/out} and \verb{/tmp/err}}
+
+\item{os}{Name of operating system, passed to \pkg{remotes} package to
+install system dependencies.}
+
+\item{os_release}{Name of operating system release, passed to \pkg{remotes}
+package to install system dependencies.}
 }
 \value{
 Nothing; calling this starts a blocking process.
