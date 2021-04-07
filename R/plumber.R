@@ -18,9 +18,9 @@ function (u) {
     visjs_file <- paste0 (repo, "_", oid, ".html")
 
     # pg_graph directly calls pkgapi::map_package which requires all system deps
-    pkgreport::pkgrep_install_deps (os = Sys.getenv ("os"),
-                                    os_release = Sys.getenv ("os_release"),
-                                    path = local_repo)
+    pkgreport::pkgrep_install_deps (local_repo = local_repo,
+                                    os = Sys.getenv ("os"),
+                                    os_release = Sys.getenv ("os_release"))
 
     g <- packgraph::pg_graph (local_repo,
                               vis_save = file.path (visjs_dir, visjs_file))
