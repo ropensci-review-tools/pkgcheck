@@ -28,6 +28,8 @@ RUN apt-get update -qq && apt-get install -y \
   libgit2-dev \
   libssl-dev \
   libcurl4-gnutls-dev \
+  libcurl4-openssl-dev \
+  curl \
   libglpk-dev \
   libsodium-dev \
   libxml2-dev \
