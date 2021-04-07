@@ -4,22 +4,13 @@
 \alias{serve_api}
 \title{serve plumber API to report on packages}
 \usage{
-serve_api(
-  port = 8000L,
-  cache_dir = NULL,
-  debug = FALSE,
-  os = "ubuntu",
-  os_release = "20.04"
-)
+serve_api(port = 8000L, cache_dir = NULL, os = "ubuntu", os_release = "20.04")
 }
 \arguments{
 \item{port}{Port for API to be served on}
 
 \item{cache_dir}{Directory where previously downloaded repositories are
 cached}
-
-\item{debug}{For background processes: If \code{TRUE}, dump output logs to
-\verb{/tmp/out} and \verb{/tmp/err}}
 
 \item{os}{Name of operating system, passed to \pkg{remotes} package to
 install system dependencies.}

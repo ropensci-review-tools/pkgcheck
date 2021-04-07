@@ -7,8 +7,6 @@
 #' @param port Port for API to be served on
 #' @param cache_dir Directory where previously downloaded repositories are
 #' cached
-#' @param debug For background processes: If `TRUE`, dump output logs to
-#' `/tmp/out` and `/tmp/err`
 #' @param os Name of operating system, passed to \pkg{remotes} package to
 #' install system dependencies.
 #' @param os_release Name of operating system release, passed to \pkg{remotes}
@@ -18,7 +16,6 @@
 serve_api <- function(
                       port = 8000L,
                       cache_dir = NULL,
-                      debug = FALSE,
                       os = "ubuntu",
                       os_release = "20.04") {
 
