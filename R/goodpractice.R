@@ -29,9 +29,9 @@ get_gp_report <- function (u, local_repo) {
         if (!file.exists (gp_cache_dir))
             dir.create (gp_cache_dir, recursive = TRUE)
 
-        pkgreport::pkgrep_install_deps (os = Sys.getenv ("os"),
-                                        os_release = Sys.getenv ("os_release"),
-                                        path = local_repo)
+        pkgreport::pkgrep_install_deps (local_repo = local_repo,
+                                        os = Sys.getenv ("os"),
+                                        os_release = Sys.getenv ("os_release"))
 
         withr::with_temp_libpaths ({
             remotes::install_local (local_repo,
