@@ -18,9 +18,10 @@ function (u) {
     visjs_file <- paste0 (repo, "_", oid, ".html")
 
     # pg_graph directly calls pkgapi::map_package which requires all system deps
-    pkgreport::pkgrep_install_deps (local_repo = local_repo,
-                                    os = Sys.getenv ("os"),
-                                    os_release = Sys.getenv ("os_release"))
+    pkgreport::pkgrep_install_deps (
+                        local_repo = local_repo,
+                        os = Sys.getenv ("pkgreport_os"),
+                        os_release = Sys.getenv ("pkgreport_os_release"))
 
     g <- packgraph::pg_graph (local_repo,
                               vis_save = file.path (visjs_dir, visjs_file))
@@ -53,6 +54,7 @@ function (u) {
     local_zip <- paste0 (local_repo, ".zip")
     flist <- unzip (local_zip, exdir = cache_dir)
 
+    # pkgrep_install_deps is called in get_gp_report
     gp <- pkgreport::get_gp_report (u, local_repo)
 
     message ("unlinking ", local_repo)
