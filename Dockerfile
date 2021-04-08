@@ -16,20 +16,91 @@ RUN add-apt-repository --yes "ppa:edd/r-4.0" \
 
 RUN echo "GITHUB_PAT='<my_github_token>'" > ~/.Renviron
 
+# Most but not all of the libraries from 
+# https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
+# but not imagemagick because v7 needs to be compiled with librsvg2, rather than
+# binary-installed
+RUN apt-get update -qq && apt-get install -y \
+    acl \
+    binutils \
+    bison \
+    brotli \
+    build-essential \
+    bzip2 \
+    coreutils \
+    curl \
+    dbus \
+    dnsutils \
+    dpkg \
+    fakeroot \
+    file \
+    flex \
+    fonts-noto-color-emoji \
+    ftp \
+    gnupg2 \
+    haveged \
+    iproute2 \
+    iputils-ping \
+    jq \
+    lib32z1 \
+    libc++-dev \
+    libc++abi-dev \
+    libcurl4 \
+    libgbm-dev \
+    libgconf-2-4 \
+    libgsl-dev \
+    libgtk-3-0 \
+    libsecret-1-dev \
+    libsqlite3-dev \
+    libunwind8 \
+    libxkbfile-dev \
+    libxss1 \
+    locales \
+    m4 \
+    mediainfo \
+    net-tools \
+    netcat \
+    openssh-client \
+    p7zip-full \
+    p7zip-rar \
+    parallel \
+    pass \
+    patchelf \
+    pkg-config \
+    pollinate \
+    python-is-python3 \
+    rpm \
+    rsync \
+    shellcheck \
+    sphinxsearch \
+    sqlite3 \
+    ssh \
+    swig \
+    telnet \
+    texinfo \
+    time \
+    tk \
+    tzdata \
+    unzip \
+    upx \
+    wget \
+    xorriso \
+    xvfb \
+    xz-utils \
+    zip \
+    zstd \
+    zsync
+
 # netbase is critical:
 # https://github.com/commercialhaskell/stack/issues/2372#issuecomment-234113085
 # https://github.com/tensorflow/haskell/issues/182
-#
-# cargo is necessary for any rust pkgs
-
-RUN apt-get update -qq && apt-get install -y \
+RUN apt-get install -y \
   cargo \
   git-core \
   libgit2-dev \
   libssl-dev \
   libcurl4-gnutls-dev \
-  libcurl4-openssl-dev \
-  curl \
+  #libcurl4-openssl-dev \
   libglpk-dev \
   libsodium-dev \
   libxml2-dev \
@@ -38,7 +109,6 @@ RUN apt-get update -qq && apt-get install -y \
   texlive-fonts-recommended \
   texlive-latex-extra \
   texlive-fonts-extra \
-  texinfo \
   pandoc \
   pandoc-citeproc
 
