@@ -10,6 +10,12 @@ function (u) {
     local_zip <- paste0 (local_repo, ".zip")
     flist <- unzip (local_zip, exdir = cache_dir)
 
+    # check and modify permissions of configure files
+    if (any (list.files (local_repo) == "configure")) {
+        cmd <- paste0 ("chmod +755 ", file.path (local_repo, "configure"))
+        system (cmd)
+    }
+
     visjs_dir <- file.path (cache_dir, "static") # in api.R
     repo <- tail (strsplit (u, "/") [[1]], 1)
     org <- tail (strsplit (u, "/") [[1]], 2) [1]
@@ -53,6 +59,12 @@ function (u) {
     local_repo <- pkgreport::dl_gh_repo (u)
     local_zip <- paste0 (local_repo, ".zip")
     flist <- unzip (local_zip, exdir = cache_dir)
+
+    # check and modify permissions of configure files
+    if (any (list.files (local_repo) == "configure")) {
+        cmd <- paste0 ("chmod +755 ", file.path (local_repo, "configure"))
+        system (cmd)
+    }
 
     # pkgrep_install_deps is called in get_gp_report
     gp <- pkgreport::get_gp_report (u, local_repo)
