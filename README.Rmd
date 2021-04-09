@@ -11,7 +11,7 @@ provided by the packages [`r-lib/pkgapi`](https://github.com/r-lib/pkgapi) and
 [`packgraph`](https://github.com/ropenscilabs/packgraph) which are not on CRAN and
 must first be installed with
 ```{r pkgapi, eval = FALSE}
-source("https://install-github.me/r-lib/pkgapi") # or `remotes::install_github()`
+remotes::install_github("r-lib/pkgapi")
 remotes::install_github("ropenscilabs/packgraph")
 ```
 
@@ -43,40 +43,7 @@ You may manually erase the contents of this subdirectory at any time at no risk.
 
 ## Usage
 
-Set up a local host at specified port, currently only configured to serve on `localhost`:
-
-```{r serve}
-port <- 8000
-ps <- serve_api(port = port)
-```
-The returned object, `ps`, is a [`processx`](https://github.com/r-lib/processx)
-object identifying a background R process hosting the local API. This process
-must be manually killed once finished, as demonstrated below.
-
-A report on the structure of a specified software repository can then be
-generated with the `pr_report()` function:
-
-```{r demo-fakey, eval = FALSE}
-u <- "https://github.com/ropensci/osmdata"
-res <- pr_report(u, port = port)
-res
-```
-```{r demo, echo = FALSE}
-# saveRDS (res, "res.Rds")
-readRDS("res.Rds")
-```
-
-
-Finally, kill the `processx` process hosting the local API:
-```{r kill}
-ps
-chk <- ps$kill()
-ps
-```
-
-### With Dockerfile
-
-The server associated with this package can only be built by cloning this
+The server associated with this package can be built by cloning this
 repository, and modifying the associated
 [`Dockerfile`](https://github.com/ropenscilabs/pkgreport/blob/master/Dockerfile)
 by inserting a GitHub token (as `GITHUB_PAT`). Then in the local directory
