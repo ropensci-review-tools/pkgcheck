@@ -1,5 +1,9 @@
 # plumber.R
 
+# --------------------------------------------------  
+# ------------------   pkgstats   ------------------   
+# --------------------------------------------------  
+
 #* Return report from package URL
 #* @param u The URL for a repo
 #* @post /report
@@ -50,6 +54,10 @@ function (u) {
     return (res)
 }
 
+# --------------------------------------------------  
+# ---------------------   gp   ---------------------
+# --------------------------------------------------  
+
 #* Return goodpractice results from a package URL
 #* @param u The URL for a repo
 #* @post /gp
@@ -83,6 +91,32 @@ function (u) {
 
     return (res)
 }
+
+# --------------------------------------------------  
+# --------------------   srr   ---------------------
+# --------------------------------------------------  
+
+#* Return srr results from a package URL
+#* @param u The URL for a repo
+#* @post /srr
+function (u) {
+
+    cache_dir <- Sys.getenv ("cache_dir")
+    local_repo <- pkgreport::dl_gh_repo (u)
+    local_zip <- paste0 (local_repo, ".zip")
+    flist <- unzip (local_zip, exdir = cache_dir)
+
+    res <- srr_stats_pre_submit (local_repo)
+
+    res <- paste0 (res, collapse = "\n")
+
+    return (res)
+}
+
+
+# --------------------------------------------------  
+# --------------   other endpoints   ---------------
+# --------------------------------------------------  
 
 #* @get /mean
 function (n = 10) {
