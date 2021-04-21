@@ -25,7 +25,7 @@ pkg_uses_roxygen2 <- function (path) {
 #'
 #' @inheritParams pkg_uses_roxygen2
 #' @export
-pkg_has_contrib_md <- function (path, check_lifecycle = TRUE) {
+pkg_has_contrib_md <- function (path) {
 
     flist <- list.files (path, full.names = TRUE)
 

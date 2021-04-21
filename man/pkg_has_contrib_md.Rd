@@ -5,7 +5,7 @@
 \title{Check whether package has 'contributing.md', as well as whether it has a
 life cycle statement}
 \usage{
-pkg_has_contrib_md(path, check_lifecycle = TRUE)
+pkg_has_contrib_md(path)
 }
 \arguments{
 \item{path}{Path to local source repository}
