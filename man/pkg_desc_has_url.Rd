@@ -9,6 +9,11 @@ pkg_desc_has_url(path)
 \arguments{
 \item{path}{Path to local source repository}
 }
+\value{
+Vector of two logical values, the first one identifying whether a
+package's 'DESCRIPTION' file has a 'URL' field or not; the second whether
+there is a 'BugReports' field.
+}
 \description{
 Check whether package 'DESCRIPTION' file has URL + BugReports fields
 }

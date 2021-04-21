@@ -10,6 +10,11 @@ pkg_has_contrib_md(path)
 \arguments{
 \item{path}{Path to local source repository}
 }
+\value{
+Vector of two logical values, the first one identifying whether a
+package has a 'contributing.md' file or not; the second whether this file has
+a life cycle statement
+}
 \description{
 Check whether package has 'contributing.md', as well as whether it has a
 life cycle statement
