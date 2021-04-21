@@ -44,3 +44,17 @@ pkg_has_contrib_md <- function (path) {
     return (c (has_contrib = length (f) == 1L,
                has_lifecycle = has_lifecycle))
 }
+
+
+#' Check whether package 'DESCRIPTION' file has URL + BugReports fields
+#'
+#' @inheritParams pkg_uses_roxygen2
+#' @export
+pkg_desc_has_url <- function (path) {
+
+    desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
+
+    return (c (url = "URL" %in% names (desc),
+               bugs = "BugReports" %in% names (desc)))
+
+}
