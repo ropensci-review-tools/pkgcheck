@@ -19,3 +19,28 @@ pkg_uses_roxygen2 <- function (path) {
 
     return (all (chk))
 }
+
+#' Check whether package has 'contributing.md', as well as whether it has a
+#' life cycle statement
+#'
+#' @inheritParams pkg_uses_roxygen2
+#' @export
+pkg_has_contrib_md <- function (path, check_lifecycle = TRUE) {
+
+    flist <- list.files (path, full.names = TRUE)
+
+    f <- grep (paste0 (.Platform$file.sep, "contributing\\.md$"),
+               flist,
+               ignore.case = TRUE)
+
+    has_lifecycle <- FALSE
+    if (length (f) == 1L) {
+
+        contrib <- readLines (flist [f], encoding = "UTF-8") 
+
+        has_lifecycle <- any (grepl ("life\\s?cycle", contrib, ignore.case = TRUE))
+    }
+
+    return (c (has_contrib = length (f) == 1L,
+               has_lifecycle = has_lifecycle))
+}
