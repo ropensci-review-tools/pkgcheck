@@ -1,6 +1,6 @@
 Package: pkgreport
 Title: Plumber API to report package structure and function
-Version: 0.0.1.106
+Version: 0.0.1.107
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -38,6 +38,7 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes:
+    mpadge/pkgstats,
     r-lib/pkgapi,
     ropenscilabs/packgraph,
     ropenscilabs/srr

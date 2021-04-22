@@ -78,3 +78,52 @@ all_pkg_fns_have_exs <- function (path) {
 
     return (has_ex)
 }
+
+
+#' CI results for GitHub only
+#' @inheritParams pkg_uses_roxygen2
+#' @return A 'data.frame' with one row for each GitHub workflow, and columns for
+#' name, the 'conclusion' status, the git 'sha', and the date.
+#' @export
+ci_results <- function (path) {
+
+    d <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
+    if (!"URL" %in% names (d))
+        return ("Error: Description has no URL")
+
+    url <- strsplit (d$URL, "\\/") [[1]]
+    org <- utils::tail (url, 2) [1]
+    repo <- utils::tail (url, 1)
+
+    url <- paste0 ("https://api.github.com/repos/",
+                   org,
+                   "/",
+                   repo,
+                   "/actions/runs")
+
+    runs <- httr::GET (url) %>% httr::content ()
+
+    if (runs$total_count == 0)
+        return (NULL)
+
+    dat <- lapply (runs$workflow_runs, function (i)
+                   data.frame (name = i$name,
+                               status = i$status,
+                               conclusion = i$conclusion,
+                               sha = i$head_sha,
+                               time = i$created_at))
+    dat <- do.call (rbind, dat)
+    dat$time <- strptime (dat$time, "%Y-%m-%dT%H:%M:%SZ")
+    dat$time_dbl <- as.double (dat$time)
+    # non-dply group_by %>% summarise:
+    dat <- lapply (split (dat, f = as.factor (dat$name)),
+                   function (i)
+                       i [which.max (i$time_dbl), ])
+    dat <- do.call (rbind, dat)
+
+    dat$sha <- substring (dat$sha, 1, 6)
+    dat$date <- strftime (dat$time, "%Y-%m-%d")
+    rownames (dat) <- dat$time_dbl <- dat$time <- dat$status <- NULL
+
+    return (dat)
+}
