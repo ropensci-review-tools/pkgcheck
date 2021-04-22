@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgreport",
   "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.107",
+  "version": "0.0.1.108",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -215,6 +215,12 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "pkgstats",
+      "name": "pkgstats",
+      "sameAs": "https://github.com/mpadge/pkgstats"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "plumber",
       "name": "plumber",
       "provider": {
@@ -263,6 +269,12 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "srr",
+      "name": "srr",
+      "sameAs": "https://github.com/ropenscilabs/srr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "tictoc",
       "name": "tictoc",
       "provider": {
@@ -287,6 +299,6 @@
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgreport/blob/master/README.md",
-  "fileSize": "76.021KB",
+  "fileSize": "80.087KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

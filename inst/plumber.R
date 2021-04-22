@@ -1,8 +1,8 @@
 # plumber.R
 
-# --------------------------------------------------  
-# ------------------   pkgstats   ------------------   
-# --------------------------------------------------  
+# --------------------------------------------------
+# ------------------   pkgstats   ------------------
+# --------------------------------------------------
 
 #* Return report from package URL
 #* @param u The URL for a repo
@@ -54,9 +54,9 @@ function (u) {
     return (res)
 }
 
-# --------------------------------------------------  
+# --------------------------------------------------
 # ---------------------   gp   ---------------------
-# --------------------------------------------------  
+# --------------------------------------------------
 
 #* Return goodpractice results from a package URL
 #* @param u The URL for a repo
@@ -92,9 +92,100 @@ function (u) {
     return (res)
 }
 
-# --------------------------------------------------  
+# --------------------------------------------------
+# -------------------   check   --------------------
+# --------------------------------------------------
+
+#* Return srr results from a package URL
+#* @param u The URL for a repo
+#* @post /check
+function (u) {
+
+    cache_dir <- Sys.getenv ("cache_dir")
+    local_repo <- pkgreport::dl_gh_repo (u)
+    local_zip <- paste0 (local_repo, ".zip")
+    flist <- unzip (local_zip, exdir = cache_dir)
+
+    tck <- ":heavy_check_mark:"
+    crs <- ":heave_multiplication_x"
+
+    uses_roxy <- ifelse (pkgreport::pkg_uses_roxygen2 (local_repo),
+                         paste0 ("- ", tck, " Package uses 'roxygen2'"),
+                         paste0 ("- ", crs, " Package does not use 'roxygen2'"))
+
+    has_contrib <- pkgreport::pkg_has_contrib_md (local_repo)
+    has_lifecycle <- ifelse (has_contrib [2],
+                             paste0 ("- ", tck,
+                                     " Package has a life cycle statement"),
+                             paste0 ("- ", crs,
+                                     " Package does not have a ",
+                                     "life cycle statement"))
+    has_contrib <- ifelse (has_contrib [1],
+                             paste0 ("- ", tck,
+                                     " Package has a 'contributing.md' file"),
+                             paste0 ("- ", crs,
+                                     " Package does not have a ",
+                                     "'contributing.md' file"))
+
+    fn_exs <- pkgreport::all_pkg_fns_have_exs (local_repo)
+    fn_exs <- ifelse (all (fn_exs),
+                      paste0 ("- ", tck,
+                              " All functions have examples"),
+                      paste0 ("- ", crs,
+                              " These funtions do not have examples: [",
+                              paste0 (names (fn_exs) [which (!fn_exs)])))
+
+    s <- pkgstats::pkgstats (local_repo)
+
+    has_url <- ifelse (!is.na (s$desc$urls),
+                       paste0 ("- ", tck,
+                               " Package 'DESCRIPTION' has a URL field"),
+                       paste0 ("- ", crs,
+                               " Package 'DESCRIPTION' does not ",
+                               "have a URL field"))
+    has_bugs <- ifelse (!is.na (s$desc$bugs),
+                       paste0 ("- ", tck,
+                               " Package 'DESCRIPTION' has a BugReports field"),
+                       paste0 ("- ", crs,
+                               " Package 'DESCRIPTION' does not ",
+                               "have a BugReports field"))
+    lic <- s$desc$license
+    pkg_ver <- paste0 (s$desc$package, "_", s$desc$version)
+
+    ci <- pkgreport::ci_results (local_repo)
+    ci_txt <- ifelse (is.null (ci),
+                      paste0 ("- ", crs,
+                              " Package has no continuous integration checks"),
+                      paste0 ("- ", tck,
+                              " Package has continuous integration checks"))
+
+    res <- c (paste0 ("## Checks for ", s$desc$package,
+                      " (v", s$desc$version, ")"),
+              "",
+              uses_roxy,
+              has_contrib,
+              fn_exs,
+              has_url,
+              has_bugs,
+              ci_txt,
+              "",
+              paste0 ("Package License: ", lic),
+              "")
+
+    if (!is.null (ci)) {
+
+        res <- c (res,
+                  "**Continous Integration Results**",
+                  "",
+                  knitr::kable (ci))
+    }
+
+    return (paste0 (res, collapse = "\n"))
+}
+
+# --------------------------------------------------
 # --------------------   srr   ---------------------
-# --------------------------------------------------  
+# --------------------------------------------------
 
 #* Return srr results from a package URL
 #* @param u The URL for a repo
@@ -114,9 +205,9 @@ function (u) {
 }
 
 
-# --------------------------------------------------  
+# --------------------------------------------------
 # --------------   other endpoints   ---------------
-# --------------------------------------------------  
+# --------------------------------------------------
 
 #* @get /mean
 function (n = 10) {
