@@ -49,22 +49,6 @@ pkg_has_contrib_md <- function (path) {
 }
 
 
-#' Check whether package 'DESCRIPTION' file has URL + BugReports fields
-#'
-#' @inheritParams pkg_uses_roxygen2
-#' @return Vector of two logical values, the first one identifying whether a
-#' package's 'DESCRIPTION' file has a 'URL' field or not; the second whether
-#' there is a 'BugReports' field.
-#' @export
-pkg_desc_has_url <- function (path) {
-
-    desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
-
-    return (c (url = "URL" %in% names (desc),
-               bugs = "BugReports" %in% names (desc)))
-
-}
-
 get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools")
 
 
