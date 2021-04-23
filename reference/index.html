@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgreport</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.110</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.111</span>
       </span>
     </div>
 
@@ -188,7 +188,10 @@
         </td>
         <td><p>Check that left-assignment operators are used consistently throughout a
 package. "LEFT_ASSIGN" tokens can also be <code>:=</code>, so these must also be
-tallied, but are ignored.</p></td>
+tallied, but are ignored.
+Left-assign operators are: "=", "&lt;-", "&lt;&lt;-", ":=".
+https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3283-L3290
+https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3346-L3349</p></td>
       </tr><tr>
         
         <td>
