@@ -39,9 +39,11 @@ pkg_has_contrib_md <- function (path) {
     has_lifecycle <- FALSE
     if (length (f) == 1L) {
 
-        contrib <- readLines (flist [f], encoding = "UTF-8") 
+        contrib <- readLines (flist [f], encoding = "UTF-8")
 
-        has_lifecycle <- any (grepl ("life\\s?cycle", contrib, ignore.case = TRUE))
+        has_lifecycle <- any (grepl ("life\\s?cycle",
+                                     contrib,
+                                     ignore.case = TRUE))
     }
 
     return (c (has_contrib = length (f) == 1L,
@@ -49,7 +51,7 @@ pkg_has_contrib_md <- function (path) {
 }
 
 
-get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools")
+get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
 
 
 #' Check whether all functions have examples
@@ -72,9 +74,10 @@ all_pkg_fns_have_exs <- function (path) {
                       logical (1),
                       USE.NAMES = TRUE)
 
-    names (has_ex) <- vapply (names (has_ex), function (i)
-                              utils::tail (strsplit (i, .Platform$file.sep) [[1]], 1),
-                              character (1))
+    names (has_ex) <-
+        vapply (names (has_ex), function (i)
+                utils::tail (strsplit (i, .Platform$file.sep) [[1]], 1),
+                character (1))
 
     return (has_ex)
 }
