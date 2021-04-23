@@ -134,7 +134,7 @@ ci_results <- function (path) {
 #' Check that left-assignment operators are used consistently throughout a
 #' package. "LEFT_ASSIGN" tokens can also be `:=`, so these must also be
 #' tallied, but are ignored.
-#' Left-assign operators are: ["=", "<-", "<<-", ":="].
+#' Left-assign operators are: ("=", "<-", "<<-", ":=").
 #' https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3283-L3290
 #' https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3346-L3349
 #' @inheritParams pkg_uses_roxygen2
