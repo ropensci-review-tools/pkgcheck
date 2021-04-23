@@ -158,17 +158,20 @@ left_assign <- function (path) {
                                           error = function (e) NULL)
                            if (is.null (p))
                                return (NULL)
-                           assigns <- table (p$text [which (p$token ==
-                                                            "LEFT_ASSIGN")])
-                           # sort order: ":=", "<-", "<<-", "="
-                           if (!":=" %in% names (assigns))
-                               assigns <- c (":=" = 0L, assigns)
-                           if (!"<-" %in% names (assigns))
-                               assigns <- c ("<-" = 0L, assigns)
-                           if (!"<<-" %in% names (assigns))
-                               assigns <- c ("<<-" = 0L, assigns)
-                           if (!"=" %in% names (assigns))
-                               assigns <- c (assigns, "=" = 0L)
+                           la <- table (p$text [which (p$token ==
+                                                       "LEFT_ASSIGN")])
+                           assigns <- c (":=" = 0L,
+                                         "<-" = 0L,
+                                         "<<-" = 0L,
+                                         "=" = 0L)
+                           if (":=" %in% names (la))
+                               assigns [1] <- la [which (names (la) == ":=")]
+                           if ("<-" %in% names (la))
+                               assigns [2] <- la [which (names (la) == "<-")]
+                           if ("<<-" %in% names (la))
+                               assigns [3] <- la [which (names (la) == "<<-")]
+                           if ("=" %in% names (la))
+                               assigns [4] <- la [which (names (la) == "=")]
 
                            return (assigns)
                          },
