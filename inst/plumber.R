@@ -107,7 +107,7 @@ function (u) {
     flist <- unzip (local_zip, exdir = cache_dir)
 
     tck <- ":heavy_check_mark:"
-    crs <- ":heave_multiplication_x"
+    crs <- ":heavy_multiplication_x"
 
     uses_roxy <- ifelse (pkgreport::pkg_uses_roxygen2 (local_repo),
                          paste0 ("- ", tck, " Package uses 'roxygen2'"),
@@ -134,6 +134,21 @@ function (u) {
                       paste0 ("- ", crs,
                               " These funtions do not have examples: [",
                               paste0 (names (fn_exs) [which (!fn_exs)])))
+
+    la <- left_assign (local_repo) # tallies of "<-", "<<-", "="
+    la_out <- NULL
+    if (la [names (la) == "<<-"] > 0) {
+        la_out <- paste0 ("- ", crs,
+                          " Package uses global assignment operator ('<<-')")
+    }
+    la <- la [which (names (la) != "<<-")] # ohly "<-", "="
+    if (length (which (la == 0)) == 0) {
+        la_out <- c (la_out,
+                     paste0 ("- ", crs,
+                             " Package uses inconsistent assignment operators (",
+                             la [names (la) == "<-"], " '<-' and ",
+                             la [names (la) == "="], " '=')"))
+    }
 
     s <- pkgstats::pkgstats (local_repo)
 
@@ -165,6 +180,7 @@ function (u) {
               uses_roxy,
               has_contrib,
               fn_exs,
+              la_out,
               has_url,
               has_bugs,
               ci_txt,
