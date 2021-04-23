@@ -133,7 +133,8 @@ function (u) {
                               " All functions have examples"),
                       paste0 ("- ", crs,
                               " These funtions do not have examples: [",
-                              paste0 (names (fn_exs) [which (!fn_exs)])))
+                              paste0 (names (fn_exs) [which (!fn_exs)]),
+                              "]"))
 
     la <- left_assign (local_repo) # tallies of "<-", "<<-", "="
     la_out <- NULL
