@@ -213,16 +213,24 @@ function (u) {
                       paste0 ("- ", tck,
                               " Package has continuous integration checks"))
 
+    eic_chks <- c (uses_roxy,
+               has_contrib,
+               fn_exs,
+               la_out,
+               has_url,
+               has_bugs,
+               ci_txt)
+    if (any (grepl (crs, eic_chks))) {
+        eic_chks <- c (eic_chks,
+                       "",
+                       paste0 ("**Important:** All failing checks above ",
+                               "must be addressed prior to proceeding"))
+    }
+
     res <- c (paste0 ("## Checks for ", s$desc$package,
                       " (v", s$desc$version, ")"),
               "",
-              uses_roxy,
-              has_contrib,
-              fn_exs,
-              la_out,
-              has_url,
-              has_bugs,
-              ci_txt,
+              eic_chks,
               "",
               paste0 ("Package License: ", lic),
               "")
@@ -266,6 +274,12 @@ function (u) {
     flist <- unzip (local_zip, exdir = cache_dir)
 
     res <- srr::srr_stats_pre_submit (local_repo, quiet = TRUE)
+
+    if (any (grepl ("can not be submitted", res)))
+        res <- c (res,
+                  "",
+                  paste0 ("**Important:** The preceding 'srr' issues ",
+                          "must be addressed prior to proceeding"))
 
     res <- paste0 (res, collapse = "\n")
 
