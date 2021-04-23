@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>process 'goodpractice' report — process_gp • pkgreport</title>
+<title>Statistics on all CRAN packages from 'pkgstats' — pkgstats_data • pkgreport</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="process 'goodpractice' report — process_gp" />
-<meta property="og:description" content="Extract various components from 'goodpractice' report and convert into format
-to be returned by endpoint" />
+<meta property="og:title" content="Statistics on all CRAN packages from 'pkgstats' — pkgstats_data" />
+<meta property="og:description" content="Statistics on all CRAN packages from 'pkgstats'" />
 
 
 
@@ -112,41 +111,21 @@ to be returned by endpoint" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>process 'goodpractice' report</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/goodpractice.R'><code>R/goodpractice.R</code></a></small>
-    <div class="hidden name"><code>process_gp.Rd</code></div>
+    <h1>Statistics on all CRAN packages from 'pkgstats'</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/pkgreport-package.R'><code>R/pkgreport-package.R</code></a></small>
+    <div class="hidden name"><code>pkgstats_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract various components from 'goodpractice' report and convert into format
-to be returned by endpoint</p>
+    <p>Statistics on all CRAN packages from 'pkgstats'</p>
     </div>
 
-    <pre class="usage"><span class='fu'>process_gp</span><span class='op'>(</span>
-  <span class='va'>gp</span>,
-  control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cyclocomp_threshold <span class='op'>=</span> <span class='fl'>15</span>, covr_threshold <span class='op'>=</span> <span class='fl'>70</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>pkgstats_data</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>gp</th>
-      <td><p>A 'goodpractice' object as returned by <span class="pkg">goodpractice</span></p></td>
-    </tr>
-    <tr>
-      <th>control</th>
-      <td><p>A named list of parameters potentially including
-<code>cyclocomp_threshold</code>, <code>covr_threshold</code>, and <code>covr_digits</code>, where
-reports are generated for cyclocomplexity values above threshold, and
-coverage values below threshold (given as percentage). <code>digits</code> controls the
-number of digits printed in coverage reports.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Markdown-formatted report</p>
+    <p>An object of class <code>data.frame</code> with 14834 rows and 81 columns.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
