@@ -107,7 +107,7 @@ function (u) {
     flist <- unzip (local_zip, exdir = cache_dir)
 
     tck <- ":heavy_check_mark:"
-    crs <- ":heavy_multiplication_x"
+    crs <- ":heavy_multiplication_x:"
 
     uses_roxy <- ifelse (pkgreport::pkg_uses_roxygen2 (local_repo),
                          paste0 ("- ", tck, " Package uses 'roxygen2'"),
@@ -167,6 +167,41 @@ function (u) {
     lic <- s$desc$license
     pkg_ver <- paste0 (s$desc$package, "_", s$desc$version)
 
+    # stats_checks against all CRAN pkgs
+    s_summ <- pkgstats::pkgstats_summary (s)
+    stat_chks <- pkgreport::stats_checks (s_summ)
+    stats_rep <- NULL
+    if (any (grepl ("^loc_", rownames (stat_chks)))) {
+
+        # loc in directories:
+        index <- grep ("^loc\\_(r|s|v|i|t)",
+                       rownames (stat_chks),
+                       ignore.case = TRUE)
+        loc_chks <- rownames (stat_chks) [index]
+
+        for (i in loc_chks) {
+            stats_rep <- c (stats_rep,
+                            paste0 ("- ", crs,
+                                    " Package has very few lines of code in the ",
+                                    gsub ("^loc\\_", "", i),
+                                    " directory"))
+
+        }
+
+        # loc per function:
+        index <- grep ("loc\\_per\\_", rownames (stat_chks),
+                       ignore.case = TRUE)
+        loc_chks <- gsub ("\\_mn$|\\_md$", "", rownames (stat_chks) [index])
+        loc_chks <- loc_chks [which (!grepl ("\\_not\\_exp$", loc_chks))]
+        for (i in loc_chks) {
+            stats_rep <- c (stats_rep,
+                            paste0 ("- ", crs,
+                                    " Package has very few lines of code per function in the ",
+                                    gsub ("^loc\\_per\\_fn\\_", "", i),
+                                    " directory"))
+        }
+    }
+
     ci <- pkgreport::ci_results (local_repo)
     ci_txt <- ifelse (is.null (ci),
                       paste0 ("- ", crs,
@@ -183,6 +218,7 @@ function (u) {
               la_out,
               has_url,
               has_bugs,
+              stats_rep,
               ci_txt,
               "",
               paste0 ("Package License: ", lic),
