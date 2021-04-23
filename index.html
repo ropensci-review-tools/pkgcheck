@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgreport</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.108</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.110</span>
       </span>
     </div>
 
@@ -64,7 +64,7 @@
   <div class="contents col-md-9">
 <div id="pkgreport" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#pkgreport" class="anchor"></a>pkgreport</h1></div>
+<a href="#pkgreport" class="anchor" aria-hidden="true"></a>pkgreport</h1></div>
 <!-- badges: start -->
 
 <p>Plumber API to report on package structure and function. Uses functionality provided by the packages <a href="https://github.com/r-lib/pkgapi" class="external-link"><code>r-lib/pkgapi</code></a> and <a href="https://github.com/ropenscilabs/packgraph" class="external-link"><code>packgraph</code></a> which are not on CRAN and must first be installed with</p>
@@ -84,7 +84,7 @@
 <p>You may manually erase the contents of this subdirectory at any time at no risk.</p>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<a href="#usage" class="anchor" aria-hidden="true"></a>Usage</h2>
 <p>The server associated with this package can be built by cloning this repository, and modifying the associated <a href="https://github.com/ropenscilabs/pkgreport/blob/master/Dockerfile" class="external-link"><code>Dockerfile</code></a> by inserting a GitHub token (as <code>GITHUB_PAT</code>). Then in the local directory holding a clone of this repo:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>docker build <span class="op">-</span>t pkgreport .</span>
 <span id="cb5-2"><a href="#cb5-2"></a>docker run <span class="op">-</span>it <span class="op">-</span>p <span class="dv">8000</span><span class="op">:</span><span class="dv">8000</span> <span class="op">--</span>rm pkgreport</span></code></pre></div>
