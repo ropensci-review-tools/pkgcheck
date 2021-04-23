@@ -265,7 +265,7 @@ function (u) {
     local_zip <- paste0 (local_repo, ".zip")
     flist <- unzip (local_zip, exdir = cache_dir)
 
-    res <- srr_stats_pre_submit (local_repo)
+    res <- srr::srr_stats_pre_submit (local_repo)
 
     res <- paste0 (res, collapse = "\n")
 
