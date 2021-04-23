@@ -232,7 +232,7 @@ covr_report <- function (x,
     if (methods::is (x$covr, "try-error"))
         return (c ("### Test Coverage",
                    "",
-                   paste0 (gp$covr),
+                   paste0 (x$covr),
                    ""))
 
     if ("covr_threshold" %in% names (control))
