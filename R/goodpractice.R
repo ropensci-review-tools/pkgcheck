@@ -159,12 +159,18 @@ convert_gp_components <- function (x,
 
     rcmd <- rcmd_report (x)
     covr <- covr_report (x, control)
+    if (length (covr) <= 3) {
+        pkg_cov <- covr
+        covr <- NULL
+    }
     cycl <- cyclo_report (x, control)
 
     res <- c (rcmd, covr, cycl)
 
     if (length (res) == 0)
-        res <- "goodpractice found no issues; this package is awesome!"
+        res <- c (pkg_cov,
+                  "",
+                  "goodpractice found no issues; this package is awesome!")
 
     return (res)
 }
@@ -248,9 +254,6 @@ covr_report <- function (x,
     pkg_line <- which (x$covr$source == "package")
     pkg_cov <- x$covr$percent [pkg_line]
 
-    if (pkg_cov >= covr_threshold)
-        return (NULL)
-
     covr <- x$covr [-pkg_line, ]
 
     covr <- covr [covr$percent < covr_threshold, ]
@@ -258,6 +261,9 @@ covr_report <- function (x,
     res <- c ("### Test Coverage",
               "",
               paste0 ("Package: ", round (pkg_cov, digits = digits)))
+
+    if (pkg_cov >= covr_threshold)
+        return (res)
 
     if (nrow (covr) > 0) {
         res <- c (res,
