@@ -4,7 +4,10 @@
 \alias{left_assign}
 \title{Check that left-assignment operators are used consistently throughout a
 package. "LEFT_ASSIGN" tokens can also be \verb{:=}, so these must also be
-tallied, but are ignored.}
+tallied, but are ignored.
+Left-assign operators are: \link{"=", "<-", "<<-", ":="}.
+https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3283-L3290
+https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3346-L3349}
 \usage{
 left_assign(path)
 }
@@ -18,4 +21,7 @@ Named vector of 2 values tallying instances of usage of \verb{<-} and \code{=}.
 Check that left-assignment operators are used consistently throughout a
 package. "LEFT_ASSIGN" tokens can also be \verb{:=}, so these must also be
 tallied, but are ignored.
+Left-assign operators are: \link{"=", "<-", "<<-", ":="}.
+https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3283-L3290
+https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3346-L3349
 }

@@ -134,6 +134,9 @@ ci_results <- function (path) {
 #' Check that left-assignment operators are used consistently throughout a
 #' package. "LEFT_ASSIGN" tokens can also be `:=`, so these must also be
 #' tallied, but are ignored.
+#' Left-assign operators are: ["=", "<-", "<<-", ":="].
+#' https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3283-L3290
+#' https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3346-L3349
 #' @inheritParams pkg_uses_roxygen2
 #' @return Named vector of 2 values tallying instances of usage of `<-` and `=`.
 #' @export
@@ -150,24 +153,30 @@ left_assign <- function (path) {
                          pattern = "\\.q$|\\.r$|\\.s$",
                          ignore.case = TRUE)
 
-    assigns <- lapply (flist, function (i) {
+    assigns <- vapply (flist, function (i) {
                            p <- tryCatch (utils::getParseData (parse (i)),
                                           error = function (e) NULL)
                            if (is.null (p))
                                return (NULL)
                            assigns <- table (p$text [which (p$token ==
                                                             "LEFT_ASSIGN")])
+                           # sort order: ":=", "<-", "<<-", "="
                            if (!":=" %in% names (assigns))
                                assigns <- c (":=" = 0L, assigns)
-                           if (!"=" %in% names (assigns))
-                               assigns <- c (assigns, "=" = 0L)
                            if (!"<-" %in% names (assigns))
                                assigns <- c ("<-" = 0L, assigns)
+                           if (!"<<-" %in% names (assigns))
+                               assigns <- c ("<<-" = 0L, assigns)
+                           if (!"=" %in% names (assigns))
+                               assigns <- c (assigns, "=" = 0L)
 
                            return (assigns)
-                         })
-
-    assigns <- colSums (do.call (rbind, assigns)) [2:3] # `<-`, `=`
+                         },
+                         integer (4),
+                         USE.NAMES = TRUE)
+    assigns <- rowSums (assigns)
+    # rm `:=`:
+    assigns <- assigns [which (!names (assigns) == ":=")]
 
     return (assigns)
 }
