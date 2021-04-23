@@ -130,3 +130,44 @@ ci_results <- function (path) {
 
     return (dat)
 }
+
+#' Check that left-assignment operators are used consistently throughout a
+#' package. "LEFT_ASSIGN" tokens can also be `:=`, so these must also be
+#' tallied, but are ignored.
+#' @inheritParams pkg_uses_roxygen2
+#' @return Named vector of 2 values tallying instances of usage of `<-` and `=`.
+#' @export
+left_assign <- function (path) {
+
+    rdir <- file.path (path, "R")
+    if (!file.exists (rdir))
+        return (c ("<-" = 0L,
+                   "=" = 0L))
+
+    rdir <- normalizePath (rdir)
+    flist <- list.files (rdir,
+                         full.names = TRUE,
+                         pattern = "\\.q$|\\.r$|\\.s$",
+                         ignore.case = TRUE)
+
+    assigns <- lapply (flist, function (i) {
+                           p <- tryCatch (utils::getParseData (parse (i)),
+                                          error = function (e) NULL)
+                           if (is.null (p))
+                               return (NULL)
+                           assigns <- table (p$text [which (p$token ==
+                                                            "LEFT_ASSIGN")])
+                           if (!":=" %in% names (assigns))
+                               assigns <- c (":=" = 0L, assigns)
+                           if (!"=" %in% names (assigns))
+                               assigns <- c (assigns, "=" = 0L)
+                           if (!"<-" %in% names (assigns))
+                               assigns <- c ("<-" = 0L, assigns)
+
+                           return (assigns)
+                         })
+
+    assigns <- colSums (do.call (rbind, assigns)) [2:3] # `<-`, `=`
+
+    return (assigns)
+}
