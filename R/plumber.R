@@ -145,7 +145,8 @@ function (u) {
     if (length (which (la == 0)) == 0) {
         la_out <- c (la_out,
                      paste0 ("- ", crs,
-                             " Package uses inconsistent assignment operators (",
+                             " Package uses inconsistent ",
+                             "assignment operators (",
                              la [names (la) == "<-"], " '<-' and ",
                              la [names (la) == "="], " '=')"))
     }
@@ -182,7 +183,8 @@ function (u) {
         for (i in loc_chks) {
             stats_rep <- c (stats_rep,
                             paste0 ("- ", crs,
-                                    " Package has very few lines of code in the ",
+                                    " Package has very few ",
+                                    "lines of code in the ",
                                     gsub ("^loc\\_", "", i),
                                     " directory"))
 
@@ -196,7 +198,8 @@ function (u) {
         for (i in loc_chks) {
             stats_rep <- c (stats_rep,
                             paste0 ("- ", crs,
-                                    " Package has very few lines of code per function in the ",
+                                    " Package has very few lines of ",
+                                    "code per function in the ",
                                     gsub ("^loc\\_per\\_fn\\_", "", i),
                                     " directory"))
         }
@@ -218,11 +221,23 @@ function (u) {
               la_out,
               has_url,
               has_bugs,
-              stats_rep,
               ci_txt,
               "",
               paste0 ("Package License: ", lic),
               "")
+
+    if (!is.null (stats_rep)) {
+
+        res <- c (res,
+                  "### Noteworthy Features",
+                  "",
+                  paste0 ("The package has the following noteworthy features ",
+                          "in comparison to statistical properties of ",
+                          "CRAN packages:"),
+                  "",
+                  stats_rep,
+                  "")
+    }
 
     if (!is.null (ci)) {
 
