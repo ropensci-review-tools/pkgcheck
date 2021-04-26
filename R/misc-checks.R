@@ -242,7 +242,7 @@ left_assign <- function (path) {
                            p <- tryCatch (utils::getParseData (parse (i)),
                                           error = function (e) NULL)
                            if (is.null (p))
-                               return (NULL)
+                               return (rep (0L, 4))
                            la <- table (p$text [which (p$token ==
                                                        "LEFT_ASSIGN")])
                            assigns <- c (":=" = 0L,
