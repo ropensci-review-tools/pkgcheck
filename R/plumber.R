@@ -152,7 +152,7 @@ function (u) {
                              la [names (la) == "="], " '=')"))
     }
 
-    s <- pkgstats::pkgstats (local_repo)
+    s <- suppressWarnings (pkgstats::pkgstats (local_repo))
 
     has_url <- ifelse (!is.na (s$desc$urls),
                        paste0 ("- ", tck,

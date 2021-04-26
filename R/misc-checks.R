@@ -193,6 +193,9 @@ ci_badges <- function (u) {
                            "/",
                            repo,
                            "/actions")
+        } else if (p == "travis") {
+            
+            p_u <- gsub ("\\.svg$", "", badges)
         }
         badges [index] <- paste0 ("[![",
                                   p,
