@@ -172,36 +172,38 @@ function (u) {
     # stats_checks against all CRAN pkgs
     s_summ <- pkgstats::pkgstats_summary (s)
     stat_chks <- pkgreport::stats_checks (s_summ)
-    stats_rep <- NULL
-    if (any (grepl ("^loc_", rownames (stat_chks)))) {
+    is_noteworthy <- any (stat_chks$noteworthy)
+    stat_chks$percentile <- 100 * stat_chks$percentile
+    stat_chks$noteworthy [which (!stat_chks$noteworthy)] <- ""
+    stats_rep <- c ("",
+                    "### Package Statistics",
+                    "",
+                    paste0 ("Statistical properties of package structure as ",
+                            "distributional percentiles in relation to all ",
+                            "current CRAN packages"),
+                    "The following terminology is used:",
+                    "- `loc` = \"Lines of Code\"",
+                    "- `fn` = \"function\"",
+                    "- `exp`/`not_exp` = exported / not exported",
+                    "",
+                    paste0 ("The final measure (`fn_call_network_size`) is the ",
+                            "total number of calls between functions (in R), or ",
+                            "more abstract relationships between code objects in ",
+                            "other languages. Values are flagged as \"noteworthy\" ",
+                            "when they lie in the upper or lower 5th percentile."),
+                    "",
+                    knitr::kable (stat_chks,
+                                  row.names = FALSE,
+                                  digits = c (NA, 0, 1, NA))
+                    )
 
-        # loc in directories:
-        index <- grep ("^loc\\_(r|s|v|i|t)",
-                       rownames (stat_chks),
-                       ignore.case = TRUE)
-        loc_chks <- rownames (stat_chks) [index]
+    if (is_noteworthy) {
 
-        for (i in loc_chks) {
-            stats_rep <- c (stats_rep,
-                            paste0 ("- Package has very few ",
-                                    "lines of code in the ",
-                                    gsub ("^loc\\_", "", i),
-                                    " directory"))
-
-        }
-
-        # loc per function:
-        index <- grep ("loc\\_per\\_", rownames (stat_chks),
-                       ignore.case = TRUE)
-        loc_chks <- gsub ("\\_mn$|\\_md$", "", rownames (stat_chks) [index])
-        loc_chks <- loc_chks [which (!grepl ("\\_not\\_exp$", loc_chks))]
-        for (i in loc_chks) {
-            stats_rep <- c (stats_rep,
-                            paste0 ("- Package has very few lines of ",
-                                    "code per function in the ",
-                                    gsub ("^loc\\_per\\_fn\\_", "", i),
-                                    " directory"))
-        }
+        stats_rep <- c (stats_rep,
+                        "",
+                        paste0 ("Reasons for the above features flagged as ",
+                                "noteworthy should be clarified prior to ",
+                                "progressing."))
     }
 
     badges <- pkgreport::ci_badges (u)
@@ -237,21 +239,9 @@ function (u) {
               eic_chks,
               "",
               paste0 ("Package License: ", lic),
+              "",
+              stats_rep,
               "")
-
-    if (!is.null (stats_rep)) {
-
-        res <- c (res,
-                  "### Statistically Noteworthy Features",
-                  "",
-                  paste0 ("Statistical analyses of package structure ",
-                          "reveal the following noteworthy features ",
-                          "in comparison to the statistical properties ",
-                          "of CRAN packages:"),
-                  "",
-                  stats_rep,
-                  "")
-    }
 
     if (!is.null (badges)) {
 
