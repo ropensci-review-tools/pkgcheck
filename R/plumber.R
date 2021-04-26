@@ -197,8 +197,7 @@ function (u) {
         loc_chks <- loc_chks [which (!grepl ("\\_not\\_exp$", loc_chks))]
         for (i in loc_chks) {
             stats_rep <- c (stats_rep,
-                            paste0 ("- ", crs,
-                                    " Package has very few lines of ",
+                            paste0 ("- Package has very few lines of ",
                                     "code per function in the ",
                                     gsub ("^loc\\_per\\_fn\\_", "", i),
                                     " directory"))
