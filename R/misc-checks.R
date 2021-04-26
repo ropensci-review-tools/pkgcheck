@@ -141,6 +141,9 @@ ci_badges <- function (u) {
     orgrepo <- strsplit (u, "\\/") [[1]]
     org <- utils::tail (orgrepo, 2) [1]
     repo <- utils::tail (orgrepo, 1)
+    # note: default branch is github only, so will only work if repo is also
+    # mirrored on github!
+    branch <- pkgreport::get_default_branch (org, repo)
 
     if (grepl ("github", u)) {
 
@@ -148,7 +151,9 @@ ci_badges <- function (u) {
                             org,
                             "/",
                             repo,
-                            "/master/README.md")
+                            "/",
+                            branch,
+                            "/README.md")
 
     } else if (grepl ("gitlab", u)) {
 
@@ -156,7 +161,9 @@ ci_badges <- function (u) {
                             org,
                             "/",
                             repo,
-                            "/-/blob/master/README.md")
+                            "/-/raw/",
+                            branch,
+                            "/README.md")
     }
 
     if (!url_exists (u_readme, quiet = TRUE))
