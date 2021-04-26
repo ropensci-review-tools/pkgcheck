@@ -256,6 +256,9 @@ function (u) {
 
     if (!is.null (badges)) {
 
+        if (is.na (badges [1]))
+            badges <- "(There do not appear to be any)"
+
         res <- c (res,
                   "**Continuous Integration Badges**",
                   "",
