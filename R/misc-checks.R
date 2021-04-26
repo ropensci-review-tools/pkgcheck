@@ -175,10 +175,31 @@ ci_badges <- function (u) {
                             badges)]
     for (p in platforms) {
         index <- grep (p, badges)
+        p_u <- p
+        if (p == "github") {
+            wf_nms <- vapply (badges [index], function (i)
+                              utils::tail (strsplit (i, "/") [[1]], 2) [1],
+                              character (1),
+                              USE.NAMES = FALSE)
+            #p_u <- paste0 ("https://github.com/",
+            #               org,
+            #               "/",
+            #               repo,
+            #               "/actions/workflows/",
+            #               wf_nms,
+            #               ".yaml")
+            p_u <- paste0 ("https://github.com/",
+                           org,
+                           "/",
+                           repo,
+                           "/actions")
+        }
         badges [index] <- paste0 ("[![",
                                   p,
                                   "](",
                                   badges [index],
+                                  ")](",
+                                  p_u,
                                   ")")
     }
 
