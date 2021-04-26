@@ -292,13 +292,12 @@ function (u) {
     local_zip <- paste0 (local_repo, ".zip")
     flist <- unzip (local_zip, exdir = cache_dir)
 
-    res <- srr::srr_stats_pre_submit (local_repo, quiet = TRUE)
-
-    if (any (grepl ("can not be submitted", res)))
-        res <- c (res,
-                  "",
-                  paste0 ("These 'srr' issues must be ",
-                          "addressed prior to proceeding"))
+    res <- tryCatch (
+                srr::srr_stats_pre_submit (local_repo, quiet = TRUE),
+                error = function (e) e)
+    if (methods::is (res, "error")) {
+        res <- paste0 ("- ", res$message)
+    }
 
     res <- paste0 (res, collapse = "\n")
 
