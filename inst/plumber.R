@@ -206,11 +206,20 @@ function (u) {
     }
 
     ci <- pkgreport::ci_results (local_repo)
-    ci_txt <- ifelse (is.null (ci),
-                      paste0 ("- ", crs,
-                              " Package has no continuous integration checks"),
-                      paste0 ("- ", tck,
-                              " Package has continuous integration checks"))
+
+    if (grepl ("^Error", ci)) {
+
+        ci_txt <- paste0 ("- ", crs,
+                          " Package has no URL, so continuous ",
+                          "integration could not be checked.")
+    } else {
+
+        ci_txt <- ifelse (is.null (ci),
+                          paste0 ("- ", crs,
+                                  " Package has no continuous integration checks"),
+                          paste0 ("- ", tck,
+                                  " Package has continuous integration checks"))
+    }
 
     eic_chks <- c (uses_roxy,
                has_contrib,
