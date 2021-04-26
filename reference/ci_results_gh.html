@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check whether all functions have examples — all_pkg_fns_have_exs • pkgreport</title>
+<title>CI results for GitHub only — ci_results_gh • pkgreport</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Check whether all functions have examples — all_pkg_fns_have_exs" />
-<meta property="og:description" content="Check whether all functions have examples" />
+<meta property="og:title" content="CI results for GitHub only — ci_results_gh" />
+<meta property="og:description" content="CI results for GitHub only" />
 
 
 
@@ -111,16 +111,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check whether all functions have examples</h1>
+    <h1>CI results for GitHub only</h1>
     <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/misc-checks.R'><code>R/misc-checks.R</code></a></small>
-    <div class="hidden name"><code>all_pkg_fns_have_exs.Rd</code></div>
+    <div class="hidden name"><code>ci_results_gh.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check whether all functions have examples</p>
+    <p>CI results for GitHub only</p>
     </div>
 
-    <pre class="usage"><span class='fu'>all_pkg_fns_have_exs</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ci_results_gh</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,8 +133,8 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Vector of named logical values, one for each '.Rd' file indicating
-whether or not it has example lines.</p>
+    <p>A 'data.frame' with one row for each GitHub workflow, and columns for
+name, the 'conclusion' status, the git 'sha', and the date.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
