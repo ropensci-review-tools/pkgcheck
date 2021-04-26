@@ -88,7 +88,7 @@ all_pkg_fns_have_exs <- function (path) {
 #' @return A 'data.frame' with one row for each GitHub workflow, and columns for
 #' name, the 'conclusion' status, the git 'sha', and the date.
 #' @export
-ci_results <- function (path) {
+ci_results_gh <- function (path) {
 
     d <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
     if (!"URL" %in% names (d))
@@ -129,6 +129,62 @@ ci_results <- function (path) {
     rownames (dat) <- dat$time_dbl <- dat$time <- dat$status <- NULL
 
     return (dat)
+}
+
+#' Get all CI badges from a repository
+#'
+#' @param u URL of repo
+#' @return Character vector of hyperlinked badge images
+#' @export
+ci_badges <- function (u) {
+
+    orgrepo <- strsplit (u, "\\/") [[1]]
+    org <- utils::tail (orgrepo, 2) [1]
+    repo <- utils::tail (orgrepo, 1)
+
+    if (grepl ("github", u)) {
+
+        u_readme <- paste0 ("https://raw.githubusercontent.com/",
+                            org,
+                            "/",
+                            repo,
+                            "/master/README.md")
+
+    } else if (grepl ("gitlab", u)) {
+
+        u_readme <- paste0 ("https://gitlab.com/",
+                            org,
+                            "/",
+                            repo,
+                            "/-/blob/master/README.md")
+    }
+
+    if (!url_exists (u_readme, quiet = TRUE))
+        return (NULL)
+
+    f <- tempfile (fileext = ".md")
+    chk <- download.file (u_readme, destfile = f, quiet = TRUE)
+    readme <- readLines (f, encoding = "UTF-8")
+
+    badges <- readme [grep ("^\\s*\\[?\\!\\[", readme)]
+    if (length (badges) == 0)
+        return (NULL)
+
+    badges <- unlist (regmatches (badges,
+                                  gregexpr ("https.*\\.svg", badges)))
+    platforms <- c ("github", "travis", "gitlab")
+    badges <- badges [grep (paste0 (platforms, collapse = "|"),
+                            badges)]
+    for (p in platforms) {
+        index <- grep (p, badges)
+        badges [index] <- paste0 ("[![",
+                                  p,
+                                  "](",
+                                  badges [index],
+                                  ")")
+    }
+
+    return (badges)
 }
 
 #' Check that left-assignment operators are used consistently throughout a

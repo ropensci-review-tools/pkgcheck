@@ -2,7 +2,8 @@
 
 export(all_pkg_fns_have_exs)
 export(check_cache)
-export(ci_results)
+export(ci_badges)
+export(ci_results_gh)
 export(convert_gp_components)
 export(dl_gh_repo)
 export(get_default_branch)
