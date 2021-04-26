@@ -297,8 +297,8 @@ function (u) {
     if (any (grepl ("can not be submitted", res)))
         res <- c (res,
                   "",
-                  paste0 ("**Important:** The preceding 'srr' issues ",
-                          "must be addressed prior to proceeding"))
+                  paste0 ("These 'srr' issues must be ",
+                          "addressed prior to proceeding"))
 
     res <- paste0 (res, collapse = "\n")
 
