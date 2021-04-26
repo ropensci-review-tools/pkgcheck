@@ -231,8 +231,9 @@ function (u) {
                                "must be addressed prior to proceeding"))
     }
 
-    res <- c (paste0 ("## Checks for ", s$desc$package,
-                      " (v", s$desc$version, ")"),
+    res <- c (paste0 ("## Checks for [", s$desc$package,
+                      " (v", s$desc$version, ")](",
+                      u, ")"),
               "",
               eic_chks,
               "",
