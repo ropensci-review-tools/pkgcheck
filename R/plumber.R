@@ -206,8 +206,9 @@ function (u) {
     }
 
     ci <- pkgreport::ci_results (local_repo)
+    ci_err <- grepl ("^Error", ci [1])
 
-    if (grepl ("^Error", ci)) {
+    if (ci_err) {
 
         ci_txt <- paste0 ("- ", crs,
                           " Package has no URL, so continuous ",
@@ -257,7 +258,7 @@ function (u) {
                   "")
     }
 
-    if (!is.null (ci)) {
+    if (!is.null (ci) & !ci_err) {
 
         res <- c (res,
                   "**Continous Integration Results**",
