@@ -237,11 +237,12 @@ function (u) {
     if (!is.null (stats_rep)) {
 
         res <- c (res,
-                  "### Noteworthy Features",
+                  "### Statistically Noteworthy Features",
                   "",
-                  paste0 ("The package has the following noteworthy features ",
-                          "in comparison to statistical properties of ",
-                          "CRAN packages:"),
+                  paste0 ("Statistical analyses of package structure ",
+                          "reveal the following noteworthy features ",
+                          "in comparison to the statistical properties ",
+                          "of CRAN packages:"),
                   "",
                   stats_rep,
                   "")
