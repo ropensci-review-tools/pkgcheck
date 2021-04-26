@@ -113,7 +113,7 @@ function (u) {
                          paste0 ("- ", tck, " Package uses 'roxygen2'"),
                          paste0 ("- ", crs, " Package does not use 'roxygen2'"))
 
-    has_contrib <- pkgreport::pkg_has_contrib_md (local_repo)
+    has_contrib <- unname (pkgreport::pkg_has_contrib_md (local_repo))
     has_lifecycle <- ifelse (has_contrib [2],
                              paste0 ("- ", tck,
                                      " Package has a life cycle statement"),
@@ -136,7 +136,7 @@ function (u) {
                               paste0 (names (fn_exs) [which (!fn_exs)]),
                               "]"))
 
-    la <- left_assign (local_repo) # tallies of "<-", "<<-", "="
+    la <- pkgreport::left_assign (local_repo) # tallies of "<-", "<<-", "="
     la_out <- NULL
     if (la [names (la) == "<<-"] > 0) {
         la_out <- paste0 ("- ", crs,
@@ -205,21 +205,16 @@ function (u) {
         }
     }
 
-    ci <- pkgreport::ci_results (local_repo)
-    ci_err <- grepl ("^Error", ci [1])
-
-    if (ci_err) {
+    badges <- pkgreport::ci_badges (u)
+    if (is.null (badges)) {
 
         ci_txt <- paste0 ("- ", crs,
-                          " Package has no URL, so continuous ",
-                          "integration could not be checked.")
+                          " Package has no continuous integration checks")
+        badges <- NA_character_
     } else {
 
-        ci_txt <- ifelse (is.null (ci),
-                          paste0 ("- ", crs,
-                                  " Package has no continuous integration checks"),
-                          paste0 ("- ", tck,
-                                  " Package has continuous integration checks"))
+        ci_txt <- paste0 ("- ", tck,
+                          " Package has continuous integration checks")
     }
 
     eic_chks <- c (uses_roxy,
@@ -258,12 +253,23 @@ function (u) {
                   "")
     }
 
-    if (!is.null (ci) & !ci_err) {
+    if (!is.null (badges)) {
 
         res <- c (res,
-                  "**Continous Integration Results**",
+                  "**Continuous Integration Badges**",
                   "",
-                  knitr::kable (ci))
+                  badges,
+                  "")
+
+        if (any (grepl ("github", badges))) {
+
+            ci <- pkgreport::ci_results_gh (local_repo)
+
+            res <- c (res,
+                      "**GitHub Workflow Results**",
+                      "",
+                      knitr::kable (ci))
+        }
     }
 
     return (paste0 (res, collapse = "\n"))
