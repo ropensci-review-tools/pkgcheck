@@ -183,8 +183,7 @@ function (u) {
 
         for (i in loc_chks) {
             stats_rep <- c (stats_rep,
-                            paste0 ("- ", crs,
-                                    " Package has very few ",
+                            paste0 ("- Package has very few ",
                                     "lines of code in the ",
                                     gsub ("^loc\\_", "", i),
                                     " directory"))
