@@ -166,12 +166,10 @@ ci_badges <- function (u) {
     chk <- download.file (u_readme, destfile = f, quiet = TRUE)
     readme <- readLines (f, encoding = "UTF-8")
 
-    badges <- readme [grep ("^\\s*\\[?\\!\\[", readme)]
+    badges <- unlist (regmatches (readme,
+                                  gregexpr ("https.*\\.svg", readme)))
     if (length (badges) == 0)
         return (NULL)
-
-    badges <- unlist (regmatches (badges,
-                                  gregexpr ("https.*\\.svg", badges)))
     platforms <- c ("github", "travis", "gitlab")
     badges <- badges [grep (paste0 (platforms, collapse = "|"),
                             badges)]
