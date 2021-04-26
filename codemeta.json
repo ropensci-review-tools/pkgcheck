@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgreport",
   "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.147",
+  "version": "0.0.1.148",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -299,6 +299,6 @@
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgreport/blob/main/README.md",
-  "fileSize": "1870.172KB",
+  "fileSize": "1886.683KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

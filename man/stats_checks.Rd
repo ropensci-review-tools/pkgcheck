@@ -12,6 +12,10 @@ stats_checks(s, threshold = 0.05)
 \item{threshold}{Proportion threshold below which to report on statistically
 unusual properties.}
 }
+\value{
+A 'data.frame' of selected statistical properties and percentiles in
+relation to all other packages on CRAN.
+}
 \description{
 Compare 'pkgstats' summary with statistics from all CRAN packages.
 }

@@ -3,6 +3,8 @@
 #' @param s Result of \link{pkgstats_summary}
 #' @param threshold Proportion threshold below which to report on statistically
 #' unusual properties.
+#' @return A 'data.frame' of selected statistical properties and percentiles in
+#' relation to all other packages on CRAN.
 #' @export
 stats_checks <- function (s, threshold = 0.05) {
 
@@ -26,30 +28,51 @@ stats_checks <- function (s, threshold = 0.05) {
                      sort (dat [[i]] [which (!is.na (dat [[i]]))]))
     names (dists) <- nms
 
-    nms_should_be_low <- grep ("comment\\_lines", nms, value = TRUE)
-    nms_should_be_high <- grep ("files_|n\\_fns\\_", nms, value = TRUE)
-
     pc <- vapply (nms, function (i) {
                if (is.na (s [[i]]))
-                   return (c (NA, NA))
-               imin <- length (which (dists [[i]] <= s [[i]])) /
-                   length (dists [[i]])
-               imax <- length (which (dists [[i]] >= s [[i]])) /
-                   length (dists [[i]])
-               return (c (imin, imax))
-                    }, double (2))
-    pc <- data.frame (t (pc))
-    names (pc) <- c ("below", "above")
+                   return (NA)
+               return (length (which (dists [[i]] < s [[i]])) /
+                   length (dists [[i]]))
+                    }, double (1))
+    index <- match (names (pc), names (s))
+    pc <- data.frame (measure = names (pc),
+                      value = as.numeric (s [1, index]),
+                      percentile = pc,
+                      row.names = NULL)
 
-    pc$flagged <- FALSE
-    pc$flagged [which (rownames (pc) %in% nms &
-                       (pc$below < threshold | pc$above < threshold))] <- TRUE
-    pc$flagged [which (rownames (pc) %in% nms_should_be_low &
-                       pc$above < threshold)] <- TRUE
-    pc$flagged [which (rownames (pc) %in% nms_should_be_high &
-                       pc$below < threshold)] <- TRUE
+    keep <- c (grep ("^files\\_", pc$measure),
+               grep ("^loc\\_", pc$measure),
+               grep ("^data\\_", pc$measure),
+               grep ("^f\\_fns\\_", pc$measure),
+               grep ("^npars\\_", pc$measure),
+               grep ("^loc\\_per\\_fn", pc$measure),
+               grep ("^n\\_edges", pc$measure))
+    pc <- pc [keep, ]
+    pc <- pc [which (!is.na (pc$percentile)), ]
+    rownames (pc) <- NULL
+    if (!"files_src" %in% pc$measures)
+        pc <- pc [which (!grepl ("\\_src$", pc$measure)), ]
+    pc <- pc [which (!grepl ("^n\\_edges\\_", pc$measure)), ]
 
-    pc <- pc [which (pc$flagged), ]
+    # reduce to median estimates only
+    pc <- pc [which (!grepl ("\\_mn$", pc$measure)), ]
+    pc$measure <- gsub ("\\_md$", "", pc$measure)
+    # rm data checks when no data
+    if (pc$percentile [pc$measure == "data_size_total"] == 0.0) {
+
+        pc <- pc [which (!grepl ("^data\\_", pc$measure)), ]
+    }
+
+    pc$noteworthy <- FALSE
+    index <- which (pc$percentile < threshold |
+                    pc$percentile > (1 - threshold))
+    pc$noteworthy [index] <- TRUE
+
+    # renames:
+    pc$measure [pc$measure == "npars_exported"] <-
+        "num_params_per_fn"
+    pc$measure [pc$measure == "n_edges"] <-
+        "fn_call_network_size"
 
     return (pc)
 }
