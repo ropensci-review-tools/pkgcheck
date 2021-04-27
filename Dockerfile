@@ -91,6 +91,22 @@ RUN apt-get update -qq && apt-get install -y \
     zstd \
     zsync
 
+# ctags install
+RUN apt-get install -y \
+    gcc make \
+    autoconf automake \
+    python3-docutils \
+    libseccomp-dev \
+    libjansson-dev \
+    libyaml-dev \
+    libxml2-dev
+RUN git clone https://github.com/universal-ctags/ctags.git \
+    && cd ctags \
+    && ./autogen.sh \
+    && ./configure --prefix=/usr \
+    && make \
+    && make install
+
 # netbase is critical:
 # https://github.com/commercialhaskell/stack/issues/2372#issuecomment-234113085
 # https://github.com/tensorflow/haskell/issues/182
@@ -105,7 +121,6 @@ RUN apt-get install -y \
   #libcurl4-openssl-dev \
   libglpk-dev \
   libsodium-dev \
-  libxml2-dev \
   netbase \
   texlive-latex-base \
   texlive-fonts-recommended \
