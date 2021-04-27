@@ -106,7 +106,9 @@ function (u) {
     local_zip <- paste0 (local_repo, ".zip")
     flist <- unzip (local_zip, exdir = cache_dir)
 
-    chk <- pkgreport::editor_check (path)
+    chk <- pkgreport::editor_check (path, u)
+
+    junk <- unlink (local_repo, recursive = TRUE)
 
     return (chk)
 }
@@ -133,6 +135,8 @@ function (u) {
     }
 
     res <- paste0 (res, collapse = "\n")
+
+    junk <- unlink (local_repo, recursive = TRUE)
 
     return (res)
 }
