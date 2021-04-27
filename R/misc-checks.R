@@ -108,6 +108,9 @@ ci_results_gh <- function (path) {
 
     runs <- httr::GET (url) %>% httr::content ()
 
+    if (!"total_count" %in% names (runs))
+        return (NULL)
+
     if (runs$total_count == 0)
         return (NULL)
 
@@ -245,14 +248,14 @@ left_assign <- function (path) {
     assigns <- vapply (flist, function (i) {
                            p <- tryCatch (utils::getParseData (parse (i)),
                                           error = function (e) NULL)
-                           if (is.null (p))
-                               return (rep (0L, 4))
-                           la <- table (p$text [which (p$token ==
-                                                       "LEFT_ASSIGN")])
                            assigns <- c (":=" = 0L,
                                          "<-" = 0L,
                                          "<<-" = 0L,
                                          "=" = 0L)
+                           if (is.null (p))
+                               return (assigns)
+                           la <- table (p$text [which (p$token ==
+                                                       "LEFT_ASSIGN")])
                            if (":=" %in% names (la))
                                assigns [1] <- la [which (names (la) == ":=")]
                            if ("<-" %in% names (la))
