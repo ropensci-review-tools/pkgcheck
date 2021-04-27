@@ -137,6 +137,110 @@ function (u) {
     return (res)
 }
 
+# --------------------------------------------------
+# ----------------   editorcheck   -----------------
+# --------------------------------------------------
+
+#* Return srr results from a package URL
+#* @param u The URL for a repo
+#* @post /editorcheck
+function (u) {
+
+    cache_dir <- Sys.getenv ("cache_dir")
+    local_repo <- pkgreport::dl_gh_repo (u)
+    local_zip <- paste0 (local_repo, ".zip")
+    flist <- unzip (local_zip, exdir = cache_dir)
+
+    srr <- tryCatch (
+                srr::srr_stats_pre_submit (local_repo, quiet = TRUE),
+                error = function (e) e)
+    if (methods::is (srr, "error")) {
+        srr <- paste0 ("- ", srr$message)
+    }
+
+    srr <- paste0 (srr, collapse = "\n")
+
+    srr_okay <- TRUE
+
+    if (sum (nchar (srr)) > 0L) {
+
+        srr <- strsplit (srr, "\n") [[1]]
+
+        srr <- c ("", "", "### srr", "", "", srr)
+        i <- grep ("standards are missing from your code", srr)
+        if (length (i) > 0) {
+
+            srr_head <- srr [seq (i)]
+            srr <- srr [-seq (i)]
+            blank <- which (nchar (srr) == 0)
+            srr_tail <- NULL
+            if (length (blank) > 1) {
+                stds_end <- blank [which (diff (blank) > 1) + 1]
+                srr_tail <- srr [seq (stds_end, length (srr))]
+                srr <- srr [-seq (stds_end, length (srr))]
+            }
+            srr <- srr [which (nchar (srr) > 0)]
+
+            srr <- c (srr_head,
+                      "",
+                      paste0 (srr, collapse = ", "),
+                      "",
+                      srr_tail)
+        }
+
+        srr_okay <- !any (grepl ("can not be submitted", srr)) &
+            !any (grepl ("block should only contain", srr))
+    }
+
+    gp <- check <- NULL
+
+    if (srr_okay) {
+
+        # check and modify permissions of configure files
+        if (any (list.files (local_repo) == "configure")) {
+            cmd <- paste0 ("chmod +755 ", file.path (local_repo, "configure"))
+            system (cmd)
+        }
+
+        # pkgrep_install_deps is called in get_gp_report
+        gp <- pkgreport::get_gp_report (u, local_repo)
+
+        control <- list (cyclocomp_threshold = 15,
+                         covr_threshold = 70,
+                         digits = 2)
+
+        gp <- pkgreport::process_gp (gp, control = control)
+
+        gp <- c ("",
+                 "### goodpractice results",
+                 "",
+                 "",
+                 gp,
+                 "")
+
+        gp <- paste0 (gp, collapse = "\n")
+
+
+        check <- pkgreport::editor_check (local_repo, u)
+
+    } else {
+
+        srr <- c (srr,
+                  "",
+                  "## Editor-in-Chief Instructions:",
+                  "",
+                  paste0 ("Processing may not proceed until the 'srr' ",
+                          "issues identified above have been adressed."))
+    }
+
+    message ("unlinking ", local_repo)
+    junk <- unlink (local_repo, recursive = TRUE)
+
+    out <- paste0 (c (check, gp, srr), collapse = "\n")
+
+    return (out)
+}
+
 
 # --------------------------------------------------
 # --------------   other endpoints   ---------------
