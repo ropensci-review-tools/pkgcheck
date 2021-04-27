@@ -96,7 +96,9 @@ RUN apt-get update -qq && apt-get install -y \
 # https://github.com/tensorflow/haskell/issues/182
 RUN apt-get install -y \
   cargo \
+  ctags \
   git-core \
+  global \
   libgit2-dev \
   libssl-dev \
   libcurl4-gnutls-dev \
