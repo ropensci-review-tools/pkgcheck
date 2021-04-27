@@ -94,7 +94,9 @@ ci_results_gh <- function (path) {
     if (!"URL" %in% names (d))
         return ("Error: Description has no URL")
 
-    url <- strsplit (d$URL, "\\/") [[1]]
+    u <- strsplit (d$URL, "\\s+") [[1]]
+    u <- u [grep ("^https://github\\.com", u)]
+    url <- strsplit (u, "\\/") [[1]]
     org <- utils::tail (url, 2) [1]
     repo <- utils::tail (url, 1)
 
