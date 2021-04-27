@@ -95,6 +95,7 @@ RUN apt-get update -qq && apt-get install -y \
 RUN apt-get install -y \
     gcc make \
     autoconf automake \
+    git-core \
     python3-docutils \
     libseccomp-dev \
     libjansson-dev \
@@ -113,7 +114,6 @@ RUN git clone https://github.com/universal-ctags/ctags.git \
 RUN apt-get install -y \
   cargo \
   ctags \
-  git-core \
   global \
   libgit2-dev \
   libssl-dev \
