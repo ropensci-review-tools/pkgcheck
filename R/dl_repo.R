@@ -29,7 +29,7 @@ dl_gh_repo <- function (u) {
     if (!file.exists (local_zip) | repo_updated) {
 
         message ("downloading repo ...")
-        f <- download_repo (u, repo, branch)
+        f <- download_repo (u, repo, branch) # nolint
     }
 
     return (local_repo)

@@ -68,7 +68,7 @@ editor_check <- function (path, u) {
                                " Package 'DESCRIPTION' does not ",
                                "have a BugReports field"))
     lic <- s$desc$license
-    pkg_ver <- paste0 (s$desc$package, "_", s$desc$version)
+    #pkg_ver <- paste0 (s$desc$package, "_", s$desc$version)
 
     # stats_checks against all CRAN pkgs
     s_summ <- pkgstats::pkgstats_summary (s)
@@ -96,11 +96,12 @@ editor_check <- function (path, u) {
                     "- `fn` = \"function\"",
                     "- `exp`/`not_exp` = exported / not exported",
                     "",
-                    paste0 ("The final measure (`fn_call_network_size`) is the ",
-                            "total number of calls between functions (in R), or ",
-                            "more abstract relationships between code objects in ",
-                            "other languages. Values are flagged as \"noteworthy\" ",
-                            "when they lie in the upper or lower 5th percentile."),
+                    paste0 ("The final measure (`fn_call_network_size`) is ",
+                            "the total number of calls between functions (in ",
+                            "R), or more abstract relationships between code ",
+                            "objects in other languages. Values are flagged ",
+                            "as \"noteworthy\" when they lie in the upper or ",
+                            "lower 5th percentile."),
                     "",
                     knitr::kable (stat_chks,
                                   row.names = FALSE,

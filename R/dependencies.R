@@ -9,7 +9,7 @@ pkgrep_install_deps <- function (local_repo, os, os_release) {
     sysreq <- remotes::system_requirements (os = os,
                                             os_release = os_release,
                                             path = local_repo)
-    tmp <- lapply (sysreq, system)
+    tmp <- lapply (sysreq, system) # nolint
 
     remotes::install_deps (pkgdir = local_repo,
                            dependencies = TRUE,
