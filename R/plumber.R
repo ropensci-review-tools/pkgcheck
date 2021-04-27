@@ -176,7 +176,9 @@ function (u) {
     stat_chks$percentile <- 100 * stat_chks$percentile
     stat_chks$noteworthy [which (!stat_chks$noteworthy)] <- ""
     stats_rep <- c ("",
-                    "### Package Statistics",
+                    "<details>",
+                    "<summary>Package Statistics (click to see)</summary>",
+                    "<p>",
                     "",
                     paste0 ("Statistical properties of package structure as ",
                             "distributional percentiles in relation to all ",
@@ -194,7 +196,9 @@ function (u) {
                     "",
                     knitr::kable (stat_chks,
                                   row.names = FALSE,
-                                  digits = c (NA, 0, 1, NA))
+                                  digits = c (NA, 0, 1, NA)),
+                    "",
+                    "</p></details>"
                     )
 
     if (is_noteworthy) {
