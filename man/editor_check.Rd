@@ -4,10 +4,12 @@
 \alias{editor_check}
 \title{Body of main 'editorcheck' response}
 \usage{
-editor_check(path)
+editor_check(path, u)
 }
 \arguments{
 \item{path}{Path to local source repository}
+
+\item{u}{URL of package repository}
 }
 \value{
 Markdown-formatted response body from static package checks.

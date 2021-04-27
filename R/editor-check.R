@@ -2,9 +2,10 @@
 #' Body of main 'editorcheck' response
 #'
 #' @inheritParams pkg_uses_roxygen2
+#' @param u URL of package repository
 #' @return Markdown-formatted response body from static package checks.
 #' @export
-editor_check <- function (path) {
+editor_check <- function (path, u) {
 
     tck <- ":heavy_check_mark:"
     crs <- ":heavy_multiplication_x:"
