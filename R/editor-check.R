@@ -68,7 +68,7 @@ editor_check <- function (path, u) {
                                " Package 'DESCRIPTION' does not ",
                                "have a BugReports field"))
     lic <- s$desc$license
-    #pkg_ver <- paste0 (s$desc$package, "_", s$desc$version)
+    #pkg_ver <- paste0 (s$desc$package, "_", s$desc$version) # nolint
 
     # stats_checks against all CRAN pkgs
     s_summ <- pkgstats::pkgstats_summary (s)

@@ -172,7 +172,7 @@ ci_badges <- function (u) {
         return (NULL)
 
     f <- tempfile (fileext = ".md")
-    chk <- download.file (u_readme, destfile = f, quiet = TRUE)
+    chk <- download.file (u_readme, destfile = f, quiet = TRUE) # nolint
     readme <- readLines (f, encoding = "UTF-8")
 
     badges <- unlist (regmatches (readme,
@@ -203,7 +203,7 @@ ci_badges <- function (u) {
                            repo,
                            "/actions")
         } else if (p == "travis") {
-            
+
             p_u <- gsub ("\\.svg$", "", badges)
         }
         badges [index] <- paste0 ("[![",
