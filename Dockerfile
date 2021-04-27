@@ -113,7 +113,6 @@ RUN git clone https://github.com/universal-ctags/ctags.git \
 # https://github.com/tensorflow/haskell/issues/182
 RUN apt-get install -y \
   cargo \
-  ctags \
   global \
   libgit2-dev \
   libssl-dev \
