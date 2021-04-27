@@ -231,7 +231,9 @@ left_assign <- function (path) {
 
     rdir <- file.path (path, "R")
     if (!file.exists (rdir))
-        return (c ("<-" = 0L,
+        return (c (":=" = 0L,
+                   "<-" = 0L,
+                   "<<-" = 0L,
                    "=" = 0L))
 
     rdir <- normalizePath (rdir)
