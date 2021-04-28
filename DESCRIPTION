@@ -1,6 +1,6 @@
 Package: pkgreport
 Title: Plumber API to report package structure and function
-Version: 0.0.1.167
+Version: 0.0.1.168
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -24,6 +24,7 @@ Imports:
     jsonlite,
     logger,
     magrittr,
+    methods,
     pkgapi,
     pkgstats,
     plumber,
