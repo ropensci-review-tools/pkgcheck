@@ -175,7 +175,7 @@ ci_badges <- function (u) {
         return (NULL)
 
     f <- tempfile (fileext = ".md")
-    chk <- download.file (u_readme, destfile = f, quiet = TRUE) # nolint
+    chk <- utils::download.file (u_readme, destfile = f, quiet = TRUE) # nolint
     readme <- readLines (f, encoding = "UTF-8")
 
     badges <- unlist (regmatches (readme,
