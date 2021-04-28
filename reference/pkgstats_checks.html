@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get all CI badges from a repository — ci_badges • pkgreport</title>
+<title>Format pkgstats data — pkgstats_checks • pkgreport</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get all CI badges from a repository — ci_badges" />
-<meta property="og:description" content="Get all CI badges from a repository" />
+<meta property="og:title" content="Format pkgstats data — pkgstats_checks" />
+<meta property="og:description" content="Format pkgstats data" />
 
 
 
@@ -111,29 +111,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get all CI badges from a repository</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/misc-checks.R'><code>R/misc-checks.R</code></a></small>
-    <div class="hidden name"><code>ci_badges.Rd</code></div>
+    <h1>Format <span class="pkg">pkgstats</span> data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreport/blob/master/R/editor-check.R'><code>R/editor-check.R</code></a></small>
+    <div class="hidden name"><code>pkgstats_checks.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get all CI badges from a repository</p>
+    <p>Format <span class="pkg">pkgstats</span> data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ci_badges</span><span class='op'>(</span><span class='va'>u</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>pkgstats_checks</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>u</th>
-      <td><p>URL of repo</p></td>
+      <th>s</th>
+      <td><p>Output of <span class="pkg">pkgstats</span> call.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Character vector of hyperlinked badge images</p>
+    <p>Report as formatted string</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
