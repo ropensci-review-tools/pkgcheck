@@ -70,6 +70,10 @@ editor_check <- function (path, u) {
     lic <- s$desc$license
     #pkg_ver <- paste0 (s$desc$package, "_", s$desc$version) # nolint
 
+    # ------------------------------------------------------------
+    # ---------------   PKGSTATS + NETWORK GRAPH   ---------------
+    # ------------------------------------------------------------
+
     # stats_checks against all CRAN pkgs
     s_summ <- pkgstats::pkgstats_summary (s)
     stat_chks <- pkgreport::stats_checks (s_summ)
@@ -80,13 +84,13 @@ editor_check <- function (path, u) {
     stat_chks$percentile <- 100 * stat_chks$percentile
     stat_chks$noteworthy [which (!stat_chks$noteworthy)] <- ""
     stats_rep <- c ("",
+                    "### Package Statistics",
+                    "",
                     "<details>",
-                    "<summary>Package Statistics (click to see)</summary>",
+                    "<summary>click to see</summary>",
                     "<p>",
                     "",
                     "---",
-                    "",
-                    "### *Package Statitics*",
                     "",
                     paste0 ("Statistical properties of package structure as ",
                             "distributional percentiles in relation to all ",
@@ -124,6 +128,37 @@ editor_check <- function (path, u) {
                                 "prior to progressing."))
     }
 
+    # function call network
+    cache_dir <- Sys.getenv ("cache_dir")
+    visjs_dir <- file.path (cache_dir, "static") # in api.R
+    repo <- tail (strsplit (u, "/") [[1]], 1)
+    org <- tail (strsplit (u, "/") [[1]], 2) [1]
+    commit <- pkgreport::get_latest_commit (org, repo)
+    oid <- substring (commit$oid, 1, 8)
+    visjs_file <- paste0 (repo, "_", oid, ".html")
+
+    # clean up any older ones
+    flist <- list.files (visjs_dir,
+                         pattern = paste0 (repo, "_"),
+                         full.names = TRUE)
+    unlink (flist, recursive = TRUE)
+    visjs_path <- file.path (visjs_dir, visjs_file)
+    pkgstats::plot_network (s, vis_save = visjs_path)
+
+    visjs_url <- paste0 (Sys.getenv ("pkgreport_url"), "/assets/", visjs_file)
+
+    network_vis <- c ("",
+                      "### Network visualisation",
+                      "",
+                      paste0 ("[Click here](",
+                              visjs_url,
+                              ") for interactive network visualisation ",
+                              "of calls between objects in package."))
+
+    # ------------------------------------------------------------
+    # -----------------   BADGES + OTHER STUFF   -----------------
+    # ------------------------------------------------------------
+
     badges <- pkgreport::ci_badges (u)
     if (is.null (badges)) {
 
@@ -159,6 +194,7 @@ editor_check <- function (path, u) {
               paste0 ("Package License: ", lic),
               "",
               stats_rep,
+              network_vis,
               "")
 
     if (!is.null (badges)) {
