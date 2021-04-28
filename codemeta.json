@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgreport",
   "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.164",
+  "version": "0.0.1.165",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -203,12 +203,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "packgraph",
-      "name": "packgraph",
-      "sameAs": "https://github.com/ropenscilabs/packgraph"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "pkgapi",
       "name": "pkgapi",
       "sameAs": "https://github.com/r-lib/pkgapi"
@@ -299,6 +293,6 @@
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgreport/blob/main/README.md",
-  "fileSize": "1862.96KB",
+  "fileSize": "1864.645KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

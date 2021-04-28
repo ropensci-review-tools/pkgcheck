@@ -133,7 +133,7 @@ RUN install2.r \
   devtools \
 && installGithub.r \
       r-lib/pkgapi \
-      ropenscilabs/packgraph \
+      mpadge/pkgstats \
       ropenscilabs/pkgreport
 
 #RUN echo "suppressMessages(bspm::enable())" > ~/.Rprofile

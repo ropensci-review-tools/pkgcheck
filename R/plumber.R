@@ -1,12 +1,12 @@
 # plumber.R
 
 # --------------------------------------------------
-# ------------------   pkgstats   ------------------
+# ------------------   network   ------------------
 # --------------------------------------------------
 
 #* Return report from package URL
 #* @param u The URL for a repo
-#* @post /report
+#* @post /network
 function (u) {
 
     cache_dir <- Sys.getenv ("cache_dir")
@@ -27,31 +27,26 @@ function (u) {
     oid <- substring (commit$oid, 1, 8)
     visjs_file <- paste0 (repo, "_", oid, ".html")
 
-    # pg_graph directly calls pkgapi::map_package which requires all system deps
-    pkgreport::pkgrep_install_deps (
-                        local_repo = local_repo,
-                        os = Sys.getenv ("pkgreport_os"),
-                        os_release = Sys.getenv ("pkgreport_os_release"))
+    # clean up any older ones
+    flist <- list.files (visjs_dir,
+                         pattern = paste0 (repo, "_"),
+                         full.names = TRUE)
+    unlink (flist, recursive = TRUE)
 
-    g <- packgraph::pg_graph (local_repo,
-                              vis_save = file.path (visjs_dir, visjs_file))
-    res <- packgraph::pg_report (g)
-
+    s <- pkgstats::pkgstats (local_repo)
+    visjs_path <- file.path (visjs_dir, visjs_file)
+    pkgstats::plot_network (s, vis_save = visjs_path)
 
     visjs_url <- paste0 ("http://127.0.0.1:8000/assets/", visjs_file)
 
-    res <- c (res,
+    out <- c ("### Network visualisation",
               "",
               paste0 ("[Click here](",
                       visjs_url,
-                      ") for interactive visualisation of network"))
+                      ") for interactive network visualisation ",
+                      "of calls between objects in package."))
 
-    message ("unlinking ", local_repo)
-    chk <- unlink (local_repo, recursive = TRUE)
-
-    res <- paste0 (res, collapse = "\n")
-
-    return (res)
+    return (paste0 (out, collapse = "\n"))
 }
 
 # --------------------------------------------------
