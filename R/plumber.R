@@ -140,7 +140,7 @@ function (u) {
 # ----------------   editorcheck   -----------------
 # --------------------------------------------------
 
-#* Return srr results from a package URL
+#* Run full range of editor checks
 #* @param u The URL for a repo
 #* @post /editorcheck
 function (u) {
@@ -231,6 +231,100 @@ function (u) {
 
 
     return (out)
+}
+
+
+# --------------------------------------------------
+# ---------------   goodtoreview   -----------------
+# --------------------------------------------------
+
+#* Check whether a package is good to go out to review (intended to be called by
+#8 handling editors).
+#* @param u The URL for a repo
+#* @post /goodtoreview
+function (u) {
+
+    repo <- tail (strsplit (u, "/") [[1]], 1)
+    org <- tail (strsplit (u, "/") [[1]], 2) [1]
+
+    cache_dir <- Sys.getenv ("cache_dir")
+    updated <- pkgreport::check_cache (org, repo, cache_dir)
+
+    oids <- readRDS (file.path (cache_dir, "commit_oids.Rds"))
+    oid <- oids$oid [oids$orgrepo == paste0 (org, "/", repo)]
+    oid_short <- substring (oid, 1, 8)
+
+    local_repo <- pkgreport::dl_gh_repo (u)
+    local_zip <- paste0 (local_repo, ".zip")
+    flist <- unzip (local_zip, exdir = cache_dir)
+
+    s <- suppressWarnings (pkgstats::pkgstats (local_repo))
+    check <- pkgreport::pkgstats_checks (s)
+    is_noteworthy <- attr (check, "is_noteworthy")
+    check <- check [which (!grepl ("^<|^---", check))]
+
+    out <- note <- NULL
+
+    if (is_noteworthy) {
+
+        where <- ifelse (updated,
+                         "immediately above. ",
+                         paste0 ("in the 'details' section at the ",
+                                 "top of this issue. "))
+        note <- paste0 ("**Note** This package features some ",
+                        "noteworthy statistical properties, as ",
+                        "detailed ",
+                        where,
+                        "Reasons for the features flagged in that ",
+                        "section as noteworthy should be clarified ",
+                        "by a handling editor prior to progressing.")
+
+        if (updated) {
+
+            i <- grep ("\\#\\#\\# Package Statistics", check) + 1
+            out <- c (check [seq (i)],
+                      "",
+                      paste0 ("Since the previous statistics were generated, ",
+                              "the repository has been updated to:"),
+                      paste0 ("git hash: [",
+                              oid_short,
+                              "](https://github.com/",
+                              org,
+                              "/",
+                              repo,
+                              "/tree/",
+                              oid,
+                              ")"),
+                      "",
+                      check [-seq (i)],
+                      "")
+        }
+    }
+
+    out <- c (out,
+              note,
+              "",
+              "## Handling Editor Instructions:",
+              "")
+
+    if (is_noteworthy) {
+
+        out <- c (out,
+                  paste0 ("Please address the above noteworthy statistical ",
+                          "properties prior to assigning reviewers."))
+    } else {
+
+        out <- c (out,
+                  paste0 ("This package is a great shape! Please proceed ",
+                          "to finding reviewers."))
+    }
+
+
+    message ("unlinking ", local_repo)
+    junk <- unlink (local_repo, recursive = TRUE)
+
+
+    return (paste0 (out, collapse = "\n"))
 }
 
 
