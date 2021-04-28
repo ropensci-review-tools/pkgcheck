@@ -37,7 +37,7 @@ function (u) {
     visjs_path <- file.path (visjs_dir, visjs_file)
     pkgstats::plot_network (s, vis_save = visjs_path)
 
-    visjs_url <- paste0 ("http://127.0.0.1:8000/assets/", visjs_file)
+    visjs_url <- paste0 (Sys.getenv ("pkgreport_url"), "/assets/", visjs_file)
 
     out <- c ("### Network visualisation",
               "",

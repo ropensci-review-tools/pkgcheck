@@ -7,6 +7,7 @@
 #' @param port Port for API to be served on
 #' @param cache_dir Directory where previously downloaded repositories are
 #' cached
+#' @param URL Base URL of server; used to link static files.
 #' @param os Name of operating system, passed to \pkg{remotes} package to
 #' install system dependencies.
 #' @param os_release Name of operating system release, passed to \pkg{remotes}
@@ -16,8 +17,12 @@
 serve_api <- function(
                       port = 8000L,
                       cache_dir = NULL,
+                      base_url = "http://127.0.0.1",
                       os = "ubuntu",
                       os_release = "20.04") {
+
+    base_url <- paste0 (base_url, ":", port)
+    Sys.setenv ("pkgreport_url" = base_url)
 
     Sys.setenv ("pkgreport_os" = os)
     Sys.setenv ("pkgreport_os_release" = os_release)

@@ -4,7 +4,13 @@
 \alias{serve_api}
 \title{serve plumber API to report on packages}
 \usage{
-serve_api(port = 8000L, cache_dir = NULL, os = "ubuntu", os_release = "20.04")
+serve_api(
+  port = 8000L,
+  cache_dir = NULL,
+  base_url = "http://127.0.0.1",
+  os = "ubuntu",
+  os_release = "20.04"
+)
 }
 \arguments{
 \item{port}{Port for API to be served on}
@@ -17,6 +23,8 @@ install system dependencies.}
 
 \item{os_release}{Name of operating system release, passed to \pkg{remotes}
 package to install system dependencies.}
+
+\item{URL}{Base URL of server; used to link static files.}
 }
 \value{
 Nothing; calling this starts a blocking process.
