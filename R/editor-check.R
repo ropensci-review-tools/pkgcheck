@@ -7,32 +7,31 @@
 #' @export
 editor_check <- function (path, u) {
 
-    tck <- ":heavy_check_mark:"
-    crs <- ":heavy_multiplication_x:"
-
     uses_roxy <- ifelse (pkgreport::pkg_uses_roxygen2 (path),
-                         paste0 ("- ", tck, " Package uses 'roxygen2'"),
-                         paste0 ("- ", crs, " Package does not use 'roxygen2'"))
+                         paste0 ("- ", symbol_tck (),
+                                 " Package uses 'roxygen2'"),
+                         paste0 ("- ", symbol_crs (),
+                                 " Package does not use 'roxygen2'"))
 
     has_contrib <- unname (pkgreport::pkg_has_contrib_md (path))
     has_lifecycle <- ifelse (has_contrib [2],
-                             paste0 ("- ", tck,
+                             paste0 ("- ", symbol_tck (),
                                      " Package has a life cycle statement"),
-                             paste0 ("- ", crs,
+                             paste0 ("- ", symbol_crs (),
                                      " Package does not have a ",
                                      "life cycle statement"))
     has_contrib <- ifelse (has_contrib [1],
-                             paste0 ("- ", tck,
+                             paste0 ("- ", symbol_tck (),
                                      " Package has a 'contributing.md' file"),
-                             paste0 ("- ", crs,
+                             paste0 ("- ", symbol_crs (),
                                      " Package does not have a ",
                                      "'contributing.md' file"))
 
     fn_exs <- pkgreport::all_pkg_fns_have_exs (path)
     fn_exs <- ifelse (all (fn_exs),
-                      paste0 ("- ", tck,
+                      paste0 ("- ", symbol_tck (),
                               " All functions have examples"),
-                      paste0 ("- ", crs,
+                      paste0 ("- ", symbol_crs (),
                               " These funtions do not have examples: [",
                               paste0 (names (fn_exs) [which (!fn_exs)]),
                               "]"))
@@ -40,13 +39,13 @@ editor_check <- function (path, u) {
     la <- pkgreport::left_assign (path) # tallies of "<-", "<<-", "="
     la_out <- NULL
     if (la [names (la) == "<<-"] > 0) {
-        la_out <- paste0 ("- ", crs,
+        la_out <- paste0 ("- ", symbol_crs (),
                           " Package uses global assignment operator ('<<-')")
     }
     la <- la [which (names (la) != "<<-")] # ohly "<-", "="
     if (length (which (la == 0)) == 0) {
         la_out <- c (la_out,
-                     paste0 ("- ", crs,
+                     paste0 ("- ", symbol_crs (),
                              " Package uses inconsistent ",
                              "assignment operators (",
                              la [names (la) == "<-"], " '<-' and ",
@@ -56,15 +55,15 @@ editor_check <- function (path, u) {
     s <- suppressWarnings (pkgstats::pkgstats (path))
 
     has_url <- ifelse (!is.na (s$desc$urls),
-                       paste0 ("- ", tck,
+                       paste0 ("- ", symbol_tck (),
                                " Package 'DESCRIPTION' has a URL field"),
-                       paste0 ("- ", crs,
+                       paste0 ("- ", symbol_crs (),
                                " Package 'DESCRIPTION' does not ",
                                "have a URL field"))
     has_bugs <- ifelse (!is.na (s$desc$bugs),
-                       paste0 ("- ", tck,
+                       paste0 ("- ", symbol_tck (),
                                " Package 'DESCRIPTION' has a BugReports field"),
-                       paste0 ("- ", crs,
+                       paste0 ("- ", symbol_crs (),
                                " Package 'DESCRIPTION' does not ",
                                "have a BugReports field"))
     lic <- s$desc$license
@@ -162,12 +161,12 @@ editor_check <- function (path, u) {
     badges <- pkgreport::ci_badges (u)
     if (is.null (badges)) {
 
-        ci_txt <- paste0 ("- ", crs,
+        ci_txt <- paste0 ("- ", symbol_crs (),
                           " Package has no continuous integration checks")
         badges <- NA_character_
     } else {
 
-        ci_txt <- paste0 ("- ", tck,
+        ci_txt <- paste0 ("- ", symbol_tck (),
                           " Package has continuous integration checks")
     }
 
@@ -178,7 +177,7 @@ editor_check <- function (path, u) {
                has_url,
                has_bugs,
                ci_txt)
-    if (any (grepl (crs, eic_chks))) {
+    if (any (grepl (symbol_crs (), eic_chks))) {
         eic_chks <- c (eic_chks,
                        "",
                        paste0 ("**Important:** All failing checks above ",
