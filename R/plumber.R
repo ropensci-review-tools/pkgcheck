@@ -154,7 +154,23 @@ function (u) {
                 srr::srr_stats_pre_submit (local_repo, quiet = TRUE),
                 error = function (e) e)
     if (methods::is (srr, "error")) {
-        srr <- paste0 ("- ", srr$message)
+
+        srr <- paste0 ("- ",
+                       symbol_crs (),
+                       " ",
+                       srr$message)
+    } else if (any (grepl ("ready to submit", srr))) {
+
+        srr <- paste0 ("- ",
+                       symbol_tck (),
+                       " ",
+                       srr)
+    } else {
+
+        srr <- paste0 ("- ",
+                       symbol_crs (),
+                       " ",
+                       srr)
     }
 
     srr <- paste0 (srr, collapse = "\n")
