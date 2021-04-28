@@ -124,7 +124,7 @@ editor_check <- function (path, u) {
                                 "*Package Statistics* section. ",
                                 "Reasons for the features flagged in that ",
                                 "section as noteworthy should be clarified ",
-                                "prior to progressing."))
+                                "by a handling editor prior to progressing."))
     }
 
     # function call network
