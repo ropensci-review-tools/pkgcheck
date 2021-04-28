@@ -237,7 +237,11 @@ function (u) {
                   "",
                   paste0 ("[Click here to view output of 'srr_report'](",
                           srr_url,
-                          ")"),
+                          "), which can be re-generated locally by ",
+                          "running the [`srr_report() function](",
+                          "https://ropenscilabs.github.io/srr/",
+                          "reference/srr_report.html) from within a ",
+                          "local clone of the repository."),
                   "")
 
         srr_okay <- !any (grepl ("can not be submitted", srr)) &
