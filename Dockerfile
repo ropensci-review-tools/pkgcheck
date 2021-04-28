@@ -131,6 +131,7 @@ RUN apt-get install -y \
 RUN install2.r \
   plumber \
   devtools \
+  rmarkdown \
 && installGithub.r \
       r-lib/pkgapi \
       mpadge/pkgstats \
