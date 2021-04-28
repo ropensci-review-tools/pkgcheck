@@ -156,19 +156,19 @@ function (u) {
     if (methods::is (srr, "error")) {
 
         srr <- paste0 ("- ",
-                       symbol_crs (),
+                       pkgreport::symbol_crs (),
                        " ",
                        srr$message)
     } else if (any (grepl ("ready to submit", srr))) {
 
         srr <- paste0 ("- ",
-                       symbol_tck (),
+                       pkgreport::symbol_tck (),
                        " ",
                        srr)
-    } else {
+    } else if (!is.null (srr)) {
 
         srr <- paste0 ("- ",
-                       symbol_crs (),
+                       pkgreport::symbol_crs (),
                        " ",
                        srr)
     }
@@ -239,11 +239,11 @@ function (u) {
 
         check <- pkgreport::editor_check (local_repo, u)
 
-        if (any (grepl (symbol_crs (), check))) {
+        if (any (grepl (pkgreport::symbol_crs (), check))) {
 
             eic_instr <- c (eic_instr,
                             paste0 ("Processing may not proceed until the ",
-                                    "items marked with ", symbol_crs (),
+                                    "items marked with ", pkgreport::symbol_crs (),
                                     " have been resolved."))
         } else {
 
@@ -262,7 +262,25 @@ function (u) {
     message ("unlinking ", local_repo)
     junk <- unlink (local_repo, recursive = TRUE)
 
-    out <- paste0 (c (check, gp, srr, eic_instr), collapse = "\n")
+    # collapse core of check and gp into a details section:
+    chk_gp <- c (strsplit (check, "\n") [[1]],
+                 strsplit (gp, "\n") [[1]])
+    i <- grep ("\\#\\#\\# Package Statistics", chk_gp) - 1
+    chk_gp <- c (chk_gp [seq (i)],
+                 "",
+                 "### Details",
+                 "",
+                 "<details>",
+                 "<summary>Click to see</summary>",
+                 "<p>",
+                 "",
+                 chk_gp [-seq (i)],
+                 "",
+                 "</p></details>",
+                 "")
+
+
+    out <- paste0 (c (chk_gp, srr, eic_instr), collapse = "\n")
 
 
     return (out)
