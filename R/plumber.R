@@ -25,11 +25,11 @@ function (u) {
     org <- tail (strsplit (u, "/") [[1]], 2) [1]
     commit <- pkgreport::get_latest_commit (org, repo)
     oid <- substring (commit$oid, 1, 8)
-    visjs_file <- paste0 (repo, "_", oid, ".html")
+    visjs_file <- paste0 (repo, "_pkgstats", oid, ".html")
 
     # clean up any older ones
     flist <- list.files (visjs_dir,
-                         pattern = paste0 (repo, "_"),
+                         pattern = paste0 (repo, "_pkgstats"),
                          full.names = TRUE)
     unlink (flist, recursive = TRUE)
 
@@ -176,8 +176,12 @@ function (u) {
     srr <- paste0 (srr, collapse = "\n")
 
     srr_okay <- TRUE
+    srr_rep <- NULL
 
     if (sum (nchar (srr)) > 0L) {
+
+        srr_rep <- srr::srr_report (path = local_repo,
+                                    view = FALSE)
 
         srr <- strsplit (srr, "\n") [[1]]
 
@@ -202,6 +206,39 @@ function (u) {
                       "",
                       srr_tail)
         }
+
+        # cp report file to static dir:
+        srr_file_from <- attr (srr_rep, "file")
+        repo <- tail (strsplit (u, "/") [[1]], 1)
+        org <- tail (strsplit (u, "/") [[1]], 2) [1]
+        commit <- pkgreport::get_latest_commit (org, repo)
+        oid <- substring (commit$oid, 1, 8)
+        static_dir <- file.path (normalizePath (cache_dir),
+                                 "static")
+        srr_file_to <- file.path (static_dir,
+                                  paste0 (repo, "_srr", oid, ".html"))
+        # rm old files
+        flist <- list.files (static_dir,
+                             pattern = paste0 (repo, "\\_srr"),
+                             full.names = TRUE)
+        if (length (flist) > 0)
+            file.remove (flist)
+
+        if (!file.copy (srr_file_from, srr_file_to))
+            warning ("file not copied!")
+        else
+            warning ("file successfully copied to [", srr_file_to, "]")
+
+        srr_url <- paste0 (Sys.getenv ("pkgreport_url"),
+                           "/assets/",
+                           basename (srr_file_to))
+
+        srr <- c (srr,
+                  "",
+                  paste0 ("[Click here to view output of 'srr_report'](",
+                          srr_url,
+                          ")"),
+                  "")
 
         srr_okay <- !any (grepl ("can not be submitted", srr)) &
             !any (grepl ("block should only contain", srr))
@@ -243,7 +280,8 @@ function (u) {
 
             eic_instr <- c (eic_instr,
                             paste0 ("Processing may not proceed until the ",
-                                    "items marked with ", pkgreport::symbol_crs (),
+                                    "items marked with ",
+                                    pkgreport::symbol_crs (),
                                     " have been resolved."))
         } else {
 

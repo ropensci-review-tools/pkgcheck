@@ -134,11 +134,11 @@ editor_check <- function (path, u) {
     org <- tail (strsplit (u, "/") [[1]], 2) [1]
     commit <- pkgreport::get_latest_commit (org, repo)
     oid <- substring (commit$oid, 1, 8)
-    visjs_file <- paste0 (repo, "_", oid, ".html")
+    visjs_file <- paste0 (repo, "_pkgstats", oid, ".html")
 
     # clean up any older ones
     flist <- list.files (visjs_dir,
-                         pattern = paste0 (repo, "_"),
+                         pattern = paste0 (repo, "_pkgstats"),
                          full.names = TRUE)
     unlink (flist, recursive = TRUE)
     visjs_path <- file.path (visjs_dir, visjs_file)
