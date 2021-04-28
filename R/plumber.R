@@ -150,103 +150,8 @@ function (u) {
     local_zip <- paste0 (local_repo, ".zip")
     flist <- unzip (local_zip, exdir = cache_dir)
 
-    srr <- tryCatch (
-                srr::srr_stats_pre_submit (local_repo, quiet = TRUE),
-                error = function (e) e)
-    if (methods::is (srr, "error")) {
-
-        srr <- paste0 ("- ",
-                       pkgreport::symbol_crs (),
-                       " ",
-                       srr$message)
-    } else if (any (grepl ("ready to submit", srr))) {
-
-        srr <- paste0 ("- ",
-                       pkgreport::symbol_tck (),
-                       " ",
-                       srr)
-    } else if (!is.null (srr)) {
-
-        srr <- paste0 ("- ",
-                       pkgreport::symbol_crs (),
-                       " ",
-                       srr)
-    }
-
-    srr <- paste0 (srr, collapse = "\n")
-
-    srr_okay <- TRUE
-    srr_rep <- NULL
-
-    if (sum (nchar (srr)) > 0L) {
-
-        srr_rep <- srr::srr_report (path = local_repo,
-                                    view = FALSE)
-
-        srr <- strsplit (srr, "\n") [[1]]
-
-        srr <- c ("", "", "### srr", "", "", srr)
-        i <- grep ("standards are missing from your code", srr)
-        if (length (i) > 0) {
-
-            srr_head <- srr [seq (i)]
-            srr <- srr [-seq (i)]
-            blank <- which (nchar (srr) == 0)
-            srr_tail <- NULL
-            if (length (blank) > 1) {
-                stds_end <- blank [which (diff (blank) > 1) + 1]
-                srr_tail <- srr [seq (stds_end, length (srr))]
-                srr <- srr [-seq (stds_end, length (srr))]
-            }
-            srr <- srr [which (nchar (srr) > 0)]
-
-            srr <- c (srr_head,
-                      "",
-                      paste0 (srr, collapse = ", "),
-                      "",
-                      srr_tail)
-        }
-
-        # cp report file to static dir:
-        srr_file_from <- attr (srr_rep, "file")
-        repo <- tail (strsplit (u, "/") [[1]], 1)
-        org <- tail (strsplit (u, "/") [[1]], 2) [1]
-        commit <- pkgreport::get_latest_commit (org, repo)
-        oid <- substring (commit$oid, 1, 8)
-        static_dir <- file.path (normalizePath (cache_dir),
-                                 "static")
-        srr_file_to <- file.path (static_dir,
-                                  paste0 (repo, "_srr", oid, ".html"))
-        # rm old files
-        flist <- list.files (static_dir,
-                             pattern = paste0 (repo, "\\_srr"),
-                             full.names = TRUE)
-        if (length (flist) > 0)
-            file.remove (flist)
-
-        if (!file.copy (srr_file_from, srr_file_to))
-            warning ("file not copied!")
-        else
-            warning ("file successfully copied to [", srr_file_to, "]")
-
-        srr_url <- paste0 (Sys.getenv ("pkgreport_url"),
-                           "/assets/",
-                           basename (srr_file_to))
-
-        srr <- c (srr,
-                  "",
-                  paste0 ("[Click here to view output of 'srr_report'](",
-                          srr_url,
-                          "), which can be re-generated locally by ",
-                          "running the [`srr_report() function](",
-                          "https://ropenscilabs.github.io/srr/",
-                          "reference/srr_report.html) from within a ",
-                          "local clone of the repository."),
-                  "")
-
-        srr_okay <- !any (grepl ("can not be submitted", srr)) &
-            !any (grepl ("block should only contain", srr))
-    }
+    srr <- pkgreport::pkgrep_srr_report (local_repo)
+    srr_okay <- attr (srr, "srr_okay")
 
     gp <- check <- NULL
     eic_instr <- c ("", "## Editor-in-Chief Instructions:", "")
@@ -327,6 +232,8 @@ function (u) {
 
     return (out)
 }
+
+
 
 
 # --------------------------------------------------
