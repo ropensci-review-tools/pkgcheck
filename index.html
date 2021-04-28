@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgreport</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.164</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.169</span>
       </span>
     </div>
 
@@ -67,14 +67,14 @@
 <a href="#pkgreport" class="anchor" aria-hidden="true"></a>pkgreport</h1></div>
 <!-- badges: start -->
 
-<p>Plumber API to report on package structure and function. Uses functionality provided by the packages <a href="https://github.com/r-lib/pkgapi" class="external-link"><code>r-lib/pkgapi</code></a> and <a href="https://github.com/ropenscilabs/packgraph" class="external-link"><code>packgraph</code></a> which are not on CRAN and must first be installed with</p>
+<p>Plumber API to report on package structure and function. Uses functionality provided by the <a href="https://github.com/ropenscilabs/pkgstats" class="external-link"><code>pkgstats</code></a> package which is not on CRAN and must first be installed with</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"r-lib/pkgapi"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropenscilabs/packgraph"</span><span class="op">)</span></code></pre></div>
-<p>The package can then be loaded the usual way:</p>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropenscilabs/pkgstats"</span><span class="op">)</span></code></pre></div>
+<p>That package also requires both <a href="https://ctags.io" class="external-link"><code>ctags</code></a> and <a href="https://www.gnu.org/software/global/" class="external-link">GNU <code>global</code></a> to be installed. See package description and those links for how to install those libraries on your system.</p>
+<p>Once <code>pkgstats</code> has been successfully installed, the <code>pkgreport</code> package can then be loaded via a <code>library</code> call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ropenscilabs/pkgreport" class="external-link">pkgreport</a></span><span class="op">)</span></code></pre></div>
-<p>Also uses the <a href="https://developer.github.com/v4" class="external-link">github GraphQL API</a> which requires a local github token to be stored with an unambiguous name including <code>GITHUB</code> and maybe <code>QL</code>, if alternative <code>GITHIB</code> tokens already exist. This can be obtained from github (via your user settings), and stored using</p>
+<p>This package also uses the <a href="https://developer.github.com/v4" class="external-link">github GraphQL API</a> which requires a local github token to be stored with an unambiguous name including <code>GITHUB</code> and maybe <code>QL</code>, if alternative <code>GITHIB</code> tokens already exist. This can be obtained from github (via your user settings), and stored using</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"GITHUB_QL"</span> <span class="op">=</span> <span class="st">"&lt;my_token&gt;"</span><span class="op">)</span></code></pre></div>
 <p>This can also be set permanently by putting this line in your <code>~/.Renviron</code> file (or creating this if it does not yet exist).</p>
