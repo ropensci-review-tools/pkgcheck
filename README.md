@@ -11,27 +11,31 @@ Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repo
 <!-- badges: end -->
 
 Plumber API to report on package structure and function. Uses
-functionality provided by the packages
-[`r-lib/pkgapi`](https://github.com/r-lib/pkgapi) and
-[`packgraph`](https://github.com/ropenscilabs/packgraph) which are not
-on CRAN and must first be installed with
+functionality provided by the
+[`pkgstats`](https://github.com/ropenscilabs/pkgstats) package which is
+not on CRAN and must first be installed with
 
 ``` r
-remotes::install_github("r-lib/pkgapi")
-remotes::install_github("ropenscilabs/packgraph")
+remotes::install_github("ropenscilabs/pkgstats")
 ```
 
-The package can then be loaded the usual way:
+That package also requires both [`ctags`](https://ctags.io) and [GNU
+`global`](https://www.gnu.org/software/global/) to be installed. See
+package description and those links for how to install those libraries
+on your system.
+
+Once `pkgstats` has been successfully installed, the `pkgreport` package
+can then be loaded via a `library` call:
 
 ``` r
 library(pkgreport)
 ```
 
-Also uses the [github GraphQL API](https://developer.github.com/v4)
-which requires a local github token to be stored with an unambiguous
-name including `GITHUB` and maybe `QL`, if alternative `GITHIB` tokens
-already exist. This can be obtained from github (via your user
-settings), and stored using
+This package also uses the [github GraphQL
+API](https://developer.github.com/v4) which requires a local github
+token to be stored with an unambiguous name including `GITHUB` and maybe
+`QL`, if alternative `GITHIB` tokens already exist. This can be obtained
+from github (via your user settings), and stored using
 
 ``` r
 Sys.setenv("GITHUB_QL" = "<my_token>")
