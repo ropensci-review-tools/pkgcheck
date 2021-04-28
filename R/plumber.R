@@ -192,6 +192,7 @@ function (u) {
     }
 
     gp <- check <- NULL
+    eic_instr <- c ("", "## Editor-in-Chief Instructions:", "")
 
     if (srr_okay) {
 
@@ -222,20 +223,31 @@ function (u) {
 
         check <- pkgreport::editor_check (local_repo, u)
 
+        if (any (grepl (symbol_crs (), check))) {
+
+            eic_instr <- c (eic_instr,
+                            paste0 ("Processing may not proceed until the ",
+                                    "items marked with ", symbol_crs (),
+                                    " have been resolved."))
+        } else {
+
+            eic_instr <- c (eic_instr,
+                            paste0 ("This package is in top shape and may ",
+                                    "be passed on to a handling editor"))
+        }
+
     } else {
 
-        srr <- c (srr,
-                  "",
-                  "## Editor-in-Chief Instructions:",
-                  "",
-                  paste0 ("Processing may not proceed until the 'srr' ",
-                          "issues identified above have been adressed."))
+        eic_instr <- c (eic_instr,
+                        paste0 ("Processing may not proceed until the 'srr' ",
+                                "issues identified above have been adressed."))
     }
 
     message ("unlinking ", local_repo)
     junk <- unlink (local_repo, recursive = TRUE)
 
-    out <- paste0 (c (check, gp, srr), collapse = "\n")
+    out <- paste0 (c (check, gp, srr, eic_instr), collapse = "\n")
+
 
     return (out)
 }
