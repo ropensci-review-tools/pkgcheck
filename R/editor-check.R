@@ -219,18 +219,7 @@ pkgstats_checks <- function (s) {
                     "</p></details>"
                     )
 
-    if (is_noteworthy) {
-
-        stats_rep <- c (stats_rep,
-                        "",
-                        paste0 ("**Note** This package features some ",
-                                "noteworthy statistical properties, as ",
-                                "detailed in the preceding ",
-                                "*Package Statistics* section. ",
-                                "Reasons for the features flagged in that ",
-                                "section as noteworthy should be clarified ",
-                                "by a handling editor prior to progressing."))
-    }
+    attr (stats_rep, "is_noteworthy") <- is_noteworthy
 
     return (stats_rep)
 }
