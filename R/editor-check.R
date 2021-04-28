@@ -69,63 +69,7 @@ editor_check <- function (path, u) {
     lic <- s$desc$license
     #pkg_ver <- paste0 (s$desc$package, "_", s$desc$version) # nolint
 
-    # ------------------------------------------------------------
-    # ---------------   PKGSTATS + NETWORK GRAPH   ---------------
-    # ------------------------------------------------------------
-
-    # stats_checks against all CRAN pkgs
-    s_summ <- pkgstats::pkgstats_summary (s)
-    stat_chks <- pkgreport::stats_checks (s_summ)
-    # ignore large numbers of files:
-    stat_chks$noteworthy [grepl ("^files\\_", stat_chks$measure) &
-                          stat_chks$percentile > 0.5] <- FALSE
-    is_noteworthy <- any (stat_chks$noteworthy)
-    stat_chks$percentile <- 100 * stat_chks$percentile
-    stat_chks$noteworthy [which (!stat_chks$noteworthy)] <- ""
-    stats_rep <- c ("",
-                    "### Package Statistics",
-                    "",
-                    "<details>",
-                    "<summary>click to see</summary>",
-                    "<p>",
-                    "",
-                    "---",
-                    "",
-                    paste0 ("Statistical properties of package structure as ",
-                            "distributional percentiles in relation to all ",
-                            "current CRAN packages"),
-                    "The following terminology is used:",
-                    "- `loc` = \"Lines of Code\"",
-                    "- `fn` = \"function\"",
-                    "- `exp`/`not_exp` = exported / not exported",
-                    "",
-                    paste0 ("The final measure (`fn_call_network_size`) is ",
-                            "the total number of calls between functions (in ",
-                            "R), or more abstract relationships between code ",
-                            "objects in other languages. Values are flagged ",
-                            "as \"noteworthy\" when they lie in the upper or ",
-                            "lower 5th percentile."),
-                    "",
-                    knitr::kable (stat_chks,
-                                  row.names = FALSE,
-                                  digits = c (NA, 0, 1, NA)),
-                    "",
-                    "---",
-                    "</p></details>"
-                    )
-
-    if (is_noteworthy) {
-
-        stats_rep <- c (stats_rep,
-                        "",
-                        paste0 ("**Note** This package features some ",
-                                "noteworthy statistical properties, as ",
-                                "detailed in the preceding ",
-                                "*Package Statistics* section. ",
-                                "Reasons for the features flagged in that ",
-                                "section as noteworthy should be clarified ",
-                                "by a handling editor prior to progressing."))
-    }
+    stats_rep <- pkgstats_checks (s)
 
     # function call network
     cache_dir <- Sys.getenv ("cache_dir")
@@ -227,4 +171,66 @@ editor_check <- function (path, u) {
     }
 
     return (paste0 (res, collapse = "\n"))
+}
+
+#' Format \pkg{pkgstats} data
+#' @param s Output of \pkg{pkgstats} call.
+#' @return Report as formatted string
+#' @export
+pkgstats_checks <- function (s) {
+
+    s_summ <- pkgstats::pkgstats_summary (s)
+    stat_chks <- pkgreport::stats_checks (s_summ)
+    # ignore large numbers of files:
+    stat_chks$noteworthy [grepl ("^files\\_", stat_chks$measure) &
+                          stat_chks$percentile > 0.5] <- FALSE
+    is_noteworthy <- any (stat_chks$noteworthy)
+    stat_chks$percentile <- 100 * stat_chks$percentile
+    stat_chks$noteworthy [which (!stat_chks$noteworthy)] <- ""
+    stats_rep <- c ("",
+                    "### Package Statistics",
+                    "",
+                    "<details>",
+                    "<summary>click to see</summary>",
+                    "<p>",
+                    "",
+                    "---",
+                    "",
+                    paste0 ("Statistical properties of package structure as ",
+                            "distributional percentiles in relation to all ",
+                            "current CRAN packages"),
+                    "The following terminology is used:",
+                    "- `loc` = \"Lines of Code\"",
+                    "- `fn` = \"function\"",
+                    "- `exp`/`not_exp` = exported / not exported",
+                    "",
+                    paste0 ("The final measure (`fn_call_network_size`) is ",
+                            "the total number of calls between functions (in ",
+                            "R), or more abstract relationships between code ",
+                            "objects in other languages. Values are flagged ",
+                            "as \"noteworthy\" when they lie in the upper or ",
+                            "lower 5th percentile."),
+                    "",
+                    knitr::kable (stat_chks,
+                                  row.names = FALSE,
+                                  digits = c (NA, 0, 1, NA)),
+                    "",
+                    "---",
+                    "</p></details>"
+                    )
+
+    if (is_noteworthy) {
+
+        stats_rep <- c (stats_rep,
+                        "",
+                        paste0 ("**Note** This package features some ",
+                                "noteworthy statistical properties, as ",
+                                "detailed in the preceding ",
+                                "*Package Statistics* section. ",
+                                "Reasons for the features flagged in that ",
+                                "section as noteworthy should be clarified ",
+                                "by a handling editor prior to progressing."))
+    }
+
+    return (stats_rep)
 }
