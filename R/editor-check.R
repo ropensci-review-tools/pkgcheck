@@ -74,8 +74,8 @@ editor_check <- function (path, u) {
     # function call network
     cache_dir <- Sys.getenv ("cache_dir")
     visjs_dir <- file.path (cache_dir, "static") # in api.R
-    repo <- tail (strsplit (u, "/") [[1]], 1)
-    org <- tail (strsplit (u, "/") [[1]], 2) [1]
+    repo <- utils::tail (strsplit (u, "/") [[1]], 1)
+    org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
     commit <- pkgreport::get_latest_commit (org, repo)
     oid <- substring (commit$oid, 1, 8)
     visjs_file <- paste0 (repo, "_pkgstats", oid, ".html")

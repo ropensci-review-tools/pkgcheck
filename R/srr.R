@@ -1,5 +1,5 @@
 
-#' Format the \package{srr} reporting section of the general editorial report.
+#' Format the \pkg{srr} reporting section of the general editorial report.
 #'
 #' @param local_repo Location of local repository to report on
 #'
@@ -68,8 +68,8 @@ pkgrep_srr_report <- function (local_repo) {
         # cp report file to static dir:
         u <- url_from_desc (local_repo)
         srr_file_from <- attr (srr_rep, "file")
-        repo <- tail (strsplit (u, "/") [[1]], 1)
-        org <- tail (strsplit (u, "/") [[1]], 2) [1]
+        repo <- utils::tail (strsplit (u, "/") [[1]], 1)
+        org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
         commit <- pkgreport::get_latest_commit (org, repo)
         oid <- substring (commit$oid, 1, 8)
         cache_dir <- Sys.getenv ("cache_dir")

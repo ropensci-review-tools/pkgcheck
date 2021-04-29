@@ -2,7 +2,7 @@
 % Please edit documentation in R/srr.R
 \name{pkgrep_srr_report}
 \alias{pkgrep_srr_report}
-\title{Format the \package{srr} reporting section of the general editorial report.}
+\title{Format the \pkg{srr} reporting section of the general editorial report.}
 \usage{
 pkgrep_srr_report(local_repo)
 }
@@ -10,7 +10,7 @@ pkgrep_srr_report(local_repo)
 \item{local_repo}{Location of local repository to report on}
 }
 \description{
-Format the \package{srr} reporting section of the general editorial report.
+Format the \pkg{srr} reporting section of the general editorial report.
 }
 \note{
 This uses two of the environmental variables set in \link{serve_api} of
