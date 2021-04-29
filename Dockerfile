@@ -132,12 +132,10 @@ RUN install2.r \
   plumber \
   devtools \
   rmarkdown \
+  visNetwork \
 && installGithub.r \
-      r-lib/pkgapi \
-      mpadge/pkgstats \
+      ropenscilabs/pkgstats \
       ropenscilabs/pkgreport
-
-#RUN echo "suppressMessages(bspm::enable())" > ~/.Rprofile
 
 EXPOSE 8000
 
@@ -145,12 +143,3 @@ RUN echo "#!/bin/bash\nRscript -e 'pkgreport::serve_api(port=8000)'" > /server_a
   && chmod a+x /server_api.sh
 
 CMD /server_api.sh
-
-#COPY inst/plumber.R /
-
-#ENTRYPOINT ["R", "-e", "pr <- pkgreport::serve_api(port = 8000L, bg = FALSE)"]
-
-#ARG ENTRYPOINT_FILE=/usr/local/lib/R/site-library/pkgreport/plumber.R
-#RUN cp ${ENTRYPOINT_FILE} ~/plumber.R
-
-#CMD ["~/plumber.R"]
