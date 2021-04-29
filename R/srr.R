@@ -41,9 +41,18 @@ pkgrep_srr_report <- function (local_repo) {
         srr_rep <- srr::srr_report (path = local_repo,
                                     view = FALSE)
 
+        categories <- srr_categories_from_report (srr_rep)
+        cat_pl <- ifelse (length (categories) == 1,
+                          "category",
+                          "categories")
+
         srr <- strsplit (srr, "\n") [[1]]
 
-        srr <- c ("", "", "### srr", "", "", srr)
+        srr <- c ("", "", "### srr", "",
+                  paste0 ("This package is in the following ",
+                          cat_pl, ":"),
+                  paste0 ("- *", categories, "*"),
+                  "", srr)
         i <- grep ("standards are missing from your code", srr)
         if (length (i) > 0) {
 
@@ -129,4 +138,28 @@ url_from_desc <- function (path) {
         u <- u [which (!grepl ("\\.io", u))]
 
     return (u [1])
+}
+
+srr_categories_from_report <- function (s) {
+
+    cats <- regmatches (s, gregexpr ("\\*\\*.*\\*\\*", s))
+    cats <- unlist (lapply (cats, function (i)
+                            if (length (i) > 0)
+                                strsplit (i, ", ") [[1]]))
+    cats <- gsub ("\\*\\*", "", cats)
+    cats <- unique (gsub ("[0-9].*$", "", cats))
+    cats <- cats [which (!cats == "G")]
+
+    prefixes <- c ("BS", "EA", "ML", "RE", "SP", "TS", "UL")
+    categories <- c ("Bayesian and Monte Carlo",
+                     "Exploratory Data Analysis",
+                     "Machine Learning",
+                     "Regression and Supervised Learning",
+                     "Spatial",
+                     "Time Series",
+                     "Dimensionality Reduction, Clustering and Unsupervised Learning")
+    cats <- cats [which (cats %in% prefixes)]
+    # TODO: error handling on that one
+
+    return (categories [match (cats, prefixes)])
 }
