@@ -139,7 +139,7 @@ RUN install2.r \
 
 EXPOSE 8000
 
-RUN echo "#!/bin/bash\nRscript -e 'pkgreport::serve_api(port=8000)'" > /server_api.sh \
+RUN echo "#!/bin/bash\nRscript -e 'pkgreport::serve_api(published=8000L)'" > /server_api.sh \
   && chmod a+x /server_api.sh
 
 CMD /server_api.sh
