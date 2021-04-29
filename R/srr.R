@@ -51,7 +51,7 @@ pkgrep_srr_report <- function (local_repo) {
         srr <- c ("", "", "### srr", "",
                   paste0 ("This package is in the following ",
                           cat_pl, ":"),
-                  paste0 ("- *", categories, "*"),
+                  paste0 ("*", categories, "*"),
                   "", srr)
         i <- grep ("standards are missing from your code", srr)
         if (length (i) > 0) {
