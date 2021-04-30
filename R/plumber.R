@@ -154,6 +154,7 @@ function (u) {
     srr_okay <- attr (srr, "srr_okay")
 
     gp <- check <- NULL
+    is_noteworthy <- FALSE
     eic_instr <- c ("", "## Editor-in-Chief Instructions:", "")
 
     if (srr_okay) {
@@ -184,6 +185,7 @@ function (u) {
 
 
         check <- pkgreport::editor_check (local_repo, u)
+        is_noteworthy <- attr (check, "is_noteworthy")
 
         if (any (grepl (pkgreport::symbol_crs (), check))) {
 
@@ -212,11 +214,18 @@ function (u) {
     # collapse core of check and gp into a details section:
     chk_gp <- c (strsplit (check, "\n") [[1]],
                  strsplit (gp, "\n") [[1]])
+
+    noteworthy <- ifelse (is_noteworthy,
+                          c (paste0 ("This package has some noteworthy properties, ",
+                                     "see 'Package Statistics' details below"),
+                             ""),
+                          "")
     i <- grep ("\\#\\#\\# Package Statistics", chk_gp) - 1
     chk_gp <- c (chk_gp [seq (i)],
                  "",
                  "### Details",
                  "",
+                 noteworthy,
                  "<details>",
                  "<summary>Click to see</summary>",
                  "<p>",
