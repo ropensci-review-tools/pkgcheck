@@ -170,7 +170,10 @@ editor_check <- function (path, u) {
         }
     }
 
-    return (paste0 (res, collapse = "\n"))
+    ret <- paste0 (res, collapse = "\n")
+    attr (ret, "is_noteworthy") <- attr (stats_rep, "is_noteworthy")
+
+    return (ret)
 }
 
 #' Format \pkg{pkgstats} data
