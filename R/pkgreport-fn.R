@@ -11,6 +11,8 @@ pkgreport <- function (path) {
     u <- url_from_desc (path)
 
     s <- suppressWarnings (pkgstats::pkgstats (path))
+    s$path <- path
+    s_summ <- pkgstats_checks (s)
     pkgstats <- pkgstats_checks (s)
 
     out <- list ()
@@ -29,7 +31,8 @@ pkgreport <- function (path) {
                                             "loc_per_fn_r_not_exp"]
     loc_src_fns <- stats::median (pkgstats$value [pkgstats$measure %in%
                                   c ("loc_per_fn_src", "loc_per_fn_inst")])
-    num_params_per_fn = pkgstats$value [pkgstats$measure == "num_params_per_fn"]
+    num_params_per_fn <- pkgstats$value [pkgstats$measure ==
+                                         "num_params_per_fn"]
 
     out$summary <- list (
          num_authors = s$desc$aut,
@@ -68,8 +71,8 @@ pkgreport <- function (path) {
     out$file_list$has_contrib <- has_contrib [1]
 
     out$fns_have_exs <- all_pkg_fns_have_exs (path)
-    out$fns_have_exs <- out$fns_have_exs [which (!grepl ("\\-package\\.Rd$",
-                                                         names (out$fns_have_exs)))]
+    index <- which (!grepl ("\\-package\\.Rd$", names (out$fns_have_exs)))
+    out$fns_have_exs <- out$fns_have_exs [index]
 
     la <- left_assign (path) # tallies of "<-", "<<-", "="
     out$left_assigns <- list (global = la [["<<-"]] > 0)
@@ -127,12 +130,13 @@ pkgreport <- function (path) {
 pkgstats_checks <- function (s) {
 
     s_summ <- pkgstats::pkgstats_summary (s)
+    attr (s_summ, "path") <- s$path
     stat_chks <- stats_checks (s_summ)
     languages <- attr (stat_chks, "language")
     # ignore large numbers of files:
     stat_chks$noteworthy [grepl ("^files\\_", stat_chks$measure) &
                           stat_chks$percentile > 0.5] <- FALSE
-    is_noteworthy <- any (stat_chks$noteworthy)
+    #is_noteworthy <- any (stat_chks$noteworthy)
     stat_chks$percentile <- 100 * stat_chks$percentile
     stat_chks$noteworthy [which (!stat_chks$noteworthy)] <- ""
 

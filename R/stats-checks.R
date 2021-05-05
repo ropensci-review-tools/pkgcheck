@@ -83,7 +83,7 @@ stats_checks <- function (s, threshold = 0.05) {
         "fn_call_network_size"
 
     # language summary:
-    cloc <- cloc::cloc (file.path (path, "R"))
+    cloc <- cloc::cloc (file.path (attr (s, "path"), "R"))
     add_if <- function (pc, measure, fpath) {
 
         ret <- NULL
@@ -96,9 +96,9 @@ stats_checks <- function (s, threshold = 0.05) {
         return (ret)
     }
     cloc <- rbind (cloc,
-                   add_if (pc, "loc_src", file.path (path, "src")))
+                   add_if (pc, "loc_src", file.path (attr (s, "path"), "src")))
     cloc <- rbind (cloc,
-                   add_if (pc, "loc_inst", file.path (path, "src", "include")))
+                   add_if (pc, "loc_inst", file.path (attr (s, "path"), "src", "include")))
 
     cloc <- cloc [which (cloc$language != "SUM"), ]
     cloc$pc <- 100 * cloc$loc / sum (cloc$loc)

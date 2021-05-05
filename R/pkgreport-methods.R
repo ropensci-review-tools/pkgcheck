@@ -54,8 +54,9 @@ print_summary <- function (x) {
     if (all (x$fns_have_exs)) {
         cli::cli_alert_success ("All exported functions have examples")
     } else {
-        noex <- names (x$fns_have_exs [which (!x$fns_have_exs)])
-        cli::cli_alert_danger ("These exported functions do not have examples [{noex}]")
+        noex <- names (x$fns_have_exs [which (!x$fns_have_exs)]) # nolint
+        cli::cli_alert_danger (paste0 ("These exported functions do ",
+                                       "not have examples [{noex}]"))
         okay <- FALSE
     }
 
@@ -74,7 +75,8 @@ print_summary <- function (x) {
     }
 
     if (x$left_assigns$global)
-        cli::cli_alert_danger ("Package uses a global assignment operator ('<<-')")
+        cli::cli_alert_danger (paste0 ("Package uses a global assignment ",
+                                       "operator ('<<-')"))
     if (all (x$left_assign$usage > 0)) {
         la <- x$left_assign$usage
         cli::cli_alert_danger (paste0 ("Package uses inconsistent left-assign ",
@@ -86,15 +88,17 @@ print_summary <- function (x) {
     if (!is.null (x$badges)) {
         cli::cli_alert_success ("Package has continuous integration checks")
     } else {
-        cli::cli_alert_danger ("Package does not have continuous integration checks")
+        cli::cli_alert_danger (paste0 ("Package does not have ",
+                                       "continuous integration checks"))
         okay <- FALSE
     }
 
-    coverage <- round (x$gp$covr$pct_by_line, digits = 1)
+    coverage <- round (x$gp$covr$pct_by_line, digits = 1) # nolint
     if (x$gp$covr$pct_by_line >= 75) {
         cli::cli_alert_success ("Package coverage is {coverage}%")
     } else {
-        cli::cli_alert_danger ("Package coverage is {coverage}% (should be at least 75%)")
+        cli::cli_alert_danger (paste0 ("Package coverage is {coverage}% ",
+                                       "(should be at least 75%)"))
         okay <- FALSE
     }
 
@@ -136,7 +140,7 @@ print_git <- function (x) {
 
     cli::cli_h2 ("git")
 
-    since <- strftime (x$git$since, "%d-%m-%Y")
+    since <- strftime (x$git$since, "%d-%m-%Y") # nolint
     gitstats <- c ("HEAD: {substring (x$git$HEAD, 1, 8)}",
                    "Default branch: {x$git$branch}",
                    "Num commits: {x$git$num_commits}",
@@ -167,8 +171,9 @@ print_structure <- function (x) {
             "{x$summary$imported_pkgs} imported package{?s}",
             paste0 ("{x$summary$num_exported_fns} exported function{?s} ",
                     "(median {x$summary$loc_exported_fns} lines of code)"),
-            paste0 ("{x$summary$num_non_exported_fns} non-exported function{?s} ",
-                    "(median {x$summary$loc_non_exported_fns} lines of code)"))
+            paste0 ("{x$summary$num_non_exported_fns} non-exported ",
+                    "function{?s} (median {x$summary$loc_non_exported_fns} ",
+                    "lines of code)"))
     if (x$summary$num_src_fns > 0) {
         langs <- vapply (strsplit (x$summary$languages, ":"), function (i)
                          i [1], character (1))
