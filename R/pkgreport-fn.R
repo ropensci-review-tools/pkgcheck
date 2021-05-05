@@ -11,11 +11,39 @@ pkgreport <- function (path) {
     u <- url_from_desc (path)
 
     s <- suppressWarnings (pkgstats::pkgstats (path))
+    pkgstats <- pkgstats_checks (s)
 
     out <- list ()
     out$package <- s$desc$package
     out$version <- s$desc$version
     out$license <- s$desc$license
+
+    num_exported_fns <- pkgstats$value [pkgstats$measure == "n_fns_r_exported"]
+    num_non_exported_fns <- pkgstats$value [pkgstats$measure ==
+                                            "n_fns_r_not_exported"]
+    num_src_fns <- sum (pkgstats$value [pkgstats$measure %in%
+                        c ("n_fns_src", "n_fns_inst")])
+    loc_exported_fns <- pkgstats$value [pkgstats$measure ==
+                                        "loc_per_fn_r_exp"]
+    loc_non_exported_fns <- pkgstats$value [pkgstats$measure ==
+                                            "loc_per_fn_r_not_exp"]
+    loc_src_fns <- stats::median (pkgstats$value [pkgstats$measure %in%
+                                  c ("loc_per_fn_src", "loc_per_fn_inst")])
+    num_params_per_fn = pkgstats$value [pkgstats$measure == "num_params_per_fn"]
+
+    out$summary <- list (
+         num_authors = s$desc$aut,
+         num_vignettes = unname (s$vignettes [1]),
+         num_data = unname (s$data_stats [1]),
+         imported_pkgs = length (strsplit (s$desc$imports, ",") [[1]]),
+         num_exported_fns = as.integer (num_exported_fns),
+         num_non_exported_fns = as.integer (num_non_exported_fns),
+         num_src_fns = as.integer (num_src_fns),
+         loc_exported_fns = as.integer (loc_exported_fns),
+         loc_non_exported_fns = as.integer (loc_non_exported_fns),
+         loc_src_fns = as.integer (loc_src_fns),
+         num_params_per_fn = as.integer (num_params_per_fn),
+         languages = attr (pkgstats, "language"))
 
     repo <- utils::tail (strsplit (u, "/") [[1]], 1)
     org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
@@ -26,6 +54,7 @@ pkgreport <- function (path) {
     auts <- gsub ("^.*<|>$", "", unique (gitlog$author))
 
     out$git <- list (HEAD = commit$oid,
+                     branch = get_default_branch (org, repo),
                      num_commits = nrow (gitlog),
                      since = min (gitlog$time),
                      num_authors = length (unique (auts)))
@@ -48,7 +77,7 @@ pkgreport <- function (path) {
     out$file_list$has_url <- !is.na (s$desc$urls)
     out$file_list$has_bugs <- !is.na (s$desc$bugs)
 
-    out$pkgstats <- pkgstats_checks (s)
+    out$pkgstats <- pkgstats
 
     # ------------------------------------------------------------
     # -----------------   FUNCTION CALL NETWORK   ----------------
@@ -84,6 +113,8 @@ pkgreport <- function (path) {
 
     out$gp <- get_gp_report (path)
 
+    class (out) <- c ("pkgreport", class (out))
+
     return (out)
 }
 
@@ -95,12 +126,15 @@ pkgstats_checks <- function (s) {
 
     s_summ <- pkgstats::pkgstats_summary (s)
     stat_chks <- stats_checks (s_summ)
+    languages <- attr (stat_chks, "language")
     # ignore large numbers of files:
     stat_chks$noteworthy [grepl ("^files\\_", stat_chks$measure) &
                           stat_chks$percentile > 0.5] <- FALSE
     is_noteworthy <- any (stat_chks$noteworthy)
     stat_chks$percentile <- 100 * stat_chks$percentile
     stat_chks$noteworthy [which (!stat_chks$noteworthy)] <- ""
+
+    attr (stat_chks, "language") <- languages
 
     return (stat_chks)
 }

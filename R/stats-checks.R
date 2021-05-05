@@ -22,7 +22,8 @@ stats_checks <- function (s, threshold = 0.05) {
                             is.numeric (dat [[i]]),
                             logical (1)))
     nms <- nms [index]
-    ptn <- "^desc_n|^num\\_|^files\\_inst|^files\\_src"
+    #ptn <- "^desc_n|^num\\_|^files\\_inst|^files\\_src"
+    ptn <- "^desc_n"
     nms <- nms [which (!grepl (ptn, nms))]
     dists <- lapply (nms, function (i)
                      sort (dat [[i]] [which (!is.na (dat [[i]]))]))
@@ -43,24 +44,25 @@ stats_checks <- function (s, threshold = 0.05) {
     keep <- c (grep ("^files\\_", pc$measure),
                grep ("^loc\\_", pc$measure),
                grep ("^data\\_", pc$measure),
-               grep ("^f\\_fns\\_", pc$measure),
+               grep ("^num\\_vignettes$", pc$measure),
+               grep ("^n\\_fns\\_", pc$measure),
                grep ("^npars\\_", pc$measure),
-               grep ("^loc\\_per\\_fn", pc$measure),
                grep ("^n\\_edges", pc$measure))
-    pc <- pc [keep, ]
+    pc <- pc [sort (unique (keep)), ]
     pc <- pc [which (!is.na (pc$percentile)), ]
     rownames (pc) <- NULL
-    if (!"files_src" %in% pc$measures)
-        pc <- pc [which (!grepl ("\\_src$", pc$measure)), ]
     pc <- pc [which (!grepl ("^n\\_edges\\_", pc$measure)), ]
 
     # reduce to median estimates only
     pc <- pc [which (!grepl ("\\_mn$", pc$measure)), ]
     pc$measure <- gsub ("\\_md$", "", pc$measure)
-    # rm data checks when no data
-    if (pc$percentile [pc$measure == "data_size_total"] == 0.0) {
 
+    # additional tidying & removal:
+    if (pc$percentile [pc$measure == "data_size_total"] == 0.0) {
         pc <- pc [which (!grepl ("^data\\_", pc$measure)), ]
+    }
+    if (pc$value [pc$measure == "files_inst"] == 0.0) {
+        pc <- pc [which (pc$measure != "files_inst"), ]
     }
 
     pc$noteworthy <- FALSE
@@ -73,6 +75,31 @@ stats_checks <- function (s, threshold = 0.05) {
         "num_params_per_fn"
     pc$measure [pc$measure == "n_edges"] <-
         "fn_call_network_size"
+
+    # language summary:
+    cloc <- cloc::cloc (file.path (path, "R"))
+    add_if <- function (pc, measure, fpath) {
+
+        ret <- NULL
+        i <- which (pc$measure == measure)
+        if (length (i) > 0) {
+            if (pc$value [i] > 0) {
+                ret <- cloc::cloc (fpath)
+            }
+        }
+        return (ret)
+    }
+    cloc <- rbind (cloc,
+                   add_if (pc, "loc_src", file.path (path, "src")))
+    cloc <- rbind (cloc,
+                   add_if (pc, "loc_inst", file.path (path, "src", "include")))
+
+    cloc <- cloc [which (cloc$language != "SUM"), ]
+    cloc$pc <- 100 * cloc$loc / sum (cloc$loc)
+    attr (pc, "language") <- paste0 (cloc$language,
+                                     ": ",
+                                     round (cloc$pc),
+                                     "%")
 
     return (pc)
 }

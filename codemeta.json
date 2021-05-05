@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgreport",
   "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.201",
+  "version": "0.0.1.202",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -68,6 +68,23 @@
       "identifier": "R",
       "name": "R",
       "version": ">= 3.4.0"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "cloc",
+      "name": "cloc"
     },
     {
       "@type": "SoftwareApplication",
@@ -162,7 +179,7 @@
       "@type": "SoftwareApplication",
       "identifier": "pkgstats",
       "name": "pkgstats",
-      "sameAs": "https://github.com/mpadge/pkgstats"
+      "sameAs": "https://github.com/hrbrmstr/cloc\n    mpadge/pkgstats"
     },
     {
       "@type": "SoftwareApplication",
@@ -196,6 +213,6 @@
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgreport/blob/main/README.md",
-  "fileSize": "1811.771KB",
+  "fileSize": "1817.96KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

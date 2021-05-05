@@ -1,6 +1,6 @@
 Package: pkgreport
 Title: Plumber API to report package structure and function
-Version: 0.0.1.201
+Version: 0.0.1.202
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -13,6 +13,8 @@ BugReports: https://github.com/ropenscilabs/pkgreport/issues
 Depends: 
     R (>= 3.4.0)
 Imports:
+    cli,
+    cloc,
     covr,
     gert,
     ghql,
@@ -31,6 +33,7 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes:
+    hrbrmstr/cloc
     mpadge/pkgstats,
     ropenscilabs/srr
 Encoding: UTF-8
