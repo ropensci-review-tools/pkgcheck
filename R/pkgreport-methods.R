@@ -4,6 +4,8 @@ print.pkgreport <- function (x, ...) {
     cli::cli_h1 (paste0 (x$package, " ", x$version))
     message ("")
 
+    print_summary (x)
+
     print_git (x)
     print_srr (x)
     print_structure (x)
@@ -19,6 +21,89 @@ print.pkgreport <- function (x, ...) {
 
     cli::cli_h2 ("goodpractice")
     print (x$gp)
+}
+
+#' @export
+summary.pkgreport <- function (x, ...) {
+
+    cli::cli_h1 (paste0 (x$package, " ", x$version))
+    message ("")
+
+    print_summary (x)
+}
+
+print_summary <- function (x) {
+
+    cli::cli_h2 ("Package Summary")
+
+    if (x$file_list$uses_roxy) {
+        cli::cli_alert_success ("Package uses 'roxygen2'")
+    } else {
+        cli::cli_alert_danger ("Package does not use 'roxygen2'")
+    }
+
+    if (x$file_list$has_contrib) {
+        cli::cli_alert_success ("Package has a 'contributing.md' file")
+    } else {
+        cli::cli_alert_danger ("Package does not have a 'contributing.md' file")
+    }
+
+    if (all (x$fns_have_exs)) {
+        cli::cli_alert_success ("All exported functions have examples")
+    } else {
+        noex <- names (x$fns_have_exs [which (!x$fns_have_exs)])
+        cli::cli_alert_danger ("These exported functions do not have examples [{noex}]")
+    }
+
+    if (x$file_list$has_url) {
+        cli::cli_alert_success ("Package 'DESCRIPTION' has a URL field")
+    } else {
+        cli::cli_alert_danger ("Package 'DESCRIPTION' has no URL field")
+    }
+
+    if (x$file_list$has_bugs) {
+        cli::cli_alert_success ("Package 'DESCRIPTION' has a BugReports field")
+    } else {
+        cli::cli_alert_danger ("Package 'DESCRIPTION' has no BugReports field")
+    }
+
+    if (x$left_assigns$global)
+        cli::cli_alert_danger ("Package uses a global assignment operator ('<<-')")
+    if (all (x$left_assign$usage > 0)) {
+        la <- x$left_assign$usage
+        cli::cli_alert_danger (paste0 ("Package uses inconsistent left-assign ",
+                                       "operators (", la [1], " '<-' and ",
+                                       la [2], " '=')"))
+    }
+
+    if (!is.null (x$badges)) {
+        cli::cli_alert_success ("Package has continuous integration checks")
+    } else {
+        cli::cli_alert_danger ("Package does not have continuous integration checks")
+    }
+
+    coverage <- round (x$gp$covr$pct_by_line, digits = 1)
+    if (x$gp$covr$pct_by_line >= 75) {
+        cli::cli_alert_success ("Package coverage is {coverage}%")
+    } else {
+        cli::cli_alert_danger ("Package coverage is {coverage}% (should be at least 75%)")
+    }
+
+    nerr <- length (x$gp$rcmdcheck$errors)
+    if (nerr == 0) {
+        cli::cli_alert_success ("R CMD check found no errors")
+    } else {
+        cli::cli_alert_danger ("R CMD check found {nwarn} error{?s}")
+    }
+
+    nwarn <- length (x$gp$rcmdcheck$warnings)
+    if (nwarn == 0) {
+        cli::cli_alert_success ("R CMD check found no warnings")
+    } else {
+        cli::cli_alert_danger ("R CMD check found {nwarn} warning{?s}")
+    }
+
+    message ("")
 }
 
 print_git <- function (x) {

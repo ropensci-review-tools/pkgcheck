@@ -68,6 +68,8 @@ pkgreport <- function (path) {
     out$file_list$has_contrib <- has_contrib [1]
 
     out$fns_have_exs <- all_pkg_fns_have_exs (path)
+    out$fns_have_exs <- out$fns_have_exs [which (!grepl ("\\-package\\.Rd$",
+                                                         names (out$fns_have_exs)))]
 
     la <- left_assign (path) # tallies of "<-", "<<-", "="
     out$left_assigns <- list (global = la [["<<-"]] > 0)
