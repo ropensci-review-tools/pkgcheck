@@ -3,7 +3,7 @@
 #'
 #' @param local_repo Location of local repository to report on
 #'
-#' @export
+#' @noRd
 pkgrep_srr_report <- function (local_repo) {
 
     srr <- tryCatch (

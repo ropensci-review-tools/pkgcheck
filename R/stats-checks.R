@@ -5,7 +5,7 @@
 #' unusual properties.
 #' @return A 'data.frame' of selected statistical properties and percentiles in
 #' relation to all other packages on CRAN.
-#' @export
+#' @noRd
 stats_checks <- function (s, threshold = 0.05) {
 
     dat <- pkgreport::pkgstats_data

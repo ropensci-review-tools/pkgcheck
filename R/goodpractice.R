@@ -5,7 +5,7 @@
 #'
 #' @param local_repo Path to local source of repository
 #' @return A \pkg{goodpractice} report
-#' @export
+#' @noRd
 get_gp_report <- function (local_repo) {
 
     u <- url_from_desc (local_repo)
@@ -49,7 +49,7 @@ get_gp_report <- function (local_repo) {
 #' coverage values below threshold (given as percentage). `digits` controls the
 #' number of digits printed in coverage reports.
 #' @return Markdown-formatted report
-#' @export
+#' @noRd
 process_gp <- function (gp,
                         control = list (cyclocomp_threshold = 15,
                                         covr_threshold = 70,
@@ -143,7 +143,7 @@ extract_gp_components <- function (gp) {
 #' @inheritParams process_gp
 #' @param x List of components of \pkg{goodpractice} report
 #' @return Markdown-formatted report of contents of `x`
-#' @export
+#' @noRd
 convert_gp_components <- function (x,
                                    control = list (cyclocomp_threshold = 15,
                                                    covr_threshold = 70,
