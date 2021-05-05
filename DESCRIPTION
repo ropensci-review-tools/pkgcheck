@@ -1,6 +1,6 @@
 Package: pkgreport
 Title: Plumber API to report package structure and function
-Version: 0.0.1.196
+Version: 0.0.1.197
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -13,28 +13,18 @@ BugReports: https://github.com/ropenscilabs/pkgreport/issues
 Depends: 
     R (>= 3.4.0)
 Imports:
-    callr,
     covr,
-    fs,
     gert,
     ghql,
-    glue,
     goodpractice,
-    here,
     httr,
     jsonlite,
-    logger,
     magrittr,
     methods,
-    pkgapi,
     pkgstats,
-    plumber,
     rappdirs,
-    remotes,
     roxygen2,
-    srr,
-    tictoc,
-    withr
+    srr
 Suggests: 
     knitr,
     rmarkdown
@@ -42,7 +32,6 @@ VignetteBuilder:
     knitr
 Remotes:
     mpadge/pkgstats,
-    r-lib/pkgapi,
     ropenscilabs/srr
 Encoding: UTF-8
 Language: en-GB
