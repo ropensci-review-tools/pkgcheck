@@ -36,16 +36,19 @@ print_summary <- function (x) {
 
     cli::cli_h2 ("Package Summary")
 
+    okay <- TRUE
     if (x$file_list$uses_roxy) {
         cli::cli_alert_success ("Package uses 'roxygen2'")
     } else {
         cli::cli_alert_danger ("Package does not use 'roxygen2'")
+        okay <- FALSE
     }
 
     if (x$file_list$has_contrib) {
         cli::cli_alert_success ("Package has a 'contributing.md' file")
     } else {
         cli::cli_alert_danger ("Package does not have a 'contributing.md' file")
+        okay <- FALSE
     }
 
     if (all (x$fns_have_exs)) {
@@ -53,18 +56,21 @@ print_summary <- function (x) {
     } else {
         noex <- names (x$fns_have_exs [which (!x$fns_have_exs)])
         cli::cli_alert_danger ("These exported functions do not have examples [{noex}]")
+        okay <- FALSE
     }
 
     if (x$file_list$has_url) {
         cli::cli_alert_success ("Package 'DESCRIPTION' has a URL field")
     } else {
         cli::cli_alert_danger ("Package 'DESCRIPTION' has no URL field")
+        okay <- FALSE
     }
 
     if (x$file_list$has_bugs) {
         cli::cli_alert_success ("Package 'DESCRIPTION' has a BugReports field")
     } else {
         cli::cli_alert_danger ("Package 'DESCRIPTION' has no BugReports field")
+        okay <- FALSE
     }
 
     if (x$left_assigns$global)
@@ -74,12 +80,14 @@ print_summary <- function (x) {
         cli::cli_alert_danger (paste0 ("Package uses inconsistent left-assign ",
                                        "operators (", la [1], " '<-' and ",
                                        la [2], " '=')"))
+        okay <- FALSE
     }
 
     if (!is.null (x$badges)) {
         cli::cli_alert_success ("Package has continuous integration checks")
     } else {
         cli::cli_alert_danger ("Package does not have continuous integration checks")
+        okay <- FALSE
     }
 
     coverage <- round (x$gp$covr$pct_by_line, digits = 1)
@@ -87,6 +95,7 @@ print_summary <- function (x) {
         cli::cli_alert_success ("Package coverage is {coverage}%")
     } else {
         cli::cli_alert_danger ("Package coverage is {coverage}% (should be at least 75%)")
+        okay <- FALSE
     }
 
     nerr <- length (x$gp$rcmdcheck$errors)
@@ -94,6 +103,7 @@ print_summary <- function (x) {
         cli::cli_alert_success ("R CMD check found no errors")
     } else {
         cli::cli_alert_danger ("R CMD check found {nwarn} error{?s}")
+        okay <- FALSE
     }
 
     nwarn <- length (x$gp$rcmdcheck$warnings)
@@ -101,6 +111,15 @@ print_summary <- function (x) {
         cli::cli_alert_success ("R CMD check found no warnings")
     } else {
         cli::cli_alert_danger ("R CMD check found {nwarn} warning{?s}")
+        okay <- FALSE
+    }
+
+    message ("")
+    cli::cli_alert_info ("Current status:")
+    if (okay) {
+        cli::cli_alert_success ("This package may be submitted")
+    } else {
+        cli::cli_alert_danger ("This package is not ready to be submitted")
     }
 
     message ("")
