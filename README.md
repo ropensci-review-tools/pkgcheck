@@ -11,10 +11,10 @@ Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repo
 <!-- badges: end -->
 
 Check whether a package is ready for submission to
-[rOpenSci](https://ropensci.org)'s peer review system. The primary function
-collates a number of statistics via the
-[`pkgstats`](https://github.com/ropenscilabs/pkgstats) package which is not on
-CRAN and must first be installed with
+[rOpenSci](https://ropensci.org)’s peer review system. The primary
+function collates a number of statistics via the
+[`pkgstats`](https://github.com/ropenscilabs/pkgstats) package which is
+not on CRAN and must first be installed with
 
 ``` r
 remotes::install_github("ropenscilabs/pkgstats")
@@ -84,7 +84,7 @@ summary (x)
 
     ## 
 
-    ## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────
+    ## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
     ## 
 
@@ -134,7 +134,7 @@ print (x)
 
     ## 
 
-    ## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────
+    ## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
     ## 
 
@@ -182,11 +182,11 @@ print (x)
 
     ## • Default branch: main
 
-    ## • Num commits: 5
+    ## • Number of commits: 5
 
     ## • First commit: 22-02-2021
 
-    ## • Num authors: 1
+    ## • Number of authors: 1
 
     ## 
 
@@ -230,7 +230,7 @@ print (x)
 
     ## • 1 imported package
 
-    ## • 0 exported functions (median lines of code)
+    ## • No exported functions
 
     ## • 4 non-exported functions (median 3 lines of code)
 
