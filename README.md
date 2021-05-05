@@ -75,7 +75,6 @@ git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
 x <- pkgreport (mydir)
 ```
 
-
 That object has default `print` and `summary` methods. The latter can be
 used to simply check whether a package is ready for submission:
 
@@ -123,7 +122,11 @@ summary (x)
 
     ## 
 
-While the `print` method provides the full details of the `pkgreport`:
+A package may only be submitted when the summary contains all ticks and
+no cross symbols. (And these symbols are colour-coded when generated in
+a terminal; GitHub markdown only renders them in black-and-white.) The
+full details of the object returned from the `pkgreport` function may be
+seen with the default `print` method:
 
 ``` r
 print (x)
