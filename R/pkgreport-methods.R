@@ -24,12 +24,12 @@ print.pkgreport <- function (x, ...) {
 }
 
 #' @export
-summary.pkgreport <- function (x, ...) {
+summary.pkgreport <- function (object, ...) {
 
-    cli::cli_h1 (paste0 (x$package, " ", x$version))
+    cli::cli_h1 (paste0 (object$package, " ", object$version))
     message ("")
 
-    print_summary (x)
+    print_summary (object)
 }
 
 print_summary <- function (x) {
