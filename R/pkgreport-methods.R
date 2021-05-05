@@ -143,9 +143,9 @@ print_git <- function (x) {
     since <- strftime (x$git$since, "%d-%m-%Y") # nolint
     gitstats <- c ("HEAD: {substring (x$git$HEAD, 1, 8)}",
                    "Default branch: {x$git$branch}",
-                   "Num commits: {x$git$num_commits}",
+                   "Number of commits: {x$git$num_commits}",
                    "First commit: {since}",
-                   "Num authors: {x$git$num_authors}")
+                   "Number of authors: {x$git$num_authors}")
     cli::cli_li (gitstats)
     message ("")
 
@@ -168,12 +168,24 @@ print_structure <- function (x) {
         s <- c (s, "{x$summary$num_data} internal data file{?s}")
     }
     s <- c (s,
-            "{x$summary$imported_pkgs} imported package{?s}",
+            "{x$summary$imported_pkgs} imported package{?s}")
+
+    if (x$summary$num_exported_fns == 0L) {
+        s <- c (s, paste0 ("No exported functions"))
+    } else {
+        s <- c (s,
             paste0 ("{x$summary$num_exported_fns} exported function{?s} ",
-                    "(median {x$summary$loc_exported_fns} lines of code)"),
-            paste0 ("{x$summary$num_non_exported_fns} non-exported ",
-                    "function{?s} (median {x$summary$loc_non_exported_fns} ",
-                    "lines of code)"))
+                    "(median {x$summary$loc_exported_fns} lines of code)"))
+    }
+    if (x$summary$num_non_exported_fns == 0L) {
+        s <- c (s, paste0 ("No non-exported functions"))
+    } else {
+        s <- c (s,
+                paste0 ("{x$summary$num_non_exported_fns} non-exported ",
+                        "function{?s} (median ",
+                        "{x$summary$loc_non_exported_fns} lines of code)"))
+    }
+
     if (x$summary$num_src_fns > 0) {
         langs <- vapply (strsplit (x$summary$languages, ":"), function (i)
                          i [1], character (1))
@@ -182,6 +194,7 @@ print_structure <- function (x) {
                 paste0 ("{x$summary$num_src_fns} {langs} functions ",
                         "(median {x$summary$loc_src_fns} lines of code)"))
     }
+
     s <- c (s,
             "{x$summary$num_params_per_fn} parameters per function")
 
