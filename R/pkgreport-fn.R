@@ -90,7 +90,7 @@ pkgreport <- function (path) {
 #' Format \pkg{pkgstats} data
 #' @param s Output of \pkg{pkgstats} call.
 #' @return Report as formatted string
-#' @export
+#' @noRd
 pkgstats_checks <- function (s) {
 
     s_summ <- pkgstats::pkgstats_summary (s)

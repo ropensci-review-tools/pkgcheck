@@ -3,5 +3,4 @@
 export(get_default_branch)
 export(get_latest_commit)
 export(pkgreport)
-export(pkgstats_checks)
 importFrom(magrittr,"%>%")
