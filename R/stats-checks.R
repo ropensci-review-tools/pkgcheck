@@ -8,6 +8,12 @@
 #' @noRd
 stats_checks <- function (s, threshold = 0.05) {
 
+    # npars is set to NA when there are none; replace with 0:
+    if (is.na (s$npars_exported_mn))
+        s$npars_exported_mn <- 0L
+    if (is.na (s$npars_exported_md))
+        s$npars_exported_md <- 0L
+
     dat <- pkgreport::pkgstats_data
 
     # temporary fixes until data are re-generated:
