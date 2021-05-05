@@ -71,7 +71,8 @@ commits_qry <- function (gh_cli, org, repo, branch = "main") {
 #' @note This function is not intended to be called directly, and is only
 #' exported to enable it to be used within the \pkg{plumber} API.
 #'
-#' @inheritParams check_cache
+#' @param org Github organization
+#' @param repo Github repository
 #' @return Name of default branch on GitHub
 #' @export
 get_default_branch <- function (org, repo) {
@@ -93,10 +94,13 @@ get_default_branch <- function (org, repo) {
 
 #' get_latest_commit
 #'
-#' @note This function is not intended to be called directly, and is only
-#' exported to enable it to be used within the \pkg{plumber} API.
+#' @note This returns the latest commit from the default branch as specified on
+#' GitHub, which will not necessarily be the same as information returned from
+#' `gert::git_info` if the `HEAD` of a local repository does not point to the
+#' same default branch.
 #'
-#' @inheritParams check_cache
+#' @param org Github organization
+#' @param repo Github repository
 #' @return Details of latest commit including OID hash
 #' @export
 get_latest_commit <- function (org, repo) {
