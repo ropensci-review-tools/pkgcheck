@@ -12,7 +12,3 @@ pkgrep_srr_report(local_repo)
 \description{
 Format the \pkg{srr} reporting section of the general editorial report.
 }
-\note{
-This uses two of the environmental variables set in \link{serve_api} of
-`pkgreport_cache' and 'pkgreport_url'.
-}

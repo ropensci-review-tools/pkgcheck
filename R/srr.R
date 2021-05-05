@@ -3,8 +3,6 @@
 #'
 #' @param local_repo Location of local repository to report on
 #'
-#' @note This uses two of the environmental variables set in \link{serve_api} of
-#' `pkgreport_cache' and 'pkgreport_url'.
 #' @export
 pkgrep_srr_report <- function (local_repo) {
 
