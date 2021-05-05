@@ -12,12 +12,12 @@ pkgrep_srr_report <- function (local_repo) {
 
     srr_okay <- FALSE
     if (!methods::is (srr, "error") & 
-        any (grepl ("ready to submit", srr))) {
+        any (grepl ("^All applicable standards have been documented", srr))) {
         srr_okay <- TRUE
     }
 
 
-    srr_report_file <- NULL
+    srr_report_file <- categories <- stds <- NULL
 
     if (srr_okay) {
 
