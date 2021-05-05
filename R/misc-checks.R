@@ -59,7 +59,7 @@ get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
 #' @inheritParams pkg_uses_roxygen2
 #' @return Vector of named logical values, one for each '.Rd' file indicating
 #' whether or not it has example lines.
-#' @export
+#' @noRd
 all_pkg_fns_have_exs <- function (path) {
 
     rd <- list.files (file.path (path, "man"),
@@ -87,7 +87,7 @@ all_pkg_fns_have_exs <- function (path) {
 #' @inheritParams pkg_uses_roxygen2
 #' @return A 'data.frame' with one row for each GitHub workflow, and columns for
 #' name, the 'conclusion' status, the git 'sha', and the date.
-#' @export
+#' @noRd
 ci_results_gh <- function (path) {
 
     d <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
@@ -140,7 +140,7 @@ ci_results_gh <- function (path) {
 #'
 #' @param u URL of repo
 #' @return Character vector of hyperlinked badge images
-#' @export
+#' @noRd
 ci_badges <- function (u) {
 
     orgrepo <- strsplit (u, "\\/") [[1]]
@@ -148,7 +148,7 @@ ci_badges <- function (u) {
     repo <- utils::tail (orgrepo, 1)
     # note: default branch is github only, so will only work if repo is also
     # mirrored on github!
-    branch <- pkgreport::get_default_branch (org, repo)
+    branch <- get_default_branch (org, repo)
 
     if (grepl ("github", u)) {
 
@@ -229,7 +229,7 @@ ci_badges <- function (u) {
 #' https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3346-L3349
 #' @inheritParams pkg_uses_roxygen2
 #' @return Named vector of 2 values tallying instances of usage of `<-` and `=`.
-#' @export
+#' @noRd
 left_assign <- function (path) {
 
     rdir <- file.path (path, "R")

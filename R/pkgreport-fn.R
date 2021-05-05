@@ -19,7 +19,7 @@ pkgreport <- function (path) {
 
     repo <- utils::tail (strsplit (u, "/") [[1]], 1)
     org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
-    commit <- pkgreport::get_latest_commit (org, repo)
+    commit <- get_latest_commit (org, repo)
 
     gitlog <- gert::git_log (repo = path, max = 1e6)
     # use email addresses to identify unique authors
@@ -30,17 +30,17 @@ pkgreport <- function (path) {
                      since = min (gitlog$time),
                      num_authors = length (unique (auts)))
 
-    out$srr <- pkgreport::pkgrep_srr_report (path)
+    out$srr <- pkgrep_srr_report (path)
 
     out$file_list <- list ()
-    out$file_list$uses_roxy <- pkgreport::pkg_uses_roxygen2 (path)
-    has_contrib <- unname (pkgreport::pkg_has_contrib_md (path))
+    out$file_list$uses_roxy <- pkg_uses_roxygen2 (path)
+    has_contrib <- unname (pkg_has_contrib_md (path))
     out$file_list$has_lifecycle <- has_contrib [2]
     out$file_list$has_contrib <- has_contrib [1]
 
-    out$fns_have_exs <- pkgreport::all_pkg_fns_have_exs (path)
+    out$fns_have_exs <- all_pkg_fns_have_exs (path)
 
-    la <- pkgreport::left_assign (path) # tallies of "<-", "<<-", "="
+    la <- left_assign (path) # tallies of "<-", "<<-", "="
     out$left_assigns <- list (global = la [["<<-"]] > 0)
     la <- la [names (la) != "<<-"]
     out$left_assigns$usage <- la
@@ -75,14 +75,14 @@ pkgreport <- function (path) {
     # -----------------   BADGES + OTHER STUFF   -----------------
     # ------------------------------------------------------------
 
-    out$badges <- pkgreport::ci_badges (u)
+    out$badges <- ci_badges (u)
     if (!is.null (out$badges)) {
         if (any (grepl ("github", out$badges))) {
-            out$github_workflows <- pkgreport::ci_results_gh (path)
+            out$github_workflows <- ci_results_gh (path)
         }
     }
 
-    out$gp <- pkgreport::get_gp_report (path)
+    out$gp <- get_gp_report (path)
 
     return (out)
 }
@@ -94,7 +94,7 @@ pkgreport <- function (path) {
 pkgstats_checks <- function (s) {
 
     s_summ <- pkgstats::pkgstats_summary (s)
-    stat_chks <- pkgreport::stats_checks (s_summ)
+    stat_chks <- stats_checks (s_summ)
     # ignore large numbers of files:
     stat_chks$noteworthy [grepl ("^files\\_", stat_chks$measure) &
                           stat_chks$percentile > 0.5] <- FALSE

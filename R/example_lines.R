@@ -3,7 +3,7 @@
 #' @param local_repo Path to local source repository
 #' @return A `data.frame` of function names and counts of numbers of lines of
 #' example code.
-#' @export
+#' @noRd
 num_ex_lines <- function (local_repo) {
 
     if (!uses_roxygen (local_repo))
