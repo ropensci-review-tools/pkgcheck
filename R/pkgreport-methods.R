@@ -6,7 +6,7 @@ print.pkgreport <- function (x, ...) {
 
     print_git (x)
     print_srr (x)
-    print_summary (x)
+    print_structure (x)
 
     cli::cli_h3 ("All statistics")
     x$pkgstats$value <- round (x$pkgstats$value, digits = 1)
@@ -36,7 +36,7 @@ print_git <- function (x) {
 
 }
 
-print_summary <- function (x) {
+print_structure <- function (x) {
 
     cli::cli_h2 ("Package Structure")
 
