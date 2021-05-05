@@ -54,8 +54,8 @@ pkgreport <- function (path) {
     # -----------------   FUNCTION CALL NETWORK   ----------------
     # ------------------------------------------------------------
 
-    cache_dir <- Sys.getenv ("cache_dir")
-    visjs_dir <- file.path (cache_dir, "static") # in api.R
+    visjs_dir <- file.path (getOption ("pkgreport.cache_dir"),
+                             "static")
     visjs_file <- paste0 (repo,
                           "_pkgstats",
                           substring (commit$oid, 1, 8),

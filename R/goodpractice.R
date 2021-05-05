@@ -18,7 +18,8 @@ get_gp_report <- function (local_repo) {
     # check whether gp is cached:
     cmt <- pkgreport::get_latest_commit (org = org, repo = repo)
     fname <- paste0 (repo, "_", substring (cmt$oid, 1, 8))
-    gp_cache_dir <- file.path (cache_dir, "gp_reports")
+    gp_cache_dir <- file.path (getOption ("pkgreport.cache_dir"),
+                               "gp_reports")
     gp_cache_file <- file.path (gp_cache_dir, fname)
 
     if (file.exists (gp_cache_file)) {
