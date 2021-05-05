@@ -6,9 +6,10 @@
 [![Project Status: Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
 
-Plumber API to report on package structure and function. Uses functionality
-provided by the [`pkgstats`](https://github.com/ropenscilabs/pkgstats) package
-which is not on CRAN and must first be installed with
+Report on whether a package is ready for submission to peer review with
+[rOpenSci](https://ropensci.org). The report generates a number of statistics 
+via the [`pkgstats`](https://github.com/ropenscilabs/pkgstats) package which is
+not on CRAN and must first be installed with
 ```{r pkgapi, eval = FALSE}
 remotes::install_github("ropenscilabs/pkgstats")
 ```
@@ -37,24 +38,44 @@ Sys.setenv("GITHUB_QL" = "<my_token>")
 This can also be set permanently by putting this line in your `~/.Renviron`
 file (or creating this if it does not yet exist).
 
-The package also works by locally caching previously analysed packages, in
+The package also works by locally caching reports previously analysed packages, in
 a `pkgreport` subdirectory of the location determined by
 ```{r, rappdirs, eval = FALSE}
 rappdirs::user_cache_dir()
 ```
 You may manually erase the contents of this subdirectory at any time at no
-risk.
+risk. The location may also be over-ridden by setting an environmental variable
+named `pkgreport_cache_dir`.
 
 
 ## Usage
 
-The server associated with this package can be built by cloning this
-repository, and modifying the associated
-[`Dockerfile`](https://github.com/ropenscilabs/pkgreport/blob/master/Dockerfile)
-by inserting a GitHub token (as `GITHUB_PAT`). Then in the local directory
-holding a clone of this repo:
+The package primarily has one function, `pkgreport`, which accepts the single
+argument, `path`, specifying the local location of a git repository to be
+analysed. The following code generates a reproducible report by first
+downloading a local clone of a repository called
+[`srr-demo`](https://github.com/mpadge/srr-demo), which contains the skeleton
+of an [`srr` (Software Review Roclets)
+package](https://github.com/ropenscilabs/srr), generated with the
+[`srr_stats_pkg_skeleton()`
+function](https://ropenscilabs.github.io/srr/reference/srr_stats_pkg_skeleton.html):
 
+```{r pkgreport, echo = TRUE, message = FALSE}
+library (gert)
+mydir <- file.path (tempdir (), "srr-demo")
+git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
+x <- pkgreport (mydir)
 ```
-docker build -t pkgreport .
-docker run -it -p 8000:8000 --rm pkgreport
+
+That object has default `print` and `summary` methods. The latter can be used
+to simply check whether a package is ready for submission:
+
+```{r summary}
+summary (x)
+```
+
+While the `print` method provides the full details of the `pkgreport`:
+
+```{r print}
+print (x)
 ```

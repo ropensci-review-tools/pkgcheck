@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgreport",
   "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.210",
+  "version": "0.0.1.211",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -84,7 +84,8 @@
     {
       "@type": "SoftwareApplication",
       "identifier": "cloc",
-      "name": "cloc"
+      "name": "cloc",
+      "sameAs": "https://github.com/hrbrmstr/cloc"
     },
     {
       "@type": "SoftwareApplication",
@@ -179,7 +180,7 @@
       "@type": "SoftwareApplication",
       "identifier": "pkgstats",
       "name": "pkgstats",
-      "sameAs": "https://github.com/hrbrmstr/cloc\n    mpadge/pkgstats"
+      "sameAs": "https://github.com/mpadge/pkgstats"
     },
     {
       "@type": "SoftwareApplication",
@@ -213,6 +214,6 @@
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgreport/blob/main/README.md",
-  "fileSize": "1817.96KB",
+  "fileSize": "1830.752KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }
