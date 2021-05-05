@@ -2,8 +2,8 @@
 % Please edit documentation in R/pkgreport-package.R
 \docType{package}
 \name{pkgreport-package}
-\alias{pkgreport}
 \alias{pkgreport-package}
+\alias{_PACKAGE}
 \title{pkgreport: Plumber API to report package structure and function}
 \description{
 Plumber API to report package structure and function.

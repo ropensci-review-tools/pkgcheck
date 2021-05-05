@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgreport",
   "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.193",
+  "version": "0.0.1.194",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -104,6 +104,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=fs"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "gert",
+      "name": "gert",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=gert"
     },
     {
       "@type": "SoftwareApplication",
@@ -298,6 +310,6 @@
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgreport/blob/main/README.md",
-  "fileSize": "1889.328KB",
+  "fileSize": "1856.18KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

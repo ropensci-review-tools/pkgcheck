@@ -1,6 +1,6 @@
 Package: pkgreport
 Title: Plumber API to report package structure and function
-Version: 0.0.1.193
+Version: 0.0.1.194
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -16,6 +16,7 @@ Imports:
     callr,
     covr,
     fs,
+    gert,
     ghql,
     glue,
     goodpractice,

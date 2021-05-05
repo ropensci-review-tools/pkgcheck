@@ -4,11 +4,9 @@
 \alias{get_gp_report}
 \title{Get 'goodpractice' report on local source package}
 \usage{
-get_gp_report(u, local_repo)
+get_gp_report(local_repo)
 }
 \arguments{
-\item{u}{URL}
-
 \item{local_repo}{Path to local source of repository}
 }
 \value{

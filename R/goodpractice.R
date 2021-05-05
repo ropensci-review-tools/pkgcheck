@@ -3,11 +3,12 @@
 #' This uses a caching system to only generate new report if repository has been
 #' updated, otherwise it returns locally cached version.
 #'
-#' @param u URL
 #' @param local_repo Path to local source of repository
 #' @return A \pkg{goodpractice} report
 #' @export
-get_gp_report <- function (u, local_repo) {
+get_gp_report <- function (local_repo) {
+
+    u <- url_from_desc (local_repo)
 
     repo <- utils::tail (strsplit (u, "/") [[1]], 1)
     org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
@@ -29,17 +30,7 @@ get_gp_report <- function (u, local_repo) {
         if (!file.exists (gp_cache_dir))
             dir.create (gp_cache_dir, recursive = TRUE)
 
-        pkgreport::pkgrep_install_deps (local_repo = local_repo,
-                                        os = Sys.getenv ("pkgreport_os"),
-                                        os_release =
-                                            Sys.getenv ("pkgreport_os_release"))
-
-        withr::with_temp_libpaths ({
-            remotes::install_local (local_repo,
-                                    upgrade = "never",
-                                    dependencies = TRUE)
-            gp <- goodpractice::goodpractice (local_repo)
-        })
+        gp <- goodpractice::goodpractice (local_repo)
 
         saveRDS (gp, gp_cache_file)
     }
