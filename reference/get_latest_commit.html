@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgreport</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.194</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.199</span>
       </span>
     </div>
 
@@ -140,8 +140,10 @@
     <p>Details of latest commit including OID hash</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function is not intended to be called directly, and is only
-exported to enable it to be used within the <span class="pkg">plumber</span> API.</p>
+    <p>This returns the latest commit from the default branch as specified on
+GitHub, which will not necessarily be the same as information returned from
+<code><a href='https://docs.ropensci.org/gert/reference/git_repo.html'>gert::git_info</a></code> if the <code>HEAD</code> of a local repository does not point to the
+same default branch.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

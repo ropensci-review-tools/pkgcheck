@@ -10,52 +10,13 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/all_pkg_fns_have_exs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/check_cache.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ci_badges.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ci_results_gh.html</loc>
-  </url>
-  <url>
-    <loc>/reference/convert_gp_components.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dl_gh_repo.html</loc>
-  </url>
-  <url>
     <loc>/reference/get_default_branch.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_gp_report.html</loc>
   </url>
   <url>
     <loc>/reference/get_latest_commit.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/left_assign.html</loc>
-  </url>
-  <url>
-    <loc>/reference/num_ex_lines.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pkg_has_contrib_md.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pkg_uses_roxygen2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pkgrep_install_deps.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pkgrep_srr_report.html</loc>
   </url>
   <url>
     <loc>/reference/pkgreport-package.html</loc>
@@ -68,20 +29,5 @@
   </url>
   <url>
     <loc>/reference/pkgstats_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/process_gp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/serve_api.html</loc>
-  </url>
-  <url>
-    <loc>/reference/stats_checks.html</loc>
-  </url>
-  <url>
-    <loc>/reference/symbol_crs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/symbol_tck.html</loc>
   </url>
 </urlset>
