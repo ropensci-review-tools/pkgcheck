@@ -33,7 +33,7 @@ repos:
           .*\.RData
           )$
           #-   id: lintr
-    -   id: readme-rmd-rendered
+          #-   id: readme-rmd-rendered
     -   id: parsable-R
     -   id: deps-in-desc
 -   repo: https://github.com/pre-commit/pre-commit-hooks
