@@ -10,11 +10,11 @@ push](https://github.com/ropenscilabs/pkgreport/workflows/push-to-gitlab/badge.s
 Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
 
-Report on whether a package is ready for submission to peer review with
-[rOpenSci](https://ropensci.org). The report generates a number of
-statistics via the
-[`pkgstats`](https://github.com/ropenscilabs/pkgstats) package which is
-not on CRAN and must first be installed with
+Check whether a package is ready for submission to
+[rOpenSci](https://ropensci.org)'s peer review system. The primary function
+collates a number of statistics via the
+[`pkgstats`](https://github.com/ropenscilabs/pkgstats) package which is not on
+CRAN and must first be installed with
 
 ``` r
 remotes::install_github("ropenscilabs/pkgstats")
