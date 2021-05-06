@@ -1,6 +1,8 @@
 #' @export
 print.pkgreport <- function (x, ...) {
 
+    requireNamespace ("goodpractice")
+
     cli::cli_h1 (paste0 (x$package, " ", x$version))
     message ("")
 
