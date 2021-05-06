@@ -18,6 +18,7 @@ pkgreport <- function (path) {
     out <- list ()
     out$package <- s$desc$package
     out$version <- s$desc$version
+    out$url <- u
     out$license <- s$desc$license
 
     num_exported_fns <- pkgstats$value [pkgstats$measure == "n_fns_r_exported"]
