@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.223</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.224</span>
       </span>
     </div>
 
@@ -63,35 +63,35 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="pkgreport" class="section level1">
+<div id="pkgcheck" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#pkgreport" class="anchor" aria-hidden="true"></a>pkgreport</h1></div>
+<a href="#pkgcheck" class="anchor" aria-hidden="true"></a>pkgcheck</h1></div>
 <!-- badges: start -->
 
 <p>Check whether a package is ready for submission to <a href="https://ropensci.org" class="external-link">rOpenSci</a>’s peer review system. The primary function collates a number of statistics via the <a href="https://github.com/ropenscilabs/pkgstats" class="external-link"><code>pkgstats</code></a> package which is not on CRAN and must first be installed with</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropenscilabs/pkgstats"</span><span class="op">)</span></code></pre></div>
 <p>That package also requires both <a href="https://ctags.io" class="external-link"><code>ctags</code></a> and <a href="https://www.gnu.org/software/global/" class="external-link">GNU <code>global</code></a> to be installed. See package description and those links for how to install those libraries on your system.</p>
-<p>Once <code>pkgstats</code> has been successfully installed, the <code>pkgreport</code> package can then be loaded via a <code>library</code> call:</p>
+<p>Once <code>pkgstats</code> has been successfully installed, the <code>pkgcheck</code> package can then be loaded via a <code>library</code> call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ropenscilabs/pkgreport" class="external-link">pkgreport</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ropenscilabs/pkgcheck" class="external-link">pkgcheck</a></span><span class="op">)</span></code></pre></div>
 <p>This package also uses the <a href="https://developer.github.com/v4" class="external-link">github GraphQL API</a> which requires a local github token to be stored with an unambiguous name including <code>GITHUB</code> and maybe <code>QL</code>, if alternative <code>GITHIB</code> tokens already exist. This can be obtained from github (via your user settings), and stored using</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"GITHUB_QL"</span> <span class="op">=</span> <span class="st">"&lt;my_token&gt;"</span><span class="op">)</span></code></pre></div>
 <p>This can also be set permanently by putting this line in your <code>~/.Renviron</code> file (or creating this if it does not yet exist).</p>
-<p>The package also works by locally caching reports previously analysed packages, in a <code>pkgreport</code> subdirectory of the location determined by</p>
+<p>The package also works by locally caching reports previously analysed packages, in a <code>pkgcheck</code> subdirectory of the location determined by</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rappdirs</span><span class="fu">::</span><span class="fu"><a href="https://rappdirs.r-lib.org/reference/user_cache_dir.html" class="external-link">user_cache_dir</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>You may manually erase the contents of this subdirectory at any time at no risk. The location may also be over-ridden by setting an environmental variable named <code>pkgreport_cache_dir</code>.</p>
+<p>You may manually erase the contents of this subdirectory at any time at no risk. The location may also be over-ridden by setting an environmental variable named <code>pkgcheck_cache_dir</code>.</p>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor" aria-hidden="true"></a>Usage</h2>
-<p>The package primarily has one function, <code>pkgreport</code>, which accepts the single argument, <code>path</code>, specifying the local location of a git repository to be analysed. The following code generates a reproducible report by first downloading a local clone of a repository called <a href="https://github.com/mpadge/srr-demo" class="external-link"><code>srr-demo</code></a>, which contains the skeleton of an <a href="https://github.com/ropenscilabs/srr" class="external-link"><code>srr</code> (Software Review Roclets) package</a>, generated with the <a href="https://ropenscilabs.github.io/srr/reference/srr_stats_pkg_skeleton.html" class="external-link"><code>srr_stats_pkg_skeleton()</code> function</a>:</p>
+<p>The package primarily has one function, <code>pkgcheck</code>, which accepts the single argument, <code>path</code>, specifying the local location of a git repository to be analysed. The following code generates a reproducible report by first downloading a local clone of a repository called <a href="https://github.com/mpadge/srr-demo" class="external-link"><code>srr-demo</code></a>, which contains the skeleton of an <a href="https://github.com/ropenscilabs/srr" class="external-link"><code>srr</code> (Software Review Roclets) package</a>, generated with the <a href="https://ropenscilabs.github.io/srr/reference/srr_stats_pkg_skeleton.html" class="external-link"><code>srr_stats_pkg_skeleton()</code> function</a>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span> <span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/gert/" class="external-link">gert</a></span><span class="op">)</span>
 <span class="va">mydir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span> <span class="op">(</span><span class="op">)</span>, <span class="st">"srr-demo"</span><span class="op">)</span>
 <span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_fetch.html" class="external-link">git_clone</a></span> <span class="op">(</span><span class="st">"https://github.com/mpadge/srr-demo"</span>, path <span class="op">=</span> <span class="va">mydir</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pkgreport/man/pkgreport.html" class="external-link">pkgreport</a></span> <span class="op">(</span><span class="va">mydir</span><span class="op">)</span></code></pre></div>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pkgcheck.html">pkgcheck</a></span> <span class="op">(</span><span class="va">mydir</span><span class="op">)</span></code></pre></div>
 <p>That object has default <code>print</code> and <code>summary</code> methods. The latter can be used to simply check whether a package is ready for submission:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
@@ -134,7 +134,7 @@
 <span id="cb7-37"><a href="#cb7-37"></a><span class="co">## ✖ This package is not ready to be submitted</span></span>
 <span id="cb7-38"><a href="#cb7-38"></a></span>
 <span id="cb7-39"><a href="#cb7-39"></a><span class="co">## </span></span></code></pre></div>
-<p>A package may only be submitted when the summary contains all ticks and no cross symbols. (And these symbols are colour-coded when generated in a terminal; GitHub markdown only renders them in black-and-white.) The full details of the object returned from the <code>pkgreport</code> function may be seen with the default <code>print</code> method:</p>
+<p>A package may only be submitted when the summary contains all ticks and no cross symbols. (And these symbols are colour-coded when generated in a terminal; GitHub markdown only renders them in black-and-white.) The full details of the object returned from the <code>pkgcheck</code> function may be seen with the default <code>print</code> method:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## </span></span>
@@ -207,7 +207,7 @@
 <span id="cb9-68"><a href="#cb9-68"></a></span>
 <span id="cb9-69"><a href="#cb9-69"></a><span class="co">## • Regression and Supervised Learning</span></span>
 <span id="cb9-70"><a href="#cb9-70"></a></span>
-<span id="cb9-71"><a href="#cb9-71"></a><span class="co">## ℹ 'srr' report is at [/home/smexus/.cache/pkgreport/static/srr-demo_srr77dfe392.html]</span></span>
+<span id="cb9-71"><a href="#cb9-71"></a><span class="co">## ℹ 'srr' report is at [/home/smexus/.cache/pkgcheck/static/srr-demo_srr77dfe392.html]</span></span>
 <span id="cb9-72"><a href="#cb9-72"></a></span>
 <span id="cb9-73"><a href="#cb9-73"></a><span class="co">## </span></span>
 <span id="cb9-74"><a href="#cb9-74"></a></span>
@@ -270,7 +270,7 @@
 <span id="cb9-131"><a href="#cb9-131"></a></span>
 <span id="cb9-132"><a href="#cb9-132"></a><span class="co">## </span></span>
 <span id="cb9-133"><a href="#cb9-133"></a></span>
-<span id="cb9-134"><a href="#cb9-134"></a><span class="co">## ℹ Package network diagram is at [/home/smexus/.cache/pkgreport/static/srr-demo_pkgstats77dfe392.html]</span></span>
+<span id="cb9-134"><a href="#cb9-134"></a><span class="co">## ℹ Package network diagram is at [/home/smexus/.cache/pkgcheck/static/srr-demo_pkgstats77dfe392.html]</span></span>
 <span id="cb9-135"><a href="#cb9-135"></a></span>
 <span id="cb9-136"><a href="#cb9-136"></a><span class="co">## </span></span>
 <span id="cb9-137"><a href="#cb9-137"></a></span>
@@ -339,8 +339,8 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/ropenscilabs/pkgreport/actions?query=workflow%3AR-CMD-check" class="external-link"><img src="https://github.com/ropenscilabs/pkgreport/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://github.com/ropenscilabs/pkgreport/actions?query=workflow%3Apush-to-gitlab" class="external-link"><img src="https://github.com/ropenscilabs/pkgreport/workflows/push-to-gitlab/badge.svg" alt="gitlab push"></a></li>
+<li><a href="https://github.com/ropenscilabs/pkgcheck/actions?query=workflow%3AR-CMD-check" class="external-link"><img src="https://github.com/ropenscilabs/pkgcheck/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/ropenscilabs/pkgcheck/actions?query=workflow%3Apush-to-gitlab" class="external-link"><img src="https://github.com/ropenscilabs/pkgcheck/workflows/push-to-gitlab/badge.svg" alt="gitlab push"></a></li>
 <li><a href="https://www.repostatus.org/#concept" class="external-link"><img src="https://www.repostatus.org/badges/latest/concept.svg" alt="Project Status: Concept"></a></li>
 </ul>
 </div>
