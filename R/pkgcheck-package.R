@@ -1,6 +1,6 @@
 #' @keywords internal
 #' @importFrom magrittr %>%
-#' @aliases pkgreport-package
+#' @aliases pkgcheck-package
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage
