@@ -89,7 +89,7 @@ pkgcheck <- function (path) {
     # -----------------   FUNCTION CALL NETWORK   ----------------
     # ------------------------------------------------------------
 
-    visjs_dir <- file.path (getOption ("pkgreport.cache_dir"),
+    visjs_dir <- file.path (getOption ("pkgcheck.cache_dir"),
                              "static")
     visjs_file <- paste0 (repo,
                           "_pkgstats",

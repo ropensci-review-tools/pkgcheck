@@ -1,11 +1,11 @@
 # nocov start
 .onLoad <- function (libname, pkgname) { # nolint
 
-    cache_dir <- Sys.getenv ("pkgreport_cache_dir")
+    cache_dir <- Sys.getenv ("pkgcheck_cache_dir")
 
     if (cache_dir == "") {
         cache_dir <- file.path (rappdirs::user_cache_dir (),
-                                "pkgreport")
+                                "pkgcheck")
     }
     cache_dir <- normalizePath (cache_dir)
 
@@ -15,11 +15,11 @@
 
     op <- options ()
 
-    op.pkgreport <- list (pkgreport.cache_dir = cache_dir)
+    op.pkgcheck <- list (pkgcheck.cache_dir = cache_dir)
 
-    toset <- !(names (op.pkgreport) %in% names (op))
+    toset <- !(names (op.pkgcheck) %in% names (op))
     if (any (toset))
-        options (op.pkgreport [toset])
+        options (op.pkgcheck [toset])
     invisible ()
 }
 # nocov end
