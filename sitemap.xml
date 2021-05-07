@@ -19,10 +19,10 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/pkgreport-package.html</loc>
+    <loc>/reference/pkgcheck-package.html</loc>
   </url>
   <url>
-    <loc>/reference/pkgreport.html</loc>
+    <loc>/reference/pkgcheck.html</loc>
   </url>
   <url>
     <loc>/reference/pkgstats_data.html</loc>
