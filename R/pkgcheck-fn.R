@@ -3,10 +3,10 @@
 #' requirements
 #'
 #' @param path Path to local repository
-#' @return A `pkgreport` object detailing all package assessments automatically
+#' @return A `pkgcheck` object detailing all package assessments automatically
 #' applied to packages submitted for peer review.
 #' @export
-pkgreport <- function (path) {
+pkgcheck <- function (path) {
 
     u <- url_from_desc (path)
 
@@ -119,7 +119,7 @@ pkgreport <- function (path) {
 
     out$gp <- get_gp_report (path)
 
-    class (out) <- c ("pkgreport", class (out))
+    class (out) <- c ("pkgcheck", class (out))
 
     return (out)
 }

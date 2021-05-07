@@ -1,5 +1,5 @@
 #' @export
-print.pkgreport <- function (x, ...) {
+print.pkgcheck <- function (x, ...) {
 
     requireNamespace ("goodpractice")
 
@@ -26,7 +26,7 @@ print.pkgreport <- function (x, ...) {
 }
 
 #' @export
-summary.pkgreport <- function (object, ...) {
+summary.pkgcheck <- function (object, ...) {
 
     cli::cli_h1 (paste0 (object$package, " ", object$version))
     message ("")
