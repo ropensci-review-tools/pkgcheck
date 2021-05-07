@@ -1,11 +1,11 @@
-# pkgreport
+# pkgcheck
 
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/ropenscilabs/pkgreport/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/pkgreport/actions?query=workflow%3AR-CMD-check)
+status](https://github.com/ropenscilabs/pkgcheck/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/pkgcheck/actions?query=workflow%3AR-CMD-check)
 [![gitlab
-push](https://github.com/ropenscilabs/pkgreport/workflows/push-to-gitlab/badge.svg)](https://github.com/ropenscilabs/pkgreport/actions?query=workflow%3Apush-to-gitlab)
+push](https://github.com/ropenscilabs/pkgcheck/workflows/push-to-gitlab/badge.svg)](https://github.com/ropenscilabs/pkgcheck/actions?query=workflow%3Apush-to-gitlab)
 [![Project Status:
 Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
@@ -25,11 +25,11 @@ That package also requires both [`ctags`](https://ctags.io) and [GNU
 package description and those links for how to install those libraries
 on your system.
 
-Once `pkgstats` has been successfully installed, the `pkgreport` package
+Once `pkgstats` has been successfully installed, the `pkgcheck` package
 can then be loaded via a `library` call:
 
 ``` r
-library(pkgreport)
+library(pkgcheck)
 ```
 
 This package also uses the [github GraphQL
@@ -46,7 +46,7 @@ This can also be set permanently by putting this line in your
 `~/.Renviron` file (or creating this if it does not yet exist).
 
 The package also works by locally caching reports previously analysed
-packages, in a `pkgreport` subdirectory of the location determined by
+packages, in a `pkgcheck` subdirectory of the location determined by
 
 ``` r
 rappdirs::user_cache_dir()
@@ -54,11 +54,11 @@ rappdirs::user_cache_dir()
 
 You may manually erase the contents of this subdirectory at any time at
 no risk. The location may also be over-ridden by setting an
-environmental variable named `pkgreport_cache_dir`.
+environmental variable named `pkgcheck_cache_dir`.
 
 ## Usage
 
-The package primarily has one function, `pkgreport`, which accepts the
+The package primarily has one function, `pkgcheck`, which accepts the
 single argument, `path`, specifying the local location of a git
 repository to be analysed. The following code generates a reproducible
 report by first downloading a local clone of a repository called
@@ -72,8 +72,9 @@ function](https://ropenscilabs.github.io/srr/reference/srr_stats_pkg_skeleton.ht
 library (gert)
 mydir <- file.path (tempdir (), "srr-demo")
 git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
-x <- pkgreport (mydir)
+x <- pkgcheck (mydir)
 ```
+
 
 That object has default `print` and `summary` methods. The latter can be
 used to simply check whether a package is ready for submission:
@@ -125,7 +126,7 @@ summary (x)
 A package may only be submitted when the summary contains all ticks and
 no cross symbols. (And these symbols are colour-coded when generated in
 a terminal; GitHub markdown only renders them in black-and-white.) The
-full details of the object returned from the `pkgreport` function may be
+full details of the object returned from the `pkgcheck` function may be
 seen with the default `print` method:
 
 ``` r
@@ -202,7 +203,7 @@ print (x)
 
     ## • Regression and Supervised Learning
 
-    ## ℹ 'srr' report is at [/home/smexus/.cache/pkgreport/static/srr-demo_srr77dfe392.html]
+    ## ℹ 'srr' report is at [/home/smexus/.cache/pkgcheck/static/srr-demo_srr77dfe392.html]
 
     ## 
 
@@ -265,7 +266,7 @@ print (x)
 
     ## 
 
-    ## ℹ Package network diagram is at [/home/smexus/.cache/pkgreport/static/srr-demo_pkgstats77dfe392.html]
+    ## ℹ Package network diagram is at [/home/smexus/.cache/pkgcheck/static/srr-demo_pkgstats77dfe392.html]
 
     ## 
 
