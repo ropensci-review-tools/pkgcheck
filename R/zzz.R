@@ -15,7 +15,7 @@
 
     op <- options ()
 
-    op.pkgcheck <- list (pkgcheck.cache_dir = cache_dir)
+    op.pkgcheck <- list (pkgcheck.cache_dir = cache_dir) # nolint
 
     toset <- !(names (op.pkgcheck) %in% names (op))
     if (any (toset))

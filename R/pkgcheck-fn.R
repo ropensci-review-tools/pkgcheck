@@ -12,7 +12,6 @@ pkgcheck <- function (path) {
 
     s <- suppressWarnings (pkgstats::pkgstats (path))
     s$path <- path
-    s_summ <- pkgstats_checks (s)
     pkgstats <- pkgstats_checks (s)
 
     out <- list ()
@@ -63,7 +62,7 @@ pkgcheck <- function (path) {
                      since = min (gitlog$time),
                      num_authors = length (unique (auts)))
 
-    out$srr <- pkgrep_srr_report (path)
+    out$srr <- pkgchk_srr_report (path)
 
     out$file_list <- list ()
     out$file_list$uses_roxy <- pkg_uses_roxygen2 (path)

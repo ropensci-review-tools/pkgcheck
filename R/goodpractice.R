@@ -13,8 +13,6 @@ get_gp_report <- function (local_repo) {
     repo <- utils::tail (strsplit (u, "/") [[1]], 1)
     org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
 
-    cache_dir <- Sys.getenv ("cache_dir")
-
     # check whether gp is cached:
     cmt <- get_latest_commit (org = org, repo = repo)
     fname <- paste0 (repo, "_", substring (cmt$oid, 1, 8))

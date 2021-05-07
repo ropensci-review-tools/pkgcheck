@@ -4,14 +4,14 @@
 #' @param local_repo Location of local repository to report on
 #'
 #' @noRd
-pkgrep_srr_report <- function (local_repo) {
+pkgchk_srr_report <- function (local_repo) {
 
     srr <- tryCatch (
                 srr::srr_stats_pre_submit (local_repo, quiet = TRUE),
                 error = function (e) e)
 
     srr_okay <- FALSE
-    if (!methods::is (srr, "error") & 
+    if (!methods::is (srr, "error") &
         any (grepl ("^All applicable standards have been documented", srr))) {
         srr_okay <- TRUE
     }
@@ -30,13 +30,13 @@ pkgrep_srr_report <- function (local_repo) {
         i <- grep ("standards are missing from your code", srr)
         if (length (i) > 0) {
 
-            srr_head <- srr [seq (i)]
+            #srr_head <- srr [seq (i)]
             stds <- srr [-seq (i)]
             blank <- which (nchar (stds) == 0)
-            srr_tail <- NULL
+            #srr_tail <- NULL
             if (length (blank) > 1) {
                 stds_end <- blank [which (diff (blank) > 1) + 1]
-                srr_tail <- stds [seq (stds_end, length (stds))]
+                #srr_tail <- stds [seq (stds_end, length (stds))]
                 stds <- stds [-seq (stds_end, length (stds))]
             }
             stds <- paste0 (stds [which (nchar (stds) > 0)],
@@ -112,7 +112,7 @@ srr_categories_from_report <- function (s) {
                      "Regression and Supervised Learning",
                      "Spatial",
                      "Time Series",
-                     "Dimensionality Reduction, Clustering and Unsupervised Learning")
+         "Dimensionality Reduction, Clustering and Unsupervised Learning")
     cats <- cats [which (cats %in% prefixes)]
     # TODO: error handling on that one
 

@@ -98,7 +98,8 @@ stats_checks <- function (s, threshold = 0.05) {
     cloc <- rbind (cloc,
                    add_if (pc, "loc_src", file.path (attr (s, "path"), "src")))
     cloc <- rbind (cloc,
-                   add_if (pc, "loc_inst", file.path (attr (s, "path"), "src", "include")))
+                   add_if (pc, "loc_inst",
+                           file.path (attr (s, "path"), "src", "include")))
 
     cloc <- cloc [which (cloc$language != "SUM"), ]
     cloc$pc <- 100 * cloc$loc / sum (cloc$loc)
