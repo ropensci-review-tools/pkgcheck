@@ -4,13 +4,13 @@
     "http://schema.org"
   ],
   "@type": "SoftwareSourceCode",
-  "identifier": "pkgreport",
-  "description": "Plumber API to report package structure and function.",
-  "name": "pkgreport: Plumber API to report package structure and function",
-  "codeRepository": "https://github.com/ropenscilabs/pkgreport",
-  "issueTracker": "https://github.com/ropenscilabs/pkgreport/issues",
+  "identifier": "pkgcheck",
+  "description": "Check whether a package is ready for submission to rOpenSci’s\n    peer review system.",
+  "name": "pkgcheck: rOpenSci Package Checks",
+  "codeRepository": "https://github.com/ropenscilabs/pkgcheck",
+  "issueTracker": "https://github.com/ropenscilabs/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.218",
+  "version": "0.0.1.219",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -213,7 +213,7 @@
       "sameAs": "https://github.com/ropenscilabs/srr"
     }
   ],
-  "readme": "https://github.com/ropenscilabs/pkgreport/blob/main/README.md",
-  "fileSize": "1831.266KB",
+  "readme": "https://github.com/ropenscilabs/pkgcheck/blob/main/README.md",
+  "fileSize": "1831.361KB",
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

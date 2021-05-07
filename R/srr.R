@@ -48,7 +48,7 @@ pkgrep_srr_report <- function (local_repo) {
         srr_file_from <- attr (srr_rep, "file")
         repo <- utils::tail (strsplit (u, "/") [[1]], 1)
         org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
-        commit <- pkgreport::get_latest_commit (org, repo)
+        commit <- get_latest_commit (org, repo)
         oid <- substring (commit$oid, 1, 8)
         static_dir <- file.path (getOption ("pkgreport.cache_dir"),
                                  "static")

@@ -14,7 +14,7 @@ stats_checks <- function (s, threshold = 0.05) {
     if (is.na (s$npars_exported_md))
         s$npars_exported_md <- 0L
 
-    dat <- pkgreport::pkgstats_data
+    dat <- pkgcheck::pkgstats_data
 
     # temporary fixes until data are re-generated:
     dat$loc_R [dat$files_R == 0] <- NA_integer_
