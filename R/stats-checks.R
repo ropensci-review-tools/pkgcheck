@@ -107,6 +107,7 @@ stats_checks <- function (s, threshold = 0.05) {
                                      ": ",
                                      round (cloc$pc),
                                      "%")
+    attr (pc, "files") <- paste0 (cloc$language, ": ", cloc$file_count)
 
     return (pc)
 }
