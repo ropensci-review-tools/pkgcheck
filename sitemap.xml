@@ -10,6 +10,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/checks_to_markdown.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_default_branch.html</loc>
   </url>
   <url>
@@ -26,5 +29,8 @@
   </url>
   <url>
     <loc>/reference/pkgstats_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/render_markdown.html</loc>
   </url>
 </urlset>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>get_default_branch — get_default_branch • pkgcheck</title>
+<title>Convert checks to markdown-formatted report — checks_to_markdown • pkgcheck</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="get_default_branch — get_default_branch" />
-<meta property="og:description" content="get_default_branch" />
+<meta property="og:title" content="Convert checks to markdown-formatted report — checks_to_markdown" />
+<meta property="og:description" content="Convert checks to markdown-formatted report" />
 
 
 
@@ -111,37 +111,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>get_default_branch</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgcheck/blob/master/R/github.R'><code>R/github.R</code></a></small>
-    <div class="hidden name"><code>get_default_branch.Rd</code></div>
+    <h1>Convert checks to markdown-formatted report</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgcheck/blob/master/R/format-checks.R'><code>R/format-checks.R</code></a></small>
+    <div class="hidden name"><code>checks_to_markdown.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>get_default_branch</p>
+    <p>Convert checks to markdown-formatted report</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_default_branch</span><span class='op'>(</span><span class='va'>org</span>, <span class='va'>repo</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>checks_to_markdown</span><span class='op'>(</span><span class='va'>checks</span>, render <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>org</th>
-      <td><p>Github organization</p></td>
+      <th>checks</th>
+      <td><p>Result of main <a href='pkgcheck.html'>pkgcheck</a> function</p></td>
     </tr>
     <tr>
-      <th>repo</th>
-      <td><p>Github repository</p></td>
+      <th>render</th>
+      <td><p>If <code>TRUE</code>, render output as <code>html</code> document and open in
+browser.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Name of default branch on GitHub</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This function is not intended to be called directly, and is only
-exported to enable it to be used within the <span class="pkg">plumber</span> API.</p>
+    <p>Markdown-formatted version of check report</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
