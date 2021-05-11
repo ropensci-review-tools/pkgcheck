@@ -3,12 +3,12 @@
 #' This uses a caching system to only generate new report if repository has been
 #' updated, otherwise it returns locally cached version.
 #'
-#' @param local_repo Path to local source of repository
+#' @param path Path to local source of repository
 #' @return A \pkg{goodpractice} report
 #' @noRd
-get_gp_report <- function (local_repo) {
+get_gp_report <- function (path) {
 
-    u <- url_from_desc (local_repo)
+    u <- url_from_desc (path)
 
     repo <- utils::tail (strsplit (u, "/") [[1]], 1)
     org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
@@ -29,7 +29,7 @@ get_gp_report <- function (local_repo) {
         if (!file.exists (gp_cache_dir))
             dir.create (gp_cache_dir, recursive = TRUE)
 
-        gp <- goodpractice::goodpractice (local_repo)
+        gp <- goodpractice::goodpractice (path)
 
         saveRDS (gp, gp_cache_file)
     }

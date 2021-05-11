@@ -1,18 +1,18 @@
 #' Count number of example lines per function
 #'
-#' @param local_repo Path to local source repository
+#' @param path Path to local source repository
 #' @return A `data.frame` of function names and counts of numbers of lines of
 #' example code.
 #' @noRd
-num_ex_lines <- function (local_repo) {
+num_ex_lines <- function (path) {
 
-    if (!uses_roxygen (local_repo))
+    if (!uses_roxygen (path))
         return ("package does not use roxygen")
 
-    exports <- exported_fns (local_repo)
+    exports <- exported_fns (path)
 
     # Then names and aliases of all documented functions:
-    flist <- list.files (file.path (local_repo, "R"),
+    flist <- list.files (file.path (path, "R"),
                          pattern = ".[R|r]$",
                          full.names = TRUE)
     flist <- flist [which (!grepl ("RcppExports.R$", flist))]
@@ -57,15 +57,15 @@ num_ex_lines <- function (local_repo) {
     return (doc_fns)
 }
 
-uses_roxygen <- function (local_repo) {
+uses_roxygen <- function (path) {
 
-    desc <- read.dcf (file.path (local_repo, "DESCRIPTION"))
+    desc <- read.dcf (file.path (path, "DESCRIPTION"))
     any (grepl ("^Roxygen", colnames (desc)))
 }
 
-exported_fns <- function (local_repo) {
+exported_fns <- function (path) {
 
-    nspace <- readLines (file.path (local_repo, "NAMESPACE"))
+    nspace <- readLines (file.path (path, "NAMESPACE"))
     exports <- grep ("^export\\s?\\(", nspace, value = TRUE)
     exports <- gsub ("^export\\s?\\(|\\)$", "", exports)
     exports <- unlist (strsplit (exports, ",\\s?"))

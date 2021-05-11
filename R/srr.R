@@ -1,13 +1,13 @@
 
 #' Format the \pkg{srr} reporting section of the general editorial report.
 #'
-#' @param local_repo Location of local repository to report on
+#' @param path Location of local repository to report on
 #'
 #' @noRd
-pkgchk_srr_report <- function (local_repo) {
+pkgchk_srr_report <- function (path) {
 
     srr <- tryCatch (
-                srr::srr_stats_pre_submit (local_repo, quiet = TRUE),
+                srr::srr_stats_pre_submit (path, quiet = TRUE),
                 error = function (e) e)
 
     srr_okay <- FALSE
@@ -21,7 +21,7 @@ pkgchk_srr_report <- function (local_repo) {
 
     if (srr_okay) {
 
-        srr_rep <- srr::srr_report (path = local_repo,
+        srr_rep <- srr::srr_report (path = path,
                                     view = FALSE)
 
         categories <- srr_categories_from_report (srr_rep)
@@ -44,7 +44,7 @@ pkgchk_srr_report <- function (local_repo) {
         }
 
         # cp report file to cache dir:
-        u <- url_from_desc (local_repo)
+        u <- url_from_desc (path)
         srr_file_from <- attr (srr_rep, "file")
         repo <- utils::tail (strsplit (u, "/") [[1]], 1)
         org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
