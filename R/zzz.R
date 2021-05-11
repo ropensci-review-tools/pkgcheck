@@ -6,8 +6,9 @@
     if (cache_dir == "") {
         cache_dir <- file.path (rappdirs::user_cache_dir (),
                                 "pkgcheck")
+        cache_dir <- normalizePath (cache_dir)
+        Sys.setenv ("pkgcheck_cache_dir" = cache_dir)
     }
-    cache_dir <- normalizePath (cache_dir)
 
     if (!dir.exists (cache_dir)) {
         dir.create (cache_dir, recursive = TRUE)

@@ -1,4 +1,16 @@
 
+#' Tick symbol for markdown output
+#' @noRd
+symbol_tck <- function () {
+    ":heavy_check_mark:"
+}
+
+#' Cross symbol for markdown output
+#' @noRd
+symbol_crs <- function () {
+    ":heavy_multiplication_x:"
+}
+
 #' Bob Rudis's URL checker function
 #'
 #' @param x a single URL
