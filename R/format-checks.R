@@ -53,6 +53,10 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "</p>",
                  "</details>")
 
+    if (render) {
+        render_markdown (md_out, open = TRUE)
+    }
+
     attr (md_out, "is_noteworthy") <- attr (stats_rep, "is_noteworthy")
 
     return (md_out)
@@ -412,4 +416,26 @@ goodpractice_checks <- function (checks,
        "",
        convert_gp_components (gp, control = control),
        "")
+}
+
+#' render markdown-formatted input into 'html'
+#'
+#' @param md Result of \link{checks_to_markdown} function.
+#' @param open If `TRUE`, open `hmtl`-rendered version in web browser.
+#' @return (invisible) Location of `.html`-formatted version of input.
+#' @export
+render_markdown <- function (md, open = TRUE) {
+
+    md <- gsub ("\\:heavy\\_check\\_mark\\:", "&#9989;", md)
+    md <- gsub ("\\:heavy\\_multiplication\\_x\\:", "&#10060;", md)
+
+    fmd <- tempfile (pattern = "pkgcheck", fileext = ".Rmd")
+    writeLines (md, con = fmd)
+    f <- tempfile (pattern = "pkgcheck", fileext = ".html")
+    rmarkdown::render (fmd, output_file = f)
+
+    if (open)
+        browseURL (f)
+
+    invisible (f)
 }
