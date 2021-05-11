@@ -94,7 +94,7 @@ collate_checks <- function (checks) {
                               " All functions have examples"),
                       paste0 ("- ", symbol_crs (),
                               " These funtions do not have examples: [",
-                              paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
+                      paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
                               "]"))
 
     la_out <- NULL
@@ -172,7 +172,6 @@ srr_checks <- function (checks) {
     srr_msg <- ifelse (checks$srr$okay,
                        paste0 (symbol_tck (), " ", checks$srr$message),
                        paste0 (symbol_crs (), " ", checks$srr$message))
-    base_url <- Sys.getenv ("roreviewapi_url")
 
     c ("## 1. srr",
        "",
