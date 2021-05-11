@@ -17,7 +17,7 @@ pkgchk_srr_report <- function (local_repo) {
     }
 
 
-    srr_report_file <- categories <- stds <- NULL
+    categories <- stds <- NULL
 
     if (srr_okay) {
 
@@ -43,14 +43,14 @@ pkgchk_srr_report <- function (local_repo) {
                             collapse = ", ")
         }
 
-        # cp report file to static dir:
+        # cp report file to cache dir:
         u <- url_from_desc (local_repo)
         srr_file_from <- attr (srr_rep, "file")
         repo <- utils::tail (strsplit (u, "/") [[1]], 1)
         org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
         commit <- get_latest_commit (org, repo)
         oid <- substring (commit$oid, 1, 8)
-        static_dir <- file.path (getOption ("pkgcheck.cache_dir"),
+        static_dir <- file.path (Sys.getenv ("pkgcheck_cache_dir"),
                                  "static")
         srr_report_file <- file.path (static_dir,
                                       paste0 (repo, "_srr", oid, ".html"))
