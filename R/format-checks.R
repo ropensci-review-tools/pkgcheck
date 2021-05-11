@@ -179,9 +179,8 @@ srr_checks <- function (checks) {
        srr_msg,
        "",
        paste0 ("[Click here to view output of 'srr_report'](",
-               base_url, "/assets/", checks$package, "_srr",
-               substring (checks$git$HEAD, 1, 8), ".html), ",
-               "which can be re-generated locally by running the ",
+               checks$srr$report_file,
+               "), which can be re-generated locally by running the ",
                "[`srr_report() function](https://ropenscilabs.github.io/",
                "srr/reference/srr_report.html) from within a local clone ",
                "of the repository."),
@@ -352,14 +351,11 @@ pkg_network <- function (checks) {
         file.copy (flist, visjs_dir, recursive = TRUE)
     }
 
-    visjs_url <- paste0 (Sys.getenv ("pkgcheck_url"), "/assets/",
-                         basename (checks$network_file))
-
     c ("",
        "### 2a. Network visualisation",
        "",
        paste0 ("[Click here](",
-               visjs_url,
+               checks$network_file,
                ") for interactive network visualisation ",
                "of calls between objects in package."))
 }
