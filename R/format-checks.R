@@ -434,7 +434,7 @@ render_markdown <- function (md, open = TRUE) {
     rmarkdown::render (fmd, output_file = f)
 
     if (open)
-        browseURL (f)
+        utils::browseURL (f)
 
     invisible (f)
 }
