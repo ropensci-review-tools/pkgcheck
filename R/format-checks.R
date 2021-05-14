@@ -196,7 +196,7 @@ collate_checks <- function (checks) {
                        checks$srr$message)
     }
 
-    eic_chks <- c (uses_roxy,
+    out <- c (uses_roxy,
                    has_contrib,
                    fn_exs,
                    la_out,
@@ -208,17 +208,17 @@ collate_checks <- function (checks) {
                    rcmd_warns,
                    srr)
 
-    checks_okay <- !any (grepl (symbol_crs (), eic_chks))
+    checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
-        eic_chks <- c (eic_chks,
-                       "",
-                       paste0 ("**Important:** All failing checks above ",
-                               "must be addressed prior to proceeding"))
+        out <- c (out,
+                  "",
+                  paste0 ("**Important:** All failing checks above ",
+                          "must be addressed prior to proceeding"))
     }
 
-    attr (eic_chks, "checks_okay") <- checks_okay
+    attr (out, "checks_okay") <- checks_okay
 
-    return (eic_chks)
+    return (out)
 }
 
 #' Report on \package{srr} compliance
