@@ -96,7 +96,7 @@ print_summary <- function (x) {
     }
 
     coverage <- round (x$gp$covr$pct_by_line, digits = 1) # nolint
-    if (x$gp$covr$pct_by_line >= 75) {
+    if (coverage >= 75) {
         cli::cli_alert_success ("Package coverage is {coverage}%")
     } else {
         cli::cli_alert_danger (paste0 ("Package coverage is {coverage}% ",
