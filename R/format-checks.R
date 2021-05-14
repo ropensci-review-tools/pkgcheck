@@ -97,6 +97,20 @@ collate_checks <- function (checks) {
                       paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
                               "]"))
 
+    has_url <- ifelse (checks$file_list$has_url,
+                       paste0 ("- ", symbol_tck (),
+                               " Package 'DESCRIPTION' has a URL field"),
+                       paste0 ("- ", symbol_crs (),
+                               " Package 'DESCRIPTION' does not ",
+                               "have a URL field"))
+    has_bugs <- ifelse (checks$file_list$has_bugs,
+                        paste0 ("- ", symbol_tck (),
+                                " Package 'DESCRIPTION' has a ",
+                                "BugReports field"),
+                        paste0 ("- ", symbol_crs (),
+                                " Package 'DESCRIPTION' does not ",
+                                "have a BugReports field"))
+
     la_out <- NULL
     if (checks$left_assign$global) {
         la_out <- paste0 ("- ", symbol_crs (),
@@ -112,24 +126,6 @@ collate_checks <- function (checks) {
                              la [names (la) == "="], " '=')"))
     }
 
-    has_url <- ifelse (checks$file_list$has_url,
-                       paste0 ("- ", symbol_tck (),
-                               " Package 'DESCRIPTION' has a URL field"),
-                       paste0 ("- ", symbol_crs (),
-                               " Package 'DESCRIPTION' does not ",
-                               "have a URL field"))
-    has_bugs <- ifelse (checks$file_list$has_bugs,
-                        paste0 ("- ", symbol_tck (),
-                                " Package 'DESCRIPTION' has a ",
-                                "BugReports field"),
-                        paste0 ("- ", symbol_crs (),
-                                " Package 'DESCRIPTION' does not ",
-                                "have a BugReports field"))
-
-    # ------------------------------------------------------------
-    # -----------------   BADGES + OTHER STUFF   -----------------
-    # ------------------------------------------------------------
-
     if (is.null (checks$badges)) {
 
         ci_txt <- paste0 ("- ", symbol_crs (),
@@ -140,13 +136,65 @@ collate_checks <- function (checks) {
                           " Package has continuous integration checks")
     }
 
+    coverage <- round (checks$gp$covr$pct_by_line, digits = 1)
+    if (coverage >= 75) {
+
+        covr <- paste0 ("- ",
+                        symbol_tck (),
+                        " Package coverage is ",
+                        coverage,
+                        "%")
+
+    } else {
+        covr <- paste0 ("- ",
+                        symbol_crs (),
+                        " Package coverage is ",
+                        coverage,
+                        "% (should be at least 75%)")
+    }
+
+    nerr <- length (checks$gp$rcmdcheck$errors)
+    if (nerr == 0) {
+
+        rcmd_errs <- paste0 ("- ",
+                             symbol_tck (),
+                             "R CMD check found no errors")
+
+    } else {
+
+        rcmd_errs <- paste0 ("- ",
+                             symbol_crs (),
+                             "R CMD check found ",
+                             nerr,
+                             " errors")
+    }
+
+    nwarn <- length (checks$gp$rcmdcheck$warnings)
+    if (nwarn == 0) {
+
+        rcmd_warns <- paste0 ("- ",
+                              symbol_tck (),
+                              "R CMD check found no warnings")
+
+    } else {
+
+        rcmd_warns <- paste0 ("- ",
+                              symbol_crs (),
+                              "R CMD check found ",
+                              nwarn,
+                              " warnings")
+    }
+
     eic_chks <- c (uses_roxy,
-               has_contrib,
-               fn_exs,
-               la_out,
-               has_url,
-               has_bugs,
-               ci_txt)
+                   has_contrib,
+                   fn_exs,
+                   la_out,
+                   has_url,
+                   has_bugs,
+                   ci_txt,
+                   covr,
+                   rcmd_errs,
+                   rcmd_warns)
 
     checks_okay <- !any (grepl (symbol_crs (), eic_chks))
     if (!checks_okay) {
