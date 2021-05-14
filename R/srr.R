@@ -21,8 +21,30 @@ pkgchk_srr_report <- function (path) {
 
     if (srr_okay) {
 
-        srr_rep <- srr::srr_report (path = path,
-                                    view = FALSE)
+        # get path to report in cache dir:
+        u <- url_from_desc (path)
+        repo <- utils::tail (strsplit (u, "/") [[1]], 1)
+        org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
+        commit <- get_latest_commit (org, repo)
+        oid <- substring (commit$oid, 1, 8)
+        static_dir <- file.path (Sys.getenv ("pkgcheck_cache_dir"),
+                                 "static")
+        srr_report_file <- file.path (static_dir,
+                                      paste0 (repo, "_srr", oid, ".html"))
+
+        flist <- list.files (static_dir,
+                             pattern = paste0 (repo, "\\_srr"),
+                             full.names = TRUE)
+        if (!srr_report_file %in% flist) {
+
+            file.remove (flist)
+
+            srr_rep <- srr::srr_report (path = path,
+                                        view = FALSE)
+            srr_file_from <- attr (srr_rep, "file")
+            if (!file.copy (srr_file_from, srr_report_file))
+                warning ("file not copied!")
+        }
 
         categories <- srr_categories_from_report (srr_rep)
         stds <- NULL # missing standards
@@ -42,28 +64,6 @@ pkgchk_srr_report <- function (path) {
             stds <- paste0 (stds [which (nchar (stds) > 0)],
                             collapse = ", ")
         }
-
-        # cp report file to cache dir:
-        u <- url_from_desc (path)
-        srr_file_from <- attr (srr_rep, "file")
-        repo <- utils::tail (strsplit (u, "/") [[1]], 1)
-        org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
-        commit <- get_latest_commit (org, repo)
-        oid <- substring (commit$oid, 1, 8)
-        static_dir <- file.path (Sys.getenv ("pkgcheck_cache_dir"),
-                                 "static")
-        srr_report_file <- file.path (static_dir,
-                                      paste0 (repo, "_srr", oid, ".html"))
-
-        # rm old files
-        flist <- list.files (static_dir,
-                             pattern = paste0 (repo, "\\_srr"),
-                             full.names = TRUE)
-        if (length (flist) > 0)
-            file.remove (flist)
-
-        if (!file.copy (srr_file_from, srr_report_file))
-            warning ("file not copied!")
 
         srr_okay <- length (i) == 0
     }
