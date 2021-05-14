@@ -36,95 +36,24 @@ summary.pkgcheck <- function (object, ...) {
 
 print_summary <- function (x) {
 
-    cli::cli_h2 ("Package Summary")
+    s <- collate_checks (x)
+    okay <- attr (s, "checks_okay")
+    s <- grep ("^\\-", s, value = TRUE)
 
-    okay <- TRUE
-    if (x$file_list$uses_roxy) {
-        cli::cli_alert_success ("Package uses 'roxygen2'")
-    } else {
-        cli::cli_alert_danger ("Package does not use 'roxygen2'")
-        okay <- FALSE
-    }
+    for (i in s) {
 
-    if (x$file_list$has_contrib) {
-        cli::cli_alert_success ("Package has a 'contributing.md' file")
-    } else {
-        cli::cli_alert_danger ("Package does not have a 'contributing.md' file")
-        okay <- FALSE
-    }
-
-    if (all (x$fns_have_exs)) {
-        cli::cli_alert_success ("All exported functions have examples")
-    } else {
-        noex <- names (x$fns_have_exs [which (!x$fns_have_exs)]) # nolint
-        cli::cli_alert_danger (paste0 ("These exported functions do ",
-                                       "not have examples [{noex}]"))
-        okay <- FALSE
-    }
-
-    if (x$file_list$has_url) {
-        cli::cli_alert_success ("Package 'DESCRIPTION' has a URL field")
-    } else {
-        cli::cli_alert_danger ("Package 'DESCRIPTION' has no URL field")
-        okay <- FALSE
-    }
-
-    if (x$file_list$has_bugs) {
-        cli::cli_alert_success ("Package 'DESCRIPTION' has a BugReports field")
-    } else {
-        cli::cli_alert_danger ("Package 'DESCRIPTION' has no BugReports field")
-        okay <- FALSE
-    }
-
-    if (x$left_assigns$global)
-        cli::cli_alert_danger (paste0 ("Package uses a global assignment ",
-                                       "operator ('<<-')"))
-    if (all (x$left_assign$usage > 0)) {
-        la <- x$left_assign$usage
-        cli::cli_alert_danger (paste0 ("Package uses inconsistent left-assign ",
-                                       "operators (", la [1], " '<-' and ",
-                                       la [2], " '=')"))
-        okay <- FALSE
-    }
-
-    if (!is.null (x$badges)) {
-        cli::cli_alert_success ("Package has continuous integration checks")
-    } else {
-        cli::cli_alert_danger (paste0 ("Package does not have ",
-                                       "continuous integration checks"))
-        okay <- FALSE
-    }
-
-    coverage <- round (x$gp$covr$pct_by_line, digits = 1) # nolint
-    if (coverage >= 75) {
-        cli::cli_alert_success ("Package coverage is {coverage}%")
-    } else {
-        cli::cli_alert_danger (paste0 ("Package coverage is {coverage}% ",
-                                       "(should be at least 75%)"))
-        okay <- FALSE
-    }
-
-    nerr <- length (x$gp$rcmdcheck$errors)
-    if (nerr == 0) {
-        cli::cli_alert_success ("R CMD check found no errors")
-    } else {
-        cli::cli_alert_danger ("R CMD check found {nwarn} error{?s}")
-        okay <- FALSE
-    }
-
-    nwarn <- length (x$gp$rcmdcheck$warnings)
-    if (nwarn == 0) {
-        cli::cli_alert_success ("R CMD check found no warnings")
-    } else {
-        cli::cli_alert_danger ("R CMD check found {nwarn} warning{?s}")
-        okay <- FALSE
+        msg <- strsplit (i, ":\\s+") [[1]] [2]
+        if (grepl ("heavy_check_mark", i)) {
+            cli::cli_alert_success (msg)
+        } else {
+            cli::cli_alert_danger (msg)
+        }
     }
 
     if (x$srr$okay) {
         cli::cli_alert_success (x$srr$message)
     } else {
         cli::cli_alert_danger (x$srr$message)
-        okay <- FALSE
     }
 
     message ("")
