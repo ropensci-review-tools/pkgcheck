@@ -4,13 +4,13 @@ get_gh_token <- function (token = "") {
     e <- Sys.getenv ()
     if (token != "") {
 
-        toks <- e [grep (token, names (e))]
+        toks <- unique (e [grep (token, names (e))])
 
     } else {
 
-        toks <- e [grep ("GITHUB", names (e))]
+        toks <- unique (e [grep ("GITHUB", names (e))])
         if (length (toks) > 1)
-            toks <- toks [grep ("QL", names (toks))]
+            toks <- toks [grep ("TOKEN|PAT", names (toks))]
     }
 
     if (length (unique (toks)) > 1)
