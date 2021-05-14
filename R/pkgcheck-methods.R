@@ -36,7 +36,10 @@ summary.pkgcheck <- function (object, ...) {
 
 print_summary <- function (x) {
 
+    # collate_checks is in format-checks.R, and converts all primary checks to
+    # markdown.
     s <- collate_checks (x)
+
     okay <- attr (s, "checks_okay")
     s <- grep ("^\\-", s, value = TRUE)
 
