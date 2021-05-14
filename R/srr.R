@@ -10,6 +10,9 @@ pkgchk_srr_report <- function (path) {
                 srr::srr_stats_pre_submit (path, quiet = TRUE),
                 error = function (e) e)
 
+    if (is.null (srr))
+        return (NULL) # Not an srr package
+
     srr_okay <- FALSE
     if (!methods::is (srr, "error") &
         any (grepl ("^All applicable standards have been documented", srr))) {
