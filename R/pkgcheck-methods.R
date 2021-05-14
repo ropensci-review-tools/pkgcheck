@@ -125,7 +125,7 @@ print_structure <- function (x) {
     }
 
     s <- c (s,
-            "{x$summary$num_params_per_fn} parameters per function")
+            "{x$summary$num_params_per_fn} parameters per function (median)")
 
 
     cli::cli_li (s)
