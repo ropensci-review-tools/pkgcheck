@@ -50,12 +50,6 @@ print_summary <- function (x) {
         }
     }
 
-    if (x$srr$okay) {
-        cli::cli_alert_success (x$srr$message)
-    } else {
-        cli::cli_alert_danger (x$srr$message)
-    }
-
     message ("")
     cli::cli_alert_info ("Current status:")
     if (okay) {

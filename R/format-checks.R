@@ -185,6 +185,17 @@ collate_checks <- function (checks) {
                               " warnings")
     }
 
+    srr <- NULL
+    if (!is.null (checks$srr)) {
+
+        srr <- paste0 ("- ",
+                       ifelse (checks$srr$okay,
+                               symbol_tck (),
+                               symbol_crs ()),
+                       " ",
+                       checks$srr$message)
+    }
+
     eic_chks <- c (uses_roxy,
                    has_contrib,
                    fn_exs,
@@ -194,7 +205,8 @@ collate_checks <- function (checks) {
                    ci_txt,
                    covr,
                    rcmd_errs,
-                   rcmd_warns)
+                   rcmd_warns,
+                   srr)
 
     checks_okay <- !any (grepl (symbol_crs (), eic_chks))
     if (!checks_okay) {
