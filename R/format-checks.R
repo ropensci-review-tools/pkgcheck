@@ -158,13 +158,13 @@ collate_checks <- function (checks) {
 
         rcmd_errs <- paste0 ("- ",
                              symbol_tck (),
-                             "R CMD check found no errors")
+                             " R CMD check found no errors")
 
     } else {
 
         rcmd_errs <- paste0 ("- ",
                              symbol_crs (),
-                             "R CMD check found ",
+                             " R CMD check found ",
                              nerr,
                              " errors")
     }
@@ -174,13 +174,13 @@ collate_checks <- function (checks) {
 
         rcmd_warns <- paste0 ("- ",
                               symbol_tck (),
-                              "R CMD check found no warnings")
+                              " R CMD check found no warnings")
 
     } else {
 
         rcmd_warns <- paste0 ("- ",
                               symbol_crs (),
-                              "R CMD check found ",
+                              " R CMD check found ",
                               nwarn,
                               " warnings")
     }
