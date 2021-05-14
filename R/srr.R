@@ -37,7 +37,8 @@ pkgchk_srr_report <- function (path) {
                              full.names = TRUE)
         if (!srr_report_file %in% flist) {
 
-            file.remove (flist)
+            if (length (flist) > 0)
+                file.remove (flist)
 
             srr_rep <- srr::srr_report (path = path,
                                         view = FALSE)
