@@ -31,11 +31,18 @@ pkgchk_srr_report <- function (path) {
                                  "static")
         srr_report_file <- file.path (static_dir,
                                       paste0 (repo, "_srr", oid, ".html"))
+        srr_md_file <- file.path (static_dir,
+                                  paste0 (repo, "_srr", oid, ".md"))
 
         flist <- list.files (static_dir,
                              pattern = paste0 (repo, "\\_srr"),
                              full.names = TRUE)
-        if (!srr_report_file %in% flist) {
+
+        if (srr_md_file %in% flist) {
+
+            srr_rep <- readLines (srr_md_file)
+
+        } else {
 
             if (length (flist) > 0)
                 file.remove (flist)
@@ -44,7 +51,11 @@ pkgchk_srr_report <- function (path) {
                                         view = FALSE)
             srr_file_from <- attr (srr_rep, "file")
             if (!file.copy (srr_file_from, srr_report_file))
-                warning ("file not copied!")
+                warning ("srr html file not copied!")
+            # srr_report stored the .md as a .Rmd in tempdir():
+            srr_rmd <- paste0 (tools::file_path_sans_ext (srr_file_from), ".Rmd")
+            if (!file.copy (srr_rmd, srr_md_file))
+                warning ("srr md file not copied!")
         }
 
         categories <- srr_categories_from_report (srr_rep)
