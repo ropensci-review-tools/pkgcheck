@@ -9,7 +9,8 @@ print.pkgcheck <- function (x, ...) {
     print_summary (x)
 
     print_git (x)
-    print_srr (x)
+    if (!is.null (x$srr))
+        print_srr (x)
     print_structure (x)
 
     cli::cli_h3 ("All statistics")
