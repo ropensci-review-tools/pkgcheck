@@ -94,14 +94,19 @@ pkgcheck <- function (path) {
                           "_pkgstats",
                           substring (commit$oid, 1, 8),
                           ".html")
+    visjs_path <- file.path (visjs_dir, visjs_file)
 
     # clean up any older ones
     flist <- list.files (visjs_dir,
                          pattern = paste0 (repo, "_pkgstats"),
                          full.names = TRUE)
-    unlink (flist, recursive = TRUE)
-    visjs_path <- file.path (visjs_dir, visjs_file)
-    pkgstats::plot_network (s, vis_save = visjs_path)
+
+    if (!visjs_path %in% flist) {
+
+        unlink (flist, recursive = TRUE)
+        pkgstats::plot_network (s, vis_save = visjs_path)
+    }
+
     out$network_file <- visjs_path
 
 
