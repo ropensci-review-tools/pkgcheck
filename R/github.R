@@ -8,15 +8,22 @@ get_gh_token <- function (token = "") {
 
     } else {
 
-        toks <- unique (e [grep ("GITHUB", names (e))])
-        if (length (toks) > 1)
+        toks <- e [grep ("GITHUB", names (e))]
+        if (length (unique (toks)) > 1) {
             toks <- toks [grep ("TOKEN|PAT", names (toks))]
+        }
     }
 
-    if (length (unique (toks)) > 1)
-        stop (paste0 ("No unambiguous token found; please use ",
-                      "Sys.setenv() to set a github graphQL tokan ",
-                      "named 'GITHUB', 'GITHUBQL', or similar"))
+    if (length (unique (toks)) > 1) {
+
+        stop ("There are ",
+              length (unique (toks)),
+              " possible tokens named [",
+              paste0 (names (toks), collapse = ", "),
+              "]; please ensure one distinct ",
+              "token named 'GITHIB_TOKEN' or similar.")
+    }
+
     return (unique (toks))
 }
 
