@@ -20,6 +20,14 @@ get_gp_report <- function (path) {
                                "gp_reports")
     gp_cache_file <- file.path (gp_cache_dir, fname)
 
+    # rm old gp reports:
+    flist <- list.files (gp_cache_dir,
+                         pattern = paste0 (repo, "\\_"),
+                         full.names = TRUE)
+    flist <- flist [which (!grepl (fname, flist))]
+    if (length (flist) > 0)
+        chk <- file.remove (flist)
+
     if (file.exists (gp_cache_file)) {
 
         gp <- readRDS (gp_cache_file)
