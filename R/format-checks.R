@@ -34,9 +34,10 @@ checks_to_markdown <- function (checks, render = FALSE) {
 
     # sec_nun is (1, 2) for (srr, non-srr) packages
     sec_num <- as.integer (!is.null (checks$srr)) + 1
+    stats_rep <- pkgstats_format (checks, sec_num)
 
     md_out <- c (md_out,
-                 pkgstats_format (checks, sec_num),
+                 stats_rep,
                  pkg_network (checks, sec_num),
                  "",
                  "---",
