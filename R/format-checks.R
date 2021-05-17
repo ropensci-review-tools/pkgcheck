@@ -29,16 +29,21 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "---",
                  "")
 
-    stats_rep <- pkgstats_format (checks)
+    md_out <- c (md_out,
+                 srr_checks (checks))
+
+    # sec_nun is (1, 2) for (srr, non-srr) packages
+    sec_num <- as.integer (!is.null (checks$srr)) + 1
 
     md_out <- c (md_out,
-                 srr_checks (checks),
-                 stats_rep,
-                 pkg_network (checks),
+                 pkgstats_format (checks, sec_num),
+                 pkg_network (checks, sec_num),
                  "",
                  "---",
                  "",
-                 "## 3. `goodpractice` and other checks",
+                 paste0 ("## ",
+                         sec_num + 1,
+                         ". `goodpractice` and other checks"),
                  "",
                  "<details>",
                  "<summary>click to see</summary>",
@@ -226,6 +231,9 @@ collate_checks <- function (checks) {
 #' @noRd
 srr_checks <- function (checks) {
 
+    if (is.null (checks$srr))
+        return (NULL)
+
     cat_plural <- ifelse (length (checks$srr$categories == 1),
                           "category",
                           "categories")
@@ -254,9 +262,11 @@ srr_checks <- function (checks) {
 
 #' Format \pkg{pkgstats} data
 #' @param checks Result of main \link{pkgcheck} function
+#' @param sec_num Section numbering to use (1 for non-srr packages; otherwise
+#' 2).
 #' @return Report as formatted string
 #' @noRd
-pkgstats_format <- function (checks) {
+pkgstats_format <- function (checks, sec_num) {
 
     is_noteworthy <- any (checks$pkgstats$noteworthy == "TRUE")
     note <- ifelse (is_noteworthy,
@@ -268,7 +278,7 @@ pkgstats_format <- function (checks) {
                             "all within expected ranges."))
 
     stats_rep <- c ("",
-                    "## 2. Statistical Properties",
+                    paste0 ("## ", sec_num, ". Statistical Properties"),
                     "",
                     note,
                     "",
@@ -389,8 +399,10 @@ pkg_stat_desc <- function (checks) {
 
 #' Output text and URL link to function call network as 'vis.js' file.
 #' @param checks Result of main \link{pkgcheck} function
+#' @param sec_num Section numbering to use (1 for non-srr packages; otherwise
+#' 2).
 #' @noRd
-pkg_network <- function (checks) {
+pkg_network <- function (checks, sec_num) {
 
     cache_dir <- Sys.getenv ("pkgcheck_cache_dir")
     visjs_dir <- file.path (cache_dir, "static") # in api.R
@@ -414,7 +426,7 @@ pkg_network <- function (checks) {
     }
 
     c ("",
-       "### 2a. Network visualisation",
+       paste0 ("### ", sec_num, "a. Network visualisation"),
        "",
        paste0 ("[Click here](",
                checks$network_file,
