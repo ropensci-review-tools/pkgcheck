@@ -14,6 +14,10 @@
         dir.create (cache_dir, recursive = TRUE)
     }
 
+    if (!dir.exists (file.path (cache_dir, "static"))) {
+        dir.create (file.path (cache_dir, "static"), recursive = TRUE)
+    }
+
     op <- options ()
 
     op.pkgcheck <- list (pkgcheck.cache_dir = cache_dir) # nolint
