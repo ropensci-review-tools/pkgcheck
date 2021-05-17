@@ -142,21 +142,28 @@ collate_checks <- function (checks) {
                           " Package has continuous integration checks")
     }
 
-    coverage <- round (checks$gp$covr$pct_by_line, digits = 1)
-    if (coverage >= 75) {
+    if (methods::is (checks$gp$covr, "try-error")) {
 
-        covr <- paste0 ("- ",
-                        symbol_tck (),
-                        " Package coverage is ",
-                        coverage,
-                        "%")
-
-    } else {
         covr <- paste0 ("- ",
                         symbol_crs (),
-                        " Package coverage is ",
-                        coverage,
-                        "% (should be at least 75%)")
+                        " Package coverage failed")
+    } else {
+        coverage <- round (checks$gp$covr$pct_by_line, digits = 1)
+        if (coverage >= 75) {
+
+            covr <- paste0 ("- ",
+                            symbol_tck (),
+                            " Package coverage is ",
+                            coverage,
+                            "%")
+
+        } else {
+            covr <- paste0 ("- ",
+                            symbol_crs (),
+                            " Package coverage is ",
+                            coverage,
+                            "% (should be at least 75%)")
+        }
     }
 
     nerr <- length (checks$gp$rcmdcheck$errors)
