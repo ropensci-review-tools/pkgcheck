@@ -18,6 +18,9 @@ get_gp_report <- function (path) {
     fname <- paste0 (repo, "_", substring (cmt$oid, 1, 8))
     gp_cache_dir <- file.path (getOption ("pkgcheck.cache_dir"),
                                "gp_reports")
+    if (!dir.exists (gp_cache_dir))
+        dir.create (gp_cache_dir, recursive = TRUE)
+
     gp_cache_file <- file.path (gp_cache_dir, fname)
 
     # rm old gp reports:
