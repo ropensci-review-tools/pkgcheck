@@ -90,6 +90,9 @@ pkgcheck <- function (path) {
 
     visjs_dir <- file.path (getOption ("pkgcheck.cache_dir"),
                              "static")
+    if (!dir.exists (visjs_dir))
+        dir.create (visjs_dir, recursive = TRUE)
+
     visjs_file <- paste0 (repo,
                           "_pkgstats",
                           substring (commit$oid, 1, 8),
