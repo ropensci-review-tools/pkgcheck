@@ -1,32 +1,4 @@
 
-get_gh_token <- function (token = "") {
-
-    e <- Sys.getenv ()
-    if (token != "") {
-
-        toks <- unique (e [grep (token, names (e))])
-
-    } else {
-
-        toks <- e [grep ("GITHUB", names (e))]
-        if (length (unique (toks)) > 1) {
-            toks <- toks [grep ("TOKEN|PAT", names (toks))]
-        }
-    }
-
-    if (length (unique (toks)) > 1) {
-
-        stop ("There are ",
-              length (unique (toks)),
-              " possible tokens named [",
-              paste0 (names (toks), collapse = ", "),
-              "]; please ensure one distinct ",
-              "token named 'GITHIB_TOKEN' or similar.")
-    }
-
-    return (unique (toks))
-}
-
 default_branch_qry <- function (gh_cli, org, repo) {
 
     q <- paste0 ("{
@@ -71,6 +43,40 @@ commits_qry <- function (gh_cli, org, repo, branch = "main") {
     qry$query ("get_commits", q)
 
     return (qry)
+}
+
+#' Get GitHub token
+#'
+#' @param token_name Optional name of token to use
+#' @return The value of the GitHub access token extracted from environment
+#' variables.
+#' @export
+get_gh_token <- function (token_name = "") {
+
+    e <- Sys.getenv ()
+    if (token_name != "") {
+
+        toks <- unique (e [grep (token_name, names (e))])
+
+    } else {
+
+        toks <- e [grep ("GITHUB", names (e))]
+        if (length (unique (toks)) > 1) {
+            toks <- toks [grep ("TOKEN|PAT", names (toks))]
+        }
+    }
+
+    if (length (unique (toks)) > 1) {
+
+        stop ("There are ",
+              length (unique (toks)),
+              " possible tokens named [",
+              paste0 (names (toks), collapse = ", "),
+              "]; please ensure one distinct ",
+              "token named 'GITHIB_TOKEN' or similar.")
+    }
+
+    return (unique (toks))
 }
 
 #' get_default_branch
