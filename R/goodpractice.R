@@ -40,7 +40,9 @@ get_gp_report <- function (path) {
         if (!file.exists (gp_cache_dir))
             dir.create (gp_cache_dir, recursive = TRUE)
 
+        Sys.setenv ("_R_CHECK_FORCE_SUGGESTS_" = FALSE)
         gp <- goodpractice::goodpractice (path)
+        Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
 
         saveRDS (gp, gp_cache_file)
     }
