@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Statistics on all CRAN packages from 'pkgstats' — pkgstats_data • pkgcheck</title>
+<title>Get GitHub token — get_gh_token • pkgcheck</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Statistics on all CRAN packages from 'pkgstats' — pkgstats_data" />
-<meta property="og:description" content="Statistics on all CRAN packages from 'pkgstats'" />
+<meta property="og:title" content="Get GitHub token — get_gh_token" />
+<meta property="og:description" content="Get GitHub token" />
 
 
 
@@ -111,21 +111,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Statistics on all CRAN packages from 'pkgstats'</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgcheck/blob/master/R/pkgcheck-package.R'><code>R/pkgcheck-package.R</code></a></small>
-    <div class="hidden name"><code>pkgstats_data.Rd</code></div>
+    <h1>Get GitHub token</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgcheck/blob/master/R/github.R'><code>R/github.R</code></a></small>
+    <div class="hidden name"><code>get_gh_token.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Statistics on all CRAN packages from 'pkgstats'</p>
+    <p>Get GitHub token</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='va'>pkgstats_data</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>get_gh_token</span><span class='op'>(</span>token_name <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></code></pre></div>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>token_name</th>
+      <td><p>Optional name of token to use</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>data.frame</code> with 14834 rows and 81 columns.</p>
+    <p>The value of the GitHub access token extracted from environment
+variables.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

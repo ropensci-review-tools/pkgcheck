@@ -16,6 +16,9 @@
     <loc>/reference/get_default_branch.html</loc>
   </url>
   <url>
+    <loc>/reference/get_gh_token.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_latest_commit.html</loc>
   </url>
   <url>
