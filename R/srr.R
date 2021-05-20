@@ -107,6 +107,8 @@ url_from_desc <- function (path) {
     if (length (u) > 1)
         u <- u [which (!grepl ("\\.io", u))]
 
+    u <- gsub (",|\\s+", "", u)
+
     return (u [1])
 }
 
