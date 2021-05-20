@@ -90,28 +90,6 @@ pkgchk_srr_report <- function (path) {
           okay = srr_okay)
 }
 
-url_from_desc <- function (path) {
-
-    desc <- file.path (path, "DESCRIPTION")
-    if (!file.exists (desc))
-        return (NULL)
-
-    d <- data.frame (read.dcf (desc))
-    if (!"URL" %in% names (d))
-        return (NULL)
-
-    u <- strsplit (d$URL, "\\s+") [[1]]
-    u <- grep ("^https", u, value = TRUE)
-    if (length (u) > 1)
-        u <- grep ("git", u, value = TRUE)
-    if (length (u) > 1)
-        u <- u [which (!grepl ("\\.io", u))]
-
-    u <- gsub (",|\\s+", "", u)
-
-    return (u [1])
-}
-
 srr_categories_from_report <- function (s) {
 
     cats <- regmatches (s, gregexpr ("\\*\\*.*\\*\\*", s))
