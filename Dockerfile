@@ -98,6 +98,7 @@ RUN apt-get update -qq && apt-get install -y \
 
 # ctags install
 RUN apt-get install -y \
+    apt-utils \
     gcc make \
     autoconf automake \
     git-core \
