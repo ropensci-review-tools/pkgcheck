@@ -13,17 +13,11 @@ Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repo
 Check whether a package is ready for submission to
 [rOpenSci](https://ropensci.org)’s peer review system. The primary
 function collates a number of statistics via the
-[`pkgstats`](https://github.com/ropenscilabs/pkgstats) package which is
-not on CRAN and must first be installed with
-
-``` r
-remotes::install_github("ropenscilabs/pkgstats")
-```
-
-That package also requires both [`ctags`](https://ctags.io) and [GNU
-`global`](https://www.gnu.org/software/global/) to be installed. See
-package description and those links for how to install those libraries
-on your system.
+[`pkgstats`](https://github.com/ropenscilabs/pkgstats) package,
+installation of which also requires both [`ctags`](https://ctags.io) and
+[GNU `global`](https://www.gnu.org/software/global/) to be installed.
+See package description and those links for how to install those
+libraries on your system.
 
 Once `pkgstats` has been successfully installed, the `pkgcheck` package
 can then be loaded via a `library` call:
@@ -33,10 +27,11 @@ library(pkgcheck)
 ```
 
 This package also uses the [github GraphQL
-API](https://developer.github.com/v4) which requires a local github
-token to be stored with an unambiguous name including `GITHUB` and maybe
-`QL`, if alternative `GITHIB` tokens already exist. This can be obtained
-from github (via your user settings), and stored using
+API](https://developer.github.com/v4) which requires a local GitHub
+token to be stored with an unambiguous name including `GITHUB`, such as
+`GITHUB_TOKEN` (recommended), or `GITHUB_PAT` (for Personal
+Authorization Token). This can be obtained from GitHub (via your user
+settings), and stored using
 
 ``` r
 Sys.setenv("GITHUB_QL" = "<my_token>")
@@ -75,7 +70,6 @@ git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
 x <- pkgcheck (mydir)
 ```
 
-
 That object has default `print` and `summary` methods. The latter can be
 used to simply check whether a package is ready for submission:
 
@@ -89,23 +83,17 @@ summary (x)
 
     ## 
 
-    ## 
-
-    ## ── Package Summary ──
-
-    ## 
-
     ## ✔ Package uses 'roxygen2'
 
     ## ✖ Package does not have a 'contributing.md' file
 
-    ## ✔ All exported functions have examples
+    ## ✔ All functions have examples
 
     ## ✔ Package 'DESCRIPTION' has a URL field
 
-    ## ✖ Package 'DESCRIPTION' has no BugReports field
+    ## ✖ Package 'DESCRIPTION' does not have a BugReports field
 
-    ## ✖ Package does not have continuous integration checks
+    ## ✖ Package has no continuous integration checks
 
     ## ✖ Package coverage is 0% (should be at least 75%)
 
@@ -124,8 +112,8 @@ summary (x)
     ## 
 
 A package may only be submitted when the summary contains all ticks and
-no cross symbols. (And these symbols are colour-coded when generated in
-a terminal; GitHub markdown only renders them in black-and-white.) The
+no cross symbols. (These symbols are colour-coded when generated in a
+terminal; GitHub markdown only renders them in black-and-white.) The
 full details of the object returned from the `pkgcheck` function may be
 seen with the default `print` method:
 
@@ -139,23 +127,17 @@ print (x)
 
     ## 
 
-    ## 
-
-    ## ── Package Summary ──
-
-    ## 
-
     ## ✔ Package uses 'roxygen2'
 
     ## ✖ Package does not have a 'contributing.md' file
 
-    ## ✔ All exported functions have examples
+    ## ✔ All functions have examples
 
     ## ✔ Package 'DESCRIPTION' has a URL field
 
-    ## ✖ Package 'DESCRIPTION' has no BugReports field
+    ## ✖ Package 'DESCRIPTION' does not have a BugReports field
 
-    ## ✖ Package does not have continuous integration checks
+    ## ✖ Package has no continuous integration checks
 
     ## ✖ Package coverage is 0% (should be at least 75%)
 
@@ -237,7 +219,7 @@ print (x)
 
     ## • 3 C++ functions (median 4 lines of code)
 
-    ## • 0 parameters per function
+    ## • 0 parameters per function (median)
 
     ## 
 

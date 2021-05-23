@@ -9,13 +9,8 @@
 Check whether a package is ready for submission to
 [rOpenSci](https://ropensci.org)'s peer review system. The primary function
 collates a number of statistics via the
-[`pkgstats`](https://github.com/ropenscilabs/pkgstats) package which is not on
-CRAN and must first be installed with
-
-```{r pkgapi, eval = FALSE}
-remotes::install_github("ropenscilabs/pkgstats")
-```
-That package also requires both [`ctags`](https://ctags.io) and [GNU
+[`pkgstats`](https://github.com/ropenscilabs/pkgstats) package, installation of
+which also requires both [`ctags`](https://ctags.io) and [GNU
 `global`](https://www.gnu.org/software/global/) to be installed. See package
 description and those links for how to install those libraries on your system.
 
@@ -30,10 +25,10 @@ library(pkgcheck)
 ```
 
 This package also uses the [github GraphQL
-API](https://developer.github.com/v4) which requires a local github token to be
-stored with an unambiguous name including `GITHUB` and maybe `QL`, if
-alternative `GITHIB` tokens already exist. This can be obtained from github
-(via your user settings), and stored using
+API](https://developer.github.com/v4) which requires a local GitHub token to be
+stored with an unambiguous name including `GITHUB`, such as `GITHUB_TOKEN`
+(recommended), or `GITHUB_PAT` (for Personal Authorization Token). This can be
+obtained from GitHub (via your user settings), and stored using
 ```{r ghtok, eval = FALSE}
 Sys.setenv("GITHUB_QL" = "<my_token>")
 ```
@@ -77,10 +72,10 @@ summary (x)
 ```
 
 A package may only be submitted when the summary contains all ticks and no
-cross symbols. (And these symbols are colour-coded when generated in
-a terminal; GitHub markdown only renders them in black-and-white.) The full
-details of the object returned from the `pkgcheck` function may be seen with
-the default `print` method:
+cross symbols. (These symbols are colour-coded when generated in a terminal;
+GitHub markdown only renders them in black-and-white.) The full details of the
+object returned from the `pkgcheck` function may be seen with the default
+`print` method:
 
 ```{r print}
 print (x)
