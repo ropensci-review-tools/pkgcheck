@@ -8,11 +8,16 @@
 #' @export
 pkgcheck <- function (path) {
 
+    pkgcheck_internal (path)
+}
+
+pkgcheck_internal <- function (path) {
+
     u <- url_from_desc (path)
 
     s <- suppressWarnings (pkgstats::pkgstats (path))
     s$path <- path
-    pkgstats <- pkgstats_checks (s)
+    pkgstats <- fmt_pkgstats_checks (s)
 
     out <- list ()
     out$package <- s$desc$package
@@ -135,7 +140,7 @@ pkgcheck <- function (path) {
 #' @param s Output of \pkg{pkgstats} call.
 #' @return Report as formatted string
 #' @noRd
-pkgstats_checks <- function (s) {
+fmt_pkgstats_checks <- function (s) {
 
     s_summ <- pkgstats::pkgstats_summary (s)
     attr (s_summ, "path") <- s$path
