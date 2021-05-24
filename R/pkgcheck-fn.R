@@ -13,6 +13,28 @@ pkgcheck <- function (path) {
 
 pkgcheck_internal <- function (path) {
 
+    s <- pkgstats_checks (path)
+    out <- s$out
+
+    out$network_file <- fn_call_network (s)
+
+    u <- url_from_desc (path)
+    out$badges <- ci_badges (u)
+    if (!is.null (out$badges)) {
+        if (any (grepl ("github", out$badges))) {
+            out$github_workflows <- ci_results_gh (path)
+        }
+    }
+
+    out$gp <- get_gp_report (path)
+
+    class (out) <- c ("pkgcheck", class (out))
+
+    return (out)
+}
+
+pkgstats_checks <- function (path) {
+
     u <- url_from_desc (path)
 
     s <- suppressWarnings (pkgstats::pkgstats (path))
@@ -89,51 +111,8 @@ pkgcheck_internal <- function (path) {
 
     out$pkgstats <- pkgstats
 
-    # ------------------------------------------------------------
-    # -----------------   FUNCTION CALL NETWORK   ----------------
-    # ------------------------------------------------------------
-
-    visjs_dir <- file.path (getOption ("pkgcheck.cache_dir"),
-                             "static")
-    if (!dir.exists (visjs_dir))
-        dir.create (visjs_dir, recursive = TRUE)
-
-    visjs_file <- paste0 (repo,
-                          "_pkgstats",
-                          substring (commit$oid, 1, 8),
-                          ".html")
-    visjs_path <- file.path (visjs_dir, visjs_file)
-
-    # clean up any older ones
-    flist <- list.files (visjs_dir,
-                         pattern = paste0 (repo, "_pkgstats"),
-                         full.names = TRUE)
-
-    if (!visjs_path %in% flist) {
-
-        unlink (flist, recursive = TRUE)
-        pkgstats::plot_network (s, vis_save = visjs_path)
-    }
-
-    out$network_file <- visjs_path
-
-
-    # ------------------------------------------------------------
-    # -----------------   BADGES + OTHER STUFF   -----------------
-    # ------------------------------------------------------------
-
-    out$badges <- ci_badges (u)
-    if (!is.null (out$badges)) {
-        if (any (grepl ("github", out$badges))) {
-            out$github_workflows <- ci_results_gh (path)
-        }
-    }
-
-    out$gp <- get_gp_report (path)
-
-    class (out) <- c ("pkgcheck", class (out))
-
-    return (out)
+    return (list (stats = s,
+                  out = out))
 }
 
 #' Format \pkg{pkgstats} data
@@ -156,4 +135,31 @@ fmt_pkgstats_checks <- function (s) {
     attr (stat_chks, "language") <- languages
 
     return (stat_chks)
+}
+
+fn_call_network <- function (s) {
+
+    visjs_dir <- file.path (getOption ("pkgcheck.cache_dir"),
+                             "static")
+    if (!dir.exists (visjs_dir))
+        dir.create (visjs_dir, recursive = TRUE)
+
+    visjs_file <- paste0 (s$out$package,
+                          "_pkgstats",
+                          substring (s$out$git$HEAD, 1, 8),
+                          ".html")
+    visjs_path <- file.path (visjs_dir, visjs_file)
+
+    # clean up any older ones
+    flist <- list.files (visjs_dir,
+                         pattern = paste0 (s$out$package, "_pkgstats"),
+                         full.names = TRUE)
+
+    if (!visjs_path %in% flist) {
+
+        unlink (flist, recursive = TRUE)
+        pkgstats::plot_network (s$stats, vis_save = visjs_path)
+    }
+
+    return (visjs_path)
 }
