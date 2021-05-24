@@ -56,7 +56,8 @@ pkgchk_srr_report <- function (path) {
             if (!file.copy (srr_file_from, srr_report_file))
                 warning ("srr html file not copied!")
             # srr_report stored the .md as a .Rmd in tempdir():
-            srr_rmd <- paste0 (tools::file_path_sans_ext (srr_file_from), ".Rmd")
+            srr_rmd <- tools::file_path_sans_ext (srr_file_from)
+            srr_rmd <- paste0 (srr_rmd, ".Rmd")
             if (!file.copy (srr_rmd, srr_md_file))
                 warning ("srr md file not copied!")
         }
