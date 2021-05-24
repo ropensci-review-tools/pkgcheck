@@ -8,11 +8,6 @@
 #' @export
 pkgcheck <- function (path) {
 
-    pkgcheck_internal (path)
-}
-
-pkgcheck_internal <- function (path) {
-
     s <- pkgstats_checks (path)
     out <- s$out
 
