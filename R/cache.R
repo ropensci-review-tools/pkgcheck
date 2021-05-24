@@ -11,7 +11,7 @@
 #' process are stored in the cache directory so they can be inspected via their
 #' own distinct endpoint calls.
 #' @export
-stdout_stderr_cache <- function (path) {
+logfile_names <- function (path) {
 
     requireNamespace ("gert")
 
