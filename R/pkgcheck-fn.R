@@ -25,6 +25,11 @@ pkgcheck <- function (path) {
 
     class (out) <- c ("pkgcheck", class (out))
 
+    stopfile <- Sys.getenv ("pkgcheck_pxbg_stop")
+    if (stopfile != "") {
+        writeLines (stopfile, "process stopped")
+    }
+
     return (out)
 }
 

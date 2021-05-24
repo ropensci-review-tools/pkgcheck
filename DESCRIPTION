@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.276
+Version: 0.0.1.278
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -17,7 +17,6 @@ Imports:
     cli,
     cloc,
     covr,
-    gert,
     ghql,
     goodpractice,
     httr,
@@ -29,6 +28,8 @@ Imports:
     roxygen2,
     srr
 Suggests: 
+    callr,
+    gert,
     knitr,
     rmarkdown
 VignetteBuilder: 
