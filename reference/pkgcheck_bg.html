@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>get_latest_commit — get_latest_commit • pkgcheck</title>
+<title>Generate report on package compliance with rOpenSci Statistical Software
+requirements as background process — pkgcheck_bg • pkgcheck</title>
 
 
 <!-- jquery -->
@@ -39,8 +40,10 @@
 
 
 
-<meta property="og:title" content="get_latest_commit — get_latest_commit" />
-<meta property="og:description" content="get_latest_commit" />
+<meta property="og:title" content="Generate report on package compliance with rOpenSci Statistical Software
+requirements as background process — pkgcheck_bg" />
+<meta property="og:description" content="Generate report on package compliance with rOpenSci Statistical Software
+requirements as background process" />
 
 
 
@@ -111,39 +114,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>get_latest_commit</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgcheck/blob/master/R/github.R'><code>R/github.R</code></a></small>
-    <div class="hidden name"><code>get_latest_commit.Rd</code></div>
+    <h1>Generate report on package compliance with rOpenSci Statistical Software
+requirements as background process</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgcheck/blob/master/R/pkgcheck-bg.R'><code>R/pkgcheck-bg.R</code></a></small>
+    <div class="hidden name"><code>pkgcheck_bg.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>get_latest_commit</p>
+    <p>Generate report on package compliance with rOpenSci Statistical Software
+requirements as background process</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>get_latest_commit</span><span class='op'>(</span><span class='va'>org</span>, <span class='va'>repo</span><span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>pkgcheck_bg</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>org</th>
-      <td><p>Github organization</p></td>
-    </tr>
-    <tr>
-      <th>repo</th>
-      <td><p>Github repository</p></td>
+      <th>path</th>
+      <td><p>Path to local repository</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Details of latest commit including OID hash</p>
+    <p>A <span class="pkg">processx</span> object connecting to the background process
+generating the main <a href='pkgcheck.html'>pkgcheck</a> results (see Note).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This returns the latest commit from the default branch as specified on
-GitHub, which will not necessarily be the same as information returned from
-<code><a href='https://docs.ropensci.org/gert/reference/git_repo.html'>gert::git_info</a></code> if the <code>HEAD</code> of a local repository does not point to the
-same default branch.</p>
+    <p>The return object will by default display whether it is still running,
+or whether it has finished. Once it has finished, the results can be obtained
+by calling <code>$get_result()</code>, or the main <a href='pkgcheck.html'>pkgcheck</a> function can be
+called to quickly retrieve the main results from local cache.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

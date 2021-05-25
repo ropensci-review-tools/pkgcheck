@@ -25,10 +25,16 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/logfile_names.html</loc>
+  </url>
+  <url>
     <loc>/reference/pkgcheck-package.html</loc>
   </url>
   <url>
     <loc>/reference/pkgcheck.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pkgcheck_bg.html</loc>
   </url>
   <url>
     <loc>/reference/pkgstats_data.html</loc>
