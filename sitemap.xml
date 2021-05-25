@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/404.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/index.html</loc>
   </url>
   <url>
-    <loc>/reference/checks_to_markdown.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/checks_to_markdown.html</loc>
   </url>
   <url>
-    <loc>/reference/get_default_branch.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/get_default_branch.html</loc>
   </url>
   <url>
-    <loc>/reference/get_gh_token.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/get_gh_token.html</loc>
   </url>
   <url>
-    <loc>/reference/get_latest_commit.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/get_latest_commit.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/logfile_names.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/logfile_names.html</loc>
   </url>
   <url>
-    <loc>/reference/pkgcheck-package.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck-package.html</loc>
   </url>
   <url>
-    <loc>/reference/pkgcheck.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck.html</loc>
   </url>
   <url>
-    <loc>/reference/pkgcheck_bg.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck_bg.html</loc>
   </url>
   <url>
-    <loc>/reference/pkgstats_data.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/pkgstats_data.html</loc>
   </url>
   <url>
-    <loc>/reference/render_markdown.html</loc>
+    <loc>https://ropenscilabs.github.io/pkgcheck/reference/render_markdown.html</loc>
   </url>
 </urlset>
