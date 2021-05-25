@@ -20,6 +20,7 @@ Convert checks to markdown-formatted report
 }
 \seealso{
 Other extra: 
-\code{\link{logfile_names}()}
+\code{\link{logfile_names}()},
+\code{\link{render_markdown}()}
 }
 \concept{extra}

@@ -17,3 +17,9 @@ render_markdown(md, open = TRUE)
 \description{
 render markdown-formatted input into 'html'
 }
+\seealso{
+Other extra: 
+\code{\link{checks_to_markdown}()},
+\code{\link{logfile_names}()}
+}
+\concept{extra}

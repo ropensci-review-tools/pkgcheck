@@ -25,6 +25,7 @@ own distinct endpoint calls.
 }
 \seealso{
 Other extra: 
-\code{\link{checks_to_markdown}()}
+\code{\link{checks_to_markdown}()},
+\code{\link{render_markdown}()}
 }
 \concept{extra}

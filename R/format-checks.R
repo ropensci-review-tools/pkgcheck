@@ -502,6 +502,7 @@ goodpractice_checks <- function (checks,
 #' @param md Result of \link{checks_to_markdown} function.
 #' @param open If `TRUE`, open `hmtl`-rendered version in web browser.
 #' @return (invisible) Location of `.html`-formatted version of input.
+#' @family extra
 #' @export
 render_markdown <- function (md, open = TRUE) {
 
