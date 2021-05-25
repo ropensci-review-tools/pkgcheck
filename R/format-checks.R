@@ -5,6 +5,7 @@
 #' @param render If `TRUE`, render output as `html` document and open in
 #' browser.
 #' @return Markdown-formatted version of check report
+#' @family extra
 #' @export
 checks_to_markdown <- function (checks, render = FALSE) {
 

@@ -10,6 +10,7 @@
 #' controls the main \link{pkgcheck}. The `stdout` and `stderr` pipes from the
 #' process are stored in the cache directory so they can be inspected via their
 #' own distinct endpoint calls.
+#' @family extra
 #' @export
 logfile_names <- function (path) {
 

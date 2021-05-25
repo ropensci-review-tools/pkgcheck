@@ -5,6 +5,7 @@
 #' @param path Path to local repository
 #' @return A `pkgcheck` object detailing all package assessments automatically
 #' applied to packages submitted for peer review.
+#' @family pkgcheck_fns
 #' @export
 pkgcheck <- function (path) {
 

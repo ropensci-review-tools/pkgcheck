@@ -50,6 +50,7 @@ commits_qry <- function (gh_cli, org, repo, branch = "main") {
 #' @param token_name Optional name of token to use
 #' @return The value of the GitHub access token extracted from environment
 #' variables.
+#' @family github
 #' @export
 get_gh_token <- function (token_name = "") {
 
@@ -87,6 +88,7 @@ get_gh_token <- function (token_name = "") {
 #' @param org Github organization
 #' @param repo Github repository
 #' @return Name of default branch on GitHub
+#' @family github
 #' @export
 get_default_branch <- function (org, repo) {
 
@@ -115,6 +117,7 @@ get_default_branch <- function (org, repo) {
 #' @param org Github organization
 #' @param repo Github repository
 #' @return Details of latest commit including OID hash
+#' @family github
 #' @export
 get_latest_commit <- function (org, repo) {
 

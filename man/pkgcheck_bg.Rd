@@ -24,3 +24,8 @@ or whether it has finished. Once it has finished, the results can be obtained
 by calling \verb{$get_result()}, or the main \link{pkgcheck} function can be
 called to quickly retrieve the main results from local cache.
 }
+\seealso{
+Other pkgcheck_fns: 
+\code{\link{pkgcheck}()}
+}
+\concept{pkgcheck_fns}

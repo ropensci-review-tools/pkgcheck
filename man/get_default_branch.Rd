@@ -21,3 +21,9 @@ get_default_branch
 This function is not intended to be called directly, and is only
 exported to enable it to be used within the \pkg{plumber} API.
 }
+\seealso{
+Other github: 
+\code{\link{get_gh_token}()},
+\code{\link{get_latest_commit}()}
+}
+\concept{github}

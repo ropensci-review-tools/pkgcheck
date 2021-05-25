@@ -18,3 +18,8 @@ applied to packages submitted for peer review.
 Generate report on package compliance with rOpenSci Statistical Software
 requirements
 }
+\seealso{
+Other pkgcheck_fns: 
+\code{\link{pkgcheck_bg}()}
+}
+\concept{pkgcheck_fns}

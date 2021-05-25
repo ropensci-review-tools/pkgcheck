@@ -13,4 +13,5 @@ pkgstats_data
 \description{
 Statistics on all CRAN packages from 'pkgstats'
 }
+\concept{data}
 \keyword{datasets}

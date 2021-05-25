@@ -23,3 +23,9 @@ GitHub, which will not necessarily be the same as information returned from
 \code{gert::git_info} if the \code{HEAD} of a local repository does not point to the
 same default branch.
 }
+\seealso{
+Other github: 
+\code{\link{get_default_branch}()},
+\code{\link{get_gh_token}()}
+}
+\concept{github}

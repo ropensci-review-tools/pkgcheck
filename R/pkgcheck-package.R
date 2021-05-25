@@ -10,4 +10,5 @@
 NULL
 
 #' Statistics on all CRAN packages from 'pkgstats'
+#' @family data
 "pkgstats_data"
