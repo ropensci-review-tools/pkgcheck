@@ -13,11 +13,6 @@
 #' @export
 logfile_names <- function (path) {
 
-    requireNamespace ("gert")
-
-    g <- gert::git_info (path)
-    hash <- substring (g$commit, 1, 8)
-
     temp_dir <- file.path (Sys.getenv ("pkgcheck_cache_dir"), "templogs")
     if (!dir.exists (temp_dir))
         dir.create (temp_dir, recursive = TRUE)
@@ -26,6 +21,22 @@ logfile_names <- function (path) {
         stop ("path [", path, "] does not appear to be an R package")
     desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
     pkg <- desc$Package
+
+    requireNamespace ("gert")
+
+    g <- tryCatch (gert::git_find (path),
+                   error = function (e) e)
+
+    if (!methods::is (g, "libgit2_error")) { # is a git repo
+
+        g <- gert::git_info (path)
+        hash <- substring (g$commit, 1, 8)
+    } else { # not a git repo, so use mtime as hash
+
+        flist <- list.files (path, recursive = TRUE, full.names = TRUE)
+        mt <- max (file.info (flist)$mtime)
+        hash <- gsub ("\\s+", "-", paste0 (mt))
+    }
 
     sout <- file.path (temp_dir, paste0 (pkg, "_", hash, "_stdout"))
     serr <- file.path (temp_dir, paste0 (pkg, "_", hash, "_stderr"))
