@@ -13,7 +13,7 @@
 #' @export
 logfile_names <- function (path) {
 
-    temp_dir <- file.path (Sys.getenv ("pkgcheck_cache_dir"), "templogs")
+    temp_dir <- file.path (Sys.getenv ("PKGCHECK_CACHE_DIR"), "templogs")
     if (!dir.exists (temp_dir))
         dir.create (temp_dir, recursive = TRUE)
 

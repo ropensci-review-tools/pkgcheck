@@ -1,7 +1,7 @@
 # nocov start
 .onLoad <- function (libname, pkgname) { # nolint
 
-    cache_dir <- Sys.getenv ("pkgcheck_cache_dir")
+    cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
 
     if (cache_dir == "") {
         cache_dir <- file.path (rappdirs::user_cache_dir (), "pkgcheck")
@@ -11,7 +11,7 @@
         dir.create (cache_dir, recursive = TRUE)
     }
     cache_dir <- normalizePath (cache_dir)
-    Sys.setenv ("pkgcheck_cache_dir" = cache_dir)
+    Sys.setenv ("PKGCHECK_CACHE_DIR" = cache_dir)
 
     if (!dir.exists (file.path (cache_dir, "static"))) {
         dir.create (file.path (cache_dir, "static"), recursive = TRUE)

@@ -412,7 +412,7 @@ pkg_stat_desc <- function (checks) {
 #' @noRd
 pkg_network <- function (checks, sec_num) {
 
-    cache_dir <- Sys.getenv ("pkgcheck_cache_dir")
+    cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
     visjs_dir <- file.path (cache_dir, "static") # in api.R
     repo <- ifelse (!is.null (checks$url),
                     utils::tail (strsplit (checks$url, "/") [[1]], 1),
