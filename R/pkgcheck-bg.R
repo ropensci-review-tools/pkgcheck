@@ -21,11 +21,15 @@ pkgcheck_bg <- function (path) {
     if (file.exists (stopfile))
         file.remove (stopfile)
 
-    Sys.setenv ("pkgcheck_pxbg_stop" = stopfile)
+    e <- c (callr::rcmd_safe_env(),
+            "PKGCHECK_PXBG_STOP" = stopfile,
+            "PKGCHECK_BG" = TRUE)
+    Sys.setenv ("PKGCHECK_PXBG_STOP" = stopfile)
 
     callr::r_bg (func = pkgcheck::pkgcheck,
                  args = list (path = path),
                  stdout = logfiles$stdout,
                  stderr = logfiles$stderr,
+                 env = e,
                  package = TRUE)
 }

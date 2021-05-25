@@ -8,6 +8,9 @@
 #' @export
 pkgcheck <- function (path) {
 
+    if (checks_running_in_bg (path))
+        stop ("Checks are still running in background process.")
+
     s <- pkgstats_checks (path)
     out <- s$out
 
@@ -25,12 +28,26 @@ pkgcheck <- function (path) {
 
     class (out) <- c ("pkgcheck", class (out))
 
-    stopfile <- Sys.getenv ("pkgcheck_pxbg_stop")
+    stopfile <- Sys.getenv ("PKGCHECK_PXBG_STOP")
     if (stopfile != "") {
-        writeLines (stopfile, "process stopped")
+        writeLines ("process stopped", con = stopfile)
     }
 
     return (out)
+}
+
+checks_running_in_bg <- function (path) {
+
+    stopvar <- Sys.getenv ("PKGCHECK_PXBG_STOP")
+    if (Sys.getenv ("PKGCHECK_BG") != "")
+        stopvar <- ""
+
+    logfiles <- logfile_names (path)
+    stopfile <- gsub ("\\_stdout$", "_stop",
+                      logfiles$stdout)
+
+    return (stopvar == stopfile &&
+            !file.exists (stopfile))
 }
 
 pkgstats_checks <- function (path) {
