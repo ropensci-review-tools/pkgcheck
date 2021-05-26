@@ -99,6 +99,44 @@ all_pkg_fns_have_exs <- function (path) {
     return (has_ex)
 }
 
+pkgname_available <- function (path) {
+
+    desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
+    pkg <- desc$Package
+
+    pkg_grepped <- grep (.standard_regexps()$valid_package_name,
+                         pkg,
+                         value = TRUE)
+
+    ap <- data.frame (utils::available.packages ())
+
+    return (!pkg %in% ap$Package &
+            pkg == pkg_grepped)
+}
+
+pkg_on_cran <- function (path) {
+
+    desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
+    pkg <- desc$Package
+
+    ap <- data.frame (utils::available.packages ())
+    res <- pkg %in% ap$Package
+
+    if (res) {
+        # Check whether CRAN package of that name has same title
+
+        u <- paste0 ("https://cran.r-project.org/web/packages/",
+                     pkg, "/index.html")
+        x <- rvest::read_html (u)
+        h2 <- paste0 (rvest::html_elements (x, "h2"))
+        h2 <- gsub ("<h2>|<\\/h2>", "", h2)
+        res <- grepl (desc$Title, h2, ignore.case = TRUE)
+    }
+
+    return (res)
+}
+
+
 
 #' CI results for GitHub only
 #' @inheritParams pkg_uses_roxygen2

@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.292
+Version: 0.0.1.293
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -27,6 +27,7 @@ Imports:
     pkgstats,
     rappdirs,
     roxygen2,
+    rvest,
     srr
 Suggests: 
     callr,
