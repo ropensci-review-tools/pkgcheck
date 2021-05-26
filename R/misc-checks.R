@@ -59,6 +59,14 @@ pkg_has_citation <- function (path) {
     "CITATION" %in% list.files (file.path (path, "inst"))
 }
 
+#' Check whether a package has a `codemeta.json` file
+#'
+#' @noRd
+pkg_has_codemeta <- function (path) {
+
+    "codemeta.json" %in% list.files (path, recursive = FALSE)
+}
+
 
 get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
 

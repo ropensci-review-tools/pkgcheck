@@ -98,6 +98,8 @@ collate_checks <- function (checks) {
                              "has", "does not have", "a 'contributing.md' file")
     has_citation <- has_this (checks, "has_citation",
                              "has", "does not have", "a 'CITATION' file")
+    has_codemeta <- has_this (checks, "has_codemeta",
+                             "has", "does not have", "a 'codemeta.json' file")
 
 
     fn_exs <- ifelse (all (checks$fn_exs),
@@ -210,6 +212,7 @@ collate_checks <- function (checks) {
     out <- c (uses_roxy,
               has_contrib,
               has_citation,
+              has_codemeta,
               fn_exs,
               la_out,
               has_url,
