@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.293</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.294</span>
       </span>
     </div>
 
@@ -88,13 +88,16 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">## </span>
-<span class="co">## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
+<span class="co">## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">## </span>
 <span class="co">## ✔ Package uses 'roxygen2'</span>
 <span class="co">## ✖ Package does not have a 'contributing.md' file</span>
+<span class="co">## ✖ Package does not have a 'CITATION' file</span>
+<span class="co">## ✖ Package does not have a 'codemeta.json' file</span>
 <span class="co">## ✔ All functions have examples</span>
-<span class="co">## ✔ Package 'DESCRIPTION' has a URL field</span>
-<span class="co">## ✖ Package 'DESCRIPTION' does not have a BugReports field</span>
+<span class="co">## ✔ Package  Package 'DESCRIPTION' has a URL field</span>
+<span class="co">## ✖ Package  Package 'DESCRIPTION' does not have a BugReports field</span>
+<span class="co">## ✔ Package name is available</span>
 <span class="co">## ✖ Package has no continuous integration checks</span>
 <span class="co">## ✖ Package coverage is 0% (should be at least 75%)</span>
 <span class="co">## ✔ R CMD check found no errors</span>
@@ -104,7 +107,29 @@
 <span class="co">## ℹ Current status:</span>
 <span class="co">## ✖ This package is not ready to be submitted</span>
 <span class="co">## </span></code></pre></div>
-<p>A package may only be submitted when the summary contains all ticks and no cross symbols. (These symbols are colour-coded when generated in a terminal; GitHub markdown only renders them in black-and-white.) The object returned from the <code>pkgcheck</code> function is a complex nested list with around a dozen primary components. Full information can be obtained by simply calling the default <code>print</code> method by typing the object name (<code>x</code>).</p>
+<p>A package may only be submitted when the summary contains all ticks and no cross symbols. (These symbols are colour-coded with green ticks and red crosses when generated in a terminal; GitHub markdown only renders them in black-and-white.) The object returned from the <code>pkgcheck</code> function is a complex nested list with around a dozen primary components. Full information can be obtained by simply calling the default <code>print</code> method by typing the object name (<code>x</code>).</p>
+</div>
+<div id="what-is-checked" class="section level2">
+<h2 class="hasAnchor">
+<a href="#what-is-checked" class="anchor" aria-hidden="true"></a>What is checked?</h2>
+<p>Calling <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> on the object returned by the <a href="https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a> will generate a checklist like that shown above. This checklist will also be automatically generated when a package is first submitted to rOpenSci, and is used by the editors to assess whether to process a submission. Authors must ensure prior to submission that there are no red crosses in the resultant list. (In the unlikely circumstances that a package is unable to pass particular checks, explanations should be given upon submission about why those checks fail, and why review may proceed in spite of such failures.)</p>
+<p>The full list of checks which packages are expected to pass currently includes:</p>
+<ol style="list-style-type: decimal">
+<li>Package must use <a href="https://roxygen2.r-lib.org" class="external-link"><code>roxygen2</code></a> for documentation.</li>
+<li>Package must have a <a href="https://devguide.ropensci.org/collaboration.html#contributing-guide" class="external-link"><code>contributing.md</code> file</a>.</li>
+<li>Package must have a <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#CITATION-files" class="external-link"><code>CITATION</code> file in the <code>inst</code> directory</a>.</li>
+<li>Package must have a <a href="https://devguide.ropensci.org/building.html#creating-metadata-for-your-package" class="external-link"><code>codemeta.json</code> file</a>.</li>
+<li>All exported functions must include examples in their documentation.</li>
+<li>Left-assign operators must be used consistently throughout all code (so either all <code>=</code> or all <code>&lt;-</code>, but not a mixture of both).</li>
+<li>Package <code>DESCRIPTION</code> file must have a “URL” field.</li>
+<li>Package <code>DESCRIPTION</code> file must have a “BugReports” field.</li>
+<li>Package name must be available (or package must already be) on CRAN.</li>
+<li>Package must have continuous integration tests.</li>
+<li>Package must have test coverage of at least 75%.</li>
+<li>
+<code>R CMD check</code> must generate no warnings or errors.</li>
+<li>All statistical standards must be documented, as confirmed by the <a href="https://ropenscilabs.github.io/srr/reference/srr_stats_pre_submit.html" class="external-link"><code>srr::srr_pre_submit()</code> function</a>.</li>
+</ol>
 </div>
 <div id="caching-and-running-pkgcheck-in-the-background" class="section level2">
 <h2 class="hasAnchor">
