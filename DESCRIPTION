@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.296
+Version: 0.0.1.297
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -32,13 +32,16 @@ Imports:
 Suggests: 
     callr,
     knitr,
-    rmarkdown
+    pkgbuild,
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
 Remotes:
     hrbrmstr/cloc,
     mpadge/pkgstats,
     ropenscilabs/srr
+Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
