@@ -221,7 +221,7 @@ collate_checks <- function (checks) {
                                symbol_tck (),
                                symbol_crs ()),
                        " ",
-                       checks$srr$message)
+                       checks$srr$message [1])
     }
 
     out <- c (uses_roxy,
