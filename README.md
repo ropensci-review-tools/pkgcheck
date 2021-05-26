@@ -70,13 +70,16 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package uses 'roxygen2'
 ## ✖ Package does not have a 'contributing.md' file
+## ✖ Package does not have a 'CITATION' file
+## ✖ Package does not have a 'codemeta.json' file
 ## ✔ All functions have examples
-## ✔ Package 'DESCRIPTION' has a URL field
-## ✖ Package 'DESCRIPTION' does not have a BugReports field
+## ✔ Package  Package 'DESCRIPTION' has a URL field
+## ✖ Package  Package 'DESCRIPTION' does not have a BugReports field
+## ✔ Package name is available
 ## ✖ Package has no continuous integration checks
 ## ✖ Package coverage is 0% (should be at least 75%)
 ## ✔ R CMD check found no errors
@@ -89,12 +92,49 @@ summary (x)
 ```
 
 A package may only be submitted when the summary contains all ticks and
-no cross symbols. (These symbols are colour-coded when generated in a
-terminal; GitHub markdown only renders them in black-and-white.) The
-object returned from the `pkgcheck` function is a complex nested list
-with around a dozen primary components. Full information can be obtained
-by simply calling the default `print` method by typing the object name
-(`x`).
+no cross symbols. (These symbols are colour-coded with green ticks and
+red crosses when generated in a terminal; GitHub markdown only renders
+them in black-and-white.) The object returned from the `pkgcheck`
+function is a complex nested list with around a dozen primary
+components. Full information can be obtained by simply calling the
+default `print` method by typing the object name (`x`).
+
+## What is checked?
+
+Calling `summary()` on the object returned by the [`pkgcheck()`
+function](https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck.html)
+will generate a checklist like that shown above. This checklist will
+also be automatically generated when a package is first submitted to
+rOpenSci, and is used by the editors to assess whether to process a
+submission. Authors must ensure prior to submission that there are no
+red crosses in the resultant list. (In the unlikely circumstances that a
+package is unable to pass particular checks, explanations should be
+given upon submission about why those checks fail, and why review may
+proceed in spite of such failures.)
+
+The full list of checks which packages are expected to pass currently
+includes:
+
+1.  Package must use [`roxygen2`](https://roxygen2.r-lib.org) for
+    documentation.
+2.  Package must have a [`contributing.md`
+    file](https://devguide.ropensci.org/collaboration.html#contributing-guide).
+3.  Package must have a [`CITATION` file in the `inst`
+    directory](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#CITATION-files).
+4.  Package must have a [`codemeta.json`
+    file](https://devguide.ropensci.org/building.html#creating-metadata-for-your-package).
+5.  All exported functions must include examples in their documentation.
+6.  Left-assign operators must be used consistently throughout all code
+    (so either all `=` or all `<-`, but not a mixture of both).
+7.  Package `DESCRIPTION` file must have a “URL” field.
+8.  Package `DESCRIPTION` file must have a “BugReports” field.
+9.  Package name must be available (or package must already be) on CRAN.
+10. Package must have continuous integration tests.
+11. Package must have test coverage of at least 75%.
+12. `R CMD check` must generate no warnings or errors.
+13. All statistical standards must be documented, as confirmed by the
+    [`srr::srr_pre_submit()`
+    function](https://ropenscilabs.github.io/srr/reference/srr_stats_pre_submit.html).
 
 ## Caching and running `pkgcheck` in the background
 
