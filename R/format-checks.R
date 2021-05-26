@@ -77,30 +77,28 @@ checks_to_markdown <- function (checks, render = FALSE) {
 #' @noRd
 collate_checks <- function (checks) {
 
-    uses_roxy <- ifelse (checks$file_list$uses_roxy,
-                         paste0 ("- ", symbol_tck (),
-                                 " Package uses 'roxygen2'"),
-                         paste0 ("- ", symbol_crs (),
-                                 " Package does not use 'roxygen2'"))
+    has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
 
-    has_lifecycle <- ifelse (checks$file_list$has_lifecycle,
-                             paste0 ("- ", symbol_tck (),
-                                     " Package has a life cycle statement"),
-                             paste0 ("- ", symbol_crs (),
-                                     " Package does not have a ",
-                                     "life cycle statement"))
-    has_contrib <- ifelse (checks$file_list$has_contrib,
-                             paste0 ("- ", symbol_tck (),
-                                     " Package has a 'contributing.md' file"),
-                             paste0 ("- ", symbol_crs (),
-                                     " Package does not have a ",
-                                     "'contributing.md' file"))
-    has_citation <- ifelse (checks$file_list$has_citation,
-                             paste0 ("- ", symbol_tck (),
-                                     " Package has a 'CITATION' file"),
-                             paste0 ("- ", symbol_crs (),
-                                     " Package does not have a ",
-                                     "'CITATION' file"))
+        ret <- ifelse (checks$file_list [[what]],
+                       paste0 ("- ", symbol_tck (),
+                               " Package ", txt_yes),
+                       paste0 ("- ", symbol_crs (),
+                               " Package ", txt_no))
+        if (!is.null (txt_rest))
+            ret <- paste0 (ret, " " , txt_rest)
+
+        return (ret)
+    }
+
+    uses_roxy <- has_this (checks, "uses_roxy",
+                           "uses", "does not use", "'roxygen2'")
+    has_lifecycle <- has_this (checks, "has_lifecycle",
+                               "has", "does not have", "a life cycle statement")
+    has_contrib <- has_this (checks, "has_contrib",
+                             "has", "does not have", "a 'contributing.md' file")
+    has_citation <- has_this (checks, "has_citation",
+                             "has", "does not have", "a 'CITATION' file")
+
 
     fn_exs <- ifelse (all (checks$fn_exs),
                       paste0 ("- ", symbol_tck (),
@@ -110,19 +108,12 @@ collate_checks <- function (checks) {
                       paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
                               "]"))
 
-    has_url <- ifelse (checks$file_list$has_url,
-                       paste0 ("- ", symbol_tck (),
-                               " Package 'DESCRIPTION' has a URL field"),
-                       paste0 ("- ", symbol_crs (),
-                               " Package 'DESCRIPTION' does not ",
-                               "have a URL field"))
-    has_bugs <- ifelse (checks$file_list$has_bugs,
-                        paste0 ("- ", symbol_tck (),
-                                " Package 'DESCRIPTION' has a ",
-                                "BugReports field"),
-                        paste0 ("- ", symbol_crs (),
-                                " Package 'DESCRIPTION' does not ",
-                                "have a BugReports field"))
+    has_url <- has_this (checks, "has_url",
+                         " Package 'DESCRIPTION' has a URL field",
+                         " Package 'DESCRIPTION' does not have a URL field")
+    has_bugs <- has_this (checks, "has_bugs",
+                          " Package 'DESCRIPTION' has a BugReports field",
+                          " Package 'DESCRIPTION' does not have a BugReports field")
 
     la_out <- NULL
     if (checks$left_assign$global) {
