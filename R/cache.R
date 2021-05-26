@@ -23,12 +23,7 @@ logfile_names <- function (path) {
     desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
     pkg <- desc$Package
 
-    requireNamespace ("gert")
-
-    g <- tryCatch (gert::git_find (path),
-                   error = function (e) e)
-
-    if (!methods::is (g, "libgit2_error")) { # is a git repo
+    if (repo_is_git (path)) {
 
         g <- gert::git_info (path)
         hash <- substring (g$commit, 1, 8)

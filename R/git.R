@@ -1,4 +1,12 @@
 
+repo_is_git <- function (path) {
+
+    g <- tryCatch (gert::git_find (path),
+                   error = function (e) e)
+
+    return (!methods::is (g, "libgit2_error"))
+}
+
 #' Return the $git item of main pkgcheck return result
 #' @noRd
 get_git_info <- function (path) {
@@ -14,12 +22,9 @@ get_git_info <- function (path) {
         branch <- get_default_branch (org, repo)
     }
 
-    g <- tryCatch (gert::git_find (path),
-                   error = function (e) e)
-
     ret <- list ()
 
-    if (!methods::is (g, "libgit2_error")) { # is a git repo
+    if (repo_is_git (path)) {
 
         gitlog <- gert::git_log (repo = path, max = 1e6)
 
