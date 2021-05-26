@@ -93,19 +93,7 @@ pkgstats_checks <- function (path) {
          num_params_per_fn = as.integer (num_params_per_fn),
          languages = attr (pkgstats, "language"))
 
-    repo <- utils::tail (strsplit (u, "/") [[1]], 1)
-    org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
-    commit <- get_latest_commit (org, repo)
-
-    gitlog <- gert::git_log (repo = path, max = 1e6)
-    # use email addresses to identify unique authors
-    auts <- gsub ("^.*<|>$", "", unique (gitlog$author))
-
-    out$git <- list (HEAD = commit$oid,
-                     branch = get_default_branch (org, repo),
-                     num_commits = nrow (gitlog),
-                     since = min (gitlog$time),
-                     num_authors = length (unique (auts)))
+    out$git <- get_git_info (path)
 
     out$srr <- pkgchk_srr_report (path)
 
@@ -180,4 +168,46 @@ fn_call_network <- function (s) {
     }
 
     return (visjs_path)
+}
+
+#' Return the $git item of main pkgcheck return result
+#' @noRd
+get_git_info <- function (path) {
+
+    u <- url_from_desc (path)
+
+    branch <- NULL
+
+    if (!is.null (u)) {
+
+        repo <- utils::tail (strsplit (u, "/") [[1]], 1)
+        org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
+        branch <- get_default_branch (org, repo)
+    }
+
+    g <- tryCatch (gert::git_find (path),
+                   error = function (e) e)
+
+    ret <- list ()
+
+    if (!methods::is (g, "libgit2_error")) { # is a git repo
+
+        gitlog <- gert::git_log (repo = path, max = 1e6)
+
+        # use email addresses to identify unique authors
+        auts <- gsub ("^.*<|>$", "", unique (gitlog$author))
+
+        if (is.null (branch)) { # no remote, so assume local head
+
+            branch <- gert::git_info (path)$shorthand
+        }
+
+        ret <- list (HEAD = gitlog$commit [1],
+                     branch = branch,
+                     num_commits = nrow (gitlog),
+                     since = min (gitlog$time),
+                     num_authors = length (unique (auts)))
+    }
+
+    return (ret)
 }
