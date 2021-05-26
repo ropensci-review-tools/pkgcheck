@@ -95,6 +95,12 @@ collate_checks <- function (checks) {
                              paste0 ("- ", symbol_crs (),
                                      " Package does not have a ",
                                      "'contributing.md' file"))
+    has_citation <- ifelse (checks$file_list$has_citation,
+                             paste0 ("- ", symbol_tck (),
+                                     " Package has a 'CITATION' file"),
+                             paste0 ("- ", symbol_crs (),
+                                     " Package does not have a ",
+                                     "'CITATION' file"))
 
     fn_exs <- ifelse (all (checks$fn_exs),
                       paste0 ("- ", symbol_tck (),
@@ -211,16 +217,17 @@ collate_checks <- function (checks) {
     }
 
     out <- c (uses_roxy,
-                   has_contrib,
-                   fn_exs,
-                   la_out,
-                   has_url,
-                   has_bugs,
-                   ci_txt,
-                   covr,
-                   rcmd_errs,
-                   rcmd_warns,
-                   srr)
+              has_contrib,
+              has_citation,
+              fn_exs,
+              la_out,
+              has_url,
+              has_bugs,
+              ci_txt,
+              covr,
+              rcmd_errs,
+              rcmd_warns,
+              srr)
 
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {

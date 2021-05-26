@@ -50,6 +50,15 @@ pkg_has_contrib_md <- function (path) {
                has_lifecycle = has_lifecycle))
 }
 
+#' Check whether a package has a `inst/CITATION` file
+#'
+#' This does no check the contents of that file in any way.
+#' @noRd
+pkg_has_citation <- function (path) {
+
+    "CITATION" %in% list.files (file.path (path, "inst"))
+}
+
 
 get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
 

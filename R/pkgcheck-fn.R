@@ -102,6 +102,7 @@ pkgstats_checks <- function (path) {
     has_contrib <- unname (pkg_has_contrib_md (path))
     out$file_list$has_lifecycle <- has_contrib [2]
     out$file_list$has_contrib <- has_contrib [1]
+    out$file_list$has_citation <- pkg_has_citation (path)
 
     out$fns_have_exs <- all_pkg_fns_have_exs (path)
     index <- which (!grepl ("\\-package\\.Rd$", names (out$fns_have_exs)))
