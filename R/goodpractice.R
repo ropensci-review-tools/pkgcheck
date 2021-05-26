@@ -8,14 +8,8 @@
 #' @noRd
 get_gp_report <- function (path) {
 
-    u <- url_from_desc (path)
-
-    repo <- utils::tail (strsplit (u, "/") [[1]], 1)
-    org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
-
-    # check whether gp is cached:
-    cmt <- get_latest_commit (org = org, repo = repo)
-    fname <- paste0 (repo, "_", substring (cmt$oid, 1, 8))
+    pkg_hash <- current_hash (path)
+    fname <- paste0 (pkg_hash [1], "_", pkg_hash [2])
     gp_cache_dir <- file.path (getOption ("pkgcheck.cache_dir"),
                                "gp_reports")
     if (!dir.exists (gp_cache_dir))
@@ -25,7 +19,9 @@ get_gp_report <- function (path) {
 
     # rm old gp reports:
     flist <- list.files (gp_cache_dir,
-                         pattern = paste0 (repo, "\\_"),
+                         pattern = paste0 (.Platform$file.sep,
+                                           pkg_hash [1],
+                                           "\\_"),
                          full.names = TRUE)
     flist <- flist [which (!grepl (fname, flist))]
     if (length (flist) > 0)

@@ -18,10 +18,13 @@ pkgcheck <- function (path) {
     out$network_file <- fn_call_network (s)
 
     u <- url_from_desc (path)
-    out$badges <- ci_badges (u)
-    if (!is.null (out$badges)) {
-        if (any (grepl ("github", out$badges))) {
-            out$github_workflows <- ci_results_gh (path)
+    out$badges <- list ()
+    if (!is.null (u)) {
+        out$badges <- ci_badges (u)
+        if (!is.null (out$badges)) {
+            if (any (grepl ("github", out$badges))) {
+                out$github_workflows <- ci_results_gh (path)
+            }
         }
     }
 
