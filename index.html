@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.294</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.299</span>
       </span>
     </div>
 
@@ -126,10 +126,12 @@
 <li>Package name must be available (or package must already be) on CRAN.</li>
 <li>Package must have continuous integration tests.</li>
 <li>Package must have test coverage of at least 75%.</li>
+<li>No function should have a <a href="https://github.com/MangoTheCat/cyclocomp" class="external-link">cyclomatic complexity</a> of 15 or greater.</li>
 <li>
 <code>R CMD check</code> must generate no warnings or errors.</li>
 <li>All statistical standards must be documented, as confirmed by the <a href="https://ropenscilabs.github.io/srr/reference/srr_stats_pre_submit.html" class="external-link"><code>srr::srr_pre_submit()</code> function</a>.</li>
 </ol>
+<p>Several of these are by default only shown when they fail; absence from a resultant checklist may be interpreted to indicate successful checks.</p>
 </div>
 <div id="caching-and-running-pkgcheck-in-the-background" class="section level2">
 <h2 class="hasAnchor">
