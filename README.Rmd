@@ -106,10 +106,15 @@ The full list of checks which packages are expected to pass currently includes:
 9. Package name must be available (or package must already be) on CRAN.
 10. Package must have continuous integration tests.
 11. Package must have test coverage of at least 75%.
-12. `R CMD check` must generate no warnings or errors.
-13. All statistical standards must be documented, as confirmed by the
+12. No function should have a [cyclomatic
+    complexity](https://github.com/MangoTheCat/cyclocomp) of 15 or greater.
+13. `R CMD check` must generate no warnings or errors.
+14. All statistical standards must be documented, as confirmed by the
     [`srr::srr_pre_submit()`
     function](https://ropenscilabs.github.io/srr/reference/srr_stats_pre_submit.html).
+
+Several of these are by default only shown when they fail; absence from
+a resultant checklist may be interpreted to indicate successful checks.
 
 ## Caching and running `pkgcheck` in the background
 
