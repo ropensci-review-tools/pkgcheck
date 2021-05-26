@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![R build status](https://github.com/ropenscilabs/pkgcheck/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/pkgcheck/actions?query=workflow%3AR-CMD-check)
 [![gitlab push](https://github.com/ropenscilabs/pkgcheck/workflows/push-to-gitlab/badge.svg)](https://github.com/ropenscilabs/pkgcheck/actions?query=workflow%3Apush-to-gitlab)
+[![codecov](https://codecov.io/gh/ropenscilabs/pkgcheck/branch/main/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/pkgcheck)
 [![Project Status: Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
 
