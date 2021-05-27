@@ -467,7 +467,7 @@ ci_checks <- function (checks) {
 
     out <- NULL
 
-    if (!is.null (checks$badges)) {
+    if (length (checks$badges) > 0) {
 
         if (is.na (checks$badges [1]))
             checks$badges <- "(There do not appear to be any)"
@@ -475,7 +475,7 @@ ci_checks <- function (checks) {
         out <- c (out,
                   "### 3a. Continuous Integration Badges",
                   "",
-                  checks$badges,
+                  unlist (checks$badges),
                   "")
 
         if (!is.null (checks$github_workflows)) {
