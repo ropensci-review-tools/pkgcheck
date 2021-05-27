@@ -84,11 +84,8 @@ pkgchk_srr_report <- function (path) {
 
 srr_categories_from_report <- function (s) {
 
-    cats <- regmatches (s, gregexpr ("\\*\\*.*\\*\\*", s))
-    cats <- unlist (lapply (cats, function (i)
-                            if (length (i) > 0)
-                                strsplit (i, ", ") [[1]]))
-    cats <- gsub ("\\*\\*", "", cats)
+    cats <- regmatches (s, gregexpr ("[A-Z]+[0-9]+\\.[0-9]+([a-z]?)", s))
+    cats <- sort (unique (unlist (cats)))
     cats <- unique (gsub ("[0-9].*$", "", cats))
     cats <- cats [which (!cats == "G")]
 
@@ -101,7 +98,6 @@ srr_categories_from_report <- function (s) {
                      "Time Series",
          "Dimensionality Reduction, Clustering and Unsupervised Learning")
     cats <- cats [which (cats %in% prefixes)]
-    # TODO: error handling on that one
 
     return (categories [match (cats, prefixes)])
 }
