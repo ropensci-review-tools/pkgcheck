@@ -102,7 +102,7 @@ collate_checks <- function (checks) {
                        paste0 ("- ", symbol_crs (),
                                " Package ", txt_no))
         if (!is.null (txt_rest))
-            ret <- paste0 (ret, " " , txt_rest)
+            ret <- paste0 (ret, " ", txt_rest)
 
         return (ret)
     }
@@ -131,8 +131,8 @@ collate_checks <- function (checks) {
                          " Package 'DESCRIPTION' has a URL field",
                          " Package 'DESCRIPTION' does not have a URL field")
     has_bugs <- has_this (checks, "has_bugs",
-                          " Package 'DESCRIPTION' has a BugReports field",
-                          " Package 'DESCRIPTION' does not have a BugReports field")
+                      " Package 'DESCRIPTION' has a BugReports field",
+                      " Package 'DESCRIPTION' does not have a BugReports field")
 
     if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
 
