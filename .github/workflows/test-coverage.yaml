@@ -12,10 +12,15 @@ jobs:
 
   test-coverage:
 
-    #if: "!(contains(github.event.head_commit.message, 'ci skip')||contains(github.event.head_commit.message, 'skip ci'))"
 
-    runs-on: macOS-latest
+    runs-on: ubuntu-20.04
 
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    if: "!(contains(github.event.head_commit.message, 'ci skip')||contains(github.event.head_commit.message, 'skip ci'))"
     steps:
 
       - uses: actions/checkout@v2
@@ -36,6 +41,27 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: macOS-r-4.0-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: macOS-r-4.0-1-
+
+      - name: Install system dependencies
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+
+      - name: Extra deps
+        run: |
+          sudo apt-get install -y git global libgit2-dev
+
+      - name: ctags latest
+        if: runner.os == 'Linux'
+        run: |
+          git clone https://github.com/universal-ctags/ctags.git
+          cd ctags
+          ./autogen.sh
+          ./configure --prefix=/usr
+          make
+          sudo make install
 
       - name: Install dependencies
         run: |
