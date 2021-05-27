@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.310</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.311</span>
       </span>
     </div>
 
@@ -80,15 +80,14 @@
 <a href="#usage" class="anchor" aria-hidden="true"></a>Usage</h2>
 <p>The package primarily has one function, <code>pkgcheck</code>, which accepts the single argument, <code>path</code>, specifying the local location of a git repository to be analysed. The following code generates a reproducible report by first downloading a local clone of a repository called <a href="https://github.com/mpadge/srr-demo" class="external-link"><code>srr-demo</code></a>, which contains the skeleton of an <a href="https://github.com/ropenscilabs/srr" class="external-link"><code>srr</code> (Software Review Roclets) package</a>, generated with the <a href="https://ropenscilabs.github.io/srr/reference/srr_stats_pkg_skeleton.html" class="external-link"><code>srr_stats_pkg_skeleton()</code> function</a>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span> <span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/gert/" class="external-link">gert</a></span><span class="op">)</span>
-<span class="va">mydir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span> <span class="op">(</span><span class="op">)</span>, <span class="st">"srr-demo"</span><span class="op">)</span>
-<span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_fetch.html" class="external-link">git_clone</a></span> <span class="op">(</span><span class="st">"https://github.com/mpadge/srr-demo"</span>, path <span class="op">=</span> <span class="va">mydir</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">mydir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span> <span class="op">(</span><span class="op">)</span>, <span class="st">"srr-demo"</span><span class="op">)</span>
+<span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_fetch.html" class="external-link">git_clone</a></span> <span class="op">(</span><span class="st">"https://github.com/mpadge/srr-demo"</span>, path <span class="op">=</span> <span class="va">mydir</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pkgcheck.html">pkgcheck</a></span> <span class="op">(</span><span class="va">mydir</span><span class="op">)</span></code></pre></div>
 <p>That object has default <code>print</code> and <code>summary</code> methods. The latter can be used to simply check whether a package is ready for submission:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">## </span>
-<span class="co">## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────</span>
+<span class="co">## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">## </span>
 <span class="co">## ✔ Package uses 'roxygen2'</span>
 <span class="co">## ✖ Package does not have a 'contributing.md' file</span>

@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 1.6.1.9001
 pkgdown_sha: 3b870d0efcfcf92a42aa881d58c3462cdbb110a8
 articles: {}
-last_built: 2021-05-27T10:04Z
+last_built: 2021-05-27T10:55Z
 urls:
   reference: https://ropenscilabs.github.io/pkgcheck/reference
   article: https://ropenscilabs.github.io/pkgcheck/articles
