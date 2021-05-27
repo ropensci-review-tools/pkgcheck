@@ -30,6 +30,8 @@ pkgcheck <- function (path) {
 
     out$gp <- get_gp_report (path)
 
+    out$pkg_versions <- version_info ()
+
     class (out) <- c ("pkgcheck", class (out))
 
     stopfile <- Sys.getenv ("PKGCHECK_PXBG_STOP")
@@ -175,4 +177,12 @@ fn_call_network <- function (s) {
     }
 
     return (visjs_path)
+}
+
+version_info <- function () {
+
+    pkgs <- c ("pkgstats", "srr", "pkgcheck")
+    vapply (pkgs, function (i)
+            paste0 (packageVersion (i)),
+            character (1))
 }

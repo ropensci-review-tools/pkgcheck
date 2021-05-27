@@ -21,9 +21,11 @@ print.pkgcheck <- function (x, ...) {
     cli::cli_alert_info ("Package network diagram is at [{x$network_file}]")
     message ("")
 
-
     cli::cli_h2 ("goodpractice")
     print (x$gp)
+
+    cli::cli_h2 ("Package Versions")
+    cli::cli_dl (x$pkg_versions)
 }
 
 #' @export
