@@ -30,7 +30,7 @@ pkgcheck <- function (path) {
 
     out$gp <- get_gp_report (path)
 
-    out$pkg_versions <- version_info ()
+    out$pkg_versions <- version_info (is.null (out$srr))
 
     class (out) <- c ("pkgcheck", class (out))
 
@@ -179,9 +179,12 @@ fn_call_network <- function (s) {
     return (visjs_path)
 }
 
-version_info <- function () {
+version_info <- function (nosrr) {
 
-    pkgs <- c ("pkgstats", "srr", "pkgcheck")
+    pkgs <- c ("pkgstats", "pkgcheck")
+    if (!nosrr)
+        pkgs <- c (pkgs, "srr")
+
     vapply (pkgs, function (i)
             paste0 (packageVersion (i)),
             character (1))
