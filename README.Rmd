@@ -57,9 +57,8 @@ package](https://github.com/ropenscilabs/srr), generated with the
 function](https://ropenscilabs.github.io/srr/reference/srr_stats_pkg_skeleton.html):
 
 ```{r pkgcheck, echo = TRUE, message = FALSE}
-library (gert)
 mydir <- file.path (tempdir (), "srr-demo")
-git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
+gert::git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
 x <- pkgcheck (mydir)
 ```
 

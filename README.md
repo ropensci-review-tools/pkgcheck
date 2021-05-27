@@ -59,9 +59,8 @@ package](https://github.com/ropenscilabs/srr), generated with the
 function](https://ropenscilabs.github.io/srr/reference/srr_stats_pkg_skeleton.html):
 
 ``` r
-library (gert)
 mydir <- file.path (tempdir (), "srr-demo")
-git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
+gert::git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
 x <- pkgcheck (mydir)
 ```
 
@@ -71,7 +70,7 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package uses 'roxygen2'
 ## ✖ Package does not have a 'contributing.md' file
