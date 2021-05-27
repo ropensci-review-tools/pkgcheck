@@ -136,6 +136,10 @@ print_structure <- function (x) {
 print_srr <- function (x) {
 
     cli::cli_h2 ("Statistical Standards")
+    ncats <- length (x$srr$categories)
+    cli::cli_alert_info ("The package is in the following {ncats} categor{?y/ies}:")
+    cli::cli_li (x$srr$categories)
+    cli::cli_text ("")
 
     if (x$srr$okay) {
         cli::cli_alert_success (x$srr$message)
