@@ -60,6 +60,23 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "</p>",
                  "</details>")
 
+    # add package version info
+    v <- data.frame (package = names (checks$pkg_versions),
+                     version = checks$pkg_versions,
+                     row.names = NULL)
+    md_out <- c (md_out,
+                 "",
+                 "---",
+                 "",
+                 "<details>",
+                 "<summary>Package Versions</summary>",
+                 "<p>",
+                 "",
+                 knitr::kable (v),
+                 "",
+                 "</p>",
+                 "</details>")
+
     if (render) {
         render_markdown (md_out, open = TRUE)
     }
