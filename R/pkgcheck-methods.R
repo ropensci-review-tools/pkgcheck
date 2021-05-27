@@ -140,7 +140,16 @@ print_srr <- function (x) {
     if (x$srr$okay) {
         cli::cli_alert_success (x$srr$message)
     } else {
-        cli::cli_alert_danger (x$srr$message)
+        cli::cli_alert_danger (x$srr$message [1])
+        if (length (x$srr$message) > 1) {
+            m <- x$srr$message [-1]
+            if (grepl ("missing from your code", m [1])) {
+                cli::cli_text (m [1])
+                cli::cli_text ("")
+                m <- paste0 (m [which (m != "")] [-1], collapse = ", ")
+                cli::cli_text (m)
+            }
+        }
         return ()
     }
 
