@@ -49,7 +49,12 @@ current_hash <- function (path) {
     } else { # not a git repo, so use mtime as hash
 
         flist <- list.files (path, recursive = TRUE, full.names = TRUE)
-        mt <- max (file.info (flist)$mtime)
+        mt <- file.info (flist)$mtime
+        if (any (!is.na (mt))) {
+            mt <- max (mt, na.rm = TRUE)
+        } else {
+            mt <- ""
+        }
         hash <- gsub ("\\s+", "-", paste0 (mt))
     }
 
