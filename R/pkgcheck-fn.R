@@ -174,6 +174,22 @@ fn_call_network <- function (s) {
 
         unlink (flist, recursive = TRUE)
         pkgstats::plot_network (s$stats, vis_save = visjs_path)
+        # visNetwork renames the generic `lib` folder to the specific name, so
+        # needs to be cleaned up:
+        flist <- list.files (visjs_dir,
+                             pattern = paste0 (s$out$package, "_pkgstats"),
+                             full.names = TRUE)
+        libdir <- flist [which (dir.exists (flist))]
+        if (!"lib" %in% list.files (visjs_dir)) {
+            if (length (libdir) > 0) {
+                libdir <- libdir [1]
+                newlibdir <- file.path (normalizePath (file.path (libdir, "..")),
+                                        "lib")
+                file.rename (libdir, newlibdir)
+            }
+        } else {
+            unlink (libdir)
+        }
     }
 
     return (visjs_path)
