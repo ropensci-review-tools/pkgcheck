@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.314
+Version: 0.0.1.315
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -28,7 +28,8 @@ Imports:
     rappdirs,
     roxygen2,
     rvest,
-    srr
+    srr,
+    visNetwork
 Suggests: 
     callr,
     knitr,

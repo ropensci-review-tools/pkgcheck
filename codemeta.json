@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropenscilabs/pkgcheck",
   "issueTracker": "https://github.com/ropenscilabs/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.314",
+  "version": "0.0.1.315",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -260,9 +260,22 @@
       "identifier": "srr",
       "name": "srr",
       "sameAs": "https://github.com/ropenscilabs/srr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "visNetwork",
+      "name": "visNetwork",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=visNetwork"
     }
   ],
   "readme": "https://github.com/ropenscilabs/pkgcheck/blob/main/README.md",
-  "fileSize": "1838.287KB",
-  "developmentStatus": "https://www.repostatus.org/#concept"
+  "fileSize": "1837.777KB",
+  "developmentStatus": "https://www.repostatus.org/#concept",
+  "contIntegration": "https://codecov.io/gh/ropenscilabs/pkgcheck"
 }
