@@ -331,6 +331,7 @@ pkgstats_format <- function (checks, sec_num) {
                     "<p>",
                     "",
                     "The package has:",
+                    "",
                     pkg_stat_desc (checks),
                     "",
                     "---",
