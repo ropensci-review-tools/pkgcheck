@@ -186,6 +186,6 @@ version_info <- function (nosrr) {
         pkgs <- c (pkgs, "srr")
 
     vapply (pkgs, function (i)
-            paste0 (packageVersion (i)),
+            paste0 (utils::packageVersion (i)),
             character (1))
 }
