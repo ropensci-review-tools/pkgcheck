@@ -451,15 +451,13 @@ pkg_network <- function (checks, sec_num) {
 
     cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
     visjs_dir <- file.path (cache_dir, "static") # in api.R
-    repo <- ifelse (!is.null (checks$url),
-                    utils::tail (strsplit (checks$url, "/") [[1]], 1),
-                    checks$package)
 
-    # clean up any older ones
     flist <- list.files (visjs_dir,
-                         pattern = paste0 (repo, "_pkgstats"),
+                         pattern = paste0 (checks$package, "_pkgstats"),
                          full.names = TRUE)
+
     if (!checks$network_file %in% flist) {
+
         unlink (flist, recursive = TRUE)
         visjs_ptn <- basename (checks$network_file)
         visjs_ptn <- tools::file_path_sans_ext (visjs_ptn)
