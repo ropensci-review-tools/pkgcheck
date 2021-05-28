@@ -128,11 +128,11 @@ collate_checks <- function (checks) {
                               "]"))
 
     has_url <- has_this (checks, "has_url",
-                         " Package 'DESCRIPTION' has a URL field",
-                         " Package 'DESCRIPTION' does not have a URL field")
+                         "'DESCRIPTION' has a URL field",
+                         "'DESCRIPTION' does not have a URL field")
     has_bugs <- has_this (checks, "has_bugs",
-                      " Package 'DESCRIPTION' has a BugReports field",
-                      " Package 'DESCRIPTION' does not have a BugReports field")
+                      "'DESCRIPTION' has a BugReports field",
+                      "'DESCRIPTION' does not have a BugReports field")
 
     if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
 
