@@ -15,3 +15,5 @@
 .ropensci-staff
 ^\.hooks$
 ^ctags$
+^inst/precommit$
+^inst/WORDLIST$
