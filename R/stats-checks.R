@@ -53,6 +53,8 @@ stats_checks <- function (s, threshold = 0.05) {
                grep ("^num\\_vignettes$", pc$measure),
                grep ("^n\\_fns\\_", pc$measure),
                grep ("^npars\\_", pc$measure),
+               grep ("^doclines\\_", pc$measure),
+               grep ("^blank\\_lines\\_", pc$measure),
                grep ("^n\\_edges", pc$measure))
     pc <- pc [sort (unique (keep)), ]
     pc <- pc [which (!is.na (pc$percentile)), ]
