@@ -49,7 +49,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
                          ". `goodpractice` and other checks"),
                  "",
                  "<details>",
-                 "<summary>click to see</summary>",
+                 "<summary>Details of goodpractice and other checks (click to open)</summary>",
                  "<p>",
                  "",
                  ci_checks (checks),
@@ -328,7 +328,7 @@ pkgstats_format <- function (checks, sec_num) {
                     note,
                     "",
                     "<details>",
-                    "<summary>click to see</summary>",
+                    "<summary>Details of statistical properties (click to open)</summary>",
                     "<p>",
                     "",
                     "The package has:",
@@ -472,10 +472,11 @@ pkg_network <- function (checks, sec_num) {
     c ("",
        paste0 ("### ", sec_num, "a. Network visualisation"),
        "",
-       paste0 ("[Click here](",
+       paste0 ("Interactive network visualisation of calls ",
+               "between objects in package can be viewed by ",
+               "[clicking here](",
                checks$network_file,
-               ") for interactive network visualisation ",
-               "of calls between objects in package."))
+               ")"))
 }
 
 #' Report on continuous integration checks
