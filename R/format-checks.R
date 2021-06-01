@@ -39,6 +39,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
 
     md_out <- c (md_out,
                  stats_rep,
+                 "",
                  pkg_network (checks, sec_num),
                  "",
                  "---",
