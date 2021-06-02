@@ -165,7 +165,7 @@ collate_checks <- function (checks) {
                              la [names (la) == "="], " '=')"))
     }
 
-    if (is.null (checks$badges)) {
+    if (length (checks$badges) == 0) {
 
         ci_txt <- paste0 ("- ", symbol_crs (),
                           " Package has no continuous integration checks")
