@@ -139,14 +139,18 @@ convert_gp_components <- function (x,
                                                    digits = 2)) {
 
     rcmd <- rcmd_report (x)
+
     covr <- covr_report (x, control)
     if (length (covr) <= 3) {
         pkg_cov <- covr
         covr <- NULL
     }
+
     cycl <- cyclo_report (x, control)
 
-    res <- c (rcmd, covr, cycl)
+    lint <- lintr_report (x)
+
+    res <- c (rcmd, covr, cycl, lint)
 
     if (length (res) == 0)
         res <- c (pkg_cov,
@@ -309,4 +313,29 @@ cyclo_report <- function (x,
     }
 
     return (ret)
+}
+
+lintr_report <- function (x) {
+
+    if (is.null (x$lint))
+        return (NULL)
+
+    msgs <- table (x$lint$message)
+    msgs <- data.frame (message = names (msgs),
+                        n = as.integer (msgs))
+
+    ret <- c ("### lintr",
+              "",
+              paste0 ("lintr found the following ",
+                      sum (msgs$n),
+                      " potential issues:"),
+              "",
+              "message | number of times",
+              "--- | ---")
+    for (i in seq.int (nrow (msgs))) {
+        ret <- c (ret,
+                  paste0 (msgs$message [i], " | ", msgs$n [i]))
+    }
+
+    return (c (ret, ""))
 }
