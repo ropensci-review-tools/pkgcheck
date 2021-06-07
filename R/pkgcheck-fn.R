@@ -154,6 +154,9 @@ fmt_pkgstats_checks <- function (s) {
 
 fn_call_network <- function (s) {
 
+    if (nrow (s$stats$network) == 0)
+        return (NULL)
+
     visjs_dir <- file.path (getOption ("pkgcheck.cache_dir"),
                              "static")
     if (!dir.exists (visjs_dir))
