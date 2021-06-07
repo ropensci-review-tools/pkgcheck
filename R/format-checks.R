@@ -452,6 +452,9 @@ pkg_stat_desc <- function (checks) {
 #' @noRd
 pkg_network <- function (checks, sec_num) {
 
+    if (!"network_file" %in% names (checks))
+        return (NULL)
+
     cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
     visjs_dir <- file.path (cache_dir, "static") # in api.R
 
