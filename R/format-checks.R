@@ -213,7 +213,9 @@ collate_checks <- function (checks) {
                              symbol_crs (),
                              " R CMD check found ",
                              nerr,
-                             " errors")
+                             ifelse (nerr == 1,
+                                     "error",
+                                     "errors"))
     }
 
     nwarn <- length (checks$gp$rcmdcheck$warnings)
@@ -229,7 +231,9 @@ collate_checks <- function (checks) {
                               symbol_crs (),
                               " R CMD check found ",
                               nwarn,
-                              " warnings")
+                              ifelse (nwarn == 1,
+                                      "warning",
+                                      "warnings"))
     }
 
     srr <- NULL
