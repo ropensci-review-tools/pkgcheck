@@ -186,8 +186,8 @@ fn_call_network <- function (s) {
         if (!"lib" %in% list.files (visjs_dir)) {
             if (length (libdir) > 0) {
                 libdir <- libdir [1]
-                newlibdir <- file.path (normalizePath (file.path (libdir, "..")),
-                                        "lib")
+                fpath <- file.path (libdir, "..")
+                newlibdir <- file.path (normalizePath (fpath), "lib")
                 file.rename (libdir, newlibdir)
             }
         } else {
