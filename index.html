@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.330</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.331</span>
       </span>
     </div>
 
@@ -69,7 +69,7 @@
 <!-- badges: start -->
 
 <p>Check whether a package is ready for submission to <a href="https://ropensci.org" class="external-link">rOpenSci</a>’s peer review system. The primary function collates the output of <a href="https://github.com/mangothecat/goodpractice" class="external-link"><code>goodpractice</code></a>, including <code>R CMD check</code> results, along with a number of statistics via the <a href="https://github.com/ropenscilabs/pkgstats" class="external-link"><code>pkgstats</code> package</a>, and package structure checks expected for rOpenSci submissions. The output of this function immediately indicates whether or not a package is “Ready to Submit”.</p>
-<p>Installation of the <a href="https://github.com/ropenscilabs/pkgstats" class="external-link"><code>pkgstats</code> package</a> also requires both <a href="https://ctags.io" class="external-link"><code>ctags</code></a> and <a href="https://www.gnu.org/software/global/" class="external-link">GNU <code>global</code></a> to be installed. See package description and those links for how to install those libraries on your system. This package also uses the <a href="https://developer.github.com/v4" class="external-link">github GraphQL API</a> which requires a local GitHub token to be stored with an unambiguous name including <code>GITHUB</code>, such as <code>GITHUB_TOKEN</code> (recommended), or <code>GITHUB_PAT</code> (for Personal Authorization Token). This can be obtained from GitHub (via your user settings), and stored using</p>
+<p>The <a href="https://github.com/ropenscilabs/pkgstats" class="external-link"><code>pkgstats</code> package</a> also requires the system libraries <a href="https://ctags.io" class="external-link"><code>ctags</code></a> and <a href="https://www.gnu.org/software/global/" class="external-link">GNU <code>global</code></a> to be installed. Procedures to install these libraries on various operating systems are described in a <a href="https://ropenscilabs.github.io/pkgstats/articles/installation.html" class="external-link"><code>pkgstats</code> vignette</a>. This package also uses the <a href="https://developer.github.com/v4" class="external-link">GitHub GraphQL API</a> which requires a local GitHub token to be stored with an unambiguous name including <code>GITHUB</code>, such as <code>GITHUB_TOKEN</code> (recommended), or <code>GITHUB_PAT</code> (for Personal Authorization Token). This can be obtained from GitHub (via your user settings), and stored using</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"GITHUB_TOKEN"</span> <span class="op">=</span> <span class="st">"&lt;my_token&gt;"</span><span class="op">)</span></code></pre></div>
 <p>This can also be set permanently by putting this line in your <code>~/.Renviron</code> file (or creating this if it does not yet exist). Once <code>pkgstats</code> has been successfully installed, the <code>pkgcheck</code> package can then be loaded via a <code>library</code> call:</p>
@@ -94,8 +94,8 @@
 <span class="co">## ✖ Package does not have a 'CITATION' file</span>
 <span class="co">## ✖ Package does not have a 'codemeta.json' file</span>
 <span class="co">## ✔ All functions have examples</span>
-<span class="co">## ✔ Package  Package 'DESCRIPTION' has a URL field</span>
-<span class="co">## ✖ Package  Package 'DESCRIPTION' does not have a BugReports field</span>
+<span class="co">## ✔ Package 'DESCRIPTION' has a URL field</span>
+<span class="co">## ✖ Package 'DESCRIPTION' does not have a BugReports field</span>
 <span class="co">## ✔ Package name is available</span>
 <span class="co">## ✖ Package has no continuous integration checks</span>
 <span class="co">## ✖ Package coverage is 0% (should be at least 75%)</span>
