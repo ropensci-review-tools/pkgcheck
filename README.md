@@ -21,12 +21,13 @@ package structure checks expected for rOpenSci submissions. The output
 of this function immediately indicates whether or not a package is
 “Ready to Submit”.
 
-Installation of the [`pkgstats`
-package](https://github.com/ropenscilabs/pkgstats) also requires both
-[`ctags`](https://ctags.io) and [GNU
-`global`](https://www.gnu.org/software/global/) to be installed. See
-package description and those links for how to install those libraries
-on your system. This package also uses the [github GraphQL
+The [`pkgstats` package](https://github.com/ropenscilabs/pkgstats) also
+requires the system libraries [`ctags`](https://ctags.io) and [GNU
+`global`](https://www.gnu.org/software/global/) to be installed.
+Procedures to install these libraries on various operating systems are
+described in a [`pkgstats`
+vignette](https://ropenscilabs.github.io/pkgstats/articles/installation.html).
+This package also uses the [GitHub GraphQL
 API](https://developer.github.com/v4) which requires a local GitHub
 token to be stored with an unambiguous name including `GITHUB`, such as
 `GITHUB_TOKEN` (recommended), or `GITHUB_PAT` (for Personal
@@ -77,8 +78,8 @@ summary (x)
 ## ✖ Package does not have a 'CITATION' file
 ## ✖ Package does not have a 'codemeta.json' file
 ## ✔ All functions have examples
-## ✔ Package  Package 'DESCRIPTION' has a URL field
-## ✖ Package  Package 'DESCRIPTION' does not have a BugReports field
+## ✔ Package 'DESCRIPTION' has a URL field
+## ✖ Package 'DESCRIPTION' does not have a BugReports field
 ## ✔ Package name is available
 ## ✖ Package has no continuous integration checks
 ## ✖ Package coverage is 0% (should be at least 75%)
