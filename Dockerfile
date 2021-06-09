@@ -142,3 +142,22 @@ RUN apt-get install -y \
   texlive-fonts-extra \
   pandoc \
   pandoc-citeproc
+
+# A selection of R packages, including extra stats packages
+RUN install2.r \
+  devtools \
+  foreign \
+  glmnet \
+  lme4 \
+  mgcv \
+  Rcpp \
+  RcppArmadillo \
+  RcppEigen \
+  RcppParallel \
+  randomForest \
+  rmarkdown \
+  survival \
+  tidymodels \
+  tidyverse \
+  xts \
+  zoo
