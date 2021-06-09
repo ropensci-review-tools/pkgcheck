@@ -12,8 +12,8 @@ Check whether a package is ready for submission to rOpenSci’s
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/ropenscilabs/pkgcheck}
-  \item Report bugs at \url{https://github.com/ropenscilabs/pkgcheck/issues}
+  \item \url{https://github.com/ropensci-review-tools/pkgcheck}
+  \item Report bugs at \url{https://github.com/ropensci-review-tools/pkgcheck/issues}
 }
 
 }

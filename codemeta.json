@@ -7,10 +7,10 @@
   "identifier": "pkgcheck",
   "description": "Check whether a package is ready for submission to rOpenSci’s\n    peer review system.",
   "name": "pkgcheck: rOpenSci Package Checks",
-  "codeRepository": "https://github.com/ropenscilabs/pkgcheck",
-  "issueTracker": "https://github.com/ropenscilabs/pkgcheck/issues",
+  "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
+  "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.331",
+  "version": "0.0.1.332",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -259,7 +259,7 @@
       "@type": "SoftwareApplication",
       "identifier": "srr",
       "name": "srr",
-      "sameAs": "https://github.com/ropenscilabs/srr"
+      "sameAs": "https://github.com/ropensci-review-tools/srr"
     },
     {
       "@type": "SoftwareApplication",
@@ -274,8 +274,8 @@
       "sameAs": "https://CRAN.R-project.org/package=visNetwork"
     }
   ],
-  "readme": "https://github.com/ropenscilabs/pkgcheck/blob/main/README.md",
-  "fileSize": "1837.777KB",
+  "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
+  "fileSize": "1839.69KB",
   "developmentStatus": "https://www.repostatus.org/#concept",
-  "contIntegration": "https://codecov.io/gh/ropenscilabs/pkgcheck"
+  "contIntegration": "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
 }

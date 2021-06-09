@@ -301,7 +301,7 @@ srr_checks <- function (checks) {
        paste0 ("[Click here to view output of 'srr_report'](",
                checks$srr$report_file,
                "), which can be re-generated locally by running the ",
-               "[`srr_report() function](https://ropenscilabs.github.io/",
+               "[`srr_report()` function](https://ropensci-review-tools.github.io/",
                "srr/reference/srr_report.html) from within a local clone ",
                "of the repository."),
        "",
