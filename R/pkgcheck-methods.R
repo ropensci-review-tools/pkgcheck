@@ -48,7 +48,7 @@ print_summary <- function (x) {
 
     for (i in s) {
 
-        msg <- strsplit (i, ":\\s+") [[1]] [2]
+        msg <- strsplit (i, "(mark|\\_x):\\s+") [[1]] [2]
         if (grepl ("heavy_check_mark", i)) {
             cli::cli_alert_success (msg)
         } else {

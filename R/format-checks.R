@@ -182,7 +182,9 @@ collate_checks <- function (checks) {
                         symbol_crs (),
                         " Package coverage failed")
     } else {
+
         coverage <- round (checks$gp$covr$pct_by_line, digits = 1)
+
         if (coverage >= 75) {
 
             covr <- paste0 ("- ",
@@ -200,40 +202,53 @@ collate_checks <- function (checks) {
         }
     }
 
-    nerr <- length (checks$gp$rcmdcheck$errors)
-    if (nerr == 0) {
+    if (methods::is (checks$gp$rcmdcheck, "try-error")) {
 
-        rcmd_errs <- paste0 ("- ",
-                             symbol_tck (),
-                             " R CMD check found no errors")
-
-    } else {
-
+        cond <- attr (checks$gp$rcmdcheck, "condition") # the error condition
         rcmd_errs <- paste0 ("- ",
                              symbol_crs (),
-                             " R CMD check found ",
-                             nerr,
-                             ifelse (nerr == 1,
-                                     "error",
-                                     "errors"))
-    }
-
-    nwarn <- length (checks$gp$rcmdcheck$warnings)
-    if (nwarn == 0) {
-
-        rcmd_warns <- paste0 ("- ",
-                              symbol_tck (),
-                              " R CMD check found no warnings")
+                             " R CMD check process failed with message: '",
+                             cond$message,
+                             "'")
+        rcmd_warns <- NULL
 
     } else {
 
-        rcmd_warns <- paste0 ("- ",
-                              symbol_crs (),
-                              " R CMD check found ",
-                              nwarn,
-                              ifelse (nwarn == 1,
-                                      "warning",
-                                      "warnings"))
+        nerr <- length (checks$gp$rcmdcheck$errors)
+        if (nerr == 0) {
+
+            rcmd_errs <- paste0 ("- ",
+                                 symbol_tck (),
+                                 " R CMD check found no errors")
+
+        } else {
+
+            rcmd_errs <- paste0 ("- ",
+                                 symbol_crs (),
+                                 " R CMD check found ",
+                                 nerr,
+                                 ifelse (nerr == 1,
+                                         "error",
+                                         "errors"))
+        }
+
+        nwarn <- length (checks$gp$rcmdcheck$warnings)
+        if (nwarn == 0) {
+
+            rcmd_warns <- paste0 ("- ",
+                                  symbol_tck (),
+                                  " R CMD check found no warnings")
+
+        } else {
+
+            rcmd_warns <- paste0 ("- ",
+                                  symbol_crs (),
+                                  " R CMD check found ",
+                                  nwarn,
+                                  ifelse (nwarn == 1,
+                                          "warning",
+                                          "warnings"))
+        }
     }
 
     srr <- NULL
