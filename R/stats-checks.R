@@ -14,7 +14,29 @@ stats_checks <- function (s, threshold = 0.05) {
     if (is.na (s$npars_exported_md))
         s$npars_exported_md <- 0L
 
+
     dat <- pkgcheck::pkgstats_data
+
+    # convert blank line measures into relative
+    b_s <- grep ("^blank\\_lines", names (s))
+    b_d <- grep ("^blank\\_lines", names (dat))
+    c_s <- grep ("^loc\\_", names (s)) # also includes loc_per_fn stats
+    c_d <- grep ("^loc\\_", names (dat))
+    rel_white_pkg <- rel_white_all <- list ()
+    for (i in seq_along (b_s)) {
+        nm <- gsub ("blank\\_lines\\_", "", names (s) [b_s [i]]) # directory name
+        rel_white_pkg [[nm]] <- as.numeric (unname (s [[b_s [i]]] / s [[c_s [i]]]))
+        tmp <- as.numeric (unname (dat [[b_d [i]]] / s [[c_d [i]]]))
+        rel_white_all [[nm]] <- tmp [which (!is.na (tmp))]
+    }
+    index <- which (!is.na (rel_white_pkg))
+    rel_white_score <- vapply (seq_along (rel_white_pkg), function (i) {
+                                 s <- sort (rel_white_all [[i]])
+                                 length (which (s < rel_white_pkg [[i]])) /
+                                     length (s) },
+                                 numeric (1))
+    names (rel_white_score) <- names (rel_white_pkg)
+    rel_white_pkg <- unlist (rel_white_pkg)
 
     # temporary fixes until data are re-generated:
     dat$loc_R [dat$files_R == 0] <- NA_integer_
@@ -54,16 +76,27 @@ stats_checks <- function (s, threshold = 0.05) {
                grep ("^n\\_fns\\_", pc$measure),
                grep ("^npars\\_", pc$measure),
                grep ("^doclines\\_", pc$measure),
-               grep ("^blank\\_lines\\_", pc$measure),
                grep ("^n\\_edges", pc$measure))
     pc <- pc [sort (unique (keep)), ]
     pc <- pc [which (!is.na (pc$percentile)), ]
-    rownames (pc) <- NULL
     pc <- pc [which (!grepl ("^n\\_edges\\_", pc$measure)), ]
 
     # reduce to median estimates only
     pc <- pc [which (!grepl ("\\_mn$", pc$measure)), ]
     pc$measure <- gsub ("\\_md$", "", pc$measure)
+
+    # add relative white space metrics
+    index <- which (!is.na (rel_white_pkg))
+    measure = paste0 ("rel_whitespace_", names (rel_white_pkg))
+    rel_white <- data.frame (measure = measure,
+                             value = 100 * rel_white_pkg,
+                             percentile = rel_white_score) [index, ]
+    i <- max (grep ("^loc_", pc$measure))
+    pc <- rbind (pc [seq (i), ],
+                 rel_white,
+                 pc [-seq (i), ])
+
+    rownames (pc) <- NULL
 
     # additional tidying & removal:
     if (pc$percentile [pc$measure == "data_size_total"] == 0.0) {
