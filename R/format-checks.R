@@ -267,6 +267,7 @@ collate_checks <- function (checks) {
                              "the following standards are missing"),
                      "Statistical standards are missing",
                      srr)
+        srr <- gsub (":$", "", srr)
     }
 
     out <- c (uses_roxy,
