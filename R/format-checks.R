@@ -254,12 +254,19 @@ collate_checks <- function (checks) {
     srr <- NULL
     if (!is.null (checks$srr)) {
 
+        m <- checks$srr$message
+        i <- which (nchar (m) > 0 & grepl ("[^\\s]*", m))
+
         srr <- paste0 ("- ",
                        ifelse (checks$srr$okay,
                                symbol_tck (),
                                symbol_crs ()),
                        " ",
-                       checks$srr$message [1])
+                       m [i [1]])
+        srr <- gsub (paste0 ("Package can not be submitted because ",
+                             "the following standards are missing"),
+                     "Statistical standards are missing",
+                     srr)
     }
 
     out <- c (uses_roxy,
