@@ -72,6 +72,11 @@ stats_checks <- function (s, threshold = 0.05) {
     if (pc$value [pc$measure == "files_inst"] == 0.0) {
         pc <- pc [which (pc$measure != "files_inst"), ]
     }
+    # rm src if no src present
+    index <- which (grepl ("\\_src$", pc$measure) & pc$value == 0)
+    if (length (index) > 0) {
+        pc <- pc [-index, ]
+    }
 
     pc$noteworthy <- FALSE
     index <- which (pc$percentile < threshold |
