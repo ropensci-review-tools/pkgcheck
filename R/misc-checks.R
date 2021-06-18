@@ -169,12 +169,17 @@ ci_results_gh <- function (path) {
     if (runs$total_count == 0)
         return (NULL)
 
-    dat <- lapply (runs$workflow_runs, function (i)
+    dat <- lapply (runs$workflow_runs, function (i) {
+                       # in-progress runs have no conclusion entry:
+                       concl <- i$conclusion
+                       if (is.null (concl))
+                           concl <- ""
                    data.frame (name = i$name,
                                status = i$status,
-                               conclusion = i$conclusion,
+                               conclusion = concl,
                                sha = i$head_sha,
-                               time = i$created_at))
+                               time = i$created_at)
+                   })
     dat <- do.call (rbind, dat)
     dat$time <- strptime (dat$time, "%Y-%m-%dT%H:%M:%SZ")
     dat$time_dbl <- as.double (dat$time)
