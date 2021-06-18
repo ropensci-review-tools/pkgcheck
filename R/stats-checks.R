@@ -24,8 +24,10 @@ stats_checks <- function (s, threshold = 0.05) {
     c_d <- grep ("^loc\\_", names (dat))
     rel_white_pkg <- rel_white_all <- list ()
     for (i in seq_along (b_s)) {
-        nm <- gsub ("blank\\_lines\\_", "", names (s) [b_s [i]]) # directory name
-        rel_white_pkg [[nm]] <- as.numeric (unname (s [[b_s [i]]] / s [[c_s [i]]]))
+        # get directory name:
+        nm <- gsub ("blank\\_lines\\_", "", names (s) [b_s [i]])
+        rel_white_pkg [[nm]] <- as.numeric (unname (s [[b_s [i]]] /
+                                                    s [[c_s [i]]]))
         tmp <- as.numeric (unname (dat [[b_d [i]]] / s [[c_d [i]]]))
         rel_white_all [[nm]] <- tmp [which (!is.na (tmp))]
     }
@@ -87,7 +89,7 @@ stats_checks <- function (s, threshold = 0.05) {
 
     # add relative white space metrics
     index <- which (!is.na (rel_white_pkg))
-    measure = paste0 ("rel_whitespace_", names (rel_white_pkg))
+    measure <- paste0 ("rel_whitespace_", names (rel_white_pkg))
     rel_white <- data.frame (measure = measure,
                              value = 100 * rel_white_pkg,
                              percentile = rel_white_score) [index, ]
