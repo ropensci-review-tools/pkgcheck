@@ -123,31 +123,18 @@ stats_checks <- function (s, threshold = 0.05) {
         "fn_call_network_size"
 
     # language summary:
-    cloc <- cloc::cloc (file.path (attr (s, "path"), "R"))
-    add_if <- function (pc, measure, fpath) {
+    loc <- pkgstats::loc_stats (file.path (attr (s, "path")))
+    loc <- loc [which (loc$dir %in% c ("R", "inst", "src")), ]
+    loc <- vapply (unique (loc$language), function (i) {
+                       c (sum (loc$ncode [loc$language == i]) /
+                          sum (loc$ncode) * 100,
+                          sum (loc$nfiles [loc$language == i]))
+                    }, numeric (2))
+    langs <- paste0 (colnames (loc), ": ", round (loc [1, ]), "%")
+    files <- paste0 (colnames (loc), ": ", as.integer (loc [2, ]))
 
-        ret <- NULL
-        i <- which (pc$measure == measure)
-        if (length (i) > 0) {
-            if (pc$value [i] > 0) {
-                ret <- cloc::cloc (fpath)
-            }
-        }
-        return (ret)
-    }
-    cloc <- rbind (cloc,
-                   add_if (pc, "loc_src", file.path (attr (s, "path"), "src")))
-    cloc <- rbind (cloc,
-                   add_if (pc, "loc_inst",
-                           file.path (attr (s, "path"), "inst", "include")))
-
-    cloc <- cloc [which (cloc$language != "SUM"), ]
-    cloc$pc <- 100 * cloc$loc / sum (cloc$loc)
-    attr (pc, "language") <- paste0 (cloc$language,
-                                     ": ",
-                                     round (cloc$pc),
-                                     "%")
-    attr (pc, "files") <- paste0 (cloc$language, ": ", cloc$file_count)
+    attr (pc, "language") <- langs
+    attr (pc, "files") <- files
 
     return (pc)
 }

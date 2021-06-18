@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.344",
+  "version": "0.0.1.345",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -117,12 +117,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=cli"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "cloc",
-      "name": "cloc",
-      "sameAs": "https://github.com/hrbrmstr/cloc"
     },
     {
       "@type": "SoftwareApplication",
@@ -275,7 +269,7 @@
     }
   ],
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "fileSize": "1839.69KB",
+  "fileSize": "1841.861KB",
   "developmentStatus": "https://www.repostatus.org/#concept",
   "contIntegration": "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
 }

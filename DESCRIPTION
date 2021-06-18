@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.344
+Version: 0.0.1.345
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -15,7 +15,6 @@ Depends:
     R (>= 3.4.0)
 Imports:
     cli,
-    cloc,
     covr,
     gert,
     ghql,
@@ -39,7 +38,6 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes:
-    hrbrmstr/cloc,
     mpadge/pkgstats,
     ropensci-review-tools/srr
 Config/testthat/edition: 3
