@@ -20,8 +20,6 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -34,19 +32,25 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.331</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.350</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
+  <a href="index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ropenscilabs/pkgcheck/">
+  <a href="https://github.com/ropensci-review-tools/pkgcheck/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -65,27 +69,27 @@
   <div class="contents col-md-9">
 <div id="pkgcheck" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#pkgcheck" class="anchor" aria-hidden="true"></a>pkgcheck</h1></div>
+<a href="#pkgcheck" class="anchor"></a>pkgcheck</h1></div>
 <!-- badges: start -->
 
-<p>Check whether a package is ready for submission to <a href="https://ropensci.org" class="external-link">rOpenSci</a>’s peer review system. The primary function collates the output of <a href="https://github.com/mangothecat/goodpractice" class="external-link"><code>goodpractice</code></a>, including <code>R CMD check</code> results, along with a number of statistics via the <a href="https://github.com/ropenscilabs/pkgstats" class="external-link"><code>pkgstats</code> package</a>, and package structure checks expected for rOpenSci submissions. The output of this function immediately indicates whether or not a package is “Ready to Submit”.</p>
-<p>The <a href="https://github.com/ropenscilabs/pkgstats" class="external-link"><code>pkgstats</code> package</a> also requires the system libraries <a href="https://ctags.io" class="external-link"><code>ctags</code></a> and <a href="https://www.gnu.org/software/global/" class="external-link">GNU <code>global</code></a> to be installed. Procedures to install these libraries on various operating systems are described in a <a href="https://ropenscilabs.github.io/pkgstats/articles/installation.html" class="external-link"><code>pkgstats</code> vignette</a>. This package also uses the <a href="https://developer.github.com/v4" class="external-link">GitHub GraphQL API</a> which requires a local GitHub token to be stored with an unambiguous name including <code>GITHUB</code>, such as <code>GITHUB_TOKEN</code> (recommended), or <code>GITHUB_PAT</code> (for Personal Authorization Token). This can be obtained from GitHub (via your user settings), and stored using</p>
+<p>Check whether a package is ready for submission to <a href="https://ropensci.org">rOpenSci</a>’s peer review system. The primary function collates the output of <a href="https://github.com/mangothecat/goodpractice"><code>goodpractice</code></a>, including <code>R CMD check</code> results, along with a number of statistics via the <a href="https://github.com/ropensci-review-tools/pkgstats"><code>pkgstats</code> package</a>, and package structure checks expected for rOpenSci submissions. The output of this function immediately indicates whether or not a package is “Ready to Submit”.</p>
+<p>The <a href="https://github.com/ropensci-review-tools/pkgstats"><code>pkgstats</code> package</a> also requires the system libraries <a href="https://ctags.io"><code>ctags</code></a> and <a href="https://www.gnu.org/software/global/">GNU <code>global</code></a> to be installed. Procedures to install these libraries on various operating systems are described in a <a href="https://ropensci-review-tools.github.io/pkgstats/articles/installation.html"><code>pkgstats</code> vignette</a>. This package also uses the <a href="https://developer.github.com/v4">GitHub GraphQL API</a> which requires a local GitHub token to be stored with an unambiguous name including <code>GITHUB</code>, such as <code>GITHUB_TOKEN</code> (recommended), or <code>GITHUB_PAT</code> (for Personal Authorization Token). This can be obtained from GitHub (via your user settings), and stored using</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"GITHUB_TOKEN"</span> <span class="op">=</span> <span class="st">"&lt;my_token&gt;"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"GITHUB_TOKEN"</span> <span class="op">=</span> <span class="st">"&lt;my_token&gt;"</span><span class="op">)</span></code></pre></div>
 <p>This can also be set permanently by putting this line in your <code>~/.Renviron</code> file (or creating this if it does not yet exist). Once <code>pkgstats</code> has been successfully installed, the <code>pkgcheck</code> package can then be loaded via a <code>library</code> call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ropenscilabs/pkgcheck" class="external-link">pkgcheck</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ropensci-review-tools/pkgcheck">pkgcheck</a></span><span class="op">)</span></code></pre></div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#usage" class="anchor" aria-hidden="true"></a>Usage</h2>
-<p>The package primarily has one function, <code>pkgcheck</code>, which accepts the single argument, <code>path</code>, specifying the local location of a git repository to be analysed. The following code generates a reproducible report by first downloading a local clone of a repository called <a href="https://github.com/mpadge/srr-demo" class="external-link"><code>srr-demo</code></a>, which contains the skeleton of an <a href="https://github.com/ropenscilabs/srr" class="external-link"><code>srr</code> (Software Review Roclets) package</a>, generated with the <a href="https://ropenscilabs.github.io/srr/reference/srr_stats_pkg_skeleton.html" class="external-link"><code>srr_stats_pkg_skeleton()</code> function</a>:</p>
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>The package primarily has one function, <code>pkgcheck</code>, which accepts the single argument, <code>path</code>, specifying the local location of a git repository to be analysed. The following code generates a reproducible report by first downloading a local clone of a repository called <a href="https://github.com/mpadge/srr-demo"><code>srr-demo</code></a>, which contains the skeleton of an <a href="https://github.com/ropensci-review-tools/srr"><code>srr</code> (Software Review Roclets) package</a>, generated with the <a href="https://ropensci-review-tools.github.io/srr/reference/srr_stats_pkg_skeleton.html"><code>srr_stats_pkg_skeleton()</code> function</a>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mydir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span> <span class="op">(</span><span class="op">)</span>, <span class="st">"srr-demo"</span><span class="op">)</span>
-<span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_fetch.html" class="external-link">git_clone</a></span> <span class="op">(</span><span class="st">"https://github.com/mpadge/srr-demo"</span>, path <span class="op">=</span> <span class="va">mydir</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">mydir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span> <span class="op">(</span><span class="op">)</span>, <span class="st">"srr-demo"</span><span class="op">)</span>
+<span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_fetch.html">git_clone</a></span> <span class="op">(</span><span class="st">"https://github.com/mpadge/srr-demo"</span>, path <span class="op">=</span> <span class="va">mydir</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pkgcheck.html">pkgcheck</a></span> <span class="op">(</span><span class="va">mydir</span><span class="op">)</span></code></pre></div>
 <p>That object has default <code>print</code> and <code>summary</code> methods. The latter can be used to simply check whether a package is ready for submission:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">## </span>
 <span class="co">## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">## </span>
@@ -110,89 +114,83 @@
 </div>
 <div id="what-is-checked" class="section level2">
 <h2 class="hasAnchor">
-<a href="#what-is-checked" class="anchor" aria-hidden="true"></a>What is checked?</h2>
-<p>Calling <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> on the object returned by the <a href="https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a> will generate a checklist like that shown above. This checklist will also be automatically generated when a package is first submitted to rOpenSci, and is used by the editors to assess whether to process a submission. Authors must ensure prior to submission that there are no red crosses in the resultant list. (In the unlikely circumstances that a package is unable to pass particular checks, explanations should be given upon submission about why those checks fail, and why review may proceed in spite of such failures.)</p>
+<a href="#what-is-checked" class="anchor"></a>What is checked?</h2>
+<p>Calling <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> on the object returned by the <a href="https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a> will generate a checklist like that shown above. This checklist will also be automatically generated when a package is first submitted to rOpenSci, and is used by the editors to assess whether to process a submission. Authors must ensure prior to submission that there are no red crosses in the resultant list. (In the unlikely circumstances that a package is unable to pass particular checks, explanations should be given upon submission about why those checks fail, and why review may proceed in spite of such failures.)</p>
 <p>The full list of checks which packages are expected to pass currently includes:</p>
-<ol style="list-style-type: decimal">
-<li>Package must use <a href="https://roxygen2.r-lib.org" class="external-link"><code>roxygen2</code></a> for documentation.</li>
-<li>Package must have a <a href="https://devguide.ropensci.org/collaboration.html#contributing-guide" class="external-link"><code>contributing.md</code> file</a>.</li>
-<li>Package must have a <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#CITATION-files" class="external-link"><code>CITATION</code> file in the <code>inst</code> directory</a>.</li>
-<li>Package must have a <a href="https://devguide.ropensci.org/building.html#creating-metadata-for-your-package" class="external-link"><code>codemeta.json</code> file</a>.</li>
+<ol>
+<li>Package must use <a href="https://roxygen2.r-lib.org"><code>roxygen2</code></a> for documentation.</li>
+<li>Package must have a <a href="https://devguide.ropensci.org/collaboration.html#contributing-guide"><code>contributing.md</code> file</a>.</li>
+<li>Package must have a <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#CITATION-files"><code>CITATION</code> file in the <code>inst</code> directory</a>.</li>
+<li>Package must have a <a href="https://devguide.ropensci.org/building.html#creating-metadata-for-your-package"><code>codemeta.json</code> file</a>.</li>
 <li>All exported functions must include examples in their documentation.</li>
-<li>Left-assign operators must be used consistently throughout all code (so either all <code>=</code> or all <code>&lt;-</code>, but not a mixture of both).</li>
+<li>Left-assign operators must be used consistently throughout all code (so either all <code><a href="https://rdrr.io/r/base/assignOps.html">=</a></code> or all <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>, but not a mixture of both).</li>
 <li>Package <code>DESCRIPTION</code> file must have a “URL” field.</li>
 <li>Package <code>DESCRIPTION</code> file must have a “BugReports” field.</li>
 <li>Package name must be available (or package must already be) on CRAN.</li>
 <li>Package must have continuous integration tests.</li>
 <li>Package must have test coverage of at least 75%.</li>
-<li>No function should have a <a href="https://github.com/MangoTheCat/cyclocomp" class="external-link">cyclomatic complexity</a> of 15 or greater.</li>
+<li>No function should have a <a href="https://github.com/MangoTheCat/cyclocomp">cyclomatic complexity</a> of 15 or greater.</li>
 <li>
 <code>R CMD check</code> must generate no warnings or errors.</li>
-<li>All statistical standards must be documented, as confirmed by the <a href="https://ropenscilabs.github.io/srr/reference/srr_stats_pre_submit.html" class="external-link"><code>srr::srr_pre_submit()</code> function</a>.</li>
+<li>All statistical standards must be documented, as confirmed by the <a href="https://ropensci-review-tools.github.io/srr/reference/srr_stats_pre_submit.html"><code>srr::srr_pre_submit()</code> function</a>.</li>
 </ol>
 <p>Several of these are by default only shown when they fail; absence from a resultant checklist may be interpreted to indicate successful checks.</p>
 </div>
 <div id="caching-and-running-pkgcheck-in-the-background" class="section level2">
 <h2 class="hasAnchor">
-<a href="#caching-and-running-pkgcheck-in-the-background" class="anchor" aria-hidden="true"></a>Caching and running <code>pkgcheck</code> in the background</h2>
-<p>Running the <a href="https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck.html"><code>pgkcheck</code> function</a> can be time-consuming, primarily because the <a href="https://github.com/mangothecat/goodpractice" class="external-link"><code>goodpractice</code></a> component runs both a full <code>R CMD check</code>, and calculates code coverage of all tests. To avoid re-generating these results each time, the package saves previous reports to a local cache, in a <code>pkgcheck</code> subdirectory of the location determined by</p>
+<a href="#caching-and-running-pkgcheck-in-the-background" class="anchor"></a>Caching and running <code>pkgcheck</code> in the background</h2>
+<p>Running the <a href="https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html"><code>pgkcheck</code> function</a> can be time-consuming, primarily because the <a href="https://github.com/mangothecat/goodpractice"><code>goodpractice</code></a> component runs both a full <code>R CMD check</code>, and calculates code coverage of all tests. To avoid re-generating these results each time, the package saves previous reports to a local cache, in a <code>pkgcheck</code> subdirectory of the location determined by</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rappdirs</span><span class="fu">::</span><span class="fu"><a href="https://rappdirs.r-lib.org/reference/user_cache_dir.html" class="external-link">user_cache_dir</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">rappdirs</span><span class="fu">::</span><span class="fu"><a href="https://rappdirs.r-lib.org/reference/user_cache_dir.html">user_cache_dir</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>You may manually erase the contents of this subdirectory at any time at no risk beyond additional time required to re-generate contents. This default location may also be over-ridden by setting an environmental variable named <code>pkgcheck_cache_dir</code>. By default checks presume packages use <code>git</code> for version control, with checks updated only when code is updated via <code>git commit</code>. Checks for packages that do not use <code>git</code> are updated when any files are modified.</p>
-<p>The first time <a href="https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code></a> is applied to a package, the checks will be stored in the cache directory. Calling that function a second time will then load the cached results, and so enable checks to be returned much faster. For code which is frequently updated, such as for packages working on the final stages prior to submission, it may still be necessary to repeatedly call <a href="https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code></a> after each modification, a step which may still be inconveniently time-consuming. To facilitate frequent re-checking, the package also has a <a href="https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck_bg.html"><code>pkgcheck_bg()</code> function</a> which is effectively identical to the main <a href="https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a>, except it runs in the background, enabling you to continue coding while checks are running.</p>
-<p>The <a href="https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck_bg.html"><code>pkgcheck_bg()</code> function</a> returns a handle to the <a href="https://callr.r-lib.org/reference/r_bg.html" class="external-link"><code>callr::r_bg()</code> process</a> in which the checks are running. Typing the name of the returned object will immediately indicate whether the checks are still running, or whether they have finished. That handle is itself an <a href="http://r6.r-lib.org/" class="external-link"><code>R6</code> object</a> with a number of methods, notably including <a href="https://callr.r-lib.org/reference/get_result.html" class="external-link"><code>get_result()</code></a> which can be used to access the checks once the process has finished. Alternatively, as soon as the background process, the normal (foreground) <a href="https://ropenscilabs.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a> may be called to quickly re-load the cached results.</p>
+<p>The first time <a href="https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code></a> is applied to a package, the checks will be stored in the cache directory. Calling that function a second time will then load the cached results, and so enable checks to be returned much faster. For code which is frequently updated, such as for packages working on the final stages prior to submission, it may still be necessary to repeatedly call <a href="https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code></a> after each modification, a step which may still be inconveniently time-consuming. To facilitate frequent re-checking, the package also has a <a href="https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck_bg.html"><code>pkgcheck_bg()</code> function</a> which is effectively identical to the main <a href="https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a>, except it runs in the background, enabling you to continue coding while checks are running.</p>
+<p>The <a href="https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck_bg.html"><code>pkgcheck_bg()</code> function</a> returns a handle to the <a href="https://callr.r-lib.org/reference/r_bg.html"><code>callr::r_bg()</code> process</a> in which the checks are running. Typing the name of the returned object will immediately indicate whether the checks are still running, or whether they have finished. That handle is itself an <a href="http://r6.r-lib.org/"><code>R6</code> object</a> with a number of methods, notably including <a href="https://callr.r-lib.org/reference/get_result.html"><code>get_result()</code></a> which can be used to access the checks once the process has finished. Alternatively, as soon as the background process, the normal (foreground) <a href="https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a> may be called to quickly re-load the cached results.</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2 data-toc-skip>Links</h2>
+<h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/ropenscilabs/pkgcheck/">https://​github.com/​ropenscilabs/​pkgcheck/​</a>
+<li>Browse source code at <br><a href="https://github.com/ropensci-review-tools/pkgcheck/">https://​github.com/​ropensci-review-tools/​pkgcheck/​</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/ropenscilabs/pkgcheck/issues">https://​github.com/​ropenscilabs/​pkgcheck/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/ropensci-review-tools/pkgcheck/issues">https://​github.com/​ropensci-review-tools/​pkgcheck/​issues</a>
 </li>
 </ul>
 </div>
-
 <div class="license">
-<h2 data-toc-skip>License</h2>
+<h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
 </ul>
 </div>
-
-
 <div class="developers">
-<h2 data-toc-skip>Developers</h2>
+<h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Mark Padgham <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
+  <div class="dev-status">
+<h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/ropenscilabs/pkgcheck/actions?query=workflow%3AR-CMD-check" class="external-link"><img src="https://github.com/ropenscilabs/pkgcheck/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://github.com/ropenscilabs/pkgcheck/actions?query=workflow%3Apush-to-gitlab" class="external-link"><img src="https://github.com/ropenscilabs/pkgcheck/workflows/push-to-gitlab/badge.svg" alt="gitlab push"></a></li>
-<li><a href="https://codecov.io/gh/ropenscilabs/pkgcheck" class="external-link"><img src="https://codecov.io/gh/ropenscilabs/pkgcheck/branch/main/graph/badge.svg" alt="codecov"></a></li>
-<li><a href="https://www.repostatus.org/#concept" class="external-link"><img src="https://www.repostatus.org/badges/latest/concept.svg" alt="Project Status: Concept"></a></li>
+<li><a href="https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check"><img src="https://github.com/ropensci-review-tools/pkgcheck/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab"><img src="https://github.com/ropensci-review-tools/pkgcheck/workflows/push-to-gitlab/badge.svg" alt="gitlab push"></a></li>
+<li><a href="https://codecov.io/gh/ropensci-review-tools/pkgcheck"><img src="https://codecov.io/gh/ropensci-review-tools/pkgcheck/branch/main/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://www.repostatus.org/#concept"><img src="https://www.repostatus.org/badges/latest/concept.svg" alt="Project Status: Concept"></a></li>
 </ul>
 </div>
-
-  </div>
+</div>
 </div>
 
 
       <footer><div class="copyright">
-  <p></p>
-<p>Developed by Mark Padgham.</p>
+  <p>Developed by Mark Padgham.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
@@ -200,8 +198,6 @@
 
   
 
-
-  
 
   </body>
 </html>
