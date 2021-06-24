@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/index.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/index.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/checks_to_markdown.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/checks_to_markdown.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/get_default_branch.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/get_default_branch.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/get_gh_token.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/get_gh_token.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/get_latest_commit.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/get_latest_commit.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/logfile_names.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/logfile_names.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck-package.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/pkgcheck-package.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck_bg.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/pkgcheck_bg.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/pkgstats_data.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/pkgstats_data.html</loc>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/pkgcheck/reference/render_markdown.html</loc>
+    <loc>https://docs.ropensci.org/pkgcheck/reference/render_markdown.html</loc>
   </url>
 </urlset>

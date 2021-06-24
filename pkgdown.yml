@@ -2,8 +2,8 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-06-18T11:06Z
+last_built: 2021-06-24T12:35Z
 urls:
-  reference: https://ropensci-review-tools.github.io/pkgcheck/reference
-  article: https://ropensci-review-tools.github.io/pkgcheck/articles
+  reference: https://docs.ropensci.org/pkgcheck/reference
+  article: https://docs.ropensci.org/pkgcheck/articles
 
