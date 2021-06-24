@@ -26,14 +26,13 @@ package](https://github.com/ropensci-review-tools/pkgstats) also
 requires the system libraries [`ctags`](https://ctags.io) and [GNU
 `global`](https://www.gnu.org/software/global/) to be installed.
 Procedures to install these libraries on various operating systems are
-described in a [`pkgstats`
-vignette](https://ropensci-review-tools.github.io/pkgstats/articles/installation.html).
-This package also uses the [GitHub GraphQL
-API](https://developer.github.com/v4) which requires a local GitHub
-token to be stored with an unambiguous name including `GITHUB`, such as
-`GITHUB_TOKEN` (recommended), or `GITHUB_PAT` (for Personal
-Authorization Token). This can be obtained from GitHub (via your user
-settings), and stored using
+described in the [`pkgstats`
+README](https://docs.ropensci.org/pkgstats). This package also uses the
+[GitHub GraphQL API](https://developer.github.com/v4) which requires a
+local GitHub token to be stored with an unambiguous name including
+`GITHUB`, such as `GITHUB_TOKEN` (recommended), or `GITHUB_PAT` (for
+Personal Authorization Token). This can be obtained from GitHub (via
+your user settings), and stored using
 
 ``` r
 Sys.setenv("GITHUB_TOKEN" = "<my_token>")
@@ -58,7 +57,7 @@ report by first downloading a local clone of a repository called
 skeleton of an [`srr` (Software Review Roclets)
 package](https://github.com/ropensci-review-tools/srr), generated with
 the [`srr_stats_pkg_skeleton()`
-function](https://ropensci-review-tools.github.io/srr/reference/srr_stats_pkg_skeleton.html):
+function](https://docs.ropensci.org/srr/reference/srr_stats_pkg_skeleton.html):
 
 ``` r
 mydir <- file.path (tempdir (), "srr-demo")
@@ -72,7 +71,7 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package uses 'roxygen2'
 ## ✖ Package does not have a 'contributing.md' file
@@ -104,7 +103,7 @@ default `print` method by typing the object name (`x`).
 ## What is checked?
 
 Calling `summary()` on the object returned by the [`pkgcheck()`
-function](https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html)
+function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 will generate a checklist like that shown above. This checklist will
 also be automatically generated when a package is first submitted to
 rOpenSci, and is used by the editors to assess whether to process a
@@ -139,7 +138,7 @@ includes:
 13. `R CMD check` must generate no warnings or errors.
 14. All statistical standards must be documented, as confirmed by the
     [`srr::srr_pre_submit()`
-    function](https://ropensci-review-tools.github.io/srr/reference/srr_stats_pre_submit.html).
+    function](https://docs.ropensci.org/srr/reference/srr_stats_pre_submit.html).
 
 Several of these are by default only shown when they fail; absence from
 a resultant checklist may be interpreted to indicate successful checks.
@@ -147,7 +146,7 @@ a resultant checklist may be interpreted to indicate successful checks.
 ## Caching and running `pkgcheck` in the background
 
 Running the [`pgkcheck`
-function](https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html)
+function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 can be time-consuming, primarily because the
 [`goodpractice`](https://github.com/mangothecat/goodpractice) component
 runs both a full `R CMD check`, and calculates code coverage of all
@@ -168,24 +167,24 @@ updated via `git commit`. Checks for packages that do not use `git` are
 updated when any files are modified.
 
 The first time
-[`pkgcheck()`](https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html)
+[`pkgcheck()`](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 is applied to a package, the checks will be stored in the cache
 directory. Calling that function a second time will then load the cached
 results, and so enable checks to be returned much faster. For code which
 is frequently updated, such as for packages working on the final stages
 prior to submission, it may still be necessary to repeatedly call
-[`pkgcheck()`](https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html)
+[`pkgcheck()`](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 after each modification, a step which may still be inconveniently
 time-consuming. To facilitate frequent re-checking, the package also has
 a [`pkgcheck_bg()`
-function](https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck_bg.html)
+function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck_bg.html)
 which is effectively identical to the main [`pkgcheck()`
-function](https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html),
+function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html),
 except it runs in the background, enabling you to continue coding while
 checks are running.
 
 The [`pkgcheck_bg()`
-function](https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck_bg.html)
+function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck_bg.html)
 returns a handle to the [`callr::r_bg()`
 process](https://callr.r-lib.org/reference/r_bg.html) in which the
 checks are running. Typing the name of the returned object will
@@ -197,5 +196,5 @@ including
 which can be used to access the checks once the process has finished.
 Alternatively, as soon as the background process, the normal
 (foreground) [`pkgcheck()`
-function](https://ropensci-review-tools.github.io/pkgcheck/reference/pkgcheck.html)
+function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 may be called to quickly re-load the cached results.
