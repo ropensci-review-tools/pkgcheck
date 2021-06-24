@@ -325,9 +325,8 @@ srr_checks <- function (checks) {
                checks$srr$report_file,
                "), which can be re-generated locally by running the ",
                "[`srr_report()` function]",
-               "(https://ropensci-review-tools.github.io/",
-               "srr/reference/srr_report.html) from within a local clone ",
-               "of the repository."),
+               "(https://docs.ropensci.org/srr/reference/srr_report.html)",
+               "from within a local clone of the repository."),
        "",
        "---",
        "")
