@@ -71,7 +71,7 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package uses 'roxygen2'
 ## ✖ Package does not have a 'contributing.md' file
@@ -85,7 +85,7 @@ summary (x)
 ## ✖ Package coverage is 0% (should be at least 75%)
 ## ✔ R CMD check found no errors
 ## ✔ R CMD check found no warnings
-## ✔ All applicable standards have been documented in this package
+## ✔ All applicable standards [v0.0.1] have been documented in this package
 ## 
 ## ℹ Current status:
 ## ✖ This package is not ready to be submitted
@@ -198,3 +198,8 @@ Alternatively, as soon as the background process, the normal
 (foreground) [`pkgcheck()`
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 may be called to quickly re-load the cached results.
+
+## Prior Work
+
+[The `checklist` package](https://github.com/inbo/checklist) for
+“checking packages and R code”.

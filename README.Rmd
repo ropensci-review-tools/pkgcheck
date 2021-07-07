@@ -169,3 +169,8 @@ soon as the background process, the normal (foreground)
 [`pkgcheck()`
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) may
 be called to quickly re-load the cached results.
+
+## Prior Work
+
+[The `checklist` package](https://github.com/inbo/checklist) for "checking
+packages and R code".
