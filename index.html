@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.354</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.356</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">## </span>
-<span class="co">## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────</span>
+<span class="co">## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">## </span>
 <span class="co">## ✔ Package uses 'roxygen2'</span>
 <span class="co">## ✖ Package does not have a 'contributing.md' file</span>
@@ -105,7 +105,7 @@
 <span class="co">## ✖ Package coverage is 0% (should be at least 75%)</span>
 <span class="co">## ✔ R CMD check found no errors</span>
 <span class="co">## ✔ R CMD check found no warnings</span>
-<span class="co">## ✔ All applicable standards have been documented in this package</span>
+<span class="co">## ✔ All applicable standards [v0.0.1] have been documented in this package</span>
 <span class="co">## </span>
 <span class="co">## ℹ Current status:</span>
 <span class="co">## ✖ This package is not ready to be submitted</span>
@@ -115,6 +115,9 @@
 <div id="what-is-checked" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-is-checked" class="anchor"></a>What is checked?</h2>
+<div id="summary-of-check-results" class="section level3">
+<h3 class="hasAnchor">
+<a href="#summary-of-check-results" class="anchor"></a>Summary of Check Results</h3>
 <p>Calling <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> on the object returned by the <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a> will generate a checklist like that shown above. This checklist will also be automatically generated when a package is first submitted to rOpenSci, and is used by the editors to assess whether to process a submission. Authors must ensure prior to submission that there are no red crosses in the resultant list. (In the unlikely circumstances that a package is unable to pass particular checks, explanations should be given upon submission about why those checks fail, and why review may proceed in spite of such failures.)</p>
 <p>The full list of checks which packages are expected to pass currently includes:</p>
 <ol>
@@ -136,15 +139,64 @@
 </ol>
 <p>Several of these are by default only shown when they fail; absence from a resultant checklist may be interpreted to indicate successful checks.</p>
 </div>
+<div id="detailed-check-results" class="section level3">
+<h3 class="hasAnchor">
+<a href="#detailed-check-results" class="anchor"></a>Detailed Check Results</h3>
+<p>Full details of check results can be seen by <code>print</code>-ing the object returned by the <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a> (or just by typing the name of this object in the console.) This object is itself a list including the following items:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">##  [1] "package"      "version"      "url"          "license"      "summary"     </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">##  [6] "git"          "srr"          "file_list"    "fns_have_exs" "left_assigns"</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">## [11] "pkgstats"     "network_file" "gp"           "pkg_versions"</span></span></code></pre></div>
+<p>The first four of these contain information on the package. The remainder include:</p>
+<ul>
+<li>
+<code>summary</code> containing summary statistics on package structure (such as lines of code, and numbers of files and functions).</li>
+<li>
+<code>git</code> containing information and statistics on the <code>git</code> repository associated with a package (if any), including date of first commit, total number of commits and of committers.</li>
+<li>
+<code>srr</code> summarising information on statistical packages generated by the <a href="https://github.com/ropensci-review-tools/srr"><code>srr</code> package</a>, including a link to a locally-generated HTML report on standards compliance.</li>
+<li>
+<code>file_list</code> as a list of binary flags denoting presence of absence of all files required for an R package to be submitted to rOpenSci</li>
+<li>
+<code>fns_have_exs</code> with a list of any functions which do not have documented examples</li>
+<li>
+<code>left_assigns</code> with a logical value indicating whether or not global assignment operators (<code><a href="https://rdrr.io/r/base/assignOps.html">&lt;&lt;-</a></code>) are used; and a tally of the two types of left-assignment operators (<code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code> and <code><a href="https://rdrr.io/r/base/assignOps.html">=</a></code>). One one of these should be non-zero, reflecting consistent usage of the same type.</li>
+<li>
+<code>pkgstats</code> containing several statistics of package structure, along with associated percentiles assessed against the entire distribution of all current CRAN packages.</li>
+<li>
+<code>network_file</code> with the path to a local HTML file containing a <a href="https://visjs.org/">.visjs</a> representation of the network of relationships between objects (such as functions) within a package, within and between each computer language used in the package.</li>
+<li>
+<code>gp</code> containing the output of the <a href="http://mangothecat.github.io/goodpractice/"><code>goodpractice</code> pacakge</a>, itself including results from:
+<ul>
+<li>the <a href="https://r-lib.github.io/rcmdcheck"><code>rcmdcheck</code> pacakge</a> for running <code>R CMD check</code>
+</li>
+<li>the <a href="https://covr.r-lib.org"><code>covr</code> package</a> for assessing code coverage</li>
+<li>the <a href="https://github.com/MangoTheCat/cyclocomp"><code>cyclocomp</code> package</a> for quantifying the cyclomatic complexity of package functions</li>
+<li>the <a href="https://github.com/r-lib/desc#readme"><code>desc</code> package</a> for analysing the structure of <code>DESCRIPTION</code> files</li>
+<li>the <a href="https://github.com/jimhester/lintr"><code>lintr</code> package</a>
+</li>
+<li>additional checks applied by the <a href="http://mangothecat.github.io/goodpractice/"><code>goodpractice</code> pacakge</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div id="caching-and-running-pkgcheck-in-the-background" class="section level2">
 <h2 class="hasAnchor">
 <a href="#caching-and-running-pkgcheck-in-the-background" class="anchor"></a>Caching and running <code>pkgcheck</code> in the background</h2>
 <p>Running the <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pgkcheck</code> function</a> can be time-consuming, primarily because the <a href="https://github.com/mangothecat/goodpractice"><code>goodpractice</code></a> component runs both a full <code>R CMD check</code>, and calculates code coverage of all tests. To avoid re-generating these results each time, the package saves previous reports to a local cache, in a <code>pkgcheck</code> subdirectory of the location determined by</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rappdirs</span><span class="fu">::</span><span class="fu"><a href="https://rappdirs.r-lib.org/reference/user_cache_dir.html">user_cache_dir</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>You may manually erase the contents of this subdirectory at any time at no risk beyond additional time required to re-generate contents. This default location may also be over-ridden by setting an environmental variable named <code>pkgcheck_cache_dir</code>. By default checks presume packages use <code>git</code> for version control, with checks updated only when code is updated via <code>git commit</code>. Checks for packages that do not use <code>git</code> are updated when any files are modified.</p>
 <p>The first time <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code></a> is applied to a package, the checks will be stored in the cache directory. Calling that function a second time will then load the cached results, and so enable checks to be returned much faster. For code which is frequently updated, such as for packages working on the final stages prior to submission, it may still be necessary to repeatedly call <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code></a> after each modification, a step which may still be inconveniently time-consuming. To facilitate frequent re-checking, the package also has a <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck_bg.html"><code>pkgcheck_bg()</code> function</a> which is effectively identical to the main <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a>, except it runs in the background, enabling you to continue coding while checks are running.</p>
 <p>The <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck_bg.html"><code>pkgcheck_bg()</code> function</a> returns a handle to the <a href="https://callr.r-lib.org/reference/r_bg.html"><code>callr::r_bg()</code> process</a> in which the checks are running. Typing the name of the returned object will immediately indicate whether the checks are still running, or whether they have finished. That handle is itself an <a href="http://r6.r-lib.org/"><code>R6</code> object</a> with a number of methods, notably including <a href="https://callr.r-lib.org/reference/get_result.html"><code>get_result()</code></a> which can be used to access the checks once the process has finished. Alternatively, as soon as the background process, the normal (foreground) <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a> may be called to quickly re-load the cached results.</p>
+</div>
+<div id="prior-work" class="section level2">
+<h2 class="hasAnchor">
+<a href="#prior-work" class="anchor"></a>Prior Work</h2>
+<p><a href="https://github.com/inbo/checklist">The <code>checklist</code> package</a> for “checking packages and R code”.</p>
 </div>
 </div>
   </div>
