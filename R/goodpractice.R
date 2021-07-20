@@ -322,16 +322,19 @@ cyclo_report <- function (x,
 
 lintr_report <- function (x) {
 
+    ret <- c ("### [lintr](https://github.com/jimhester/lintr)",
+              "")
+
     if (is.null (x$lint))
-        return (NULL)
+        return (c (ret,
+                   "[lintr](https://github.com/jimhester/lintr) found no issues with this package!",
+                   ""))
 
     msgs <- table (x$lint$message)
     msgs <- data.frame (message = names (msgs),
                         n = as.integer (msgs))
 
-    ret <- c ("### lintr",
-              "",
-              paste0 ("lintr found the following ",
+    ret <- c (paste0 ("[lintr](https://github.com/jimhester/lintr) found the following ",
                       sum (msgs$n),
                       " potential issues:"),
               "",
