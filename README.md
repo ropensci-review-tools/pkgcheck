@@ -137,7 +137,9 @@ includes:
 12. No function should have a [cyclomatic
     complexity](https://github.com/MangoTheCat/cyclocomp) of 15 or
     greater.
-13. `R CMD check` must generate no warnings or errors.
+13. `R CMD check` (implemented via the [`rcmdcheck`
+    package](https://r-lib.github.io/rcmdcheck/)) must generate no
+    warnings or errors.
 14. All statistical standards must be documented, as confirmed by the
     [`srr::srr_pre_submit()`
     function](https://docs.ropensci.org/srr/reference/srr_stats_pre_submit.html).
