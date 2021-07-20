@@ -321,7 +321,8 @@ lintr_report <- function (x) {
     msgs <- data.frame (message = names (msgs),
                         n = as.integer (msgs))
 
-    ret <- c (paste0 ("[lintr](https://github.com/jimhester/lintr) found the following ",
+    ret <- c (ret,
+              paste0 ("[lintr](https://github.com/jimhester/lintr) found the following ",
                       sum (msgs$n),
                       " potential issues:"),
               "",
