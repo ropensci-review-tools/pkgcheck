@@ -146,14 +146,7 @@ convert_gp_components <- function (x,
 
     lint <- lintr_report (x)
 
-    res <- c (rcmd, covr, cycl, lint)
-
-    if (length (res) == 0)
-        res <- c (pkg_cov,
-                  "",
-                  "goodpractice found no issues; this package is awesome!")
-
-    return (res)
+    return (c (rcmd, covr, cycl, lint))
 }
 
 rcmd_report <- function (x) {
