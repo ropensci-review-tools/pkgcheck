@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.356</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.363</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">## </span>
-<span class="co">## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
+<span class="co">## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">## </span>
 <span class="co">## ✔ Package uses 'roxygen2'</span>
 <span class="co">## ✖ Package does not have a 'contributing.md' file</span>
@@ -134,7 +134,7 @@
 <li>Package must have test coverage of at least 75%.</li>
 <li>No function should have a <a href="https://github.com/MangoTheCat/cyclocomp">cyclomatic complexity</a> of 15 or greater.</li>
 <li>
-<code>R CMD check</code> must generate no warnings or errors.</li>
+<code>R CMD check</code> (implemented via the <a href="https://r-lib.github.io/rcmdcheck/"><code>rcmdcheck</code> package</a>) must generate no warnings or errors.</li>
 <li>All statistical standards must be documented, as confirmed by the <a href="https://docs.ropensci.org/srr/reference/srr_stats_pre_submit.html"><code>srr::srr_pre_submit()</code> function</a>.</li>
 </ol>
 <p>Several of these are by default only shown when they fail; absence from a resultant checklist may be interpreted to indicate successful checks.</p>
@@ -181,6 +181,12 @@
 </ul>
 </li>
 </ul>
+</div>
+<div id="html-formatted-check-results" class="section level3">
+<h3 class="hasAnchor">
+<a href="#html-formatted-check-results" class="anchor"></a>HTML-formatted check results</h3>
+<p>Printing <code>pkgcheck</code> results to screen is nice, but sometimes it’s even better to have a nicely formatted full-screen representation of check results. The package includes an additional function, <a href="https://docs.ropensci.org/pkgcheck/reference/checks_to_markdown.html"><code>checks_to_markdown()</code></a>, with a parameter, <code>render</code>, which can be set to <code>TRUE</code> to automatically render a HTML-formatted representation of the check results, and open it in a browser. The formatting differs only slightly from the terminal output, mostly through the components of <a href="http://mangothecat.github.io/goodpractice/"><code>goodpractice</code></a> being divided into distinct headings, with explicit statements in cases where components pass all checks (the default screen output inherits directly from that package, and only reports components which <em>do not</em> pass all checks).</p>
+<p>This <a href="https://docs.ropensci.org/pkgcheck/reference/checks_to_markdown.html"><code>checks_to_markdown()</code></a> function returns the report in markdown format, suitable for pasting directly into a GitHub issue, or other markdown-compatible place. (The <a href="https://github.com/mdlincoln/clipr"><code>clipr</code> package</a> can be used to copy this directly to your local clipboard with <code>write_clip(md)</code>, where <code>md</code> is the output of <code><a href="reference/checks_to_markdown.html">checks_to_markdown()</a></code>.)</p>
 </div>
 </div>
 <div id="caching-and-running-pkgcheck-in-the-background" class="section level2">
