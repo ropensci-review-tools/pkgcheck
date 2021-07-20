@@ -135,11 +135,12 @@ print_structure <- function (x) {
 
 print_srr <- function (x) {
 
-    cli::cli_h2 ("Statistical Standards")
+    cli::cli_h2 ("rOpenSci Statistical Standards")
     ncats <- length (x$srr$categories) # nolint
     cli::cli_alert_info ("The package is in the following {ncats} categor{?y/ies}:") # nolint
     cli::cli_li (x$srr$categories)
     cli::cli_text ("")
+    cli::cli_alert_info ("Compliance with rOpenSci statistical standards:")
 
     if (x$srr$okay) {
         cli::cli_alert_success (x$srr$message)
@@ -156,12 +157,6 @@ print_srr <- function (x) {
         }
         return ()
     }
-
-    srr <- ifelse (length (x$srr$categories) == 1,
-                   "Category",
-                   "Categories")
-    cli::cli_alert_info (srr)
-    cli::cli_li (x$srr$categories)
 
     if (!is.null (x$srr$missing_stds)) {
         cli::cli_alert_warning ("The following standards are missing:")
