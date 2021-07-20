@@ -206,6 +206,13 @@ remainder include:
     -   additional checks applied by the [`goodpractice`
         pacakge](http://mangothecat.github.io/goodpractice/)
 
+Note that results from [`lintr`
+package](https://github.com/jimhester/lintr) are **not** reported in the
+check summary, and that [`lintr`
+results](https://github.com/jimhester/lintr) are reported only in the
+detailed results, and have no influence on whether a package passes the
+summary checks.
+
 ### HTML-formatted check results
 
 Printing `pkgcheck` results to screen is nice, but sometimes it’s even
