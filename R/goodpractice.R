@@ -139,12 +139,6 @@ convert_gp_components <- function (x,
                                                    digits = 2)) {
 
     rcmd <- rcmd_report (x)
-    if (is.null (rcmd)) {
-        rcmd <- c ("### rcmdcheck",
-                   "",
-                   "rcmdcheck found no errors, warnings, or notes",
-                   "")
-    }
 
     covr <- covr_report (x, control)
 
@@ -164,13 +158,13 @@ convert_gp_components <- function (x,
 
 rcmd_report <- function (x) {
 
-    ret <- NULL
+    ret <- c ("### `R CMD check` with [rcmdcheck](https://r-lib.github.io/rcmdcheck/)",
+              "")
 
     if (!"rcmd" %in% names (x))
-        return (ret)
-
-    ret <- c ("### R CMD check",
-              "")
+        return (c (ret,
+                   "rcmdcheck found no errors, warnings, or notes",
+                   ""))
 
     rcmd <- x$rcmd
     if (methods::is (rcmd, "try-error"))
@@ -182,7 +176,7 @@ rcmd_report <- function (x) {
     ret <- c (ret, dump_one_rcmd_type (rcmd, "test_fails"))
     ret <- c (ret, dump_one_rcmd_type (rcmd, "check_fails"))
 
-    return (ret)
+    return (c (ret, ""))
 }
 
 dump_one_rcmd_type <- function (rcmd, type = "errors") {
@@ -217,14 +211,15 @@ covr_report <- function (x,
                                          covr_threshold = 70,
                                          digits = 2)) {
 
+    res <- c ("### Test coverage with [covr](https://covr.r-lib.org/)",
+              "")
+
     if (!"covr" %in% names (x))
-        return (c ("### Test Coverage",
-                   "",
+        return (c (res,
                    "ERROR: Test Coverage Failed",
                    ""))
     if (methods::is (x$covr, "try-error"))
-        return (c ("### Test Coverage",
-                   "",
+        return (c (res,
                    paste0 (x$covr),
                    ""))
 
@@ -245,9 +240,8 @@ covr_report <- function (x,
 
     covr <- covr [covr$percent < covr_threshold, ]
 
-    res <- c ("### Test Coverage",
-              "",
-              paste0 ("Package: ", round (pkg_cov, digits = digits)))
+    res <- c (res,
+              paste0 ("Package coverage: ", round (pkg_cov, digits = digits)))
 
     if (pkg_cov >= covr_threshold)
         return (c (res, ""))
@@ -285,7 +279,7 @@ cyclo_report <- function (x,
 
     cyc <- x$cyclocomp
 
-    ret <- c ("### Cyclocomplexity",
+    ret <- c ("### Cyclocomplexity with [cyclocomp](https://github.com/MangoTheCat/cyclocomp)",
               "")
 
     if (methods::is (cyc, "try-error")) {
@@ -322,7 +316,7 @@ cyclo_report <- function (x,
 
 lintr_report <- function (x) {
 
-    ret <- c ("### [lintr](https://github.com/jimhester/lintr)",
+    ret <- c ("### Static code analyses with [lintr](https://github.com/jimhester/lintr)",
               "")
 
     if (is.null (x$lint))
