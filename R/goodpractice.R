@@ -139,12 +139,14 @@ convert_gp_components <- function (x,
                                                    digits = 2)) {
 
     rcmd <- rcmd_report (x)
+    if (is.null (rcmd)) {
+        rcmd <- c ("### rcmdcheck",
+                   "",
+                   "rcmdcheck found no errors, warnings, or notes",
+                   "")
+    }
 
     covr <- covr_report (x, control)
-    if (length (covr) <= 3) {
-        pkg_cov <- covr
-        covr <- NULL
-    }
 
     cycl <- cyclo_report (x, control)
 
@@ -226,7 +228,7 @@ covr_report <- function (x,
                    paste0 (x$covr),
                    ""))
 
-    if ("covr_threshold" %in% names (control))
+    if ("covr_threshold" %in% names (control)) 
         covr_threshold <- control$covr_threshold
     else
         covr_threshold <- 70
@@ -248,7 +250,7 @@ covr_report <- function (x,
               paste0 ("Package: ", round (pkg_cov, digits = digits)))
 
     if (pkg_cov >= covr_threshold)
-        return (res)
+        return (c (res, ""))
 
     if (nrow (covr) > 0) {
         res <- c (res,
@@ -293,7 +295,8 @@ cyclo_report <- function (x,
         cyc <- cyc [cyc$cyclocomp >= cyc_thr, ]
 
         if (nrow (cyc) == 0) {
-            ret <- NULL
+            ret <- c (ret,
+                      paste0 ("No functions have cyclocomplexity >= ", cyc_thr))
         } else {
 
             msg <- "The following function"
@@ -311,6 +314,8 @@ cyclo_report <- function (x,
                           paste0 (cyc$name [i], " | ", cyc$cyclocomp [i]))
         }
     }
+
+    ret <- c (ret, "")
 
     return (ret)
 }
