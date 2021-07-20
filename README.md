@@ -71,7 +71,7 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package uses 'roxygen2'
 ## ✖ Package does not have a 'contributing.md' file
@@ -205,6 +205,30 @@ remainder include:
     -   the [`lintr` package](https://github.com/jimhester/lintr)
     -   additional checks applied by the [`goodpractice`
         pacakge](http://mangothecat.github.io/goodpractice/)
+
+### HTML-formatted check results
+
+Printing `pkgcheck` results to screen is nice, but sometimes it’s even
+better to have a nicely formatted full-screen representation of check
+results. The package includes an additional function,
+[`checks_to_markdown()`](https://docs.ropensci.org/pkgcheck/reference/checks_to_markdown.html),
+with a parameter, `render`, which can be set to `TRUE` to automatically
+render a HTML-formatted representation of the check results, and open it
+in a browser. The formatting differs only slightly from the terminal
+output, mostly through the components of
+[`goodpractice`](http://mangothecat.github.io/goodpractice/) being
+divided into distinct headings, with explicit statements in cases where
+components pass all checks (the default screen output inherits directly
+from that package, and only reports components which *do not* pass all
+checks).
+
+This
+[`checks_to_markdown()`](https://docs.ropensci.org/pkgcheck/reference/checks_to_markdown.html)
+function returns the report in markdown format, suitable for pasting
+directly into a GitHub issue, or other markdown-compatible place. (The
+[`clipr` package](https://github.com/mdlincoln/clipr) can be used to
+copy this directly to your local clipboard with `write_clip(md)`, where
+`md` is the output of `checks_to_markdown()`.)
 
 ## Caching and running `pkgcheck` in the background
 
