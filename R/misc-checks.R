@@ -30,7 +30,10 @@ pkg_uses_roxygen2 <- function (path) {
 #' @noRd
 pkg_has_contrib_md <- function (path) {
 
-    flist <- list.files (path, full.names = TRUE)
+    flist <- list.files (path,
+                         all.files = TRUE,
+                         recursive = TRUE,
+                         full.names = TRUE)
 
     f <- grep (paste0 (.Platform$file.sep, "contributing\\.md$"),
                flist,
