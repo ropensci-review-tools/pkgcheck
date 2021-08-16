@@ -1,3 +1,13 @@
+---
+title: "pgkcheck"
+output:
+  md_document:
+    variant: gfm
+
+  rmarkdown::html_vignette:
+    self_contained: no
+---
+
 # pkgcheck
 
 <!-- badges: start -->
