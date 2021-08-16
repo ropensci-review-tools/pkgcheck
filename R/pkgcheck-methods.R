@@ -18,7 +18,12 @@ print.pkgcheck <- function (x, ...) {
     x$pkgstats$percentile <- round (x$pkgstats$percentile, digits = 1)
     print (x$pkgstats)
     message ("")
-    cli::cli_alert_info ("Package network diagram is at [{x$network_file}]")
+
+    if ("network_file" %in% names (x)) {
+        cli::cli_alert_info ("Package network diagram is at [{x$network_file}]")
+    } else {
+        cli::cli_alert_warning ("This package has no function call network")
+    }
     message ("")
 
     cli::cli_h2 ("goodpractice")
