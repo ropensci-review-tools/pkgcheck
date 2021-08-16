@@ -389,6 +389,7 @@ pkgstats_format <- function (checks, sec_num) {
                                   digits = c (NA, 0, 1, NA)),
                     "",
                     "---",
+                    "",
                     "</p></details>"
                     )
 
@@ -482,8 +483,14 @@ pkg_stat_desc <- function (checks) {
 #' @noRd
 pkg_network <- function (checks, sec_num) {
 
+    out <- c ("",
+              paste0 ("### ", sec_num, "a. Network visualisation"),
+              "")
+
     if (!"network_file" %in% names (checks))
-        return (NULL)
+        return (c (out,
+                   paste0 ("This package contains no internal function calls, ",
+                           "and therefore no function call network")))
 
     cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
     visjs_dir <- file.path (cache_dir, "static") # in api.R
@@ -504,14 +511,12 @@ pkg_network <- function (checks, sec_num) {
         file.copy (flist, visjs_dir, recursive = TRUE)
     }
 
-    c ("",
-       paste0 ("### ", sec_num, "a. Network visualisation"),
-       "",
-       paste0 ("Interactive network visualisation of calls ",
-               "between objects in package can be viewed by ",
-               "[clicking here](",
-               checks$network_file,
-               ")"))
+    return (c (out,
+               paste0 ("Interactive network visualisation of calls ",
+                       "between objects in package can be viewed by ",
+                       "[clicking here](",
+                       checks$network_file,
+                       ")")))
 }
 
 #' Report on continuous integration checks
