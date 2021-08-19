@@ -33,5 +33,5 @@ test_that("check-bg", {
         x2 <- pkgcheck (d)
         ) [3]
 
-    expect_true (pt2 < (pt1 / 2))
+    expect_true (pt2 < pt1)
 })
