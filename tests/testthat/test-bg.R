@@ -2,7 +2,11 @@ test_that("check-bg", {
 
     options (repos = c (CRAN = "https://cloud.r-project.org"))
 
-    d <- srr::srr_stats_pkg_skeleton (pkg_name = "demobg")
+    pkgname <- "demobg"
+    if (dir.exists (file.path (tempdir (), pkgname)))
+        chk <- unlink (file.path (tempdir (), pkgname),
+                       recursive = TRUE)
+    d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
 
     x <- capture.output (
                          roxygen2::roxygenise (d),
