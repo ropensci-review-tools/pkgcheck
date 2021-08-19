@@ -28,7 +28,8 @@ test_that("pkgcheck", {
                           "pkgstats",
                           "network_file",
                           "badges",
-                          "gp")
+                          "gp",
+                          "pkg_versions")
               expect_true (all (items %in% names (chk)))
 
               md <- checks_to_markdown (chk, render = FALSE)
