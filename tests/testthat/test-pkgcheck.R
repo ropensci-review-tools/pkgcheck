@@ -30,4 +30,14 @@ test_that("pkgcheck", {
                           "badges",
                           "gp")
               expect_true (all (items %in% names (chk)))
+
+              md <- checks_to_markdown (chk, render = FALSE)
+              expect_type (md, "character")
+              expect_true (length (md) > 100L)
+              a <- attributes (md)
+              expect_true (length (a) > 0L)
+              expect_true (all (c ("checks_okay",
+                                   "is_noteworthy",
+                                   "network_file",
+                                   "srr_report_file") %in% names (a)))
 })
