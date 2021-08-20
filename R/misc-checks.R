@@ -35,9 +35,9 @@ pkg_has_contrib_md <- function (path) {
                          recursive = TRUE,
                          full.names = TRUE)
 
-    f <- grep (paste0 (.Platform$file.sep, "contributing\\.md$"),
-               flist,
-               ignore.case = TRUE)
+    # contributing either with or without ".md" extension:
+    ptn <- paste0 (.Platform$file.sep, "contributing", c ("$", "\\.md$"))
+    f <- grep (paste0 (ptn, collapse = "|"), flist, ignore.case = TRUE)
 
     has_lifecycle <- FALSE
     if (length (f) == 1L) {
