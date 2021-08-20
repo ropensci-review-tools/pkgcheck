@@ -168,8 +168,16 @@ collate_checks <- function (checks) {
 
     if (length (checks$badges) == 0) {
 
-        ci_txt <- paste0 ("- ", symbol_crs (),
-                          " Package has no continuous integration checks")
+        if (!checks$file_list$has_url) {
+
+            ci_txt <- paste0 ("- ", symbol_crs (),
+                              " Continuous integration checks unavailable ",
+                              "(no URL in 'DESCRIPTION')")
+        } else {
+
+            ci_txt <- paste0 ("- ", symbol_crs (),
+                              " Package has no continuous integration checks")
+        }
     } else {
 
         ci_txt <- paste0 ("- ", symbol_tck (),
