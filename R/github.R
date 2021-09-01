@@ -78,7 +78,7 @@ get_gh_token <- function (token_name = "") {
               " possible tokens named [",
               paste0 (names (toks), collapse = ", "),
               "]; please ensure one distinct ",
-              "token named 'GITHIB_TOKEN' or similar.")
+              "token named 'GITHUB_TOKEN' or similar.")
     }
 
     return (unique (toks))
