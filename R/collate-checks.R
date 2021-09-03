@@ -45,32 +45,6 @@ collate_checks <- function (checks) {
                       "'DESCRIPTION' does not have a BugReports field")
 
 
-    if (methods::is (checks$gp$covr, "try-error")) {
-
-        covr <- paste0 ("- ",
-                        symbol_crs (),
-                        " Package coverage failed")
-    } else {
-
-        coverage <- round (checks$gp$covr$pct_by_line, digits = 1)
-
-        if (coverage >= 75) {
-
-            covr <- paste0 ("- ",
-                            symbol_tck (),
-                            " Package coverage is ",
-                            coverage,
-                            "%")
-
-        } else {
-            covr <- paste0 ("- ",
-                            symbol_crs (),
-                            " Package coverage is ",
-                            coverage,
-                            "% (should be at least 75%)")
-        }
-    }
-
     if (methods::is (checks$gp$rcmdcheck, "try-error")) {
 
         cond <- attr (checks$gp$rcmdcheck, "condition") # the error condition
@@ -149,7 +123,7 @@ collate_checks <- function (checks) {
               has_bugs,
               pkgname_chk (checks),
               ci_checks (checks),
-              covr,
+              covr_checks (checks),
               rcmd_errs,
               rcmd_warns,
               srr)
@@ -232,6 +206,38 @@ ci_checks <- function (checks) {
 
         res <- paste0 ("- ", symbol_tck (),
                        " Package has continuous integration checks")
+    }
+
+    return (res)
+}
+
+covr_checks <- function (checks) {
+
+    if (methods::is (checks$gp$covr, "try-error")) {
+
+        res <- paste0 ("- ",
+                       symbol_crs (),
+                       " Package coverage failed")
+    } else {
+
+        coverage <- round (checks$gp$covr$pct_by_line, digits = 1)
+
+        if (coverage >= 75) {
+
+            res <- paste0 ("- ",
+                           symbol_tck (),
+                           " Package coverage is ",
+                           coverage,
+                           "%")
+
+        } else {
+
+            res <- paste0 ("- ",
+                           symbol_crs (),
+                           " Package coverage is ",
+                           coverage,
+                           "% (should be at least 75%)")
+        }
     }
 
     return (res)
