@@ -30,6 +30,12 @@ pkgcheck <- function (path) {
 
     out$gp <- get_gp_report (path)
 
+    # ---- Add new checks here ---
+    # see https://github.com/ropensci-review-tools/pkgcheck/pull/27
+    # for an example of how to add new checks
+    out$scrap <- pkg_has_no_scrap (path)
+    # --- End add new checks
+
     out$pkg_versions <- version_info (is.null (out$srr))
 
     class (out) <- c ("pkgcheck", class (out))
