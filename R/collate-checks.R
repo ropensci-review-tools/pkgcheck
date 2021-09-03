@@ -5,20 +5,13 @@
 collate_checks <- function (checks) {
 
 
-    has_url <- has_this (checks, "has_url",
-                         "'DESCRIPTION' has a URL field",
-                         "'DESCRIPTION' does not have a URL field")
-    has_bugs <- has_this (checks, "has_bugs",
-                      "'DESCRIPTION' has a BugReports field",
-                      "'DESCRIPTION' does not have a BugReports field")
-
     gp <- collate_gp_checks (checks)
 
     out <- c (collate_has_components (checks),
               collate_fn_exs (checks),
               collate_left_assign_chk (checks),
-              has_url,
-              has_bugs,
+              collate_url_bugs (checks, "has_url"),
+              collate_url_bugs (checks, "has_bugs"),
               collate_pkgname_chk (checks),
               collate_ci_checks (checks),
               collate_covr_checks (checks),
@@ -51,6 +44,17 @@ has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
         ret <- paste0 (ret, " ", txt_rest)
 
     return (ret)
+}
+
+collate_url_bugs <- function (checks, what = "has_url") {
+
+    txt <- ifelse (what == "has_url",
+                   "URL",
+                   "BugReports")
+
+    has_this (checks, what,
+              paste0 ("'DESCRIPTION' has a ", txt, " field"),
+              paste0 ("'DESCRIPTION' does not have a ", txt, " field"))
 }
 
 #' Check presence of various required components
