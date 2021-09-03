@@ -4,18 +4,64 @@
 #' @noRd
 collate_checks <- function (checks) {
 
-    has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
 
-        ret <- ifelse (checks$file_list [[what]],
-                       paste0 ("- ", symbol_tck (),
-                               " Package ", txt_yes),
-                       paste0 ("- ", symbol_crs (),
-                               " Package ", txt_no))
-        if (!is.null (txt_rest))
-            ret <- paste0 (ret, " ", txt_rest)
+    gp <- collate_gp_checks (checks)
 
-        return (ret)
+    out <- c (collate_has_components (checks),
+              collate_fn_exs (checks),
+              collate_left_assign_chk (checks),
+              collate_url_bugs (checks, "has_url"),
+              collate_url_bugs (checks, "has_bugs"),
+              collate_pkgname_chk (checks),
+              collate_ci_checks (checks),
+              collate_covr_checks (checks),
+              gp$rcmd_errs,
+              gp$rcmd_warns,
+              collate_srr_checks (checks))
+
+    checks_okay <- !any (grepl (symbol_crs (), out))
+    if (!checks_okay) {
+        out <- c (out,
+                  "",
+                  paste0 ("**Important:** All failing checks above ",
+                          "must be addressed prior to proceeding"))
     }
+
+    attr (out, "checks_okay") <- checks_okay
+
+    return (out)
+}
+
+# Generic function used to check components plus URL/BugRep fields
+has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
+
+    ret <- ifelse (checks$file_list [[what]],
+                   paste0 ("- ", symbol_tck (),
+                           " Package ", txt_yes),
+                   paste0 ("- ", symbol_crs (),
+                           " Package ", txt_no))
+    if (!is.null (txt_rest))
+        ret <- paste0 (ret, " ", txt_rest)
+
+    return (ret)
+}
+
+collate_url_bugs <- function (checks, what = "has_url") {
+
+    txt <- ifelse (what == "has_url",
+                   "URL",
+                   "BugReports")
+
+    has_this (checks, what,
+              paste0 ("'DESCRIPTION' has a ", txt, " field"),
+              paste0 ("'DESCRIPTION' does not have a ", txt, " field"))
+}
+
+#' Check presence of various required components
+#' @param checks Result of main \link{pkgcheck} function
+#' @return Test output with formatted check items
+#' @noRd
+collate_has_components <- function (checks) {
 
     uses_roxy <- has_this (checks, "uses_roxy",
                            "uses", "does not use", "'roxygen2'")
@@ -28,95 +74,128 @@ collate_checks <- function (checks) {
     has_codemeta <- has_this (checks, "has_codemeta",
                              "has", "does not have", "a 'codemeta.json' file")
 
+    c (uses_roxy,
+       #has_lifecycle, Uncomment to include lifecycle check
+       has_contrib,
+       has_citation,
+       has_codemeta)
+}
 
-    fn_exs <- ifelse (all (checks$fn_exs),
-                      paste0 ("- ", symbol_tck (),
-                              " All functions have examples"),
-                      paste0 ("- ", symbol_crs (),
-                              " These funtions do not have examples: [",
-                      paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
-                              "]"))
+collate_fn_exs <- function (checks) {
 
-    has_url <- has_this (checks, "has_url",
-                         "'DESCRIPTION' has a URL field",
-                         "'DESCRIPTION' does not have a URL field")
-    has_bugs <- has_this (checks, "has_bugs",
-                      "'DESCRIPTION' has a BugReports field",
-                      "'DESCRIPTION' does not have a BugReports field")
+    ifelse (all (checks$fn_exs),
+            paste0 ("- ", symbol_tck (),
+                    " All functions have examples"),
+            paste0 ("- ", symbol_crs (),
+                    " These funtions do not have examples: [",
+                    paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
+                    "]"))
+
+}
+
+collate_pkgname_chk <- function (checks) {
 
     if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
 
-        pkgname_chk <- paste0 ("- ", symbol_tck (),
-                               " Package name is available")
+        res <- paste0 ("- ", symbol_tck (),
+                       " Package name is available")
+
     } else if (checks$file_list$pkg_on_cran) {
 
-        pkgname_chk <- paste0 ("- ", symbol_tck (),
-                               " Package is already on CRAN")
+        res <- paste0 ("- ", symbol_tck (),
+                       " Package is already on CRAN")
+
     } else {
 
-        pkgname_chk <- paste0 ("- ", symbol_crs (),
-                               " Package name is not available (on CRAN)")
+        res <- paste0 ("- ", symbol_crs (),
+                       " Package name is not available (on CRAN)")
     }
 
+    return (res)
+}
 
-    la_out <- NULL
+collate_left_assign_chk <- function (checks) {
+
+    res <- NULL
+
     if (checks$left_assign$global) {
-        la_out <- paste0 ("- ", symbol_crs (),
-                          " Package uses global assignment operator ('<<-')")
+
+        res <- paste0 ("- ", symbol_crs (),
+                       " Package uses global assignment operator ('<<-')")
     }
+
     if (length (which (checks$left_assign$usage == 0)) == 0) {
+
         la <- checks$left_assign$usage
-        la_out <- c (la_out,
-                     paste0 ("- ", symbol_crs (),
-                             " Package uses inconsistent ",
-                             "assignment operators (",
-                             la [names (la) == "<-"], " '<-' and ",
-                             la [names (la) == "="], " '=')"))
+
+        res <- c (res,
+                  paste0 ("- ", symbol_crs (),
+                          " Package uses inconsistent ",
+                          "assignment operators (",
+                          la [names (la) == "<-"], " '<-' and ",
+                          la [names (la) == "="], " '=')"))
     }
+
+    return (res)
+}
+
+# ci: continuous integration
+collate_ci_checks <- function (checks) {
 
     if (length (checks$badges) == 0) {
 
         if (!checks$file_list$has_url) {
 
-            ci_txt <- paste0 ("- ", symbol_crs (),
-                              " Continuous integration checks unavailable ",
-                              "(no URL in 'DESCRIPTION')")
+            res <- paste0 ("- ", symbol_crs (),
+                           " Continuous integration checks unavailable ",
+                           "(no URL in 'DESCRIPTION')")
         } else {
 
-            ci_txt <- paste0 ("- ", symbol_crs (),
-                              " Package has no continuous integration checks")
+            res <- paste0 ("- ", symbol_crs (),
+                           " Package has no continuous integration checks")
         }
     } else {
 
-        ci_txt <- paste0 ("- ", symbol_tck (),
-                          " Package has continuous integration checks")
+        res <- paste0 ("- ", symbol_tck (),
+                       " Package has continuous integration checks")
     }
+
+    return (res)
+}
+
+collate_covr_checks <- function (checks) {
 
     if (methods::is (checks$gp$covr, "try-error")) {
 
-        covr <- paste0 ("- ",
-                        symbol_crs (),
-                        " Package coverage failed")
+        res <- paste0 ("- ",
+                       symbol_crs (),
+                       " Package coverage failed")
     } else {
 
         coverage <- round (checks$gp$covr$pct_by_line, digits = 1)
 
         if (coverage >= 75) {
 
-            covr <- paste0 ("- ",
-                            symbol_tck (),
-                            " Package coverage is ",
-                            coverage,
-                            "%")
+            res <- paste0 ("- ",
+                           symbol_tck (),
+                           " Package coverage is ",
+                           coverage,
+                           "%")
 
         } else {
-            covr <- paste0 ("- ",
-                            symbol_crs (),
-                            " Package coverage is ",
-                            coverage,
-                            "% (should be at least 75%)")
+
+            res <- paste0 ("- ",
+                           symbol_crs (),
+                           " Package coverage is ",
+                           coverage,
+                           "% (should be at least 75%)")
         }
     }
+
+    return (res)
+}
+
+collate_gp_checks <- function (checks) {
 
     if (methods::is (checks$gp$rcmdcheck, "try-error")) {
 
@@ -167,49 +246,31 @@ collate_checks <- function (checks) {
         }
     }
 
-    srr <- NULL
+    return (list (rcmd_errs = rcmd_errs,
+                  rcmd_warns = rcmd_warns))
+}
+
+collate_srr_checks <- function (checks) {
+
+    res <- NULL
+
     if (!is.null (checks$srr)) {
 
         m <- checks$srr$message
         i <- which (nchar (m) > 0 & grepl ("[^\\s]*", m))
 
-        srr <- paste0 ("- ",
+        res <- paste0 ("- ",
                        ifelse (checks$srr$okay,
                                symbol_tck (),
                                symbol_crs ()),
                        " ",
                        m [i [1]])
-        srr <- gsub (paste0 ("Package can not be submitted because ",
+        res <- gsub (paste0 ("Package can not be submitted because ",
                              "the following standards are missing"),
                      "Statistical standards are missing",
-                     srr)
-        srr <- gsub (":$", "", srr)
+                     res)
+        res <- gsub (":$", "", res)
     }
 
-    out <- c (uses_roxy,
-              has_contrib,
-              has_citation,
-              has_codemeta,
-              fn_exs,
-              la_out,
-              has_url,
-              has_bugs,
-              pkgname_chk,
-              ci_txt,
-              covr,
-              rcmd_errs,
-              rcmd_warns,
-              srr)
-
-    checks_okay <- !any (grepl (symbol_crs (), out))
-    if (!checks_okay) {
-        out <- c (out,
-                  "",
-                  paste0 ("**Important:** All failing checks above ",
-                          "must be addressed prior to proceeding"))
-    }
-
-    attr (out, "checks_okay") <- checks_okay
-
-    return (out)
+    return (res)
 }
