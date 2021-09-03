@@ -33,4 +33,7 @@
   <url>
     <loc>https://docs.ropensci.org/pkgcheck/reference/render_markdown.html</loc>
   </url>
+  <url>
+    <loc>https://docs.ropensci.org/pkgcheck/articles/extending-checks.html</loc>
+  </url>
 </urlset>

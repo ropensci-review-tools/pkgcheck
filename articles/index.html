@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set up stdout &amp; stderr cache files for r_bg process — logfile_names • pkgcheck</title>
+<title>Articles • pkgcheck</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,7 @@
 
 
 
-<meta property="og:title" content="Set up stdout &amp; stderr cache files for r_bg process — logfile_names" />
-<meta property="og:description" content="Set up stdout &amp;amp; stderr cache files for r_bg process" />
+<meta property="og:title" content="Articles" />
 
 
 
@@ -59,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-article-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -120,48 +119,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set up stdout &amp; stderr cache files for <code>r_bg</code> process</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci-review-tools/pkgcheck/blob/master/R/cache.R'><code>R/cache.R</code></a></small>
-    <div class="hidden name"><code>logfile_names.Rd</code></div>
+      <h1>Articles</h1>
     </div>
 
-    <div class="ref-description">
-    <p>Set up stdout &amp; stderr cache files for <code>r_bg</code> process</p>
+    <div class="section ">
+      <h3>All vignettes</h3>
+      <p class="section-desc"></p>
+
+      <dl>
+        <dt><a href="extending-checks.html">Extending or modifying checks</a></dt>
+        <dd></dt>
+      </dl>
     </div>
-
-    <pre class="usage"><span class='fu'>logfile_names</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>path</th>
-      <td><p>Path to local repository</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Vector of two strings holding respective local paths to <code>stdout</code> and
-<code>stderr</code> files for <code>r_bg</code> process controlling the main <a href='pkgcheck.html'>pkgcheck</a>
-function when executed in background mode.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>These files are needed for the <span class="pkg">callr</span> <code>r_bg</code> process which
-controls the main <a href='pkgcheck.html'>pkgcheck</a>. The <code>stdout</code> and <code>stderr</code> pipes from the
-process are stored in the cache directory so they can be inspected via their
-own distinct endpoint calls.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other extra: 
-<code><a href='checks_to_markdown.html'>checks_to_markdown</a>()</code>,
-<code><a href='render_markdown.html'>render_markdown</a>()</code></p></div>
-
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
   </div>
 </div>
 
