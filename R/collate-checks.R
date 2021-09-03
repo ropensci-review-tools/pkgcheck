@@ -4,6 +4,55 @@
 #' @noRd
 collate_checks <- function (checks) {
 
+
+    fn_exs <- ifelse (all (checks$fn_exs),
+                      paste0 ("- ", symbol_tck (),
+                              " All functions have examples"),
+                      paste0 ("- ", symbol_crs (),
+                              " These funtions do not have examples: [",
+                      paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
+                              "]"))
+
+    has_url <- has_this (checks, "has_url",
+                         "'DESCRIPTION' has a URL field",
+                         "'DESCRIPTION' does not have a URL field")
+    has_bugs <- has_this (checks, "has_bugs",
+                      "'DESCRIPTION' has a BugReports field",
+                      "'DESCRIPTION' does not have a BugReports field")
+
+    gp <- collate_gp_checks (checks)
+
+    out <- c (collate_has_components (checks),
+              fn_exs,
+              collate_left_assign_chk (checks),
+              has_url,
+              has_bugs,
+              collate_pkgname_chk (checks),
+              collate_ci_checks (checks),
+              collate_covr_checks (checks),
+              gp$rcmd_errs,
+              gp$rcmd_warns,
+              collate_srr_checks (checks))
+
+    checks_okay <- !any (grepl (symbol_crs (), out))
+    if (!checks_okay) {
+        out <- c (out,
+                  "",
+                  paste0 ("**Important:** All failing checks above ",
+                          "must be addressed prior to proceeding"))
+    }
+
+    attr (out, "checks_okay") <- checks_okay
+
+    return (out)
+}
+
+#' Check presence of various required components
+#' @param checks Result of main \link{pkgcheck} function
+#' @return Test output with formatted check items
+#' @noRd
+collate_has_components <- function (checks) {
+
     has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
 
         ret <- ifelse (checks$file_list [[what]],
@@ -28,50 +77,11 @@ collate_checks <- function (checks) {
     has_codemeta <- has_this (checks, "has_codemeta",
                              "has", "does not have", "a 'codemeta.json' file")
 
-
-    fn_exs <- ifelse (all (checks$fn_exs),
-                      paste0 ("- ", symbol_tck (),
-                              " All functions have examples"),
-                      paste0 ("- ", symbol_crs (),
-                              " These funtions do not have examples: [",
-                      paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
-                              "]"))
-
-    has_url <- has_this (checks, "has_url",
-                         "'DESCRIPTION' has a URL field",
-                         "'DESCRIPTION' does not have a URL field")
-    has_bugs <- has_this (checks, "has_bugs",
-                      "'DESCRIPTION' has a BugReports field",
-                      "'DESCRIPTION' does not have a BugReports field")
-
-    gp <- collate_gp_checks (checks)
-
-    out <- c (uses_roxy,
-              has_contrib,
-              has_citation,
-              has_codemeta,
-              fn_exs,
-              collate_left_assign_chk (checks),
-              has_url,
-              has_bugs,
-              collate_pkgname_chk (checks),
-              collate_ci_checks (checks),
-              collate_covr_checks (checks),
-              gp$rcmd_errs,
-              gp$rcmd_warns,
-              collate_srr_checks (checks))
-
-    checks_okay <- !any (grepl (symbol_crs (), out))
-    if (!checks_okay) {
-        out <- c (out,
-                  "",
-                  paste0 ("**Important:** All failing checks above ",
-                          "must be addressed prior to proceeding"))
-    }
-
-    attr (out, "checks_okay") <- checks_okay
-
-    return (out)
+    c (uses_roxy,
+       #has_lifecycle, Uncomment to include lifecycle check
+       has_contrib,
+       has_citation,
+       has_codemeta)
 }
 
 collate_pkgname_chk <- function (checks) {
