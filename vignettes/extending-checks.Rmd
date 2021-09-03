@@ -1,0 +1,35 @@
+---
+title: "Extending or modifying checks"
+author: 
+  - "Mark Padgham"
+date: "`r Sys.Date()`"
+output: 
+    html_document:
+        toc: true
+        toc_float: true
+        number_sections: false
+        theme: flatly
+vignette: >
+  %\VignetteIndexEntry{How to extend checks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = TRUE,
+  message = TRUE,
+  width = 120,
+  comment = "#>",
+  fig.retina = 2,
+  fig.path = "README-"
+)
+```
+
+This vignette describes how to modify or extend the existing suite of checks
+performed by `pkgcheck`. It is primarily based around the example of the
+[`pkg_has_scrap()`
+function](https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368)
+contributed by Maëlle Salmon ([\@maelle](https://github.com/maelle)) via [this
+pull request](https://github.com/ropensci-review-tools/pkgcheck/pull/27).
