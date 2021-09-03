@@ -350,7 +350,7 @@ pkg_has_no_scrap <- function (path) {
                             function (i) utils::tail (i, 1L),
                             character (1))
 
-    scrap <- function() ".DS_Store"
+    scrap <- function() c (".DS_Store", "Thumbs.db", ".vscode", "\\.o$")
 
     return (!any(basename(all_contents) %in% scrap()))
 }
