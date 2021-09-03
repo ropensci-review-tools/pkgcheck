@@ -26,6 +26,7 @@ collate_checks <- function (checks) {
               collate_covr_checks (checks),
               gp$rcmd_errs,
               gp$rcmd_warns,
+              collate_scrap_checks (checks),
               collate_srr_checks (checks))
 
     checks_okay <- !any (grepl (symbol_crs (), out))
