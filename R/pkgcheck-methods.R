@@ -29,6 +29,15 @@ print.pkgcheck <- function (x, ...) {
     cli::cli_h2 ("goodpractice")
     print (x$gp)
 
+    # ---- Add new print methods here ---
+    # see https://github.com/ropensci-review-tools/pkgcheck/pull/27
+    # for an example of how to add new checks
+    has_misc_checks <- length (x$scrap > 0L) # Modify when more checks are added
+    if (has_misc_checks)
+        cli::cli_h2 ("Other checks")
+    print_scrap (x)
+    # --- End add new checks
+
     cli::cli_h2 ("Package Versions")
     cli::cli_dl (x$pkg_versions)
 }
@@ -169,4 +178,15 @@ print_srr <- function (x) {
 
     cli::cli_alert_info ("'srr' report is at [{x$srr$report_file}]")
     message ("")
+}
+
+print_scrap <- function (x) {
+
+    if (length (x$scrap) == 0L)
+        return (NULL)
+
+    cli::cli_alert_danger (" Package contains the following unexpected files:")
+    cli::cli_ul ()
+    cli::cli_li (x$scrap)
+    cli::cli_end ()
 }
