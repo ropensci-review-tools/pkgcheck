@@ -45,21 +45,6 @@ collate_checks <- function (checks) {
                       "'DESCRIPTION' does not have a BugReports field")
 
 
-    la_out <- NULL
-    if (checks$left_assign$global) {
-        la_out <- paste0 ("- ", symbol_crs (),
-                          " Package uses global assignment operator ('<<-')")
-    }
-    if (length (which (checks$left_assign$usage == 0)) == 0) {
-        la <- checks$left_assign$usage
-        la_out <- c (la_out,
-                     paste0 ("- ", symbol_crs (),
-                             " Package uses inconsistent ",
-                             "assignment operators (",
-                             la [names (la) == "<-"], " '<-' and ",
-                             la [names (la) == "="], " '=')"))
-    }
-
     if (length (checks$badges) == 0) {
 
         if (!checks$file_list$has_url) {
@@ -177,7 +162,7 @@ collate_checks <- function (checks) {
               has_citation,
               has_codemeta,
               fn_exs,
-              la_out,
+              left_assign_chk (checks),
               has_url,
               has_bugs,
               pkgname_chk (checks),
@@ -216,6 +201,31 @@ pkgname_chk <- function (checks) {
 
         res <- paste0 ("- ", symbol_crs (),
                        " Package name is not available (on CRAN)")
+    }
+
+    return (res)
+}
+
+left_assign_chk <- function (checks) {
+
+    res <- NULL
+
+    if (checks$left_assign$global) {
+
+        res <- paste0 ("- ", symbol_crs (),
+                       " Package uses global assignment operator ('<<-')")
+    }
+
+    if (length (which (checks$left_assign$usage == 0)) == 0) {
+
+        la <- checks$left_assign$usage
+
+        res <- c (res,
+                  paste0 ("- ", symbol_crs (),
+                          " Package uses inconsistent ",
+                          "assignment operators (",
+                          la [names (la) == "<-"], " '<-' and ",
+                          la [names (la) == "="], " '=')"))
     }
 
     return (res)
