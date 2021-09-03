@@ -345,8 +345,10 @@ left_assign <- function (path) {
 #' @noRd
 pkg_has_no_scrap <- function (path) {
 
-    all_contents <- list.files (path,
-                      recursive = TRUE)
+    all_contents <- gert::git_ls ()$path
+    all_contents <- vapply (decompose_path (all_contents),
+                            function (i) utils::tail (i, 1L),
+                            character (1))
 
     scrap <- function() ".DS_Store"
 
