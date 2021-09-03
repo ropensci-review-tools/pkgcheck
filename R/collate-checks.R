@@ -45,24 +45,6 @@ collate_checks <- function (checks) {
                       "'DESCRIPTION' does not have a BugReports field")
 
 
-    if (length (checks$badges) == 0) {
-
-        if (!checks$file_list$has_url) {
-
-            ci_txt <- paste0 ("- ", symbol_crs (),
-                              " Continuous integration checks unavailable ",
-                              "(no URL in 'DESCRIPTION')")
-        } else {
-
-            ci_txt <- paste0 ("- ", symbol_crs (),
-                              " Package has no continuous integration checks")
-        }
-    } else {
-
-        ci_txt <- paste0 ("- ", symbol_tck (),
-                          " Package has continuous integration checks")
-    }
-
     if (methods::is (checks$gp$covr, "try-error")) {
 
         covr <- paste0 ("- ",
@@ -166,7 +148,7 @@ collate_checks <- function (checks) {
               has_url,
               has_bugs,
               pkgname_chk (checks),
-              ci_txt,
+              ci_checks (checks),
               covr,
               rcmd_errs,
               rcmd_warns,
@@ -226,6 +208,30 @@ left_assign_chk <- function (checks) {
                           "assignment operators (",
                           la [names (la) == "<-"], " '<-' and ",
                           la [names (la) == "="], " '=')"))
+    }
+
+    return (res)
+}
+
+# ci: continuous integration
+ci_checks <- function (checks) {
+
+    if (length (checks$badges) == 0) {
+
+        if (!checks$file_list$has_url) {
+
+            res <- paste0 ("- ", symbol_crs (),
+                           " Continuous integration checks unavailable ",
+                           "(no URL in 'DESCRIPTION')")
+        } else {
+
+            res <- paste0 ("- ", symbol_crs (),
+                           " Package has no continuous integration checks")
+        }
+    } else {
+
+        res <- paste0 ("- ", symbol_tck (),
+                       " Package has continuous integration checks")
     }
 
     return (res)
