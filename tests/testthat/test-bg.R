@@ -26,7 +26,7 @@ test_that("check-bg", {
 
     out <- x$get_result ()
     expect_type (out, "list")
-    expect_length (out, 14L)
+    expect_length (out, 15L)
 
     # results should then be cached:
     pt2 <- system.time (
