@@ -44,55 +44,7 @@ collate_checks <- function (checks) {
                       "'DESCRIPTION' has a BugReports field",
                       "'DESCRIPTION' does not have a BugReports field")
 
-
-    if (methods::is (checks$gp$rcmdcheck, "try-error")) {
-
-        cond <- attr (checks$gp$rcmdcheck, "condition") # the error condition
-        rcmd_errs <- paste0 ("- ",
-                             symbol_crs (),
-                             " R CMD check process failed with message: '",
-                             cond$message,
-                             "'")
-        rcmd_warns <- NULL
-
-    } else {
-
-        nerr <- length (checks$gp$rcmdcheck$errors)
-        if (nerr == 0) {
-
-            rcmd_errs <- paste0 ("- ",
-                                 symbol_tck (),
-                                 " R CMD check found no errors")
-
-        } else {
-
-            rcmd_errs <- paste0 ("- ",
-                                 symbol_crs (),
-                                 " R CMD check found ",
-                                 nerr,
-                                 ifelse (nerr == 1,
-                                         "error",
-                                         "errors"))
-        }
-
-        nwarn <- length (checks$gp$rcmdcheck$warnings)
-        if (nwarn == 0) {
-
-            rcmd_warns <- paste0 ("- ",
-                                  symbol_tck (),
-                                  " R CMD check found no warnings")
-
-        } else {
-
-            rcmd_warns <- paste0 ("- ",
-                                  symbol_crs (),
-                                  " R CMD check found ",
-                                  nwarn,
-                                  ifelse (nwarn == 1,
-                                          "warning",
-                                          "warnings"))
-        }
-    }
+    gp <- gp_checks (checks)
 
     srr <- NULL
     if (!is.null (checks$srr)) {
@@ -124,8 +76,8 @@ collate_checks <- function (checks) {
               pkgname_chk (checks),
               ci_checks (checks),
               covr_checks (checks),
-              rcmd_errs,
-              rcmd_warns,
+              gp$rcmd_errs,
+              gp$rcmd_warns,
               srr)
 
     checks_okay <- !any (grepl (symbol_crs (), out))
@@ -241,4 +193,59 @@ covr_checks <- function (checks) {
     }
 
     return (res)
+}
+
+gp_checks <- function (checks) {
+
+    if (methods::is (checks$gp$rcmdcheck, "try-error")) {
+
+        cond <- attr (checks$gp$rcmdcheck, "condition") # the error condition
+        rcmd_errs <- paste0 ("- ",
+                             symbol_crs (),
+                             " R CMD check process failed with message: '",
+                             cond$message,
+                             "'")
+        rcmd_warns <- NULL
+
+    } else {
+
+        nerr <- length (checks$gp$rcmdcheck$errors)
+        if (nerr == 0) {
+
+            rcmd_errs <- paste0 ("- ",
+                                 symbol_tck (),
+                                 " R CMD check found no errors")
+
+        } else {
+
+            rcmd_errs <- paste0 ("- ",
+                                 symbol_crs (),
+                                 " R CMD check found ",
+                                 nerr,
+                                 ifelse (nerr == 1,
+                                         "error",
+                                         "errors"))
+        }
+
+        nwarn <- length (checks$gp$rcmdcheck$warnings)
+        if (nwarn == 0) {
+
+            rcmd_warns <- paste0 ("- ",
+                                  symbol_tck (),
+                                  " R CMD check found no warnings")
+
+        } else {
+
+            rcmd_warns <- paste0 ("- ",
+                                  symbol_crs (),
+                                  " R CMD check found ",
+                                  nwarn,
+                                  ifelse (nwarn == 1,
+                                          "warning",
+                                          "warnings"))
+        }
+    }
+
+    return (list (rcmd_errs = rcmd_errs,
+                  rcmd_warns = rcmd_warns))
 }
