@@ -1,3 +1,12 @@
+# IMPORTANT: All sub-functions with `collate_` prefixes summarise the actual
+# checks, and include a return value specifying either "tick or cross", or just
+# "cross only." The latter denotes checks which only appear when they fail,
+# while the former appear in the summary list of green ticks required for a
+# package to pass all checks.
+#
+# Any additional checks added must also specify `@return` values as either "tick
+# or cross" (important checks which must be pased) or "cross only" (less
+# important checks which only appear when failed).
 
 #' Collate main checklist items for editor report
 #' @param checks Result of main \link{pkgcheck} function
@@ -46,6 +55,9 @@ has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
     return (ret)
 }
 
+#' Collate both URL and BugReports fields from DESCRIPTION file
+#' @return Tick or cross
+#' @noRd
 collate_url_bugs <- function (checks, what = "has_url") {
 
     txt <- ifelse (what == "has_url",
@@ -59,7 +71,7 @@ collate_url_bugs <- function (checks, what = "has_url") {
 
 #' Check presence of various required components
 #' @param checks Result of main \link{pkgcheck} function
-#' @return Test output with formatted check items
+#' @return Test output with formatted check items as tick or cross.
 #' @noRd
 collate_has_components <- function (checks) {
 
@@ -81,6 +93,10 @@ collate_has_components <- function (checks) {
        has_codemeta)
 }
 
+#' Collate checks that all functions have examples
+#'
+#' @return tick or cross
+#' @noRd
 collate_fn_exs <- function (checks) {
 
     ifelse (all (checks$fn_exs),
@@ -93,6 +109,10 @@ collate_fn_exs <- function (checks) {
 
 }
 
+#' Collate checks that package name is available
+#'
+#' @return tick or cross
+#' @noRd
 collate_pkgname_chk <- function (checks) {
 
     if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
@@ -114,6 +134,8 @@ collate_pkgname_chk <- function (checks) {
     return (res)
 }
 
+#' @return cross only
+#' @noRd
 collate_left_assign_chk <- function (checks) {
 
     res <- NULL
@@ -139,7 +161,10 @@ collate_left_assign_chk <- function (checks) {
     return (res)
 }
 
-# ci: continuous integration
+#' Collate checks from continuous integration
+#'
+#' @return tick or cross
+#' @noRd
 collate_ci_checks <- function (checks) {
 
     if (length (checks$badges) == 0) {
@@ -163,6 +188,8 @@ collate_ci_checks <- function (checks) {
     return (res)
 }
 
+#' @return tick or cross
+#' @noRd
 collate_covr_checks <- function (checks) {
 
     if (methods::is (checks$gp$covr, "try-error")) {
@@ -195,6 +222,8 @@ collate_covr_checks <- function (checks) {
     return (res)
 }
 
+#' return tick or cross
+#' @noRd
 collate_gp_checks <- function (checks) {
 
     if (methods::is (checks$gp$rcmdcheck, "try-error")) {
@@ -250,6 +279,8 @@ collate_gp_checks <- function (checks) {
                   rcmd_warns = rcmd_warns))
 }
 
+#' @return tick or cross (for 'srr' package only)
+#' @noRd
 collate_srr_checks <- function (checks) {
 
     res <- NULL
