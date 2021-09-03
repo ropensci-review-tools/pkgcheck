@@ -44,7 +44,7 @@ collate_checks <- function (checks) {
                       "'DESCRIPTION' has a BugReports field",
                       "'DESCRIPTION' does not have a BugReports field")
 
-    gp <- gp_checks (checks)
+    gp <- collate_gp_checks (checks)
 
     srr <- NULL
     if (!is.null (checks$srr)) {
@@ -195,7 +195,7 @@ collate_covr_checks <- function (checks) {
     return (res)
 }
 
-gp_checks <- function (checks) {
+collate_gp_checks <- function (checks) {
 
     if (methods::is (checks$gp$rcmdcheck, "try-error")) {
 
