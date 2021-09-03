@@ -5,14 +5,6 @@
 collate_checks <- function (checks) {
 
 
-    fn_exs <- ifelse (all (checks$fn_exs),
-                      paste0 ("- ", symbol_tck (),
-                              " All functions have examples"),
-                      paste0 ("- ", symbol_crs (),
-                              " These funtions do not have examples: [",
-                      paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
-                              "]"))
-
     has_url <- has_this (checks, "has_url",
                          "'DESCRIPTION' has a URL field",
                          "'DESCRIPTION' does not have a URL field")
@@ -23,7 +15,7 @@ collate_checks <- function (checks) {
     gp <- collate_gp_checks (checks)
 
     out <- c (collate_has_components (checks),
-              fn_exs,
+              collate_fn_exs (checks),
               collate_left_assign_chk (checks),
               has_url,
               has_bugs,
@@ -47,24 +39,25 @@ collate_checks <- function (checks) {
     return (out)
 }
 
+# Generic function used to check components plus URL/BugRep fields
+has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
+
+    ret <- ifelse (checks$file_list [[what]],
+                   paste0 ("- ", symbol_tck (),
+                           " Package ", txt_yes),
+                   paste0 ("- ", symbol_crs (),
+                           " Package ", txt_no))
+    if (!is.null (txt_rest))
+        ret <- paste0 (ret, " ", txt_rest)
+
+    return (ret)
+}
+
 #' Check presence of various required components
 #' @param checks Result of main \link{pkgcheck} function
 #' @return Test output with formatted check items
 #' @noRd
 collate_has_components <- function (checks) {
-
-    has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
-
-        ret <- ifelse (checks$file_list [[what]],
-                       paste0 ("- ", symbol_tck (),
-                               " Package ", txt_yes),
-                       paste0 ("- ", symbol_crs (),
-                               " Package ", txt_no))
-        if (!is.null (txt_rest))
-            ret <- paste0 (ret, " ", txt_rest)
-
-        return (ret)
-    }
 
     uses_roxy <- has_this (checks, "uses_roxy",
                            "uses", "does not use", "'roxygen2'")
@@ -82,6 +75,18 @@ collate_has_components <- function (checks) {
        has_contrib,
        has_citation,
        has_codemeta)
+}
+
+collate_fn_exs <- function (checks) {
+
+    ifelse (all (checks$fn_exs),
+            paste0 ("- ", symbol_tck (),
+                    " All functions have examples"),
+            paste0 ("- ", symbol_crs (),
+                    " These funtions do not have examples: [",
+                    paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
+                    "]"))
+
 }
 
 collate_pkgname_chk <- function (checks) {
