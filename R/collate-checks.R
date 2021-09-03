@@ -44,20 +44,6 @@ collate_checks <- function (checks) {
                       "'DESCRIPTION' has a BugReports field",
                       "'DESCRIPTION' does not have a BugReports field")
 
-    if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
-
-        pkgname_chk <- paste0 ("- ", symbol_tck (),
-                               " Package name is available")
-    } else if (checks$file_list$pkg_on_cran) {
-
-        pkgname_chk <- paste0 ("- ", symbol_tck (),
-                               " Package is already on CRAN")
-    } else {
-
-        pkgname_chk <- paste0 ("- ", symbol_crs (),
-                               " Package name is not available (on CRAN)")
-    }
-
 
     la_out <- NULL
     if (checks$left_assign$global) {
@@ -194,7 +180,7 @@ collate_checks <- function (checks) {
               la_out,
               has_url,
               has_bugs,
-              pkgname_chk,
+              pkgname_chk (checks),
               ci_txt,
               covr,
               rcmd_errs,
@@ -212,4 +198,25 @@ collate_checks <- function (checks) {
     attr (out, "checks_okay") <- checks_okay
 
     return (out)
+}
+
+pkgname_chk <- function (checks) {
+
+    if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
+
+        res <- paste0 ("- ", symbol_tck (),
+                       " Package name is available")
+
+    } else if (checks$file_list$pkg_on_cran) {
+
+        res <- paste0 ("- ", symbol_tck (),
+                       " Package is already on CRAN")
+
+    } else {
+
+        res <- paste0 ("- ", symbol_crs (),
+                       " Package name is not available (on CRAN)")
+    }
+
+    return (res)
 }
