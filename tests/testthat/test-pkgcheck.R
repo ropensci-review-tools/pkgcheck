@@ -29,6 +29,7 @@ test_that("pkgcheck", {
                           "network_file",
                           "badges",
                           "gp",
+                          "scrap",
                           "pkg_versions")
               expect_true (all (items %in% names (chk)))
 

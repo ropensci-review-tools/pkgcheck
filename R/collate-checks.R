@@ -26,6 +26,7 @@ collate_checks <- function (checks) {
               collate_covr_checks (checks),
               gp$rcmd_errs,
               gp$rcmd_warns,
+              collate_scrap_checks (checks),
               collate_srr_checks (checks))
 
     checks_okay <- !any (grepl (symbol_crs (), out))
@@ -304,4 +305,19 @@ collate_srr_checks <- function (checks) {
     }
 
     return (res)
+}
+
+#' @return cross only
+#' @noRd
+collate_scrap_checks <- function (checks) {
+
+    ret <- NULL
+
+    if (length (checks$scrap) > 0L) {
+
+        ret <- paste0 ("- ", symbol_crs (),
+                       " Package contains unexpected files")
+    }
+
+    return (ret)
 }

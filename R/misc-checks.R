@@ -338,3 +338,24 @@ left_assign <- function (path) {
 
     return (assigns)
 }
+
+#' Check whether the package contains any useless files like `.DS_Store`.
+#' @inheritParams pkg_has_no_scrap
+#' @return Names of any items which should not be present; otherwise an empty
+#' character.
+#' @noRd
+pkg_has_scrap <- function (path) {
+
+    all_contents <- gert::git_ls ()$path
+    all_contents <- vapply (decompose_path (all_contents),
+                            function (i) utils::tail (i, 1L),
+                            character (1))
+
+    scrap <- function() paste0 (c ("^\\.DS_Store$",
+                                   "^Thumbs.db$",
+                                   "^\\.vscode$",
+                                   "\\.o$"),
+                                collapse = "|")
+
+    return (grep (scrap (), all_contents, value = TRUE))
+}
