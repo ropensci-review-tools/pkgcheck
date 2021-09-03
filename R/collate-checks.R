@@ -70,12 +70,12 @@ collate_checks <- function (checks) {
               has_citation,
               has_codemeta,
               fn_exs,
-              left_assign_chk (checks),
+              collate_left_assign_chk (checks),
               has_url,
               has_bugs,
-              pkgname_chk (checks),
-              ci_checks (checks),
-              covr_checks (checks),
+              collate_pkgname_chk (checks),
+              collate_ci_checks (checks),
+              collate_covr_checks (checks),
               gp$rcmd_errs,
               gp$rcmd_warns,
               srr)
@@ -93,7 +93,7 @@ collate_checks <- function (checks) {
     return (out)
 }
 
-pkgname_chk <- function (checks) {
+collate_pkgname_chk <- function (checks) {
 
     if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
 
@@ -114,7 +114,7 @@ pkgname_chk <- function (checks) {
     return (res)
 }
 
-left_assign_chk <- function (checks) {
+collate_left_assign_chk <- function (checks) {
 
     res <- NULL
 
@@ -140,7 +140,7 @@ left_assign_chk <- function (checks) {
 }
 
 # ci: continuous integration
-ci_checks <- function (checks) {
+collate_ci_checks <- function (checks) {
 
     if (length (checks$badges) == 0) {
 
@@ -163,7 +163,7 @@ ci_checks <- function (checks) {
     return (res)
 }
 
-covr_checks <- function (checks) {
+collate_covr_checks <- function (checks) {
 
     if (methods::is (checks$gp$covr, "try-error")) {
 
