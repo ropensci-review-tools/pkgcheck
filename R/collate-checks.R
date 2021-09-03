@@ -46,25 +46,6 @@ collate_checks <- function (checks) {
 
     gp <- collate_gp_checks (checks)
 
-    srr <- NULL
-    if (!is.null (checks$srr)) {
-
-        m <- checks$srr$message
-        i <- which (nchar (m) > 0 & grepl ("[^\\s]*", m))
-
-        srr <- paste0 ("- ",
-                       ifelse (checks$srr$okay,
-                               symbol_tck (),
-                               symbol_crs ()),
-                       " ",
-                       m [i [1]])
-        srr <- gsub (paste0 ("Package can not be submitted because ",
-                             "the following standards are missing"),
-                     "Statistical standards are missing",
-                     srr)
-        srr <- gsub (":$", "", srr)
-    }
-
     out <- c (uses_roxy,
               has_contrib,
               has_citation,
@@ -78,7 +59,7 @@ collate_checks <- function (checks) {
               collate_covr_checks (checks),
               gp$rcmd_errs,
               gp$rcmd_warns,
-              srr)
+              collate_srr_checks (checks))
 
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
@@ -248,4 +229,29 @@ collate_gp_checks <- function (checks) {
 
     return (list (rcmd_errs = rcmd_errs,
                   rcmd_warns = rcmd_warns))
+}
+
+collate_srr_checks <- function (checks) {
+
+    res <- NULL
+
+    if (!is.null (checks$srr)) {
+
+        m <- checks$srr$message
+        i <- which (nchar (m) > 0 & grepl ("[^\\s]*", m))
+
+        res <- paste0 ("- ",
+                       ifelse (checks$srr$okay,
+                               symbol_tck (),
+                               symbol_crs ()),
+                       " ",
+                       m [i [1]])
+        res <- gsub (paste0 ("Package can not be submitted because ",
+                             "the following standards are missing"),
+                     "Statistical standards are missing",
+                     res)
+        res <- gsub (":$", "", res)
+    }
+
+    return (res)
 }
