@@ -352,7 +352,7 @@ pkg_has_scrap <- function (path) {
                               error = function (e) NULL)
 
     if (is.null (all_contents))
-        return (NULL)
+        return (character (0)) # not NULL!
 
     all_contents <- vapply (decompose_path (all_contents),
                             function (i) utils::tail (i, 1L),
