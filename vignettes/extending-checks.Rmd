@@ -33,3 +33,43 @@ performed by `pkgcheck`. It is primarily based around the example of the
 function](https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368)
 contributed by Maëlle Salmon ([\@maelle](https://github.com/maelle)) via [this
 pull request](https://github.com/ropensci-review-tools/pkgcheck/pull/27).
+
+## Create a new check
+
+New checks can be placed anywhere within the current code, including in new
+files within the `R` directory. The 
+[`pkg_has_scrap()`
+function](https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368)
+is relatively short, and so was appended to the [`R/misc-checks.R`
+file](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/misc-checks.R).
+Importantly check functions may not return `NULL`. If a `NULL`-like return value is desired, it should be a zero-length vector of appropriate type. For example, the 
+[`pkg_has_scrap()`
+function](https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368)
+returns the names of any "scrap" files included within a git repository
+(implying files that should generally not be committed and included). If none
+are included, the function returns `character(0)` and not `NULL`.
+
+The values returned are used to construct messages issued by `pkgcheck` in
+response to these checks, so it is generally better to return actual values,
+rather than generic `TRUE`, `FALSE`, or other symbolic values.
+
+
+## Add check function to `pkgcheck` output
+
+A new check function can be added to the result returned by [the `pkgcheck()`
+function](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-fn.R)
+by inserting it below the commented line, `# ----- Add new checks here ---`.
+The `pkg_has_scrap()` function is included in the relevant section to
+illustrate. New checks inserted here will by default appear in a "Miscellaneous
+checks" section of the report. Checks may be inserted in other locations by
+inserting them elsewhere within the sequence specified in this [main
+`pkgcheck()`
+function](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-fn.R).
+
+## Add check result to summary output
+
+All `pkgcheck` objects have a `summary` method which generates the screen print
+indicating whether or not all expected checks have been passed, and whether or
+not a package is ready to be submitted for peer review to rOpenSci. New checks
+which are to appear in this summary report have to be added to the [summary
+method](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R).
