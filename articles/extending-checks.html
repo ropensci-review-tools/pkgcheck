@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.399</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.400</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <h1 data-toc-skip>Extending or modifying checks</h1>
                         <h4 class="author">Mark Padgham</h4>
             
-            <h4 class="date">2021-09-03</h4>
+            <h4 class="date">2021-09-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/master/vignettes/extending-checks.Rmd"><code>vignettes/extending-checks.Rmd</code></a></small>
       <div class="hidden name"><code>extending-checks.Rmd</code></div>
@@ -92,11 +92,29 @@
     
     
 <p>This vignette describes how to modify or extend the existing suite of checks performed by <code>pkgcheck</code>. It is primarily based around the example of the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368"><code>pkg_has_scrap()</code> function</a> contributed by Maëlle Salmon (<a href="https://github.com/maelle">@maelle</a>) via <a href="https://github.com/ropensci-review-tools/pkgcheck/pull/27">this pull request</a>.</p>
+<div id="create-a-new-check" class="section level2">
+<h2 class="hasAnchor">
+<a href="#create-a-new-check" class="anchor"></a>Create a new check</h2>
+<p>New checks can be placed anywhere within the current code, including in new files within the <code>R</code> directory. The <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368"><code>pkg_has_scrap()</code> function</a> is relatively short, and so was appended to the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/misc-checks.R"><code>R/misc-checks.R</code> file</a>. Importantly check functions may not return <code>NULL</code>. If a <code>NULL</code>-like return value is desired, it should be a zero-length vector of appropriate type. For example, the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368"><code>pkg_has_scrap()</code> function</a> returns the names of any “scrap” files included within a git repository (implying files that should generally not be committed and included). If none are included, the function returns <code><a href="https://rdrr.io/r/base/character.html">character(0)</a></code> and not <code>NULL</code>.</p>
+<p>The values returned are used to construct messages issued by <code>pkgcheck</code> in response to these checks, so it is generally better to return actual values, rather than generic <code>TRUE</code>, <code>FALSE</code>, or other symbolic values.</p>
+</div>
+<div id="add-check-function-to-pkgcheck-output" class="section level2">
+<h2 class="hasAnchor">
+<a href="#add-check-function-to-pkgcheck-output" class="anchor"></a>Add check function to <code>pkgcheck</code> output</h2>
+<p>A new check function can be added to the result returned by <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-fn.R">the <code>pkgcheck()</code> function</a> by inserting it below the commented line, <code># ----- Add new checks here ---</code>. The <code>pkg_has_scrap()</code> function is included in the relevant section to illustrate. New checks inserted here will by default appear in a “Miscellaneous checks” section of the report. Checks may be inserted in other locations by inserting them elsewhere within the sequence specified in this <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-fn.R">main <code>pkgcheck()</code> function</a>.</p>
+</div>
+<div id="add-check-result-to-summary-output" class="section level2">
+<h2 class="hasAnchor">
+<a href="#add-check-result-to-summary-output" class="anchor"></a>Add check result to summary output</h2>
+<p>All <code>pkgcheck</code> objects have a <code>summary</code> method which generates the screen print indicating whether or not all expected checks have been passed, and whether or not a package is ready to be submitted for peer review to rOpenSci. New checks which are to appear in this summary report have to be added to the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R">summary method</a>.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
