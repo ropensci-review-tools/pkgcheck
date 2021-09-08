@@ -62,11 +62,13 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "</p>",
                  "</details>")
 
-    # Insert additional checks here, ensuring function name is unanbiguous,
-    # generally by appending `_md` to indicate conversion to markdown format.
+    # ----- Add new checks here -----
+    # Construct a separate function near the end of this file to convert the
+    # check to markdown. Ensure function names are unambiguous, generally by
+    # appending `_md` to indicate conversion to markdown format.
     md_out <- c (md_out,
                  scrap_checks_md (checks))
-    # End insert additional checks sections
+    # ----- End add new checks -----
 
     # add package version info
     v <- data.frame (package = names (checks$pkg_versions),
@@ -378,7 +380,7 @@ scrap_checks_md <- function (checks) {
         return (NULL)
 
     c ("",
-       ":heavy_check_mark: Package contains the following unexpected files:",
+       ":heavy_multiplication_x: Package contains the following unexpected files:",
        "",
        paste0 ("- ", checks$scrap),
        "")
