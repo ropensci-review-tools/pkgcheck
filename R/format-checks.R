@@ -62,6 +62,12 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "</p>",
                  "</details>")
 
+    # Insert additional checks here, ensuring function name is unanbiguous,
+    # generally by appending `_md` to indicate conversion to markdown format.
+    md_out <- c (md_out,
+                 scrap_checks_md (checks))
+    # End insert additional checks sections
+
     # add package version info
     v <- data.frame (package = names (checks$pkg_versions),
                      version = checks$pkg_versions,
@@ -363,6 +369,18 @@ goodpractice_checks <- function (checks,
        "",
        "",
        convert_gp_components (gp, control = control),
+       "")
+}
+
+scrap_checks_md <- function (checks) {
+
+    if (length (checks$scrap) == 0L)
+        return (NULL)
+
+    c ("",
+       ":heavy_check_mark: Package contains the following unexpected files:",
+       "",
+       paste0 ("- ", checks$scrap),
        "")
 }
 
