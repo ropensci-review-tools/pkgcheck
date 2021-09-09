@@ -69,11 +69,10 @@ pkgstats_checks <- function (path) {
     pkgstats <- fmt_pkgstats_checks (s)
 
     out <- list ()
-    out$package <- s$desc$package
-    out$version <- s$desc$version
+    out$package <- pkgchk_pkg_name (s)
+    out$version <- pkgchk_pkg_version (s)
     out$url <- pkgchk_url_from_desc (path)
-
-    out$license <- s$desc$license
+    out$license <- pkgchk_pkg_license (s)
 
     num_exported_fns <- pkgstats$value [pkgstats$measure == "n_fns_r_exported"]
     num_non_exported_fns <- pkgstats$value [pkgstats$measure ==
