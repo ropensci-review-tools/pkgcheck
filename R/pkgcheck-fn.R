@@ -91,10 +91,7 @@ pkgstats_checks <- function (path) {
 
     out$fns_have_exs <- pkgchk_pkg_fns_have_exs (path)
 
-    la <- left_assign (path) # tallies of "<-", "<<-", "="
-    out$left_assigns <- list (global = la [["<<-"]] > 0)
-    la <- la [names (la) != "<<-"]
-    out$left_assigns$usage <- la
+    out$left_assigns <- left_assign (path) # tallies of "<-", "<<-", "="
 
     out$file_list$has_url <- !is.na (s$desc$urls)
     out$file_list$has_bugs <- !is.na (s$desc$bugs)

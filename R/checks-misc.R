@@ -338,7 +338,11 @@ left_assign <- function (path) {
     # rm `:=`:
     assigns <- assigns [which (!names (assigns) == ":=")]
 
-    return (assigns)
+    out <- list (global = assigns [["<<-"]] > 0)
+    assigns <- assigns [names (assigns) != "<<-"]
+    out$usage <- assigns
+
+    return (out)
 }
 
 #' Check whether the package contains any useless files like `.DS_Store`.
