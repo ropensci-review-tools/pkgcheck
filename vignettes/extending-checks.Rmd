@@ -32,7 +32,15 @@ performed by `pkgcheck`. It is primarily based around the example of the
 [`pkg_has_scrap()`
 function](https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368)
 contributed by Maëlle Salmon ([\@maelle](https://github.com/maelle)) via [this
-pull request](https://github.com/ropensci-review-tools/pkgcheck/pull/27).
+pull request](https://github.com/ropensci-review-tools/pkgcheck/pull/27). The
+function checks whether a repository or a local git tree contains any "scrap"
+files such as `.DS_Store` or `thumbs.db` (used to index thumbnail images of
+files).
+
+The package is designed to be readily extensible, and we welcome discussions
+about developing new checks. The primary criterion for checks is that they must
+be of very general applicability, in that they should check for a condition
+that *almost* every package should or should not meet.
 
 ## 1. Create a new check
 
