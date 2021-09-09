@@ -90,8 +90,6 @@ pkgstats_checks <- function (path) {
     out$file_list$pkg_on_cran <- pkg_on_cran (path)
 
     out$fns_have_exs <- pkgchk_pkg_fns_have_exs (path)
-    index <- which (!grepl ("\\-package\\.Rd$", names (out$fns_have_exs)))
-    out$fns_have_exs <- out$fns_have_exs [index]
 
     la <- left_assign (path) # tallies of "<-", "<<-", "="
     out$left_assigns <- list (global = la [["<<-"]] > 0)

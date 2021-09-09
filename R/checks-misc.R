@@ -99,6 +99,8 @@ pkgchk_pkg_fns_have_exs <- function (path) {
                 utils::tail (strsplit (i, .Platform$file.sep) [[1]], 1),
                 character (1))
 
+    has_ex <- has_ex [which (!grepl ("\\-package\\.Rd$", names (has_ex)))]
+
     return (has_ex)
 }
 
