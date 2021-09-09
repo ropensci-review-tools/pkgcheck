@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.411</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.412</span>
       </span>
     </div>
 
@@ -231,7 +231,36 @@
 <p>Running the <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pgkcheck</code> function</a> can be time-consuming, primarily because the <a href="https://github.com/mangothecat/goodpractice"><code>goodpractice</code></a> component runs both a full <code>R CMD check</code>, and calculates code coverage of all tests. To avoid re-generating these results each time, the package saves previous reports to a local cache, in a <code>pkgcheck</code> subdirectory of the location determined by</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rappdirs</span><span class="fu">::</span><span class="fu"><a href="https://rappdirs.r-lib.org/reference/user_cache_dir.html">user_cache_dir</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>You may manually erase the contents of this subdirectory at any time at no risk beyond additional time required to re-generate contents. This default location may also be over-ridden by setting an environmental variable named <code>pkgcheck_cache_dir</code>. By default checks presume packages use <code>git</code> for version control, with checks updated only when code is updated via <code>git commit</code>. Checks for packages that do not use <code>git</code> are updated when any files are modified.</p>
+<p>As explained in the help file for that function, these locations are:</p>
+<table class="table">
+<colgroup>
+<col width="8%">
+<col width="91%">
+</colgroup>
+<thead><tr class="header">
+<th>System</th>
+<th>location</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Mac OS X</td>
+<td><code>~/Library/Caches/pkgcheck</code></td>
+</tr>
+<tr class="even">
+<td>Linux</td>
+<td><code>~/.cache/pkgcheck</code></td>
+</tr>
+<tr class="odd">
+<td>Win XP</td>
+<td><code>C:\\Documents and Settings\\&lt;username&gt;\\Local Settings\\Application Data\\&lt;AppAuthor&gt;\\pkgcheck\\Cache</code></td>
+</tr>
+<tr class="even">
+<td>Vista</td>
+<td><code>C:\\Users\\&lt;username&gt;\\AppData\\Local\\&lt;AppAuthor&gt;\\pkgcheck\\Cache</code></td>
+</tr>
+</tbody>
+</table>
+<p>You may manually erase the contents of this <code>pkgcheck</code> subdirectory at any time at no risk beyond additional time required to re-generate contents. This default location may also be over-ridden by setting an environmental variable named <code>PKGCHECK_CACHE_DIR</code>. By default checks presume packages use <code>git</code> for version control, with checks updated only when code is updated via <code>git commit</code>. Checks for packages that do not use <code>git</code> are updated when any files are modified.</p>
 <p>The first time <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code></a> is applied to a package, the checks will be stored in the cache directory. Calling that function a second time will then load the cached results, and so enable checks to be returned much faster. For code which is frequently updated, such as for packages working on the final stages prior to submission, it may still be necessary to repeatedly call <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code></a> after each modification, a step which may still be inconveniently time-consuming. To facilitate frequent re-checking, the package also has a <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck_bg.html"><code>pkgcheck_bg()</code> function</a> which is effectively identical to the main <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a>, except it runs in the background, enabling you to continue coding while checks are running.</p>
 <p>The <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck_bg.html"><code>pkgcheck_bg()</code> function</a> returns a handle to the <a href="https://callr.r-lib.org/reference/r_bg.html"><code>callr::r_bg()</code> process</a> in which the checks are running. Typing the name of the returned object will immediately indicate whether the checks are still running, or whether they have finished. That handle is itself an <a href="http://r6.r-lib.org/"><code>R6</code> object</a> with a number of methods, notably including <a href="https://callr.r-lib.org/reference/get_result.html"><code>get_result()</code></a> which can be used to access the checks once the process has finished. Alternatively, as soon as the background process, the normal (foreground) <a href="https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html"><code>pkgcheck()</code> function</a> may be called to quickly re-load the cached results.</p>
 </div>
