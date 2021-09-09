@@ -26,6 +26,8 @@ check` results, along with a number of statistics via the
 structure checks expected for rOpenSci submissions. The output of this function
 immediately indicates whether or not a package is "Ready to Submit".
 
+## Setup
+
 The [`pkgstats` package](https://github.com/ropensci-review-tools/pkgstats)
 also requires the system libraries [`ctags`](https://ctags.io) and [GNU
 `global`](https://www.gnu.org/software/global/) to be installed. Procedures to

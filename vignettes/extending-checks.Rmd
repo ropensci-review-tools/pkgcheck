@@ -192,22 +192,25 @@ scrap_checks_md <- function (checks) {
 }
 ```
 
-This function returns nothing if there are no scrap files, as specified by the `roxygen2` comments of 
-`#' @return cross only` in the corresponding function in [the
-`collate_checks.R`
+This function returns nothing if there are no scrap files, as specified by the
+`roxygen2` comments of `#' @return cross only` in the corresponding function in
+[the `collate_checks.R`
 file](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/collate-checks.R)),
 described in section 4, above. Packages which contain scrap files will then
 produce the message specified by that function, including the name of each
 scrap file as a list item.
 
-Once again, the green ticks and red crosses need to be converted to a different
-format, using the following markdown conversions:
+Any new functions must ensure that they return `NULL` when the nominated
+component of the `checks` list is itself `NULL` -- do not presume that
+components processed within a given markdown conversion function actually
+exist. Note also that the text output of these markdown-formatted checks
+generally starts and ends with a blank line (`""`). These lines are important
+to ensure appropriate rendering of HTML components.
+
+Finally, note that the green ticks and red crosses need to be converted to
+a different format, using the following markdown conversions:
 
 `summary` symbol | markdown symbol
 --- | ---
 symbol_crs() | :heavy_multiplication_x:
 symbol_tck() | :heavy_check_mark:
-
-Note also that the text output of these markdown-formatted checks generally
-starts and ends with a blank line (`""`). These lines are important to ensure
-appropriate rendering of HTML components.

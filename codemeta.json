@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.407",
+  "version": "0.0.1.409",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",

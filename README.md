@@ -21,6 +21,8 @@ and package structure checks expected for rOpenSci submissions. The
 output of this function immediately indicates whether or not a package
 is “Ready to Submit”.
 
+## Setup
+
 The [`pkgstats`
 package](https://github.com/ropensci-review-tools/pkgstats) also
 requires the system libraries [`ctags`](https://ctags.io) and [GNU
@@ -161,7 +163,7 @@ names (x)
 
     ##  [1] "package"      "version"      "url"          "license"      "summary"     
     ##  [6] "git"          "srr"          "file_list"    "fns_have_exs" "left_assigns"
-    ## [11] "pkgstats"     "network_file" "gp"           "pkg_versions"
+    ## [11] "pkgstats"     "network_file" "gp"           "scrap"        "pkg_versions"
 
 The first four of these contain information on the package. The
 remainder include:
