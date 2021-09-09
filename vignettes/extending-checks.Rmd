@@ -159,7 +159,7 @@ symbol_tck() | cli::cli_alert_success()
 
 See other functions in the main [`pgkcheck-methods.R`
 file](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R)
-for examples. And that is all the steps required to add a new check.
+for examples.
 
 ## 6. Convert new check result to markdown output
 
