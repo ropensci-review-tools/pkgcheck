@@ -66,7 +66,6 @@ pkgstats_checks <- function (path) {
 
     s <- suppressWarnings (pkgstats::pkgstats (path))
     s$path <- path
-    pkgstats <- fmt_pkgstats_checks (s)
 
     out <- list ()
     out$package <- pkgchk_pkg_name (s)
@@ -74,33 +73,7 @@ pkgstats_checks <- function (path) {
     out$url <- pkgchk_url_from_desc (path)
     out$license <- pkgchk_pkg_license (s)
 
-    num_exported_fns <- pkgstats$value [pkgstats$measure == "n_fns_r_exported"]
-    num_non_exported_fns <- pkgstats$value [pkgstats$measure ==
-                                            "n_fns_r_not_exported"]
-    num_src_fns <- sum (pkgstats$value [pkgstats$measure %in%
-                        c ("n_fns_src", "n_fns_inst")])
-    loc_exported_fns <- pkgstats$value [pkgstats$measure ==
-                                        "loc_per_fn_r_exp"]
-    loc_non_exported_fns <- pkgstats$value [pkgstats$measure ==
-                                            "loc_per_fn_r_not_exp"]
-    loc_src_fns <- stats::median (pkgstats$value [pkgstats$measure %in%
-                                  c ("loc_per_fn_src", "loc_per_fn_inst")])
-    num_params_per_fn <- pkgstats$value [pkgstats$measure ==
-                                         "num_params_per_fn"]
-
-    out$summary <- list (
-         num_authors = s$desc$aut,
-         num_vignettes = unname (s$vignettes [1]),
-         num_data = unname (s$data_stats [1]),
-         imported_pkgs = length (strsplit (s$desc$imports, ",") [[1]]),
-         num_exported_fns = as.integer (num_exported_fns),
-         num_non_exported_fns = as.integer (num_non_exported_fns),
-         num_src_fns = as.integer (num_src_fns),
-         loc_exported_fns = as.integer (loc_exported_fns),
-         loc_non_exported_fns = as.integer (loc_non_exported_fns),
-         loc_src_fns = as.integer (loc_src_fns),
-         num_params_per_fn = as.integer (num_params_per_fn),
-         languages = attr (pkgstats, "language"))
+    out$summary <- pkgchk_pkgstats_summary (s)
 
     out$git <- get_git_info (path)
 
@@ -128,7 +101,7 @@ pkgstats_checks <- function (path) {
     out$file_list$has_url <- !is.na (s$desc$urls)
     out$file_list$has_bugs <- !is.na (s$desc$bugs)
 
-    out$pkgstats <- pkgstats
+    out$pkgstats <- fmt_pkgstats_checks (s)
 
     return (list (stats = s,
                   out = out))
