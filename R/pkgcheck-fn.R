@@ -64,8 +64,6 @@ checks_running_in_bg <- function (path) {
 
 pkgstats_checks <- function (path) {
 
-    u <- pkgchk_url_from_desc (path)
-
     s <- suppressWarnings (pkgstats::pkgstats (path))
     s$path <- path
     pkgstats <- fmt_pkgstats_checks (s)
@@ -73,7 +71,8 @@ pkgstats_checks <- function (path) {
     out <- list ()
     out$package <- s$desc$package
     out$version <- s$desc$version
-    out$url <- u
+    out$url <- pkgchk_url_from_desc (path)
+
     out$license <- s$desc$license
 
     num_exported_fns <- pkgstats$value [pkgstats$measure == "n_fns_r_exported"]
