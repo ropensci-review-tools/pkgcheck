@@ -75,7 +75,7 @@ pkgstats_checks <- function (path) {
 
     out$summary <- pkgchk_pkgstats_summary (s)
 
-    out$git <- get_git_info (path)
+    out$git <- pkgchk_git_info (path)
 
     out$srr <- pkgchk_srr_report (path)
 

@@ -9,7 +9,7 @@ repo_is_git <- function (path) {
 
 #' Return the $git item of main pkgcheck return result
 #' @noRd
-get_git_info <- function (path) {
+pkgchk_git_info <- function (path) {
 
     u <- pkgchk_url_from_desc (path)
 
