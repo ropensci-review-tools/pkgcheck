@@ -263,12 +263,23 @@ a local cache, in a `pkgcheck` subdirectory of the location determined by
 rappdirs::user_cache_dir()
 ```
 
-You may manually erase the contents of this subdirectory at any time at no
-risk beyond additional time required to re-generate contents. This default
-location may also be over-ridden by setting an environmental variable named
-`pkgcheck_cache_dir`. By default checks presume packages use `git` for version
-control, with checks updated only when code is updated via `git commit`. Checks
-for packages that do not use `git` are updated when any files are modified.
+As explained in the help file for that function, these locations are:
+
+System | location
+--- | ---
+Mac OS X | `~/Library/Caches/pkgcheck`
+Linux | `~/.cache/pkgcheck`
+Win XP | `C:\\Documents and Settings\\<username>\\Local Settings\\Application Data\\<AppAuthor>\\pkgcheck\\Cache`
+Vista | `C:\\Users\\<username>\\AppData\\Local\\<AppAuthor>\\pkgcheck\\Cache`
+
+
+You may manually erase the contents of this `pkgcheck` subdirectory at any time
+at no risk beyond additional time required to re-generate contents. This
+default location may also be over-ridden by setting an environmental variable
+named `PKGCHECK_CACHE_DIR`. By default checks presume packages use `git` for
+version control, with checks updated only when code is updated via `git
+commit`. Checks for packages that do not use `git` are updated when any files
+are modified.
 
 The first time
 [`pkgcheck()`](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)

@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.411",
+  "version": "0.0.1.412",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -269,12 +269,8 @@
     }
   ],
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "fileSize": "4727.214KB",
+  "fileSize": "3338.034KB",
   "developmentStatus": "https://www.repostatus.org/#concept",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab",
-    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
+  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
   "relatedLink": "https://docs.ropensci.org/pkgcheck/"
 }
