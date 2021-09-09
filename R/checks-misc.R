@@ -295,7 +295,7 @@ ci_badges <- function (u) {
 #' @inheritParams pkg_uses_roxygen2
 #' @return Named vector of 2 values tallying instances of usage of `<-` and `=`.
 #' @noRd
-left_assign <- function (path) {
+pkgchk_left_assign <- function (path) {
 
     rdir <- file.path (path, "R")
     if (!file.exists (rdir))
