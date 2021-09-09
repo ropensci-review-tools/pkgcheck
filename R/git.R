@@ -11,7 +11,7 @@ repo_is_git <- function (path) {
 #' @noRd
 get_git_info <- function (path) {
 
-    u <- url_from_desc (path)
+    u <- pkgchk_url_from_desc (path)
 
     branch <- NULL
 

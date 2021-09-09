@@ -17,7 +17,7 @@ pkgcheck <- function (path) {
 
     out$network_file <- fn_call_network (s)
 
-    u <- url_from_desc (path)
+    u <- pkgchk_url_from_desc (path)
     out$badges <- list ()
     if (!is.null (u)) {
         out$badges <- ci_badges (u)
@@ -64,7 +64,7 @@ checks_running_in_bg <- function (path) {
 
 pkgstats_checks <- function (path) {
 
-    u <- url_from_desc (path)
+    u <- pkgchk_url_from_desc (path)
 
     s <- suppressWarnings (pkgstats::pkgstats (path))
     s$path <- path
