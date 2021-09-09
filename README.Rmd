@@ -103,7 +103,7 @@ fail, and why review may proceed in spite of such failures.)
 
 The full list of checks which packages are expected to pass currently includes:
 
-1. Package must use [`roxygen2`](https://roxygen2.r-lib.org) for documentation.
+1. Package must use [`roxygen2`](https://devguide.ropensci.org/building.html#roxygen2-use) for documentation.
 2. Package must have a [`contributing.md`
    file](https://devguide.ropensci.org/collaboration.html#contributing-guide).
 3. Package must have a [`CITATION` file in the `inst`
