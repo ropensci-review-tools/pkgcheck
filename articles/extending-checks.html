@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.407</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.409</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <h1 data-toc-skip>Extending or modifying checks</h1>
                         <h4 class="author">Mark Padgham</h4>
             
-            <h4 class="date">2021-09-08</h4>
+            <h4 class="date">2021-09-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/master/vignettes/extending-checks.Rmd"><code>vignettes/extending-checks.Rmd</code></a></small>
       <div class="hidden name"><code>extending-checks.Rmd</code></div>
@@ -169,7 +169,8 @@
        <span class="st">""</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>This function returns nothing if there are no scrap files, as specified by the <code>roxygen2</code> comments of <code>#' @return cross only</code> in the corresponding function in <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/collate-checks.R">the <code>collate_checks.R</code> file</a>), described in section 4, above. Packages which contain scrap files will then produce the message specified by that function, including the name of each scrap file as a list item.</p>
-<p>Once again, the green ticks and red crosses need to be converted to a different format, using the following markdown conversions:</p>
+<p>Any new functions must ensure that they return <code>NULL</code> when the nominated component of the <code>checks</code> list is itself <code>NULL</code> – do not presume that components processed within a given markdown conversion function actually exist. Note also that the text output of these markdown-formatted checks generally starts and ends with a blank line (<code>""</code>). These lines are important to ensure appropriate rendering of HTML components.</p>
+<p>Finally, note that the green ticks and red crosses need to be converted to a different format, using the following markdown conversions:</p>
 <table class="table">
 <thead><tr class="header">
 <th>
@@ -187,7 +188,6 @@
 </tr>
 </tbody>
 </table>
-<p>Note also that the text output of these markdown-formatted checks generally starts and ends with a blank line (<code>""</code>). These lines are important to ensure appropriate rendering of HTML components.</p>
 </div>
   </div>
 
