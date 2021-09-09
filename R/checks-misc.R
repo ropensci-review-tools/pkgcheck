@@ -80,7 +80,7 @@ get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
 #' @return Vector of named logical values, one for each '.Rd' file indicating
 #' whether or not it has example lines.
 #' @noRd
-all_pkg_fns_have_exs <- function (path) {
+pkgchk_pkg_fns_have_exs <- function (path) {
 
     rd <- list.files (file.path (path, "man"),
                       pattern = "\\.Rd$",

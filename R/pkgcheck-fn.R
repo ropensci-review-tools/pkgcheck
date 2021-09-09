@@ -89,7 +89,7 @@ pkgstats_checks <- function (path) {
     out$file_list$pkgname_available <- pkgname_available (path)
     out$file_list$pkg_on_cran <- pkg_on_cran (path)
 
-    out$fns_have_exs <- all_pkg_fns_have_exs (path)
+    out$fns_have_exs <- pkgchk_pkg_fns_have_exs (path)
     index <- which (!grepl ("\\-package\\.Rd$", names (out$fns_have_exs)))
     out$fns_have_exs <- out$fns_have_exs [index]
 
