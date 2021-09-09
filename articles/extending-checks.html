@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.414</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.415</span>
       </span>
     </div>
 
@@ -91,7 +91,8 @@
 
     
     
-<p>This vignette describes how to modify or extend the existing suite of checks performed by <code>pkgcheck</code>. It is primarily based around the example of the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368"><code>pkg_has_scrap()</code> function</a> contributed by Maëlle Salmon (<a href="https://github.com/maelle">@maelle</a>) via <a href="https://github.com/ropensci-review-tools/pkgcheck/pull/27">this pull request</a>.</p>
+<p>This vignette describes how to modify or extend the existing suite of checks performed by <code>pkgcheck</code>. It is primarily based around the example of the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368"><code>pkg_has_scrap()</code> function</a> contributed by Maëlle Salmon (<a href="https://github.com/maelle">@maelle</a>) via <a href="https://github.com/ropensci-review-tools/pkgcheck/pull/27">this pull request</a>. The function checks whether a repository or a local git tree contains any “scrap” files such as <code>.DS_Store</code> or <code>thumbs.db</code> (used to index thumbnail images of files).</p>
+<p>The package is designed to be readily extensible, and we welcome discussions about developing new checks. The primary criterion for checks is that they must be of very general applicability, in that they should check for a condition that <em>almost</em> every package should or should not meet.</p>
 <div id="create-a-new-check" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-a-new-check" class="anchor"></a>1. Create a new check</h2>
