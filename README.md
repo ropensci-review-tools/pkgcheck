@@ -21,6 +21,38 @@ and package structure checks expected for rOpenSci submissions. The
 output of this function immediately indicates whether or not a package
 is “Ready to Submit”.
 
+## Installation
+
+The easiest way to install this package is via the [associated
+`r-universe`](https://ropensci-review-tools.r-universe.dev/ui#builds).
+As shown there, simply enable the universe with
+
+``` r
+options(repos = c(
+    ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
+    CRAN = "https://cloud.r-project.org"))
+```
+
+And then install the usual way with,
+
+``` r
+install.packages("pkgcheck")
+```
+
+Alternatively, the package can be installed by running one of the
+following lines:
+
+``` r
+remotes::install_github ("ropensci-review-tools/pkgcheck")
+pak::pkg_install ("ropensci-review-tools/pkgcheck")
+```
+
+The package can then loaded for use with
+
+``` r
+library (pkgcheck)
+```
+
 ## Setup
 
 The [`pkgstats`
@@ -120,8 +152,9 @@ proceed in spite of such failures.)
 The full list of checks which packages are expected to pass currently
 includes:
 
-1.  Package must use [`roxygen2`](https://roxygen2.r-lib.org) for
-    documentation.
+1.  Package must use
+    [`roxygen2`](https://devguide.ropensci.org/building.html#roxygen2-use)
+    for documentation.
 2.  Package must have a [`contributing.md`
     file](https://devguide.ropensci.org/collaboration.html#contributing-guide).
 3.  Package must have a [`CITATION` file in the `inst`
