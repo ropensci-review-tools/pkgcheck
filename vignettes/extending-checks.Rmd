@@ -79,7 +79,7 @@ This generally requires the two simple modifications of:
    call](https://github.com/ropensci-review-tools/pkgcheck/blob/a3507752b00b2206aee34ecbe99424d4cadb59f8/tests/testthat/test-pkgcheck.R#L19-L33).
 2. Increase the [expected length of the result of
    `pkgcheck()`](https://github.com/ropensci-review-tools/pkgcheck/blob/a3507752b00b2206aee34ecbe99424d4cadb59f8/tests/testthat/test-bg.R#L29)
-   by one for each new test. The expected length is currently 15.
+   by one for each new test. 
 
 ## 4. Add check result to summary output
 
