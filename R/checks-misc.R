@@ -350,7 +350,7 @@ pkgchk_left_assign <- function (path) {
 #' @return Names of any items which should not be present; otherwise an empty
 #' character.
 #' @noRd
-pkg_has_scrap <- function (path) {
+pkgchk_has_scrap <- function (path) {
 
     # Have to tryCatch because gert errors anywhere other than a git repo. This
     # means scrap can only be detected in git repos.

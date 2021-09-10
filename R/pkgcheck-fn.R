@@ -33,7 +33,7 @@ pkgcheck <- function (path) {
     # ----- Add new checks here -----
     # see https://github.com/ropensci-review-tools/pkgcheck/pull/27
     # for an example of how to add new checks
-    out$scrap <- pkg_has_scrap (path)
+    out$scrap <- pkgchk_has_scrap (path)
     # ----- End add new checks -----
 
     out$pkg_versions <- version_info (is.null (out$srr))
