@@ -20,7 +20,7 @@ pkgcheck <- function (path) {
     u <- pkgchk_url_from_desc (path)
     out$badges <- list ()
     if (!is.null (u)) {
-        out$badges <- ci_badges (u)
+        out$badges <- pkgchk_ci_badges (u)
         if (!is.null (out$badges)) {
             if (any (grepl ("github", out$badges))) {
                 out$github_workflows <- ci_results_gh (path)

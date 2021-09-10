@@ -206,7 +206,7 @@ ci_results_gh <- function (path) {
 #' @param u URL of repo
 #' @return Character vector of hyperlinked badge images
 #' @noRd
-ci_badges <- function (u) {
+pkgchk_ci_badges <- function (u) {
 
     if (!curl::has_internet ())
         return (NULL)
