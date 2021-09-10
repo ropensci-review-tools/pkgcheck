@@ -208,6 +208,9 @@ ci_results_gh <- function (path) {
 #' @noRd
 ci_badges <- function (u) {
 
+    if (!curl::has_internet ())
+        return (NULL)
+
     orgrepo <- strsplit (u, "\\/") [[1]]
     org <- utils::tail (orgrepo, 2) [1]
     repo <- utils::tail (orgrepo, 1)
