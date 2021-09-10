@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.434
+Version: 0.0.1.435
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -48,4 +48,4 @@ Language: en-GB
 LazyData: true
 NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

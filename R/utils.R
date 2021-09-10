@@ -92,3 +92,13 @@ decompose_path <- function (f) {
     # https://github.com/r-lib/fs/blob/4cc4b56c26b9d7f177a676fbb331133bb2584b86/R/path.R
     strsplit (f, "^(?=/)(?!//)|(?<!^)(?<!^/)/", perl = TRUE)
 }
+
+#' List all checks currently implemented
+#' @return Character vector of names of all checks
+#' @export
+list_pkgchecks <- function () {
+
+    grep ("^pkgchk\\_",
+          ls (envir = asNamespace ("pkgcheck"), all = TRUE),
+          value = TRUE)
+}
