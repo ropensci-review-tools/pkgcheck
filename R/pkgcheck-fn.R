@@ -28,7 +28,7 @@ pkgcheck <- function (path) {
         }
     }
 
-    out$gp <- get_gp_report (path)
+    out$gp <- pkgchk_gp_report (path)
 
     # ----- Add new checks here -----
     # see https://github.com/ropensci-review-tools/pkgcheck/pull/27

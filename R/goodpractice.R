@@ -6,7 +6,7 @@
 #' @param path Path to local source of repository
 #' @return A \pkg{goodpractice} report
 #' @noRd
-get_gp_report <- function (path) {
+pkgchk_gp_report <- function (path) {
 
     pkg_hash <- current_hash (path)
     fname <- paste0 (pkg_hash [1], "_", pkg_hash [2])
