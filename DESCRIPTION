@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.428
+Version: 0.0.1.429
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -17,6 +17,7 @@ Depends:
 Imports:
     cli,
     covr,
+    curl,
     gert,
     ghql,
     goodpractice,
