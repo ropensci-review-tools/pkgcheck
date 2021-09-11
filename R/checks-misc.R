@@ -74,21 +74,6 @@ pkg_has_codemeta <- function (path) {
 get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
 
 
-pkgname_available <- function (path) {
-
-    desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
-    pkg <- desc$Package
-
-    pkg_grepped <- grep (.standard_regexps()$valid_package_name,
-                         pkg,
-                         value = TRUE)
-
-    ap <- data.frame (utils::available.packages ())
-
-    return (!pkg %in% ap$Package &
-            pkg == pkg_grepped)
-}
-
 pkg_on_cran <- function (path) {
 
     desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
