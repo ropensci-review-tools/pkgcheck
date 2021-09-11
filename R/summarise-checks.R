@@ -164,33 +164,6 @@ summarise_left_assign_chk <- function (checks) {
     return (res)
 }
 
-#' Summarise checks from continuous integration
-#'
-#' @return tick or cross
-#' @noRd
-summarise_ci_checks <- function (checks) {
-
-    if (length (checks$badges) == 0) {
-
-        if (!checks$file_list$has_url) {
-
-            res <- paste0 ("- ", symbol_crs (),
-                           " Continuous integration checks unavailable ",
-                           "(no URL in 'DESCRIPTION')")
-        } else {
-
-            res <- paste0 ("- ", symbol_crs (),
-                           " Package has no continuous integration checks")
-        }
-    } else {
-
-        res <- paste0 ("- ", symbol_tck (),
-                       " Package has continuous integration checks")
-    }
-
-    return (res)
-}
-
 #' @return tick or cross
 #' @noRd
 summarise_covr_checks <- function (checks) {

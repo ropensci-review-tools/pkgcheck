@@ -282,36 +282,6 @@ pkg_network <- function (checks, sec_num) {
                        ")")))
 }
 
-#' Report on continuous integration checks
-#' @param checks Result of main \link{pkgcheck} function
-#' @noRd
-ci_checks <- function (checks) {
-
-    out <- NULL
-
-    if (length (checks$badges) > 0) {
-
-        if (is.na (checks$badges [1]))
-            checks$badges <- "(There do not appear to be any)"
-
-        out <- c (out,
-                  "### 3a. Continuous Integration Badges",
-                  "",
-                  unlist (checks$badges),
-                  "")
-
-        if (!is.null (checks$github_workflows)) {
-
-            out <- c (out,
-                      "**GitHub Workflow Results**",
-                      "",
-                      knitr::kable (checks$github_workflows))
-        }
-    }
-
-    return (out)
-}
-
 #' render markdown-formatted input into 'html'
 #'
 #' @param md Result of \link{checks_to_markdown} function.
