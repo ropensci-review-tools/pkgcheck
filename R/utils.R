@@ -105,7 +105,7 @@ decompose_path <- function (f) {
 list_pkgchecks <- function () {
 
     chks <- grep ("^pkgchk\\_",
-                  ls (envir = asNamespace ("pkgcheck"), all = TRUE),
+                  ls (envir = asNamespace ("pkgcheck"), all.names = TRUE),
                   value = TRUE)
 
     cli::cli_alert_info ("The following checks are currently implemented in pkgcheck:")
