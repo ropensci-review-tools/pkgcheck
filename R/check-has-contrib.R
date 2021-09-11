@@ -8,7 +8,7 @@
 #' package has a 'contributing.md' file or not; the second whether this file has
 #' a life cycle statement
 #' @noRd
-pkg_has_contrib_md <- function (path) {
+pkgchk_has_contrib_md <- function (path) {
 
     flist <- list.files (path,
                          all.files = TRUE,

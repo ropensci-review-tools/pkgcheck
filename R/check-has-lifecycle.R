@@ -8,7 +8,7 @@
 #' @inheritParams pkg_uses_roxygen2
 #' @return Single logical flag
 #' @noRd
-pkg_has_lifecycle <- function (path) {
+pkgchk_has_lifecycle <- function (path) {
 
 
     flist <- list.files (path,
