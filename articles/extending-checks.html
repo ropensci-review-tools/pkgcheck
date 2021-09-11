@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.458</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.461</span>
       </span>
     </div>
 
@@ -96,7 +96,8 @@
 <div id="create-a-new-check" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-a-new-check" class="anchor"></a>1. Create a new check</h2>
-<p>New checks can be placed anywhere within the current code, including in new files within the <code>R</code> directory. The <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368"><code>pkg_has_scrap()</code> function</a> is relatively short, and so was appended to the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/misc-checks.R"><code>R/misc-checks.R</code> file</a>. Importantly check functions may not return <code>NULL</code>. If a <code>NULL</code>-like return value is desired, it should be a zero-length vector of appropriate type. For example, the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368"><code>pkg_has_scrap()</code> function</a> returns the names of any “scrap” files included within a git repository (implying files that should generally not be committed and included). If none are included, the function returns <code><a href="https://rdrr.io/r/base/character.html">character(0)</a></code> and not <code>NULL</code>.</p>
+<p>New checks should be placed in a dedicated file named <code>check-&lt;name&gt;.R</code>, or <code>checks-&lt;name&gt;.R</code> for checks with multiple components. All functions for the scrap checks are within the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>R/check-scrap.R</code> file</a>.</p>
+<p>The check itself should be the first function in a check file, and must be named with the prefix <code>pkgchk_</code>. Importantly check functions may not return <code>NULL</code>. If a <code>NULL</code>-like return value is desired, it should be a zero-length vector of appropriate type. For example, the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>pkgchk_has_scrap()</code> function</a> returns the names of any “scrap” files included within a git repository (implying files that should generally not be committed and included). If none are included, the function returns <code><a href="https://rdrr.io/r/base/character.html">character(0)</a></code> and not <code>NULL</code>.</p>
 <p>The values returned are used to construct messages issued by <code>pkgcheck</code> in response to these checks, so it is generally better to return actual values, rather than generic <code>TRUE</code>, <code>FALSE</code>, or other symbolic values. This point is illustrated below in the demonstration of the <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> method.</p>
 </div>
 <div id="add-check-function-to-pkgcheck-output" class="section level2">
@@ -109,29 +110,31 @@
 <a href="#modify-tests-to-include-new-check" class="anchor"></a>3. Modify tests to include new check</h2>
 <p>Tests may be updated as soon as new items are returned by the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-fn.R">main <code>pkgcheck()</code> function</a>. This generally requires the two simple modifications of:</p>
 <ol style="list-style-type: decimal">
-<li>Adding the name of the new test to the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/a3507752b00b2206aee34ecbe99424d4cadb59f8/tests/testthat/test-pkgcheck.R#L19-L33">list of “items” expected in the result of the main <code>pkgcheck</code> call</a>.</li>
-<li>Increase the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/a3507752b00b2206aee34ecbe99424d4cadb59f8/tests/testthat/test-bg.R#L29">expected length of the result of <code>pkgcheck()</code></a> by one for each new test.</li>
+<li>Adding the name of the new test to the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/852af21d856618161e86b4cf615cabf6199cec53/tests/testthat/test-pkgcheck.R#L29-L43">list of “items” expected in the result of the main <code>pkgcheck</code> call</a>.</li>
+<li>Increase the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/852af21d856618161e86b4cf615cabf6199cec53/tests/testthat/test-bg.R#L38">expected length of the result of <code>pkgcheck()</code></a> by one for each new test.</li>
+<li>Increase the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/852af21d856618161e86b4cf615cabf6199cec53/tests/testthat/test-list-checks.R#L9">expected length of checks returned by <code>list_pkgchecks()</code> by one for each new test</a>.</li>
 </ol>
 </div>
-<div id="add-check-result-to-summary-output" class="section level2">
+<div id="add-a-summary-method" class="section level2">
 <h2 class="hasAnchor">
-<a href="#add-check-result-to-summary-output" class="anchor"></a>4. Add check result to summary output</h2>
-<p>All <code>pkgcheck</code> objects have a <code>summary</code> method which generates the screen print indicating whether or not all expected checks have been passed, and whether or not a package is ready to be submitted for peer review to rOpenSci. The printed summary is first generated by a function called <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/collate-checks.R"><code>collate_checks()</code></a>, which calls a series of sub-functions, generally one for each kind of check. New checks require new sub-functions, as can be seen by <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/a3507752b00b2206aee34ecbe99424d4cadb59f8/R/collate-checks.R#L29">the call to <code>collate_scrap_checks (checks)</code></a>. New “collate” methods should all be inserted within this single <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/collate-checks.R"><code>collate-checks.R</code> file</a>, and should be prefixed with <code>collate_</code>.</p>
-<p>A collate method must begin within a least two <a href="https://roxygen2.r-lib.org"><code>roxygen2</code> comment lines</a>, the second of which is <code>#' @noRd</code> to suppress translation to a documentation (<code>.Rd</code>) file. The first of these is explained at the top of that file, and should be either</p>
+<a href="#add-a-summary-method" class="anchor"></a>4. Add a summary method</h2>
+<p>Most but not all <code>pkgcheck</code> objects have a <code>summary</code> method which generates the screen print indicating whether or not all expected checks have been passed, and whether or not a package is ready to be submitted for peer review to rOpenSci. The printed summary is first generated by a function called <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/summarise-checks.R"><code>summarise_all_checks()</code></a>, which calls a series of sub-functions, generally one for each kind of check. New checks require new sub-functions, as can be seen by the call to <code>summarise_scrap_checks (checks)</code>. “summarise” function should be prefixed with <code>summarise_</code>.</p>
+<p>A summarise method must begin within a least two <a href="https://roxygen2.r-lib.org"><code>roxygen2</code> comment lines</a>, the second of which is <code>#' @noRd</code> to suppress translation to a documentation (<code>.Rd</code>) file. The first of these is explained at the top of <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/summarise-checks.R">the <code>summarise_checks.R</code> file</a>, and should be either</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @return Tick or cross</span></code></pre></div>
 <p>or,</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @return Cross only</span></code></pre></div>
 <p>(with optional additional explanatory text). The first option is generally used for more important tests, and indicates that a green tick or red cross will appear to indicate that the test is respectively either passed or failed. Some tests only prompt a red cross when they fail, and do not appear in the summary list when they pass. These specify return values with the second option, <code>#' @return Cross only</code>.</p>
-<p>The <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/a3507752b00b2206aee34ecbe99424d4cadb59f8/R/collate-checks.R#L310-L323"><code>collate_scrap_checks()</code> function</a> has “Cross only”, and returns <code>NULL</code> is the test is passed. If the test is failed, it appends a simple message to the initial symbols, <code><a href="https://rdrr.io/r/base/paste.html">paste0 ("-", symbol_crs ())</a></code>, where <code>symbol_crs()</code> encodes the red cross, and <code>symbol_tck()</code> the green tick for passing checks. The message should generally be short and simple. Full information returned from the actual check function should generally be used only in the <code>print</code> method (described below), and not in the <code>summary</code> method.</p>
-<p>Finally, the name of the sub-function should then be added to the sequence of function calls in the main <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/collate-checks.R"><code>collate_checks()</code> function</a>, in which the section of “Miscellaneous Checks” is clearly indicated.</p>
+<p>The <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>summarise_scrap_checks()</code> function</a> has “Cross only”, and returns <code>NULL</code> is the test is passed. If the test is failed, it appends a simple message to the initial symbols, <code><a href="https://rdrr.io/r/base/paste.html">paste0 ("-", symbol_crs ())</a></code>, where <code>symbol_crs()</code> encodes the red cross, and <code>symbol_tck()</code> the green tick for passing checks. The message should generally be short and simple. Full information returned from the actual check function should generally be used only in the <code>print</code> method (described below), and not in the <code>summary</code> method.</p>
+<p>Finally, the name of the sub-function should then be added to the sequence of function calls in the main <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/summarise-checks.R"><code>summarise_all_checks()</code> function</a>, in which the section of “Miscellaneous Checks” is clearly indicated.</p>
 </div>
-<div id="add-new-check-result-to-print-output" class="section level2">
+<div id="add-a-print-method" class="section level2">
 <h2 class="hasAnchor">
-<a href="#add-new-check-result-to-print-output" class="anchor"></a>5. Add new check result to print output</h2>
-<p>As described above, summary checks generally only print a short, fixed message indicating whether or test a check has been passed. Detailed returns by the actual check function are generally only shown via the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R"><code>print</code> method</a> associated with <code>pkgcheck</code> objects. The <code>print</code> method for any new check items is generally implemented by constructing an associated function; the <code>pkg_has_scrap()</code> function, for example, is called <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/a3507752b00b2206aee34ecbe99424d4cadb59f8/R/pkgcheck-methods.R#L183-L192"><code>print_scrap()</code></a>. That function demonstrates that all output uses the <a href="https://cli.r-lib.org"><code>cli</code> package</a>, including in this example the <a href="https://cli.r-lib.org/reference/cli_li.html">“list item” function (<code>cli_li</code>)</a>.</p>
-<p>The <code>print</code> methods generally hand-code the different responses for passing and failing checks. The <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368"><code>pkg_has_scrap()</code> function</a> only returns values when it fails, so only requires a <code>print</code> method on check failures. The pass (tick) and fail (cross) symbols are translated into corresponding <code>cli</code> symbols as follows:</p>
+<a href="#add-a-print-method" class="anchor"></a>5. Add a print method</h2>
+<p>As described above, summary checks generally only print a short, fixed message indicating whether or test a check has been passed. Detailed returns by the actual check function are generally only shown via an optional <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R"><code>print</code> method</a> associated with <code>pkgcheck</code> objects. Not all checks have an associated print method, for example because details of the checks are not relevant, and they are only intended to trigger a :heavy_multiplication_x: in the summary method when they fail.</p>
+<p><code>print</code> methods for any new check items are generally implemented by constructing an associated function; the <code>pkgchk_has_scrap()</code> function, for example, is called <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>print_scrap()</code></a>. That function demonstrates that all output uses the <a href="https://cli.r-lib.org"><code>cli</code> package</a>, including in this example the <a href="https://cli.r-lib.org/reference/cli_li.html">“list item” function (<code>cli_li</code>)</a>.</p>
+<p>The <code>print</code> methods generally hand-code the different responses for passing and failing checks. The <code>pkg_has_scrap()</code> function only returns values when it fails, so only requires a <code>print</code> method on check failures. The pass (tick) and fail (cross) symbols are translated into corresponding <code>cli</code> symbols as follows:</p>
 <table class="table">
 <thead><tr class="header">
 <th>
@@ -171,24 +174,6 @@
 <span class="op">}</span></code></pre></div>
 <p>This function returns nothing if there are no scrap files, as specified by the <code>roxygen2</code> comments of <code>#' @return cross only</code> in the corresponding function in <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/collate-checks.R">the <code>collate_checks.R</code> file</a>), described in section 4, above. Packages which contain scrap files will then produce the message specified by that function, including the name of each scrap file as a list item.</p>
 <p>Any new functions must ensure that they return <code>NULL</code> when the nominated component of the <code>checks</code> list is itself <code>NULL</code> – do not presume that components processed within a given markdown conversion function actually exist. Note also that the text output of these markdown-formatted checks generally starts and ends with a blank line (<code>""</code>). These lines are important to ensure appropriate rendering of HTML components.</p>
-<p>Finally, note that the green ticks and red crosses need to be converted to a different format, using the following markdown conversions:</p>
-<table class="table">
-<thead><tr class="header">
-<th>
-<code>summary</code> symbol</th>
-<th>markdown symbol</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>symbol_crs()</td>
-<td>:heavy_multiplication_x:</td>
-</tr>
-<tr class="even">
-<td>symbol_tck()</td>
-<td>:heavy_check_mark:</td>
-</tr>
-</tbody>
-</table>
 </div>
   </div>
 
