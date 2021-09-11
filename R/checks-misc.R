@@ -20,15 +20,6 @@ pkg_uses_roxygen2 <- function (path) {
     return (all (chk))
 }
 
-#' Check whether a package has a `inst/CITATION` file
-#'
-#' This does no check the contents of that file in any way.
-#' @noRd
-pkg_has_citation <- function (path) {
-
-    "CITATION" %in% list.files (file.path (path, "inst"))
-}
-
 #' Check whether a package has a `codemeta.json` file
 #'
 #' @noRd
