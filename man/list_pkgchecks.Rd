@@ -2,13 +2,13 @@
 % Please edit documentation in R/utils.R
 \name{list_pkgchecks}
 \alias{list_pkgchecks}
-\title{List all checks currently implemented}
+\title{Print to screen a list of all checks currently implemented}
 \usage{
 list_pkgchecks()
 }
 \value{
-Character vector of names of all checks
+Character vector of names of all checks (invisibly)
 }
 \description{
-List all checks currently implemented
+Print to screen a list of all checks currently implemented
 }
