@@ -17,6 +17,7 @@ summarise_all_checks <- function (checks) {
     gp <- summarise_gp_checks (checks)
 
     out <- c (summarise_has_components (checks),
+              summarise_has_contrib (checks),
               summarise_fns_have_exs (checks),
               summarise_left_assign_chk (checks),
               summarise_url_bugs (checks, "has_url"),
@@ -82,8 +83,6 @@ summarise_has_components <- function (checks) {
                            "uses", "does not use", "'roxygen2'")
     has_lifecycle <- has_this (checks, "has_lifecycle",
                                "has", "does not have", "a life cycle statement")
-    has_contrib <- has_this (checks, "has_contrib",
-                             "has", "does not have", "a 'contributing.md' file")
     has_citation <- has_this (checks, "has_citation",
                              "has", "does not have", "a 'CITATION' file")
     has_codemeta <- has_this (checks, "has_codemeta",
@@ -91,7 +90,6 @@ summarise_has_components <- function (checks) {
 
     c (uses_roxy,
        #has_lifecycle, Uncomment to include lifecycle check
-       has_contrib,
        has_citation,
        has_codemeta)
 }
