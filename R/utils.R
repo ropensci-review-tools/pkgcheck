@@ -1,14 +1,20 @@
 
 #' Tick symbol for markdown output
 #' @noRd
-symbol_tck <- function () {
-    ":heavy_check_mark:"
+symbol_tck <- function (fmt = "md") {
+
+    switch (fmt,
+            "md" = ":heavy_check_mark:",
+            "cli" = cli::cli_alert_success)
 }
 
 #' Cross symbol for markdown output
 #' @noRd
-symbol_crs <- function () {
-    ":heavy_multiplication_x:"
+symbol_crs <- function (fmt = "md") {
+
+    switch (fmt,
+            "md" = ":heavy_multiplication_x:",
+            "cli" = cli::cli_alert_danger)
 }
 
 #' Bob Rudis's URL checker function
