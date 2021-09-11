@@ -137,33 +137,6 @@ summarise_pkgname_chk <- function (checks) {
     return (res)
 }
 
-#' @return cross only
-#' @noRd
-summarise_left_assign_chk <- function (checks) {
-
-    res <- NULL
-
-    if (checks$left_assign$global) {
-
-        res <- paste0 ("- ", symbol_crs (),
-                       " Package uses global assignment operator ('<<-')")
-    }
-
-    if (length (which (checks$left_assign$usage == 0)) == 0) {
-
-        la <- checks$left_assign$usage
-
-        res <- c (res,
-                  paste0 ("- ", symbol_crs (),
-                          " Package uses inconsistent ",
-                          "assignment operators (",
-                          la [names (la) == "<-"], " '<-' and ",
-                          la [names (la) == "="], " '=')"))
-    }
-
-    return (res)
-}
-
 #' @return tick or cross
 #' @noRd
 summarise_covr_checks <- function (checks) {
