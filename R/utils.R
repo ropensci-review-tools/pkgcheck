@@ -116,3 +116,9 @@ list_pkgchecks <- function () {
 
     invisible (chks)
 }
+
+uses_roxygen <- function (path) {
+
+    desc <- read.dcf (file.path (path, "DESCRIPTION"))
+    any (grepl ("^Roxygen", colnames (desc)))
+}

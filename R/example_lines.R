@@ -56,13 +56,6 @@ num_ex_lines <- function (path) {
 
     return (doc_fns)
 }
-
-uses_roxygen <- function (path) {
-
-    desc <- read.dcf (file.path (path, "DESCRIPTION"))
-    any (grepl ("^Roxygen", colnames (desc)))
-}
-
 exported_fns <- function (path) {
 
     nspace <- readLines (file.path (path, "NAMESPACE"))
