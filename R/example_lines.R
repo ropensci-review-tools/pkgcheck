@@ -56,21 +56,3 @@ num_ex_lines <- function (path) {
 
     return (doc_fns)
 }
-exported_fns <- function (path) {
-
-    nspace <- readLines (file.path (path, "NAMESPACE"))
-    exports <- grep ("^export\\s?\\(", nspace, value = TRUE)
-    exports <- gsub ("^export\\s?\\(|\\)$", "", exports)
-    exports <- unlist (strsplit (exports, ",\\s?"))
-    exports <- gsub ("\\\"", "", exports)
-
-    # exclude any re-exports from other packages (typically like "%>%"):
-    imports <- grep ("^importFrom\\s?\\(", nspace, value = TRUE)
-    imports <- vapply (imports, function (i)
-                       gsub ("\\)$", "", strsplit (i, ",") [[1]] [2]),
-                       character (1),
-                       USE.NAMES = FALSE)
-    imports <- gsub ("\\\"", "", imports)
-
-    return (exports [which (!exports %in% imports)])
-}
