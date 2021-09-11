@@ -281,30 +281,3 @@ summarise_gp_checks <- function (checks) {
     return (list (rcmd_errs = rcmd_errs,
                   rcmd_warns = rcmd_warns))
 }
-
-#' @return tick or cross (for 'srr' package only)
-#' @noRd
-summarise_srr_checks <- function (checks) {
-
-    res <- NULL
-
-    if (!is.null (checks$srr)) {
-
-        m <- checks$srr$message
-        i <- which (nchar (m) > 0 & grepl ("[^\\s]*", m))
-
-        res <- paste0 ("- ",
-                       ifelse (checks$srr$okay,
-                               symbol_tck (),
-                               symbol_crs ()),
-                       " ",
-                       m [i [1]])
-        res <- gsub (paste0 ("Package can not be submitted because ",
-                             "the following standards are missing"),
-                     "Statistical standards are missing",
-                     res)
-        res <- gsub (":$", "", res)
-    }
-
-    return (res)
-}

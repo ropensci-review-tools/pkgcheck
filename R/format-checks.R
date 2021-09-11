@@ -31,7 +31,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "")
 
     md_out <- c (md_out,
-                 srr_checks (checks))
+                 srr_checks_to_md (checks))
 
     # sec_nun is (1, 2) for (srr, non-srr) packages
     sec_num <- as.integer (!is.null (checks$srr)) + 1
@@ -97,44 +97,6 @@ checks_to_markdown <- function (checks, render = FALSE) {
     attr (md_out, "srr_report_file") <- checks$srr$report_file
 
     return (md_out)
-}
-
-#' Report on \package{srr} compliance
-#' @param checks Result of main \link{pkgcheck} function
-#' @noRd
-srr_checks <- function (checks) {
-
-    if (is.null (checks$srr))
-        return (NULL)
-
-    cat_plural <- ifelse (length (checks$srr$categories == 1),
-                          "category",
-                          "categories")
-    srr_msg <- ifelse (checks$srr$okay,
-                       paste0 (symbol_tck (), " ", checks$srr$message),
-                       paste0 (symbol_crs (), " ", checks$srr$message))
-
-    c (paste0 ("## 1. rOpenSci Statistical Standards ",
-               "([`srr` package](https://github.com/ropensci-review-tools/srr))"),
-       "",
-       paste0 ("This package is in the following ", cat_plural, ":"),
-       "",
-       paste0 ("- *", checks$srr$categories, "*"),
-       "",
-       srr_msg,
-       "",
-       paste0 ("Click [here to see the report of author-reported ",
-               "standards compliance of the package with links to ",
-               "associated lines of code](",
-               checks$srr$report_file,
-               "), which can be re-generated locally by running the ",
-               "[`srr_report()` function]",
-               "(https://docs.ropensci.org/srr/reference/srr_report.html) ",
-               "from within a local clone of the repository."),
-       "",
-       "---",
-       "")
-
 }
 
 #' Format \pkg{pkgstats} data
