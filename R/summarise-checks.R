@@ -20,6 +20,7 @@ summarise_all_checks <- function (checks) {
               summarise_has_contrib (checks),
               summarise_has_lifecycle (checks),
               summarise_has_citation (checks),
+              summarise_has_codemeta (checks),
               summarise_fns_have_exs (checks),
               summarise_left_assign_chk (checks),
               summarise_url_bugs (checks, "has_url"),
@@ -83,11 +84,8 @@ summarise_has_components <- function (checks) {
 
     uses_roxy <- has_this (checks, "uses_roxy",
                            "uses", "does not use", "'roxygen2'")
-    has_codemeta <- has_this (checks, "has_codemeta",
-                             "has", "does not have", "a 'codemeta.json' file")
 
-    c (uses_roxy,
-       has_codemeta)
+    uses_roxy
 }
 
 #' @return tick or cross
