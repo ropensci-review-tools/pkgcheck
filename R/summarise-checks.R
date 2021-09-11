@@ -16,7 +16,7 @@ summarise_all_checks <- function (checks) {
 
     gp <- summarise_gp_checks (checks)
 
-    out <- c (summarise_has_components (checks),
+    out <- c (summarise_uses_roxygen2 (checks),
               summarise_has_contrib (checks),
               summarise_has_lifecycle (checks),
               summarise_has_citation (checks),
@@ -74,18 +74,6 @@ summarise_url_bugs <- function (checks, what = "has_url") {
     has_this (checks, what,
               paste0 ("'DESCRIPTION' has a ", txt, " field"),
               paste0 ("'DESCRIPTION' does not have a ", txt, " field"))
-}
-
-#' Check presence of various required components
-#' @param checks Result of main \link{pkgcheck} function
-#' @return Test output with formatted check items as tick or cross.
-#' @noRd
-summarise_has_components <- function (checks) {
-
-    uses_roxy <- has_this (checks, "uses_roxy",
-                           "uses", "does not use", "'roxygen2'")
-
-    uses_roxy
 }
 
 #' @return tick or cross
