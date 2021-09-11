@@ -18,6 +18,7 @@ summarise_all_checks <- function (checks) {
 
     out <- c (summarise_has_components (checks),
               summarise_has_contrib (checks),
+              summarise_has_lifecycle (checks),
               summarise_fns_have_exs (checks),
               summarise_left_assign_chk (checks),
               summarise_url_bugs (checks, "has_url"),
