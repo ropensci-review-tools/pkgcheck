@@ -53,8 +53,8 @@ summary.pkgcheck <- function (object, ...) {
 
 print_summary <- function (x) {
 
-    # collate_checks is in collate-checks.R
-    s <- collate_checks (x)
+    # summarise_all_checks is in collate-checks.R
+    s <- summarise_all_checks (x)
 
     okay <- attr (s, "checks_okay")
     s <- grep ("^\\-", s, value = TRUE)

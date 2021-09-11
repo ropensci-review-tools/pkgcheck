@@ -9,7 +9,7 @@
 #' @export
 checks_to_markdown <- function (checks, render = FALSE) {
 
-    md_chks <- collate_checks (checks)
+    md_chks <- summarise_all_checks (checks)
 
     md_out <- c (paste0 ("## Checks for [", checks$package,
                          " (v", checks$version, ")](",

@@ -1,4 +1,4 @@
-# IMPORTANT: All sub-functions with `collate_` prefixes summarise the actual
+# IMPORTANT: All sub-functions with `summarise_` prefixes summarise the actual
 # checks, and include a return value specifying either "tick or cross", or just
 # "cross only." The latter denotes checks which only appear when they fail,
 # while the former appear in the summary list of green ticks required for a
@@ -8,28 +8,28 @@
 # or cross" (important checks which must be pased) or "cross only" (less
 # important checks which only appear when failed).
 
-#' Collate main checklist items for editor report
+#' Summarise main checklist items for editor report
 #' @param checks Result of main \link{pkgcheck} function
 #' @noRd
-collate_checks <- function (checks) {
+summarise_all_checks <- function (checks) {
 
 
-    gp <- collate_gp_checks (checks)
+    gp <- summarise_gp_checks (checks)
 
-    out <- c (collate_has_components (checks),
-              collate_fn_exs (checks),
-              collate_left_assign_chk (checks),
-              collate_url_bugs (checks, "has_url"),
-              collate_url_bugs (checks, "has_bugs"),
-              collate_pkgname_chk (checks),
-              collate_ci_checks (checks),
-              collate_covr_checks (checks),
+    out <- c (summarise_has_components (checks),
+              summarise_fn_exs (checks),
+              summarise_left_assign_chk (checks),
+              summarise_url_bugs (checks, "has_url"),
+              summarise_url_bugs (checks, "has_bugs"),
+              summarise_pkgname_chk (checks),
+              summarise_ci_checks (checks),
+              summarise_covr_checks (checks),
               gp$rcmd_errs,
               gp$rcmd_warns,
               # ---- Miscellaneous checks start here ---
-              collate_scrap_checks (checks),
+              summarise_scrap_checks (checks),
               # ---- Miscellaneous checks end here ---
-              collate_srr_checks (checks))
+              summarise_srr_checks (checks))
 
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
@@ -58,10 +58,10 @@ has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
     return (ret)
 }
 
-#' Collate both URL and BugReports fields from DESCRIPTION file
+#' Summarise both URL and BugReports fields from DESCRIPTION file
 #' @return Tick or cross
 #' @noRd
-collate_url_bugs <- function (checks, what = "has_url") {
+summarise_url_bugs <- function (checks, what = "has_url") {
 
     txt <- ifelse (what == "has_url",
                    "URL",
@@ -76,7 +76,7 @@ collate_url_bugs <- function (checks, what = "has_url") {
 #' @param checks Result of main \link{pkgcheck} function
 #' @return Test output with formatted check items as tick or cross.
 #' @noRd
-collate_has_components <- function (checks) {
+summarise_has_components <- function (checks) {
 
     uses_roxy <- has_this (checks, "uses_roxy",
                            "uses", "does not use", "'roxygen2'")
@@ -96,11 +96,11 @@ collate_has_components <- function (checks) {
        has_codemeta)
 }
 
-#' Collate checks that all functions have examples
+#' Summarise checks that all functions have examples
 #'
 #' @return tick or cross
 #' @noRd
-collate_fn_exs <- function (checks) {
+summarise_fn_exs <- function (checks) {
 
     ifelse (all (checks$fn_exs),
             paste0 ("- ", symbol_tck (),
@@ -112,11 +112,11 @@ collate_fn_exs <- function (checks) {
 
 }
 
-#' Collate checks that package name is available
+#' Summarise checks that package name is available
 #'
 #' @return tick or cross
 #' @noRd
-collate_pkgname_chk <- function (checks) {
+summarise_pkgname_chk <- function (checks) {
 
     if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
 
@@ -139,7 +139,7 @@ collate_pkgname_chk <- function (checks) {
 
 #' @return cross only
 #' @noRd
-collate_left_assign_chk <- function (checks) {
+summarise_left_assign_chk <- function (checks) {
 
     res <- NULL
 
@@ -164,11 +164,11 @@ collate_left_assign_chk <- function (checks) {
     return (res)
 }
 
-#' Collate checks from continuous integration
+#' Summarise checks from continuous integration
 #'
 #' @return tick or cross
 #' @noRd
-collate_ci_checks <- function (checks) {
+summarise_ci_checks <- function (checks) {
 
     if (length (checks$badges) == 0) {
 
@@ -193,7 +193,7 @@ collate_ci_checks <- function (checks) {
 
 #' @return tick or cross
 #' @noRd
-collate_covr_checks <- function (checks) {
+summarise_covr_checks <- function (checks) {
 
     if (methods::is (checks$gp$covr, "try-error")) {
 
@@ -227,7 +227,7 @@ collate_covr_checks <- function (checks) {
 
 #' return tick or cross
 #' @noRd
-collate_gp_checks <- function (checks) {
+summarise_gp_checks <- function (checks) {
 
     if (methods::is (checks$gp$rcmdcheck, "try-error")) {
 
@@ -284,7 +284,7 @@ collate_gp_checks <- function (checks) {
 
 #' @return tick or cross (for 'srr' package only)
 #' @noRd
-collate_srr_checks <- function (checks) {
+summarise_srr_checks <- function (checks) {
 
     res <- NULL
 
