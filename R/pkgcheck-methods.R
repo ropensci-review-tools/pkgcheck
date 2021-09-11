@@ -179,14 +179,3 @@ print_srr <- function (x) {
     cli::cli_alert_info ("'srr' report is at [{x$srr$report_file}]")
     message ("")
 }
-
-print_scrap <- function (x) {
-
-    if (length (x$scrap) == 0L)
-        return (NULL)
-
-    cli::cli_alert_danger (" Package contains the following unexpected files:")
-    cli::cli_ul ()
-    cli::cli_li (x$scrap)
-    cli::cli_end ()
-}

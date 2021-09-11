@@ -374,18 +374,6 @@ goodpractice_checks <- function (checks,
        "")
 }
 
-scrap_checks_md <- function (checks) {
-
-    if (length (checks$scrap) == 0L)
-        return (NULL)
-
-    c ("",
-       ":heavy_multiplication_x: Package contains the following unexpected files:",
-       "",
-       paste0 ("- ", checks$scrap),
-       "")
-}
-
 #' render markdown-formatted input into 'html'
 #'
 #' @param md Result of \link{checks_to_markdown} function.

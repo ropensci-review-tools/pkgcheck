@@ -308,18 +308,3 @@ collate_srr_checks <- function (checks) {
 
     return (res)
 }
-
-#' @return cross only
-#' @noRd
-collate_scrap_checks <- function (checks) {
-
-    ret <- NULL
-
-    if (length (checks$scrap) > 0L) {
-
-        ret <- paste0 ("- ", symbol_crs (),
-                       " Package contains unexpected files")
-    }
-
-    return (ret)
-}
