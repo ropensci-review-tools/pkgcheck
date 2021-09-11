@@ -60,7 +60,8 @@ scrap_checks_md <- function (checks) {
         return (NULL)
 
     c ("",
-       ":heavy_multiplication_x: Package contains the following unexpected files:",
+       paste0 (symbol_crs (),
+               " Package contains the following unexpected files:"),
        "",
        paste0 ("- ", checks$scrap),
        "")

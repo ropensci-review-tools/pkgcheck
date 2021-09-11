@@ -1,20 +1,16 @@
 
 #' Tick symbol for markdown output
 #' @noRd
-symbol_tck <- function (fmt = "md") {
+symbol_tck <- function () {
 
-    switch (fmt,
-            "md" = ":heavy_check_mark:",
-            "cli" = cli::cli_alert_success)
+    ":heavy_check_mark:"
 }
 
 #' Cross symbol for markdown output
 #' @noRd
-symbol_crs <- function (fmt = "md") {
+symbol_crs <- function () {
 
-    switch (fmt,
-            "md" = ":heavy_multiplication_x:",
-            "cli" = cli::cli_alert_danger)
+    ":heavy_multiplication_x:"
 }
 
 get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
