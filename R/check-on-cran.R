@@ -1,8 +1,10 @@
 
-get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
-
-
-pkg_on_cran <- function (path) {
+#' Check whether a package is on CRAN or not
+#'
+#' This does not currently appear in either summary or print methods, and is
+#' only used as part of `pkcchk_pkgname_available`.
+#' @noRd
+pkgchk_on_cran <- function (path) {
 
     desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
     pkg <- desc$Package

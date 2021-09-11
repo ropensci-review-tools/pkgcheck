@@ -17,6 +17,8 @@ symbol_crs <- function (fmt = "md") {
             "cli" = cli::cli_alert_danger)
 }
 
+get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
+
 #' Bob Rudis's URL checker function
 #'
 #' @param x a single URL
