@@ -46,6 +46,95 @@ pkgchk_gp_report <- function (path) {
     return (gp)
 }
 
+#' return tick or cross
+#' @noRd
+summarise_gp_checks <- function (checks) {
+
+    if (methods::is (checks$gp$rcmdcheck, "try-error")) {
+
+        cond <- attr (checks$gp$rcmdcheck, "condition") # the error condition
+        rcmd_errs <- paste0 ("- ",
+                             symbol_crs (),
+                             " R CMD check process failed with message: '",
+                             cond$message,
+                             "'")
+        rcmd_warns <- NULL
+
+    } else {
+
+        nerr <- length (checks$gp$rcmdcheck$errors)
+        if (nerr == 0) {
+
+            rcmd_errs <- paste0 ("- ",
+                                 symbol_tck (),
+                                 " R CMD check found no errors")
+
+        } else {
+
+            rcmd_errs <- paste0 ("- ",
+                                 symbol_crs (),
+                                 " R CMD check found ",
+                                 nerr,
+                                 ifelse (nerr == 1,
+                                         "error",
+                                         "errors"))
+        }
+
+        nwarn <- length (checks$gp$rcmdcheck$warnings)
+        if (nwarn == 0) {
+
+            rcmd_warns <- paste0 ("- ",
+                                  symbol_tck (),
+                                  " R CMD check found no warnings")
+
+        } else {
+
+            rcmd_warns <- paste0 ("- ",
+                                  symbol_crs (),
+                                  " R CMD check found ",
+                                  nwarn,
+                                  ifelse (nwarn == 1,
+                                          "warning",
+                                          "warnings"))
+        }
+    }
+
+    return (list (rcmd_errs = rcmd_errs,
+                  rcmd_warns = rcmd_warns))
+}
+
+# No internal print method; pkgcheck uses default method from goodpractice
+
+#' Convert goodpractice checks to markdown format
+#'
+#' @param checks Result of main \link{pkgcheck} function
+#' @param control A named list of parameters potentially including
+#' `cyclocomp_threshold`, `covr_threshold`, and `covr_digits`, where
+#' reports are generated for cyclocomplexity values above threshold, and
+#' coverage values below threshold (given as percentage). `digits` controls the
+#' number of digits printed in coverage reports.
+#' @noRd
+gp_checks_to_md <- function (checks,
+                                 control = list (cyclocomp_threshold = 15,
+                                                 covr_threshold = 70,
+                                                 digits = 2)) {
+
+    gp <- extract_gp_components (checks$gp)
+
+
+    c ("",
+       "### 3b. `goodpractice` results",
+       "",
+       "",
+       convert_gp_components (gp, control = control),
+       "")
+}
+
+# ------------------------------------------
+# ---------- Additional functions ----------
+# ------------------------------------------
+
+
 extract_gp_components <- function (gp) {
 
     # -------------- covr:
@@ -148,6 +237,7 @@ convert_gp_components <- function (x,
 
     return (c (rcmd, covr, cycl, lint))
 }
+
 
 rcmd_report <- function (x) {
 

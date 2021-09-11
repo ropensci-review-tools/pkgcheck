@@ -57,7 +57,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "",
                  "---",
                  "",
-                 goodpractice_checks (checks),
+                 gp_checks_to_md (checks),
                  "",
                  "</p>",
                  "</details>")
@@ -310,30 +310,6 @@ ci_checks <- function (checks) {
     }
 
     return (out)
-}
-
-#' Report on goodpractice checks
-#' @param checks Result of main \link{pkgcheck} function
-#' @param control A named list of parameters potentially including
-#' `cyclocomp_threshold`, `covr_threshold`, and `covr_digits`, where
-#' reports are generated for cyclocomplexity values above threshold, and
-#' coverage values below threshold (given as percentage). `digits` controls the
-#' number of digits printed in coverage reports.
-#' @noRd
-goodpractice_checks <- function (checks,
-                                 control = list (cyclocomp_threshold = 15,
-                                                 covr_threshold = 70,
-                                                 digits = 2)) {
-
-    gp <- extract_gp_components (checks$gp)
-
-
-    c ("",
-       "### 3b. `goodpractice` results",
-       "",
-       "",
-       convert_gp_components (gp, control = control),
-       "")
 }
 
 #' render markdown-formatted input into 'html'
