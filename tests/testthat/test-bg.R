@@ -2,11 +2,20 @@ test_that("check-bg", {
 
     options (repos = c (CRAN = "https://cloud.r-project.org"))
 
-    pkgname <- "demobg"
+    pkgname <- paste0 (sample (c (letters, LETTERS), 8), collapse = "")
     if (dir.exists (file.path (tempdir (), pkgname)))
         chk <- unlink (file.path (tempdir (), pkgname),
                        recursive = TRUE)
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
+    # remove RoxgygenNote from DESC; see
+    # https://github.com/r-lib/roxygen2/issues/905
+    f <- file.path (d, "DESCRIPTION")
+    desc <- data.frame (read.dcf (f))
+    i <- grep ("RoxygenNote", names (desc))
+    if (length (i) > 0L) {
+      desc <- desc [, -i]
+      write.dcf (desc, f)
+    }
 
     x <- capture.output (
                          roxygen2::roxygenise (d),
