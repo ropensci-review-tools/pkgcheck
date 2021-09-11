@@ -74,36 +74,6 @@ pkg_has_codemeta <- function (path) {
 get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
 
 
-#' Check whether all functions have examples
-#'
-#' @inheritParams pkg_uses_roxygen2
-#' @return Vector of named logical values, one for each '.Rd' file indicating
-#' whether or not it has example lines.
-#' @noRd
-pkgchk_pkg_fns_have_exs <- function (path) {
-
-    rd <- list.files (file.path (path, "man"),
-                      pattern = "\\.Rd$",
-                      full.names = TRUE)
-
-    has_ex <- vapply (rd, function (i) {
-                          rd_i <- tools::parse_Rd (i)
-                          ex <- get_Rd_meta (rd_i, "examples")
-                          length (ex) > 0
-                      },
-                      logical (1),
-                      USE.NAMES = TRUE)
-
-    names (has_ex) <-
-        vapply (names (has_ex), function (i)
-                utils::tail (strsplit (i, .Platform$file.sep) [[1]], 1),
-                character (1))
-
-    has_ex <- has_ex [which (!grepl ("\\-package\\.Rd$", names (has_ex)))]
-
-    return (has_ex)
-}
-
 pkgname_available <- function (path) {
 
     desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))

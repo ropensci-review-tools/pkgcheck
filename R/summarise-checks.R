@@ -17,7 +17,7 @@ summarise_all_checks <- function (checks) {
     gp <- summarise_gp_checks (checks)
 
     out <- c (summarise_has_components (checks),
-              summarise_fn_exs (checks),
+              summarise_fns_have_exs (checks),
               summarise_left_assign_chk (checks),
               summarise_url_bugs (checks, "has_url"),
               summarise_url_bugs (checks, "has_bugs"),
@@ -94,22 +94,6 @@ summarise_has_components <- function (checks) {
        has_contrib,
        has_citation,
        has_codemeta)
-}
-
-#' Summarise checks that all functions have examples
-#'
-#' @return tick or cross
-#' @noRd
-summarise_fn_exs <- function (checks) {
-
-    ifelse (all (checks$fn_exs),
-            paste0 ("- ", symbol_tck (),
-                    " All functions have examples"),
-            paste0 ("- ", symbol_crs (),
-                    " These funtions do not have examples: [",
-                    paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
-                    "]"))
-
 }
 
 #' Summarise checks that package name is available

@@ -53,7 +53,7 @@ summary.pkgcheck <- function (object, ...) {
 
 print_summary <- function (x) {
 
-    # summarise_all_checks is in collate-checks.R
+    # summarise_all_checks is in summarise-checks.R
     s <- summarise_all_checks (x)
 
     okay <- attr (s, "checks_okay")
