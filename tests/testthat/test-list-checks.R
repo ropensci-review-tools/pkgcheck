@@ -6,5 +6,5 @@ test_that("list-checks", {
           "The following checks are currently implemented"
       )
 
-      expect_length (chks, 12L)
+      expect_length (chks, 18L)
 })
