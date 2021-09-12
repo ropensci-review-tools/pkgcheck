@@ -18,7 +18,6 @@ summarise_all_checks <- function (checks) {
 
     out <- c (summarise_uses_roxygen2 (checks),
               summarise_has_contrib (checks),
-              summarise_has_lifecycle (checks),
               summarise_has_citation (checks),
               summarise_has_codemeta (checks),
               summarise_fns_have_exs (checks),

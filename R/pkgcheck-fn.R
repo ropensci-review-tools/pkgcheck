@@ -81,7 +81,6 @@ pkgstats_checks <- function (path) {
 
     out$file_list <- list ()
     out$file_list$uses_roxy <- pkgchk_uses_roxygen2 (path)
-    out$file_list$has_lifecycle <- pkgchk_has_lifecycle (path)
     out$file_list$has_contrib <- pkgchk_has_contrib_md (path)
     out$file_list$has_citation <- pkgchk_has_citation (path)
     out$file_list$has_codemeta <- pkgchk_has_codemeta (path)
