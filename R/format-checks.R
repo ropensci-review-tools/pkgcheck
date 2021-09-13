@@ -62,17 +62,17 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "</p>",
                  "</details>")
 
-    # ----- Add new checks here -----
-    # Construct a separate function to convert the
-    # check to markdown. Ensure function names are unambiguous, generally by
-    # appending `_md` to indicate conversion to markdown format.
     md_out <- c (md_out,
                  scrap_checks_md (checks))
     md_out <- c (md_out,
                  vignette_checks_md (checks))
-    # ----- End add new checks -----
 
-    # add package version info
+    # ----- Add new checks above -----
+    # Construct a separate function to convert the
+    # check to markdown. Ensure function names are unambiguous, generally by
+    # appending `_md` to indicate conversion to markdown format.
+    # ----------
+
     v <- data.frame (package = names (checks$pkg_versions),
                      version = checks$pkg_versions,
                      row.names = NULL)
