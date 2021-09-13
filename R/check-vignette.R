@@ -17,3 +17,28 @@ pkgchk_has_vignette <- function (path) {
   return (length (vig_path) >= 1L)
 
 }
+
+#' @param checks Result of main \link{pkgcheck} function
+#' @return tick or cross
+#' @noRd
+summarise_has_vignette <- function (checks) {
+
+    # has_this is in summarise-checks.R
+    has_this (checks,
+              "has_vignette",
+              "has",
+              "does not have",
+              "at least one vignette.")
+}
+
+
+vignette_checks_md <- function (checks) {
+
+    if (checks$vignette)
+        return (NULL)
+
+    c ("",
+       paste0 (symbol_crs (),
+               " Package contains no vignette."),
+       "")
+}

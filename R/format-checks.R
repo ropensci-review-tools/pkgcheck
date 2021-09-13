@@ -63,11 +63,13 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "</details>")
 
     # ----- Add new checks here -----
-    # Construct a separate function near the end of this file to convert the
+    # Construct a separate function to convert the
     # check to markdown. Ensure function names are unambiguous, generally by
     # appending `_md` to indicate conversion to markdown format.
     md_out <- c (md_out,
                  scrap_checks_md (checks))
+    md_out <- c (md_out,
+                 vignette_checks_md (checks))
     # ----- End add new checks -----
 
     # add package version info
