@@ -12,6 +12,16 @@ pkgcheck <- function (path) {
     if (checks_running_in_bg (path))
         stop ("Checks are still running in background process.")
 
+    # Ensure that ctags works properly (#54):
+    if (interactive ())
+        if (!suppressMessages (pkgstats::ctags_test ())) {
+
+            stop ("The 'pkgstats' package requires 'ctags' which does ",
+                  "not seem to be installed correctly.\nSee ",
+                  "https://github.com/ropensci-review-tools/pkgstats#installation",
+                  " for details on how to install 'ctags'.")
+        }
+
     s <- pkgstats_checks (path)
     out <- s$out
 
