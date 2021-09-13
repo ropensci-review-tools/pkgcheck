@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.462",
+  "version": "0.0.1.463",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -22,7 +22,8 @@
       "@type": "Person",
       "givenName": "Mark",
       "familyName": "Padgham",
-      "email": "mark.padgham@email.com"
+      "email": "mark.padgham@email.com",
+      "@id": "https://orcid.org/0000-0003-2172-5265"
     }
   ],
   "contributor": {},
@@ -33,7 +34,8 @@
       "@type": "Person",
       "givenName": "Mark",
       "familyName": "Padgham",
-      "email": "mark.padgham@email.com"
+      "email": "mark.padgham@email.com",
+      "@id": "https://orcid.org/0000-0003-2172-5265"
     }
   ],
   "softwareSuggestions": [
@@ -280,13 +282,9 @@
       "sameAs": "https://CRAN.R-project.org/package=visNetwork"
     }
   ],
-  "fileSize": "3312.402KB",
+  "fileSize": "3310.148KB",
   "developmentStatus": "https://www.repostatus.org/#concept",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab",
-    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
+  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
   "relatedLink": "https://docs.ropensci.org/pkgcheck/",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md"
 }
