@@ -1,4 +1,4 @@
-## Checks for [DncMSPyG (v0.0.0.9000)]()
+## Checks for [testpkgchecknotapkg (v0.0.0.9000)]()
 
 git hash: [](/tree/)
 
@@ -30,7 +30,7 @@ This package is in the following category:
 
 :heavy_check_mark: This package still has TODO standards and can not be submitted
 
-Click [here to see the report of author-reported standards compliance of the package with links to associated lines of code](/home/maelle/.cache/pkgcheck/static/DncMSPyG_srr2021-09-13-14:31:18.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
+Click [here to see the report of author-reported standards compliance of the package with links to associated lines of code](report.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
 
 ---
 
@@ -99,7 +99,7 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 
 ### 2a. Network visualisation
 
-Interactive network visualisation of calls between objects in package can be viewed by [clicking here](/home/maelle/.cache/pkgcheck/static/DncMSPyG_pkgstats.html)
+Interactive network visualisation of calls between objects in package can be viewed by [clicking here](network.html)
 
 ---
 
@@ -120,7 +120,7 @@ Interactive network visualisation of calls between objects in package can be vie
 
 R CMD check generated the following error:
 
-1. checking for file ‘DncMSPyG/DESCRIPTION’ ... ERROR
+1. checking for file ‘testpkgchecknotapkg/DESCRIPTION’ ... ERROR
 Required fields missing or empty:
   ‘Author’ ‘Maintainer’
 

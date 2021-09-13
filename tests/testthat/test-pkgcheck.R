@@ -1,10 +1,10 @@
 test_that("pkgcheck", {
-              temp_dir <- withr::local_tempdir(pattern = "pkgcheck-cache")
-              withr::local_envvar(list("PKGCHECK_CACHE_DIR" = temp_dir))
+              withr::local_envvar(list("PKGCHECK_TEST_REPORT_FILE" = "report.html"))
+              withr::local_envvar(list("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
 
               options (repos = c (CRAN = "https://cloud.r-project.org"))
 
-              pkgname <- paste0 (sample (c (letters, LETTERS), 8), collapse = "")
+              pkgname <- "testpkgchecknotapkg"
               d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
               # remove RoxgygenNote from DESC; see
               # https://github.com/r-lib/roxygen2/issues/905
