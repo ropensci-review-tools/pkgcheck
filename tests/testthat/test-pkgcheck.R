@@ -1,4 +1,6 @@
 test_that("pkgcheck", {
+              temp_dir <- withr::local_tempdir(pattern = "pkgcheck-cache")
+              withr::local_envvar(list("PKGCHECK_CACHE_DIR" = temp_dir))
 
               options (repos = c (CRAN = "https://cloud.r-project.org"))
 
@@ -43,9 +45,13 @@ test_that("pkgcheck", {
                           "pkg_versions")
               expect_true (all (items %in% names (chk)))
 
+
               md <- checks_to_markdown (chk, render = FALSE)
-              expect_type (md, "character")
-              expect_true (length (md) > 100L)
+              md_dir <- withr::local_tempdir()
+              writeLines(md, con = file.path(md_dir, "checks.md"))
+
+              testthat::expect_snapshot_file(file.path(md_dir, "checks.md"))
+
               a <- attributes (md)
               expect_true (length (a) > 0L)
               expect_true (all (c ("checks_okay",
