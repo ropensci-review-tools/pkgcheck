@@ -93,22 +93,26 @@ url_exists <- function(x, non_2xx_return_value = FALSE, quiet = FALSE, ...) {
 #' @noRd
 decompose_path <- function (f) {
 
-    # https://github.com/r-lib/fs/blob/4cc4b56c26b9d7f177a676fbb331133bb2584b86/R/path.R
+    # https://github.com/r-lib/fs/blob/4cc4b56c26b9d7f177a676fbb331133bb2584b86/R/path.R # nolint
     strsplit (f, "^(?=/)(?!//)|(?<!^)(?<!^/)/", perl = TRUE)
 }
 
 #' Print to screen a list of all checks currently implemented
 #' @return Character vector of names of all checks (invisibly)
 #' @export
-list_pkgchecks <- function () {
+list_pkgchecks <- function (verbose = TRUE) {
 
     chks <- grep ("^pkgchk\\_",
                   ls (envir = asNamespace ("pkgcheck"), all.names = TRUE),
                   value = TRUE)
 
-    cli::cli_alert_info ("The following checks are currently implemented in pkgcheck:")
-    cli::cli_ol (chks)
-    cli::cli_end ()
+    if (verbose) {
+
+        cli::cli_alert_info (paste0 ("The following checks are ",
+                                     "currently implemented in pkgcheck:"))
+        cli::cli_ol (chks)
+        cli::cli_end ()
+    }
 
     invisible (chks)
 }
