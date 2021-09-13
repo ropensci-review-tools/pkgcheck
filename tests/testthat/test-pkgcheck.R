@@ -26,21 +26,23 @@ test_that("pkgcheck", {
     )
     expect_type (chk, "list")
 
-    items <- c ("package",
-                "version",
-                "license",
-                "summary",
-                "git",
-                "srr",
-                "file_list",
-                "fns_have_exs",
-                "left_assigns",
-                "pkgstats",
-                "network_file",
-                "badges",
-                "gp",
-                "scrap",
-                "pkg_versions")
+              items <- c ("package",
+                          "version",
+                          "license",
+                          "summary",
+                          "git",
+                          "srr",
+                          "file_list",
+                          "fns_have_exs",
+                          "left_assigns",
+                          "pkgstats",
+                          "network_file",
+                          "badges",
+                          "gp",
+                          "scrap",
+                          "vignette",
+                          "pkg_versions")
+              expect_true (all (items %in% names (chk)))
     expect_true (all (items %in% names (chk)))
 
     md <- checks_to_markdown (chk, render = FALSE)

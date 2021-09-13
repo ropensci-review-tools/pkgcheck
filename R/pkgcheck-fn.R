@@ -40,11 +40,14 @@ pkgcheck <- function (path) {
 
     out$gp <- pkgchk_gp_report (path)
 
-    # ----- Add new checks here -----
+    out$scrap <- pkgchk_has_scrap (path)
+
+    out$vignette <- pkgchk_has_vignette (path)
+
+    # ----- Add new checks above -----
     # see https://github.com/ropensci-review-tools/pkgcheck/pull/27
     # for an example of how to add new checks
-    out$scrap <- pkgchk_has_scrap (path)
-    # ----- End add new checks -----
+    # ----------
 
     out$pkg_versions <- version_info (is.null (out$srr))
 
