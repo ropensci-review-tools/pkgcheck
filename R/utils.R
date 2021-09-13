@@ -100,19 +100,16 @@ decompose_path <- function (f) {
 #' Print to screen a list of all checks currently implemented
 #' @return Character vector of names of all checks (invisibly)
 #' @export
-list_pkgchecks <- function (verbose = TRUE) {
+list_pkgchecks <- function () {
 
     chks <- grep ("^pkgchk\\_",
                   ls (envir = asNamespace ("pkgcheck"), all.names = TRUE),
                   value = TRUE)
 
-    if (verbose) {
-
-        cli::cli_alert_info (paste0 ("The following checks are ",
-                                     "currently implemented in pkgcheck:"))
-        cli::cli_ol (chks)
-        cli::cli_end ()
-    }
+    cli::cli_alert_info (paste0 ("The following checks are ",
+                                 "currently implemented in pkgcheck:"))
+    cli::cli_ol (chks)
+    cli::cli_end ()
 
     invisible (chks)
 }
