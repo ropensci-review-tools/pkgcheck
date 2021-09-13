@@ -25,10 +25,10 @@ summarise_has_vignette <- function (checks) {
 
     # has_this is in summarise-checks.R
     has_this (checks,
-              "has_vignette",
-              "has",
-              "does not have",
-              "at least one vignette.")
+              what = "has_vignette",
+              txt_yes = "has",
+              txt_no = "does not have",
+              txt_rest = "at least one vignette.")
 }
 
 
