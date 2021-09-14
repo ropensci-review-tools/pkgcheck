@@ -10,7 +10,11 @@
 
 name: push-to-gitlab
 
-on: push
+on:
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   build:
