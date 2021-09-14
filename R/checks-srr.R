@@ -136,12 +136,13 @@ summarise_srr_checks <- function (checks) {
                                symbol_tck (),
                                symbol_crs ()),
                        " ",
-                       m [i [1]])
+                       m [i [1]],
+                       ".")
         res <- gsub (paste0 ("Package can not be submitted because ",
                              "the following standards are missing"),
                      "Statistical standards are missing",
                      res)
-        res <- gsub (":$", "", res)
+        res <- gsub (":$", ".", res)
     }
 
     return (res)
@@ -166,7 +167,7 @@ print_srr <- function (x) {
                 cli::cli_text (m [1])
                 cli::cli_text ("")
                 m <- paste0 (m [which (m != "")] [-1], collapse = ", ")
-                cli::cli_text (m)
+                cli::cli_text (paste0 (m, "."))
             }
         }
         return ()
@@ -177,7 +178,7 @@ print_srr <- function (x) {
         cli::cli_li (x$srr$missing_stds)
     }
 
-    cli::cli_alert_info ("'srr' report is at [{x$srr$report_file}]")
+    cli::cli_alert_info ("'srr' report is at [{x$srr$report_file}].")
     message ("")
 }
 

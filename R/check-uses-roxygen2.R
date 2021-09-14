@@ -27,5 +27,5 @@ pkgchk_uses_roxygen2 <- function (path) {
 summarise_uses_roxygen2 <- function (checks) {
 
     has_this (checks, "uses_roxy",
-              "uses", "does not use", "'roxygen2'")
+              "uses", "does not use", "'roxygen2'.")
 }

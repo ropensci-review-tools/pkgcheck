@@ -16,5 +16,5 @@ pkgchk_has_citation <- function (path) {
 summarise_has_citation <- function (checks) {
 
     has_this (checks, "has_citation",
-              "has", "does not have", "a 'CITATION' file")
+              "has", "does not have", "a 'CITATION' file.")
 }

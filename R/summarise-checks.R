@@ -71,8 +71,8 @@ summarise_url_bugs <- function (checks, what = "has_url") {
                    "BugReports")
 
     has_this (checks, what,
-              paste0 ("'DESCRIPTION' has a ", txt, " field"),
-              paste0 ("'DESCRIPTION' does not have a ", txt, " field"))
+              paste0 ("'DESCRIPTION' has a ", txt, " field."),
+              paste0 ("'DESCRIPTION' does not have a ", txt, " field."))
 }
 
 #' @return tick or cross
@@ -94,7 +94,7 @@ summarise_covr_checks <- function (checks) {
                            symbol_tck (),
                            " Package coverage is ",
                            coverage,
-                           "%")
+                           "%.")
 
         } else {
 
@@ -102,7 +102,7 @@ summarise_covr_checks <- function (checks) {
                            symbol_crs (),
                            " Package coverage is ",
                            coverage,
-                           "% (should be at least 75%)")
+                           "% (should be at least 75%).")
         }
     }
 

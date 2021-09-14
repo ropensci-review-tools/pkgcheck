@@ -37,7 +37,7 @@ summarise_scrap_checks <- function (checks) {
     if (length (checks$scrap) > 0L) {
 
         ret <- paste0 ("- ", symbol_crs (),
-                       " Package contains unexpected files")
+                       " Package contains unexpected files.")
     }
 
     return (ret)

@@ -69,7 +69,7 @@ summarise_left_assign_chk <- function (checks) {
     if (checks$left_assign$global) {
 
         res <- paste0 ("- ", symbol_crs (),
-                       " Package uses global assignment operator ('<<-')")
+                       " Package uses global assignment operator ('<<-').")
     }
 
     if (length (which (checks$left_assign$usage == 0)) == 0) {
@@ -81,7 +81,7 @@ summarise_left_assign_chk <- function (checks) {
                           " Package uses inconsistent ",
                           "assignment operators (",
                           la [names (la) == "<-"], " '<-' and ",
-                          la [names (la) == "="], " '=')"))
+                          la [names (la) == "="], " '=')."))
     }
 
     return (res)

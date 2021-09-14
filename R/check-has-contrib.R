@@ -27,5 +27,5 @@ summarise_has_contrib <- function (checks) {
 
     # has_this is in summarise-checks.R
     has_this (checks, "has_contrib",
-              "has", "does not have", "a 'contributing.md' file")
+              "has", "does not have", "a 'contributing.md' file.")
 }

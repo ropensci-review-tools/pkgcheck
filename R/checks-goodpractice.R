@@ -57,7 +57,7 @@ summarise_gp_checks <- function (checks) {
                              symbol_crs (),
                              " R CMD check process failed with message: '",
                              cond$message,
-                             "'")
+                             "'.")
         rcmd_warns <- NULL
 
     } else {
@@ -67,7 +67,7 @@ summarise_gp_checks <- function (checks) {
 
             rcmd_errs <- paste0 ("- ",
                                  symbol_tck (),
-                                 " R CMD check found no errors")
+                                 " R CMD check found no errors.")
 
         } else {
 
@@ -76,8 +76,8 @@ summarise_gp_checks <- function (checks) {
                                  " R CMD check found ",
                                  nerr,
                                  ifelse (nerr == 1,
-                                         "error",
-                                         "errors"))
+                                         "error.",
+                                         "errors."))
         }
 
         nwarn <- length (checks$gp$rcmdcheck$warnings)
@@ -85,7 +85,7 @@ summarise_gp_checks <- function (checks) {
 
             rcmd_warns <- paste0 ("- ",
                                   symbol_tck (),
-                                  " R CMD check found no warnings")
+                                  " R CMD check found no warnings.")
 
         } else {
 
@@ -94,8 +94,8 @@ summarise_gp_checks <- function (checks) {
                                   " R CMD check found ",
                                   nwarn,
                                   ifelse (nwarn == 1,
-                                          "warning",
-                                          "warnings"))
+                                          "warning.",
+                                          "warnings."))
         }
     }
 

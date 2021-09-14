@@ -20,9 +20,9 @@ print.pkgcheck <- function (x, ...) {
     message ("")
 
     if ("network_file" %in% names (x)) {
-        cli::cli_alert_info ("Package network diagram is at [{x$network_file}]")
+        cli::cli_alert_info ("Package network diagram is at [{x$network_file}].")
     } else {
-        cli::cli_alert_warning ("This package has no function call network")
+        cli::cli_alert_warning ("This package has no function call network.")
     }
     message ("")
 
@@ -72,9 +72,9 @@ print_summary <- function (x) {
     message ("")
     cli::cli_alert_info ("Current status:")
     if (okay) {
-        cli::cli_alert_success ("This package may be submitted")
+        cli::cli_alert_success ("This package may be submitted.")
     } else {
-        cli::cli_alert_danger ("This package is not ready to be submitted")
+        cli::cli_alert_danger ("This package is not ready to be submitted.")
     }
 
     message ("")
@@ -104,30 +104,30 @@ print_structure <- function (x) {
     message ("")
     cli::cli_alert_info ("Package has")
 
-    s <- c ("{x$summary$num_authors} author{?s}",
-            "{x$summary$num_vignettes} vignette{?s}")
+    s <- c ("{x$summary$num_authors} author{?s}.",
+            "{x$summary$num_vignettes} vignette{?s}.")
     if (x$summary$num_data == 0L) {
         s <- c (s, "No internal data")
     } else {
-        s <- c (s, "{x$summary$num_data} internal data file{?s}")
+        s <- c (s, "{x$summary$num_data} internal data file{?s}.")
     }
     s <- c (s,
-            "{x$summary$imported_pkgs} imported package{?s}")
+            "{x$summary$imported_pkgs} imported package{?s}.")
 
     if (x$summary$num_exported_fns == 0L) {
-        s <- c (s, paste0 ("No exported functions"))
+        s <- c (s, paste0 ("No exported functions."))
     } else {
         s <- c (s,
             paste0 ("{x$summary$num_exported_fns} exported function{?s} ",
-                    "(median {x$summary$loc_exported_fns} lines of code)"))
+                    "(median {x$summary$loc_exported_fns} lines of code)."))
     }
     if (x$summary$num_non_exported_fns == 0L) {
-        s <- c (s, paste0 ("No non-exported functions"))
+        s <- c (s, paste0 ("No non-exported functions."))
     } else {
         s <- c (s,
                 paste0 ("{x$summary$num_non_exported_fns} non-exported ",
                         "function{?s} (median ",
-                        "{x$summary$loc_non_exported_fns} lines of code)"))
+                        "{x$summary$loc_non_exported_fns} lines of code)."))
     }
 
     if (x$summary$num_src_fns > 0) {
@@ -136,11 +136,11 @@ print_structure <- function (x) {
         langs <- paste0 (langs [langs != "R"], collapse = ", ")
         s <- c (s,
                 paste0 ("{x$summary$num_src_fns} {langs} functions ",
-                        "(median {x$summary$loc_src_fns} lines of code)"))
+                        "(median {x$summary$loc_src_fns} lines of code)."))
     }
 
     s <- c (s,
-            "{x$summary$num_params_per_fn} parameters per function (median)")
+            "{x$summary$num_params_per_fn} parameters per function (median).")
 
 
     cli::cli_li (s)

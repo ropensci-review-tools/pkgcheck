@@ -37,10 +37,10 @@ summarise_fns_have_exs <- function (checks) {
 
     ifelse (all (checks$fn_exs),
             paste0 ("- ", symbol_tck (),
-                    " All functions have examples"),
+                    " All functions have examples."),
             paste0 ("- ", symbol_crs (),
                     " These funtions do not have examples: [",
                     paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
-                    "]"))
+                    "]."))
 
 }
