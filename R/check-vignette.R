@@ -14,6 +14,15 @@ pkgchk_has_vignette <- function (path) {
   }
   vig_path <- basename(vig_path)
   vig_path <- vig_path[!grepl("^_", basename(vig_path))]
+
+  is_html <- function(vignette_path) {
+    format <- rmarkdown::default_output_format(file.path("vignettes", vignette_path))$name
+    # FIXME: Maybe some output formats are HTML without that name pattern?
+    grepl("html", name)
+  }
+  is_html <- unlist(lapply(vig_path, is_html))
+  vig_path <- vig_path[is_html]
+
   return (length (vig_path) >= 1L)
 
 }
@@ -28,7 +37,7 @@ summarise_has_vignette <- function (checks) {
               what = "has_vignette",
               txt_yes = "has",
               txt_no = "does not have",
-              txt_rest = "at least one vignette.")
+              txt_rest = "at least one HTML vignette.")
 }
 
 
