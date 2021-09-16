@@ -99,16 +99,16 @@ summarise_ci_checks <- function (checks) {
 
             res <- paste0 ("- ", symbol_crs (),
                            " Continuous integration checks unavailable ",
-                           "(no URL in 'DESCRIPTION')")
+                           "(no URL in 'DESCRIPTION').")
         } else {
 
             res <- paste0 ("- ", symbol_crs (),
-                           " Package has no continuous integration checks")
+                           " Package has no continuous integration checks.")
         }
     } else {
 
         res <- paste0 ("- ", symbol_tck (),
-                       " Package has continuous integration checks")
+                       " Package has continuous integration checks.")
     }
 
     return (res)

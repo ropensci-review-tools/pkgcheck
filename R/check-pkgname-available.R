@@ -24,17 +24,17 @@ summarise_pkgname_chk <- function (checks) {
     if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
 
         res <- paste0 ("- ", symbol_tck (),
-                       " Package name is available")
+                       " Package name is available.")
 
     } else if (checks$file_list$pkg_on_cran) {
 
         res <- paste0 ("- ", symbol_tck (),
-                       " Package is already on CRAN")
+                       " Package is already on CRAN.")
 
     } else {
 
         res <- paste0 ("- ", symbol_crs (),
-                       " Package name is not available (on CRAN)")
+                       " Package name is not available (on CRAN).")
     }
 
     return (res)
