@@ -161,11 +161,11 @@ No functions have cyclocomplexity >= 15
 <summary>Package Versions</summary>
 <p>
 
-|package  |version   |
-|:--------|:---------|
-|pkgstats |0.0.0.305 |
-|pkgcheck |0.0.1.463 |
-|srr      |0.0.1.102 |
+|package  |version |
+|:--------|:-------|
+|pkgstats |42      |
+|pkgcheck |42      |
+|srr      |42      |
 
 </p>
 </details>

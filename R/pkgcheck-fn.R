@@ -174,6 +174,14 @@ version_info <- function (nosrr) {
     if (!nosrr)
         pkgs <- c (pkgs, "srr")
 
+    if (nzchar (Sys.getenv("PKGCHECK_TESTING"))) {
+        return (
+            vapply (pkgs, function (i)
+            "42",
+            character (1))
+        )
+    }
+
     vapply (pkgs, function (i)
             paste0 (utils::packageVersion (i)),
             character (1))

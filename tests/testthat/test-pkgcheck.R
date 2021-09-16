@@ -1,6 +1,7 @@
 test_that("pkgcheck", {
               withr::local_envvar(list("PKGCHECK_TEST_REPORT_FILE" = "report.html"))
               withr::local_envvar(list("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
+              withr::local_envvar(list("PKGCHECK_TESTING" = "yep"))
 
               options (repos = c (CRAN = "https://cloud.r-project.org"))
 
