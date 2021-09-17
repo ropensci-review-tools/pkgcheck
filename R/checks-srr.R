@@ -30,7 +30,8 @@ pkgchk_srr_report <- function (path) {
 
     srr_okay <- FALSE
     if (!methods::is (srr, "error") &
-        any (grepl ("^All applicable standards have been documented", srr))) {
+        any (grepl ("^All applicable standards \\[v.+\\] have been documented",
+                    srr))) {
         srr_okay <- TRUE
     }
 
