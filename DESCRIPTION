@@ -27,6 +27,7 @@ Imports:
     magrittr,
     methods,
     pkgstats,
+    rmarkdown,
     rappdirs,
     roxygen2,
     rvest,
@@ -36,7 +37,6 @@ Suggests:
     callr,
     knitr,
     pkgbuild,
-    rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
