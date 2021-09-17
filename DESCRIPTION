@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.472
+Version: 0.0.1.473
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -27,8 +27,8 @@ Imports:
     magrittr,
     methods,
     pkgstats,
-    rmarkdown,
     rappdirs,
+    rmarkdown,
     roxygen2,
     rvest,
     srr,
