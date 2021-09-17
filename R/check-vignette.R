@@ -5,7 +5,8 @@
 #' @noRd
 pkgchk_has_vignette <- function (path) {
 
-    # from pkgdown https://github.com/r-lib/pkgdown/blob/705ff7c650bb1c7d46d35e72f27ad093689e2f29/R/package.r#L202
+    # from pkgdown
+    # https://github.com/r-lib/pkgdown/blob/705ff7c650bb1c7d46d35e72f27ad093689e2f29/R/package.r#L202 # nolint
     base <- file.path(path, "vignettes")
 
     if (!dir.exists(base)) {
@@ -19,7 +20,8 @@ pkgchk_has_vignette <- function (path) {
 
     is_html <- function(vignette_path) {
 
-        format <- rmarkdown::default_output_format(file.path("vignettes", vignette_path))$name
+        f <- file.path("vignettes", vignette_path)
+        format <- rmarkdown::default_output_format(f)$name
         # FIXME: Maybe some output formats are HTML without that name pattern?
         grepl("html", name)
     }
