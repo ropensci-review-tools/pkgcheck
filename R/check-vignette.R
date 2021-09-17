@@ -23,7 +23,7 @@ pkgchk_has_vignette <- function (path) {
         f <- file.path("vignettes", vignette_path)
         format <- rmarkdown::default_output_format(f)$name
         # FIXME: Maybe some output formats are HTML without that name pattern?
-        grepl("html", name)
+        grepl("html", format)
     }
 
     is_html <- unlist(lapply(vig_path, is_html))
