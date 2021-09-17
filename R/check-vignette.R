@@ -22,8 +22,21 @@ pkgchk_has_vignette <- function (path) {
 
         f <- file.path("vignettes", vignette_path)
         format <- rmarkdown::default_output_format(f)$name
-        # FIXME: Maybe some output formats are HTML without that name pattern?
-        grepl("html", format)
+
+        # See suffix dictionary at
+        # ropensci-review-tools/pkgstats/R/type-dict.R
+        # `.xht` is ignored here, otherwise the full list is
+        # - .html.hl
+        # - .htm
+        # - .html
+        # - .xhtml
+        # - .phtml
+        # - .rhtml
+        # - .cshtml
+        # so the following pattern suffices:
+        html_prefixes <- "htm(l?)"
+
+        grepl(html_prefixes, format, ignore.case = TRUE)
     }
 
     is_html <- unlist(lapply(vig_path, is_html))
