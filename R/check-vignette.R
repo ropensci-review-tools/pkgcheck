@@ -51,12 +51,11 @@ pkgchk_has_vignette <- function (path) {
 #' @noRd
 summarise_has_vignette <- function (checks) {
 
-    # has_this is in summarise-checks.R
-    has_this (checks,
-              what = "has_vignette",
-              txt_yes = "has",
-              txt_no = "does not have",
-              txt_rest = "at least one HTML vignette.")
+    ifelse (checks$vignette,
+            paste0 ("- ", symbol_tck (),
+                    " Package has at least one HTML vignette"),
+            paste0 ("- ", symbol_crs (),
+                    " Package has at no HTML vignettes"))
 }
 
 
