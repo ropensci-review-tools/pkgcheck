@@ -42,8 +42,6 @@ pkgcheck <- function (path) {
 
     out$scrap <- pkgchk_has_scrap (path)
 
-    out$vignette <- pkgchk_has_vignette (path)
-
     out$pkg_versions <- version_info (is.null (out$srr))
 
     class (out) <- c ("pkgcheck", class (out))
@@ -92,6 +90,7 @@ pkgstats_checks <- function (path) {
     out$file_list$has_contrib <- pkgchk_has_contrib_md (path)
     out$file_list$has_citation <- pkgchk_has_citation (path)
     out$file_list$has_codemeta <- pkgchk_has_codemeta (path)
+    out$file_list$vignette <- pkgchk_has_vignette (path)
     out$file_list$pkgname_available <- pkgchk_pkgname_available (path)
     out$file_list$pkg_on_cran <- pkgchk_on_cran (path)
 
