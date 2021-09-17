@@ -198,7 +198,8 @@ srr_checks_to_md <- function (checks) {
                        paste0 (symbol_crs (), " ", checks$srr$message))
 
     c (paste0 ("## 1. rOpenSci Statistical Standards ",
-               "([`srr` package](https://github.com/ropensci-review-tools/srr))"),
+               "([`srr` package]",
+               "(https://github.com/ropensci-review-tools/srr))"),
        "",
        paste0 ("This package is in the following ", cat_plural, ":"),
        "",
