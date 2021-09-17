@@ -59,11 +59,11 @@ summarise_has_vignette <- function (checks) {
 
 vignette_checks_md <- function (checks) {
 
-    if (checks$file_list$vignette)
-        return (NULL)
-
     c ("",
-       paste0 (symbol_crs (),
-               " Package contains no vignette."),
+       ifelse (checks$file_list$vignette,
+               paste0 (symbol_tck (),
+                       " Package has at least one HTML vignette"),
+               paste0 (symbol_crs (),
+                       " Package has at no HTML vignettes")),
        "")
 }
