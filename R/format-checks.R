@@ -64,8 +64,6 @@ checks_to_markdown <- function (checks, render = FALSE) {
 
     md_out <- c (md_out,
                  scrap_checks_md (checks))
-    md_out <- c (md_out,
-                 vignette_checks_md (checks))
 
     # ----- Add new checks above -----
     # Construct a separate function to convert the
