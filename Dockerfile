@@ -6,11 +6,10 @@
 # Finally, a standard setup for RCMD check, plus a few additional system
 # libraries.
 
-FROM rocker/r-ubuntu:20.04
+FROM rocker/r-bspm:20.04
 MAINTAINER Mark Padgham <mark.padgham@email.com>
 
-RUN add-apt-repository --yes "ppa:edd/r-4.0" \
-	&& apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
                 sudo \
                 r-cran-bspm \
         && echo "bspm::enable()" >> /etc/R/Rprofile.site \

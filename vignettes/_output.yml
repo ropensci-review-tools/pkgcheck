@@ -1,0 +1,5 @@
+html_document:
+  toc: true
+  toc_float: true
+  number_sections: false
+  theme: flatly
