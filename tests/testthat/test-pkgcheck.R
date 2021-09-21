@@ -1,5 +1,5 @@
 test_that("pkgcheck", {
-              withr::local_envvar(list("PKGCHECK_TEST_REPORT_FILE" = "report.html"))
+              withr::local_envvar(list("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
               withr::local_envvar(list("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
               withr::local_envvar(list("PKGCHECK_TESTING" = "yep"))
 

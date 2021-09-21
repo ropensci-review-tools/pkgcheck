@@ -223,5 +223,5 @@ srr_checks_to_md <- function (checks) {
 }
 
 report_file <- function(checks) {
-    Sys.getenv("PKGCHECK_TEST_REPORT_FILE", checks$srr$report_file)
+    Sys.getenv("PKGCHECK_SRR_REPORT_FILE", checks$srr$report_file)
 }
