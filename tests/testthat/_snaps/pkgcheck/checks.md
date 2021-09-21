@@ -2,19 +2,20 @@
 
 git hash: [](/tree/)
 
-- :heavy_check_mark: Package uses 'roxygen2'
-- :heavy_multiplication_x: Package does not have a 'contributing.md' file
-- :heavy_multiplication_x: Package does not have a 'CITATION' file
-- :heavy_multiplication_x: Package does not have a 'codemeta.json' file
-- :heavy_check_mark: All functions have examples
-- :heavy_multiplication_x: Package 'DESCRIPTION' does not have a URL field
-- :heavy_multiplication_x: Package 'DESCRIPTION' does not have a BugReports field
-- :heavy_check_mark: Package name is available
-- :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION')
-- :heavy_multiplication_x: Package coverage is 0% (should be at least 75%)
-- :heavy_multiplication_x: R CMD check found 1error
-- :heavy_check_mark: R CMD check found no warnings
-- :heavy_check_mark: This package still has TODO standards and can not be submitted
+- :heavy_check_mark: Package uses 'roxygen2'.
+- :heavy_multiplication_x: Package does not have a 'contributing.md' file.
+- :heavy_multiplication_x: Package does not have a 'CITATION' file.
+- :heavy_multiplication_x: Package does not have a 'codemeta.json' file.
+- :heavy_check_mark: All functions have examples.
+- :heavy_multiplication_x: Package has at no HTML vignettes
+- :heavy_multiplication_x: Package 'DESCRIPTION' does not have a URL field.
+- :heavy_multiplication_x: Package 'DESCRIPTION' does not have a BugReports field.
+- :heavy_check_mark: Package name is available.
+- :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
+- :heavy_multiplication_x: Package coverage is 0% (should be at least 75%).
+- :heavy_multiplication_x: R CMD check found 1error.
+- :heavy_check_mark: R CMD check found no warnings.
+- :heavy_check_mark: This package still has TODO standards and can not be submitted.
 
 **Important:** All failing checks above must be addressed prior to proceeding
 
