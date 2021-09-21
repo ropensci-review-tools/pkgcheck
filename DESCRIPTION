@@ -37,7 +37,9 @@ Suggests:
     callr,
     knitr,
     pkgbuild,
-    testthat (>= 3.0.0)
+    rmarkdown,
+    testthat (>= 3.0.0),
+    withr
 VignetteBuilder: 
     knitr
 Remotes:

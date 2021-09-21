@@ -211,7 +211,7 @@ srr_checks_to_md <- function (checks) {
        paste0 ("Click [here to see the report of author-reported ",
                "standards compliance of the package with links to ",
                "associated lines of code](",
-               checks$srr$report_file,
+               report_file(checks),
                "), which can be re-generated locally by running the ",
                "[`srr_report()` function]",
                "(https://docs.ropensci.org/srr/reference/srr_report.html) ",
@@ -220,4 +220,8 @@ srr_checks_to_md <- function (checks) {
        "---",
        "")
 
+}
+
+report_file <- function(checks) {
+    Sys.getenv("PKGCHECK_SRR_REPORT_FILE", checks$srr$report_file)
 }

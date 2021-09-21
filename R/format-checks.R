@@ -278,8 +278,12 @@ pkg_network <- function (checks, sec_num) {
                paste0 ("Interactive network visualisation of calls ",
                        "between objects in package can be viewed by ",
                        "[clicking here](",
-                       checks$network_file,
+                       network_file(checks),
                        ")")))
+}
+
+network_file <- function(checks) {
+    Sys.getenv("PKGCHECK_TEST_NETWORK_FILE", checks$network_file)
 }
 
 #' render markdown-formatted input into 'html'
