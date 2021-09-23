@@ -11,13 +11,15 @@ pkgchk_has_contrib_md <- function (path) {
     flist <- list.files (path,
                          all.files = TRUE,
                          recursive = TRUE,
-                         full.names = TRUE)
+                         full.names = FALSE)
+    flist <- vapply (flist, function (i)
+                     utils::tail (decompose_path (i) [[1]], 1L),
+                     character (1),
+                     USE.NAMES = FALSE)
 
-    # contributing either with or without ".md" extension:
-    ptn <- paste0 (.Platform$file.sep, "contributing", c ("$", "\\.md$"))
-    f <- grep (paste0 (ptn, collapse = "|"), flist, ignore.case = TRUE)
+    chk <- any (grepl ("^contributing(\\.|$)", flist, ignore.case = TRUE))
 
-    return (length (f) == 1L)
+    return (chk)
 }
 
 #' @param checks Result of main \link{pkgcheck} function
