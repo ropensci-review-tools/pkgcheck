@@ -21,7 +21,7 @@ pkgchk_pkg_fns_have_exs <- function (path) {
 
     names (has_ex) <-
         vapply (names (has_ex), function (i)
-                utils::tail (strsplit (i, .Platform$file.sep) [[1]], 1),
+                utils::tail (decompose_path (i) [[1]], 1L),
                 character (1))
 
     has_ex <- has_ex [which (!grepl ("\\-package\\.Rd$", names (has_ex)))]
