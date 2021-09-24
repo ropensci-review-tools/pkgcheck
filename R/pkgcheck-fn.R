@@ -103,6 +103,8 @@ pkgstats_checks <- function (path) {
 
     out$pkgstats <- fmt_pkgstats_checks (s)
 
+    out$superseded <- pkgchk_has_superseded_deps (s)
+
     return (list (stats = s,
                   out = out))
 }
