@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.492
+Version: 0.0.1.493
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -38,7 +38,6 @@ Suggests:
     callr,
     knitr,
     pkgbuild,
-    rmarkdown,
     testthat (>= 3.0.0),
     withr
 VignetteBuilder: 
