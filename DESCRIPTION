@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.491
+Version: 0.0.1.492
 Authors@R: 
     person(given = "Mark",
            family = "Padgham",
@@ -30,6 +30,7 @@ Imports:
     rappdirs,
     rmarkdown,
     roxygen2,
+    rprojroot,
     rvest,
     srr,
     visNetwork

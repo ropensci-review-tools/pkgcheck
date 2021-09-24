@@ -7,7 +7,9 @@
 #' applied to packages submitted for peer review.
 #' @family pkgcheck_fns
 #' @export
-pkgcheck <- function (path) {
+pkgcheck <- function (path = ".") {
+
+    path <- convert_path (path)
 
     if (checks_running_in_bg (path))
         stop ("Checks are still running in background process.")

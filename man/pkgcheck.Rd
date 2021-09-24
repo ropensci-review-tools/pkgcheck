@@ -5,7 +5,7 @@
 \title{Generate report on package compliance with rOpenSci Statistical Software
 requirements}
 \usage{
-pkgcheck(path)
+pkgcheck(path = ".")
 }
 \arguments{
 \item{path}{Path to local repository}
