@@ -1,9 +1,9 @@
 
 #' Check whether the package depends on superseded dependencies.
 #'
-#' @inheritParams pkg_has_no_scrap
-#' @return Names of any packages which should not be depended upon; otherwise an empty
-#' character.
+#' @param s Output of \pkg{pkgstats} call.
+#' @return Names of any packages which should not be depended upon
+#' (with recommended alternatives); otherwise an empty character.
 #' @noRd
 pkgchk_has_superseded_deps <- function (s) {
 
