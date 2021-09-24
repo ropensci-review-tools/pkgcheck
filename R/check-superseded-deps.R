@@ -1,5 +1,5 @@
 
-#' Check whether the package depends on discouraged dependencies.
+#' Check whether the package depends on superseded dependencies.
 #'
 #' @inheritParams pkg_has_no_scrap
 #' @return Names of any packages which should not be depended upon; otherwise an empty
