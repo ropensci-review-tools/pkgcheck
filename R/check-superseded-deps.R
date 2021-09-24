@@ -6,7 +6,7 @@
 #' character.
 #' @noRd
 pkgchk_has_superseded_deps <- function (s) {
-browser()
+
     deps <- c (s$desc$depends, s$desc$imports, s$desc$suggests)
 
     if (! any (deps %in% superseded_pkgs()$superseded))

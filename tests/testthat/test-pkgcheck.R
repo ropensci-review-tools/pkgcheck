@@ -43,7 +43,8 @@ test_that("pkgcheck", {
     "badges",
     "gp",
     "scrap",
-    "pkg_versions")
+    "pkg_versions",
+    "superseded")
   expect_true (all (items %in% names (chk)))
 
 
