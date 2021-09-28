@@ -128,7 +128,7 @@ pkgstats_format <- function (checks, sec_num) {
                     "",
                     "The package has:",
                     "",
-                    pkg_stat_desc (checks$package),
+                    pkg_stat_desc (checks),
                     "",
                     "---",
                     "",
@@ -166,7 +166,7 @@ pkgstats_format <- function (checks, sec_num) {
 #' @noRd
 pkg_stat_desc <- function (checks) {
 
-    stats <- checks$pkgstats
+    stats <- checks$info$pkgstats
     loc <- attr (stats, "language")
     files <- attr (stats, "files")
 
@@ -187,7 +187,7 @@ pkg_stat_desc <- function (checks) {
     }
     out <- paste0 (code, langs_first, " and ", langs_last)
 
-    s <- checks$summary
+    s <- checks$package$summary
     summarise_one <- function (s, what, pre_text, type) {
         ifelse (s [[what]] == 0L,
                 paste0 ("- no ", pre_text, " ", type),
