@@ -1,5 +1,5 @@
 
-pkgchk_url_from_desc <- function (path) {
+pkgcheck_url_from_desc <- function (path) {
 
     desc <- file.path (path, "DESCRIPTION")
     if (!file.exists (desc))

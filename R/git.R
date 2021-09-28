@@ -18,7 +18,7 @@ pkgcheck_git_info <- function (path) {
 
     path <- convert_path (path)
 
-    u <- pkgchk_url_from_desc (path)
+    u <- pkgcheck_url_from_desc (path)
 
     branch <- NULL
 
