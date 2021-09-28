@@ -13,7 +13,7 @@ git hash: [](/tree/)
 - :heavy_check_mark: Package name is available.
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
 - :heavy_multiplication_x: Package coverage is 0% (should be at least 75%).
-- :heavy_multiplication_x: R CMD check found 1error.
+- :heavy_check_mark: R CMD check found no errors.
 - :heavy_check_mark: R CMD check found no warnings.
 - :heavy_check_mark: This package still has TODO standards and can not be submitted.
 
@@ -119,17 +119,10 @@ Interactive network visualisation of calls between objects in package can be vie
 
 ### `R CMD check` with [rcmdcheck](https://r-lib.github.io/rcmdcheck/)
 
-R CMD check generated the following error:
-
-1. checking for file ‘testpkgchecknotapkg/DESCRIPTION’ ... ERROR
-Required fields missing or empty:
-  ‘Author’ ‘Maintainer’
-
 R CMD check generated the following check_fails:
 
 1. description_url
 2. description_bugreports
-3. rcmdcheck_description_required_fields
 
 
 ### Test coverage with [covr](https://covr.r-lib.org/)
