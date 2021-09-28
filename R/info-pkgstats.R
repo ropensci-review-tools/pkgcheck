@@ -39,7 +39,7 @@ pkginfo_pkg_license <- function (s) {
 
 pkginfo_pkgstats_summary <- function (s) {
 
-    pkgstats <- fmt_pkgstats_checks (s)
+    pkgstats <- fmt_pkgstats_info (s)
 
     num_exported_fns <- pkgstats$value [pkgstats$measure == "n_fns_r_exported"]
     num_non_exported_fns <- pkgstats$value [pkgstats$measure ==
