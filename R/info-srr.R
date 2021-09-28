@@ -1,3 +1,5 @@
+# These functions provide information derived from \pkg{srr} without
+# actually being checks
 
 #' Format the \pkg{srr} reporting section of the general editorial report.
 #'
