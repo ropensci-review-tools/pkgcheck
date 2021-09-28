@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1.494",
+  "version": "0.0.1.495",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -24,6 +24,11 @@
       "familyName": "Padgham",
       "email": "mark.padgham@email.com",
       "@id": "https://orcid.org/0000-0003-2172-5265"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Maëlle",
+      "familyName": "Salmon"
     }
   ],
   "contributor": {},
@@ -74,18 +79,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=pkgbuild"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "rmarkdown",
-      "name": "rmarkdown",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     },
     {
       "@type": "SoftwareApplication",
@@ -318,7 +311,7 @@
       "sameAs": "https://CRAN.R-project.org/package=visNetwork"
     }
   ],
-  "fileSize": "3318.889KB",
+  "fileSize": "3319.033KB",
   "developmentStatus": "https://www.repostatus.org/#concept",
   "contIntegration": [
     "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
