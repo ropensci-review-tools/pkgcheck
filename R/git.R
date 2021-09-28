@@ -14,11 +14,11 @@ repo_is_git <- function (path) {
 #' Note the prefix is `pkgcheck`, not `pkgchk_`: This is not a check, just a
 #' function to return summary data.
 #' @noRd
-pkgcheck_git_info <- function (path) {
+pkginfo_git_info <- function (path) {
 
     path <- convert_path (path)
 
-    u <- pkgcheck_url_from_desc (path)
+    u <- pkginfo_url_from_desc (path)
 
     branch <- NULL
 

@@ -1,7 +1,7 @@
 # These functions provide information derived from \pkg{pkgstats} without
 # actually being checks
 
-pkgcheck_url_from_desc <- function (path) {
+pkginfo_url_from_desc <- function (path) {
 
     desc <- file.path (path, "DESCRIPTION")
     if (!file.exists (desc))
@@ -25,19 +25,19 @@ pkgcheck_url_from_desc <- function (path) {
 
 #' @param s Result of `pkgstats(path)`
 #' @noRd
-pkgcheck_pkg_name <- function (s) {
+pkginfo_pkg_name <- function (s) {
     s$desc$package
 }
 
-pkgcheck_pkg_version <- function (s) {
+pkginfo_pkg_version <- function (s) {
     s$desc$version
 }
 
-pkgcheck_pkg_license <- function (s) {
+pkginfo_pkg_license <- function (s) {
     s$desc$license
 }
 
-pkgcheck_pkgstats_summary <- function (s) {
+pkginfo_pkgstats_summary <- function (s) {
 
     pkgstats <- fmt_pkgstats_checks (s)
 

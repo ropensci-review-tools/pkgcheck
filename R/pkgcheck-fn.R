@@ -29,7 +29,7 @@ pkgcheck <- function (path = ".") {
 
     out$network_file <- fn_call_network (s)
 
-    u <- pkgcheck_url_from_desc (path)
+    u <- pkginfo_url_from_desc (path)
     out$badges <- list ()
     if (!is.null (u)) {
         out$badges <- pkgchk_ci_badges (u)
@@ -76,15 +76,15 @@ pkgstats_checks <- function (path) {
     s$path <- path
 
     out <- list ()
-    out$package <- pkgcheck_pkg_name (s)
-    out$version <- pkgcheck_pkg_version (s)
-    out$url <- pkgcheck_url_from_desc (path)
-    out$license <- pkgcheck_pkg_license (s)
+    out$package <- pkginfo_pkg_name (s)
+    out$version <- pkginfo_pkg_version (s)
+    out$url <- pkginfo_url_from_desc (path)
+    out$license <- pkginfo_pkg_license (s)
 
-    out$summary <- pkgcheck_pkgstats_summary (s)
+    out$summary <- pkginfo_pkgstats_summary (s)
     out$dependencies <- parse_pkg_deps (s)
 
-    out$git <- pkgcheck_git_info (path)
+    out$git <- pkginfo_git_info (path)
 
     out$srr <- pkgchk_srr_report (path)
 
