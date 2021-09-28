@@ -33,6 +33,7 @@ test_that("pkgcheck", {
     "version",
     "license",
     "summary",
+    "dependencies",
     "git",
     "srr",
     "file_list",
@@ -45,7 +46,6 @@ test_that("pkgcheck", {
     "scrap",
     "pkg_versions")
   expect_true (all (items %in% names (chk)))
-
 
   md <- checks_to_markdown (chk, render = FALSE)
   md_dir <- withr::local_tempdir()
