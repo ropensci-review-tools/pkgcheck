@@ -46,8 +46,6 @@ pkgcheck <- function (path = ".") {
 
     out$gp <- pkgchk_gp_report (path)
 
-    out$scrap <- pkgchk_has_scrap (path)
-
     out$pkg_versions <- version_info (is.null (out$srr))
 
     class (out) <- c ("pkgcheck", class (out))
@@ -112,6 +110,7 @@ file_checks <- function (path) {
     res$vignette <- pkgchk_has_vignette (path)
     res$pkgname_available <- pkgchk_pkgname_available (path)
     res$pkg_on_cran <- pkgchk_on_cran (path)
+    res$scrap <- pkgchk_has_scrap (path)
 
     return (res)
 }
