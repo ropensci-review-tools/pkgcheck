@@ -35,8 +35,8 @@ pkgcheck <- function (path = ".") {
                           "fns_have_exs", "left_assigns")]
 
     out$checks <- file_checks (path)
-    out$checks$has_url <- !is.na (s$desc$urls)
-    out$checks$has_bugs <- !is.na (s$desc$bugs)
+    out$checks$has_url <- !is.na (s$stats$desc$urls)
+    out$checks$has_bugs <- !is.na (s$stats$desc$bugs)
 
     out$info$network_file <- fn_call_network (s)
 
