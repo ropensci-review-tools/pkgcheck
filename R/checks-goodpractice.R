@@ -242,7 +242,8 @@ convert_gp_components <- function (x,
 
 rcmd_report <- function (x) {
 
-    ret <- c ("### `R CMD check` with [rcmdcheck](https://r-lib.github.io/rcmdcheck/)",
+    ret <- c (paste0 ("### `R CMD check` with [rcmdcheck]",
+                      "(https://r-lib.github.io/rcmdcheck/)"),
               "")
 
     if (!"rcmd" %in% names (x))
@@ -307,7 +308,7 @@ covr_report <- function (x,
                    paste0 (x$covr),
                    ""))
 
-    if ("covr_threshold" %in% names (control)) 
+    if ("covr_threshold" %in% names (control))
         covr_threshold <- control$covr_threshold
     else
         covr_threshold <- 70
@@ -363,7 +364,8 @@ cyclo_report <- function (x,
 
     cyc <- x$cyclocomp
 
-    ret <- c ("### Cyclocomplexity with [cyclocomp](https://github.com/MangoTheCat/cyclocomp)",
+    ret <- c (paste0 ("### Cyclocomplexity with [cyclocomp]",
+                      "(https://github.com/MangoTheCat/cyclocomp)"),
               "")
 
     if (methods::is (cyc, "try-error")) {
@@ -400,12 +402,14 @@ cyclo_report <- function (x,
 
 lintr_report <- function (x) {
 
-    ret <- c ("### Static code analyses with [lintr](https://github.com/jimhester/lintr)",
+    ret <- c (paste0 ("### Static code analyses with [lintr]",
+                      "(https://github.com/jimhester/lintr)"),
               "")
 
     if (is.null (x$lint))
         return (c (ret,
-                   "[lintr](https://github.com/jimhester/lintr) found no issues with this package!",
+                   paste0 ("[lintr](https://github.com/jimhester/lintr) ",
+                           "found no issues with this package!"),
                    ""))
 
     msgs <- table (x$lint$message)
@@ -413,7 +417,8 @@ lintr_report <- function (x) {
                         n = as.integer (msgs))
 
     ret <- c (ret,
-              paste0 ("[lintr](https://github.com/jimhester/lintr) found the following ",
+              paste0 ("[lintr](https://github.com/jimhester/lintr) ",
+                      "found the following ",
                       sum (msgs$n),
                       " potential issues:"),
               "",
