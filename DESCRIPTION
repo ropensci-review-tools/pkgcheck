@@ -35,8 +35,7 @@ Imports:
     roxygen2,
     rprojroot,
     rvest,
-    srr,
-    visNetwork
+    srr
 Suggests: 
     callr,
     knitr,
