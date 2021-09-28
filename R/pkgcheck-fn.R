@@ -82,6 +82,7 @@ pkgstats_checks <- function (path) {
     out$license <- pkgchk_pkg_license (s)
 
     out$summary <- pkgchk_pkgstats_summary (s)
+    out$dependencies <- parse_pkg_deps (s)
 
     out$git <- pkgchk_git_info (path)
 
@@ -107,6 +108,24 @@ pkgstats_checks <- function (path) {
 
     return (list (stats = s,
                   out = out))
+}
+
+#' Parse items of the "desc" part of `pkgstats` output
+#'
+#' @param s Result of `pkgstats::pkgstats()` call.
+#' @noRd
+parse_pkg_deps <- function (s) {
+
+    fields <- c ("depends", "imports", "suggests", "linking_to")
+
+    d <- lapply (fields, function (i)
+                 cbind (i,
+                        strsplit (s$desc [[i]], ",\\s*") [[1]]))
+
+    d <- do.call (rbind, d)
+
+    data.frame (type = d [, 1],
+                package = d [, 2])
 }
 
 #' Format \pkg{pkgstats} data
