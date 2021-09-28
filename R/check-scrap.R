@@ -45,12 +45,12 @@ summarise_scrap_checks <- function (checks) {
 
 print_scrap <- function (x) {
 
-    if (length (x$scrap) == 0L)
+    if (length (x$checks$scrap) == 0L)
         return (NULL)
 
     cli::cli_alert_danger (" Package contains the following unexpected files:")
     cli::cli_ul ()
-    cli::cli_li (x$scrap)
+    cli::cli_li (x$checks$scrap)
     cli::cli_end ()
 }
 

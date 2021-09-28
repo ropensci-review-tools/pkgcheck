@@ -154,18 +154,18 @@ summarise_srr_checks <- function (checks) {
 print_srr <- function (x) {
 
     cli::cli_h2 ("rOpenSci Statistical Standards")
-    ncats <- length (x$srr$categories) # nolint
+    ncats <- length (x$info$srr$categories) # nolint
     cli::cli_alert_info ("The package is in the following {ncats} categor{?y/ies}:") # nolint
-    cli::cli_li (x$srr$categories)
+    cli::cli_li (x$info$srr$categories)
     cli::cli_text ("")
     cli::cli_alert_info ("Compliance with rOpenSci statistical standards:")
 
-    if (x$srr$okay) {
-        cli::cli_alert_success (x$srr$message)
+    if (x$info$srr$okay) {
+        cli::cli_alert_success (x$info$srr$message)
     } else {
-        cli::cli_alert_danger (x$srr$message [1])
-        if (length (x$srr$message) > 1) {
-            m <- x$srr$message [-1]
+        cli::cli_alert_danger (x$info$srr$message [1])
+        if (length (x$info$srr$message) > 1) {
+            m <- x$info$srr$message [-1]
             if (grepl ("missing from your code", m [1])) {
                 cli::cli_text (m [1])
                 cli::cli_text ("")
@@ -176,12 +176,12 @@ print_srr <- function (x) {
         return ()
     }
 
-    if (!is.null (x$srr$missing_stds)) {
+    if (!is.null (x$info$srr$missing_stds)) {
         cli::cli_alert_warning ("The following standards are missing:")
-        cli::cli_li (x$srr$missing_stds)
+        cli::cli_li (x$info$srr$missing_stds)
     }
 
-    cli::cli_alert_info ("'srr' report is at [{x$srr$report_file}].")
+    cli::cli_alert_info ("'srr' report is at [{x$info$srr$report_file}].")
     message ("")
 }
 

@@ -14,26 +14,26 @@
 summarise_all_checks <- function (checks) {
 
 
-    gp <- summarise_gp_checks (checks)
+    gp <- summarise_gp_checks (checks$checks)
 
-    out <- c (summarise_uses_roxygen2 (checks),
-              summarise_has_contrib (checks),
-              summarise_has_citation (checks),
-              summarise_has_codemeta (checks),
-              summarise_fns_have_exs (checks),
-              summarise_has_vignette (checks),
-              summarise_left_assign_chk (checks),
-              summarise_url_bugs (checks, "has_url"),
-              summarise_url_bugs (checks, "has_bugs"),
-              summarise_pkgname_chk (checks),
+    out <- c (summarise_uses_roxygen2 (checks$checks),
+              summarise_has_contrib (checks$checks),
+              summarise_has_citation (checks$checks),
+              summarise_has_codemeta (checks$checks),
+              summarise_fns_have_exs (checks$checks),
+              summarise_has_vignette (checks$checks),
+              summarise_left_assign_chk (checks$info),
+              summarise_url_bugs (checks$checks, "has_url"),
+              summarise_url_bugs (checks$checks, "has_bugs"),
+              summarise_pkgname_chk (checks$checks),
               summarise_ci_checks (checks),
-              summarise_covr_checks (checks),
-              gp$rcmd_errs,
-              gp$rcmd_warns,
+              summarise_covr_checks (checks$checks),
+              checks$checks$gp$rcmd_errs,
+              checks$checks$gp$rcmd_warns,
               # ---- Miscellaneous checks start here ---
-              summarise_scrap_checks (checks),
+              summarise_scrap_checks (checks$checks),
               # ---- Miscellaneous checks end here ---
-              summarise_srr_checks (checks))
+              summarise_srr_checks (checks$checks))
 
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
@@ -51,7 +51,7 @@ summarise_all_checks <- function (checks) {
 # Generic function used to check components plus URL/BugRep fields
 has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
 
-    ret <- ifelse (checks$file_list [[what]],
+    ret <- ifelse (checks [[what]],
                    paste0 ("- ", symbol_tck (),
                            " Package ", txt_yes),
                    paste0 ("- ", symbol_crs (),

@@ -93,9 +93,9 @@ pkgchk_ci_badges <- function (u) {
 #' @noRd
 summarise_ci_checks <- function (checks) {
 
-    if (length (checks$badges) == 0) {
+    if (length (checks$info$badges) == 0) {
 
-        if (!checks$file_list$has_url) {
+        if (!checks$checks$has_url) {
 
             res <- paste0 ("- ", symbol_crs (),
                            " Continuous integration checks unavailable ",
