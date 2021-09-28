@@ -97,7 +97,10 @@ decompose_path <- function (f) {
     strsplit (f, "^(?=/)(?!//)|(?<!^)(?<!^/)/", perl = TRUE)
 }
 
-#' Print to screen a list of all checks currently implemented
+#' List all checks currently implemented
+#'
+#' @param quiet If `TRUE`, print all checks to screen. Function invisibly
+#' returns list of checks regardless.
 #' @return Character vector of names of all checks (invisibly)
 #' @export
 list_pkgchecks <- function (quiet = FALSE) {

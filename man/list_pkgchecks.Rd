@@ -2,13 +2,17 @@
 % Please edit documentation in R/utils.R
 \name{list_pkgchecks}
 \alias{list_pkgchecks}
-\title{Print to screen a list of all checks currently implemented}
+\title{List all checks currently implemented}
 \usage{
 list_pkgchecks(quiet = FALSE)
+}
+\arguments{
+\item{quiet}{If \code{TRUE}, print all checks to screen. Function invisibly
+returns list of checks regardless.}
 }
 \value{
 Character vector of names of all checks (invisibly)
 }
 \description{
-Print to screen a list of all checks currently implemented
+List all checks currently implemented
 }
