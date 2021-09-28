@@ -37,7 +37,7 @@ pkgcheck_pkg_license <- function (s) {
     s$desc$license
 }
 
-pkgchk_pkgstats_summary <- function (s) {
+pkgcheck_pkgstats_summary <- function (s) {
 
     pkgstats <- fmt_pkgstats_checks (s)
 

@@ -1,6 +1,6 @@
 
 #' Compare 'pkgstats' summary with statistics from all CRAN packages.
-#' @param s Result of \link{pkgstats_summary}
+#' @param s Result of `pkgstats::pkgstats_summary`
 #' @param threshold Proportion threshold below which to report on statistically
 #' unusual properties.
 #' @return A 'data.frame' of selected statistical properties and percentiles in

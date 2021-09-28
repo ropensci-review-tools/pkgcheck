@@ -81,7 +81,7 @@ pkgstats_checks <- function (path) {
     out$url <- pkgcheck_url_from_desc (path)
     out$license <- pkgcheck_pkg_license (s)
 
-    out$summary <- pkgchk_pkgstats_summary (s)
+    out$summary <- pkgcheck_pkgstats_summary (s)
     out$dependencies <- parse_pkg_deps (s)
 
     out$git <- pkgcheck_git_info (path)
