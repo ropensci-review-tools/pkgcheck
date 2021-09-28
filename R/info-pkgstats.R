@@ -1,3 +1,5 @@
+# These functions provide information derived from \pkg{pkgstats} without
+# actually being checks
 
 pkgcheck_url_from_desc <- function (path) {
 
