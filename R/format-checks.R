@@ -11,21 +11,21 @@ checks_to_markdown <- function (checks, render = FALSE) {
 
     md_chks <- summarise_all_checks (checks)
 
-    md_out <- c (paste0 ("## Checks for [", checks$package,
-                         " (v", checks$version, ")](",
-                         checks$url, ")"),
+    md_out <- c (paste0 ("## Checks for [", checks$package$name,
+                         " (v", checks$package$version, ")](",
+                         checks$package$url, ")"),
                  "",
                  paste0 ("git hash: [",
-                         substring (checks$git$HEAD, 1, 8),
+                         substring (checks$info$git$HEAD, 1, 8),
                          "](",
-                         checks$url,
+                         checks$package$url,
                          "/tree/",
-                         checks$git$HEAD,
+                         checks$info$git$HEAD,
                          ")"),
                  "",
                  md_chks,
                  "",
-                 paste0 ("Package License: ", checks$license),
+                 paste0 ("Package License: ", checks$package$license),
                  "",
                  "---",
                  "")
@@ -34,7 +34,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  srr_checks_to_md (checks))
 
     # sec_nun is (1, 2) for (srr, non-srr) packages
-    sec_num <- as.integer (!is.null (checks$srr)) + 1
+    sec_num <- as.integer (!is.null (checks$info$srr)) + 1
     stats_rep <- pkgstats_format (checks, sec_num)
 
     md_out <- c (md_out,
@@ -71,8 +71,8 @@ checks_to_markdown <- function (checks, render = FALSE) {
     # appending `_md` to indicate conversion to markdown format.
     # ----------
 
-    v <- data.frame (package = names (checks$pkg_versions),
-                     version = checks$pkg_versions,
+    v <- data.frame (package = names (checks$meta),
+                     version = checks$meta,
                      row.names = NULL)
     md_out <- c (md_out,
                  "",
@@ -107,7 +107,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
 #' @noRd
 pkgstats_format <- function (checks, sec_num) {
 
-    is_noteworthy <- any (checks$pkgstats$noteworthy == "TRUE")
+    is_noteworthy <- any (checks$info$pkgstats$noteworthy == "TRUE")
     note <- ifelse (is_noteworthy,
                     paste0 ("This package features some noteworthy ",
                             "statistical properties which may need to be ",
@@ -128,7 +128,7 @@ pkgstats_format <- function (checks, sec_num) {
                     "",
                     "The package has:",
                     "",
-                    pkg_stat_desc (checks),
+                    pkg_stat_desc (checks$package),
                     "",
                     "---",
                     "",
@@ -147,7 +147,7 @@ pkgstats_format <- function (checks, sec_num) {
                             "as \"noteworthy\" when they lie in the upper or ",
                             "lower 5th percentile."),
                     "",
-                    knitr::kable (checks$pkgstats,
+                    knitr::kable (checks$info$pkgstats,
                                   row.names = FALSE,
                                   digits = c (NA, 0, 1, NA)),
                     "",
@@ -250,7 +250,7 @@ pkg_network <- function (checks, sec_num) {
               paste0 ("### ", sec_num, "a. Network visualisation"),
               "")
 
-    if (!"network_file" %in% names (checks))
+    if (!"network_file" %in% names (checks$info))
         return (c (out,
                    paste0 ("This package contains no internal function calls, ",
                            "and therefore no function call network")))
@@ -259,15 +259,15 @@ pkg_network <- function (checks, sec_num) {
     visjs_dir <- file.path (cache_dir, "static") # in api.R
 
     flist <- list.files (visjs_dir,
-                         pattern = paste0 (checks$package, "_pkgstats"),
+                         pattern = paste0 (checks$package$name, "_pkgstats"),
                          full.names = TRUE)
 
-    if (!checks$network_file %in% flist) {
+    if (!checks$info$network_file %in% flist) {
 
         unlink (flist, recursive = TRUE)
-        visjs_ptn <- basename (checks$network_file)
+        visjs_ptn <- basename (checks$info$network_file)
         visjs_ptn <- tools::file_path_sans_ext (visjs_ptn)
-        flist <- list.files (dirname (checks$network_file),
+        flist <- list.files (dirname (checks$info$network_file),
                              pattern = visjs_ptn,
                              full.names = TRUE)
 
@@ -283,7 +283,7 @@ pkg_network <- function (checks, sec_num) {
 }
 
 network_file <- function(checks) {
-    Sys.getenv("PKGCHECK_TEST_NETWORK_FILE", checks$network_file)
+    Sys.getenv("PKGCHECK_TEST_NETWORK_FILE", checks$info$network_file)
 }
 
 #' render markdown-formatted input into 'html'

@@ -50,9 +50,10 @@ pkgchk_gp_report <- function (path) {
 #' @noRd
 summarise_gp_checks <- function (checks) {
 
-    if (methods::is (checks$gp$rcmdcheck, "try-error")) {
+    if (methods::is (checks$checks$gp$rcmdcheck, "try-error")) {
 
-        cond <- attr (checks$gp$rcmdcheck, "condition") # the error condition
+        cond <- attr (checks$checks$gp$rcmdcheck,
+                      "condition") # the error condition
         rcmd_errs <- paste0 ("- ",
                              symbol_crs (),
                              " R CMD check process failed with message: '",
@@ -62,7 +63,7 @@ summarise_gp_checks <- function (checks) {
 
     } else {
 
-        nerr <- length (checks$gp$rcmdcheck$errors)
+        nerr <- length (checks$checks$gp$rcmdcheck$errors)
         if (nerr == 0) {
 
             rcmd_errs <- paste0 ("- ",
@@ -80,7 +81,7 @@ summarise_gp_checks <- function (checks) {
                                          "errors."))
         }
 
-        nwarn <- length (checks$gp$rcmdcheck$warnings)
+        nwarn <- length (checks$checks$gp$rcmdcheck$warnings)
         if (nwarn == 0) {
 
             rcmd_warns <- paste0 ("- ",
@@ -119,7 +120,7 @@ gp_checks_to_md <- function (checks,
                                                  covr_threshold = 70,
                                                  digits = 2)) {
 
-    gp <- extract_gp_components (checks$gp)
+    gp <- extract_gp_components (checks$checks$gp)
 
 
     c ("",

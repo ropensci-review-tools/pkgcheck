@@ -190,15 +190,15 @@ print_srr <- function (x) {
 #' @noRd
 srr_checks_to_md <- function (checks) {
 
-    if (is.null (checks$srr))
+    if (is.null (checks$info$srr))
         return (NULL)
 
-    cat_plural <- ifelse (length (checks$srr$categories == 1),
+    cat_plural <- ifelse (length (checks$info$srr$categories == 1),
                           "category",
                           "categories")
-    srr_msg <- ifelse (checks$srr$okay,
-                       paste0 (symbol_tck (), " ", checks$srr$message),
-                       paste0 (symbol_crs (), " ", checks$srr$message))
+    srr_msg <- ifelse (checks$info$srr$okay,
+                       paste0 (symbol_tck (), " ", checks$info$srr$message),
+                       paste0 (symbol_crs (), " ", checks$info$srr$message))
 
     c (paste0 ("## 1. rOpenSci Statistical Standards ",
                "([`srr` package]",
@@ -206,7 +206,7 @@ srr_checks_to_md <- function (checks) {
        "",
        paste0 ("This package is in the following ", cat_plural, ":"),
        "",
-       paste0 ("- *", checks$srr$categories, "*"),
+       paste0 ("- *", checks$info$srr$categories, "*"),
        "",
        srr_msg,
        "",
@@ -225,5 +225,5 @@ srr_checks_to_md <- function (checks) {
 }
 
 report_file <- function(checks) {
-    Sys.getenv("PKGCHECK_SRR_REPORT_FILE", checks$srr$report_file)
+    Sys.getenv("PKGCHECK_SRR_REPORT_FILE", checks$info$srr$report_file)
 }
