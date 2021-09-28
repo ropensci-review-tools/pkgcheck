@@ -1,4 +1,4 @@
-test_that("check-bg", {
+test_that("pkgcheck_bg() works", {
 
     options (repos = c (CRAN = "https://cloud.r-project.org"))
 
