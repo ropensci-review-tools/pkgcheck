@@ -4,7 +4,7 @@
 \alias{list_pkgchecks}
 \title{Print to screen a list of all checks currently implemented}
 \usage{
-list_pkgchecks()
+list_pkgchecks(quiet = FALSE)
 }
 \value{
 Character vector of names of all checks (invisibly)
