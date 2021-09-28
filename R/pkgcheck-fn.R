@@ -53,7 +53,7 @@ pkgcheck <- function (path = ".") {
 
     out$checks$gp <- pkgchk_gp_report (path)
 
-    out$meta <- version_info (is.null (out$srr))
+    out$meta <- version_info (is.null (out$info$srr))
 
     stopfile <- Sys.getenv ("PKGCHECK_PXBG_STOP")
     if (stopfile != "") {
