@@ -1,12 +1,14 @@
 #' Get 'goodpractice' report on local source package
 #'
 #' This uses a caching system to only generate new report if repository has been
-#' updated, otherwise it returns locally cached version.
+#' updated, otherwise it returns locally cached version. It has a prefix of
+#' `pkgcheck_` and not `pkgchk_` because it is structured differently to
+#' standard `pkgchk_` checks, and this avoids any method confusion.
 #'
 #' @param path Path to local source of repository
 #' @return A \pkg{goodpractice} report
 #' @noRd
-pkgchk_gp_report <- function (path) {
+pkgcheck_gp_report <- function (path) {
 
     pkg_hash <- current_hash (path)
     fname <- paste0 (pkg_hash [1], "_", pkg_hash [2])

@@ -51,7 +51,7 @@ pkgcheck <- function (path = ".") {
         }
     }
 
-    out$checks$gp <- pkgchk_gp_report (path)
+    out$checks$gp <- pkgcheck_gp_report (path)
 
     out$meta <- version_info (is.null (out$info$srr))
 
