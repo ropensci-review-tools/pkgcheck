@@ -21,7 +21,7 @@
 #' @param path Location of local repository to report on
 #'
 #' @noRd
-pkgchk_srr_report <- function (path) {
+pkginfo_srr_report <- function (path) {
 
     srr <- tryCatch (
                 srr::srr_stats_pre_submit (path, quiet = TRUE),

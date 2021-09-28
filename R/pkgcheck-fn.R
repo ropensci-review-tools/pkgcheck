@@ -86,7 +86,7 @@ pkgstats_checks <- function (path) {
 
     out$git <- pkginfo_git_info (path)
 
-    out$srr <- pkgchk_srr_report (path)
+    out$srr <- pkginfo_srr_report (path)
 
     out$file_list <- list ()
     out$file_list$uses_roxy <- pkgchk_uses_roxygen2 (path)
