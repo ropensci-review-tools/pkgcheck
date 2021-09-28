@@ -129,13 +129,13 @@ summarise_srr_checks <- function (checks) {
 
     res <- NULL
 
-    if (!is.null (checks$srr)) {
+    if (!is.null (checks$info$srr)) {
 
-        m <- checks$srr$message
+        m <- checks$info$srr$message
         i <- which (nchar (m) > 0 & grepl ("[^\\s]*", m))
 
         res <- paste0 ("- ",
-                       ifelse (checks$srr$okay,
+                       ifelse (checks$info$srr$okay,
                                symbol_tck (),
                                symbol_crs ()),
                        " ",

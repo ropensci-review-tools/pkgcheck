@@ -33,7 +33,7 @@ summarise_all_checks <- function (checks) {
               # ---- Miscellaneous checks start here ---
               summarise_scrap_checks (checks$checks),
               # ---- Miscellaneous checks end here ---
-              summarise_srr_checks (checks$checks))
+              summarise_srr_checks (checks))
 
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
