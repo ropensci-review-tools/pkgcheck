@@ -93,8 +93,8 @@ checks_to_markdown <- function (checks, render = FALSE) {
 
     attr (md_out, "checks_okay") <- attr (md_chks, "checks_okay")
     attr (md_out, "is_noteworthy") <- attr (stats_rep, "is_noteworthy")
-    attr (md_out, "network_file") <- checks$network_file
-    attr (md_out, "srr_report_file") <- checks$srr$report_file
+    attr (md_out, "network_file") <- checks$info$network_file
+    attr (md_out, "srr_report_file") <- checks$info$srr$report_file
 
     return (md_out)
 }
