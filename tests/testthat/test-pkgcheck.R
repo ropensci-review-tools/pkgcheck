@@ -29,23 +29,15 @@ test_that("pkgcheck", {
   )
   expect_type (chk, "list")
 
-  items <- c ("package",
-    "version",
-    "license",
-    "summary",
-    "dependencies",
-    "git",
-    "srr",
-    "file_list",
-    "fns_have_exs",
-    "left_assigns",
-    "pkgstats",
-    "network_file",
-    "badges",
-    "gp",
-    "scrap",
-    "pkg_versions")
+  items <- c ("package", "info", "checks", "meta")
   expect_true (all (items %in% names (chk)))
+
+  items <- c ("name", "version", "license", "summary", "dependencies")
+  expect_true (all (items %in% names (chk$package)))
+
+  items <- c ("git", "srr", "pkgstats", "fns_have_exs",
+              "left_assigns", "network_file", "badges")
+  expect_true (all (items %in% names (chk$info)))
 
   md <- checks_to_markdown (chk, render = FALSE)
   md_dir <- withr::local_tempdir()
