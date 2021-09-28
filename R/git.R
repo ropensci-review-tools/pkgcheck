@@ -10,8 +10,11 @@ repo_is_git <- function (path) {
 }
 
 #' Return the $git item of main pkgcheck return result
+#'
+#' Note the prefix is `pkgcheck`, not `pkgchk_`: This is not a check, just a
+#' function to return summary data.
 #' @noRd
-pkgchk_git_info <- function (path) {
+pkgcheck_git_info <- function (path) {
 
     path <- convert_path (path)
 
