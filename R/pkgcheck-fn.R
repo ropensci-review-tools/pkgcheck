@@ -27,6 +27,10 @@ pkgcheck <- function (path = ".") {
     s <- pkgstats_info (path)
     out <- s$out
 
+    out$file_list <- file_checks (path)
+    out$file_list$has_url <- !is.na (s$desc$urls)
+    out$file_list$has_bugs <- !is.na (s$desc$bugs)
+
     out$network_file <- fn_call_network (s)
 
     u <- pkginfo_url_from_desc (path)
@@ -88,26 +92,28 @@ pkgstats_info <- function (path) {
 
     out$srr <- pkginfo_srr_report (path)
 
-    out$file_list <- list ()
-    out$file_list$uses_roxy <- pkgchk_uses_roxygen2 (path)
-    out$file_list$has_contrib <- pkgchk_has_contrib_md (path)
-    out$file_list$has_citation <- pkgchk_has_citation (path)
-    out$file_list$has_codemeta <- pkgchk_has_codemeta (path)
-    out$file_list$vignette <- pkgchk_has_vignette (path)
-    out$file_list$pkgname_available <- pkgchk_pkgname_available (path)
-    out$file_list$pkg_on_cran <- pkgchk_on_cran (path)
-
     out$fns_have_exs <- pkgchk_pkg_fns_have_exs (path)
 
     out$left_assigns <- pkgchk_left_assign (path) # tallies of "<-", "<<-", "="
-
-    out$file_list$has_url <- !is.na (s$desc$urls)
-    out$file_list$has_bugs <- !is.na (s$desc$bugs)
 
     out$pkgstats <- fmt_pkgstats_info (s)
 
     return (list (stats = s,
                   out = out))
+}
+
+file_checks <- function (path) {
+
+    res <- list ()
+    res$uses_roxy <- pkgchk_uses_roxygen2 (path)
+    res$has_contrib <- pkgchk_has_contrib_md (path)
+    res$has_citation <- pkgchk_has_citation (path)
+    res$has_codemeta <- pkgchk_has_codemeta (path)
+    res$vignette <- pkgchk_has_vignette (path)
+    res$pkgname_available <- pkgchk_pkgname_available (path)
+    res$pkg_on_cran <- pkgchk_on_cran (path)
+
+    return (res)
 }
 
 #' Parse items of the "desc" part of `pkgstats` output
