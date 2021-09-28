@@ -24,7 +24,7 @@ pkgcheck <- function (path = ".") {
                   " for details on how to install 'ctags'.")
         }
 
-    s <- pkgstats_checks (path)
+    s <- pkgstats_info (path)
     out <- s$out
 
     out$network_file <- fn_call_network (s)
@@ -70,7 +70,7 @@ checks_running_in_bg <- function (path) {
             !file.exists (stopfile))
 }
 
-pkgstats_checks <- function (path) {
+pkgstats_info <- function (path) {
 
     s <- suppressWarnings (pkgstats::pkgstats (path))
     s$path <- path
@@ -104,7 +104,7 @@ pkgstats_checks <- function (path) {
     out$file_list$has_url <- !is.na (s$desc$urls)
     out$file_list$has_bugs <- !is.na (s$desc$bugs)
 
-    out$pkgstats <- fmt_pkgstats_checks (s)
+    out$pkgstats <- fmt_pkgstats_info (s)
 
     return (list (stats = s,
                   out = out))
@@ -132,7 +132,7 @@ parse_pkg_deps <- function (s) {
 #' @param s Output of \pkg{pkgstats} call.
 #' @return Report as formatted string
 #' @noRd
-fmt_pkgstats_checks <- function (s) {
+fmt_pkgstats_info <- function (s) {
 
     s_summ <- pkgstats::pkgstats_summary (s)
     attr (s_summ, "path") <- s$path
