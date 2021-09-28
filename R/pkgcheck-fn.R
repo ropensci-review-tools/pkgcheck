@@ -76,10 +76,10 @@ pkgstats_checks <- function (path) {
     s$path <- path
 
     out <- list ()
-    out$package <- pkgchk_pkg_name (s)
-    out$version <- pkgchk_pkg_version (s)
+    out$package <- pkgcheck_pkg_name (s)
+    out$version <- pkgcheck_pkg_version (s)
     out$url <- pkgchk_url_from_desc (path)
-    out$license <- pkgchk_pkg_license (s)
+    out$license <- pkgcheck_pkg_license (s)
 
     out$summary <- pkgchk_pkgstats_summary (s)
     out$dependencies <- parse_pkg_deps (s)

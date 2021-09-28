@@ -23,15 +23,15 @@ pkgchk_url_from_desc <- function (path) {
 
 #' @param s Result of `pkgstats(path)`
 #' @noRd
-pkgchk_pkg_name <- function (s) {
+pkgcheck_pkg_name <- function (s) {
     s$desc$package
 }
 
-pkgchk_pkg_version <- function (s) {
+pkgcheck_pkg_version <- function (s) {
     s$desc$version
 }
 
-pkgchk_pkg_license <- function (s) {
+pkgcheck_pkg_license <- function (s) {
     s$desc$license
 }
 
