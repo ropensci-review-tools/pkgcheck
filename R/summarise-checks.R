@@ -28,8 +28,8 @@ summarise_all_checks <- function (checks) {
               summarise_pkgname_chk (checks$checks),
               summarise_ci_checks (checks),
               summarise_covr_checks (checks$checks),
-              checks$checks$gp$rcmd_errs,
-              checks$checks$gp$rcmd_warns,
+              gp$rcmd_errs,
+              gp$rcmd_warns,
               # ---- Miscellaneous checks start here ---
               summarise_scrap_checks (checks$checks),
               # ---- Miscellaneous checks end here ---
