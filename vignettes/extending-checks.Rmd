@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+**NOTE** This vignette is not current. It will be updated very soon to reflect
+new methods for extending checks.
+
+---
+
 This vignette describes how to modify or extend the existing suite of checks
 performed by `pkgcheck`. It is primarily based around the example of the
 [`pkg_has_scrap()`
