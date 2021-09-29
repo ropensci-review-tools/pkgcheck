@@ -6,7 +6,7 @@
 #' @return Vector of named logical values, one for each '.Rd' file indicating
 #' whether or not it has example lines.
 #' @noRd
-pkgchk_pkg_fns_have_exs <- function (checks) {
+pkgchk_fns_have_exs <- function (checks) {
 
     rd <- list.files (file.path (checks$package$path, "man"),
                       pattern = "\\.Rd$",

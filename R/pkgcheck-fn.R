@@ -27,21 +27,22 @@ pkgcheck <- function (path = ".") {
     s <- pkgstats_info (path)
 
     out <- pkgcheck_object ()
-    out$package <- s$out [c ("package", "version", "url",
+    out$package <- s$out [c ("package", "path", "version", "url",
                              "license", "summary", "dependencies")]
     names (out$package) [1] <- "name"
-    out$package$path <- path
 
-    out$info <- s$out [c ("git", "srr", "pkgstats",
-                          "fns_have_exs", "left_assigns")]
+    out$info <- s$out [c ("git", "srr", "pkgstats")]
 
     out$info$network_file <- fn_call_network (s)
 
-    out$checks <- file_checks (out)
-    out$checks$has_url <- !is.na (s$stats$desc$urls)
-    out$checks$has_bugs <- !is.na (s$stats$desc$bugs)
+    pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
+    check_fns <- grep ("^pkgchk\\_", pkg_fns, value = TRUE)
+    exclude_these <- "ci\\_badges|srr"
+    check_fns <- check_fns [which (!grepl (exclude_these, check_fns))]
 
-    out$checks$gp <- pkgcheck_gp_report (path)
+    out$checks <- lapply (check_fns, function (i)
+                          do.call (i, list (checks)))
+    names (out$checks) <- gsub ("^pkgchk\\_", "", check_fns)
 
     u <- pkginfo_url_from_desc (path)
     out$info$badges <- list ()
@@ -97,8 +98,10 @@ pkgstats_info <- function (path) {
 
     out <- list ()
     out$package <- pkginfo_pkg_name (s)
+    out$path <- path
     out$version <- pkginfo_pkg_version (s)
-    out$url <- pkginfo_url_from_desc (path)
+    out$url <- pkginfo_url_from_desc (path, type = "URL")
+    out$BugReports <- pkginfo_url_from_desc (path, type = "BugReports")
     out$license <- pkginfo_pkg_license (s)
 
     out$summary <- pkginfo_pkgstats_summary (s)
@@ -107,10 +110,6 @@ pkgstats_info <- function (path) {
     out$git <- pkginfo_git_info (path)
 
     out$srr <- pkginfo_srr_report (path)
-
-    out$fns_have_exs <- pkgchk_pkg_fns_have_exs (path)
-
-    out$left_assigns <- pkgchk_left_assign (path) # tallies of "<-", "<<-", "="
 
     out$pkgstats <- fmt_pkgstats_info (s)
 
