@@ -30,6 +30,7 @@ pkgcheck <- function (path = ".") {
     out$package <- s$out [c ("package", "version", "url",
                              "license", "summary", "dependencies")]
     names (out$package) [1] <- "name"
+    out$package$path <- path
 
     out$info <- s$out [c ("git", "srr", "pkgstats",
                           "fns_have_exs", "left_assigns")]
