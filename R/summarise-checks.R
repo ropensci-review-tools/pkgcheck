@@ -14,8 +14,6 @@
 summarise_all_checks <- function (checks) {
 
 
-    gp <- summarise_gp_checks (checks)
-
     pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
 
     output_fns <- gsub ("^output\\_pkgchk\\_", "",
@@ -23,6 +21,8 @@ summarise_all_checks <- function (checks) {
     out <- lapply (order_checks (output_fns),
                    function (i) summarise_check (checks, i))
     out <- do.call (c, out)
+
+    gp <- summarise_gp_checks (checks)
 
     out <- c (out,
               gp$rcmd_errs,
