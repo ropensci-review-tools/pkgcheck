@@ -13,6 +13,13 @@ print.pkgcheck <- function (x, ...) {
         print_srr (x)
     print_structure (x)
 
+    pkg_fns <- ls (as.environment ("package:pkgcheck"),
+                   all.names = TRUE)
+    output_fns <- gsub ("^output\\_pkgchk\\_", "",
+                        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
+    out <- lapply (output_fns, function (i) print_check (checks, i))
+    out <- do.call (c, out [which (nchar (out) > 0L)])
+
     cli::cli_h3 ("All statistics")
     x$info$pkgstats$value <- round (x$info$pkgstats$value, digits = 1)
     x$info$pkgstats$percentile <- round (x$info$pkgstats$percentile, digits = 1)
@@ -146,4 +153,24 @@ print_structure <- function (x) {
 
 
     cli::cli_li (s)
+}
+
+#' Generic function to print checks based on result of corresponding
+#' `output_pkgchk_` function.
+#'
+#' @param checks Full result of `pkgcheck()` call
+#' @param what Name of check which must also correspond to an internal function
+#' named `output_pkgchk_<name>`.
+#' @return Check formatted to apepar in `print` method
+#' @noRd
+print_check <- function (checks, what) {
+
+    pkg_env <- as.environment ("package:pkgcheck")
+
+    output_fn <- get (paste0 ("output_pkgchk_", what),
+                      envir = pkg_env)
+
+    chk_output <- do.call (output_fn, list (checks))
+
+    return (chk_output$print)
 }

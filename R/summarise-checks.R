@@ -27,7 +27,6 @@ summarise_all_checks <- function (checks) {
     out <- do.call (c, out)
 
     out <- c (out,
-              summarise_ci_checks (checks),
               summarise_covr_checks (checks),
               gp$rcmd_errs,
               gp$rcmd_warns,
@@ -82,7 +81,7 @@ summarise_check <- function (checks, what) {
 
     res <- NULL
 
-    if (nchar (chk_summary$summary) > 0L) {
+    if (sum (nchar (chk_summary$summary)) > 0L) {
 
         res <- paste0 ("- ",
                        ifelse (chk_summary$check_pass,
