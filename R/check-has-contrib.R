@@ -22,12 +22,14 @@ pkgchk_has_contrib_md <- function (path) {
     return (chk)
 }
 
-#' @param checks Result of main \link{pkgcheck} function
-#' @return Test output with formatted check items as tick or cross.
-#' @noRd
-summarise_has_contrib <- function (checks) {
+output_pkgchk_has_contrib <- function (checks) {
 
-    # has_this is in summarise-checks.R
-    has_this (checks$checks, "has_contrib",
-              "has", "does not have", "a 'contributing.md' file.")
+    out <- list (check_pass = checks$checks$has_contrib,
+                summary = "",
+                print = "") # no print method
+
+    out$summary <- paste0 (ifelse (out$check_pass, "has", "does not have"),
+                           " a 'contributing' file.")
+
+    return (out)
 }
