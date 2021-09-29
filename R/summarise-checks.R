@@ -14,7 +14,7 @@
 summarise_all_checks <- function (checks) {
 
 
-    gp <- summarise_gp_checks (checks$checks)
+    gp <- summarise_gp_checks (checks)
 
     out <- c (summarise_uses_roxygen2 (checks$checks),
               summarise_has_contrib (checks$checks),
@@ -27,7 +27,7 @@ summarise_all_checks <- function (checks) {
               summarise_url_bugs (checks$checks, "has_bugs"),
               summarise_pkgname_chk (checks$checks),
               summarise_ci_checks (checks),
-              summarise_covr_checks (checks$checks),
+              summarise_covr_checks (checks),
               gp$rcmd_errs,
               gp$rcmd_warns,
               # ---- Miscellaneous checks start here ---
@@ -80,14 +80,14 @@ summarise_url_bugs <- function (checks, what = "has_url") {
 #' @noRd
 summarise_covr_checks <- function (checks) {
 
-    if (methods::is (checks$gp$covr, "try-error")) {
+    if (methods::is (checks$checks$gp$covr, "try-error")) {
 
         res <- paste0 ("- ",
                        symbol_crs (),
                        " Package coverage failed")
     } else {
 
-        coverage <- round (checks$gp$covr$pct_by_line, digits = 1)
+        coverage <- round (checks$checks$gp$covr$pct_by_line, digits = 1)
 
         if (coverage >= 75) {
 

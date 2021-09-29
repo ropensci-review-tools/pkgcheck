@@ -52,9 +52,9 @@ pkgcheck_gp_report <- function (path) {
 #' @noRd
 summarise_gp_checks <- function (checks) {
 
-    if (methods::is (checks$gp$rcmdcheck, "try-error")) {
+    if (methods::is (checks$checks$gp$rcmdcheck, "try-error")) {
 
-        cond <- attr (checks$gp$rcmdcheck,
+        cond <- attr (checks$checks$gp$rcmdcheck,
                       "condition") # the error condition
         rcmd_errs <- paste0 ("- ",
                              symbol_crs (),
@@ -65,7 +65,7 @@ summarise_gp_checks <- function (checks) {
 
     } else {
 
-        nerr <- length (checks$gp$rcmdcheck$errors)
+        nerr <- length (checks$checks$gp$rcmdcheck$errors)
         if (nerr == 0) {
 
             rcmd_errs <- paste0 ("- ",
@@ -83,7 +83,7 @@ summarise_gp_checks <- function (checks) {
                                          "errors."))
         }
 
-        nwarn <- length (checks$gp$rcmdcheck$warnings)
+        nwarn <- length (checks$checks$gp$rcmdcheck$warnings)
         if (nwarn == 0) {
 
             rcmd_warns <- paste0 ("- ",
