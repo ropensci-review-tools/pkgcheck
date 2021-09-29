@@ -22,7 +22,7 @@ pkginfo_git_info <- function (path) {
 
     branch <- NULL
 
-    if (!is.null (u)) {
+    if (length (u) > 0L) {
 
         repo <- utils::tail (strsplit (u, "/") [[1]], 1)
         org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]

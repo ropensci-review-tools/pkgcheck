@@ -48,7 +48,7 @@ pkgcheck <- function (path = ".") {
 
     u <- pkginfo_url_from_desc (path)
     out$info$badges <- list ()
-    if (!is.null (u)) {
+    if (length (u) > 0L) {
         out$info$badges <- pkgchk_ci_badges (u)
         if (!is.null (out$info$badges)) {
             if (any (grepl ("github", out$info$badges))) {
