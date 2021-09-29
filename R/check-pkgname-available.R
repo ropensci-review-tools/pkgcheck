@@ -26,11 +26,11 @@ output_pkgchk_pkgname <- function (checks) {
                 summary = "",
                 print = "") # no print method
 
-    if (checks$checks$pkgname_available & !checks$checks$pkg_on_cran) {
+    if (checks$checks$pkgname_available & !checks$checks$on_cran) {
 
         out$summary <- "Package name is available"
 
-    } else if (checks$checks$pkg_on_cran) {
+    } else if (checks$checks$on_cran) {
 
         out$summary <- "Package is already on CRAN."
 
