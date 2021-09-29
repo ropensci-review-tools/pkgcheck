@@ -10,9 +10,9 @@ pkgchk_has_url <- function (checks) {
 
 pkgchk_has_bugs <- function (checks) {
 
-    out <- length (checks$package$bugs) > 0L
+    out <- length (checks$package$BugReports) > 0L
     if (out)
-        out <- !is.na (checks$package$bugs)
+        out <- !is.na (checks$package$BugReports)
 
     return (out)
 }
