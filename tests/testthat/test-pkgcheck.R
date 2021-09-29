@@ -19,14 +19,14 @@ test_that("pkgcheck", {
   )
   expect_type (chk, "list")
 
-  items <- c ("package", "info", "checks", "meta")
+  items <- c ("package", "info", "checks", "meta", "goodpractice")
   expect_true (all (items %in% names (chk)))
 
-  items <- c ("name", "version", "license", "summary", "dependencies")
+  items <- c ("name", "path", "version", "url", "BugReports",
+              "license", "summary", "dependencies")
   expect_true (all (items %in% names (chk$package)))
 
-  items <- c ("git", "srr", "pkgstats", "fns_have_exs",
-              "left_assigns", "network_file", "badges")
+  items <- c ("git", "srr", "pkgstats", "network_file", "badges")
   expect_true (all (items %in% names (chk$info)))
 
   md <- checks_to_markdown (chk, render = FALSE)

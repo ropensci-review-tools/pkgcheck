@@ -26,7 +26,7 @@ test_that("pkgcheck_bg() works", {
 
     out <- x$get_result ()
     expect_type (out, "list")
-    expect_length (out, 4L)
+    expect_length (out, 5L)
 
     # results should then be cached:
     pt2 <- system.time (
