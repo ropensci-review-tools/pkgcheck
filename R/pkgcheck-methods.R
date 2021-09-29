@@ -166,12 +166,14 @@ print_structure <- function (x) {
 #' @noRd
 print_check <- function (checks, what) {
 
-    pkg_env <- as.environment ("package:pkgcheck")
+    pkg_env <- asNamespace ("pkgcheck")
+    pkg_fns <- ls (envir = pkg_env)
 
-    output_fn <- get (paste0 ("output_pkgchk_", what),
-                      envir = pkg_env)
+    output_fn <- paste0 ("output_pkgchk_", what)
+    if (!output_fn %in% pkg_fns)
+        return (NULL)
 
-    chk_output <- do.call (output_fn, list (checks))
+    chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
 
     return (chk_output$print)
 }

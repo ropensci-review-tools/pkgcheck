@@ -16,8 +16,7 @@ summarise_all_checks <- function (checks) {
 
     gp <- summarise_gp_checks (checks)
 
-    pkg_fns <- ls (as.environment ("package:pkgcheck"),
-                   all.names = TRUE)
+    pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
 
     output_fns <- gsub ("^output\\_pkgchk\\_", "",
                         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
@@ -65,12 +64,14 @@ has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
 #' @noRd
 summarise_check <- function (checks, what) {
 
-    pkg_env <- as.environment ("package:pkgcheck")
+    pkg_env <- asNamespace ("pkgcheck")
+    pkg_fns <- ls (pkg_env)
+    summary_fn <- paste0 ("output_pkgchk_", what)
 
-    summary_fn <- get (paste0 ("output_pkgchk_", what),
-                       envir = pkg_env)
+    if (!summary_fn %in% pkg_fns)
+        return (NULL)
 
-    chk_summary <- do.call (summary_fn, list (checks))
+    chk_summary <- do.call (summary_fn, list (checks), envir = pkg_env)
 
     res <- NULL
 
