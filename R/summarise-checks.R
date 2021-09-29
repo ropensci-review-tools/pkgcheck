@@ -27,7 +27,6 @@ summarise_all_checks <- function (checks) {
     out <- do.call (c, out)
 
     out <- c (out,
-              summarise_has_citation (checks),
               summarise_has_codemeta (checks),
               summarise_fns_have_exs (checks),
               summarise_has_vignette (checks),
