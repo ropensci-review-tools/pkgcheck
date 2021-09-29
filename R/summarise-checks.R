@@ -26,8 +26,7 @@ summarise_all_checks <- function (checks) {
 
     out <- c (out,
               gp$rcmd_errs,
-              gp$rcmd_warns,
-              summarise_srr_checks (checks))
+              gp$rcmd_warns)
 
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
