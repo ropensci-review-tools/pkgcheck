@@ -34,7 +34,7 @@ print.pkgcheck <- function (x, ...) {
     message ("")
 
     cli::cli_h2 ("goodpractice")
-    print (x$checks$gp)
+    print (x$goodpractice)
 
     # ---- Add new print methods here ---
     # see https://github.com/ropensci-review-tools/pkgcheck/pull/27

@@ -35,13 +35,15 @@ pkgcheck <- function (path = ".") {
 
     out$info$network_file <- fn_call_network (s)
 
+    out$goodpractice <- pkgcheck_gp_report (path)
+
     pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
     check_fns <- grep ("^pkgchk\\_", pkg_fns, value = TRUE)
     exclude_these <- "ci\\_badges|srr"
     check_fns <- check_fns [which (!grepl (exclude_these, check_fns))]
 
     out$checks <- lapply (check_fns, function (i)
-                          do.call (i, list (checks)))
+                          do.call (i, list (out)))
     names (out$checks) <- gsub ("^pkgchk\\_", "", check_fns)
 
     u <- pkginfo_url_from_desc (path)
