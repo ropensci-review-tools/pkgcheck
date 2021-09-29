@@ -42,7 +42,7 @@ print.pkgcheck <- function (x, ...) {
     has_misc_checks <- length (x$checks$scrap > 0L) # Modify when more checks are added
     if (has_misc_checks) {
         cli::cli_h2 ("Other checks")
-        print_check_screen (checks, "has_scrap")
+        print_check_screen (x, "has_scrap")
     }
     # --- End add new checks
 
