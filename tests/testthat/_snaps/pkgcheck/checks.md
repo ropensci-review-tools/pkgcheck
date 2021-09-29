@@ -6,7 +6,7 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: Package does not have a 'contributing.md' file.
 - :heavy_multiplication_x: Package does not have a 'CITATION' file.
 - :heavy_multiplication_x: Package does not have a 'codemeta.json' file.
-- :heavy_multiplication_x: These funtions do not have examples: [test_fn.Rd].
+- :heavy_multiplication_x: These functions do not have examples: [test_fn.Rd].
 - :heavy_multiplication_x: Package has at no HTML vignettes
 - :heavy_multiplication_x: Package 'DESCRIPTION' does not have a URL field.
 - :heavy_multiplication_x: Package 'DESCRIPTION' does not have a BugReports field.
