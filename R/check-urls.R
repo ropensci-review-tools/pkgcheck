@@ -1,4 +1,14 @@
 
+pkgchk_has_url <- function (checks) {
+
+    is.na (checks$package$url)
+}
+
+pkgchk_has_bugs <- function (checks) {
+
+    !is.na (s$stats$desc$bugs)
+}
+
 output_pkgchk_has_url <- function (checks) {
 
     out <- list (check_pass = checks$checks$has_url,
