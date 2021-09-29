@@ -7,12 +7,14 @@ pkgchk_has_codemeta <- function (path) {
     "codemeta.json" %in% list.files (path, recursive = FALSE)
 }
 
-#' Check presence of codemeta.json
-#' @param checks Result of main \link{pkgcheck} function
-#' @return Test output with formatted check items as tick or cross.
-#' @noRd
-summarise_has_codemeta <- function (checks) {
+output_pkgchk_has_codemeta <- function (checks) {
 
-    has_this (checks$checks, "has_codemeta",
-              "has", "does not have", "a 'codemeta.json' file.")
+    out <- list (check_pass = checks$checks$has_codemeta,
+                summary = "",
+                print = "") # no print method
+
+    out$summary <- paste0 (ifelse (out$check_pass, "has", "does not have"),
+                           " a 'codemeta.json' file.")
+
+    return (out)
 }
