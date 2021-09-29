@@ -60,29 +60,31 @@ pkgchk_left_assign <- function (path) {
     return (out)
 }
 
-#' @return cross only
-#' @noRd
-summarise_left_assign_chk <- function (checks) {
+output_pkgchk_global_assign <- function (checks) {
 
-    res <- NULL
+    out <- list (check_pass = !checks$info$left_assign$global,
+                summary = "",
+                print = "") # no print method
 
-    if (checks$info$left_assign$global) {
+    if (!out$check_pass)
+        out$summary <- " Package uses global assignment operator ('<<-')."
 
-        res <- paste0 ("- ", symbol_crs (),
-                       " Package uses global assignment operator ('<<-').")
-    }
+    return (out)
+}
 
-    if (length (which (checks$info$left_assign$usage == 0)) == 0) {
+output_pkgchk_left_assign <- function (checks) {
 
-        la <- checks$info$left_assign$usage
+    la <- checks$info$left_assign$usage # tally of [`<-`, `=`]
 
-        res <- c (res,
-                  paste0 ("- ", symbol_crs (),
-                          " Package uses inconsistent ",
-                          "assignment operators (",
-                          la [names (la) == "<-"], " '<-' and ",
-                          la [names (la) == "="], " '=')."))
-    }
+    out <- list (check_pass = any (la == 0),
+                summary = "",
+                print = "") # no print method
 
-    return (res)
+    if (!out$check_pass)
+        out$summary <- paste0 ("Package uses inconsistent assignment ",
+                               "operators (",
+                               la [names (la) == "<-"], " '<-' and ",
+                               la [names (la) == "="], " '=').")
+
+    return (out)
 }

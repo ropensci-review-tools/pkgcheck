@@ -27,7 +27,6 @@ summarise_all_checks <- function (checks) {
     out <- do.call (c, out)
 
     out <- c (out,
-              summarise_left_assign_chk (checks),
               summarise_url_bugs (checks, "has_url"),
               summarise_url_bugs (checks, "has_bugs"),
               summarise_pkgname_chk (checks),
