@@ -61,7 +61,7 @@ pkgchk_left_assign <- function (checks) {
 
 output_pkgchk_global_assign <- function (checks) {
 
-    out <- list (check_pass = !checks$info$left_assign$global,
+    out <- list (check_pass = !checks$checks$left_assign$global,
                 summary = "",
                 print = "") # no print method
 
@@ -73,7 +73,7 @@ output_pkgchk_global_assign <- function (checks) {
 
 output_pkgchk_left_assign <- function (checks) {
 
-    la <- checks$info$left_assign$usage # tally of [`<-`, `=`]
+    la <- checks$checks$left_assign$usage # tally of [`<-`, `=`]
 
     out <- list (check_pass = any (la == 0),
                 summary = "",

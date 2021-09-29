@@ -32,8 +32,8 @@ pkgchk_fns_have_exs <- function (checks) {
 
 output_pkgchk_fns_have_exs <- function (checks) {
 
-    no_ex <- which (!checks$info$fns_have_exs)
-    no_ex_fns <- names (checks$info$fns_have_exs) [no_ex]
+    no_ex <- which (!checks$checks$fns_have_exs)
+    no_ex_fns <- names (checks$checks$fns_have_exs) [no_ex]
 
     out <- list (check_pass = length (no_ex) == 0L,
                 summary = "",
