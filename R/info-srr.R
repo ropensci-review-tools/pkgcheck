@@ -49,8 +49,10 @@ pkginfo_srr_report <- function (path) {
 
     flist <- list.files (static_dir,
                          full.names = TRUE)
-    ptn <- paste0 (.Platform$file.sep, f)
-    flist <- grep (ptn, flist, value = TRUE)
+    fnames <- vapply (decompose_path (flist), function (i)
+                      utils::tail (i, 1),
+                      character (1))
+    flist <- flist [grep (f, fnames)]
 
     if (srr_md_file %in% flist) {
 
