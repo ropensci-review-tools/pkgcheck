@@ -27,7 +27,6 @@ summarise_all_checks <- function (checks) {
     out <- do.call (c, out)
 
     out <- c (out,
-              summarise_covr_checks (checks),
               gp$rcmd_errs,
               gp$rcmd_warns,
               # ---- Miscellaneous checks start here ---
@@ -89,40 +88,6 @@ summarise_check <- function (checks, what) {
                                symbol_crs ()),
                        " ",
                        chk_summary$summary)
-    }
-
-    return (res)
-}
-
-#' @return tick or cross
-#' @noRd
-summarise_covr_checks <- function (checks) {
-
-    if (methods::is (checks$checks$gp$covr, "try-error")) {
-
-        res <- paste0 ("- ",
-                       symbol_crs (),
-                       " Package coverage failed")
-    } else {
-
-        coverage <- round (checks$checks$gp$covr$pct_by_line, digits = 1)
-
-        if (coverage >= 75) {
-
-            res <- paste0 ("- ",
-                           symbol_tck (),
-                           " Package coverage is ",
-                           coverage,
-                           "%.")
-
-        } else {
-
-            res <- paste0 ("- ",
-                           symbol_crs (),
-                           " Package coverage is ",
-                           coverage,
-                           "% (should be at least 75%).")
-        }
     }
 
     return (res)
