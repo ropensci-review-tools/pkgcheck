@@ -35,12 +35,13 @@ pkgchk_pkg_fns_have_exs <- function (path) {
 #' @noRd
 summarise_fns_have_exs <- function (checks) {
 
-    ifelse (all (checks$fn_exs),
+    no_ex <- which (!checks$info$fns_have_exs)
+
+    ifelse (all (checks$info$fns_have_exs),
             paste0 ("- ", symbol_tck (),
                     " All functions have examples."),
             paste0 ("- ", symbol_crs (),
                     " These funtions do not have examples: [",
-                    paste0 (names (checks$fn_exs) [which (!checks$fn_exs)]),
+                    paste0 (names (checks$info$fns_have_exs) [no_ex]),
                     "]."))
-
 }
