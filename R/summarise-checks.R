@@ -40,20 +40,6 @@ summarise_all_checks <- function (checks) {
     return (out)
 }
 
-# Generic function used to check components plus URL/BugRep fields
-has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
-
-    ret <- ifelse (checks [[what]],
-                   paste0 ("- ", symbol_tck (),
-                           " Package ", txt_yes),
-                   paste0 ("- ", symbol_crs (),
-                           " Package ", txt_no))
-    if (!is.null (txt_rest))
-        ret <- paste0 (ret, " ", txt_rest)
-
-    return (ret)
-}
-
 #' Generic function to summarise checks based on result of corresponding
 #' `output_pkgchk_` function.
 #'
