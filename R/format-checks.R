@@ -44,7 +44,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "",
                  "---",
                  "",
-                 paste0 ("## ",
+                 paste0 ("### ",
                          sec_num + 1,
                          ". `goodpractice` and other checks"),
                  "",
@@ -62,14 +62,16 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "</p>",
                  "</details>")
 
-    md_out <- c (md_out,
-                 scrap_checks_md (checks))
+    if (length (checks$checks$scrap > 0L)) {
 
-    # ----- Add new checks above -----
-    # Construct a separate function to convert the
-    # check to markdown. Ensure function names are unambiguous, generally by
-    # appending `_md` to indicate conversion to markdown format.
-    # ----------
+        md_out <- c (md_out,
+                     "",
+                     "---",
+                     "",
+                     "### 4. Other Checks",
+                     "",
+                     print_check_md (checks, "has_scrap"))
+    }
 
     v <- data.frame (package = names (checks$meta),
                      version = checks$meta,
@@ -117,7 +119,7 @@ pkgstats_format <- function (checks, sec_num) {
                             "all within expected ranges."))
 
     stats_rep <- c ("",
-                    paste0 ("## ", sec_num, ". Statistical Properties"),
+                    paste0 ("### ", sec_num, ". Statistical Properties"),
                     "",
                     note,
                     "",

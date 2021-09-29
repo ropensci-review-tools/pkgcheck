@@ -126,7 +126,7 @@ gp_checks_to_md <- function (checks,
 
 
     c ("",
-       "### 3b. `goodpractice` results",
+       "#### 3b. `goodpractice` results",
        "",
        "",
        convert_gp_components (gp, control = control),
@@ -244,7 +244,7 @@ convert_gp_components <- function (x,
 
 rcmd_report <- function (x) {
 
-    ret <- c (paste0 ("### `R CMD check` with [rcmdcheck]",
+    ret <- c (paste0 ("#### `R CMD check` with [rcmdcheck]",
                       "(https://r-lib.github.io/rcmdcheck/)"),
               "")
 
@@ -298,7 +298,7 @@ covr_report <- function (x,
                                          covr_threshold = 70,
                                          digits = 2)) {
 
-    res <- c ("### Test coverage with [covr](https://covr.r-lib.org/)",
+    res <- c ("#### Test coverage with [covr](https://covr.r-lib.org/)",
               "")
 
     if (!"covr" %in% names (x))
@@ -366,7 +366,7 @@ cyclo_report <- function (x,
 
     cyc <- x$cyclocomp
 
-    ret <- c (paste0 ("### Cyclocomplexity with [cyclocomp]",
+    ret <- c (paste0 ("#### Cyclocomplexity with [cyclocomp]",
                       "(https://github.com/MangoTheCat/cyclocomp)"),
               "")
 
@@ -404,7 +404,7 @@ cyclo_report <- function (x,
 
 lintr_report <- function (x) {
 
-    ret <- c (paste0 ("### Static code analyses with [lintr]",
+    ret <- c (paste0 ("#### Static code analyses with [lintr]",
                       "(https://github.com/jimhester/lintr)"),
               "")
 

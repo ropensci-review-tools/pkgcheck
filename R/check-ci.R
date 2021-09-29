@@ -19,7 +19,7 @@ output_pkgchk_ci <- function (checks) {
         if (is.na (checks$info$badges [1]))
             checks$info$badges <- "(There do not appear to be any)"
 
-        out$print <- c ("### 3a. Continuous Integration Badges",
+        out$print <- c ("#### 3a. Continuous Integration Badges",
                         "",
                         unlist (checks$info$badges),
                         "")

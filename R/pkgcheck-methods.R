@@ -40,9 +40,10 @@ print.pkgcheck <- function (x, ...) {
     # see https://github.com/ropensci-review-tools/pkgcheck/pull/27
     # for an example of how to add new checks
     has_misc_checks <- length (x$checks$scrap > 0L) # Modify when more checks are added
-    if (has_misc_checks)
+    if (has_misc_checks) {
         cli::cli_h2 ("Other checks")
-    print_scrap (x)
+        print_check_screen (checks, "has_scrap")
+    }
     # --- End add new checks
 
     cli::cli_h2 ("Package Versions")
@@ -173,4 +174,60 @@ print_check <- function (checks, what) {
     chk_output <- do.call (output_fn, list (checks))
 
     return (chk_output$print)
+}
+
+print_check_screen <- function (checks, what) {
+
+    pkg_env <- as.environment ("package:pkgcheck")
+
+    output_fn <- get (paste0 ("output_pkgchk_", what),
+                      envir = pkg_env)
+
+    chk_output <- do.call (output_fn, list (checks))
+
+    if (chk_output$check_pass) {
+        cli::cli_alert_success (chk_output$print$message)
+    } else {
+        cli::cli_alert_danger (chk_output$print$message)
+    }
+
+    if (is.vector (chk_output$print$obj)) {
+
+        cli::cli_ul ()
+        cli::cli_li (chk_output$print$obj)
+        cli::cli_end ()
+    }
+}
+
+print_check_md <- function (checks, what) {
+
+    pkg_env <- as.environment ("package:pkgcheck")
+
+    output_fn <- get (paste0 ("output_pkgchk_", what),
+                      envir = pkg_env)
+
+    chk_output <- do.call (output_fn, list (checks))
+
+    out <- NULL
+
+    if (!chk_output$check_pass) {
+
+        out <- c ("",
+                  paste0 (symbol_crs (), " ", chk_output$print$message))
+
+    } else if (nchar (chk_output$print$message) > 0L) {
+
+        out <- c ("",
+                  paste0 (symbol_tck (), " ", chk_output$print$message))
+    }
+
+    if (!is.null (out) & is.vector (chk_output$print$obj)) {
+
+        out <- c (out,
+                  "",
+                  paste0 ("- ", chk_output$print$obj),
+                  "")
+    }
+
+    return (out)
 }

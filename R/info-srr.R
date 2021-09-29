@@ -200,7 +200,7 @@ srr_checks_to_md <- function (checks) {
                        paste0 (symbol_tck (), " ", checks$info$srr$message),
                        paste0 (symbol_crs (), " ", checks$info$srr$message))
 
-    c (paste0 ("## 1. rOpenSci Statistical Standards ",
+    c (paste0 ("### 1. rOpenSci Statistical Standards ",
                "([`srr` package]",
                "(https://github.com/ropensci-review-tools/srr))"),
        "",

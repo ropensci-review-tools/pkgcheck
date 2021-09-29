@@ -19,8 +19,6 @@ summarise_all_checks <- function (checks) {
     pkg_fns <- ls (as.environment ("package:pkgcheck"),
                    all.names = TRUE)
 
-    check_fns <- gsub ("^pkgchk\\_", "",
-                       grep ("^pkgchk\\_", pkg_fns, value = TRUE))
     output_fns <- gsub ("^output\\_pkgchk\\_", "",
                         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
     out <- lapply (output_fns, function (i) summarise_check (checks, i))
@@ -29,9 +27,6 @@ summarise_all_checks <- function (checks) {
     out <- c (out,
               gp$rcmd_errs,
               gp$rcmd_warns,
-              # ---- Miscellaneous checks start here ---
-              summarise_scrap_checks (checks),
-              # ---- Miscellaneous checks end here ---
               summarise_srr_checks (checks))
 
     checks_okay <- !any (grepl (symbol_crs (), out))
