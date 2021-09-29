@@ -20,7 +20,8 @@ summarise_all_checks <- function (checks) {
 
     output_fns <- gsub ("^output\\_pkgchk\\_", "",
                         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
-    out <- lapply (output_fns, function (i) summarise_check (checks, i))
+    out <- lapply (order_checks (output_fns),
+                   function (i) summarise_check (checks, i))
     out <- do.call (c, out)
 
     out <- c (out,
@@ -38,6 +39,38 @@ summarise_all_checks <- function (checks) {
     attr (out, "checks_okay") <- checks_okay
 
     return (out)
+}
+
+#' Function to specify the order in which checks appear in the summary method.
+#'
+#' @param fns List of output functions with prefixes `output_pkgchk_`, for which
+#' order is to be established.
+#' @return Modified version of input list with functions ordered in specified
+#' sequence.
+#' @noRd
+order_checks <- function (fns) {
+
+    ord <- c ("pkgname",
+              "has_citation",
+              "has_codemeta",
+              "has_contrib",
+              "uses_roxygen2",
+              "has_url",
+              "has_bugs",
+              "has_vignette",
+              "fns_have_exs",
+              "global_assign",
+              "ci",
+              "covr",
+              "has_scrap",
+              "left_assign",
+              "srr_missing",
+              "srr_todo")
+
+    fns <- fns [which (fns %in% ord)]
+    fns <- fns [match (ord, fns)]
+
+    return (fns)
 }
 
 #' Generic function to summarise checks based on result of corresponding
