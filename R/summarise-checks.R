@@ -16,7 +16,18 @@ summarise_all_checks <- function (checks) {
 
     gp <- summarise_gp_checks (checks)
 
-    out <- c (summarise_uses_roxygen2 (checks),
+    pkg_fns <- ls (as.environment ("package:pkgcheck"),
+                   all.names = TRUE)
+
+    check_fns <- gsub ("^pkgchk\\_", "",
+                       grep ("^pkgchk\\_", pkg_fns, value = TRUE))
+    output_fns <- gsub ("^output\\_pkgchk\\_", "",
+                        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
+    out <- lapply (output_fns, function (i) summarise_check (checks, i))
+    out <- do.call (c, out)
+
+    out <- c (out,
+              #summarise_uses_roxygen2 (checks),
               summarise_has_contrib (checks),
               summarise_has_citation (checks),
               summarise_has_codemeta (checks),
@@ -60,6 +71,38 @@ has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
         ret <- paste0 (ret, " ", txt_rest)
 
     return (ret)
+}
+
+#' Generic function to summarise checks based on result of corresponding
+#' `output_pkgchk_` function.
+#'
+#' @param checks Full result of `pkgcheck()` call
+#' @param what Name of check which must also correspond to an internal function
+#' named `output_pkgchk_<name>`.
+#' @return Check formatted to apepar in `summary` method
+#' @noRd
+summarise_check <- function (checks, what) {
+
+    pkg_env <- as.environment ("package:pkgcheck")
+
+    summary_fn <- get (paste0 ("output_pkgchk_", what),
+                       envir = pkg_env)
+
+    chk_summary <- do.call (summary_fn, list (checks))
+
+    res <- NULL
+
+    if (nchar (chk_summary$summary) > 0L) {
+
+        res <- paste0 ("- ",
+                       ifelse (chk_summary$check_pass,
+                               symbol_tck (),
+                               symbol_crs ()),
+                       " ",
+                       chk_summary$summary)
+    }
+
+    return (res)
 }
 
 #' Summarise both URL and BugReports fields from DESCRIPTION file
