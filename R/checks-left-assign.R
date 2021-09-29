@@ -66,15 +66,15 @@ summarise_left_assign_chk <- function (checks) {
 
     res <- NULL
 
-    if (checks$left_assign$global) {
+    if (checks$info$left_assign$global) {
 
         res <- paste0 ("- ", symbol_crs (),
                        " Package uses global assignment operator ('<<-').")
     }
 
-    if (length (which (checks$left_assign$usage == 0)) == 0) {
+    if (length (which (checks$info$left_assign$usage == 0)) == 0) {
 
-        la <- checks$left_assign$usage
+        la <- checks$info$left_assign$usage
 
         res <- c (res,
                   paste0 ("- ", symbol_crs (),

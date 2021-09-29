@@ -22,7 +22,7 @@ summarise_all_checks <- function (checks) {
               summarise_has_codemeta (checks),
               summarise_fns_have_exs (checks),
               summarise_has_vignette (checks),
-              summarise_left_assign_chk (checks$info),
+              summarise_left_assign_chk (checks),
               summarise_url_bugs (checks$checks, "has_url"),
               summarise_url_bugs (checks$checks, "has_bugs"),
               summarise_pkgname_chk (checks$checks),
