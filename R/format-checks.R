@@ -53,7 +53,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
                          "checks (click to open)</summary>"),
                  "<p>",
                  "",
-                 ci_checks (checks),
+                 print_check (checks, "ci"),
                  "",
                  "---",
                  "",
