@@ -13,6 +13,6 @@ pkgchk_has_codemeta <- function (path) {
 #' @noRd
 summarise_has_codemeta <- function (checks) {
 
-    has_this (checks, "has_codemeta",
+    has_this (checks$checks, "has_codemeta",
               "has", "does not have", "a 'codemeta.json' file.")
 }
