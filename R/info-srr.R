@@ -76,7 +76,7 @@ pkginfo_srr_report <- function (path) {
     categories <- srr_categories_from_report (srr_rep)
     stds <- NULL # missing standards
 
-    i <- grep ("standards are missing from your code", srr)
+    i <- grep ("standards \\[v.*\\] are missing from your code", srr)
     if (length (i) > 0) {
 
         stds <- srr [-seq (i)]
