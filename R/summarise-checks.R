@@ -23,8 +23,8 @@ summarise_all_checks <- function (checks) {
               summarise_fns_have_exs (checks),
               summarise_has_vignette (checks),
               summarise_left_assign_chk (checks),
-              summarise_url_bugs (checks$checks, "has_url"),
-              summarise_url_bugs (checks$checks, "has_bugs"),
+              summarise_url_bugs (checks, "has_url"),
+              summarise_url_bugs (checks, "has_bugs"),
               summarise_pkgname_chk (checks$checks),
               summarise_ci_checks (checks),
               summarise_covr_checks (checks),
@@ -71,7 +71,7 @@ summarise_url_bugs <- function (checks, what = "has_url") {
                    "URL",
                    "BugReports")
 
-    has_this (checks, what,
+    has_this (checks$checks, what,
               paste0 ("'DESCRIPTION' has a ", txt, " field."),
               paste0 ("'DESCRIPTION' does not have a ", txt, " field."))
 }
