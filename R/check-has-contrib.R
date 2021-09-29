@@ -3,12 +3,13 @@
 #' Check whether package has 'contributing.md', as well as whether it has a
 #' life cycle statement
 #'
-#' @inheritParams pkg_uses_roxygen2
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
 #' @return Logical flag
 #' @noRd
-pkgchk_has_contrib_md <- function (path) {
+pkgchk_has_contrib_md <- function (checks) {
 
-    flist <- list.files (path,
+    flist <- list.files (checks$package$path,
                          all.files = TRUE,
                          recursive = TRUE,
                          full.names = FALSE)

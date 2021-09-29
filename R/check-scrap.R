@@ -1,15 +1,16 @@
 
 #' Check whether the package contains any useless files like `.DS_Store`.
 #'
-#' @inheritParams pkg_has_no_scrap
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
 #' @return Names of any items which should not be present; otherwise an empty
 #' character.
 #' @noRd
-pkgchk_has_scrap <- function (path) {
+pkgchk_has_scrap <- function (checks) {
 
     # Have to tryCatch because gert errors anywhere other than a git repo. This
     # means scrap can only be detected in git repos.
-    all_contents <- tryCatch (gert::git_ls ()$path,
+    all_contents <- tryCatch (gert::git_ls (repo = checks$package$path)$path,
                               error = function (e) NULL)
 
     if (is.null (all_contents))

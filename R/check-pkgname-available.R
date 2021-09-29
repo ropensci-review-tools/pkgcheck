@@ -1,8 +1,13 @@
 
+#' Check that package name is available and/or already on CRAN
+#'
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
+#' @noRd
+pkgchk_pkgname_available <- function (checks) {
 
-pkgchk_pkgname_available <- function (path) {
-
-    desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
+    desc <- data.frame (read.dcf (file.path (checks$package$path,
+                                             "DESCRIPTION")))
     pkg <- desc$Package
 
     pkg_grepped <- grep (.standard_regexps()$valid_package_name,

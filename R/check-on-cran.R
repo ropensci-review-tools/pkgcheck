@@ -3,10 +3,13 @@
 #'
 #' This does not currently appear in either summary or print methods, and is
 #' only used as part of `pkcchk_pkgname_available`.
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
 #' @noRd
-pkgchk_on_cran <- function (path) {
+pkgchk_on_cran <- function (checks) {
 
-    desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
+    desc <- data.frame (read.dcf (file.path (checks$package$path,
+                                             "DESCRIPTION")))
     pkg <- desc$Package
 
     ap <- data.frame (utils::available.packages ())

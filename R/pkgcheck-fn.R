@@ -37,11 +37,11 @@ pkgcheck <- function (path = ".") {
 
     out$info$network_file <- fn_call_network (s)
 
-    out$checks$gp <- pkgcheck_gp_report (path)
-
-    out$checks <- file_checks (path)
+    out$checks <- file_checks (out)
     out$checks$has_url <- !is.na (s$stats$desc$urls)
     out$checks$has_bugs <- !is.na (s$stats$desc$bugs)
+
+    out$checks$gp <- pkgcheck_gp_report (path)
 
     u <- pkginfo_url_from_desc (path)
     out$info$badges <- list ()
@@ -118,17 +118,17 @@ pkgstats_info <- function (path) {
                   out = out))
 }
 
-file_checks <- function (path) {
+file_checks <- function (checks) {
 
     res <- list ()
-    res$uses_roxy <- pkgchk_uses_roxygen2 (path)
-    res$has_contrib <- pkgchk_has_contrib_md (path)
-    res$has_citation <- pkgchk_has_citation (path)
-    res$has_codemeta <- pkgchk_has_codemeta (path)
-    res$vignette <- pkgchk_has_vignette (path)
-    res$pkgname_available <- pkgchk_pkgname_available (path)
-    res$pkg_on_cran <- pkgchk_on_cran (path)
-    res$scrap <- pkgchk_has_scrap (path)
+    res$uses_roxy <- pkgchk_uses_roxygen2 (checks)
+    res$has_contrib <- pkgchk_has_contrib_md (checks)
+    res$has_citation <- pkgchk_has_citation (checks)
+    res$has_codemeta <- pkgchk_has_codemeta (checks)
+    res$vignette <- pkgchk_has_vignette (checks)
+    res$pkgname_available <- pkgchk_pkgname_available (checks)
+    res$pkg_on_cran <- pkgchk_on_cran (checks)
+    res$scrap <- pkgchk_has_scrap (checks)
 
     return (res)
 }

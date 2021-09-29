@@ -1,10 +1,12 @@
 
 #' Check whether a package has a `codemeta.json` file
 #'
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
 #' @noRd
-pkgchk_has_codemeta <- function (path) {
+pkgchk_has_codemeta <- function (checks) {
 
-    "codemeta.json" %in% list.files (path, recursive = FALSE)
+    "codemeta.json" %in% list.files (checks$package$path, recursive = FALSE)
 }
 
 output_pkgchk_has_codemeta <- function (checks) {

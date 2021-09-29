@@ -3,10 +3,13 @@
 #' Check whether a package has a `inst/CITATION` file
 #'
 #' This does no check the contents of that file in any way.
+#'
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
 #' @noRd
-pkgchk_has_citation <- function (path) {
+pkgchk_has_citation <- function (checks) {
 
-    "CITATION" %in% list.files (file.path (path, "inst"))
+    "CITATION" %in% list.files (file.path (checks$package$path, "inst"))
 }
 
 output_pkgchk_has_citation <- function (checks) {
