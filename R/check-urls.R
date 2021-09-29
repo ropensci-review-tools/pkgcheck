@@ -1,7 +1,7 @@
 
 pkgchk_has_url <- function (checks) {
 
-    is.na (checks$package$url)
+    !is.na (checks$package$url)
 }
 
 pkgchk_has_bugs <- function (checks) {
