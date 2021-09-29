@@ -2,19 +2,19 @@
 
 git hash: [](/tree/)
 
-- :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
-- :heavy_multiplication_x: Package coverage is 0% (should be at least 75%).
-- :heavy_multiplication_x: These functions do not have examples: [test_fn.Rd].
-- :heavy_multiplication_x: 'DESCRIPTION' does not have a BugReports field.
+- :heavy_check_mark: Package name is available
 - :heavy_multiplication_x: does not have a 'CITATION' file.
 - :heavy_multiplication_x: does not have a 'codemeta.json' file.
 - :heavy_multiplication_x: does not have a 'contributing' file.
+- :heavy_check_mark: uses 'roxygen2'.
 - :heavy_multiplication_x: 'DESCRIPTION' does not have a URL field.
+- :heavy_multiplication_x: 'DESCRIPTION' does not have a BugReports field.
 - :heavy_multiplication_x: Package has at no HTML vignettes
-- :heavy_check_mark: Package name is available
+- :heavy_multiplication_x: These functions do not have examples: [test_fn.Rd].
+- :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
+- :heavy_multiplication_x: Package coverage is 0% (should be at least 75%).
 - :heavy_multiplication_x: Statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
-- :heavy_check_mark: uses 'roxygen2'.
 
 **Important:** All failing checks above must be addressed prior to proceeding
 
