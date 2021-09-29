@@ -27,8 +27,6 @@ summarise_all_checks <- function (checks) {
     out <- do.call (c, out)
 
     out <- c (out,
-              summarise_url_bugs (checks, "has_url"),
-              summarise_url_bugs (checks, "has_bugs"),
               summarise_pkgname_chk (checks),
               summarise_ci_checks (checks),
               summarise_covr_checks (checks),
@@ -96,20 +94,6 @@ summarise_check <- function (checks, what) {
     }
 
     return (res)
-}
-
-#' Summarise both URL and BugReports fields from DESCRIPTION file
-#' @return Tick or cross
-#' @noRd
-summarise_url_bugs <- function (checks, what = "has_url") {
-
-    txt <- ifelse (what == "has_url",
-                   "URL",
-                   "BugReports")
-
-    has_this (checks$checks, what,
-              paste0 ("'DESCRIPTION' has a ", txt, " field."),
-              paste0 ("'DESCRIPTION' does not have a ", txt, " field."))
 }
 
 #' @return tick or cross
