@@ -34,11 +34,13 @@ pkgcheck <- function (path = ".") {
     out$info <- s$out [c ("git", "srr", "pkgstats",
                           "fns_have_exs", "left_assigns")]
 
+    out$info$network_file <- fn_call_network (s)
+
+    out$checks$gp <- pkgcheck_gp_report (path)
+
     out$checks <- file_checks (path)
     out$checks$has_url <- !is.na (s$stats$desc$urls)
     out$checks$has_bugs <- !is.na (s$stats$desc$bugs)
-
-    out$info$network_file <- fn_call_network (s)
 
     u <- pkginfo_url_from_desc (path)
     out$info$badges <- list ()
@@ -50,8 +52,6 @@ pkgcheck <- function (path = ".") {
             }
         }
     }
-
-    out$checks$gp <- pkgcheck_gp_report (path)
 
     out$meta <- version_info (is.null (out$info$srr))
 
