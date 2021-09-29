@@ -15,27 +15,25 @@ pkgchk_pkgname_available <- function (path) {
             pkg == pkg_grepped)
 }
 
-#' Summarise checks that package name is available
-#'
-#' @return tick or cross
-#' @noRd
-summarise_pkgname_chk <- function (checks) {
+output_pkgchk_pkgname <- function (checks) {
+
+    out <- list (check_pass = TRUE,
+                summary = "",
+                print = "") # no print method
 
     if (checks$checks$pkgname_available & !checks$checks$pkg_on_cran) {
 
-        res <- paste0 ("- ", symbol_tck (),
-                       " Package name is available.")
+        out$summary <- "Package name is available"
 
     } else if (checks$checks$pkg_on_cran) {
 
-        res <- paste0 ("- ", symbol_tck (),
-                       " Package is already on CRAN.")
+        out$summary <- "Package is already on CRAN."
 
     } else {
 
-        res <- paste0 ("- ", symbol_crs (),
-                       " Package name is not available (on CRAN).")
+        out$check_pass <- FALSE
+        out$summary <- "Package name is not available (on CRAN)."
     }
 
-    return (res)
+    return (out)
 }

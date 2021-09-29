@@ -27,7 +27,6 @@ summarise_all_checks <- function (checks) {
     out <- do.call (c, out)
 
     out <- c (out,
-              summarise_pkgname_chk (checks),
               summarise_ci_checks (checks),
               summarise_covr_checks (checks),
               gp$rcmd_errs,
