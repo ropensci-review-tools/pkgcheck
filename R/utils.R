@@ -51,12 +51,6 @@ list_pkgchecks <- function (quiet = FALSE) {
     invisible (chks)
 }
 
-uses_roxygen <- function (path) {
-
-    desc <- read.dcf (file.path (path, "DESCRIPTION"))
-    any (grepl ("^Roxygen", colnames (desc)))
-}
-
 #' Modified verion of getNamespaceExports` to exclude fns re-exported from other
 #' packages
 #' @noRd
