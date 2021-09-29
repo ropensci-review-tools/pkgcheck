@@ -120,21 +120,6 @@ pkgstats_info <- function (path) {
                   out = out))
 }
 
-file_checks <- function (checks) {
-
-    res <- list ()
-    res$uses_roxy <- pkgchk_uses_roxygen2 (checks)
-    res$has_contrib <- pkgchk_has_contrib_md (checks)
-    res$has_citation <- pkgchk_has_citation (checks)
-    res$has_codemeta <- pkgchk_has_codemeta (checks)
-    res$vignette <- pkgchk_has_vignette (checks)
-    res$pkgname_available <- pkgchk_pkgname_available (checks)
-    res$pkg_on_cran <- pkgchk_on_cran (checks)
-    res$scrap <- pkgchk_has_scrap (checks)
-
-    return (res)
-}
-
 #' Parse items of the "desc" part of `pkgstats` output
 #'
 #' @param s Result of `pkgstats::pkgstats()` call.
