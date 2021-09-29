@@ -10,14 +10,13 @@
 #' @inheritParams pkg_uses_roxygen2
 #' @return Named vector of 2 values tallying instances of usage of `<-` and `=`.
 #' @noRd
-pkgchk_left_assign <- function (path) {
+pkgchk_left_assign <- function (checks) {
 
-    rdir <- file.path (path, "R")
+    rdir <- file.path (checks$package$path, "R")
     if (!file.exists (rdir))
-        return (c (":=" = 0L,
-                   "<-" = 0L,
-                   "<<-" = 0L,
-                   "=" = 0L))
+        return (list (global = FALSE,
+                      usage = c ("<-" = 0L,
+                                 "=" = 0L)))
 
     rdir <- normalizePath (rdir)
     flist <- list.files (rdir,
