@@ -28,41 +28,19 @@ pkgchk_has_scrap <- function (path) {
     return (grep (scrap (), all_contents, value = TRUE))
 }
 
-#' @return cross only
-#' @noRd
-summarise_scrap_checks <- function (checks) {
+output_pkgchk_has_scrap <- function (checks) {
 
-    ret <- NULL
+    out <- list (check_pass = length (checks$checks$scrap) == 0L,
+                summary = "",
+                print = "")
 
-    if (length (checks$checks$scrap) > 0L) {
+    if (!out$check_pass) {
 
-        ret <- paste0 ("- ", symbol_crs (),
-                       " Package contains unexpected files.")
+        out$summary <- "Package contains unexpected files."
+        out$print <- list (message = paste0 ("Package contains the ",
+                                             "following unexpected files:"),
+                           obj = checks$checks$scrap)
     }
 
-    return (ret)
-}
-
-print_scrap <- function (x) {
-
-    if (length (x$checks$scrap) == 0L)
-        return (NULL)
-
-    cli::cli_alert_danger (" Package contains the following unexpected files:")
-    cli::cli_ul ()
-    cli::cli_li (x$checks$scrap)
-    cli::cli_end ()
-}
-
-scrap_checks_md <- function (checks) {
-
-    if (length (checks$checks$scrap) == 0L)
-        return (NULL)
-
-    c ("",
-       paste0 (symbol_crs (),
-               " Package contains the following unexpected files:"),
-       "",
-       paste0 ("- ", checks$checks$scrap),
-       "")
+    return (out)
 }

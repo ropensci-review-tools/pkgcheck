@@ -13,6 +13,13 @@ print.pkgcheck <- function (x, ...) {
         print_srr (x)
     print_structure (x)
 
+    pkg_fns <- ls (as.environment ("package:pkgcheck"),
+                   all.names = TRUE)
+    output_fns <- gsub ("^output\\_pkgchk\\_", "",
+                        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
+    out <- lapply (output_fns, function (i) print_check (x, i))
+    out <- do.call (c, out [which (nchar (out) > 0L)])
+
     cli::cli_h3 ("All statistics")
     x$info$pkgstats$value <- round (x$info$pkgstats$value, digits = 1)
     x$info$pkgstats$percentile <- round (x$info$pkgstats$percentile, digits = 1)
@@ -33,9 +40,10 @@ print.pkgcheck <- function (x, ...) {
     # see https://github.com/ropensci-review-tools/pkgcheck/pull/27
     # for an example of how to add new checks
     has_misc_checks <- length (x$checks$scrap > 0L) # Modify when more checks are added
-    if (has_misc_checks)
+    if (has_misc_checks) {
         cli::cli_h2 ("Other checks")
-    print_scrap (x)
+        print_check_screen (x, "has_scrap")
+    }
     # --- End add new checks
 
     cli::cli_h2 ("Package Versions")
@@ -146,4 +154,82 @@ print_structure <- function (x) {
 
 
     cli::cli_li (s)
+}
+
+#' Generic function to print checks based on result of corresponding
+#' `output_pkgchk_` function.
+#'
+#' @param checks Full result of `pkgcheck()` call
+#' @param what Name of check which must also correspond to an internal function
+#' named `output_pkgchk_<name>`.
+#' @return Check formatted to apepar in `print` method
+#' @noRd
+print_check <- function (checks, what) {
+
+    pkg_env <- asNamespace ("pkgcheck")
+    pkg_fns <- ls (envir = pkg_env)
+
+    output_fn <- paste0 ("output_pkgchk_", what)
+    if (!output_fn %in% pkg_fns)
+        return (NULL)
+
+    chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
+
+    return (chk_output$print)
+}
+
+print_check_screen <- function (checks, what) {
+
+    pkg_env <- as.environment ("package:pkgcheck")
+
+    output_fn <- get (paste0 ("output_pkgchk_", what),
+                      envir = pkg_env)
+
+    chk_output <- do.call (output_fn, list (checks))
+
+    if (chk_output$check_pass) {
+        cli::cli_alert_success (chk_output$print$message)
+    } else {
+        cli::cli_alert_danger (chk_output$print$message)
+    }
+
+    if (is.vector (chk_output$print$obj)) {
+
+        cli::cli_ul ()
+        cli::cli_li (chk_output$print$obj)
+        cli::cli_end ()
+    }
+}
+
+print_check_md <- function (checks, what) {
+
+    pkg_env <- as.environment ("package:pkgcheck")
+
+    output_fn <- get (paste0 ("output_pkgchk_", what),
+                      envir = pkg_env)
+
+    chk_output <- do.call (output_fn, list (checks))
+
+    out <- NULL
+
+    if (!chk_output$check_pass) {
+
+        out <- c ("",
+                  paste0 (symbol_crs (), " ", chk_output$print$message))
+
+    } else if (nchar (chk_output$print$message) > 0L) {
+
+        out <- c ("",
+                  paste0 (symbol_tck (), " ", chk_output$print$message))
+    }
+
+    if (!is.null (out) & is.vector (chk_output$print$obj)) {
+
+        out <- c (out,
+                  "",
+                  paste0 ("- ", chk_output$print$obj),
+                  "")
+    }
+
+    return (out)
 }

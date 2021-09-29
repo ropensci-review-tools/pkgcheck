@@ -29,19 +29,19 @@ pkgchk_pkg_fns_have_exs <- function (path) {
     return (has_ex)
 }
 
-#' Summarise checks that all functions have examples
-#'
-#' @return tick or cross
-#' @noRd
-summarise_fns_have_exs <- function (checks) {
+output_pkgchk_fns_have_exs <- function (checks) {
 
     no_ex <- which (!checks$info$fns_have_exs)
+    no_ex_fns <- names (checks$info$fns_have_exs) [no_ex]
 
-    ifelse (all (checks$info$fns_have_exs),
-            paste0 ("- ", symbol_tck (),
-                    " All functions have examples."),
-            paste0 ("- ", symbol_crs (),
-                    " These functions do not have examples: [",
-                    paste0 (names (checks$info$fns_have_exs) [no_ex]),
-                    "]."))
+    out <- list (check_pass = length (no_ex) == 0L,
+                summary = "",
+                print = "") # no print method
+
+    out$summary <- ifelse (out$check_pass,
+                           "All functions have examples.",
+                           paste0 ("These functions do not have ",
+                                   "examples: [", no_ex_fns, "]."))
+
+    return (out)
 }

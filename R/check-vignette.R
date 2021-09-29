@@ -44,26 +44,15 @@ pkgchk_has_vignette <- function (path) {
 
 }
 
-#' @param checks Result of main \link{pkgcheck} function
-#' @return tick or cross
-#' @noRd
-summarise_has_vignette <- function (checks) {
+output_pkgchk_has_vignette <- function (checks) {
 
-    ifelse (checks$checks$vignette,
-            paste0 ("- ", symbol_tck (),
-                    " Package has at least one HTML vignette"),
-            paste0 ("- ", symbol_crs (),
-                    " Package has at no HTML vignettes"))
-}
+    out <- list (check_pass = checks$checks$vignette,
+                summary = "",
+                print = "") # no print method
 
+    out$summary <- ifelse (out$check_pass,
+                           "Package has at least one HTML vignette",
+                           "Package has at no HTML vignettes")
 
-vignette_checks_md <- function (checks) {
-
-    c ("",
-       ifelse (checks$checks$vignette,
-               paste0 (symbol_tck (),
-                       " Package has at least one HTML vignette"),
-               paste0 (symbol_crs (),
-                       " Package has at no HTML vignettes")),
-       "")
+    return (out)
 }

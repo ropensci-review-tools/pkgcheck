@@ -16,24 +16,17 @@ summarise_all_checks <- function (checks) {
 
     gp <- summarise_gp_checks (checks)
 
-    out <- c (summarise_uses_roxygen2 (checks),
-              summarise_has_contrib (checks),
-              summarise_has_citation (checks),
-              summarise_has_codemeta (checks),
-              summarise_fns_have_exs (checks),
-              summarise_has_vignette (checks),
-              summarise_left_assign_chk (checks),
-              summarise_url_bugs (checks, "has_url"),
-              summarise_url_bugs (checks, "has_bugs"),
-              summarise_pkgname_chk (checks),
-              summarise_ci_checks (checks),
-              summarise_covr_checks (checks),
+    pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
+
+    output_fns <- gsub ("^output\\_pkgchk\\_", "",
+                        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
+    out <- lapply (order_checks (output_fns),
+                   function (i) summarise_check (checks, i))
+    out <- do.call (c, out)
+
+    out <- c (out,
               gp$rcmd_errs,
-              gp$rcmd_warns,
-              # ---- Miscellaneous checks start here ---
-              summarise_scrap_checks (checks),
-              # ---- Miscellaneous checks end here ---
-              summarise_srr_checks (checks))
+              gp$rcmd_warns)
 
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
@@ -48,63 +41,67 @@ summarise_all_checks <- function (checks) {
     return (out)
 }
 
-# Generic function used to check components plus URL/BugRep fields
-has_this <- function (checks, what, txt_yes, txt_no, txt_rest = NULL) {
+#' Function to specify the order in which checks appear in the summary method.
+#'
+#' @param fns List of output functions with prefixes `output_pkgchk_`, for which
+#' order is to be established.
+#' @return Modified version of input list with functions ordered in specified
+#' sequence.
+#' @noRd
+order_checks <- function (fns) {
 
-    ret <- ifelse (checks [[what]],
-                   paste0 ("- ", symbol_tck (),
-                           " Package ", txt_yes),
-                   paste0 ("- ", symbol_crs (),
-                           " Package ", txt_no))
-    if (!is.null (txt_rest))
-        ret <- paste0 (ret, " ", txt_rest)
+    ord <- c ("pkgname",
+              "has_citation",
+              "has_codemeta",
+              "has_contrib",
+              "uses_roxygen2",
+              "has_url",
+              "has_bugs",
+              "has_vignette",
+              "fns_have_exs",
+              "global_assign",
+              "ci",
+              "covr",
+              "has_scrap",
+              "left_assign",
+              "srr_missing",
+              "srr_todo")
 
-    return (ret)
+    fns <- fns [which (fns %in% ord)]
+    fns <- fns [match (ord, fns)]
+
+    return (fns)
 }
 
-#' Summarise both URL and BugReports fields from DESCRIPTION file
-#' @return Tick or cross
+#' Generic function to summarise checks based on result of corresponding
+#' `output_pkgchk_` function.
+#'
+#' @param checks Full result of `pkgcheck()` call
+#' @param what Name of check which must also correspond to an internal function
+#' named `output_pkgchk_<name>`.
+#' @return Check formatted to apepar in `summary` method
 #' @noRd
-summarise_url_bugs <- function (checks, what = "has_url") {
+summarise_check <- function (checks, what) {
 
-    txt <- ifelse (what == "has_url",
-                   "URL",
-                   "BugReports")
+    pkg_env <- asNamespace ("pkgcheck")
+    pkg_fns <- ls (pkg_env)
+    summary_fn <- paste0 ("output_pkgchk_", what)
 
-    has_this (checks$checks, what,
-              paste0 ("'DESCRIPTION' has a ", txt, " field."),
-              paste0 ("'DESCRIPTION' does not have a ", txt, " field."))
-}
+    if (!summary_fn %in% pkg_fns)
+        return (NULL)
 
-#' @return tick or cross
-#' @noRd
-summarise_covr_checks <- function (checks) {
+    chk_summary <- do.call (summary_fn, list (checks), envir = pkg_env)
 
-    if (methods::is (checks$checks$gp$covr, "try-error")) {
+    res <- NULL
+
+    if (sum (nchar (chk_summary$summary)) > 0L) {
 
         res <- paste0 ("- ",
-                       symbol_crs (),
-                       " Package coverage failed")
-    } else {
-
-        coverage <- round (checks$checks$gp$covr$pct_by_line, digits = 1)
-
-        if (coverage >= 75) {
-
-            res <- paste0 ("- ",
-                           symbol_tck (),
-                           " Package coverage is ",
-                           coverage,
-                           "%.")
-
-        } else {
-
-            res <- paste0 ("- ",
-                           symbol_crs (),
-                           " Package coverage is ",
-                           coverage,
-                           "% (should be at least 75%).")
-        }
+                       ifelse (chk_summary$check_pass,
+                               symbol_tck (),
+                               symbol_crs ()),
+                       " ",
+                       chk_summary$summary)
     }
 
     return (res)

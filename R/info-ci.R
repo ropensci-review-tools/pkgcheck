@@ -87,63 +87,6 @@ pkgchk_ci_badges <- function (u) {
 }
 
 
-#' Summarise checks from continuous integration
-#'
-#' @return tick or cross
-#' @noRd
-summarise_ci_checks <- function (checks) {
-
-    if (length (checks$info$badges) == 0) {
-
-        if (!checks$checks$has_url) {
-
-            res <- paste0 ("- ", symbol_crs (),
-                           " Continuous integration checks unavailable ",
-                           "(no URL in 'DESCRIPTION').")
-        } else {
-
-            res <- paste0 ("- ", symbol_crs (),
-                           " Package has no continuous integration checks.")
-        }
-    } else {
-
-        res <- paste0 ("- ", symbol_tck (),
-                       " Package has continuous integration checks.")
-    }
-
-    return (res)
-}
-
-#' Report on continuous integration checks
-#' @param checks Result of main \link{pkgcheck} function
-#' @noRd
-ci_checks <- function (checks) {
-
-    out <- NULL
-
-    if (length (checks$info$badges) > 0) {
-
-        if (is.na (checks$info$badges [1]))
-            checks$info$badges <- "(There do not appear to be any)"
-
-        out <- c (out,
-                  "### 3a. Continuous Integration Badges",
-                  "",
-                  unlist (checks$info$badges),
-                  "")
-
-        if (!is.null (checks$info$github_workflows)) {
-
-            out <- c (out,
-                      "**GitHub Workflow Results**",
-                      "",
-                      knitr::kable (checks$info$github_workflows))
-        }
-    }
-
-    return (out)
-}
-
 
 #' CI results for GitHub only
 #' @inheritParams pkg_uses_roxygen2

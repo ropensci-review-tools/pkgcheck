@@ -20,12 +20,15 @@ pkgchk_uses_roxygen2 <- function (path) {
     return (all (chk))
 }
 
-#' Check whether package uses `roxygen2`
-#' @param checks Result of main \link{pkgcheck} function
-#' @return Logical flag
-#' @noRd
-summarise_uses_roxygen2 <- function (checks) {
+output_pkgchk_uses_roxygen2 <- function (checks) {
 
-    has_this (checks$checks, "uses_roxy",
-              "uses", "does not use", "'roxygen2'.")
+    out <- list (check_pass = checks$checks$uses_roxy,
+                summary = "",
+                print = "") # no print method
+
+    out$summary <- ifelse (out$check_pass,
+                           "uses 'roxygen2'.",
+                           "does not use 'roxygen2'.")
+
+    return (out)
 }

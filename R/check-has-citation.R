@@ -9,12 +9,14 @@ pkgchk_has_citation <- function (path) {
     "CITATION" %in% list.files (file.path (path, "inst"))
 }
 
-#' Check presence of citation
-#' @param checks Result of main \link{pkgcheck} function
-#' @return Logical flag
-#' @noRd
-summarise_has_citation <- function (checks) {
+output_pkgchk_has_citation <- function (checks) {
 
-    has_this (checks$checks, "has_citation",
-              "has", "does not have", "a 'CITATION' file.")
+    out <- list (check_pass = checks$checks$has_citation,
+                summary = "",
+                print = "") # no print method
+
+    out$summary <- paste0 (ifelse (out$check_pass, "has", "does not have"),
+                           " a 'CITATION' file.")
+
+    return (out)
 }
