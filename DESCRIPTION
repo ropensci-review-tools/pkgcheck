@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.0.1.560
+Version: 0.0.1.561
 Authors@R: 
     c(person(given = "Mark",
              family = "Padgham",

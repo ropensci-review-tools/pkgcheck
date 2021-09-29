@@ -1,13 +1,14 @@
 
 #' Check whether all functions have examples
 #'
-#' @inheritParams pkg_uses_roxygen2
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
 #' @return Vector of named logical values, one for each '.Rd' file indicating
 #' whether or not it has example lines.
 #' @noRd
-pkgchk_pkg_fns_have_exs <- function (path) {
+pkgchk_pkg_fns_have_exs <- function (checks) {
 
-    rd <- list.files (file.path (path, "man"),
+    rd <- list.files (file.path (checks$package$path, "man"),
                       pattern = "\\.Rd$",
                       full.names = TRUE)
 
