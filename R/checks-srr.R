@@ -4,19 +4,30 @@ pkgchk_srr <- function (checks) {
     checks$info$srr$okay
 }
 
-output_pkgchk_srr <- function (checks) {
+output_pkgchk_srr_todo <- function (checks) {
 
-    out <- list (check_pass = checks$info$srr$okay,
-                summary = checks$info$srr$message,
+    out <- list (check_pass = !any (grepl ("still has TODO standards",
+                                           checks$info$srr$message)),
+                summary = grep ("still has TODO standards",
+                                checks$info$srr$message, value = TRUE),
                 print = "")
+
+    return (out)
+}
+
+output_pkgchk_srr_missing <- function (checks) {
+
+    srr <- checks$info$srr
+    check_pass <- !any (grepl ("following standards \\[v.*\\] are missing",
+                               srr$message))
+
+    out <- list (check_pass = check_pass,
+                 summary = "",
+                 print = "")
 
     if (!out$check_pass) {
 
-        msg <- paste0 ("Package can not be submitted because ",
-                       "the following standards are missing")
-        out$summary <- gsub (msg, "Statistical standards are missing",
-                             out$summary)
-        out$summary <- gsub (":$", ".", out$summary)
+        out$summary <- "Statistical standards are missing"
     }
 
     return (out)
