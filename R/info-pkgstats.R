@@ -1,17 +1,19 @@
 # These functions provide information derived from \pkg{pkgstats} without
 # actually being checks
 
-pkginfo_url_from_desc <- function (path) {
+pkginfo_url_from_desc <- function (path, type = "URL") {
+
+    type <- match.arg (type, c ("URL", "BugReports"))
 
     desc <- file.path (path, "DESCRIPTION")
     if (!file.exists (desc))
         return (NULL)
 
     d <- data.frame (read.dcf (desc))
-    if (!"URL" %in% names (d))
+    if (!type %in% names (d))
         return (NULL)
 
-    u <- strsplit (d$URL, "\\s+") [[1]]
+    u <- strsplit (d [[type]], "\\s+") [[1]]
     u <- grep ("^https", u, value = TRUE)
     if (length (u) > 1)
         u <- grep ("git", u, value = TRUE)
