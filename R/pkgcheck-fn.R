@@ -38,14 +38,7 @@ pkgcheck <- function (path = ".") {
 
     out$goodpractice <- pkgcheck_gp_report (path)
 
-    pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
-    check_fns <- grep ("^pkgchk\\_", pkg_fns, value = TRUE)
-    exclude_these <- "ci\\_badges|srr"
-    check_fns <- check_fns [which (!grepl (exclude_these, check_fns))]
-
-    out$checks <- lapply (check_fns, function (i)
-                          do.call (i, list (out)))
-    names (out$checks) <- gsub ("^pkgchk\\_", "", check_fns)
+    out$checks <- collate_checks (out)
 
     u <- pkginfo_url_from_desc (path)
     out$info$badges <- list ()
@@ -158,6 +151,24 @@ fmt_pkgstats_info <- function (s) {
     attr (stat_chks, "language") <- languages
 
     return (stat_chks)
+}
+
+#' Collates results of all main `pkgchk_` functions
+#'
+#' @return The contents of the "checks" items of the main `pkgcheck` object.
+#' @noRd
+collate_checks <- function (checks) {
+
+    pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
+    check_fns <- grep ("^pkgchk\\_", pkg_fns, value = TRUE)
+    exclude_these <- "ci\\_badges|srr"
+    check_fns <- check_fns [which (!grepl (exclude_these, check_fns))]
+
+    out <- lapply (check_fns, function (i)
+                          do.call (i, list (checks)))
+    names (out) <- gsub ("^pkgchk\\_", "", check_fns)
+
+    return (out)
 }
 
 version_info <- function (nosrr) {
