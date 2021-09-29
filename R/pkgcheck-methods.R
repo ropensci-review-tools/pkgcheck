@@ -17,7 +17,7 @@ print.pkgcheck <- function (x, ...) {
                    all.names = TRUE)
     output_fns <- gsub ("^output\\_pkgchk\\_", "",
                         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
-    out <- lapply (output_fns, function (i) print_check (checks, i))
+    out <- lapply (output_fns, function (i) print_check (x, i))
     out <- do.call (c, out [which (nchar (out) > 0L)])
 
     cli::cli_h3 ("All statistics")
