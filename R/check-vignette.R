@@ -49,7 +49,7 @@ pkgchk_has_vignette <- function (path) {
 #' @noRd
 summarise_has_vignette <- function (checks) {
 
-    ifelse (checks$file_list$vignette,
+    ifelse (checks$vignette,
             paste0 ("- ", symbol_tck (),
                     " Package has at least one HTML vignette"),
             paste0 ("- ", symbol_crs (),
@@ -60,7 +60,7 @@ summarise_has_vignette <- function (checks) {
 vignette_checks_md <- function (checks) {
 
     c ("",
-       ifelse (checks$file_list$vignette,
+       ifelse (checks$vignette,
                paste0 (symbol_tck (),
                        " Package has at least one HTML vignette"),
                paste0 (symbol_crs (),

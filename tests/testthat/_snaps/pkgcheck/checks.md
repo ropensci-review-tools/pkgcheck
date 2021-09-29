@@ -13,8 +13,6 @@ git hash: [](/tree/)
 - :heavy_check_mark: Package name is available.
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
 - :heavy_multiplication_x: Package coverage is 0% (should be at least 75%).
-- :heavy_multiplication_x: R CMD check found 1error.
-- :heavy_check_mark: R CMD check found no warnings.
 - :heavy_check_mark: This package still has TODO standards and can not be submitted.
 
 **Important:** All failing checks above must be addressed prior to proceeding
@@ -114,44 +112,6 @@ Interactive network visualisation of calls between objects in package can be vie
 ---
 
 
-### 3b. `goodpractice` results
-
-
-### `R CMD check` with [rcmdcheck](https://r-lib.github.io/rcmdcheck/)
-
-R CMD check generated the following error:
-
-1. checking for file ‘testpkgchecknotapkg/DESCRIPTION’ ... ERROR
-Required fields missing or empty:
-  ‘Author’ ‘Maintainer’
-
-R CMD check generated the following check_fails:
-
-1. description_url
-2. description_bugreports
-3. rcmdcheck_description_required_fields
-
-
-### Test coverage with [covr](https://covr.r-lib.org/)
-
-Package coverage: 0
-
-The following files are not completely covered by tests:
-
-file | coverage
---- | ---
-R/test.R | 0%
-src/cpptest.cpp | 0%
-
-### Cyclocomplexity with [cyclocomp](https://github.com/MangoTheCat/cyclocomp)
-
-No functions have cyclocomplexity >= 15
-
-### Static code analyses with [lintr](https://github.com/jimhester/lintr)
-
-[lintr](https://github.com/jimhester/lintr) found no issues with this package!
-
-
 
 </p>
 </details>
@@ -162,11 +122,11 @@ No functions have cyclocomplexity >= 15
 <summary>Package Versions</summary>
 <p>
 
-|package  |version |
-|:--------|:-------|
-|pkgstats |42      |
-|pkgcheck |42      |
-|srr      |42      |
+|package  |version   |
+|:--------|:---------|
+|pkgstats |42    |
+|pkgcheck |42    |
+|srr      |42    |
 
 </p>
 </details>

@@ -129,13 +129,13 @@ summarise_srr_checks <- function (checks) {
 
     res <- NULL
 
-    if (!is.null (checks$srr)) {
+    if (!is.null (checks$info$srr)) {
 
-        m <- checks$srr$message
+        m <- checks$info$srr$message
         i <- which (nchar (m) > 0 & grepl ("[^\\s]*", m))
 
         res <- paste0 ("- ",
-                       ifelse (checks$srr$okay,
+                       ifelse (checks$info$srr$okay,
                                symbol_tck (),
                                symbol_crs ()),
                        " ",
@@ -154,18 +154,18 @@ summarise_srr_checks <- function (checks) {
 print_srr <- function (x) {
 
     cli::cli_h2 ("rOpenSci Statistical Standards")
-    ncats <- length (x$srr$categories) # nolint
+    ncats <- length (x$info$srr$categories) # nolint
     cli::cli_alert_info ("The package is in the following {ncats} categor{?y/ies}:") # nolint
-    cli::cli_li (x$srr$categories)
+    cli::cli_li (x$info$srr$categories)
     cli::cli_text ("")
     cli::cli_alert_info ("Compliance with rOpenSci statistical standards:")
 
-    if (x$srr$okay) {
-        cli::cli_alert_success (x$srr$message)
+    if (x$info$srr$okay) {
+        cli::cli_alert_success (x$info$srr$message)
     } else {
-        cli::cli_alert_danger (x$srr$message [1])
-        if (length (x$srr$message) > 1) {
-            m <- x$srr$message [-1]
+        cli::cli_alert_danger (x$info$srr$message [1])
+        if (length (x$info$srr$message) > 1) {
+            m <- x$info$srr$message [-1]
             if (grepl ("missing from your code", m [1])) {
                 cli::cli_text (m [1])
                 cli::cli_text ("")
@@ -176,12 +176,12 @@ print_srr <- function (x) {
         return ()
     }
 
-    if (!is.null (x$srr$missing_stds)) {
+    if (!is.null (x$info$srr$missing_stds)) {
         cli::cli_alert_warning ("The following standards are missing:")
-        cli::cli_li (x$srr$missing_stds)
+        cli::cli_li (x$info$srr$missing_stds)
     }
 
-    cli::cli_alert_info ("'srr' report is at [{x$srr$report_file}].")
+    cli::cli_alert_info ("'srr' report is at [{x$info$srr$report_file}].")
     message ("")
 }
 
@@ -190,15 +190,15 @@ print_srr <- function (x) {
 #' @noRd
 srr_checks_to_md <- function (checks) {
 
-    if (is.null (checks$srr))
+    if (is.null (checks$info$srr))
         return (NULL)
 
-    cat_plural <- ifelse (length (checks$srr$categories == 1),
+    cat_plural <- ifelse (length (checks$info$srr$categories == 1),
                           "category",
                           "categories")
-    srr_msg <- ifelse (checks$srr$okay,
-                       paste0 (symbol_tck (), " ", checks$srr$message),
-                       paste0 (symbol_crs (), " ", checks$srr$message))
+    srr_msg <- ifelse (checks$info$srr$okay,
+                       paste0 (symbol_tck (), " ", checks$info$srr$message),
+                       paste0 (symbol_crs (), " ", checks$info$srr$message))
 
     c (paste0 ("## 1. rOpenSci Statistical Standards ",
                "([`srr` package]",
@@ -206,7 +206,7 @@ srr_checks_to_md <- function (checks) {
        "",
        paste0 ("This package is in the following ", cat_plural, ":"),
        "",
-       paste0 ("- *", checks$srr$categories, "*"),
+       paste0 ("- *", checks$info$srr$categories, "*"),
        "",
        srr_msg,
        "",
@@ -225,5 +225,5 @@ srr_checks_to_md <- function (checks) {
 }
 
 report_file <- function(checks) {
-    Sys.getenv("PKGCHECK_SRR_REPORT_FILE", checks$srr$report_file)
+    Sys.getenv("PKGCHECK_SRR_REPORT_FILE", checks$info$srr$report_file)
 }

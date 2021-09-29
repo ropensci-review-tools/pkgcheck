@@ -21,12 +21,12 @@ pkgchk_pkgname_available <- function (path) {
 #' @noRd
 summarise_pkgname_chk <- function (checks) {
 
-    if (checks$file_list$pkgname_available & !checks$file_list$pkg_on_cran) {
+    if (checks$pkgname_available & !checks$pkg_on_cran) {
 
         res <- paste0 ("- ", symbol_tck (),
                        " Package name is available.")
 
-    } else if (checks$file_list$pkg_on_cran) {
+    } else if (checks$pkg_on_cran) {
 
         res <- paste0 ("- ", symbol_tck (),
                        " Package is already on CRAN.")

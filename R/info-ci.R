@@ -93,9 +93,9 @@ pkgchk_ci_badges <- function (u) {
 #' @noRd
 summarise_ci_checks <- function (checks) {
 
-    if (length (checks$badges) == 0) {
+    if (length (checks$info$badges) == 0) {
 
-        if (!checks$file_list$has_url) {
+        if (!checks$checks$has_url) {
 
             res <- paste0 ("- ", symbol_crs (),
                            " Continuous integration checks unavailable ",
@@ -121,23 +121,23 @@ ci_checks <- function (checks) {
 
     out <- NULL
 
-    if (length (checks$badges) > 0) {
+    if (length (checks$info$badges) > 0) {
 
-        if (is.na (checks$badges [1]))
-            checks$badges <- "(There do not appear to be any)"
+        if (is.na (checks$info$badges [1]))
+            checks$info$badges <- "(There do not appear to be any)"
 
         out <- c (out,
                   "### 3a. Continuous Integration Badges",
                   "",
-                  unlist (checks$badges),
+                  unlist (checks$info$badges),
                   "")
 
-        if (!is.null (checks$github_workflows)) {
+        if (!is.null (checks$info$github_workflows)) {
 
             out <- c (out,
                       "**GitHub Workflow Results**",
                       "",
-                      knitr::kable (checks$github_workflows))
+                      knitr::kable (checks$info$github_workflows))
         }
     }
 

@@ -1,12 +1,14 @@
 #' Get 'goodpractice' report on local source package
 #'
 #' This uses a caching system to only generate new report if repository has been
-#' updated, otherwise it returns locally cached version.
+#' updated, otherwise it returns locally cached version. It has a prefix of
+#' `pkgcheck_` and not `pkgchk_` because it is structured differently to
+#' standard `pkgchk_` checks, and this avoids any method confusion.
 #'
 #' @param path Path to local source of repository
 #' @return A \pkg{goodpractice} report
 #' @noRd
-pkgchk_gp_report <- function (path) {
+pkgcheck_gp_report <- function (path) {
 
     pkg_hash <- current_hash (path)
     fname <- paste0 (pkg_hash [1], "_", pkg_hash [2])
@@ -52,7 +54,8 @@ summarise_gp_checks <- function (checks) {
 
     if (methods::is (checks$gp$rcmdcheck, "try-error")) {
 
-        cond <- attr (checks$gp$rcmdcheck, "condition") # the error condition
+        cond <- attr (checks$gp$rcmdcheck,
+                      "condition") # the error condition
         rcmd_errs <- paste0 ("- ",
                              symbol_crs (),
                              " R CMD check process failed with message: '",
@@ -119,7 +122,7 @@ gp_checks_to_md <- function (checks,
                                                  covr_threshold = 70,
                                                  digits = 2)) {
 
-    gp <- extract_gp_components (checks$gp)
+    gp <- extract_gp_components (checks$checks$gp)
 
 
     c ("",
@@ -241,7 +244,8 @@ convert_gp_components <- function (x,
 
 rcmd_report <- function (x) {
 
-    ret <- c ("### `R CMD check` with [rcmdcheck](https://r-lib.github.io/rcmdcheck/)",
+    ret <- c (paste0 ("### `R CMD check` with [rcmdcheck]",
+                      "(https://r-lib.github.io/rcmdcheck/)"),
               "")
 
     if (!"rcmd" %in% names (x))
@@ -306,7 +310,7 @@ covr_report <- function (x,
                    paste0 (x$covr),
                    ""))
 
-    if ("covr_threshold" %in% names (control)) 
+    if ("covr_threshold" %in% names (control))
         covr_threshold <- control$covr_threshold
     else
         covr_threshold <- 70
@@ -362,7 +366,8 @@ cyclo_report <- function (x,
 
     cyc <- x$cyclocomp
 
-    ret <- c ("### Cyclocomplexity with [cyclocomp](https://github.com/MangoTheCat/cyclocomp)",
+    ret <- c (paste0 ("### Cyclocomplexity with [cyclocomp]",
+                      "(https://github.com/MangoTheCat/cyclocomp)"),
               "")
 
     if (methods::is (cyc, "try-error")) {
@@ -399,12 +404,14 @@ cyclo_report <- function (x,
 
 lintr_report <- function (x) {
 
-    ret <- c ("### Static code analyses with [lintr](https://github.com/jimhester/lintr)",
+    ret <- c (paste0 ("### Static code analyses with [lintr]",
+                      "(https://github.com/jimhester/lintr)"),
               "")
 
     if (is.null (x$lint))
         return (c (ret,
-                   "[lintr](https://github.com/jimhester/lintr) found no issues with this package!",
+                   paste0 ("[lintr](https://github.com/jimhester/lintr) ",
+                           "found no issues with this package!"),
                    ""))
 
     msgs <- table (x$lint$message)
@@ -412,7 +419,8 @@ lintr_report <- function (x) {
                         n = as.integer (msgs))
 
     ret <- c (ret,
-              paste0 ("[lintr](https://github.com/jimhester/lintr) found the following ",
+              paste0 ("[lintr](https://github.com/jimhester/lintr) ",
+                      "found the following ",
                       sum (msgs$n),
                       " potential issues:"),
               "",

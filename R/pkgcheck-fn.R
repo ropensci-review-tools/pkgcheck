@@ -25,35 +25,52 @@ pkgcheck <- function (path = ".") {
         }
 
     s <- pkgstats_info (path)
-    out <- s$out
 
-    out$file_list <- file_checks (path)
-    out$file_list$has_url <- !is.na (s$desc$urls)
-    out$file_list$has_bugs <- !is.na (s$desc$bugs)
+    out <- pkgcheck_object ()
+    out$package <- s$out [c ("package", "version", "url",
+                             "license", "summary", "dependencies")]
+    names (out$package) [1] <- "name"
 
-    out$network_file <- fn_call_network (s)
+    out$info <- s$out [c ("git", "srr", "pkgstats",
+                          "fns_have_exs", "left_assigns")]
+
+    out$checks <- file_checks (path)
+    out$checks$has_url <- !is.na (s$stats$desc$urls)
+    out$checks$has_bugs <- !is.na (s$stats$desc$bugs)
+
+    out$info$network_file <- fn_call_network (s)
 
     u <- pkginfo_url_from_desc (path)
-    out$badges <- list ()
+    out$info$badges <- list ()
     if (!is.null (u)) {
-        out$badges <- pkgchk_ci_badges (u)
-        if (!is.null (out$badges)) {
-            if (any (grepl ("github", out$badges))) {
-                out$github_workflows <- ci_results_gh (path)
+        out$info$badges <- pkgchk_ci_badges (u)
+        if (!is.null (out$info$badges)) {
+            if (any (grepl ("github", out$info$badges))) {
+                out$info$github_workflows <- ci_results_gh (path)
             }
         }
     }
 
-    out$gp <- pkgchk_gp_report (path)
+    out$checks$gp <- pkgcheck_gp_report (path)
 
-    out$pkg_versions <- version_info (is.null (out$srr))
-
-    class (out) <- c ("pkgcheck", class (out))
+    out$meta <- version_info (is.null (out$info$srr))
 
     stopfile <- Sys.getenv ("PKGCHECK_PXBG_STOP")
     if (stopfile != "") {
         writeLines ("process stopped", con = stopfile)
     }
+
+    return (out)
+}
+
+pkgcheck_object <- function () {
+
+    out <- list (package = NULL,
+                 info = NULL,
+                 checks = NULL,
+                 meta = NULL)
+
+    class (out) <- append ("pkgcheck", class (out))
 
     return (out)
 }
@@ -206,14 +223,6 @@ version_info <- function (nosrr) {
     pkgs <- c ("pkgstats", "pkgcheck")
     if (!nosrr)
         pkgs <- c (pkgs, "srr")
-
-    if (nzchar (Sys.getenv("PKGCHECK_TESTING"))) {
-        return (
-            vapply (pkgs, function (i)
-            "42",
-            character (1))
-        )
-    }
 
     vapply (pkgs, function (i)
             paste0 (utils::packageVersion (i)),

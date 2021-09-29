@@ -7,15 +7,6 @@ test_that("pkgcheck_bg() works", {
         chk <- unlink (file.path (tempdir (), pkgname),
                        recursive = TRUE)
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
-    # remove RoxgygenNote from DESC; see
-    # https://github.com/r-lib/roxygen2/issues/905
-    f <- file.path (d, "DESCRIPTION")
-    desc <- data.frame (read.dcf (f))
-    i <- grep ("RoxygenNote", names (desc))
-    if (length (i) > 0L) {
-      desc <- desc [, -i]
-      write.dcf (desc, f)
-    }
 
     x <- capture.output (
                          roxygen2::roxygenise (d),
@@ -35,7 +26,7 @@ test_that("pkgcheck_bg() works", {
 
     out <- x$get_result ()
     expect_type (out, "list")
-    expect_length (out, 15L)
+    expect_length (out, 4L)
 
     # results should then be cached:
     pt2 <- system.time (
