@@ -34,7 +34,7 @@ summarise_scrap_checks <- function (checks) {
 
     ret <- NULL
 
-    if (length (checks$scrap) > 0L) {
+    if (length (checks$checks$scrap) > 0L) {
 
         ret <- paste0 ("- ", symbol_crs (),
                        " Package contains unexpected files.")
@@ -56,13 +56,13 @@ print_scrap <- function (x) {
 
 scrap_checks_md <- function (checks) {
 
-    if (length (checks$scrap) == 0L)
+    if (length (checks$checks$scrap) == 0L)
         return (NULL)
 
     c ("",
        paste0 (symbol_crs (),
                " Package contains the following unexpected files:"),
        "",
-       paste0 ("- ", checks$scrap),
+       paste0 ("- ", checks$checks$scrap),
        "")
 }

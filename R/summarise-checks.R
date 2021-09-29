@@ -31,7 +31,7 @@ summarise_all_checks <- function (checks) {
               gp$rcmd_errs,
               gp$rcmd_warns,
               # ---- Miscellaneous checks start here ---
-              summarise_scrap_checks (checks$checks),
+              summarise_scrap_checks (checks),
               # ---- Miscellaneous checks end here ---
               summarise_srr_checks (checks))
 
