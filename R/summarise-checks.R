@@ -53,6 +53,7 @@ summarise_extra_env_checks <- function (checks) {
         e <- env2namespace (e)
         output_fns <- grep ("^output\\_pkgchk\\_", ls (e), value = TRUE)
         output_fns <- gsub ("^output\\_pkgchk\\_", "", output_fns)
+        output_fns <- output_fns [which (output_fns %in% names (checks$checks))]
         vapply (output_fns,
                 function (i) summarise_check (checks, i, e),
                 character (1),
