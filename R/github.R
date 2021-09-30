@@ -1,6 +1,5 @@
 
 default_branch_qry <- function (gh_cli, org, repo) {
-
     q <- paste0 ("{
             repository(owner:\"", org, "\", name:\"", repo, "\") {
                        defaultBranchRef {
@@ -9,14 +8,13 @@ default_branch_qry <- function (gh_cli, org, repo) {
                     }
             }")
 
-    qry <- ghql::Query$new()
+    qry <- ghql::Query$new ()
     qry$query ("default_branch", q)
 
     return (qry)
 }
 
 commits_qry <- function (gh_cli, org, repo, branch = "main") {
-
     q <- paste0 ("{
         repository(owner:\"", org, "\", name:\"", repo, "\") {
             branch0: ref(qualifiedName: \"", branch, "\") {
@@ -39,7 +37,7 @@ commits_qry <- function (gh_cli, org, repo, branch = "main") {
     }
     }")
 
-    qry <- ghql::Query$new()
+    qry <- ghql::Query$new ()
     qry$query ("get_commits", q)
 
     return (qry)
@@ -53,14 +51,10 @@ commits_qry <- function (gh_cli, org, repo, branch = "main") {
 #' @family github
 #' @export
 get_gh_token <- function (token_name = "") {
-
     e <- Sys.getenv ()
     if (token_name != "") {
-
         toks <- unique (e [grep (token_name, names (e))])
-
     } else {
-
         toks <- e [grep ("GITHUB", names (e))]
         if (length (unique (toks)) > 1) {
             toks <- toks [grep ("TOKEN|PAT", names (toks))]
@@ -72,13 +66,14 @@ get_gh_token <- function (token_name = "") {
     }
 
     if (length (unique (toks)) > 1) {
-
-        stop ("There are ",
-              length (unique (toks)),
-              " possible tokens named [",
-              paste0 (names (toks), collapse = ", "),
-              "]; please ensure one distinct ",
-              "token named 'GITHUB_TOKEN' or similar.")
+        stop (
+            "There are ",
+            length (unique (toks)),
+            " possible tokens named [",
+            paste0 (names (toks), collapse = ", "),
+            "]; please ensure one distinct ",
+            "token named 'GITHUB_TOKEN' or similar."
+        )
     }
 
     return (unique (toks))
@@ -95,7 +90,6 @@ get_gh_token <- function (token_name = "") {
 #' @family github
 #' @export
 get_default_branch <- function (org, repo) {
-
     token <- get_gh_token ()
 
     gh_cli <- ghql::GraphqlClient$new (
@@ -104,7 +98,7 @@ get_default_branch <- function (org, repo) {
     )
 
     qry <- default_branch_qry (gh_cli, org = org, repo = repo)
-    x <- gh_cli$exec(qry$queries$default_branch) %>%
+    x <- gh_cli$exec (qry$queries$default_branch) %>%
         jsonlite::fromJSON ()
     branch <- x$data$repository$defaultBranchRef$name
 
@@ -124,7 +118,6 @@ get_default_branch <- function (org, repo) {
 #' @family github
 #' @export
 get_latest_commit <- function (org, repo) {
-
     token <- get_gh_token ()
 
     gh_cli <- ghql::GraphqlClient$new (
@@ -135,7 +128,7 @@ get_latest_commit <- function (org, repo) {
     branch <- get_default_branch (org, repo)
 
     qry <- commits_qry (gh_cli, org = org, repo = repo, branch = branch)
-    x <- gh_cli$exec(qry$queries$get_commits) %>%
+    x <- gh_cli$exec (qry$queries$get_commits) %>%
         jsonlite::fromJSON ()
 
     return (x$data$repository$branch0$target$history$nodes)
