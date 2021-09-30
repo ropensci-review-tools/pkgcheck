@@ -185,7 +185,7 @@ collate_extra_env_checks <- function (checks) {
     if (is.null (extra_env))
         return (NULL)
 
-    if (!methods::is (extra_env, "list"))
+    if (!is.list (extra_env))
         extra_env <- list (extra_env)
 
     chks <- lapply (extra_env, function (i) {
