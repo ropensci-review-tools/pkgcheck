@@ -8,18 +8,20 @@
 #' \pkg{goodpractice} results.
 #' @noRd
 pkgchk_has_citation <- function (checks) {
-
     "CITATION" %in% list.files (file.path (checks$package$path, "inst"))
 }
 
 output_pkgchk_has_citation <- function (checks) {
+    out <- list (
+        check_pass = checks$checks$has_citation,
+        summary = "",
+        print = ""
+    ) # no print method
 
-    out <- list (check_pass = checks$checks$has_citation,
-                summary = "",
-                print = "") # no print method
-
-    out$summary <- paste0 (ifelse (out$check_pass, "has", "does not have"),
-                           " a 'CITATION' file.")
+    out$summary <- paste0 (
+        ifelse (out$check_pass, "has", "does not have"),
+        " a 'CITATION' file."
+    )
 
     return (out)
 }

@@ -13,10 +13,10 @@
 #' @family extra
 #' @export
 logfile_names <- function (path) {
-
     temp_dir <- file.path (Sys.getenv ("PKGCHECK_CACHE_DIR"), "templogs")
-    if (!dir.exists (temp_dir))
+    if (!dir.exists (temp_dir)) {
         dir.create (temp_dir, recursive = TRUE)
+    }
 
     pkg_hash <- current_hash (path)
     pkg_hash_fmt <- paste0 (pkg_hash, collapse = "_")
@@ -24,26 +24,28 @@ logfile_names <- function (path) {
     sout <- file.path (temp_dir, paste0 (pkg_hash_fmt, "_stdout"))
     serr <- file.path (temp_dir, paste0 (pkg_hash_fmt, "_stderr"))
 
-    otherlogs <- list.files (temp_dir,
-                             pattern = pkg_hash [1],
-                             full.names = TRUE)
+    otherlogs <- list.files (
+        temp_dir,
+        pattern = pkg_hash [1],
+        full.names = TRUE
+    )
     otherlogs <- otherlogs [which (!grepl (pkg_hash [2], otherlogs))]
-    if (length (otherlogs) > 0)
+    if (length (otherlogs) > 0) {
         file.remove (otherlogs)
+    }
 
     return (list (stdout = sout, stderr = serr))
 }
 
 current_hash <- function (path) {
-
-    if (!file.exists (file.path (path, "DESCRIPTION")))
-        stop ("path [", path, "] does not appear to be an R package")
+    if (!file.exists (file.path (path, "DESCRIPTION"))) {
+          stop ("path [", path, "] does not appear to be an R package")
+      }
 
     desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
     pkg <- desc$Package
 
     if (repo_is_git (path)) {
-
         g <- gert::git_info (path)
         hash <- substring (g$commit, 1, 8)
     } else { # not a git repo, so use mtime as hash
