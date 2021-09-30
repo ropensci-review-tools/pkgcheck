@@ -61,7 +61,7 @@ jobs:
         run: Rscript -e 'install.packages("styler");install.packages("remotes"); remotes::install_github("ropensci-review-tools/spaceout")'
 
       - name: Style
-        run: Rscript -e 'styler::style_pkg()'
+        run: Rscript -e 'styler::style_pkg(style = spaceout::spaceout_style)'
 
       - name: commit
         run: |
