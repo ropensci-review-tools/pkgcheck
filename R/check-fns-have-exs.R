@@ -8,9 +8,10 @@
 #' @noRd
 pkgchk_fns_have_exs <- function (checks) {
     rd <- list.files (file.path (
-        checks$package$path, "man"),
-        pattern = "\\.Rd$",
-        full.names = TRUE
+        checks$package$path, "man"
+    ),
+    pattern = "\\.Rd$",
+    full.names = TRUE
     )
 
     has_ex <- vapply (rd, function (i) {
@@ -25,8 +26,8 @@ pkgchk_fns_have_exs <- function (checks) {
     names (has_ex) <-
         vapply (
             names (has_ex), function (i) {
-                  utils::tail (decompose_path (i) [[1]], 1L)
-              },
+                utils::tail (decompose_path (i) [[1]], 1L)
+            },
             character (1)
         )
 
