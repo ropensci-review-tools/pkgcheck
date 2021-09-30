@@ -44,23 +44,12 @@ print.pkgcheck <- function (x, ...) {
     }
 
     # additional external checks:
-    extra_env <- options ("pkgcheck_extra_env") [[1]]
-    if (!is.list (extra_env))
-        extra_env <- list (extra_env)
-    extra_prints <- lapply (extra_env, function (e) {
-        e <- env2namespace (e)
-        output_fns <- grep ("^output\\_pkgchk\\_", ls (e), value = TRUE)
-        output_fns <- gsub ("^output\\_pkgchk\\_", "", output_fns)
-        output_fns [which (output_fns %in% names (checks$checks))]
-    })
-    lens <- vapply (extra_prints, length, integer (1))
-    extra_prints <- extra_prints [which (lens > 0L)]
-    extra_env <- extra_env [which (lens > 0L)]
-    if (length (extra_env) > 0L) {
+    extra <- extra_check_prints_from_env ()
+    if (length (extra$env) > 0L) {
         if (!has_misc_checks)
             cli::cli_h2 ("Other checks")
-        for (e in extra_env) {
-            for (p in extra_prints) {
+        for (e in extra$env) {
+            for (p in extra$prints) {
                 print_check_screen (x, p, e)
             }
         }
@@ -246,4 +235,25 @@ print_check_md <- function (checks, what, pkg_env) {
     }
 
     return (out)
+}
+
+extra_check_prints_from_env <- function () {
+
+    extra_env <- options ("pkgcheck_extra_env") [[1]]
+    if (!is.list (extra_env))
+        extra_env <- list (extra_env)
+
+    extra_prints <- lapply (extra_env, function (e) {
+        e <- env2namespace (e)
+        output_fns <- grep ("^output\\_pkgchk\\_", ls (e), value = TRUE)
+        output_fns <- gsub ("^output\\_pkgchk\\_", "", output_fns)
+        output_fns [which (output_fns %in% names (checks$checks))]
+    })
+
+    lens <- vapply (extra_prints, length, integer (1))
+    extra_prints <- extra_prints [which (lens > 0L)]
+    extra_env <- extra_env [which (lens > 0L)]
+
+    return (list (env = extra_env,
+                  prints = extra_prints))
 }
