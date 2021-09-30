@@ -23,7 +23,7 @@ pkgchk_uses_roxygen2 <- function (checks) {
 
 output_pkgchk_uses_roxygen2 <- function (checks) {
 
-    out <- list (check_pass = checks$checks$uses_roxy,
+    out <- list (check_pass = checks$checks$uses_roxygen2,
                 summary = "",
                 print = "") # no print method
 
