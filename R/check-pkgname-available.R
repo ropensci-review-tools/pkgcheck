@@ -21,7 +21,8 @@ pkgchk_pkgname_available <- function (checks) {
 
     return (
         !pkg %in% ap$Package &
-        pkg == pkg_grepped)
+            pkg == pkg_grepped
+    )
 }
 
 output_pkgchk_pkgname <- function (checks) {
