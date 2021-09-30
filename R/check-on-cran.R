@@ -7,9 +7,10 @@
 #' \pkg{goodpractice} results.
 #' @noRd
 pkgchk_on_cran <- function (checks) {
-
-    desc <- data.frame (read.dcf (file.path (checks$package$path,
-                                             "DESCRIPTION")))
+    desc <- data.frame (read.dcf (file.path (
+        checks$package$path,
+        "DESCRIPTION"
+    )))
     pkg <- desc$Package
 
     ap <- data.frame (utils::available.packages ())
@@ -18,8 +19,10 @@ pkgchk_on_cran <- function (checks) {
     if (res) {
         # Check whether CRAN package of that name has same title
 
-        u <- paste0 ("https://cran.r-project.org/web/packages/",
-                     pkg, "/index.html")
+        u <- paste0 (
+            "https://cran.r-project.org/web/packages/",
+            pkg, "/index.html"
+        )
         x <- rvest::read_html (u)
         h2 <- paste0 (rvest::html_elements (x, "h2"))
         h2 <- gsub ("<h2>|<\\/h2>", "", h2)
