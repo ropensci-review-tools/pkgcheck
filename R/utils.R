@@ -2,14 +2,12 @@
 #' Tick symbol for markdown output
 #' @noRd
 symbol_tck <- function () {
-
     ":heavy_check_mark:"
 }
 
 #' Cross symbol for markdown output
 #' @noRd
 symbol_crs <- function () {
-
     ":heavy_multiplication_x:"
 }
 
@@ -35,15 +33,17 @@ decompose_path <- function (f) {
 #' @return Character vector of names of all checks (invisibly)
 #' @export
 list_pkgchecks <- function (quiet = FALSE) {
-
-    chks <- grep ("^pkgchk\\_",
-                  ls (envir = asNamespace ("pkgcheck"), all.names = TRUE),
-                  value = TRUE)
+    chks <- grep (
+        "^pkgchk\\_",
+        ls (envir = asNamespace ("pkgcheck"), all.names = TRUE),
+        value = TRUE
+    )
 
     if (!quiet) {
-
-        cli::cli_alert_info (paste0 ("The following checks are ",
-                                     "currently implemented in pkgcheck:"))
+        cli::cli_alert_info (paste0 (
+            "The following checks are ",
+            "currently implemented in pkgcheck:"
+        ))
         cli::cli_ol (chks)
         cli::cli_end ()
     }
@@ -55,7 +55,6 @@ list_pkgchecks <- function (quiet = FALSE) {
 #' packages
 #' @noRd
 exported_fns <- function (path) {
-
     nspace <- readLines (file.path (path, "NAMESPACE"))
     exports <- grep ("^export\\s?\\(", nspace, value = TRUE)
     exports <- gsub ("^export\\s?\\(|\\)$", "", exports)
@@ -64,10 +63,13 @@ exported_fns <- function (path) {
 
     # exclude any re-exports from other packages (typically like "%>%"):
     imports <- grep ("^importFrom\\s?\\(", nspace, value = TRUE)
-    imports <- vapply (imports, function (i)
-                       gsub ("\\)$", "", strsplit (i, ",") [[1]] [2]),
-                       character (1),
-                       USE.NAMES = FALSE)
+    imports <- vapply (imports,
+        function (i) {
+            gsub ("\\)$", "", strsplit (i, ",") [[1]] [2])
+        },
+        character (1),
+        USE.NAMES = FALSE
+    )
     imports <- gsub ("\\\"", "", imports)
 
     return (exports [which (!exports %in% imports)])
@@ -79,18 +81,17 @@ exported_fns <- function (path) {
 #' environments.
 #' @noRd
 env2namespace <- function (e) {
-
     if (!is.environment (e)) {
-
         s <- search ()
         e <- s [grep (paste0 (e, "$"), s)]
 
-        if (length (e) != 1L)
-            e <- NULL
-        else {
+        if (length (e) != 1L) {
+              e <- NULL
+          } else {
             pkg <- gsub ("package\\:", "", e)
             e <- tryCatch (asNamespace (pkg),
-                           error = function (err) NULL)
+                error = function (err) NULL
+            )
         }
     }
     return (e)
