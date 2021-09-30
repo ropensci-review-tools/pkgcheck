@@ -22,6 +22,8 @@ summarise_all_checks <- function (checks) {
                    function (i) summarise_check (checks, i, pkg_env))
     out <- do.call (c, out)
 
+    out <- c (out, summarise_extra_env_checks (checks))
+
     gp <- summarise_gp_checks (checks)
 
     out <- c (out,
@@ -39,6 +41,25 @@ summarise_all_checks <- function (checks) {
     attr (out, "checks_okay") <- checks_okay
 
     return (out)
+}
+
+summarise_extra_env_checks <- function (checks) {
+
+    extra_env <- options ("pkgcheck_extra_env") [[1]]
+    if (!is.list (extra_env))
+        extra_env <- list (extra_env)
+
+    extra_chks <- lapply (extra_env, function (e) {
+        e <- env2namespace (e)
+        output_fns <- grep ("^output\\_pkgchk\\_", ls (e), value = TRUE)
+        output_fns <- gsub ("^output\\_pkgchk\\_", "", output_fns)
+        vapply (output_fns,
+                function (i) summarise_check (checks, i, e),
+                character (1),
+                USE.NAMES = FALSE)
+    })
+
+    return (unlist (extra_chks))
 }
 
 #' Function to specify the order in which checks appear in the summary method.
