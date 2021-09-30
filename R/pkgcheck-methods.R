@@ -44,7 +44,7 @@ print.pkgcheck <- function (x, ...) {
     }
 
     # additional external checks:
-    extra <- extra_check_prints_from_env ()
+    extra <- extra_check_prints_from_env (x)
     if (length (extra$env) > 0L) {
         if (!has_misc_checks)
             cli::cli_h2 ("Other checks")
@@ -237,7 +237,7 @@ print_check_md <- function (checks, what, pkg_env) {
     return (out)
 }
 
-extra_check_prints_from_env <- function () {
+extra_check_prints_from_env <- function (checks) {
 
     extra_env <- options ("pkgcheck_extra_env") [[1]]
     if (!is.list (extra_env))

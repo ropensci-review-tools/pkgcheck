@@ -62,7 +62,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "</p>",
                  "</details>")
 
-    extra <- extra_check_prints_from_env ()
+    extra <- extra_check_prints_from_env (checks)
     has_extra <- length (extra$env) > 0L |
         length (checks$checks$scrap) > 0L
     if (has_extra) {
