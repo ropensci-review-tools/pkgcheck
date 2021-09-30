@@ -1,6 +1,5 @@
 #' @export
 print.pkgcheck <- function (x, ...) {
-
     requireNamespace ("goodpractice")
 
     cli::cli_h1 (paste0 (x$package$name, " ", x$package$version))
@@ -9,13 +8,16 @@ print.pkgcheck <- function (x, ...) {
     print_summary (x)
 
     print_git (x)
-    if (!is.null (x$info$srr))
-        print_srr (x)
+    if (!is.null (x$info$srr)) {
+          print_srr (x)
+      }
     print_structure (x)
 
     pkg_fns <- ls (env2namespace ("pkgcheck"))
-    output_fns <- gsub ("^output\\_pkgchk\\_", "",
-                        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
+    output_fns <- gsub (
+        "^output\\_pkgchk\\_", "",
+        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
+    )
     out <- lapply (output_fns, function (i) print_check (x, i))
     out <- do.call (c, out [which (nchar (out) > 0L)])
 
@@ -46,8 +48,9 @@ print.pkgcheck <- function (x, ...) {
     # additional external checks:
     extra <- extra_check_prints_from_env (x)
     if (length (extra$env) > 0L) {
-        if (!has_misc_checks)
-            cli::cli_h2 ("Other checks")
+        if (!has_misc_checks) {
+              cli::cli_h2 ("Other checks")
+          }
         for (e in extra$env) {
             for (p in extra$prints) {
                 print_check_screen (x, p, e)
@@ -61,7 +64,6 @@ print.pkgcheck <- function (x, ...) {
 
 #' @export
 summary.pkgcheck <- function (object, ...) {
-
     cli::cli_h1 (paste0 (object$package$name, " ", object$package$version))
     message ("")
 
@@ -77,7 +79,6 @@ print_summary <- function (x) {
     s <- grep ("^\\-", s, value = TRUE)
 
     for (i in s) {
-
         msg <- strsplit (i, "(mark|\\_x):\\s+") [[1]] [2]
         if (grepl ("heavy_check_mark", i)) {
             cli::cli_alert_success (msg)
@@ -98,22 +99,21 @@ print_summary <- function (x) {
 }
 
 print_git <- function (x) {
-
     cli::cli_h2 ("git")
 
     since <- strftime (x$info$git$since, "%d-%m-%Y") # nolint
-    gitstats <- c ("HEAD: {substring (x$info$git$HEAD, 1, 8)}",
-                   "Default branch: {x$info$git$branch}",
-                   "Number of commits: {x$info$git$num_commits}",
-                   "First commit: {since}",
-                   "Number of authors: {x$info$git$num_authors}")
+    gitstats <- c (
+        "HEAD: {substring (x$info$git$HEAD, 1, 8)}",
+        "Default branch: {x$info$git$branch}",
+        "Number of commits: {x$info$git$num_commits}",
+        "First commit: {since}",
+        "Number of authors: {x$info$git$num_authors}"
+    )
     cli::cli_li (gitstats)
     message ("")
-
 }
 
 print_structure <- function (x) {
-
     pkg_summ <- x$package$summary
 
     cli::cli_h2 ("Package Structure")
@@ -123,43 +123,62 @@ print_structure <- function (x) {
     message ("")
     cli::cli_alert_info ("Package has")
 
-    s <- c ("{pkg_summ$num_authors} author{?s}.",
-            "{pkg_summ$num_vignettes} vignette{?s}.")
+    s <- c (
+        "{pkg_summ$num_authors} author{?s}.",
+        "{pkg_summ$num_vignettes} vignette{?s}."
+    )
     if (pkg_summ$num_data == 0L) {
         s <- c (s, "No internal data")
     } else {
         s <- c (s, "{pkg_summ$num_data} internal data file{?s}.")
     }
-    s <- c (s,
-            "{pkg_summ$imported_pkgs} imported package{?s}.")
+    s <- c (
+        s,
+        "{pkg_summ$imported_pkgs} imported package{?s}."
+    )
 
     if (pkg_summ$num_exported_fns == 0L) {
         s <- c (s, paste0 ("No exported functions."))
     } else {
-        s <- c (s,
-            paste0 ("{pkg_summ$num_exported_fns} exported function{?s} ",
-                    "(median {pkg_summ$loc_exported_fns} lines of code)."))
+        s <- c (
+            s,
+            paste0 (
+                "{pkg_summ$num_exported_fns} exported function{?s} ",
+                "(median {pkg_summ$loc_exported_fns} lines of code)."
+            )
+        )
     }
     if (pkg_summ$num_non_exported_fns == 0L) {
         s <- c (s, paste0 ("No non-exported functions."))
     } else {
-        s <- c (s,
-                paste0 ("{pkg_summ$num_non_exported_fns} non-exported ",
-                        "function{?s} (median ",
-                        "{pkg_summ$loc_non_exported_fns} lines of code)."))
+        s <- c (
+            s,
+            paste0 (
+                "{pkg_summ$num_non_exported_fns} non-exported ",
+                "function{?s} (median ",
+                "{pkg_summ$loc_non_exported_fns} lines of code)."
+            )
+        )
     }
 
     if (pkg_summ$num_src_fns > 0) {
-        langs <- vapply (strsplit (pkg_summ$languages, ":"), function (i)
-                         i [1], character (1))
+        langs <- vapply (strsplit (pkg_summ$languages, ":"), function (i) {
+              i [1]
+          }, character (1))
         langs <- paste0 (langs [langs != "R"], collapse = ", ")
-        s <- c (s,
-                paste0 ("{pkg_summ$num_src_fns} {langs} functions ",
-                        "(median {pkg_summ$loc_src_fns} lines of code)."))
+        s <- c (
+            s,
+            paste0 (
+                "{pkg_summ$num_src_fns} {langs} functions ",
+                "(median {pkg_summ$loc_src_fns} lines of code)."
+            )
+        )
     }
 
-    s <- c (s,
-            "{pkg_summ$num_params_per_fn} parameters per function (median).")
+    s <- c (
+        s,
+        "{pkg_summ$num_params_per_fn} parameters per function (median)."
+    )
 
 
     cli::cli_li (s)
@@ -174,13 +193,13 @@ print_structure <- function (x) {
 #' @return Check formatted to apepar in `print` method
 #' @noRd
 print_check <- function (checks, what) {
-
     pkg_env <- asNamespace ("pkgcheck")
     pkg_fns <- ls (envir = pkg_env)
 
     output_fn <- paste0 ("output_pkgchk_", what)
-    if (!output_fn %in% pkg_fns)
-        return (NULL)
+    if (!output_fn %in% pkg_fns) {
+          return (NULL)
+      }
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
 
@@ -188,7 +207,6 @@ print_check <- function (checks, what) {
 }
 
 print_check_screen <- function (checks, what, pkg_env) {
-
     output_fn <- get (paste0 ("output_pkgchk_", what), envir = pkg_env)
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
@@ -200,7 +218,6 @@ print_check_screen <- function (checks, what, pkg_env) {
     }
 
     if (is.vector (chk_output$print$obj)) {
-
         cli::cli_ul ()
         cli::cli_li (chk_output$print$obj)
         cli::cli_end ()
@@ -208,7 +225,6 @@ print_check_screen <- function (checks, what, pkg_env) {
 }
 
 print_check_md <- function (checks, what, pkg_env) {
-
     output_fn <- get (paste0 ("output_pkgchk_", what), envir = pkg_env)
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
@@ -216,32 +232,34 @@ print_check_md <- function (checks, what, pkg_env) {
     out <- NULL
 
     if (!chk_output$check_pass) {
-
-        out <- c ("",
-                  paste0 (symbol_crs (), " ", chk_output$print$message))
-
+        out <- c (
+            "",
+            paste0 (symbol_crs (), " ", chk_output$print$message)
+        )
     } else if (nchar (chk_output$print$message) > 0L) {
-
-        out <- c ("",
-                  paste0 (symbol_tck (), " ", chk_output$print$message))
+        out <- c (
+            "",
+            paste0 (symbol_tck (), " ", chk_output$print$message)
+        )
     }
 
     if (!is.null (out) & is.vector (chk_output$print$obj)) {
-
-        out <- c (out,
-                  "",
-                  paste0 ("- ", chk_output$print$obj),
-                  "")
+        out <- c (
+            out,
+            "",
+            paste0 ("- ", chk_output$print$obj),
+            ""
+        )
     }
 
     return (out)
 }
 
 extra_check_prints_from_env <- function (checks) {
-
     extra_env <- options ("pkgcheck_extra_env") [[1]]
-    if (!is.list (extra_env))
-        extra_env <- list (extra_env)
+    if (!is.list (extra_env)) {
+          extra_env <- list (extra_env)
+      }
 
     extra_prints <- lapply (extra_env, function (e) {
         e <- env2namespace (e)
@@ -254,6 +272,8 @@ extra_check_prints_from_env <- function (checks) {
     extra_prints <- extra_prints [which (lens > 0L)]
     extra_env <- extra_env [which (lens > 0L)]
 
-    return (list (env = extra_env,
-                  prints = extra_prints))
+    return (list (
+        env = extra_env,
+        prints = extra_prints
+    ))
 }
