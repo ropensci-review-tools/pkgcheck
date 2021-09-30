@@ -22,8 +22,9 @@
     op.pkgcheck <- list (pkgcheck.cache_dir = cache_dir) # nolint
 
     toset <- !(names (op.pkgcheck) %in% names (op))
-    if (any (toset))
-        options (op.pkgcheck [toset])
+    if (any (toset)) {
+          options (op.pkgcheck [toset])
+      }
     invisible ()
 }
 # nocov end
