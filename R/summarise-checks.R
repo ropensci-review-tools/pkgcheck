@@ -12,30 +12,39 @@
 #' @param checks Result of main \link{pkgcheck} function
 #' @noRd
 summarise_all_checks <- function (checks) {
-
     pkg_env <- asNamespace ("pkgcheck")
     pkg_fns <- ls (pkg_env)
 
-    output_fns <- gsub ("^output\\_pkgchk\\_", "",
-                        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
-    out <- lapply (order_checks (output_fns),
-                   function (i) summarise_check (checks, i, pkg_env))
+    output_fns <- gsub (
+        "^output\\_pkgchk\\_", "",
+        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
+    )
+    out <- lapply (
+        order_checks (output_fns),
+        function (i) summarise_check (checks, i, pkg_env)
+    )
     out <- do.call (c, out)
 
     out <- c (out, summarise_extra_env_checks (checks))
 
     gp <- summarise_gp_checks (checks)
 
-    out <- c (out,
-              gp$rcmd_errs,
-              gp$rcmd_warns)
+    out <- c (
+        out,
+        gp$rcmd_errs,
+        gp$rcmd_warns
+    )
 
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
-        out <- c (out,
-                  "",
-                  paste0 ("**Important:** All failing checks above ",
-                          "must be addressed prior to proceeding"))
+        out <- c (
+            out,
+            "",
+            paste0 (
+                "**Important:** All failing checks above ",
+                "must be addressed prior to proceeding"
+            )
+        )
     }
 
     attr (out, "checks_okay") <- checks_okay
@@ -44,10 +53,10 @@ summarise_all_checks <- function (checks) {
 }
 
 summarise_extra_env_checks <- function (checks) {
-
     extra_env <- options ("pkgcheck_extra_env") [[1]]
-    if (!is.list (extra_env))
-        extra_env <- list (extra_env)
+    if (!is.list (extra_env)) {
+          extra_env <- list (extra_env)
+      }
 
     extra_chks <- lapply (extra_env, function (e) {
         e <- env2namespace (e)
@@ -55,9 +64,10 @@ summarise_extra_env_checks <- function (checks) {
         output_fns <- gsub ("^output\\_pkgchk\\_", "", output_fns)
         output_fns <- output_fns [which (output_fns %in% names (checks$checks))]
         vapply (output_fns,
-                function (i) summarise_check (checks, i, e),
-                character (1),
-                USE.NAMES = FALSE)
+            function (i) summarise_check (checks, i, e),
+            character (1),
+            USE.NAMES = FALSE
+        )
     })
 
     return (unlist (extra_chks))
@@ -71,23 +81,24 @@ summarise_extra_env_checks <- function (checks) {
 #' sequence.
 #' @noRd
 order_checks <- function (fns) {
-
-    ord <- c ("pkgname",
-              "has_citation",
-              "has_codemeta",
-              "has_contrib",
-              "uses_roxygen2",
-              "has_url",
-              "has_bugs",
-              "has_vignette",
-              "fns_have_exs",
-              "global_assign",
-              "ci",
-              "covr",
-              "has_scrap",
-              "left_assign",
-              "srr_missing",
-              "srr_todo")
+    ord <- c (
+        "pkgname",
+        "has_citation",
+        "has_codemeta",
+        "has_contrib",
+        "uses_roxygen2",
+        "has_url",
+        "has_bugs",
+        "has_vignette",
+        "fns_have_exs",
+        "global_assign",
+        "ci",
+        "covr",
+        "has_scrap",
+        "left_assign",
+        "srr_missing",
+        "srr_todo"
+    )
 
     fns <- fns [which (fns %in% ord)]
     fns <- fns [match (ord, fns)]
@@ -105,25 +116,27 @@ order_checks <- function (fns) {
 #' @return Check formatted to apepar in `summary` method
 #' @noRd
 summarise_check <- function (checks, what, pkg_env) {
-
     pkg_fns <- ls (pkg_env)
     summary_fn <- paste0 ("output_pkgchk_", what)
 
-    if (!summary_fn %in% pkg_fns)
-        return (NULL)
+    if (!summary_fn %in% pkg_fns) {
+          return (NULL)
+      }
 
     chk_summary <- do.call (summary_fn, list (checks), envir = pkg_env)
 
     res <- NULL
 
     if (sum (nchar (chk_summary$summary)) > 0L) {
-
-        res <- paste0 ("- ",
-                       ifelse (chk_summary$check_pass,
-                               symbol_tck (),
-                               symbol_crs ()),
-                       " ",
-                       chk_summary$summary)
+        res <- paste0 (
+            "- ",
+            ifelse (chk_summary$check_pass,
+                symbol_tck (),
+                symbol_crs ()
+            ),
+            " ",
+            chk_summary$summary
+        )
     }
 
     return (res)
