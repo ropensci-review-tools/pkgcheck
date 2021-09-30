@@ -64,13 +64,14 @@ checks_to_markdown <- function (checks, render = FALSE) {
 
     if (length (checks$checks$scrap > 0L)) {
 
+        e <- env2namespace ("pkgcheck")
         md_out <- c (md_out,
                      "",
                      "---",
                      "",
                      "### 4. Other Checks",
                      "",
-                     print_check_md (checks, "has_scrap"))
+                     print_check_md (checks, "has_scrap", e))
     }
 
     v <- data.frame (package = names (checks$meta),

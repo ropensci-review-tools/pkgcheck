@@ -36,13 +36,11 @@ print.pkgcheck <- function (x, ...) {
     cli::cli_h2 ("goodpractice")
     print (x$goodpractice)
 
-    # ---- Add new print methods here ---
-    # see https://github.com/ropensci-review-tools/pkgcheck/pull/27
-    # for an example of how to add new checks
+    e <- env2namespace ("pkgcheck")
     has_misc_checks <- length (x$checks$scrap > 0L) # Modify when more checks are added
     if (has_misc_checks) {
         cli::cli_h2 ("Other checks")
-        print_check_screen (x, "has_scrap")
+        print_check_screen (x, "has_scrap", e)
     }
     # --- End add new checks
 
@@ -178,9 +176,7 @@ print_check <- function (checks, what) {
     return (chk_output$print)
 }
 
-print_check_screen <- function (checks, what) {
-
-    pkg_env <- as.environment ("package:pkgcheck")
+print_check_screen <- function (checks, what, pkg_env) {
 
     output_fn <- get (paste0 ("output_pkgchk_", what),
                       envir = pkg_env)
@@ -201,9 +197,7 @@ print_check_screen <- function (checks, what) {
     }
 }
 
-print_check_md <- function (checks, what) {
-
-    pkg_env <- as.environment ("package:pkgcheck")
+print_check_md <- function (checks, what, pkg_env) {
 
     output_fn <- get (paste0 ("output_pkgchk_", what),
                       envir = pkg_env)
