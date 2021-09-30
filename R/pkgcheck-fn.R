@@ -29,9 +29,9 @@ pkgcheck <- function (path = ".", extra_env = .GlobalEnv) {
     s <- pkgstats_info (path)
 
     checks <- pkgcheck_object ()
-    checks$package <- s$checks [c ("package", "path", "version", "url",
-                                   "BugReports", "license", "summary",
-                                   "dependencies")]
+    checks$package <- s$out [c ("package", "path", "version", "url",
+                                "BugReports", "license", "summary",
+                                "dependencies")]
     names (checks$package) [1] <- "name"
 
     checks$info <- s$out [c ("git", "srr", "pkgstats")]
