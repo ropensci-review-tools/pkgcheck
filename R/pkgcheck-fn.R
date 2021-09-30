@@ -188,25 +188,8 @@ collate_extra_env_checks <- function (checks) {
     if (!methods::is (extra_env, "list"))
         extra_env <- list (extra_env)
 
-    env2namespace <- function (e) {
-
-        if (!methods::is (e, "environment")) {
-
-            s <- search ()
-            e <- s [grep (e, s)]
-
-            if (length (e) != 1L)
-                e <- NULL
-            else {
-                pkg <- gsub ("package\\:", "", e)
-                e <- asNamespace (pkg)
-            }
-        }
-        return (e)
-    }
-
     chks <- lapply (extra_env, function (i) {
-                        i <- env2namespace (i)
+                        i <- env2namespace (i) # in R/utils.R
                         fns <- grep ("^pkgchk\\_", ls (i), value = TRUE)
                         out <- lapply (fns, function (j)
                                        do.call (j, list (checks), envir = i))

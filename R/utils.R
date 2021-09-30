@@ -72,3 +72,26 @@ exported_fns <- function (path) {
 
     return (exports [which (!exports %in% imports)])
 }
+
+#' Convert anything that is not an environment into one.
+#'
+#' Used in `collate_extra_env_checks` to convert package names into namespace
+#' environments.
+#' @noRd
+env2namespace <- function (e) {
+
+    if (!is.environment (e)) {
+
+        s <- search ()
+        e <- s [grep (paste0 (e, "$"), s)]
+
+        if (length (e) != 1L)
+            e <- NULL
+        else {
+            pkg <- gsub ("package\\:", "", e)
+            e <- tryCatch (asNamespace (pkg),
+                           error = function (err) NULL)
+        }
+    }
+    return (e)
+}
