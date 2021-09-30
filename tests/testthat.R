@@ -1,4 +1,4 @@
-library(testthat)
-library(pkgcheck)
+library (testthat)
+library (pkgcheck)
 
-test_check("pkgcheck")
+test_check ("pkgcheck")
