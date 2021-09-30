@@ -5,10 +5,13 @@
 \title{Generate report on package compliance with rOpenSci Statistical Software
 requirements}
 \usage{
-pkgcheck(path = ".")
+pkgcheck(path = ".", extra_env = .GlobalEnv)
 }
 \arguments{
 \item{path}{Path to local repository}
+
+\item{extra_env}{Additional environments from which to collate checks. Other
+package names may be appended using \code{c}, as in \code{c(.GlobalEnv, "mypkg")}.}
 }
 \value{
 A \code{pkgcheck} object detailing all package assessments automatically

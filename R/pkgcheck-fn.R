@@ -3,11 +3,13 @@
 #' requirements
 #'
 #' @param path Path to local repository
+#' @param extra_env Additional environments from which to collate checks. Other
+#' package names may be appended using `c`, as in `c(.GlobalEnv, "mypkg")`.
 #' @return A `pkgcheck` object detailing all package assessments automatically
 #' applied to packages submitted for peer review.
 #' @family pkgcheck_fns
 #' @export
-pkgcheck <- function (path = ".") {
+pkgcheck <- function (path = ".", extra_env = .GlobalEnv) {
 
     path <- convert_path (path)
 
@@ -38,7 +40,7 @@ pkgcheck <- function (path = ".") {
 
     out$goodpractice <- pkgcheck_gp_report (path)
 
-    out$checks <- collate_checks (out)
+    out$checks <- collate_checks (out, extra_env)
 
     u <- pkginfo_url_from_desc (path)
     out$info$badges <- list ()
@@ -155,20 +157,51 @@ fmt_pkgstats_info <- function (s) {
 
 #' Collates results of all main `pkgchk_` functions
 #'
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
 #' @return The contents of the "checks" items of the main `pkgcheck` object.
 #' @noRd
-collate_checks <- function (checks) {
+collate_checks <- function (checks, extra_env = .GlobalEnv) {
 
     pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
     check_fns <- grep ("^pkgchk\\_", pkg_fns, value = TRUE)
     exclude_these <- "ci\\_badges|srr"
     check_fns <- check_fns [which (!grepl (exclude_these, check_fns))]
 
-    out <- lapply (check_fns, function (i)
+    res <- lapply (check_fns, function (i)
                           do.call (i, list (checks)))
-    names (out) <- gsub ("^pkgchk\\_", "", check_fns)
+    names (res) <- gsub ("^pkgchk\\_", "", check_fns)
 
-    return (out)
+    if (!methods::is (extra_env, "list"))
+        extra_env <- list (extra_env)
+
+    extra_chks <- lapply (extra_env, function (i) {
+                              if (!methods::is (i, "environment")) {
+                                  s <- search ()
+                                  i <- s [grep (i, s)]
+                                  if (length (i) != 1L)
+                                      i <- NULL
+                                  else {
+                                      pkg <- gsub ("package\\:", "", i)
+                                      i <- asNamespace (pkg)
+                                  }
+                              }
+                              fns <- grep ("^pkgchk\\_", ls (i),
+                                           value = TRUE)
+                              out <- lapply (fns, function (j)
+                                             do.call (j, list (checks),
+                                                      envir = i))
+                              names (out) <- gsub ("^pkgchk\\_", "",
+                                                   fns)
+
+                              return (out)
+                })
+    not_empty <- vapply (extra_chks,
+                         function (i) length (i) > 0L,
+                         logical (1))
+    extra_chks <- extra_chks [which (not_empty)]
+
+    return (c (res, extra_chks))
 }
 
 version_info <- function (nosrr) {
