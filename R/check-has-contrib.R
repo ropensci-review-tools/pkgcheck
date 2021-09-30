@@ -15,8 +15,8 @@ pkgchk_has_contrib_md <- function (checks) {
         full.names = FALSE
     )
     flist <- vapply (flist, function (i) {
-          utils::tail (decompose_path (i) [[1]], 1L)
-      },
+        utils::tail (decompose_path (i) [[1]], 1L)
+    },
     character (1),
     USE.NAMES = FALSE
     )
