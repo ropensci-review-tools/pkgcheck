@@ -13,24 +13,29 @@
 #' @family pkgcheck_fns
 #' @export
 pkgcheck_bg <- function (path) {
-
     requireNamespace ("callr")
 
     logfiles <- logfile_names (path)
-    stopfile <- gsub ("\\_stdout$", "_stop",
-                      logfiles$stdout)
-    if (file.exists (stopfile))
-        file.remove (stopfile)
+    stopfile <- gsub (
+        "\\_stdout$", "_stop",
+        logfiles$stdout
+    )
+    if (file.exists (stopfile)) {
+          file.remove (stopfile)
+      }
 
-    e <- c (callr::rcmd_safe_env(),
-            "PKGCHECK_PXBG_STOP" = stopfile,
-            "PKGCHECK_BG" = TRUE)
+    e <- c (callr::rcmd_safe_env (),
+        "PKGCHECK_PXBG_STOP" = stopfile,
+        "PKGCHECK_BG" = TRUE
+    )
     Sys.setenv ("PKGCHECK_PXBG_STOP" = stopfile)
 
-    callr::r_bg (func = pkgcheck::pkgcheck,
-                 args = list (path = path),
-                 stdout = logfiles$stdout,
-                 stderr = logfiles$stderr,
-                 env = e,
-                 package = TRUE)
+    callr::r_bg (
+        func = pkgcheck::pkgcheck,
+        args = list (path = path),
+        stdout = logfiles$stdout,
+        stderr = logfiles$stderr,
+        env = e,
+        package = TRUE
+    )
 }
