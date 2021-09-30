@@ -9,10 +9,12 @@
 stats_checks <- function (s, threshold = 0.05) {
 
     # npars is set to NA when there are none; replace with 0:
-    if (is.na (s$npars_exported_mn))
-        s$npars_exported_mn <- 0L
-    if (is.na (s$npars_exported_md))
-        s$npars_exported_md <- 0L
+    if (is.na (s$npars_exported_mn)) {
+          s$npars_exported_mn <- 0L
+      }
+    if (is.na (s$npars_exported_md)) {
+          s$npars_exported_md <- 0L
+      }
 
 
     dat <- pkgcheck::pkgstats_data
@@ -26,17 +28,20 @@ stats_checks <- function (s, threshold = 0.05) {
     for (i in seq_along (b_s)) {
         # get directory name:
         nm <- gsub ("blank\\_lines\\_", "", names (s) [b_s [i]])
-        rel_white_pkg [[nm]] <- as.numeric (unname (s [[b_s [i]]] /
-                                                    s [[c_s [i]]]))
+        rel_white_pkg [[nm]] <- as.numeric (unname (
+            s [[b_s [i]]] / s [[c_s [i]]]))
         tmp <- as.numeric (unname (dat [[b_d [i]]] / s [[c_d [i]]]))
         rel_white_all [[nm]] <- tmp [which (!is.na (tmp))]
     }
     index <- which (!is.na (rel_white_pkg))
-    rel_white_score <- vapply (seq_along (rel_white_pkg), function (i) {
-                                 s <- sort (rel_white_all [[i]])
-                                 length (which (s < rel_white_pkg [[i]])) /
-                                     length (s) },
-                                 numeric (1))
+    rel_white_score <- vapply (
+        seq_along (rel_white_pkg), function (i) {
+            s <- sort (rel_white_all [[i]])
+            length (which (s < rel_white_pkg [[i]])) /
+                length (s)
+        },
+        numeric (1)
+    )
     names (rel_white_score) <- names (rel_white_pkg)
     rel_white_pkg <- unlist (rel_white_pkg)
 
@@ -48,37 +53,46 @@ stats_checks <- function (s, threshold = 0.05) {
     dat$loc_tests [dat$files_test == 0] <- NA_integer_
 
     nms <- names (dat)
-    index <- which (vapply (nms, function (i)
-                            is.numeric (dat [[i]]),
-                            logical (1)))
+    index <- which (vapply (
+        nms, function (i) {
+              is.numeric (dat [[i]])
+          },
+        logical (1)
+    ))
     nms <- nms [index]
-    #ptn <- "^desc_n|^num\\_|^files\\_inst|^files\\_src"
+    # ptn <- "^desc_n|^num\\_|^files\\_inst|^files\\_src"
     ptn <- "^desc_n"
     nms <- nms [which (!grepl (ptn, nms))]
-    dists <- lapply (nms, function (i)
-                     sort (dat [[i]] [which (!is.na (dat [[i]]))]))
+    dists <- lapply (nms, function (i) {
+          sort (dat [[i]] [which (!is.na (dat [[i]]))])
+      })
     names (dists) <- nms
 
     pc <- vapply (nms, function (i) {
-               if (is.na (s [[i]]))
-                   return (NA)
-               return (length (which (dists [[i]] < s [[i]])) /
-                   length (dists [[i]]))
-                    }, double (1))
+        if (is.na (s [[i]])) {
+              return (NA)
+          }
+        return (length (which (dists [[i]] < s [[i]])) /
+            length (dists [[i]]))
+    }, double (1))
     index <- match (names (pc), names (s))
-    pc <- data.frame (measure = names (pc),
-                      value = as.numeric (s [1, index]),
-                      percentile = pc,
-                      row.names = NULL)
+    pc <- data.frame (
+        measure = names (pc),
+        value = as.numeric (s [1, index]),
+        percentile = pc,
+        row.names = NULL
+    )
 
-    keep <- c (grep ("^files\\_", pc$measure),
-               grep ("^loc\\_", pc$measure),
-               grep ("^data\\_", pc$measure),
-               grep ("^num\\_vignettes$", pc$measure),
-               grep ("^n\\_fns\\_", pc$measure),
-               grep ("^npars\\_", pc$measure),
-               grep ("^doclines\\_", pc$measure),
-               grep ("^n\\_edges", pc$measure))
+    keep <- c (
+        grep ("^files\\_", pc$measure),
+        grep ("^loc\\_", pc$measure),
+        grep ("^data\\_", pc$measure),
+        grep ("^num\\_vignettes$", pc$measure),
+        grep ("^n\\_fns\\_", pc$measure),
+        grep ("^npars\\_", pc$measure),
+        grep ("^doclines\\_", pc$measure),
+        grep ("^n\\_edges", pc$measure)
+    )
     pc <- pc [sort (unique (keep)), ]
     pc <- pc [which (!is.na (pc$percentile)), ]
     pc <- pc [which (!grepl ("^n\\_edges\\_", pc$measure)), ]
@@ -90,13 +104,17 @@ stats_checks <- function (s, threshold = 0.05) {
     # add relative white space metrics
     index <- which (!is.na (rel_white_pkg))
     measure <- paste0 ("rel_whitespace_", names (rel_white_pkg))
-    rel_white <- data.frame (measure = measure,
-                             value = 100 * rel_white_pkg,
-                             percentile = rel_white_score) [index, ]
+    rel_white <- data.frame (
+        measure = measure,
+        value = 100 * rel_white_pkg,
+        percentile = rel_white_score
+    ) [index, ]
     i <- max (grep ("^loc_", pc$measure))
-    pc <- rbind (pc [seq (i), ],
-                 rel_white,
-                 pc [-seq (i), ])
+    pc <- rbind (
+        pc [seq (i), ],
+        rel_white,
+        pc [-seq (i), ]
+    )
 
     rownames (pc) <- NULL
 
@@ -115,7 +133,7 @@ stats_checks <- function (s, threshold = 0.05) {
 
     pc$noteworthy <- FALSE
     index <- which (pc$percentile < threshold |
-                    pc$percentile > (1 - threshold))
+        pc$percentile > (1 - threshold))
     pc$noteworthy [index] <- TRUE
 
     # renames:
@@ -128,10 +146,12 @@ stats_checks <- function (s, threshold = 0.05) {
     loc <- pkgstats::loc_stats (file.path (attr (s, "path")))
     loc <- loc [which (loc$dir %in% c ("R", "inst", "src")), ]
     loc <- vapply (unique (loc$language), function (i) {
-                       c (sum (loc$ncode [loc$language == i]) /
-                          sum (loc$ncode) * 100,
-                          sum (loc$nfiles [loc$language == i]))
-                    }, numeric (2))
+        c (
+            sum (loc$ncode [loc$language == i]) /
+                sum (loc$ncode) * 100,
+            sum (loc$nfiles [loc$language == i])
+        )
+    }, numeric (2))
     langs <- paste0 (colnames (loc), ": ", round (loc [1, ]), "%")
     files <- paste0 (colnames (loc), ": ", as.integer (loc [2, ]))
 
