@@ -13,8 +13,7 @@ print.pkgcheck <- function (x, ...) {
         print_srr (x)
     print_structure (x)
 
-    pkg_fns <- ls (as.environment ("package:pkgcheck"),
-                   all.names = TRUE)
+    pkg_fns <- ls (env2namespace ("pkgcheck"))
     output_fns <- gsub ("^output\\_pkgchk\\_", "",
                         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE))
     out <- lapply (output_fns, function (i) print_check (x, i))
@@ -36,13 +35,36 @@ print.pkgcheck <- function (x, ...) {
     cli::cli_h2 ("goodpractice")
     print (x$goodpractice)
 
-    e <- env2namespace ("pkgcheck")
-    has_misc_checks <- length (x$checks$scrap > 0L) # Modify when more checks are added
+    pkg_env <- env2namespace ("pkgcheck")
+    # internal misc checks; modify condition when more checks are added
+    has_misc_checks <- length (x$checks$scrap) > 0L
     if (has_misc_checks) {
         cli::cli_h2 ("Other checks")
-        print_check_screen (x, "has_scrap", e)
+        print_check_screen (x, "has_scrap", pkg_env)
     }
-    # --- End add new checks
+
+    # additional external checks:
+    extra_env <- options ("pkgcheck_extra_env") [[1]]
+    if (!is.list (extra_env))
+        extra_env <- list (extra_env)
+    extra_prints <- lapply (extra_env, function (e) {
+        e <- env2namespace (e)
+        output_fns <- grep ("^output\\_pkgchk\\_", ls (e), value = TRUE)
+        output_fns <- gsub ("^output\\_pkgchk\\_", "", output_fns)
+        output_fns [which (output_fns %in% names (checks$checks))]
+    })
+    lens <- vapply (extra_prints, length, integer (1))
+    extra_prints <- extra_prints [which (lens > 0L)]
+    extra_env <- extra_env [which (lens > 0L)]
+    if (length (extra_env) > 0L) {
+        if (!has_misc_checks)
+            cli::cli_h2 ("Other checks")
+        for (e in extra_env) {
+            for (p in extra_prints) {
+                print_check_screen (x, p, e)
+            }
+        }
+    }
 
     cli::cli_h2 ("Package Versions")
     cli::cli_dl (x$meta)
@@ -178,10 +200,9 @@ print_check <- function (checks, what) {
 
 print_check_screen <- function (checks, what, pkg_env) {
 
-    output_fn <- get (paste0 ("output_pkgchk_", what),
-                      envir = pkg_env)
+    output_fn <- get (paste0 ("output_pkgchk_", what), envir = pkg_env)
 
-    chk_output <- do.call (output_fn, list (checks))
+    chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
 
     if (chk_output$check_pass) {
         cli::cli_alert_success (chk_output$print$message)
@@ -199,10 +220,9 @@ print_check_screen <- function (checks, what, pkg_env) {
 
 print_check_md <- function (checks, what, pkg_env) {
 
-    output_fn <- get (paste0 ("output_pkgchk_", what),
-                      envir = pkg_env)
+    output_fn <- get (paste0 ("output_pkgchk_", what), envir = pkg_env)
 
-    chk_output <- do.call (output_fn, list (checks))
+    chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
 
     out <- NULL
 
