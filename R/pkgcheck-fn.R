@@ -28,39 +28,39 @@ pkgcheck <- function (path = ".", extra_env = .GlobalEnv) {
 
     s <- pkgstats_info (path)
 
-    out <- pkgcheck_object ()
-    out$package <- s$out [c ("package", "path", "version", "url",
-                             "BugReports", "license", "summary",
-                             "dependencies")]
-    names (out$package) [1] <- "name"
+    checks <- pkgcheck_object ()
+    checks$package <- s$checks [c ("package", "path", "version", "url",
+                                   "BugReports", "license", "summary",
+                                   "dependencies")]
+    names (checks$package) [1] <- "name"
 
-    out$info <- s$out [c ("git", "srr", "pkgstats")]
+    checks$info <- s$out [c ("git", "srr", "pkgstats")]
 
-    out$info$network_file <- fn_call_network (s)
+    checks$info$network_file <- fn_call_network (s)
 
-    out$goodpractice <- pkgcheck_gp_report (path)
+    checks$goodpractice <- pkgcheck_gp_report (path)
 
-    out$checks <- collate_checks (out, extra_env)
+    checks$checks <- collate_checks (checks, extra_env)
 
     u <- pkginfo_url_from_desc (path)
-    out$info$badges <- list ()
+    checks$info$badges <- list ()
     if (length (u) > 0L) {
-        out$info$badges <- pkgchk_ci_badges (u)
-        if (!is.null (out$info$badges)) {
-            if (any (grepl ("github", out$info$badges))) {
-                out$info$github_workflows <- ci_results_gh (path)
+        checks$info$badges <- pkgchk_ci_badges (u)
+        if (!is.null (checks$info$badges)) {
+            if (any (grepl ("github", checks$info$badges))) {
+                checks$info$github_workflows <- ci_results_gh (path)
             }
         }
     }
 
-    out$meta <- version_info (is.null (out$info$srr))
+    checks$meta <- version_info (is.null (checks$info$srr))
 
     stopfile <- Sys.getenv ("PKGCHECK_PXBG_STOP")
     if (stopfile != "") {
         writeLines ("process stopped", con = stopfile)
     }
 
-    return (out)
+    return (checks)
 }
 
 pkgcheck_object <- function () {
@@ -99,7 +99,7 @@ pkgstats_info <- function (path) {
     out$path <- path
     out$version <- pkginfo_pkg_version (s)
     out$url <- pkginfo_url_from_desc (path, type = "URL")
-    out$BugReports <- pkginfo_url_from_desc (path, type = "BugReports")
+    out$BugReports <- pkginfo_url_from_desc (path, type = "BugReports") # nolint
     out$license <- pkginfo_pkg_license (s)
 
     out$summary <- pkginfo_pkgstats_summary (s)
