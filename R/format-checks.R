@@ -62,7 +62,10 @@ checks_to_markdown <- function (checks, render = FALSE) {
                  "</p>",
                  "</details>")
 
-    if (length (checks$checks$scrap > 0L)) {
+    extra <- extra_check_prints_from_env ()
+    has_extra <- length (extra$env) > 0L |
+        length (checks$checks$scrap) > 0L
+    if (has_extra) {
 
         e <- env2namespace ("pkgcheck")
         md_out <- c (md_out,
@@ -70,8 +73,19 @@ checks_to_markdown <- function (checks, render = FALSE) {
                      "---",
                      "",
                      "### 4. Other Checks",
-                     "",
-                     print_check_md (checks, "has_scrap", e))
+                     "")
+        if (length (checks$checks$scrap) > 0L)
+            md_out <- c (md_out,
+                         print_check_md (checks, "has_scrap",
+                                         env2namespace ("pkgcheck")))
+
+        for (e in extra$env) {
+            for (p in extra$prints) {
+                md_out <- c (md_out,
+                             print_check_md (checks, p, e))
+            }
+        }
+
     }
 
     v <- data.frame (package = names (checks$meta),
