@@ -7,23 +7,28 @@
 #' whether or not it has example lines.
 #' @noRd
 pkgchk_fns_have_exs <- function (checks) {
-
-    rd <- list.files (file.path (checks$package$path, "man"),
-                      pattern = "\\.Rd$",
-                      full.names = TRUE)
+    rd <- list.files (file.path (
+        checks$package$path, "man"),
+        pattern = "\\.Rd$",
+        full.names = TRUE
+    )
 
     has_ex <- vapply (rd, function (i) {
-                          rd_i <- tools::parse_Rd (i)
-                          ex <- get_Rd_meta (rd_i, "examples")
-                          length (ex) > 0
-                      },
-                      logical (1),
-                      USE.NAMES = TRUE)
+        rd_i <- tools::parse_Rd (i)
+        ex <- get_Rd_meta (rd_i, "examples")
+        length (ex) > 0
+    },
+    logical (1),
+    USE.NAMES = TRUE
+    )
 
     names (has_ex) <-
-        vapply (names (has_ex), function (i)
-                utils::tail (decompose_path (i) [[1]], 1L),
-                character (1))
+        vapply (
+            names (has_ex), function (i) {
+                  utils::tail (decompose_path (i) [[1]], 1L)
+              },
+            character (1)
+        )
 
     has_ex <- has_ex [which (!grepl ("\\-package\\.Rd$", names (has_ex)))]
 
@@ -31,18 +36,22 @@ pkgchk_fns_have_exs <- function (checks) {
 }
 
 output_pkgchk_fns_have_exs <- function (checks) {
-
     no_ex <- which (!checks$checks$fns_have_exs)
     no_ex_fns <- names (checks$checks$fns_have_exs) [no_ex]
 
-    out <- list (check_pass = length (no_ex) == 0L,
-                summary = "",
-                print = "") # no print method
+    out <- list (
+        check_pass = length (no_ex) == 0L,
+        summary = "",
+        print = ""
+    ) # no print method
 
     out$summary <- ifelse (out$check_pass,
-                           "All functions have examples.",
-                           paste0 ("These functions do not have ",
-                                   "examples: [", no_ex_fns, "]."))
+        "All functions have examples.",
+        paste0 (
+            "These functions do not have ",
+            "examples: [", no_ex_fns, "]."
+        )
+    )
 
     return (out)
 }
