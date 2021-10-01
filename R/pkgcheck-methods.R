@@ -9,8 +9,8 @@ print.pkgcheck <- function (x, ...) {
 
     print_git (x)
     if (!is.null (x$info$srr)) {
-          print_srr (x)
-      }
+        print_srr (x)
+    }
     print_structure (x)
 
     pkg_fns <- ls (env2namespace ("pkgcheck"))
@@ -18,6 +18,10 @@ print.pkgcheck <- function (x, ...) {
         "^output\\_pkgchk\\_", "",
         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
     )
+    has_gp <- "goodpractice" %in% names (x)
+    if (!has_gp) {
+          output_fns <- output_fns [which (!grepl ("covr", output_fns))]
+      }
     out <- lapply (output_fns, function (i) print_check (x, i))
     out <- do.call (c, out [which (nchar (out) > 0L)])
 
@@ -35,7 +39,11 @@ print.pkgcheck <- function (x, ...) {
     message ("")
 
     cli::cli_h2 ("goodpractice")
-    print (x$goodpractice)
+    if (has_gp) {
+        print (x$goodpractice)
+    } else {
+        cli::cli_alert_info ("'goodpractice' not included with these checks")
+    }
 
     pkg_env <- env2namespace ("pkgcheck")
     # internal misc checks; modify condition when more checks are added
@@ -49,8 +57,8 @@ print.pkgcheck <- function (x, ...) {
     extra <- extra_check_prints_from_env (x)
     if (length (extra$env) > 0L) {
         if (!has_misc_checks) {
-              cli::cli_h2 ("Other checks")
-          }
+            cli::cli_h2 ("Other checks")
+        }
         for (e in extra$env) {
             for (p in extra$prints) {
                 print_check_screen (x, p, e)

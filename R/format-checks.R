@@ -57,23 +57,35 @@ checks_to_markdown <- function (checks, render = FALSE) {
             sec_num + 1,
             ". `goodpractice` and other checks"
         ),
-        "",
-        "<details>",
-        paste0 (
-            "<summary>Details of goodpractice and other ",
-            "checks (click to open)</summary>"
-        ),
-        "<p>",
-        "",
-        print_check (checks, "ci"),
-        "",
-        "---",
-        "",
-        gp_checks_to_md (checks),
-        "",
-        "</p>",
-        "</details>"
+        ""
     )
+
+    has_gp <- "goodpractice" %in% names (x)
+    if (has_gp) {
+        md_out <- c (
+            md_out,
+            "<details>",
+            paste0 (
+                "<summary>Details of goodpractice and other ",
+                "checks (click to open)</summary>"
+            ),
+            "<p>",
+            "",
+            print_check (checks, "ci"),
+            "",
+            "---",
+            "",
+            gp_checks_to_md (checks),
+            "",
+            "</p>",
+            "</details>"
+        )
+    } else {
+        md_out <- c (
+            md_out,
+            "('goodpractice' not included with these checks)"
+        )
+    }
 
     extra <- extra_check_prints_from_env (checks)
     has_extra <- length (extra$env) > 0L |
@@ -89,14 +101,14 @@ checks_to_markdown <- function (checks, render = FALSE) {
             ""
         )
         if (length (checks$checks$scrap) > 0L) {
-              md_out <- c (
-                  md_out,
-                  print_check_md (
-                      checks, "has_scrap",
-                      env2namespace ("pkgcheck")
-                  )
-              )
-          }
+            md_out <- c (
+                md_out,
+                print_check_md (
+                    checks, "has_scrap",
+                    env2namespace ("pkgcheck")
+                )
+            )
+        }
 
         for (e in extra$env) {
             for (p in extra$prints) {

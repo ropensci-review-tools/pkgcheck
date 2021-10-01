@@ -5,10 +5,13 @@
 \title{Generate report on package compliance with rOpenSci Statistical Software
 requirements}
 \usage{
-pkgcheck(path = ".", extra_env = .GlobalEnv)
+pkgcheck(path = ".", goodpractice = TRUE, extra_env = .GlobalEnv)
 }
 \arguments{
 \item{path}{Path to local repository}
+
+\item{goodpractice}{If \code{FALSE}, skip goodpractice checks. May be useful in
+development stages to more quickly check other aspects.}
 
 \item{extra_env}{Additional environments from which to collate checks. Other
 package names may be appended using \code{c}, as in \code{c(.GlobalEnv, "mypkg")}.}

@@ -3,32 +3,34 @@
 #' requirements
 #'
 #' @param path Path to local repository
+#' @param goodpractice If `FALSE`, skip goodpractice checks. May be useful in
+#' development stages to more quickly check other aspects.
 #' @param extra_env Additional environments from which to collate checks. Other
 #' package names may be appended using `c`, as in `c(.GlobalEnv, "mypkg")`.
 #' @return A `pkgcheck` object detailing all package assessments automatically
 #' applied to packages submitted for peer review.
 #' @family pkgcheck_fns
 #' @export
-pkgcheck <- function (path = ".", extra_env = .GlobalEnv) {
+pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
     options (pkgcheck_extra_env = extra_env)
 
     path <- convert_path (path)
 
     if (checks_running_in_bg (path)) {
-          stop ("Checks are still running in background process.")
-      }
+        stop ("Checks are still running in background process.")
+    }
 
     # Ensure that ctags works properly (#54):
     if (interactive ()) {
-          if (!suppressMessages (pkgstats::ctags_test ())) {
-              stop (
-                  "The 'pkgstats' package requires 'ctags' which does ",
-                  "not seem to be installed correctly.\nSee ",
-                  "https://docs.ropensci.org/pkgstats/#installation",
-                  " for details on how to install 'ctags'."
-              )
-          }
-      }
+        if (!suppressMessages (pkgstats::ctags_test ())) {
+            stop (
+                "The 'pkgstats' package requires 'ctags' which does ",
+                "not seem to be installed correctly.\nSee ",
+                "https://docs.ropensci.org/pkgstats/#installation",
+                " for details on how to install 'ctags'."
+            )
+        }
+    }
 
     s <- pkgstats_info (path)
 
@@ -44,7 +46,11 @@ pkgcheck <- function (path = ".", extra_env = .GlobalEnv) {
 
     checks$info$network_file <- fn_call_network (s)
 
-    checks$goodpractice <- pkgcheck_gp_report (path)
+    if (goodpractice) {
+        checks$goodpractice <- pkgcheck_gp_report (path)
+    } else {
+        checks$goodpractice <- NULL
+    }
 
     checks$checks <- collate_checks (checks)
 

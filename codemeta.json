@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.2.43",
+  "version": "0.0.2.44",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -311,7 +311,7 @@
       "sameAs": "https://CRAN.R-project.org/package=visNetwork"
     }
   ],
-  "fileSize": "3329.948KB",
+  "fileSize": "3330.88KB",
   "developmentStatus": "https://www.repostatus.org/#concept",
   "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
   "relatedLink": "https://docs.ropensci.org/pkgcheck/",

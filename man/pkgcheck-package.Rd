@@ -6,8 +6,7 @@
 \alias{_PACKAGE}
 \title{pkgcheck: rOpenSci Package Checks}
 \description{
-Check whether a package is ready for submission to rOpenSci’s
-    peer review system.
+Check whether a package is ready for submission to rOpenSci’s peer review system.
 }
 \seealso{
 Useful links:

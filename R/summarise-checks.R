@@ -19,6 +19,11 @@ summarise_all_checks <- function (checks) {
         "^output\\_pkgchk\\_", "",
         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
     )
+
+    has_gp <- "goodpractice" %in% names (checks)
+    if (!has_gp) {
+          output_fns <- output_fns [which (!grepl ("covr", output_fns))]
+      }
     out <- lapply (
         order_checks (output_fns),
         function (i) summarise_check (checks, i, pkg_env)
@@ -27,13 +32,15 @@ summarise_all_checks <- function (checks) {
 
     out <- c (out, summarise_extra_env_checks (checks))
 
-    gp <- summarise_gp_checks (checks)
+    if (has_gp) {
+        gp <- summarise_gp_checks (checks)
 
-    out <- c (
-        out,
-        gp$rcmd_errs,
-        gp$rcmd_warns
-    )
+        out <- c (
+            out,
+            gp$rcmd_errs,
+            gp$rcmd_warns
+        )
+    }
 
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
