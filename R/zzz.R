@@ -23,8 +23,8 @@
 
     toset <- !(names (op.pkgcheck) %in% names (op))
     if (any (toset)) {
-          options (op.pkgcheck [toset])
-      }
+        options (op.pkgcheck [toset])
+    }
     invisible ()
 }
 # nocov end

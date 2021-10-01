@@ -9,8 +9,8 @@ print.pkgcheck <- function (x, ...) {
 
     print_git (x)
     if (!is.null (x$info$srr)) {
-          print_srr (x)
-      }
+        print_srr (x)
+    }
     print_structure (x)
 
     pkg_fns <- ls (env2namespace ("pkgcheck"))
@@ -49,8 +49,8 @@ print.pkgcheck <- function (x, ...) {
     extra <- extra_check_prints_from_env (x)
     if (length (extra$env) > 0L) {
         if (!has_misc_checks) {
-              cli::cli_h2 ("Other checks")
-          }
+            cli::cli_h2 ("Other checks")
+        }
         for (e in extra$env) {
             for (p in extra$prints) {
                 print_check_screen (x, p, e)
@@ -163,8 +163,8 @@ print_structure <- function (x) {
 
     if (pkg_summ$num_src_fns > 0) {
         langs <- vapply (strsplit (pkg_summ$languages, ":"), function (i) {
-              i [1]
-          }, character (1))
+            i [1]
+        }, character (1))
         langs <- paste0 (langs [langs != "R"], collapse = ", ")
         s <- c (
             s,
@@ -198,8 +198,8 @@ print_check <- function (checks, what) {
 
     output_fn <- paste0 ("output_pkgchk_", what)
     if (!output_fn %in% pkg_fns) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
 
@@ -258,8 +258,8 @@ print_check_md <- function (checks, what, pkg_env) {
 extra_check_prints_from_env <- function (checks) {
     extra_env <- options ("pkgcheck_extra_env") [[1]]
     if (!is.list (extra_env)) {
-          extra_env <- list (extra_env)
-      }
+        extra_env <- list (extra_env)
+    }
 
     extra_prints <- lapply (extra_env, function (e) {
         e <- env2namespace (e)

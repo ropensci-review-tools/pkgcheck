@@ -15,8 +15,8 @@ pkgchk_has_scrap <- function (checks) {
     )
 
     if (is.null (all_contents)) {
-          return (character (0))
-      } # not NULL!
+        return (character (0))
+    } # not NULL!
 
     all_contents <- vapply (
         decompose_path (all_contents),

@@ -8,18 +8,18 @@ output_pkgchk_ci <- function (checks) {
 
     if (!out$check_pass) {
         if (!checks$checks$has_url) {
-              out$summary <- paste0 (
-                  "Continuous integration checks ",
-                  "unavailable (no URL in 'DESCRIPTION')."
-              )
-          } else {
-              out$summary <- " Package has no continuous integration checks."
-          }
+            out$summary <- paste0 (
+                "Continuous integration checks ",
+                "unavailable (no URL in 'DESCRIPTION')."
+            )
+        } else {
+            out$summary <- " Package has no continuous integration checks."
+        }
     } else {
         out$summary <- "Package has continuous integration checks."
         if (is.na (checks$info$badges [1])) {
-              checks$info$badges <- "(There do not appear to be any)"
-          }
+            checks$info$badges <- "(There do not appear to be any)"
+        }
 
         out$print <- c (
             "#### 3a. Continuous Integration Badges",

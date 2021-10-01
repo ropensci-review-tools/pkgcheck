@@ -3,10 +3,10 @@ test_that ("pkgcheck_bg() works", {
 
     pkgname <- paste0 (sample (c (letters, LETTERS), 8), collapse = "")
     if (dir.exists (file.path (tempdir (), pkgname))) {
-          chk <- unlink (file.path (tempdir (), pkgname),
-              recursive = TRUE
-          )
-      }
+        chk <- unlink (file.path (tempdir (), pkgname),
+            recursive = TRUE
+        )
+    }
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
 
     x <- capture.output (

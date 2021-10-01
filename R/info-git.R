@@ -26,8 +26,8 @@ pkginfo_git_info <- function (path) {
         repo <- utils::tail (strsplit (u, "/") [[1]], 1)
         org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
         if (curl::has_internet ()) {
-              branch <- get_default_branch (org, repo)
-          }
+            branch <- get_default_branch (org, repo)
+        }
     }
 
     ret <- list ()

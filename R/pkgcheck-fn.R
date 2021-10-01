@@ -15,20 +15,20 @@ pkgcheck <- function (path = ".", extra_env = .GlobalEnv) {
     path <- convert_path (path)
 
     if (checks_running_in_bg (path)) {
-          stop ("Checks are still running in background process.")
-      }
+        stop ("Checks are still running in background process.")
+    }
 
     # Ensure that ctags works properly (#54):
     if (interactive ()) {
-          if (!suppressMessages (pkgstats::ctags_test ())) {
-              stop (
-                  "The 'pkgstats' package requires 'ctags' which does ",
-                  "not seem to be installed correctly.\nSee ",
-                  "https://docs.ropensci.org/pkgstats/#installation",
-                  " for details on how to install 'ctags'."
-              )
-          }
-      }
+        if (!suppressMessages (pkgstats::ctags_test ())) {
+            stop (
+                "The 'pkgstats' package requires 'ctags' which does ",
+                "not seem to be installed correctly.\nSee ",
+                "https://docs.ropensci.org/pkgstats/#installation",
+                " for details on how to install 'ctags'."
+            )
+        }
+    }
 
     s <- pkgstats_info (path)
 
@@ -85,8 +85,8 @@ pkgcheck_object <- function () {
 checks_running_in_bg <- function (path) {
     stopvar <- Sys.getenv ("PKGCHECK_PXBG_STOP")
     if (Sys.getenv ("PKGCHECK_BG") != "") {
-          stopvar <- ""
-      }
+        stopvar <- ""
+    }
 
     logfiles <- logfile_names (path)
     stopfile <- gsub (
@@ -133,11 +133,11 @@ parse_pkg_deps <- function (s) {
     fields <- c ("depends", "imports", "suggests", "linking_to")
 
     d <- lapply (fields, function (i) {
-          cbind (
-              i,
-              strsplit (s$desc [[i]], ",\\s*") [[1]]
-          )
-      })
+        cbind (
+            i,
+            strsplit (s$desc [[i]], ",\\s*") [[1]]
+        )
+    })
 
     d <- do.call (rbind, d)
 
@@ -181,8 +181,8 @@ collate_checks <- function (checks) {
     check_fns <- check_fns [which (!grepl (exclude_these, check_fns))]
 
     res <- lapply (check_fns, function (i) {
-          do.call (i, list (checks))
-      })
+        do.call (i, list (checks))
+    })
     names (res) <- gsub ("^pkgchk\\_", "", check_fns)
 
     extra_chks <- collate_extra_env_checks (checks)
@@ -193,19 +193,19 @@ collate_checks <- function (checks) {
 collate_extra_env_checks <- function (checks) {
     extra_env <- options ("pkgcheck_extra_env") [[1]]
     if (is.null (extra_env)) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     if (!is.list (extra_env)) {
-          extra_env <- list (extra_env)
-      }
+        extra_env <- list (extra_env)
+    }
 
     chks <- lapply (extra_env, function (i) {
         i <- env2namespace (i) # in R/utils.R
         fns <- grep ("^pkgchk\\_", ls (i), value = TRUE)
         out <- lapply (fns, function (j) {
-              do.call (j, list (checks), envir = i)
-          })
+            do.call (j, list (checks), envir = i)
+        })
         names (out) <- gsub ("^pkgchk\\_", "", fns)
 
         return (out)
@@ -224,13 +224,13 @@ collate_extra_env_checks <- function (checks) {
 version_info <- function (nosrr) {
     pkgs <- c ("pkgstats", "pkgcheck")
     if (!nosrr) {
-          pkgs <- c (pkgs, "srr")
-      }
+        pkgs <- c (pkgs, "srr")
+    }
 
     vapply (
         pkgs, function (i) {
-              paste0 (utils::packageVersion (i))
-          },
+            paste0 (utils::packageVersion (i))
+        },
         character (1)
     )
 }

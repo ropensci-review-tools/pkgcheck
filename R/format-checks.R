@@ -89,14 +89,14 @@ checks_to_markdown <- function (checks, render = FALSE) {
             ""
         )
         if (length (checks$checks$scrap) > 0L) {
-              md_out <- c (
-                  md_out,
-                  print_check_md (
-                      checks, "has_scrap",
-                      env2namespace ("pkgcheck")
-                  )
-              )
-          }
+            md_out <- c (
+                md_out,
+                print_check_md (
+                    checks, "has_scrap",
+                    env2namespace ("pkgcheck")
+                )
+            )
+        }
 
         for (e in extra$env) {
             for (p in extra$prints) {
@@ -327,14 +327,14 @@ pkg_network <- function (checks, sec_num) {
     )
 
     if (!"network_file" %in% names (checks$info)) {
-          return (c (
-              out,
-              paste0 (
-                  "This package contains no internal function calls, ",
-                  "and therefore no function call network"
-              )
-          ))
-      }
+        return (c (
+            out,
+            paste0 (
+                "This package contains no internal function calls, ",
+                "and therefore no function call network"
+            )
+        ))
+    }
 
     cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
     visjs_dir <- file.path (cache_dir, "static") # in api.R
@@ -390,8 +390,8 @@ render_markdown <- function (md, open = TRUE) {
     rmarkdown::render (fmd, output_file = f)
 
     if (open) {
-          utils::browseURL (f)
-      }
+        utils::browseURL (f)
+    }
 
     invisible (f)
 }

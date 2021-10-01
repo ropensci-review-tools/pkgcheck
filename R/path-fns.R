@@ -18,8 +18,8 @@ convert_path <- function (path = ".") {
     )
 
     if (is.null (proj_root)) {
-          stop (paste0 ("[", path, "] does not appear to be an R package"))
-      }
+        stop (paste0 ("[", path, "] does not appear to be an R package"))
+    }
 
     return (proj_root)
 }

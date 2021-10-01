@@ -21,8 +21,8 @@ pkgcheck_bg <- function (path) {
         logfiles$stdout
     )
     if (file.exists (stopfile)) {
-          file.remove (stopfile)
-      }
+        file.remove (stopfile)
+    }
 
     e <- c (callr::rcmd_safe_env (),
         "PKGCHECK_PXBG_STOP" = stopfile,

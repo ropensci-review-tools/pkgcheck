@@ -6,22 +6,22 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
 
     desc <- file.path (path, "DESCRIPTION")
     if (!file.exists (desc)) {
-          return (character (0))
-      }
+        return (character (0))
+    }
 
     d <- data.frame (read.dcf (desc))
     if (!type %in% names (d)) {
-          return (character (0))
-      }
+        return (character (0))
+    }
 
     u <- strsplit (d [[type]], "\\s+") [[1]]
     u <- grep ("^https", u, value = TRUE)
     if (length (u) > 1) {
-          u <- grep ("git", u, value = TRUE)
-      }
+        u <- grep ("git", u, value = TRUE)
+    }
     if (length (u) > 1) {
-          u <- u [which (!grepl ("\\.io", u))]
-      }
+        u <- u [which (!grepl ("\\.io", u))]
+    }
 
     u <- gsub (",|\\s+", "", u)
 
