@@ -1,8 +1,6 @@
-
-
 #' Check whether a package has a `inst/CITATION` file
 #'
-#' This does no check the contents of that file in any way.
+#' This does not check the contents of that file in any way.
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
