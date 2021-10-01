@@ -1,0 +1,3 @@
+#!/usr/bin/env Rscript
+
+styler::style_pkg (style = spaceout::spaceout_style)

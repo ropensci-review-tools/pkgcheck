@@ -57,9 +57,9 @@ repos:
         language: script
           #-   id: custom lintr
           #name: lintr
-          #entry: /home/smexus/bin/precommit/lintr
+          #entry: .hooks/lintr
           #language: script
-          #-   id: custom styler
-          #name: styler
-          #entry: /home/smexus/bin/precommit/styler
-          #language: script
+    -   id: custom styler
+        name: styler
+        entry: .hooks/styler
+        language: script
