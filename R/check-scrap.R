@@ -1,4 +1,6 @@
+# https://github.com/yihui/knitr-examples/blob/master/113-externalization.Rmd
 
+# ---- pkgchk-scrap ----
 #' Check whether the package contains any useless files like `.DS_Store`.
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
@@ -38,6 +40,7 @@ pkgchk_has_scrap <- function (checks) {
     return (grep (scrap (), all_contents, value = TRUE))
 }
 
+# ---- output-pkgchk-scrap ----
 output_pkgchk_has_scrap <- function (checks) {
     out <- list (
         check_pass = length (checks$checks$scrap) == 0L,
