@@ -52,8 +52,6 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
         checks$goodpractice <- NULL
     }
 
-    checks$checks <- collate_checks (checks)
-
     u <- pkginfo_url_from_desc (path)
     checks$info$badges <- list ()
     if (length (u) > 0L) {
@@ -66,6 +64,8 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
     }
 
     checks$meta <- version_info (is.null (checks$info$srr))
+
+    checks$checks <- collate_checks (checks)
 
     stopfile <- Sys.getenv ("PKGCHECK_PXBG_STOP")
     if (stopfile != "") {
