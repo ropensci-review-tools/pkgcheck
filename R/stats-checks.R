@@ -10,11 +10,11 @@ stats_checks <- function (s, threshold = 0.05) {
 
     # npars is set to NA when there are none; replace with 0:
     if (is.na (s$npars_exported_mn)) {
-          s$npars_exported_mn <- 0L
-      }
+        s$npars_exported_mn <- 0L
+    }
     if (is.na (s$npars_exported_md)) {
-          s$npars_exported_md <- 0L
-      }
+        s$npars_exported_md <- 0L
+    }
 
 
     dat <- pkgcheck::pkgstats_data
@@ -29,7 +29,8 @@ stats_checks <- function (s, threshold = 0.05) {
         # get directory name:
         nm <- gsub ("blank\\_lines\\_", "", names (s) [b_s [i]])
         rel_white_pkg [[nm]] <- as.numeric (unname (
-            s [[b_s [i]]] / s [[c_s [i]]]))
+            s [[b_s [i]]] / s [[c_s [i]]]
+        ))
         tmp <- as.numeric (unname (dat [[b_d [i]]] / s [[c_d [i]]]))
         rel_white_all [[nm]] <- tmp [which (!is.na (tmp))]
     }
@@ -55,8 +56,8 @@ stats_checks <- function (s, threshold = 0.05) {
     nms <- names (dat)
     index <- which (vapply (
         nms, function (i) {
-              is.numeric (dat [[i]])
-          },
+            is.numeric (dat [[i]])
+        },
         logical (1)
     ))
     nms <- nms [index]
@@ -64,14 +65,14 @@ stats_checks <- function (s, threshold = 0.05) {
     ptn <- "^desc_n"
     nms <- nms [which (!grepl (ptn, nms))]
     dists <- lapply (nms, function (i) {
-          sort (dat [[i]] [which (!is.na (dat [[i]]))])
-      })
+        sort (dat [[i]] [which (!is.na (dat [[i]]))])
+    })
     names (dists) <- nms
 
     pc <- vapply (nms, function (i) {
         if (is.na (s [[i]])) {
-              return (NA)
-          }
+            return (NA)
+        }
         return (length (which (dists [[i]] < s [[i]])) /
             length (dists [[i]]))
     }, double (1))

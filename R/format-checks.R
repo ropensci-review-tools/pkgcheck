@@ -327,14 +327,14 @@ pkg_network <- function (checks, sec_num) {
     )
 
     if (!"network_file" %in% names (checks$info)) {
-          return (c (
-              out,
-              paste0 (
-                  "This package contains no internal function calls, ",
-                  "and therefore no function call network"
-              )
-          ))
-      }
+        return (c (
+            out,
+            paste0 (
+                "This package contains no internal function calls, ",
+                "and therefore no function call network"
+            )
+        ))
+    }
 
     cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
     visjs_dir <- file.path (cache_dir, "static") # in api.R

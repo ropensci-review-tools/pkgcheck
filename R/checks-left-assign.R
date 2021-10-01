@@ -13,14 +13,14 @@
 pkgchk_left_assign <- function (checks) {
     rdir <- file.path (checks$package$path, "R")
     if (!file.exists (rdir)) {
-          return (list (
-              global = FALSE,
-              usage = c (
-                  "<-" = 0L,
-                  "=" = 0L
-              )
-          ))
-      }
+        return (list (
+            global = FALSE,
+            usage = c (
+                "<-" = 0L,
+                "=" = 0L
+            )
+        ))
+    }
 
     rdir <- normalizePath (rdir)
     flist <- list.files (rdir,
@@ -40,23 +40,23 @@ pkgchk_left_assign <- function (checks) {
             "=" = 0L
         )
         if (is.null (p)) {
-              return (assigns)
-          }
+            return (assigns)
+        }
 
         la <- table (p$text [which (p$token == "LEFT_ASSIGN")])
 
         if (":=" %in% names (la)) {
-              assigns [1] <- la [which (names (la) == ":=")]
-          }
+            assigns [1] <- la [which (names (la) == ":=")]
+        }
         if ("<-" %in% names (la)) {
-              assigns [2] <- la [which (names (la) == "<-")]
-          }
+            assigns [2] <- la [which (names (la) == "<-")]
+        }
         if ("<<-" %in% names (la)) {
-              assigns [3] <- la [which (names (la) == "<<-")]
-          }
+            assigns [3] <- la [which (names (la) == "<<-")]
+        }
         if ("=" %in% names (la)) {
-              assigns [4] <- la [which (names (la) == "=")]
-          }
+            assigns [4] <- la [which (names (la) == "=")]
+        }
 
         return (assigns)
     },
@@ -98,12 +98,12 @@ output_pkgchk_left_assign <- function (checks) {
     ) # no print method
 
     if (!out$check_pass) {
-          out$summary <- paste0 (
-              "Package uses inconsistent assignment operators (",
-              la [names (la) == "<-"], " '<-' and ",
-              la [names (la) == "="], " '=')."
-          )
-      }
+        out$summary <- paste0 (
+            "Package uses inconsistent assignment operators (",
+            la [names (la) == "<-"], " '<-' and ",
+            la [names (la) == "="], " '=')."
+        )
+    }
 
     return (out)
 }

@@ -6,16 +6,16 @@
 #' @noRd
 fn_call_network <- function (s) {
     if (nrow (s$stats$network) == 0L && nrow (s$stats$objects) == 0L) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     visjs_dir <- file.path (
         getOption ("pkgcheck.cache_dir"),
         "static"
     )
     if (!dir.exists (visjs_dir)) {
-          dir.create (visjs_dir, recursive = TRUE)
-      }
+        dir.create (visjs_dir, recursive = TRUE)
+    }
 
     visjs_file <- paste0 (
         s$out$package,

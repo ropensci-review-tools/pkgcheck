@@ -77,8 +77,8 @@ print_srr <- function (x) {
 #' @noRd
 srr_checks_to_md <- function (checks) {
     if (is.null (checks$info$srr)) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     cat_plural <- ifelse (
         length (checks$info$srr$categories == 1),
