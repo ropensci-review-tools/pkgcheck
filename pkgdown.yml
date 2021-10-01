@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   extending-checks: extending-checks.html
-last_built: 2021-10-01T10:35Z
+last_built: 2021-10-01T14:33Z
 urls:
   reference: https://docs.ropensci.org/pkgcheck/reference
   article: https://docs.ropensci.org/pkgcheck/articles

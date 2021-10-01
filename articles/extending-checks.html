@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.048</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.052</span>
       </span>
     </div>
 
@@ -91,91 +91,114 @@
 
     
     
-<p><strong>NOTE</strong> This vignette is not current. It will be updated very soon to reflect new methods for extending checks.</p>
-<hr>
-<p>This vignette describes how to modify or extend the existing suite of checks performed by <code>pkgcheck</code>. It is primarily based around the example of the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/d02dcb630e5f38f599b6186580001510ffc5b314/R/misc-checks.R#L347-L368"><code>pkg_has_scrap()</code> function</a> contributed by Maëlle Salmon (<a href="https://github.com/maelle">@maelle</a>) via <a href="https://github.com/ropensci-review-tools/pkgcheck/pull/27">this pull request</a>. The function checks whether a repository or a local git tree contains any “scrap” files such as <code>.DS_Store</code> or <code>thumbs.db</code> (used to index thumbnail images of files).</p>
-<p>The package is designed to be readily extensible, and we welcome discussions about developing new checks. The primary criterion for checks is that they must be of very general applicability, in that they should check for a condition that <em>almost</em> every package should or should not meet.</p>
-<div id="create-a-new-check" class="section level2">
-<h2 class="hasAnchor">
-<a href="#create-a-new-check" class="anchor"></a>1. Create a new check</h2>
-<p>New checks should be placed in a dedicated file named <code>check-&lt;name&gt;.R</code>, or <code>checks-&lt;name&gt;.R</code> for checks with multiple components. All functions for the scrap checks are within the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>R/check-scrap.R</code> file</a>.</p>
-<p>The check itself should be the first function in a check file, and must be named with the prefix <code>pkgchk_</code>. Importantly check functions may not return <code>NULL</code>. If a <code>NULL</code>-like return value is desired, it should be a zero-length vector of appropriate type. For example, the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>pkgchk_has_scrap()</code> function</a> returns the names of any “scrap” files included within a git repository (implying files that should generally not be committed and included). If none are included, the function returns <code><a href="https://rdrr.io/r/base/character.html">character(0)</a></code> and not <code>NULL</code>.</p>
-<p>The values returned are used to construct messages issued by <code>pkgcheck</code> in response to these checks, so it is generally better to return actual values, rather than generic <code>TRUE</code>, <code>FALSE</code>, or other symbolic values. This point is illustrated below in the demonstration of the <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> method.</p>
-</div>
-<div id="add-check-function-to-pkgcheck-output" class="section level2">
-<h2 class="hasAnchor">
-<a href="#add-check-function-to-pkgcheck-output" class="anchor"></a>2. Add check function to <code>pkgcheck</code> output</h2>
-<p>A new check function can be added to the result returned by <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-fn.R">the <code>pkgcheck()</code> function</a> by inserting it below the commented line, <code># ----- Add new checks here ---</code>. The <code>pkg_has_scrap()</code> function is included within that section to illustrate. New checks inserted in that location will by default appear in a “Miscellaneous checks” section of the report. Checks may be inserted in other locations by inserting them elsewhere within the sequence specified in this <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-fn.R">main <code>pkgcheck()</code> function</a>.</p>
-</div>
-<div id="modify-tests-to-include-new-check" class="section level2">
-<h2 class="hasAnchor">
-<a href="#modify-tests-to-include-new-check" class="anchor"></a>3. Modify tests to include new check</h2>
-<p>Tests may be updated as soon as new items are returned by the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-fn.R">main <code>pkgcheck()</code> function</a>. This generally requires the two simple modifications of:</p>
+<p>This vignette describes how to modify or extend the existing suite of checks implemented by <code>pkgcheck</code>. Each of the internal checks is defined in a separate file in the <code>R</code> directory of this package with the prefix of <code>check_</code> (or <code>checks_</code> for files which define multiple, related checks). Checks only require two main functions, the first defining the check itself, and the second defining <code>summary</code> and <code>print</code> methods based on the result of the first function. The check functions must have a prefix <code>pkgchk_</code>, and the second functions defining output methods specifying must have a prefix <code>output_pkgchk_</code>. These two kind of function are now described in the following two sections.</p>
+<p>Both of these functions must also accept a single input parameter of a <code>pkgcheck</code> object, by convention named <code>checks</code>. This object is a list of four main items:</p>
 <ol style="list-style-type: decimal">
-<li>Adding the name of the new test to the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/852af21d856618161e86b4cf615cabf6199cec53/tests/testthat/test-pkgcheck.R#L29-L43">list of “items” expected in the result of the main <code>pkgcheck</code> call</a>.</li>
-<li>Increase the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/852af21d856618161e86b4cf615cabf6199cec53/tests/testthat/test-bg.R#L38">expected length of the result of <code>pkgcheck()</code></a> by one for each new test.</li>
-<li>Increase the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/852af21d856618161e86b4cf615cabf6199cec53/tests/testthat/test-list-checks.R#L9">expected length of checks returned by <code>list_pkgchecks()</code> by one for each new test</a>.</li>
+<li>
+<code>package</code> which summarises data extracted from <a href="https://docs.ropensci.org/pkgstats/reference/pkgstats.html"><code>pkgstats::pkgstats()</code></a>, and includes essential information on the package being checked.</li>
+<li>
+<code>info</code> which contains information used in checks, including <code>info$git</code> detailing git repository information, <code>info$pkgstats</code> containing a summary of a few statistics generated from <a href="https://docs.ropensci.org/pkgstats/reference/pkgstats.html"><code>pkgstats::pkgstats()</code></a>, along with statistical comparisons against distributions from all current CRAN packages, an <code>info$network_file</code> specifying a local directory to a <a href="https://visjs.org"><code>vis.js</code></a> visualisation of the function call network of the package, and an <code>info$badges</code> item containing information from GitHub workflows and associated badges, where available.</li>
+<li>
+<code>checks</code> which contains a list of all objects returned from all <code>pkgchk_...()</code> functions, which are used as input to <code>output_pkgchk_...()</code> functions.</li>
+<li>
+<code>meta</code> containing a named character vector of versions of the core packages used in <code>pkgcheck</code>.</li>
 </ol>
-</div>
-<div id="add-a-summary-method" class="section level2">
+<p><code>pkgcheck</code> objects generally also include a fifth item, <code>goodpractice</code>, containing the results of <a href="https://github.com/MangoTheCat/goodpractice"><code>goodpractice</code> checks</a>. The <code>checks</code> item passed to each <code>pkgchk_...()</code> function contains all information on the <code>package</code>, <code>info</code>, <code>meta</code>, and (optionally) <code>goodpractice</code> items. Checks may use any of this information, or even add additional information as demonstrated below. The <code>checks$checks</code> list represents the output of check functions, and may not be used in any way within <code>pkgchk_...()</code> functions.</p>
+<div id="the-check-function" class="section level2">
 <h2 class="hasAnchor">
-<a href="#add-a-summary-method" class="anchor"></a>4. Add a summary method</h2>
-<p>Most but not all <code>pkgcheck</code> objects have a <code>summary</code> method which generates the screen print indicating whether or not all expected checks have been passed, and whether or not a package is ready to be submitted for peer review to rOpenSci. The printed summary is first generated by a function called <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/summarise-checks.R"><code>summarise_all_checks()</code></a>, which calls a series of sub-functions, generally one for each kind of check. New checks require new sub-functions, as can be seen by the call to <code>summarise_scrap_checks (checks)</code>. “summarise” function should be prefixed with <code>summarise_</code>.</p>
-<p>A summarise method must begin within a least two <a href="https://roxygen2.r-lib.org"><code>roxygen2</code> comment lines</a>, the second of which is <code>#' @noRd</code> to suppress translation to a documentation (<code>.Rd</code>) file. The first of these is explained at the top of <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/summarise-checks.R">the <code>summarise_checks.R</code> file</a>, and should be either</p>
+<a href="#the-check-function" class="anchor"></a>1. The check function</h2>
+<p>An example is the check for whether a package has a citation, <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-has-citation.R">defined in <code>R/check_has_citation.R</code></a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' @return Tick or cross</span></code></pre></div>
-<p>or,</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' @return Cross only</span></code></pre></div>
-<p>(with optional additional explanatory text). The first option is generally used for more important tests, and indicates that a green tick or red cross will appear to indicate that the test is respectively either passed or failed. Some tests only prompt a red cross when they fail, and do not appear in the summary list when they pass. These specify return values with the second option, <code>#' @return Cross only</code>.</p>
-<p>The <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>summarise_scrap_checks()</code> function</a> has “Cross only”, and returns <code>NULL</code> is the test is passed. If the test is failed, it appends a simple message to the initial symbols, <code><a href="https://rdrr.io/r/base/paste.html">paste0 ("-", symbol_crs ())</a></code>, where <code>symbol_crs()</code> encodes the red cross, and <code>symbol_tck()</code> the green tick for passing checks. The message should generally be short and simple. Full information returned from the actual check function should generally be used only in the <code>print</code> method (described below), and not in the <code>summary</code> method.</p>
-<p>Finally, the name of the sub-function should then be added to the sequence of function calls in the main <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/summarise-checks.R"><code>summarise_all_checks()</code> function</a>, in which the section of “Miscellaneous Checks” is clearly indicated.</p>
-</div>
-<div id="add-a-print-method" class="section level2">
-<h2 class="hasAnchor">
-<a href="#add-a-print-method" class="anchor"></a>5. Add a print method</h2>
-<p>As described above, summary checks generally only print a short, fixed message indicating whether or test a check has been passed. Detailed returns by the actual check function are generally only shown via an optional <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R"><code>print</code> method</a> associated with <code>pkgcheck</code> objects. Not all checks have an associated print method, for example because details of the checks are not relevant, and they are only intended to trigger a :heavy_multiplication_x: in the summary method when they fail.</p>
-<p><code>print</code> methods for any new check items are generally implemented by constructing an associated function; the <code>pkgchk_has_scrap()</code> function, for example, is called <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>print_scrap()</code></a>. That function demonstrates that all output uses the <a href="https://cli.r-lib.org"><code>cli</code> package</a>, including in this example the <a href="https://cli.r-lib.org/reference/cli_li.html">“list item” function (<code>cli_li</code>)</a>.</p>
-<p>The <code>print</code> methods generally hand-code the different responses for passing and failing checks. The <code>pkg_has_scrap()</code> function only returns values when it fails, so only requires a <code>print</code> method on check failures. The pass (tick) and fail (cross) symbols are translated into corresponding <code>cli</code> symbols as follows:</p>
-<table class="table">
-<thead><tr class="header">
-<th>
-<code>summary</code> symbol</th>
-<th>
-<code>print</code> symbol</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>symbol_crs()</td>
-<td>cli::cli_alert_danger()</td>
-</tr>
-<tr class="even">
-<td>symbol_tck()</td>
-<td>cli::cli_alert_success()</td>
-</tr>
-</tbody>
-</table>
-<p>See other functions in the main <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R"><code>pgkcheck-methods.R</code> file</a> for examples.</p>
-</div>
-<div id="convert-new-check-result-to-markdown-output" class="section level2">
-<h2 class="hasAnchor">
-<a href="#convert-new-check-result-to-markdown-output" class="anchor"></a>6. Convert new check result to markdown output</h2>
-<p>The <code>summary</code> and <code>print</code> methods described above are used to control the appearance of checks on local terminal screens. The <code>pkgcheck</code> package also includes a function to convert checks to markdown format, the most important purpose of which is to render the checks for inserting within GitHub issues. For any new checks to appear in the reports generated by <code>ropensci-review-bot</code>, they need to be added to the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/format-checks.R"><code>checks_to_markdown()</code> function</a>. The place to insert new functions is indicated in the <code><a href="../reference/checks_to_markdown.html">checks_to_markdown()</a></code> function by the comment line, <code># ----- Add new checks here ----</code>, similar to how new checks are added to the main <code>pgkcheck()</code> function described in the second section above.</p>
-<p>The format of these functions is best illustrated by example, with the conversion function for the scrap checks looking like this:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">scrap_checks_md</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">{</span>
-
-    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span> <span class="op">(</span><span class="va">checks</span><span class="op">$</span><span class="va">scrap</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0L</span><span class="op">)</span>
-        <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span> <span class="op">(</span><span class="cn">NULL</span><span class="op">)</span>
-
-    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span> <span class="op">(</span><span class="st">""</span>,
-       <span class="st">":heavy_check_mark: Package contains the following unexpected files:"</span>,
-       <span class="st">""</span>,
-       <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span> <span class="op">(</span><span class="st">"- "</span>, <span class="va">checks</span><span class="op">$</span><span class="va">scrap</span><span class="op">)</span>,
-       <span class="st">""</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co">#' Check whether a package has a `inst/CITATION` file</span>
+<span class="co">#'</span>
+<span class="co">#' This does not check the contents of that file in any way.</span>
+<span class="co">#'</span>
+<span class="co">#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and</span>
+<span class="co">#' \pkg{goodpractice} results.</span>
+<span class="co">#' @noRd</span>
+<span class="va">pkgchk_has_citation</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"CITATION"</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span> <span class="op">(</span><span class="va">checks</span><span class="op">$</span><span class="va">package</span><span class="op">$</span><span class="va">path</span>, <span class="st">"inst"</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>This function returns nothing if there are no scrap files, as specified by the <code>roxygen2</code> comments of <code>#' @return cross only</code> in the corresponding function in <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/collate-checks.R">the <code>collate_checks.R</code> file</a>), described in section 4, above. Packages which contain scrap files will then produce the message specified by that function, including the name of each scrap file as a list item.</p>
-<p>Any new functions must ensure that they return <code>NULL</code> when the nominated component of the <code>checks</code> list is itself <code>NULL</code> – do not presume that components processed within a given markdown conversion function actually exist. Note also that the text output of these markdown-formatted checks generally starts and ends with a blank line (<code>""</code>). These lines are important to ensure appropriate rendering of HTML components.</p>
+<p>This check is particularly simple, because a <code>"CITATION"</code> file <a href="https://cran.r-project.org/doc/manuals/R-exts.html#CITATION-files">must have exactly that name, and must be in the <code>inst</code> sub-directory</a>. This function returns a simple logical of <code>TRUE</code> if the expected <code>"CITATION"</code> file is present, otherwise it returns <code>FALSE</code>. This function, and all functions beginning with the prefix <code>pkgchk_</code>, will be automatically called by the main <code><a href="../reference/pkgcheck.html">pkgcheck()</a></code> function, and the value stored in <code>checks$checks$has_citation</code>. The name of the item within the <code>checks$checks</code> list is the name of the function with the <code>pkgchk_</code> prefix removed.</p>
+<p>A more complicated example is the function to check whether a package contains files which should not be there – internally called “scrap” files. The check function itself, <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R">defined in <code>R/check-scrap.R</code></a>, checks for the presence of files matching an internally-defined list including files used to locally cache folder thumbnails such as <code>".DS_Store"</code> or <code>"Thumbs.db"</code>. The function returns a character vector of the names of any “scrap” files which can be used by the <code>print</code> method to provide details of files which should be removed. This illustrates the first general principle of these check functions; that,</p>
+<ul>
+<li><em>Any information needed when summarising or printing the check result should be returned from the main check function.</em></li>
+</ul>
+<p>A second important principle is that,</p>
+<ul>
+<li>
+<em>Check functions should never return <code>NULL</code>, rather should always return an empty vector (such as <code><a href="https://rdrr.io/r/base/integer.html">integer(0)</a></code>)</em>.</li>
+</ul>
+<p>The following section considers how these return values from check functions are converted to <code>summary</code> and <code>print</code> output.</p>
+</div>
+<div id="the-output-function" class="section level2">
+<h2 class="hasAnchor">
+<a href="#the-output-function" class="anchor"></a>2. The output function</h2>
+<p>All <code>output_pkgchk_...()</code> functions must also accept the single input parameter of <code>checks</code>, in which the <code>checks$checks</code> sub-list will already have been populated by calling all <code>pkgchk_...()</code> functions described in the previous section. The <code>pkgchk_has_citation()</code> function will create an entry of <code>checks$checks$has_ci</code> which contains the binary flag indicating whether or not a <code>"CITATION"</code> file is present, and <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R">the <code>pkgchk_has_scrap()</code> function</a> will create <code>checks$checks$has_scrap</code> which will contain names of any scrap files present, and a length-zero vector otherwise.</p>
+<p>The <code>output_pkgchk_has_citation()</code> function then looks like this:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">output_pkgchk_has_citation</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span> <span class="op">(</span>
+        check_pass <span class="op">=</span> <span class="va">checks</span><span class="op">$</span><span class="va">checks</span><span class="op">$</span><span class="va">has_citation</span>,
+        summary <span class="op">=</span> <span class="st">""</span>,
+        print <span class="op">=</span> <span class="st">""</span>
+    <span class="op">)</span>
+
+    <span class="va">out</span><span class="op">$</span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span> <span class="op">(</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span> <span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">check_pass</span>, <span class="st">"has"</span>, <span class="st">"does not have"</span><span class="op">)</span>,
+        <span class="st">" a 'CITATION' file."</span>
+    <span class="op">)</span>
+
+    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span> <span class="op">(</span><span class="va">out</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>The first lines are common to all <code>output_pkgchk_...()</code> functions, and define the generic return object. This object must be a list with the following three items:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>check_pass</code> as binary flag indicating whether or not a check was passed;</li>
+<li>
+<code>summary</code> containing text used to generate the <code>summary</code> output; and</li>
+<li>
+<code>print</code> containing information used to generate the <code>print</code> output, itself a <code>list</code> of the following items:
+<ul>
+<li>A <code>message</code> to display at the start of the <code>print</code> result; and</li>
+<li>An <code>object</code> to be printed, such as a vector of values, or a <code>data.frame</code>.</li>
+</ul>
+</li>
+</ol>
+<p>The <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>output_pkgchk_has_scrap()</code> function</a> includes a print method:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">output_pkgchk_has_scrap</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span> <span class="op">(</span>
+        check_pass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span> <span class="op">(</span><span class="va">checks</span><span class="op">$</span><span class="va">checks</span><span class="op">$</span><span class="va">scrap</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0L</span>,
+        summary <span class="op">=</span> <span class="st">""</span>,
+        print <span class="op">=</span> <span class="st">""</span>
+    <span class="op">)</span>
+
+    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">out</span><span class="op">$</span><span class="va">check_pass</span><span class="op">)</span> <span class="op">{</span>
+        <span class="va">out</span><span class="op">$</span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="st">"Package contains unexpected files."</span>
+        <span class="va">out</span><span class="op">$</span><span class="va">print</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span> <span class="op">(</span>
+            message <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span> <span class="op">(</span>
+                <span class="st">"Package contains the "</span>,
+                <span class="st">"following unexpected files:"</span>
+            <span class="op">)</span>,
+            obj <span class="op">=</span> <span class="va">checks</span><span class="op">$</span><span class="va">checks</span><span class="op">$</span><span class="va">scrap</span>
+        <span class="op">)</span>
+    <span class="op">}</span>
+
+    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span> <span class="op">(</span><span class="va">out</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Both <code>summary</code> and <code>print</code> methods are only triggered <code>if (!out$check_pass)</code> – so only if the check fails. The <code>print</code> method generates the heading specified in <code>out$print$message</code>, with any vector-valued objects stored in the corresponding <code>obj</code> list item displayed as formatted lists. A package with “scrap” files, <code>"a"</code> and <code>"b"</code>, would thus have <code>out$print$obj &lt;- c ("a", "b")</code>, and when printed would look like this:</p>
+<pre><code>#&gt; ✖ Package contains the following unexpected files:
+#&gt; • a
+#&gt; • b</code></pre>
+<p>This formatting is also translated into corresponding markdown and HTML formatting in <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/format-checks.R">the <code>checks_to_markdown()</code> function</a>.</p>
+<p>The design of these <code>pkgchk_</code> and <code>output_pkgchk_</code> functions aims to make the package readily extensible, and we welcome discussions about developing new checks. The primary criterion for new package-internal checks is that they must be of very general applicability, in that they should check for a condition that <em>almost</em> every package should or should not meet.</p>
+<p>The package also has a mechanism to easily incorporate more specific, locally-defined checks, as explored in the following section.</p>
+</div>
+<div id="creating-new-checks" class="section level2">
+<h2 class="hasAnchor">
+<a href="#creating-new-checks" class="anchor"></a>3. Creating new checks</h2>
+<p>(Coming soon …)</p>
 </div>
   </div>
 
