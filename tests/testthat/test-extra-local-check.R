@@ -17,7 +17,7 @@ test_that ("pkgcheck", {
     )
 
     expect_output (
-        chk0 <- pkgcheck (d)
+        chk0 <- pkgcheck (d, goodpractice = FALSE)
     )
 
     nchks0 <- length (chk0$checks)
@@ -50,7 +50,7 @@ test_that ("pkgcheck", {
     }
 
     # Test that those checks are picked up in the checks$checks result:
-    chk1 <- pkgcheck (d, extra_env = e)
+    chk1 <- pkgcheck (d, goodpractice = FALSE, extra_env = e)
     nchks1 <- length (chk1$checks)
     expect_equal (nchks1, nchks0 + 1)
 
