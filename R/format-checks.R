@@ -60,7 +60,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
         ""
     )
 
-    has_gp <- "goodpractice" %in% names (x)
+    has_gp <- "goodpractice" %in% names (checks)
     if (has_gp) {
         md_out <- c (
             md_out,
