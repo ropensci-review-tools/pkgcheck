@@ -23,6 +23,10 @@ The return object will by default display whether it is still running,
 or whether it has finished. Once it has finished, the results can be obtained
 by calling \verb{$get_result()}, or the main \link{pkgcheck} function can be
 called to quickly retrieve the main results from local cache.
+
+This function does not accept the \code{extra_env} parameter of the main
+\link{pkgcheck} function, and can not be used to run extra, locally-defined
+checks.
 }
 \seealso{
 Other pkgcheck_fns: 

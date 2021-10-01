@@ -10,6 +10,10 @@
 #' or whether it has finished. Once it has finished, the results can be obtained
 #' by calling `$get_result()`, or the main \link{pkgcheck} function can be
 #' called to quickly retrieve the main results from local cache.
+#'
+#' @note This function does not accept the `extra_env` parameter of the main
+#' \link{pkgcheck} function, and can not be used to run extra, locally-defined
+#' checks.
 #' @family pkgcheck_fns
 #' @export
 pkgcheck_bg <- function (path) {
