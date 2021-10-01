@@ -75,7 +75,7 @@ requirements as background process" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.043</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.048</span>
       </span>
     </div>
 
@@ -155,6 +155,9 @@ generating the main <a href='pkgcheck.html'>pkgcheck</a> results (see Note).</p>
 or whether it has finished. Once it has finished, the results can be obtained
 by calling <code>$get_result()</code>, or the main <a href='pkgcheck.html'>pkgcheck</a> function can be
 called to quickly retrieve the main results from local cache.</p>
+<p>This function does not accept the <code>extra_env</code> parameter of the main
+<a href='pkgcheck.html'>pkgcheck</a> function, and can not be used to run extra, locally-defined
+checks.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other pkgcheck_fns: 

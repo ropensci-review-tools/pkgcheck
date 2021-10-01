@@ -75,7 +75,7 @@ requirements" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.043</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.048</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@ requirements</h1>
 requirements</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pkgcheck</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, extra_env <span class='op'>=</span> <span class='va'>.GlobalEnv</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>pkgcheck</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, goodpractice <span class='op'>=</span> <span class='cn'>TRUE</span>, extra_env <span class='op'>=</span> <span class='va'>.GlobalEnv</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,6 +142,11 @@ requirements</p>
     <tr>
       <th>path</th>
       <td><p>Path to local repository</p></td>
+    </tr>
+    <tr>
+      <th>goodpractice</th>
+      <td><p>If <code>FALSE</code>, skip goodpractice checks. May be useful in
+development stages to more quickly check other aspects.</p></td>
     </tr>
     <tr>
       <th>extra_env</th>
