@@ -1,8 +1,7 @@
+
 test_that ("pkgcheck", {
     withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
     withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
-
-    options (repos = c (CRAN = "https://cloud.r-project.org"))
 
     pkgname <- "testpkgchecknotapkg"
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
@@ -83,4 +82,27 @@ test_that ("pkgcheck", {
     writeLines (md, con = file.path (md_dir, "checks.md"))
 
     testthat::expect_snapshot_file (file.path (md_dir, "checks.md"))
+})
+
+test_that ("pkgcheck without goodpractice", {
+    pkgname <- paste0 (
+        sample (c (letters, LETTERS), 8),
+        collapse = ""
+    )
+    d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
+
+    x <- capture.output (
+        roxygen2::roxygenise (d),
+        type = "message"
+    )
+
+    expect_output (
+        chk <- pkgcheck (d, goodpractice = FALSE)
+    )
+
+    # items from above including goodpractice:
+    items <- c ("package", "info", "checks", "meta", "goodpractice")
+    expect_false (all (items %in% names (chk)))
+    items <- c ("package", "info", "checks", "meta")
+    expect_true (all (items %in% names (chk)))
 })

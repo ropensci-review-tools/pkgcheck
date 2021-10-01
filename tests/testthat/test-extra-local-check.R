@@ -1,10 +1,5 @@
 
 test_that ("pkgcheck", {
-    options (repos = c (
-        ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
-        CRAN = "https://cloud.r-project.org"
-    ))
-
     pkgname <- paste0 (
         sample (c (letters, LETTERS), 8),
         collapse = ""
