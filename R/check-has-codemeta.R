@@ -5,7 +5,7 @@
 #' \pkg{goodpractice} results.
 #' @noRd
 pkgchk_has_codemeta <- function (checks) {
-    "codemeta.json" %in% list.files (checks$package$path, recursive = FALSE)
+    "codemeta.json" %in% list.files (checks$pkg$path, recursive = FALSE)
 }
 
 output_pkgchk_has_codemeta <- function (checks) {

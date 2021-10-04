@@ -11,7 +11,7 @@
 #' @return Named vector of 2 values tallying instances of usage of `<-` and `=`.
 #' @noRd
 pkgchk_left_assign <- function (checks) {
-    rdir <- file.path (checks$package$path, "R")
+    rdir <- file.path (checks$pkg$path, "R")
     if (!file.exists (rdir)) {
         return (list (
             global = FALSE,

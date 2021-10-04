@@ -8,7 +8,7 @@
 #' @noRd
 pkgchk_fns_have_exs <- function (checks) {
     rd <- list.files (file.path (
-        checks$package$path, "man"
+        checks$pkg$path, "man"
     ),
     pattern = "\\.Rd$",
     full.names = TRUE

@@ -2,7 +2,7 @@
 print.pkgcheck <- function (x, ...) {
     requireNamespace ("goodpractice")
 
-    cli::cli_h1 (paste0 (x$package$name, " ", x$package$version))
+    cli::cli_h1 (paste0 (x$pkg$name, " ", x$pkg$version))
     message ("")
 
     print_summary (x)
@@ -20,8 +20,8 @@ print.pkgcheck <- function (x, ...) {
     )
     has_gp <- "goodpractice" %in% names (x)
     if (!has_gp) {
-          output_fns <- output_fns [which (!grepl ("covr", output_fns))]
-      }
+        output_fns <- output_fns [which (!grepl ("covr", output_fns))]
+    }
     out <- lapply (output_fns, function (i) print_check (x, i))
     out <- do.call (c, out [which (nchar (out) > 0L)])
 
@@ -72,7 +72,7 @@ print.pkgcheck <- function (x, ...) {
 
 #' @export
 summary.pkgcheck <- function (object, ...) {
-    cli::cli_h1 (paste0 (object$package$name, " ", object$package$version))
+    cli::cli_h1 (paste0 (object$pkg$name, " ", object$pkg$version))
     message ("")
 
     print_summary (object)
@@ -122,7 +122,7 @@ print_git <- function (x) {
 }
 
 print_structure <- function (x) {
-    pkg_summ <- x$package$summary
+    pkg_summ <- x$pkg$summary
 
     cli::cli_h2 ("Package Structure")
 
@@ -171,8 +171,8 @@ print_structure <- function (x) {
 
     if (pkg_summ$num_src_fns > 0) {
         langs <- vapply (strsplit (pkg_summ$languages, ":"), function (i) {
-              i [1]
-          }, character (1))
+            i [1]
+        }, character (1))
         langs <- paste0 (langs [langs != "R"], collapse = ", ")
         s <- c (
             s,

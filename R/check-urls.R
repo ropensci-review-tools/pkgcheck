@@ -1,18 +1,18 @@
 
 pkgchk_has_url <- function (checks) {
-    out <- length (checks$package$url) > 0L
+    out <- length (checks$pkg$url) > 0L
     if (out) {
-          out <- !is.na (checks$package$url)
-      }
+        out <- !is.na (checks$pkg$url)
+    }
 
     return (out)
 }
 
 pkgchk_has_bugs <- function (checks) {
-    out <- length (checks$package$BugReports) > 0L
+    out <- length (checks$pkg$BugReports) > 0L
     if (out) {
-          out <- !is.na (checks$package$BugReports)
-      }
+        out <- !is.na (checks$pkg$BugReports)
+    }
 
     return (out)
 }

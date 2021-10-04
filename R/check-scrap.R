@@ -12,13 +12,13 @@ pkgchk_has_scrap <- function (checks) {
 
     # Have to tryCatch because gert errors anywhere other than a git repo. This
     # means scrap can only be detected in git repos.
-    all_contents <- tryCatch (gert::git_ls (repo = checks$package$path)$path,
+    all_contents <- tryCatch (gert::git_ls (repo = checks$pkg$path)$path,
         error = function (e) NULL
     )
 
     if (is.null (all_contents)) {
-          return (character (0))
-      } # not NULL!
+        return (character (0))
+    } # not NULL!
 
     all_contents <- vapply (
         decompose_path (all_contents),

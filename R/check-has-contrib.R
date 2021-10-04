@@ -9,7 +9,7 @@
 #' @noRd
 pkgchk_has_contrib_md <- function (checks) {
     flist <- list.files (
-        checks$package$path,
+        checks$pkg$path,
         all.files = TRUE,
         recursive = TRUE,
         full.names = FALSE

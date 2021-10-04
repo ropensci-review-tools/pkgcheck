@@ -19,14 +19,14 @@ test_that ("pkgcheck", {
     )
     expect_type (chk, "list")
 
-    items <- c ("package", "info", "checks", "meta", "goodpractice")
+    items <- c ("pkg", "info", "checks", "meta", "goodpractice")
     expect_true (all (items %in% names (chk)))
 
     items <- c (
         "name", "path", "version", "url", "BugReports",
         "license", "summary", "dependencies"
     )
-    expect_true (all (items %in% names (chk$package)))
+    expect_true (all (items %in% names (chk$pkg)))
 
     items <- c ("git", "srr", "pkgstats", "network_file", "badges")
     expect_true (all (items %in% names (chk$info)))
@@ -101,8 +101,8 @@ test_that ("pkgcheck without goodpractice", {
     )
 
     # items from above including goodpractice:
-    items <- c ("package", "info", "checks", "meta", "goodpractice")
+    items <- c ("pkg", "info", "checks", "meta", "goodpractice")
     expect_false (all (items %in% names (chk)))
-    items <- c ("package", "info", "checks", "meta")
+    items <- c ("pkg", "info", "checks", "meta")
     expect_true (all (items %in% names (chk)))
 })

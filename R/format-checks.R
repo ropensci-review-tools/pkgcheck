@@ -12,16 +12,16 @@ checks_to_markdown <- function (checks, render = FALSE) {
 
     md_out <- c (
         paste0 (
-            "## Checks for [", checks$package$name,
-            " (v", checks$package$version, ")](",
-            checks$package$url, ")"
+            "## Checks for [", checks$pkg$name,
+            " (v", checks$pkg$version, ")](",
+            checks$pkg$url, ")"
         ),
         "",
         paste0 (
             "git hash: [",
             substring (checks$info$git$HEAD, 1, 8),
             "](",
-            checks$package$url,
+            checks$pkg$url,
             "/tree/",
             checks$info$git$HEAD,
             ")"
@@ -29,7 +29,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
         "",
         md_chks,
         "",
-        paste0 ("Package License: ", checks$package$license),
+        paste0 ("Package License: ", checks$pkg$license),
         "",
         "---",
         ""
@@ -254,7 +254,7 @@ pkg_stat_desc <- function (checks) {
     }
     out <- paste0 (code, langs_first, " and ", langs_last)
 
-    s <- checks$package$summary
+    s <- checks$pkg$summary
     summarise_one <- function (s, what, pre_text, type) {
         ifelse (s [[what]] == 0L,
             paste0 ("- no ", pre_text, " ", type),
@@ -353,7 +353,7 @@ pkg_network <- function (checks, sec_num) {
 
     flist <- list.files (
         visjs_dir,
-        pattern = paste0 (checks$package$name, "_pkgstats"),
+        pattern = paste0 (checks$pkg$name, "_pkgstats"),
         full.names = TRUE
     )
 

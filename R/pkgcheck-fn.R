@@ -35,7 +35,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
     s <- pkgstats_info (path)
 
     checks <- pkgcheck_object ()
-    checks$package <- s$out [c (
+    checks$pkg <- s$out [c (
         "name", "path", "version", "url",
         "BugReports", "license", "summary",
         "dependencies"
@@ -76,7 +76,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
 
 pkgcheck_object <- function () {
     out <- list (
-        package = NULL,
+        pkg = NULL,
         info = NULL,
         checks = NULL,
         meta = NULL
