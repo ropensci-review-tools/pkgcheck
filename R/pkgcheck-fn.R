@@ -36,11 +36,10 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
 
     checks <- pkgcheck_object ()
     checks$package <- s$out [c (
-        "package", "path", "version", "url",
+        "name", "path", "version", "url",
         "BugReports", "license", "summary",
         "dependencies"
     )]
-    names (checks$package) [1] <- "name"
 
     checks$info <- s$out [c ("git", "srr", "pkgstats")]
 
@@ -109,7 +108,7 @@ pkgstats_info <- function (path) {
     s$path <- path
 
     out <- list ()
-    out$package <- pkginfo_pkg_name (s)
+    out$name <- pkginfo_pkg_name (s)
     out$path <- path
     out$version <- pkginfo_pkg_version (s)
     out$url <- pkginfo_url_from_desc (path, type = "URL")
