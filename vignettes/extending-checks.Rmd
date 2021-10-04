@@ -100,14 +100,18 @@ files used to locally cache folder thumbnails such as `".DS_Store"` or
 files which should be removed. This illustrates the first general principle of
 these check functions; that,
 
+::: {.alert .alert-primary}
 - *Any information needed when summarising or printing the check result should
   be returned from the main check function.*
+:::
 
 
 A second important principle is that,
 
+::: {.alert .alert-primary}
 - *Check functions should never return `NULL`, rather should always return an
   empty vector (such as `integer(0)`)*.
+:::
 
 The following section considers how these return values from check functions
 are converted to `summary` and `print` output.
