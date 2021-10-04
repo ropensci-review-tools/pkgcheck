@@ -63,6 +63,28 @@ this information, or even add additional information as demonstrated below. The
 `checks$checks` list represents the output of check functions, and may not be
 used in any way within `pkgchk_...()` functions.
 
+<details>
+<summary>Click here to see structure of full `pkgcheck` object</summary>
+<p>
+
+This is the output of applying `pkgcheck` to a package generated with the
+[`srr` function
+`srr_stats_pkg_skeleton()`](https://docs.ropensci.org/srr/reference/srr_stats_pkg_skeleton.html),
+with `goodpractice = FALSE` to suppress that part of the results.
+
+```{r pkgcheck-dummy, echo = FALSE, message = FALSE, results = "hide", eval = TRUE}
+d <- srr::srr_stats_pkg_skeleton (pkg_name = "dummypkg")
+roxygen2::roxygenise (d)
+checks <- pkgcheck::pkgcheck (d, goodpractice = FALSE)
+checks$goodpractice <- "Output of goodpractice goes here"
+```
+```{r pkgcheck-str, echo = FALSE}
+str (checks)
+```
+
+</p></details>
+
+
 
 ## 1. The check function
 
