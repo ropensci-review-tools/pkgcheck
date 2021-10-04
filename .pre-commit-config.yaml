@@ -4,8 +4,8 @@ repos:
 -   repo: https://github.com/lorenzwalthert/precommit
     rev: v0.1.3
     hooks: 
-      #-   id: style-files
-      #  args: [--style_pkg=styler, --style_fun=tidyverse_style]    
+    -   id: style-files
+        args: [--style_pkg=spaceout, --style_fun=spaceout_style]    
     -   id: roxygenize
     # codemeta must be above use-tidy-description when both are used
     # -   id: codemeta-description-updated
@@ -59,7 +59,3 @@ repos:
           #name: lintr
           #entry: .hooks/lintr
           #language: script
-    -   id: custom styler
-        name: styler
-        entry: .hooks/styler
-        language: script
