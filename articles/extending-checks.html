@@ -95,7 +95,7 @@
 <p>Both of these functions must also accept a single input parameter of a <code>pkgcheck</code> object, by convention named <code>checks</code>. This object is a list of four main items:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>package</code> which summarises data extracted from <a href="https://docs.ropensci.org/pkgstats/reference/pkgstats.html"><code>pkgstats::pkgstats()</code></a>, and includes essential information on the package being checked.</li>
+<code>pkg</code> which summarises data extracted from <a href="https://docs.ropensci.org/pkgstats/reference/pkgstats.html"><code>pkgstats::pkgstats()</code></a>, and includes essential information on the package being checked.</li>
 <li>
 <code>info</code> which contains information used in checks, including <code>info$git</code> detailing git repository information, <code>info$pkgstats</code> containing a summary of a few statistics generated from <a href="https://docs.ropensci.org/pkgstats/reference/pkgstats.html"><code>pkgstats::pkgstats()</code></a>, along with statistical comparisons against distributions from all current CRAN packages, an <code>info$network_file</code> specifying a local directory to a <a href="https://visjs.org"><code>vis.js</code></a> visualisation of the function call network of the package, and an <code>info$badges</code> item containing information from GitHub workflows and associated badges, where available.</li>
 <li>
