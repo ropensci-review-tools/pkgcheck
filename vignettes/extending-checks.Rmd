@@ -10,14 +10,14 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  warning = TRUE,
-  message = TRUE,
-  width = 120,
-  comment = "#>",
-  fig.retina = 2,
-  fig.path = "README-"
+knitr::opts_chunk$set (
+    collapse = TRUE,
+    warning = TRUE,
+    message = TRUE,
+    width = 120,
+    comment = "#>",
+    fig.retina = 2,
+    fig.path = "README-"
 )
 ```
 
@@ -183,7 +183,7 @@ corresponding `obj` list item displayed as formatted lists. A package with
 cli::cli_alert_danger ("Package contains the following unexpected files:")
 cli::cli_ul ()
 cli::cli_li (c ("a", "b"))
-cli::cli_end()
+cli::cli_end ()
 ```
 
 This formatting is also translated into corresponding markdown and HTML
