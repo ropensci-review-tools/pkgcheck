@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.054</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.056</span>
       </span>
     </div>
 
@@ -117,7 +117,7 @@
 <span class="co">#' \pkg{goodpractice} results.</span>
 <span class="co">#' @noRd</span>
 <span class="va">pkgchk_has_citation</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">{</span>
-    <span class="st">"CITATION"</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span> <span class="op">(</span><span class="va">checks</span><span class="op">$</span><span class="va">package</span><span class="op">$</span><span class="va">path</span>, <span class="st">"inst"</span><span class="op">)</span><span class="op">)</span>
+    <span class="st">"CITATION"</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span> <span class="op">(</span><span class="va">checks</span><span class="op">$</span><span class="va">pkg</span><span class="op">$</span><span class="va">path</span>, <span class="st">"inst"</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>This check is particularly simple, because a <code>"CITATION"</code> file <a href="https://cran.r-project.org/doc/manuals/R-exts.html#CITATION-files">must have exactly that name, and must be in the <code>inst</code> sub-directory</a>. This function returns a simple logical of <code>TRUE</code> if the expected <code>"CITATION"</code> file is present, otherwise it returns <code>FALSE</code>. This function, and all functions beginning with the prefix <code>pkgchk_</code>, will be automatically called by the main <code><a href="../reference/pkgcheck.html">pkgcheck()</a></code> function, and the value stored in <code>checks$checks$has_citation</code>. The name of the item within the <code>checks$checks</code> list is the name of the function with the <code>pkgchk_</code> prefix removed.</p>
 <p>A more complicated example is the function to check whether a package contains files which should not be there – internally called “scrap” files. The check function itself, <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R">defined in <code>R/check-scrap.R</code></a>, checks for the presence of files matching an internally-defined list including files used to locally cache folder thumbnails such as <code>".DS_Store"</code> or <code>"Thumbs.db"</code>. The function returns a character vector of the names of any “scrap” files which can be used by the <code>print</code> method to provide details of files which should be removed. This illustrates the first general principle of these check functions; that,</p>
