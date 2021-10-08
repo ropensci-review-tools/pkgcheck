@@ -396,14 +396,168 @@ render_markdown <- function (md, open = TRUE) {
     md <- gsub ("\\:heavy\\_check\\_mark\\:", "&#9989;", md)
     md <- gsub ("\\:heavy\\_multiplication\\_x\\:", "&#10060;", md)
 
+    md <- add_stats_tooltips (md)
+
     fmd <- tempfile (pattern = "pkgcheck", fileext = ".Rmd")
     writeLines (md, con = fmd)
     f <- tempfile (pattern = "pkgcheck", fileext = ".html")
     rmarkdown::render (fmd, output_file = f)
 
     if (open) {
-          utils::browseURL (f)
-      }
+        utils::browseURL (f)
+    }
 
     invisible (f)
+}
+
+add_stats_tooltips <- function (md) {
+    md <- c (
+        "<script>",
+        "$(document).ready(function(){", # nolint
+        "    $('[tooltip=\"tooltip\"]').tooltip();", # nolint
+        "});",
+        "</script>",
+        "",
+        md,
+        ""
+    )
+
+    stats_start <- grep ("\\|measure", md) + 1
+    stats_end <- grep ("^\\-\\-\\-$", md)
+    stats_end <- stats_end [which (stats_end > stats_start)] [1]
+
+    index <- grep ("^\\|[[:alpha:]]", md [stats_start:stats_end])
+    index <- stats_start + index - 1
+
+    tips <- tooltip_dictionary ()
+
+    for (i in index) {
+        ptn <- regmatches (md [i], regexpr ("\\w+", md [i]))
+        if (!ptn %in% tips$what) {
+              next
+          }
+
+        tip <- tips$tooltip [tips$what == ptn]
+
+        md [i] <- gsub (
+            ptn,
+            paste0 (
+                "<a tooltip='tooltip' ",
+                "title='", tip, "'>",
+                ptn, "</a>"
+            ),
+            md [i]
+        )
+    }
+
+    return (md)
+}
+
+tooltip_dictionary <- function () {
+    out <- rbind (
+        c (
+            "files_R",
+            "Number of files in R directory"
+        ),
+        c (
+            "files_vignettes",
+            "Number of files in vignettes directory"
+        ),
+        c (
+            "files_tests",
+            "Number of files in tests directory"
+        ),
+        c (
+            "loc_R",
+            paste0 (
+                "Lines of code (excluding documentation and empty lines) ",
+                "in R directory"
+            )
+        ),
+        c (
+            "loc_vignettes",
+            paste0 (
+                "Lines of code (excluding documentation and empty lines) ",
+                "in vignettes directory"
+            )
+        ),
+        c (
+            "loc_tests",
+            paste0 (
+                "Lines of code (excluding documentation and empty lines) ",
+                "in tests directory"
+            )
+        ),
+        c (
+            "num_vignettes",
+            "Number of vignettes"
+        ),
+        c (
+            "n_fns_r",
+            "Total number of exported and non-exported R functions"
+        ),
+        c (
+            "n_fns_r_exported",
+            "Total number of exported R functions"
+        ),
+        c (
+            "n_fns_r_not_exported",
+            "Total number of non-exported R functions"
+        ),
+        c (
+            "n_fns_per_file_r",
+            "Median number of functions per R source file"
+        ),
+        c (
+            "num_params_per_fn",
+            "Median number of parameters per exported R function"
+        ),
+        c (
+            "loc_per_fn_r",
+            "Median number of lines of code for each R function"
+        ),
+        c (
+            "loc_per_fn_r_exp",
+            "Median number of lines of code for each exported R function"
+        ),
+        c (
+            "loc_per_fn_r_not_exp",
+            "Median number of lines of code for each non-exported R function"
+        ),
+        c (
+            "rel_whitespace_R",
+            "Relative proportion of white characters within each code line"
+        ),
+        c (
+            "rel_whitespace_vignettes",
+            "Relative proportion of white characters within each vignette line"
+        ),
+        c (
+            "rel_whitespace_tests",
+            "Relative proportion of white characters within each test line"
+        ),
+        c (
+            "doclines_per_fn_exp",
+            paste0 (
+                "Median number of lines of documentation for ",
+                "each exported R function"
+            )
+        ),
+        c (
+            "doclines_per_fn_not_exp",
+            paste0 (
+                "Median number of lines of documentation for ",
+                "each non-exported R function"
+            )
+        ),
+        c (
+            "fn_call_network_size",
+            "Total number of calls from one package function to another"
+        )
+    )
+
+    data.frame (
+        what = out [, 1],
+        tooltip = out [, 2]
+    )
 }
