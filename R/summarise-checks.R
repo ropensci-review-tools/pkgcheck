@@ -22,8 +22,8 @@ summarise_all_checks <- function (checks) {
 
     has_gp <- "goodpractice" %in% names (checks)
     if (!has_gp) {
-          output_fns <- output_fns [which (!grepl ("covr", output_fns))]
-      }
+        output_fns <- output_fns [which (!grepl ("covr", output_fns))]
+    }
     out <- lapply (
         order_checks (output_fns),
         function (i) summarise_check (checks, i, pkg_env)
@@ -62,8 +62,8 @@ summarise_all_checks <- function (checks) {
 summarise_extra_env_checks <- function (checks) {
     extra_env <- options ("pkgcheck_extra_env") [[1]]
     if (!is.list (extra_env)) {
-          extra_env <- list (extra_env)
-      }
+        extra_env <- list (extra_env)
+    }
 
     extra_chks <- lapply (extra_env, function (e) {
         e <- env2namespace (e)
@@ -127,8 +127,8 @@ summarise_check <- function (checks, what, pkg_env) {
     summary_fn <- paste0 ("output_pkgchk_", what)
 
     if (!summary_fn %in% pkg_fns) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     chk_summary <- do.call (summary_fn, list (checks), envir = pkg_env)
 
