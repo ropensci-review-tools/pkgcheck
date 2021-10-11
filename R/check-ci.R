@@ -1,7 +1,18 @@
 
 output_pkgchk_ci <- function (checks) {
+
+    check_pass <- length (checks$info$badges) > 0L
+    # There should really be badges, but if not, accept passing workflow results
+    # regardless (see #87):
+    if (!check_pass & length (checks$info$github_workflows) > 0L) {
+
+        wf <- checks$info$github_workflows
+        i <- grep ("check|cmd", wf$name, ignore.case = TRUE)
+        check_pass <- any (wf$conclusion [i] == "success")
+    }
+
     out <- list (
-        check_pass = length (checks$info$badges) > 0L,
+        check_pass = check_pass,
         summary = "",
         print = ""
     )
