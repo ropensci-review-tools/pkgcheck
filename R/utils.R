@@ -86,8 +86,8 @@ env2namespace <- function (e) {
         e <- s [grep (paste0 (e, "$"), s)]
 
         if (length (e) != 1L) {
-              e <- NULL
-          } else {
+            e <- NULL
+        } else {
             pkg <- gsub ("package\\:", "", e)
             e <- tryCatch (asNamespace (pkg),
                 error = function (err) NULL
