@@ -16,8 +16,8 @@ pkgcheck_gp_report <- function (path) {
         "gp_reports"
     )
     if (!dir.exists (gp_cache_dir)) {
-          dir.create (gp_cache_dir, recursive = TRUE)
-      }
+        dir.create (gp_cache_dir, recursive = TRUE)
+    }
 
     gp_cache_file <- file.path (gp_cache_dir, fname)
 
@@ -32,15 +32,15 @@ pkgcheck_gp_report <- function (path) {
     )
     flist <- flist [which (!grepl (fname, flist))]
     if (length (flist) > 0) {
-          chk <- file.remove (flist)
-      }
+        chk <- file.remove (flist)
+    }
 
     if (file.exists (gp_cache_file)) {
         gp <- readRDS (gp_cache_file)
     } else {
         if (!file.exists (gp_cache_dir)) {
-              dir.create (gp_cache_dir, recursive = TRUE)
-          }
+            dir.create (gp_cache_dir, recursive = TRUE)
+        }
 
         Sys.setenv ("_R_CHECK_FORCE_SUGGESTS_" = FALSE)
         gp <- goodpractice::goodpractice (path)
@@ -197,8 +197,8 @@ extract_gp_components <- function (gp) {
         grepl ("^Avoid library", lints$message))
     lints <- lints [-index, ]
     if (nrow (lints) == 0) {
-          lints <- list ()
-      }
+        lints <- list ()
+    }
 
     # -------------- rcmdcheck:
     r <- gp$rcmd
@@ -207,17 +207,17 @@ extract_gp_components <- function (gp) {
         rcmd$errors <- paste0 (r)
     } else if (length (r) > 0) {
         if (length (r$errors) > 0) {
-              rcmd$errors <- r$errors
-          }
+            rcmd$errors <- r$errors
+        }
         if (length (r$warnings) > 0) {
-              rcmd$warnings <- r$warnings
-          }
+            rcmd$warnings <- r$warnings
+        }
         if (length (r$notes) > 0) {
-              rcmd$notes <- r$notes
-          }
+            rcmd$notes <- r$notes
+        }
         if (length (r$test_fail) > 0) {
-              rcmd$test_fails <- r$test_fail
-          } # note plural!
+            rcmd$test_fails <- r$test_fail
+        } # note plural!
     }
 
     # -------------- any other components which fail:
@@ -225,16 +225,16 @@ extract_gp_components <- function (gp) {
         gp$checks, function (i) {
             ret <- TRUE
             if (is.logical (i) & length (i) == 1) {
-                  ret <- i
-              }
+                ret <- i
+            }
             return (ret)
         },
         logical (1)
     )
     fails <- names (checks [which (!checks)])
     if (length (fails) > 0) {
-          rcmd$check_fails <- fails
-      }
+        rcmd$check_fails <- fails
+    }
 
     # return result
     res <- list (
@@ -285,17 +285,17 @@ rcmd_report <- function (x) {
     )
 
     if (!"rcmd" %in% names (x)) {
-          return (c (
-              ret,
-              "rcmdcheck found no errors, warnings, or notes",
-              ""
-          ))
-      }
+        return (c (
+            ret,
+            "rcmdcheck found no errors, warnings, or notes",
+            ""
+        ))
+    }
 
     rcmd <- x$rcmd
     if (methods::is (rcmd, "try-error")) {
-          return (rcmd)
-      }
+        return (rcmd)
+    }
 
     ret <- c (ret, dump_one_rcmd_type (rcmd, "errors"))
     ret <- c (ret, dump_one_rcmd_type (rcmd, "warnings"))
@@ -310,16 +310,16 @@ dump_one_rcmd_type <- function (rcmd, type = "errors") {
     ret <- NULL
 
     if (!type %in% names (rcmd)) {
-          return (ret)
-      }
+        return (ret)
+    }
 
     msg <- paste0 (
         "R CMD check generated the following ",
         gsub ("s$", "", type)
     )
     if (length (rcmd [[type]]) > 1) {
-          msg <- paste0 (msg, "s")
-      }
+        msg <- paste0 (msg, "s")
+    }
     msg <- paste0 (msg, ":")
 
     ret <- c (
@@ -352,31 +352,31 @@ covr_report <- function (x,
     )
 
     if (!"covr" %in% names (x)) {
-          return (c (
-              res,
-              "ERROR: Test Coverage Failed",
-              ""
-          ))
-      }
+        return (c (
+            res,
+            "ERROR: Test Coverage Failed",
+            ""
+        ))
+    }
     if (methods::is (x$covr, "try-error")) {
-          return (c (
-              res,
-              paste0 (x$covr),
-              ""
-          ))
-      }
+        return (c (
+            res,
+            paste0 (x$covr),
+            ""
+        ))
+    }
 
     if ("covr_threshold" %in% names (control)) {
-          covr_threshold <- control$covr_threshold
-      } else {
-          covr_threshold <- 70
-      }
+        covr_threshold <- control$covr_threshold
+    } else {
+        covr_threshold <- 70
+    }
 
     if ("digits" %in% names (control)) {
-          digits <- control$digits
-      } else {
-          digits <- 2
-      }
+        digits <- control$digits
+    } else {
+        digits <- 2
+    }
 
     pkg_line <- which (x$covr$source == "package")
     pkg_cov <- x$covr$percent [pkg_line]
@@ -391,8 +391,8 @@ covr_report <- function (x,
     )
 
     if (pkg_cov >= covr_threshold) {
-          return (c (res, ""))
-      }
+        return (c (res, ""))
+    }
 
     if (nrow (covr) > 0) {
         res <- c (
@@ -455,8 +455,8 @@ cyclo_report <- function (x,
         } else {
             msg <- "The following function"
             if (nrow (cyc) > 1) {
-                  msg <- paste0 (msg, "s")
-              }
+                msg <- paste0 (msg, "s")
+            }
             msg <- paste0 (msg, " have cyclocomplexity >= ", cyc_thr, ":")
             ret <- c (
                 ret,
@@ -467,11 +467,11 @@ cyclo_report <- function (x,
             )
 
             for (i in seq.int (nrow (cyc))) {
-                  ret <- c (
-                      ret,
-                      paste0 (cyc$name [i], " | ", cyc$cyclocomp [i])
-                  )
-              }
+                ret <- c (
+                    ret,
+                    paste0 (cyc$name [i], " | ", cyc$cyclocomp [i])
+                )
+            }
         }
     }
 
@@ -490,15 +490,15 @@ lintr_report <- function (x) {
     )
 
     if (is.null (x$lint)) {
-          return (c (
-              ret,
-              paste0 (
-                  "[lintr](https://github.com/jimhester/lintr) ",
-                  "found no issues with this package!"
-              ),
-              ""
-          ))
-      }
+        return (c (
+            ret,
+            paste0 (
+                "[lintr](https://github.com/jimhester/lintr) ",
+                "found no issues with this package!"
+            ),
+            ""
+        ))
+    }
 
     msgs <- table (x$lint$message)
     msgs <- data.frame (
