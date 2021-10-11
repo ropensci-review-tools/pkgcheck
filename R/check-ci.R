@@ -1,11 +1,9 @@
 
 output_pkgchk_ci <- function (checks) {
-
     check_pass <- length (checks$info$badges) > 0L
     # There should really be badges, but if not, accept passing workflow results
     # regardless (see #87):
     if (!check_pass & length (checks$info$github_workflows) > 0L) {
-
         wf <- checks$info$github_workflows
         i <- grep ("check|cmd", wf$name, ignore.case = TRUE)
         check_pass <- any (wf$conclusion [i] == "success")
@@ -19,18 +17,18 @@ output_pkgchk_ci <- function (checks) {
 
     if (!out$check_pass) {
         if (!checks$checks$has_url) {
-              out$summary <- paste0 (
-                  "Continuous integration checks ",
-                  "unavailable (no URL in 'DESCRIPTION')."
-              )
-          } else {
-              out$summary <- " Package has no continuous integration checks."
-          }
+            out$summary <- paste0 (
+                "Continuous integration checks ",
+                "unavailable (no URL in 'DESCRIPTION')."
+            )
+        } else {
+            out$summary <- " Package has no continuous integration checks."
+        }
     } else {
         out$summary <- "Package has continuous integration checks."
         if (is.na (checks$info$badges [1])) {
-              checks$info$badges <- "(There do not appear to be any)"
-          }
+            checks$info$badges <- "(There do not appear to be any)"
+        }
 
         out$print <- c (
             "#### 3a. Continuous Integration Badges",
