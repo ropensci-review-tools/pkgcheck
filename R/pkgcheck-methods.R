@@ -206,8 +206,8 @@ print_check <- function (checks, what) {
 
     output_fn <- paste0 ("output_pkgchk_", what)
     if (!output_fn %in% pkg_fns) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
 
@@ -266,8 +266,8 @@ print_check_md <- function (checks, what, pkg_env) {
 extra_check_prints_from_env <- function (checks) {
     extra_env <- options ("pkgcheck_extra_env") [[1]]
     if (!is.list (extra_env)) {
-          extra_env <- list (extra_env)
-      }
+        extra_env <- list (extra_env)
+    }
 
     extra_prints <- lapply (extra_env, function (e) {
         e <- env2namespace (e)
