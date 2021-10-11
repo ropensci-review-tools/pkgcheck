@@ -28,8 +28,8 @@ pkginfo_srr_report <- function (path) {
     )
 
     if (is.null (srr)) {
-          return (NULL)
-      } # Not an srr package
+        return (NULL)
+    } # Not an srr package
 
     srr_okay <- FALSE
     if (!methods::is (srr, "error") &
@@ -57,8 +57,8 @@ pkginfo_srr_report <- function (path) {
     )
     fnames <- vapply (
         decompose_path (flist), function (i) {
-              utils::tail (i, 1)
-          },
+            utils::tail (i, 1)
+        },
         character (1)
     )
     flist <- flist [grep (f, fnames)]
@@ -67,8 +67,8 @@ pkginfo_srr_report <- function (path) {
         srr_rep <- readLines (srr_md_file)
     } else {
         if (length (flist) > 0) {
-              file.remove (flist)
-          }
+            file.remove (flist)
+        }
 
         srr_rep <- srr::srr_report (
             path = path,
@@ -76,14 +76,14 @@ pkginfo_srr_report <- function (path) {
         )
         srr_file_from <- attr (srr_rep, "file")
         if (!file.copy (srr_file_from, srr_report_file)) {
-              warning ("srr html file not copied!")
-          }
+            warning ("srr html file not copied!")
+        }
         # srr_report stored the .md as a .Rmd in tempdir():
         srr_rmd <- tools::file_path_sans_ext (srr_file_from)
         srr_rmd <- paste0 (srr_rmd, ".Rmd")
         if (!file.copy (srr_rmd, srr_md_file)) {
-              warning ("srr md file not copied!")
-          }
+            warning ("srr md file not copied!")
+        }
     }
 
     categories <- srr_categories_from_report (srr_rep)
