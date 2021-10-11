@@ -109,6 +109,10 @@ pkgchk_ci_badges <- function (u) {
 #' @noRd
 ci_results_gh <- function (path) {
     u <- pkginfo_url_from_desc (path)
+    if (length (u) == 0L) {
+          return (NULL)
+      }
+
     url <- strsplit (u, "\\/") [[1]]
     org <- utils::tail (url, 2) [1]
     repo <- utils::tail (url, 1)

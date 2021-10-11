@@ -41,7 +41,11 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
         "dependencies"
     )]
 
-    checks$info <- s$out [c ("git", "srr", "pkgstats")]
+    if ("srr" %in% names (s$out)) {
+        checks$info <- s$out [c ("git", "srr", "pkgstats")]
+    } else {
+        checks$info <- s$out [c ("git", "pkgstats")]
+    }
 
     checks$info$network_file <- fn_call_network (s)
 
@@ -90,8 +94,8 @@ pkgcheck_object <- function () {
 checks_running_in_bg <- function (path) {
     stopvar <- Sys.getenv ("PKGCHECK_PXBG_STOP")
     if (Sys.getenv ("PKGCHECK_BG") != "") {
-          stopvar <- ""
-      }
+        stopvar <- ""
+    }
 
     logfiles <- logfile_names (path)
     stopfile <- gsub (
@@ -138,11 +142,11 @@ parse_pkg_deps <- function (s) {
     fields <- c ("depends", "imports", "suggests", "linking_to")
 
     d <- lapply (fields, function (i) {
-          cbind (
-              i,
-              strsplit (s$desc [[i]], ",\\s*") [[1]]
-          )
-      })
+        cbind (
+            i,
+            strsplit (s$desc [[i]], ",\\s*") [[1]]
+        )
+    })
 
     d <- do.call (rbind, d)
 
@@ -186,8 +190,8 @@ collate_checks <- function (checks) {
     check_fns <- check_fns [which (!grepl (exclude_these, check_fns))]
 
     res <- lapply (check_fns, function (i) {
-          do.call (i, list (checks))
-      })
+        do.call (i, list (checks))
+    })
     names (res) <- gsub ("^pkgchk\\_", "", check_fns)
 
     extra_chks <- collate_extra_env_checks (checks)
@@ -198,19 +202,19 @@ collate_checks <- function (checks) {
 collate_extra_env_checks <- function (checks) {
     extra_env <- options ("pkgcheck_extra_env") [[1]]
     if (is.null (extra_env)) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     if (!is.list (extra_env)) {
-          extra_env <- list (extra_env)
-      }
+        extra_env <- list (extra_env)
+    }
 
     chks <- lapply (extra_env, function (i) {
         i <- env2namespace (i) # in R/utils.R
         fns <- grep ("^pkgchk\\_", ls (i), value = TRUE)
         out <- lapply (fns, function (j) {
-              do.call (j, list (checks), envir = i)
-          })
+            do.call (j, list (checks), envir = i)
+        })
         names (out) <- gsub ("^pkgchk\\_", "", fns)
 
         return (out)
@@ -229,13 +233,13 @@ collate_extra_env_checks <- function (checks) {
 version_info <- function (nosrr) {
     pkgs <- c ("pkgstats", "pkgcheck")
     if (!nosrr) {
-          pkgs <- c (pkgs, "srr")
-      }
+        pkgs <- c (pkgs, "srr")
+    }
 
     vapply (
         pkgs, function (i) {
-              paste0 (utils::packageVersion (i))
-          },
+            paste0 (utils::packageVersion (i))
+        },
         character (1)
     )
 }
