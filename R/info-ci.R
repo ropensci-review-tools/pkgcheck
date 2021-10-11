@@ -108,14 +108,7 @@ pkgchk_ci_badges <- function (u) {
 #' name, the 'conclusion' status, the git 'sha', and the date.
 #' @noRd
 ci_results_gh <- function (path) {
-    d <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
-    if (!"URL" %in% names (d)) {
-        return ("Error: Description has no URL")
-    }
-
-    u <- strsplit (d$URL, "\\s+") [[1]]
-    u <- u [grep ("^https://github\\.com", u)]
-    u <- gsub ("[[:punct:]]$", "", u)
+    u <- pkginfo_url_from_desc (path)
     url <- strsplit (u, "\\/") [[1]]
     org <- utils::tail (url, 2) [1]
     repo <- utils::tail (url, 1)
