@@ -73,8 +73,8 @@ url_exists <- function (x, non_2xx_return_value = FALSE, quiet = FALSE, ...) {
             list (result = code, error = NULL),
             error = function (e) {
                 if (!quiet) {
-                      message ("Error: ", e$message)
-                  }
+                    message ("Error: ", e$message)
+                }
 
                 list (result = otherwise, error = e)
             },
@@ -99,18 +99,18 @@ url_exists <- function (x, non_2xx_return_value = FALSE, quiet = FALSE, ...) {
         res <- sGET (x, ...)
 
         if (is.null (res$result)) {
-              return (NA)
-          } # or whatever you want to return on "hard" errors
+            return (NA)
+        } # or whatever you want to return on "hard" errors
 
         if (((httr::status_code (res$result) %/% 200) != 1)) {
             if (!quiet) {
-                  warning (paste0 (
-                      "Requests for [",
-                      x,
-                      "] responded but without an HTTP status ",
-                      "code in the 200-299 range"
-                  ))
-              }
+                warning (paste0 (
+                    "Requests for [",
+                    x,
+                    "] responded but without an HTTP status ",
+                    "code in the 200-299 range"
+                ))
+            }
             return (non_2xx_return_value)
         }
 
