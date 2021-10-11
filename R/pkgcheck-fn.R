@@ -59,10 +59,8 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
     checks$info$badges <- list ()
     if (length (u) > 0L) {
         checks$info$badges <- pkgchk_ci_badges (u)
-        if (!is.null (checks$info$badges)) {
-            if (any (grepl ("github", checks$info$badges))) {
-                checks$info$github_workflows <- ci_results_gh (path)
-            }
+        if (grepl ("github", u)) {
+            checks$info$github_workflows <- ci_results_gh (path)
         }
     }
 
