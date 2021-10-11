@@ -3,13 +3,17 @@
 
 #' Get all CI badges from a repository
 #'
+#' This extracts badges directly from README files. If none are found and a repo
+#' is GitHub, then `ci_results_github()` is called to check CI status from
+#' workflow files.
+#'
 #' @param u URL of repo
 #' @return Character vector of hyperlinked badge images
 #' @noRd
 pkgchk_ci_badges <- function (u) {
     if (!curl::has_internet ()) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     orgrepo <- strsplit (u, "\\/") [[1]]
     org <- utils::tail (orgrepo, 2) [1]
@@ -41,8 +45,8 @@ pkgchk_ci_badges <- function (u) {
     }
 
     if (!url_exists (u_readme, quiet = TRUE)) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     f <- tempfile (fileext = ".md")
     chk <- utils::download.file (u_readme, destfile = f, quiet = TRUE) # nolint
@@ -53,8 +57,8 @@ pkgchk_ci_badges <- function (u) {
         gregexpr ("https.*\\.svg", readme)
     ))
     if (length (badges) == 0) {
-          return (NULL)
-      }
+        return (NULL)
+    }
     platforms <- c ("github", "travis", "gitlab")
     badges <- badges [grep (
         paste0 (platforms, collapse = "|"),
@@ -66,8 +70,8 @@ pkgchk_ci_badges <- function (u) {
 
         if (p == "github") {
             wf_nms <- vapply (badges [index], function (i) {
-                  utils::tail (strsplit (i, "/") [[1]], 2) [1]
-              },
+                utils::tail (strsplit (i, "/") [[1]], 2) [1]
+            },
             character (1),
             USE.NAMES = FALSE
             )
@@ -106,11 +110,12 @@ pkgchk_ci_badges <- function (u) {
 ci_results_gh <- function (path) {
     d <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
     if (!"URL" %in% names (d)) {
-          return ("Error: Description has no URL")
-      }
+        return ("Error: Description has no URL")
+    }
 
     u <- strsplit (d$URL, "\\s+") [[1]]
     u <- u [grep ("^https://github\\.com", u)]
+    u <- gsub ("[[:punct:]]$", "", u)
     url <- strsplit (u, "\\/") [[1]]
     org <- utils::tail (url, 2) [1]
     repo <- utils::tail (url, 1)
@@ -126,19 +131,19 @@ ci_results_gh <- function (path) {
     runs <- httr::GET (url) %>% httr::content ()
 
     if (!"total_count" %in% names (runs)) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     if (runs$total_count == 0) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     dat <- lapply (runs$workflow_runs, function (i) {
         # in-progress runs have no conclusion entry:
         concl <- i$conclusion
         if (is.null (concl)) {
-              concl <- ""
-          }
+            concl <- ""
+        }
         data.frame (
             name = i$name,
             status = i$status,
@@ -154,8 +159,8 @@ ci_results_gh <- function (path) {
     dat <- lapply (
         split (dat, f = as.factor (dat$name)),
         function (i) {
-              i [which.max (i$time_dbl), ]
-          }
+            i [which.max (i$time_dbl), ]
+        }
     )
     dat <- do.call (rbind, dat)
 
