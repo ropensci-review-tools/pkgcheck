@@ -132,8 +132,12 @@ RUN apt-get install -y \
   libssl-dev \
   libcurl4-gnutls-dev \
   #libcurl4-openssl-dev \
+  libgdal-dev \
+  libgeos-dev \
+  libproj-dev \
   libglpk-dev \
   libsodium-dev \
+  libudunits2-dev \
   netbase \
   texlive-latex-base \
   texlive-fonts-recommended \
