@@ -18,7 +18,7 @@ fn_call_network <- function (s) {
     }
 
     visjs_file <- paste0 (
-        s$out$package,
+        s$out$name,
         "_pkgstats",
         substring (s$out$git$HEAD, 1, 8),
         ".html"
