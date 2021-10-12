@@ -155,6 +155,7 @@ RUN install2.r \
   RcppParallel \
   randomForest \
   rmarkdown \
+  sf \
   survival \
   tidymodels \
   tidyverse \
