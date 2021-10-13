@@ -121,6 +121,11 @@ RUN VERSION=`curl "https://api.github.com/repos/cli/cli/releases/latest" | grep 
     && cp gh_${VERSION}_linux_amd64/bin/gh /usr/local/bin/
 #RUN cp -r gh_${VERSION}_linux_amd64/share/man/man1/* /usr/share/man/man1/
 
+# still need ubuntugis for gdal 3.1.0 (currently standard candidate is 3.0.4)
+RUN add-apt-repository -y ppa:ubuntugis/ppa \
+    && apt update \
+    && apt -y upgrade
+
 # netbase is critical:
 # https://github.com/commercialhaskell/stack/issues/2372#issuecomment-234113085
 # https://github.com/tensorflow/haskell/issues/182
