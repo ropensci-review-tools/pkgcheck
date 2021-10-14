@@ -32,6 +32,20 @@ jobs:
         with:
           extra-packages: pkgdown
           needs: website
+      
+      - name: Extra deps
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y git global libgit2-dev libglpk-dev
+      - name: ctags latest
+        if: runner.os == 'Linux'
+        run: |
+          git clone https://github.com/universal-ctags/ctags.git
+          cd ctags
+          ./autogen.sh
+          ./configure --prefix=/usr
+          make
+          sudo make install
           
       - name: Install package
         run: R CMD INSTALL .
