@@ -26,7 +26,7 @@ options (repos = c (
 
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
     # this only has effect on unix systems
-    pkgstats::ctags_install (bin_path = "/usr/local/bin", sudo = FALSE) 
+    pkgstats::ctags_install (bin_dir = "/usr/local/bin", sudo = FALSE) 
 }
 ```
 
