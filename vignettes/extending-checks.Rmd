@@ -23,6 +23,10 @@ options (repos = c (
     ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
     CRAN = "https://cloud.r-project.org"
 ))
+
+if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
+    pkgstats::ctags_install () # only has effect on unix systems
+}
 ```
 
 This vignette describes how to modify or extend the existing suite of checks
