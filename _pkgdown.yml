@@ -1,7 +1,7 @@
 url: https://docs.ropensci.org/pkgcheck
 
 reference:
-- title: Main functions
+- title: Main IMPORTANT functions
   contents:
   - has_concept("pkgcheck_fns")
 - title: GitHub-related functions
