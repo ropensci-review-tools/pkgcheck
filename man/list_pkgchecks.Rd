@@ -16,3 +16,10 @@ Character vector of names of all checks (invisibly)
 \description{
 List all checks currently implemented
 }
+\seealso{
+Other extra: 
+\code{\link{checks_to_markdown}()},
+\code{\link{logfile_names}()},
+\code{\link{render_markdown}()}
+}
+\concept{extra}

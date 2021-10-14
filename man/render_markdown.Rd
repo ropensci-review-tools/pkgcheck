@@ -20,6 +20,7 @@ render markdown-formatted input into 'html'
 \seealso{
 Other extra: 
 \code{\link{checks_to_markdown}()},
+\code{\link{list_pkgchecks}()},
 \code{\link{logfile_names}()}
 }
 \concept{extra}
