@@ -23,12 +23,6 @@ options (repos = c (
     ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
     CRAN = "https://cloud.r-project.org"
 ))
-
-if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
-    # this will have no effect if you've already installed ctags; it is
-    # only really necessary for rOpenSci's document server.
-    pkgstats::ctags_install (bin_dir = "/usr/local/bin", sudo = FALSE)
-}
 ```
 
 This vignette describes how to modify or extend the existing suite of checks
@@ -83,18 +77,25 @@ This is the output of applying `pkgcheck` to a package generated with the
 `srr_stats_pkg_skeleton()`](https://docs.ropensci.org/srr/reference/srr_stats_pkg_skeleton.html),
 with `goodpractice = FALSE` to suppress that part of the results.
 
-```{r pkgcheck-dummy, echo = FALSE, message = FALSE, results = "hide", eval = TRUE}
+```{r check_file, echo = FALSE}
+here <- rprojroot::find_root (rprojroot::is_r_package)
+check_file <- file.path (here, "vignettes", "checks.Rds")
+```
+
+
+```{r pkgcheck-dummy-data, echo = FALSE, eval = !file.exists (check_file)}
 d <- srr::srr_stats_pkg_skeleton (pkg_name = "dummypkg")
 roxygen2::roxygenise (d)
 checks <- pkgcheck::pkgcheck (d, goodpractice = FALSE)
-checks$goodpractice <- "Output of goodpractice goes here"
+saveRDS (checks, check_file)
 ```
                        
-```{r pkgcheck-str, echo = FALSE}
-str (checks)
+```{r pkgcheck-str, echo = FALSE, cache = FALSE}
+print (str (readRDS (check_file)))
 ```
 
 </p></details>
+
 
 
 
@@ -204,7 +205,7 @@ A package with "scrap" files, `"a"` and `"b"`, would thus have `out$print$obj
 cli::cli_alert_danger ("Package contains the following unexpected files:")
 cli::cli_ul ()
 cli::cli_li (c ("a", "b"))
-cli::cli_end()
+cli::cli_end ()
 ```
 
 This formatting is also translated into corresponding markdown and HTML
