@@ -1,5 +1,6 @@
 
 test_that ("pkgcheck", {
+
     withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
     withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
 
@@ -35,12 +36,14 @@ test_that ("pkgcheck", {
 
     a <- attributes (md)
     expect_true (length (a) > 0L)
-    expect_true (all (c (
-        "checks_okay",
-        "is_noteworthy",
-        "network_file",
-        "srr_report_file"
-    ) %in% names (a)))
+    expect_true (
+        all (c (
+            "checks_okay",
+            "is_noteworthy",
+            "network_file",
+            "srr_report_file"
+        ) %in% names (a))
+    )
 
     # *****************************************************************
     # ***********************   SNAPSHOT TEST   ***********************
