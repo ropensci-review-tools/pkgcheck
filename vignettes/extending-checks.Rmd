@@ -25,8 +25,9 @@ options (repos = c (
 ))
 
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
-    # this only has effect on unix systems
-    pkgstats::ctags_install (bin_dir = "/usr/local/bin", sudo = FALSE) 
+    # this will have no effect if you've already installed ctags; it is
+    # only really necessary for rOpenSci's document server.
+    pkgstats::ctags_install (bin_dir = "/usr/local/bin", sudo = FALSE)
 }
 ```
 
