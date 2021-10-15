@@ -132,7 +132,7 @@ files used to locally cache folder thumbnails such as `".DS_Store"` or
 files which should be removed. This illustrates the first general principle of
 these check functions; that,
 
-::: {.alert .alert-primary}
+::: {.alert .alert-info}
 - *Any information needed when summarising or printing the check result should
   be returned from the main check function.*
 :::
@@ -140,7 +140,7 @@ these check functions; that,
 
 A second important principle is that,
 
-::: {.alert .alert-primary}
+::: {.alert .alert-info}
 - *Check functions should never return `NULL`, rather should always return an
   empty vector (such as `integer(0)`)*.
 :::
