@@ -434,8 +434,8 @@ add_stats_tooltips <- function (md) {
     for (i in index) {
         ptn <- regmatches (md [i], regexpr ("\\w+", md [i]))
         if (!ptn %in% tips$what) {
-              next
-          }
+            next
+        }
 
         tip <- tips$tooltip [tips$what == ptn]
 
