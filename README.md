@@ -15,11 +15,11 @@ Check whether a package is ready for submission to
 [rOpenSci](https://ropensci.org)’s peer review system. The primary
 function collates the output of
 [`goodpractice`](https://github.com/mangothecat/goodpractice), including
-`R CMD check` results, along with a number of statistics via the
-[`pkgstats` package](https://github.com/ropensci-review-tools/pkgstats),
-and package structure checks expected for rOpenSci submissions. The
-output of this function immediately indicates whether or not a package
-is “Ready to Submit”.
+`R CMD check` results, a number of statistics via the [`pkgstats`
+package](https://github.com/ropensci-review-tools/pkgstats), and checks
+for package structure expected for rOpenSci submissions. The output of
+this function immediately indicates whether or not a package is “Ready
+to Submit”.
 
 ## Installation
 
@@ -28,15 +28,16 @@ The easiest way to install this package is via the [associated
 As shown there, simply enable the universe with
 
 ``` r
-options(repos = c(
+options (repos = c (
     ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
-    CRAN = "https://cloud.r-project.org"))
+    CRAN = "https://cloud.r-project.org"
+))
 ```
 
 And then install the usual way with,
 
 ``` r
-install.packages("pkgcheck")
+install.packages ("pkgcheck")
 ```
 
 Alternatively, the package can be installed by running one of the
@@ -69,7 +70,7 @@ Personal Authorization Token). This can be obtained from GitHub (via
 your user settings), and stored using
 
 ``` r
-Sys.setenv("GITHUB_TOKEN" = "<my_token>")
+Sys.setenv ("GITHUB_TOKEN" = "<my_token>")
 ```
 
 This can also be set permanently by putting this line in your
@@ -78,7 +79,7 @@ This can also be set permanently by putting this line in your
 then be loaded via a `library` call:
 
 ``` r
-library(pkgcheck)
+library (pkgcheck)
 ```
 
 ## Usage
@@ -107,22 +108,22 @@ summary (x)
 ## 
 ## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
-## ✔ Package uses 'roxygen2'
-## ✖ Package does not have a 'contributing.md' file
-## ✖ Package does not have a 'CITATION' file
-## ✖ Package does not have a 'codemeta.json' file
-## ✔ All functions have examples
-## ✔ Package 'DESCRIPTION' has a URL field
-## ✖ Package 'DESCRIPTION' does not have a BugReports field
 ## ✔ Package name is available
-## ✖ Package has no continuous integration checks
-## ✖ Package coverage is 0% (should be at least 75%)
-## ✔ R CMD check found no errors
-## ✔ R CMD check found no warnings
-## ✔ All applicable standards [v0.0.1] have been documented in this package
+## ✖ does not have a 'CITATION' file.
+## ✖ does not have a 'codemeta.json' file.
+## ✖ does not have a 'contributing' file.
+## ✔ uses 'roxygen2'.
+## ✔ 'DESCRIPTION' has a URL field.
+## ✖ 'DESCRIPTION' does not have a BugReports field.
+## ✖ Package has at no HTML vignettes
+## ✔ All functions have examples.
+## ✖ Package has no continuous integration checks.
+## ✖ Package coverage is 0% (should be at least 75%).
+## ✔ R CMD check found no errors.
+## ✔ R CMD check found no warnings.
 ## 
 ## ℹ Current status:
-## ✖ This package is not ready to be submitted
+## ✖ This package is not ready to be submitted.
 ## 
 ```
 
@@ -194,9 +195,7 @@ is itself a list including the following items:
 names (x)
 ```
 
-    ##  [1] "package"      "version"      "url"          "license"      "summary"     
-    ##  [6] "git"          "srr"          "file_list"    "fns_have_exs" "left_assigns"
-    ## [11] "pkgstats"     "network_file" "gp"           "scrap"        "pkg_versions"
+    ## [1] "pkg"          "info"         "checks"       "meta"         "goodpractice"
 
 The first four of these contain information on the package. The
 remainder include:
@@ -284,7 +283,7 @@ previous reports to a local cache, in a `pkgcheck` subdirectory of the
 location determined by
 
 ``` r
-rappdirs::user_cache_dir()
+rappdirs::user_cache_dir ()
 ```
 
 As explained in the help file for that function, these locations are:
