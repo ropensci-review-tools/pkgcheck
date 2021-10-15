@@ -110,7 +110,7 @@
 <pre><code>#&gt; List of 5
 #&gt;  $ pkg         :List of 8
 #&gt;   ..$ name        : chr "dummypkg"
-#&gt;   ..$ path        : chr "/tmp/Rtmpq8FTiD/dummypkg"
+#&gt;   ..$ path        : chr "/tmp/RtmpFVQxQc/dummypkg"
 #&gt;   ..$ version     : chr "0.0.0.9000"
 #&gt;   ..$ url         : chr(0) 
 #&gt;   ..$ BugReports  : chr(0) 
@@ -137,7 +137,7 @@
 #&gt;   .. ..$ message     : chr [1:108] "This package still has TODO standards and can not be submitted" "Package can not be submitted because the following standards [v0.1.0] are missing from your code:" "" "G1.0" ...
 #&gt;   .. ..$ categories  : chr "Regression and Supervised Learning"
 #&gt;   .. ..$ missing_stds: chr "G1.0, G1.4a, G1.6, G2.0a, G2.1a, G2.2, G2.3a, G2.3b, G2.4, G2.4a, G2.4b, G2.4c, G2.4d, G2.4e, G2.5, G2.6, G2.7,"| __truncated__
-#&gt;   .. ..$ report_file : chr "/home/runner/.cache/pkgcheck/static/dummypkg_srr2021-10-15-10:28:40.html"
+#&gt;   .. ..$ report_file : chr "/home/runner/.cache/pkgcheck/static/dummypkg_srr2021-10-15-10:31:11.html"
 #&gt;   .. ..$ okay        : logi FALSE
 #&gt;   ..$ pkgstats    :'data.frame': 25 obs. of  4 variables:
 #&gt;   .. ..$ measure   : chr [1:25] "files_R" "files_src" "files_vignettes" "files_tests" ...
@@ -187,13 +187,13 @@
 <span class="op">}</span></code></pre></div>
 <p>This check is particularly simple, because a <code>"CITATION"</code> file <a href="https://cran.r-project.org/doc/manuals/R-exts.html#CITATION-files">must have exactly that name, and must be in the <code>inst</code> sub-directory</a>. This function returns a simple logical of <code>TRUE</code> if the expected <code>"CITATION"</code> file is present, otherwise it returns <code>FALSE</code>. This function, and all functions beginning with the prefix <code>pkgchk_</code>, will be automatically called by the main <code><a href="../reference/pkgcheck.html">pkgcheck()</a></code> function, and the value stored in <code>checks$checks$has_citation</code>. The name of the item within the <code>checks$checks</code> list is the name of the function with the <code>pkgchk_</code> prefix removed.</p>
 <p>A more complicated example is the function to check whether a package contains files which should not be there – internally called “scrap” files. The check function itself, <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R">defined in <code>R/check-scrap.R</code></a>, checks for the presence of files matching an internally-defined list including files used to locally cache folder thumbnails such as <code>".DS_Store"</code> or <code>"Thumbs.db"</code>. The function returns a character vector of the names of any “scrap” files which can be used by the <code>print</code> method to provide details of files which should be removed. This illustrates the first general principle of these check functions; that,</p>
-<div class="alert alert-primary">
+<div class="alert alert-info">
 <ul>
 <li><em>Any information needed when summarising or printing the check result should be returned from the main check function.</em></li>
 </ul>
 </div>
 <p>A second important principle is that,</p>
-<div class="alert alert-primary">
+<div class="alert alert-info">
 <ul>
 <li>
 <em>Check functions should never return <code>NULL</code>, rather should always return an empty vector (such as <code><a href="https://rdrr.io/r/base/integer.html">integer(0)</a></code>)</em>.</li>
