@@ -89,6 +89,7 @@ roxygen2::roxygenise (d)
 checks <- pkgcheck::pkgcheck (d, goodpractice = FALSE)
 checks$goodpractice <- "Output of goodpractice goes here"
 ```
+                       
 ```{r pkgcheck-str, echo = FALSE}
 str (checks)
 ```
