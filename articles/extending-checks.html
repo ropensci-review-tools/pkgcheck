@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.094</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.095</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
 <pre><code>#&gt; List of 5
 #&gt;  $ pkg         :List of 8
 #&gt;   ..$ name        : chr "dummypkg"
-#&gt;   ..$ path        : chr "/tmp/RtmpGctL4E/dummypkg"
+#&gt;   ..$ path        : chr "/tmp/RtmpbuoIPp/dummypkg"
 #&gt;   ..$ version     : chr "0.0.0.9000"
 #&gt;   ..$ url         : chr(0) 
 #&gt;   ..$ BugReports  : chr(0) 
@@ -137,7 +137,7 @@
 #&gt;   .. ..$ message     : chr [1:108] "This package still has TODO standards and can not be submitted" "Package can not be submitted because the following standards [v0.1.0] are missing from your code:" "" "G1.0" ...
 #&gt;   .. ..$ categories  : chr "Regression and Supervised Learning"
 #&gt;   .. ..$ missing_stds: chr "G1.0, G1.4a, G1.6, G2.0a, G2.1a, G2.2, G2.3a, G2.3b, G2.4, G2.4a, G2.4b, G2.4c, G2.4d, G2.4e, G2.5, G2.6, G2.7,"| __truncated__
-#&gt;   .. ..$ report_file : chr "/home/runner/.cache/pkgcheck/static/dummypkg_srr2021-10-15-12:30:46.html"
+#&gt;   .. ..$ report_file : chr "/home/runner/.cache/pkgcheck/static/dummypkg_srr2021-10-15-13:57:38.html"
 #&gt;   .. ..$ okay        : logi FALSE
 #&gt;   ..$ pkgstats    :'data.frame': 25 obs. of  4 variables:
 #&gt;   .. ..$ measure   : chr [1:25] "files_R" "files_src" "files_vignettes" "files_tests" ...
@@ -165,7 +165,7 @@
 #&gt;   ..$ on_cran          : logi FALSE
 #&gt;   ..$ pkgname_available: logi TRUE
 #&gt;   ..$ uses_roxygen2    : logi TRUE
-#&gt;  $ meta        : Named chr [1:3] "0.0.2.61" "0.0.2.94" "0.0.1.120"
+#&gt;  $ meta        : Named chr [1:3] "0.0.2.62" "0.0.2.95" "0.0.1.120"
 #&gt;   ..- attr(*, "names")= chr [1:3] "pkgstats" "pkgcheck" "srr"
 #&gt;  $ goodpractice: chr "Output of goodpractice goes here"
 #&gt;  - attr(*, "class")= chr [1:2] "pkgcheck" "list"</code></pre>
@@ -183,6 +183,7 @@
 <span class="co">#' \pkg{goodpractice} results.</span>
 <span class="co">#' @noRd</span>
 <span class="va">pkgchk_has_citation</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">{</span>
+
     <span class="st">"CITATION"</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span> <span class="op">(</span><span class="va">checks</span><span class="op">$</span><span class="va">pkg</span><span class="op">$</span><span class="va">path</span>, <span class="st">"inst"</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>This check is particularly simple, because a <code>"CITATION"</code> file <a href="https://cran.r-project.org/doc/manuals/R-exts.html#CITATION-files">must have exactly that name, and must be in the <code>inst</code> sub-directory</a>. This function returns a simple logical of <code>TRUE</code> if the expected <code>"CITATION"</code> file is present, otherwise it returns <code>FALSE</code>. This function, and all functions beginning with the prefix <code>pkgchk_</code>, will be automatically called by the main <code><a href="../reference/pkgcheck.html">pkgcheck()</a></code> function, and the value stored in <code>checks$checks$has_citation</code>. The name of the item within the <code>checks$checks</code> list is the name of the function with the <code>pkgchk_</code> prefix removed.</p>
@@ -208,6 +209,7 @@
 <p>The <code>output_pkgchk_has_citation()</code> function then looks like this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_pkgchk_has_citation</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">{</span>
+
     <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span> <span class="op">(</span>
         check_pass <span class="op">=</span> <span class="va">checks</span><span class="op">$</span><span class="va">checks</span><span class="op">$</span><span class="va">has_citation</span>,
         summary <span class="op">=</span> <span class="st">""</span>,
@@ -239,6 +241,7 @@
 <p>Checks for which <code>print</code> information is desired require a non-empty <code>print</code> item, as in the <a href="https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R"><code>output_pkgchk_has_scrap()</code> function</a>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_pkgchk_has_scrap</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">{</span>
+
     <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span> <span class="op">(</span>
         check_pass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span> <span class="op">(</span><span class="va">checks</span><span class="op">$</span><span class="va">checks</span><span class="op">$</span><span class="va">scrap</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0L</span>,
         summary <span class="op">=</span> <span class="st">""</span>,
