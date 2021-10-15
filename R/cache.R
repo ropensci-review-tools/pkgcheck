@@ -64,3 +64,63 @@ current_hash <- function (path) {
 
     c (pkg, hash)
 }
+
+cache_pkgstats_component <- function (path, what = "goodpractice") {
+
+    what <- match.arg (what, c ("goodpractice", "pkgstats"))
+
+    dir_name <- ifelse (
+        what == "goodpractice",
+        "gp_reports",
+        "pkgstats_results"
+    )
+    this_fn <- ifelse (
+        what == "goodpractice",
+        goodpractice::goodpractice,
+        pkgstats::pkgstats
+    )
+
+
+    pkg_hash <- current_hash (path)
+    fname <- paste0 (pkg_hash [1], "_", pkg_hash [2])
+    cache_dir <- file.path (
+        getOption ("pkgcheck.cache_dir"),
+        dir_name
+    )
+    if (!dir.exists (cache_dir)) {
+        dir.create (cache_dir, recursive = TRUE)
+    }
+
+    cache_file <- file.path (cache_dir, fname)
+
+    # rm old components:
+    flist <- list.files (cache_dir,
+        pattern = paste0 (
+            .Platform$file.sep,
+            pkg_hash [1],
+            "\\_"
+        ),
+        full.names = TRUE
+    )
+    flist <- flist [which (!grepl (fname, flist))]
+    if (length (flist) > 0) {
+        chk <- file.remove (flist)
+    }
+
+    if (file.exists (cache_file)) {
+
+        out <- readRDS (cache_file)
+
+    } else {
+
+        # this envvar is for goodpractice, but no harm setting for other
+        # components too
+        Sys.setenv ("_R_CHECK_FORCE_SUGGESTS_" = FALSE)
+        out <- do.call (this_fn, list (path))
+        Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
+
+        saveRDS (out, cache_file)
+    }
+
+    return (out)
+}
