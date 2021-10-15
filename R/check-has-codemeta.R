@@ -5,10 +5,12 @@
 #' \pkg{goodpractice} results.
 #' @noRd
 pkgchk_has_codemeta <- function (checks) {
+
     "codemeta.json" %in% list.files (checks$pkg$path, recursive = FALSE)
 }
 
 output_pkgchk_has_codemeta <- function (checks) {
+
     out <- list (
         check_pass = checks$checks$has_codemeta,
         summary = "",

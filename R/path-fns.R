@@ -5,6 +5,7 @@
 #' an R package.
 #' @noRd
 convert_path <- function (path = ".") {
+
     path <- normalizePath (path)
 
     # see also https://github.com/r-lib/usethis/blob/master/R/proj.R

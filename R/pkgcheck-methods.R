@@ -1,5 +1,6 @@
 #' @export
 print.pkgcheck <- function (x, ...) {
+
     requireNamespace ("goodpractice")
 
     cli::cli_h1 (paste0 (x$pkg$name, " ", x$pkg$version))
@@ -72,6 +73,7 @@ print.pkgcheck <- function (x, ...) {
 
 #' @export
 summary.pkgcheck <- function (object, ...) {
+
     cli::cli_h1 (paste0 (object$pkg$name, " ", object$pkg$version))
     message ("")
 
@@ -107,6 +109,7 @@ print_summary <- function (x) {
 }
 
 print_git <- function (x) {
+
     cli::cli_h2 ("git")
 
     since <- strftime (x$info$git$since, "%d-%m-%Y") # nolint
@@ -122,6 +125,7 @@ print_git <- function (x) {
 }
 
 print_structure <- function (x) {
+
     pkg_summ <- x$pkg$summary
 
     cli::cli_h2 ("Package Structure")
@@ -201,6 +205,7 @@ print_structure <- function (x) {
 #' @return Check formatted to apepar in `print` method
 #' @noRd
 print_check <- function (checks, what) {
+
     pkg_env <- asNamespace ("pkgcheck")
     pkg_fns <- ls (envir = pkg_env)
 
@@ -215,6 +220,7 @@ print_check <- function (checks, what) {
 }
 
 print_check_screen <- function (checks, what, pkg_env) {
+
     output_fn <- get (paste0 ("output_pkgchk_", what), envir = pkg_env)
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
@@ -233,6 +239,7 @@ print_check_screen <- function (checks, what, pkg_env) {
 }
 
 print_check_md <- function (checks, what, pkg_env) {
+
     output_fn <- get (paste0 ("output_pkgchk_", what), envir = pkg_env)
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
@@ -264,6 +271,7 @@ print_check_md <- function (checks, what, pkg_env) {
 }
 
 extra_check_prints_from_env <- function (checks) {
+
     extra_env <- options ("pkgcheck_extra_env") [[1]]
     if (!is.list (extra_env)) {
         extra_env <- list (extra_env)

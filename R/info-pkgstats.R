@@ -2,6 +2,7 @@
 # actually being checks
 
 pkginfo_url_from_desc <- function (path, type = "URL") {
+
     type <- match.arg (type, c ("URL", "BugReports"))
 
     desc <- file.path (path, "DESCRIPTION")
@@ -31,18 +32,22 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
 #' @param s Result of `pkgstats(path)`
 #' @noRd
 pkginfo_pkg_name <- function (s) {
+
     s$desc$package
 }
 
 pkginfo_pkg_version <- function (s) {
+
     s$desc$version
 }
 
 pkginfo_pkg_license <- function (s) {
+
     s$desc$license
 }
 
 pkginfo_pkgstats_summary <- function (s) {
+
     pkgstats <- fmt_pkgstats_info (s)
 
     num_exported_fns <- pkgstats$value [pkgstats$measure == "n_fns_r_exported"]

@@ -1,9 +1,11 @@
 
 pkgchk_srr <- function (checks) {
+
     checks$info$srr$okay
 }
 
 output_pkgchk_srr_todo <- function (checks) {
+
     out <- list (
         check_pass = !any (grepl (
             "still has TODO standards",
@@ -20,7 +22,9 @@ output_pkgchk_srr_todo <- function (checks) {
 }
 
 output_pkgchk_srr_missing <- function (checks) {
+
     srr <- checks$info$srr
+
     check_pass <- !any (grepl (
         "following standards \\[v.*\\] are missing",
         srr$message
@@ -40,6 +44,7 @@ output_pkgchk_srr_missing <- function (checks) {
 }
 
 print_srr <- function (x) {
+
     cli::cli_h2 ("rOpenSci Statistical Standards")
     ncats <- length (x$info$srr$categories) # nolint
     cli::cli_alert_info ("The package is in the following {ncats} categor{?y/ies}:") # nolint
@@ -76,6 +81,7 @@ print_srr <- function (x) {
 #' @param checks Result of main \link{pkgcheck} function
 #' @noRd
 srr_checks_to_md <- function (checks) {
+
     if (is.null (checks$info$srr)) {
         return (NULL)
     }

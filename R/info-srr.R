@@ -22,6 +22,7 @@
 #'
 #' @noRd
 pkginfo_srr_report <- function (path) {
+
     srr <- tryCatch (
         srr::srr_stats_pre_submit (path, quiet = TRUE),
         error = function (e) e
@@ -64,8 +65,10 @@ pkginfo_srr_report <- function (path) {
     flist <- flist [grep (f, fnames)]
 
     if (srr_md_file %in% flist) {
+
         srr_rep <- readLines (srr_md_file)
     } else {
+
         if (length (flist) > 0) {
             file.remove (flist)
         }
@@ -90,7 +93,9 @@ pkginfo_srr_report <- function (path) {
     stds <- NULL # missing standards
 
     i <- grep ("standards \\[v.*\\] are missing from your code", srr)
+
     if (length (i) > 0) {
+
         stds <- srr [-seq (i)]
         blank <- which (nchar (stds) == 0)
         # srr_tail <- NULL
@@ -119,6 +124,7 @@ pkginfo_srr_report <- function (path) {
 #' @param s Result of main `srr:srr_report()` function
 #' @noRd
 srr_categories_from_report <- function (s) {
+
     cats <- regmatches (s, gregexpr ("[A-Z]+[0-9]+\\.[0-9]+([a-z]?)", s))
     cats <- sort (unique (unlist (cats)))
     cats <- unique (gsub ("[0-9].*$", "", cats))
@@ -140,5 +146,6 @@ srr_categories_from_report <- function (s) {
 }
 
 report_file <- function (checks) {
+
     Sys.getenv ("PKGCHECK_SRR_REPORT_FILE", checks$info$srr$report_file)
 }

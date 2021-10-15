@@ -13,6 +13,7 @@
 #' @family extra
 #' @export
 logfile_names <- function (path) {
+
     temp_dir <- file.path (Sys.getenv ("PKGCHECK_CACHE_DIR"), "templogs")
     if (!dir.exists (temp_dir)) {
         dir.create (temp_dir, recursive = TRUE)
@@ -38,6 +39,7 @@ logfile_names <- function (path) {
 }
 
 current_hash <- function (path) {
+
     if (!file.exists (file.path (path, "DESCRIPTION"))) {
         stop ("path [", path, "] does not appear to be an R package")
     }

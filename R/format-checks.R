@@ -8,6 +8,7 @@
 #' @family extra
 #' @export
 checks_to_markdown <- function (checks, render = FALSE) {
+
     md_chks <- summarise_all_checks (checks)
 
     md_out <- c (
@@ -159,7 +160,9 @@ checks_to_markdown <- function (checks, render = FALSE) {
 #' @return Report as formatted string
 #' @noRd
 pkgstats_format <- function (checks, sec_num) {
+
     is_noteworthy <- any (checks$info$pkgstats$noteworthy == "TRUE")
+
     note <- ifelse (is_noteworthy,
         paste0 (
             "This package features some noteworthy ",
@@ -230,6 +233,7 @@ pkgstats_format <- function (checks, sec_num) {
 #' @param checks Result of main \link{pkgcheck} function
 #' @noRd
 pkg_stat_desc <- function (checks) {
+
     stats <- checks$info$pkgstats
     loc <- attr (stats, "language")
     files <- attr (stats, "files")
@@ -332,6 +336,7 @@ pkg_stat_desc <- function (checks) {
 #' 2).
 #' @noRd
 pkg_network <- function (checks, sec_num) {
+
     out <- c (
         "",
         paste0 ("### ", sec_num, "a. Network visualisation"),
@@ -382,6 +387,7 @@ pkg_network <- function (checks, sec_num) {
 }
 
 network_file <- function (checks) {
+
     Sys.getenv ("PKGCHECK_TEST_NETWORK_FILE", checks$info$network_file)
 }
 
@@ -393,6 +399,7 @@ network_file <- function (checks) {
 #' @family extra
 #' @export
 render_markdown <- function (md, open = TRUE) {
+
     md <- gsub ("\\:heavy\\_check\\_mark\\:", "&#9989;", md)
     md <- gsub ("\\:heavy\\_multiplication\\_x\\:", "&#10060;", md)
 
@@ -411,6 +418,7 @@ render_markdown <- function (md, open = TRUE) {
 }
 
 add_stats_tooltips <- function (md) {
+
     md <- c (
         "<script>",
         "$(document).ready(function(){", # nolint
@@ -454,6 +462,7 @@ add_stats_tooltips <- function (md) {
 }
 
 tooltip_dictionary <- function () {
+
     out <- rbind (
         c (
             "files_R",

@@ -1,5 +1,6 @@
 
 output_pkgchk_ci <- function (checks) {
+
     check_pass <- length (checks$info$badges) > 0L
     # There should really be badges, but if not, accept passing workflow results
     # regardless (see #87):
@@ -16,6 +17,7 @@ output_pkgchk_ci <- function (checks) {
     )
 
     if (!out$check_pass) {
+
         if (!checks$checks$has_url) {
             out$summary <- paste0 (
                 "Continuous integration checks ",
@@ -24,7 +26,9 @@ output_pkgchk_ci <- function (checks) {
         } else {
             out$summary <- " Package has no continuous integration checks."
         }
+
     } else {
+
         out$summary <- "Package has continuous integration checks."
         if (is.na (checks$info$badges [1])) {
             checks$info$badges <- "(There do not appear to be any)"

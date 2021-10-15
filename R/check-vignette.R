@@ -44,6 +44,7 @@ pkgchk_has_vignette <- function (checks) {
 }
 
 output_pkgchk_has_vignette <- function (checks) {
+
     out <- list (
         check_pass = checks$checks$has_vignette,
         summary = "",

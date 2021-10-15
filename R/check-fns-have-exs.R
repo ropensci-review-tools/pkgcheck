@@ -7,6 +7,7 @@
 #' whether or not it has example lines.
 #' @noRd
 pkgchk_fns_have_exs <- function (checks) {
+
     rd <- list.files (file.path (
         checks$pkg$path, "man"
     ),
@@ -37,6 +38,7 @@ pkgchk_fns_have_exs <- function (checks) {
 }
 
 output_pkgchk_fns_have_exs <- function (checks) {
+
     no_ex <- which (!checks$checks$fns_have_exs)
     no_ex_fns <- names (checks$checks$fns_have_exs) [no_ex]
 

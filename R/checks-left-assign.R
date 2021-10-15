@@ -11,6 +11,7 @@
 #' @return Named vector of 2 values tallying instances of usage of `<-` and `=`.
 #' @noRd
 pkgchk_left_assign <- function (checks) {
+
     rdir <- file.path (checks$pkg$path, "R")
     if (!file.exists (rdir)) {
         return (list (
@@ -30,15 +31,18 @@ pkgchk_left_assign <- function (checks) {
     )
 
     assigns <- vapply (flist, function (i) {
+
         p <- tryCatch (utils::getParseData (parse (i)),
             error = function (e) NULL
         )
+
         assigns <- c (
             ":=" = 0L,
             "<-" = 0L,
             "<<-" = 0L,
             "=" = 0L
         )
+
         if (is.null (p)) {
             return (assigns)
         }
@@ -75,6 +79,7 @@ pkgchk_left_assign <- function (checks) {
 }
 
 output_pkgchk_global_assign <- function (checks) {
+
     out <- list (
         check_pass = !checks$checks$left_assign$global,
         summary = "",
@@ -89,6 +94,7 @@ output_pkgchk_global_assign <- function (checks) {
 }
 
 output_pkgchk_left_assign <- function (checks) {
+
     la <- checks$checks$left_assign$usage # tally of [`<-`, `=`]
 
     out <- list (

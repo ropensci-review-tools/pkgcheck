@@ -9,6 +9,7 @@
 #' @return A \pkg{goodpractice} report
 #' @noRd
 pkgcheck_gp_report <- function (path) {
+
     pkg_hash <- current_hash (path)
     fname <- paste0 (pkg_hash [1], "_", pkg_hash [2])
     gp_cache_dir <- file.path (
@@ -55,7 +56,9 @@ pkgcheck_gp_report <- function (path) {
 #' return tick or cross
 #' @noRd
 summarise_gp_checks <- function (checks) {
+
     if (methods::is (checks$goodpractice$rcmdcheck, "try-error")) {
+
         cond <- attr (
             checks$goodpractice$rcmdcheck,
             "condition"
@@ -68,7 +71,9 @@ summarise_gp_checks <- function (checks) {
             "'."
         )
         rcmd_warns <- NULL
+
     } else {
+
         nerr <- length (checks$goodpractice$rcmdcheck$errors)
         if (nerr == 0) {
             rcmd_errs <- paste0 (
@@ -133,6 +138,7 @@ gp_checks_to_md <- function (checks,
                                  covr_threshold = 70,
                                  digits = 2
                              )) {
+
     gp <- extract_gp_components (checks$goodpractice)
 
 
@@ -263,6 +269,7 @@ convert_gp_components <- function (x,
                                        covr_threshold = 70,
                                        digits = 2
                                    )) {
+
     rcmd <- rcmd_report (x)
 
     covr <- covr_report (x, control)
@@ -276,6 +283,7 @@ convert_gp_components <- function (x,
 
 
 rcmd_report <- function (x) {
+
     ret <- c (
         paste0 (
             "#### `R CMD check` with [rcmdcheck]",
@@ -307,6 +315,7 @@ rcmd_report <- function (x) {
 }
 
 dump_one_rcmd_type <- function (rcmd, type = "errors") {
+
     ret <- NULL
 
     if (!type %in% names (rcmd)) {
@@ -346,6 +355,7 @@ covr_report <- function (x,
                              covr_threshold = 70,
                              digits = 2
                          )) {
+
     res <- c (
         "#### Test coverage with [covr](https://covr.r-lib.org/)",
         ""
@@ -426,6 +436,7 @@ cyclo_report <- function (x,
                               covr_threshold = 70,
                               digits = 2
                           )) {
+
     if ("cyclocomp_threshold" %in% names (control)) {
         cyc_thr <- control$cyclocomp_threshold
     } else {
@@ -481,6 +492,7 @@ cyclo_report <- function (x,
 }
 
 lintr_report <- function (x) {
+
     ret <- c (
         paste0 (
             "#### Static code analyses with [lintr]",

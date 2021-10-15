@@ -12,6 +12,7 @@
 #' @family pkgcheck_fns
 #' @export
 pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
+
     options (pkgcheck_extra_env = extra_env)
 
     path <- convert_path (path)
@@ -77,6 +78,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
 }
 
 pkgcheck_object <- function () {
+
     out <- list (
         pkg = NULL,
         info = NULL,
@@ -90,6 +92,7 @@ pkgcheck_object <- function () {
 }
 
 checks_running_in_bg <- function (path) {
+
     stopvar <- Sys.getenv ("PKGCHECK_PXBG_STOP")
     if (Sys.getenv ("PKGCHECK_BG") != "") {
         stopvar <- ""
@@ -106,6 +109,7 @@ checks_running_in_bg <- function (path) {
 }
 
 pkgstats_info <- function (path) {
+
     s <- suppressWarnings (pkgstats::pkgstats (path))
     s$path <- path
 
@@ -137,6 +141,7 @@ pkgstats_info <- function (path) {
 #' @param s Result of `pkgstats::pkgstats()` call.
 #' @noRd
 parse_pkg_deps <- function (s) {
+
     fields <- c ("depends", "imports", "suggests", "linking_to")
 
     d <- lapply (fields, function (i) {
@@ -159,6 +164,7 @@ parse_pkg_deps <- function (s) {
 #' @return Report as formatted string
 #' @noRd
 fmt_pkgstats_info <- function (s) {
+
     s_summ <- pkgstats::pkgstats_summary (s)
     attr (s_summ, "path") <- s$path
     stat_chks <- stats_checks (s_summ)
@@ -182,6 +188,7 @@ fmt_pkgstats_info <- function (s) {
 #' @return The contents of the "checks" items of the main `pkgcheck` object.
 #' @noRd
 collate_checks <- function (checks) {
+
     pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
     check_fns <- grep ("^pkgchk\\_", pkg_fns, value = TRUE)
     exclude_these <- "ci\\_badges|srr"
@@ -198,6 +205,7 @@ collate_checks <- function (checks) {
 }
 
 collate_extra_env_checks <- function (checks) {
+
     extra_env <- options ("pkgcheck_extra_env") [[1]]
     if (is.null (extra_env)) {
         return (NULL)
@@ -229,6 +237,7 @@ collate_extra_env_checks <- function (checks) {
 }
 
 version_info <- function (nosrr) {
+
     pkgs <- c ("pkgstats", "pkgcheck")
     if (!nosrr) {
         pkgs <- c (pkgs, "srr")

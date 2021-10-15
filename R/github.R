@@ -1,5 +1,6 @@
 
 default_branch_qry <- function (gh_cli, org, repo) {
+
     q <- paste0 ("{
             repository(owner:\"", org, "\", name:\"", repo, "\") {
                        defaultBranchRef {
@@ -15,6 +16,7 @@ default_branch_qry <- function (gh_cli, org, repo) {
 }
 
 commits_qry <- function (gh_cli, org, repo, branch = "main") {
+
     q <- paste0 ("{
         repository(owner:\"", org, "\", name:\"", repo, "\") {
             branch0: ref(qualifiedName: \"", branch, "\") {
@@ -51,10 +53,14 @@ commits_qry <- function (gh_cli, org, repo, branch = "main") {
 #' @family github
 #' @export
 get_gh_token <- function (token_name = "") {
+
     e <- Sys.getenv ()
+
     if (token_name != "") {
+
         toks <- unique (e [grep (token_name, names (e))])
     } else {
+
         toks <- e [grep ("GITHUB", names (e))]
         if (length (unique (toks)) > 1) {
             toks <- toks [grep ("TOKEN|PAT", names (toks))]
@@ -66,6 +72,7 @@ get_gh_token <- function (token_name = "") {
     }
 
     if (length (unique (toks)) > 1) {
+
         stop (
             "There are ",
             length (unique (toks)),
@@ -90,6 +97,7 @@ get_gh_token <- function (token_name = "") {
 #' @family github
 #' @export
 get_default_branch <- function (org, repo) {
+
     token <- get_gh_token ()
 
     gh_cli <- ghql::GraphqlClient$new (
@@ -118,6 +126,7 @@ get_default_branch <- function (org, repo) {
 #' @family github
 #' @export
 get_latest_commit <- function (org, repo) {
+
     token <- get_gh_token ()
 
     gh_cli <- ghql::GraphqlClient$new (

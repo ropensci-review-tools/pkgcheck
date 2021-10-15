@@ -9,11 +9,13 @@
 #' \pkg{goodpractice} results.
 #' @noRd
 pkgchk_has_citation <- function (checks) {
+
     "CITATION" %in% list.files (file.path (checks$pkg$path, "inst"))
 }
 
 # ---- output-pkgchk-citation ----
 output_pkgchk_has_citation <- function (checks) {
+
     out <- list (
         check_pass = checks$checks$has_citation,
         summary = "",

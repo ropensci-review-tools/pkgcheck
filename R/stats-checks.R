@@ -25,7 +25,9 @@ stats_checks <- function (s, threshold = 0.05) {
     c_s <- grep ("^loc\\_", names (s)) # also includes loc_per_fn stats
     c_d <- grep ("^loc\\_", names (dat))
     rel_white_pkg <- rel_white_all <- list ()
+
     for (i in seq_along (b_s)) {
+
         # get directory name:
         nm <- gsub ("blank\\_lines\\_", "", names (s) [b_s [i]])
         rel_white_pkg [[nm]] <- as.numeric (unname (
@@ -34,6 +36,7 @@ stats_checks <- function (s, threshold = 0.05) {
         tmp <- as.numeric (unname (dat [[b_d [i]]] / s [[c_d [i]]]))
         rel_white_all [[nm]] <- tmp [which (!is.na (tmp))]
     }
+
     index <- which (!is.na (rel_white_pkg))
     rel_white_score <- vapply (
         seq_along (rel_white_pkg), function (i) {
@@ -76,6 +79,7 @@ stats_checks <- function (s, threshold = 0.05) {
         return (length (which (dists [[i]] < s [[i]])) /
             length (dists [[i]]))
     }, double (1))
+
     index <- match (names (pc), names (s))
     pc <- data.frame (
         measure = names (pc),

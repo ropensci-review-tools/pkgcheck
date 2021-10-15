@@ -8,12 +8,14 @@
 #' @return Logical flag
 #' @noRd
 pkgchk_has_contrib_md <- function (checks) {
+
     flist <- list.files (
         checks$pkg$path,
         all.files = TRUE,
         recursive = TRUE,
         full.names = FALSE
     )
+
     flist <- vapply (flist, function (i) {
         utils::tail (decompose_path (i) [[1]], 1L)
     },
@@ -27,6 +29,7 @@ pkgchk_has_contrib_md <- function (checks) {
 }
 
 output_pkgchk_has_contrib <- function (checks) {
+
     out <- list (
         check_pass = checks$checks$has_contrib,
         summary = "",

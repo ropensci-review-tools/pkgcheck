@@ -7,6 +7,7 @@
 #' \pkg{goodpractice} results.
 #' @noRd
 pkgchk_on_cran <- function (checks) {
+
     desc <- data.frame (read.dcf (file.path (
         checks$pkg$path,
         "DESCRIPTION"

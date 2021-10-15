@@ -5,6 +5,7 @@
 #' \pkg{goodpractice} results.
 #' @noRd
 pkgchk_pkgname_available <- function (checks) {
+
     desc <- data.frame (read.dcf (file.path (
         checks$pkg$path,
         "DESCRIPTION"
@@ -26,6 +27,7 @@ pkgchk_pkgname_available <- function (checks) {
 }
 
 output_pkgchk_pkgname <- function (checks) {
+
     out <- list (
         check_pass = TRUE,
         summary = "",

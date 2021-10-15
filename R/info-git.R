@@ -1,5 +1,6 @@
 
 repo_is_git <- function (path) {
+
     path <- convert_path (path)
 
     g <- tryCatch (
@@ -16,6 +17,7 @@ repo_is_git <- function (path) {
 #' function to return summary data.
 #' @noRd
 pkginfo_git_info <- function (path) {
+
     path <- convert_path (path)
 
     u <- pkginfo_url_from_desc (path)
@@ -23,6 +25,7 @@ pkginfo_git_info <- function (path) {
     branch <- NULL
 
     if (length (u) > 0L) {
+
         repo <- utils::tail (strsplit (u, "/") [[1]], 1)
         org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
         if (curl::has_internet ()) {
@@ -33,6 +36,7 @@ pkginfo_git_info <- function (path) {
     ret <- list ()
 
     if (repo_is_git (path)) {
+
         gitlog <- gert::git_log (repo = path, max = 1e6)
 
         # use email addresses to identify unique authors

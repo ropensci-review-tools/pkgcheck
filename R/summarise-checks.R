@@ -12,6 +12,7 @@
 #' @param checks Result of main \link{pkgcheck} function
 #' @noRd
 summarise_all_checks <- function (checks) {
+
     pkg_env <- asNamespace ("pkgcheck")
     pkg_fns <- ls (pkg_env)
 
@@ -60,6 +61,7 @@ summarise_all_checks <- function (checks) {
 }
 
 summarise_extra_env_checks <- function (checks) {
+
     extra_env <- options ("pkgcheck_extra_env") [[1]]
     if (!is.list (extra_env)) {
         extra_env <- list (extra_env)
@@ -88,6 +90,7 @@ summarise_extra_env_checks <- function (checks) {
 #' sequence.
 #' @noRd
 order_checks <- function (fns) {
+
     ord <- c (
         "pkgname",
         "has_citation",
@@ -123,6 +126,7 @@ order_checks <- function (fns) {
 #' @return Check formatted to apepar in `summary` method
 #' @noRd
 summarise_check <- function (checks, what, pkg_env) {
+
     pkg_fns <- ls (pkg_env)
     summary_fn <- paste0 ("output_pkgchk_", what)
 

@@ -1,5 +1,6 @@
 
 pkgchk_has_url <- function (checks) {
+
     out <- length (checks$pkg$url) > 0L
     if (out) {
         out <- !is.na (checks$pkg$url)
@@ -9,6 +10,7 @@ pkgchk_has_url <- function (checks) {
 }
 
 pkgchk_has_bugs <- function (checks) {
+
     out <- length (checks$pkg$BugReports) > 0L
     if (out) {
         out <- !is.na (checks$pkg$BugReports)
@@ -18,6 +20,7 @@ pkgchk_has_bugs <- function (checks) {
 }
 
 output_pkgchk_has_url <- function (checks) {
+
     out <- list (
         check_pass = checks$checks$has_url,
         summary = "",
@@ -34,6 +37,7 @@ output_pkgchk_has_url <- function (checks) {
 }
 
 output_pkgchk_has_bugs <- function (checks) {
+
     out <- list (
         check_pass = checks$checks$has_bugs,
         summary = "",

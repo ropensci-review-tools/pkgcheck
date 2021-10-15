@@ -42,6 +42,7 @@ pkgchk_has_scrap <- function (checks) {
 
 # ---- output-pkgchk-scrap ----
 output_pkgchk_has_scrap <- function (checks) {
+
     out <- list (
         check_pass = length (checks$checks$scrap) == 0L,
         summary = "",

@@ -2,12 +2,14 @@
 #' Tick symbol for markdown output
 #' @noRd
 symbol_tck <- function () {
+
     ":heavy_check_mark:"
 }
 
 #' Cross symbol for markdown output
 #' @noRd
 symbol_crs <- function () {
+
     ":heavy_multiplication_x:"
 }
 
@@ -34,6 +36,7 @@ decompose_path <- function (f) {
 #' @family extra
 #' @export
 list_pkgchecks <- function (quiet = FALSE) {
+
     chks <- grep (
         "^pkgchk\\_",
         ls (envir = asNamespace ("pkgcheck"), all.names = TRUE),
@@ -56,6 +59,7 @@ list_pkgchecks <- function (quiet = FALSE) {
 #' packages
 #' @noRd
 exported_fns <- function (path) {
+
     nspace <- readLines (file.path (path, "NAMESPACE"))
     exports <- grep ("^export\\s?\\(", nspace, value = TRUE)
     exports <- gsub ("^export\\s?\\(|\\)$", "", exports)
@@ -82,7 +86,9 @@ exported_fns <- function (path) {
 #' environments.
 #' @noRd
 env2namespace <- function (e) {
+
     if (!is.environment (e)) {
+
         s <- search ()
         e <- s [grep (paste0 (e, "$"), s)]
 
@@ -95,5 +101,6 @@ env2namespace <- function (e) {
             )
         }
     }
+
     return (e)
 }

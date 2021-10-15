@@ -11,6 +11,7 @@
 #' @return Character vector of hyperlinked badge images
 #' @noRd
 pkgchk_ci_badges <- function (u) {
+
     if (!curl::has_internet ()) {
         return (NULL)
     }
@@ -23,6 +24,7 @@ pkgchk_ci_badges <- function (u) {
     branch <- get_default_branch (org, repo)
 
     if (grepl ("github", u)) {
+
         u_readme <- paste0 (
             "https://raw.githubusercontent.com/",
             org,
@@ -32,7 +34,9 @@ pkgchk_ci_badges <- function (u) {
             branch,
             "/README.md"
         )
+
     } else if (grepl ("gitlab", u)) {
+
         u_readme <- paste0 (
             "https://gitlab.com/",
             org,
@@ -59,22 +63,27 @@ pkgchk_ci_badges <- function (u) {
     if (length (badges) == 0) {
         return (NULL)
     }
+
     platforms <- c ("github", "travis", "gitlab")
     badges <- badges [grep (
         paste0 (platforms, collapse = "|"),
         badges
     )]
+
     for (p in platforms) {
+
         index <- grep (p, badges)
         p_u <- p
 
         if (p == "github") {
+
             wf_nms <- vapply (badges [index], function (i) {
                 utils::tail (strsplit (i, "/") [[1]], 2) [1]
             },
             character (1),
             USE.NAMES = FALSE
             )
+
             p_u <- paste0 (
                 "https://github.com/",
                 org,
@@ -82,7 +91,9 @@ pkgchk_ci_badges <- function (u) {
                 repo,
                 "/actions"
             )
+
         } else if (p == "travis") {
+
             p_u <- gsub ("\\.svg$", "", badges [index])
         }
 
@@ -108,10 +119,11 @@ pkgchk_ci_badges <- function (u) {
 #' name, the 'conclusion' status, the git 'sha', and the date.
 #' @noRd
 ci_results_gh <- function (path) {
+
     u <- pkginfo_url_from_desc (path)
     if (length (u) == 0L) {
-          return (NULL)
-      }
+        return (NULL)
+    }
 
     url <- strsplit (u, "\\/") [[1]]
     org <- utils::tail (url, 2) [1]

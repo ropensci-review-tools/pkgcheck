@@ -17,6 +17,7 @@
 #' @family pkgcheck_fns
 #' @export
 pkgcheck_bg <- function (path) {
+
     requireNamespace ("callr")
 
     logfiles <- logfile_names (path)
@@ -32,6 +33,7 @@ pkgcheck_bg <- function (path) {
         "PKGCHECK_PXBG_STOP" = stopfile,
         "PKGCHECK_BG" = TRUE
     )
+
     Sys.setenv ("PKGCHECK_PXBG_STOP" = stopfile)
 
     callr::r_bg (
