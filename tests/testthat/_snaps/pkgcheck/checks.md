@@ -30,7 +30,7 @@ This package is in the following category:
 
 :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 
-Click [here to see the report of author-reported standards compliance of the package with links to associated lines of code](report.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
+[Report of author-reported standards compliance of the package with links to associated lines of code](report.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
 
 ---
 
