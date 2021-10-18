@@ -54,7 +54,7 @@ output_pkgchk_has_vignette <- function (checks) {
     out$summary <- ifelse (
         out$check_pass,
         "Package has at least one HTML vignette",
-        "Package has at no HTML vignettes"
+        "Package has no HTML vignettes"
     )
 
     return (out)

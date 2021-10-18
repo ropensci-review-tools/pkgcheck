@@ -9,7 +9,7 @@ git hash: [](/tree/)
 - :heavy_check_mark: uses 'roxygen2'.
 - :heavy_multiplication_x: 'DESCRIPTION' does not have a URL field.
 - :heavy_multiplication_x: 'DESCRIPTION' does not have a BugReports field.
-- :heavy_multiplication_x: Package has at no HTML vignettes
+- :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [test_fn.Rd].
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
 - :heavy_multiplication_x: Package coverage is 0% (should be at least 75%).
