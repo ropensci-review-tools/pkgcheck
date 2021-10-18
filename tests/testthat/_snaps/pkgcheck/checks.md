@@ -99,7 +99,7 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 
 ### 2a. Network visualisation
 
-Interactive network visualisation of calls between objects in package can be viewed by [clicking here](network.html)
+[Interactive network visualisation of calls between objects in package](network.html)
 
 ---
 
