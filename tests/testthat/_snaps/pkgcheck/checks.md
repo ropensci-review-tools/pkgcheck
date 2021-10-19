@@ -30,7 +30,7 @@ This package is in the following category:
 
 :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 
-Click [here to see the report of author-reported standards compliance of the package with links to associated lines of code](report.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
+Click to see the [report of author-reported standards compliance of the package with links to associated lines of code](report.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
 
 ---
 
@@ -99,7 +99,7 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 
 ### 2a. Network visualisation
 
-Interactive network visualisation of calls between objects in package can be viewed by [clicking here](network.html)
+Click to see the [interactive network visualisation of calls between objects in package](network.html)
 
 ---
 

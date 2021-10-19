@@ -377,9 +377,8 @@ pkg_network <- function (checks, sec_num) {
     return (c (
         out,
         paste0 (
-            "Interactive network visualisation of calls ",
-            "between objects in package can be viewed by ",
-            "[clicking here](",
+            "Click to see the [interactive network visualisation of calls ",
+            "between objects in package](",
             network_file (checks),
             ")"
         )
