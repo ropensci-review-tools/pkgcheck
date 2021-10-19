@@ -110,7 +110,7 @@ srr_checks_to_md <- function (checks) {
         srr_msg,
         "",
         paste0 (
-            "[Report of author-reported ",
+            "Click to see the [report of author-reported ",
             "standards compliance of the package with links to ",
             "associated lines of code](",
             report_file (checks),
