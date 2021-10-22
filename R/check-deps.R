@@ -4,12 +4,12 @@
 #' @noRd
 pkgchk_has_superseded_deps <- function (checks) {
 
-  dependencies <- checks$pkg$dependencies$package
+  deps <- checks$pkg$dependencies$package
 
   if (! any (deps %in% superseded_pkgs()$superseded))
         return (character (0)) # not NULL!
 
-    present_superseded <- superseded_pkgs()[deps %in% superseded_pkgs()$superseded,]
+    present_superseded <- superseded_pkgs()[superseded_pkgs()$superseded %in% deps,]
     superseded_string <- sprintf (
         "%s (recommended: %s)",
         present_superseded$superseded,
