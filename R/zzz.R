@@ -7,10 +7,16 @@
         cache_dir <- file.path (rappdirs::user_cache_dir (), "pkgcheck")
     }
 
+    if (grepl ("\\/", normalizePath ("~"))) {
+        winslash <- "/"
+    } else {
+        winslash <- "\\"
+    }
+
     if (!dir.exists (cache_dir)) {
         dir.create (cache_dir, recursive = TRUE)
     }
-    cache_dir <- normalizePath (cache_dir)
+    cache_dir <- normalizePath (cache_dir, winslash = winslash)
     Sys.setenv ("PKGCHECK_CACHE_DIR" = cache_dir)
 
     if (!dir.exists (file.path (cache_dir, "static"))) {
