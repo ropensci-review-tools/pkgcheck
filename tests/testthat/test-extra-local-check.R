@@ -1,5 +1,8 @@
 
 test_that ("pkgcheck", {
+
+    skip_on_os ("windows")
+
     pkgname <- paste0 (
         sample (c (letters, LETTERS), 8),
         collapse = ""
