@@ -52,7 +52,9 @@ output_pkgchk_fns_have_exs <- function (checks) {
         "All functions have examples.",
         paste0 (
             "These functions do not have ",
-            "examples: [", no_ex_fns, "]."
+            "examples: [",
+            paste0 (no_ex_fns, collapse = ", "),
+            "]."
         )
     )
 
