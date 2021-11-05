@@ -15,6 +15,7 @@ pkgchk_has_vignette <- function (checks) {
     if (dir.exists (base)) {
         vig_path <- list.files (base,
             pattern = "\\.[rR]md$",
+            recursive = TRUE,
             full.names = TRUE
         )
     }
