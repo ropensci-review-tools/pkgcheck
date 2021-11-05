@@ -15,10 +15,15 @@ pkgchk_fns_have_exs <- function (checks) {
     full.names = TRUE
     )
 
+    # don't check for examples in datasets (#103)
     has_ex <- vapply (rd, function (i) {
         rd_i <- tools::parse_Rd (i)
         ex <- get_Rd_meta (rd_i, "examples")
-        length (ex) > 0
+        kw <- get_Rd_meta (rd_i, "keyword")
+        if (length (kw) == 0L) {
+            kw <- ""
+        }
+        (length (ex) > 0 | kw == "datasets")
     },
     logical (1),
     USE.NAMES = TRUE
