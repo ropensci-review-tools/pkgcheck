@@ -11,5 +11,8 @@ knitr: $(LFILE).Rmd
 open: $(LFILE).html
 	xdg-open $(LFILE).html &
 
+check:
+	Rscript -e 'library(pkgcheck); checks <- pkgcheck(); print(checks); summary (checks)'
+
 clean:
 	rm -rf *.html *.png README_cache 
