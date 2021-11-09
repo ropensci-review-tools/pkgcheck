@@ -468,6 +468,14 @@ tooltip_dictionary <- function () {
             "Number of files in R directory"
         ),
         c (
+            "files_src",
+            "Number of files in src directory"
+        ),
+        c (
+            "files_inst",
+            "Number of files in inst directory"
+        ),
+        c (
             "files_vignettes",
             "Number of files in vignettes directory"
         ),
@@ -480,6 +488,20 @@ tooltip_dictionary <- function () {
             paste0 (
                 "Lines of code (excluding documentation and empty lines) ",
                 "in R directory"
+            )
+        ),
+        c (
+            "loc_src",
+            paste0 (
+                "Lines of code (excluding documentation and empty lines) ",
+                "in src directory"
+            )
+        ),
+        c (
+            "loc_inst",
+            paste0 (
+                "Lines of code (excluding documentation and empty lines) ",
+                "in inst directory"
             )
         ),
         c (
@@ -513,8 +535,16 @@ tooltip_dictionary <- function () {
             "Total number of non-exported R functions"
         ),
         c (
+            "n_fns_src",
+            "Total number of exported and non-exported src functions"
+        ),
+        c (
             "n_fns_per_file_r",
             "Median number of functions per R source file"
+        ),
+        c (
+            "n_fns_per_file_src",
+            "Median number of functions per src source file"
         ),
         c (
             "num_params_per_fn",
@@ -523,6 +553,10 @@ tooltip_dictionary <- function () {
         c (
             "loc_per_fn_r",
             "Median number of lines of code for each R function"
+        ),
+        c (
+            "loc_per_fn_src",
+            "Median number of lines of code for each src function"
         ),
         c (
             "loc_per_fn_r_exp",
@@ -534,7 +568,15 @@ tooltip_dictionary <- function () {
         ),
         c (
             "rel_whitespace_R",
-            "Relative proportion of white characters within each code line"
+            "Relative proportion of white characters within each R code line"
+        ),
+        c (
+            "rel_whitespace_src",
+            "Relative proportion of white characters within each src code line"
+        ),
+        c (
+            "rel_whitespace_inst",
+            "Relative proportion of white characters within each inst code line"
         ),
         c (
             "rel_whitespace_vignettes",
