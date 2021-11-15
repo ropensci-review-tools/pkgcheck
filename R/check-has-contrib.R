@@ -1,7 +1,6 @@
 
 
-#' Check whether package has 'contributing.md', as well as whether it has a
-#' life cycle statement
+#' Check whether package has contributor guidelines in a 'contributing' file.
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
