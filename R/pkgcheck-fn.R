@@ -48,6 +48,8 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
         checks$info <- s$out [c ("git", "pkgstats")]
     }
 
+    checks$info$pkgdown_concepts <- pkginfo_pkgdown (path)
+
     checks$info$network_file <- fn_call_network (s)
 
     if (goodpractice) {
