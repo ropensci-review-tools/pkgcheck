@@ -38,6 +38,11 @@ logfile_names <- function (path) {
     return (list (stdout = sout, stderr = serr))
 }
 
+#' Get hash of last git commit
+#'
+#' @param path Path to local source directory
+#' @return Vector of 2 values: (package name, hash)
+#' @noRd
 current_hash <- function (path) {
 
     if (!file.exists (file.path (path, "DESCRIPTION"))) {
