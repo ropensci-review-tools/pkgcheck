@@ -25,8 +25,7 @@ pkgcheck_gp_report <- function (path) {
     # rm old gp reports:
     flist <- list.files (gp_cache_dir,
         pattern = paste0 (
-            .Platform$file.sep,
-            pkg_hash [1],
+            pkg_hash [1], # name of package
             "\\_"
         ),
         full.names = TRUE
