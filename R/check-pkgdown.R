@@ -1,4 +1,6 @@
 
+# This check is currently active, but can be modified and switched on to check
+# pkgdown-related aspects of package documentation.
 output_pkgchk_pkgdown <- function (checks) {
 
     # Grouped concepts must mean at least 2, so check is > 1:
@@ -9,9 +11,9 @@ output_pkgchk_pkgdown <- function (checks) {
     )
 
     if (!out$check_pass) {
-        out$summary <- paste0 (
-            "Function documentation entries are not grouped by concept"
-        )
+        # out$summary <- paste0 (
+        #    "Function documentation entries are not grouped by concept"
+        # )
     }
 
     return (out)
