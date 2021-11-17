@@ -1,6 +1,5 @@
 
-#' Check that 'roxygen2' function documentation is organised into
-#' 'pkgdown' family groups.
+#' Get list of all 'concepts' used to group man entries.
 #'
 #' @param path Location of local repository to report on
 #'
@@ -21,5 +20,6 @@ pkginfo_pkgdown <- function (path) {
     USE.NAMES = TRUE
     )
 
+    # Files with no concepts are NA, which is okay:
     unique (concepts [which (!is.na (concepts))])
 }
