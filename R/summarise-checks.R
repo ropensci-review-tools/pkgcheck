@@ -93,10 +93,12 @@ order_checks <- function (fns) {
 
     ord <- c (
         "pkgname",
+        "license",
         "has_citation",
         "has_codemeta",
         "has_contrib",
         "uses_roxygen2",
+        "pkgdown",
         "has_url",
         "has_bugs",
         "has_vignette",
