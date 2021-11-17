@@ -16,6 +16,7 @@
 ^\.pre-commit-config\.yaml$
 .ropensci-staff
 ^\.hooks$
+data-raw/
 ^ctags$
 ^inst/precommit$
 ^inst/WORDLIST$
