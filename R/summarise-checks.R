@@ -95,6 +95,7 @@ order_checks <- function (fns) {
         "pkgname",
         "license",
         "has_citation",
+        "obsolete_pkg_deps",
         "has_codemeta",
         "has_contrib",
         "uses_roxygen2",
