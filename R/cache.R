@@ -101,8 +101,7 @@ cache_pkgstats_component <- function (path, what = "goodpractice") {
     # rm old components:
     flist <- list.files (cache_dir,
         pattern = paste0 (
-            .Platform$file.sep,
-            pkg_hash [1],
+            pkg_hash [1], # name of package
             "\\_"
         ),
         full.names = TRUE
