@@ -10,46 +10,7 @@
 #' @noRd
 pkgcheck_gp_report <- function (path) {
 
-    pkg_hash <- current_hash (path)
-    fname <- paste0 (pkg_hash [1], "_", pkg_hash [2])
-    gp_cache_dir <- file.path (
-        getOption ("pkgcheck.cache_dir"),
-        "gp_reports"
-    )
-    if (!dir.exists (gp_cache_dir)) {
-        dir.create (gp_cache_dir, recursive = TRUE)
-    }
-
-    gp_cache_file <- file.path (gp_cache_dir, fname)
-
-    # rm old gp reports:
-    flist <- list.files (gp_cache_dir,
-        pattern = paste0 (
-            pkg_hash [1], # name of package
-            "\\_"
-        ),
-        full.names = TRUE
-    )
-    flist <- flist [which (!grepl (fname, flist))]
-    if (length (flist) > 0) {
-        chk <- file.remove (flist)
-    }
-
-    if (file.exists (gp_cache_file)) {
-        gp <- readRDS (gp_cache_file)
-    } else {
-        if (!file.exists (gp_cache_dir)) {
-            dir.create (gp_cache_dir, recursive = TRUE)
-        }
-
-        Sys.setenv ("_R_CHECK_FORCE_SUGGESTS_" = FALSE)
-        gp <- goodpractice::goodpractice (path)
-        Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
-
-        saveRDS (gp, gp_cache_file)
-    }
-
-    return (gp)
+    cache_pkgstats_component (path, "goodpractice")
 }
 
 #' return tick or cross
