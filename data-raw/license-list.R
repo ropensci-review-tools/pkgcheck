@@ -1,3 +1,8 @@
+# Extracts lists of CRAN-acceptable licenses (plus one additional CDDL
+# license from the OSI), and writes to R/license-list.R to use in license
+# checks.
+# This should never have to be re-run. See revision history of the file at
+# https://github.com/ropensci-review-tools/pkgcheck/issues/73#issuecomment-972846817
 
 u <- "https://svn.r-project.org/R/trunk/share/licenses/license.db"
 f <- file.path (tempdir (), "license.db")
