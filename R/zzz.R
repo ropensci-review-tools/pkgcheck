@@ -33,4 +33,10 @@
     }
     invisible ()
 }
+
+.onUnload <- function (libname, pkgname) { # nolint
+
+    options ("pkgcheck.cache_dir" = NULL)
+    Sys.unsetenv ("PKGCHECK_CACHE_DIR")
+}
 # nocov end
