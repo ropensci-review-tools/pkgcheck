@@ -24,10 +24,18 @@ pkgchk_on_cran <- function (checks) {
             "https://cran.r-project.org/web/packages/",
             pkg, "/index.html"
         )
-        x <- rvest::read_html (u)
-        h2 <- paste0 (rvest::html_elements (x, "h2"))
-        h2 <- gsub ("<h2>|<\\/h2>", "", h2)
-        res <- grepl (desc$Title, h2, ignore.case = TRUE)
+        x <- tryCatch (
+            rvest::read_html (u),
+            error = function (e) e
+        )
+
+        if (methods::is (x, "simpleError")) {
+            res <- FALSE
+        } else {
+            h2 <- paste0 (rvest::html_elements (x, "h2"))
+            h2 <- gsub ("<h2>|<\\/h2>", "", h2)
+            res <- grepl (desc$Title, h2, ignore.case = TRUE)
+        }
     }
 
     return (res)
