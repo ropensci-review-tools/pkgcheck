@@ -4,7 +4,9 @@
 #'
 #' The list of obsolete packages is
 #' \url{https://devguide.ropensci.org/building.html#recommended-scaffolding},
-#' defined below.
+#' defined below. Some of these are truly obsolete, the use of which raises a
+#' red cross in the summary method; while others are only potentially obsolete,
+#' thus use of which merely raises a note via a print method.
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
@@ -13,7 +15,10 @@
 #' @noRd
 pkgchk_obsolete_pkg_deps <- function (checks) {
 
-    obs_pkgs <- c ("RCurl", "rjson", "RJSONIO", "XML")
+    obs_pkgs <- c (
+        "RCurl", "rjson", "RJSONIO", "XML", # truly obselete
+        "sp", "rgdal", "maptools", "rgeos" # potentially obsolete
+    )
 
     deps <- checks$pkg$dependencies$package
     deps <- deps [which (!deps == "NA")]
@@ -21,7 +26,14 @@ pkgchk_obsolete_pkg_deps <- function (checks) {
     deps [which (deps %in% obs_pkgs)]
 }
 
-output_pkgchk_obsolete_pkg_deps <- function (checks) {
+output_pkgchk_obsolete_pkg_deps <- function (checks) { # nolint
+
+    # https://github.com/ropensci/software-review-meta/issues/47
+    potential <- paste0 (c ("sp", "rgdal", "maptools", "rgeos"), collapse = "|")
+    potential <- grep (potential, checks$checks$obsolete_pkg_deps, value = TRUE)
+
+    index <- which (!grepl (paste0 (potential, collapse = "|"), obs_pkg_deps))
+    obs_pkg_deps <- checks$checks$obsolete_pkg_deps [index]
 
     out <- list (
         check_pass = length (checks$checks$obsolete_pkg_deps) == 0L,
@@ -32,8 +44,21 @@ output_pkgchk_obsolete_pkg_deps <- function (checks) {
     if (!out$check_pass) {
         out$summary <- paste0 (
             "Package depends on the following obsolete packages: [",
-            paste0 (checks$checks$obsolete_pkg_deps, collapse = ","),
-            "]"
+            paste0 (obs_pkg_deps, collapse = ","), "]"
+        )
+    }
+
+    if (length (potential) > 0L) {
+
+        out$print <- paste0 (
+            "Package contains the following (potentially) ",
+            "obsolete packages:\n",
+            paste0 ("- ", potential),
+            "",
+            "See our [Recommended Scaffolding](",
+            "https://devguide.ropensci.org/",
+            "building.html?q=scaffol#recommended-scaffolding)",
+            " for alternatives."
         )
     }
 
