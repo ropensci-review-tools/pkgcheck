@@ -32,7 +32,10 @@ output_pkgchk_obsolete_pkg_deps <- function (checks) { # nolint
     potential <- paste0 (c ("sp", "rgdal", "maptools", "rgeos"), collapse = "|")
     potential <- grep (potential, checks$checks$obsolete_pkg_deps, value = TRUE)
 
-    index <- which (!grepl (paste0 (potential, collapse = "|"), obs_pkg_deps))
+    index <- which (!grepl (
+        paste0 (potential, collapse = "|"),
+        checks$checks$obsolete_pkg_deps
+    ))
     obs_pkg_deps <- checks$checks$obsolete_pkg_deps [index]
 
     out <- list (
@@ -50,15 +53,12 @@ output_pkgchk_obsolete_pkg_deps <- function (checks) { # nolint
 
     if (length (potential) > 0L) {
 
-        out$print <- paste0 (
-            "Package contains the following (potentially) ",
-            "obsolete packages:\n",
-            paste0 ("- ", potential),
-            "",
-            "See our [Recommended Scaffolding](",
-            "https://devguide.ropensci.org/",
-            "building.html?q=scaffol#recommended-scaffolding)",
-            " for alternatives."
+        out$print <- list (
+            message = paste0 (
+                "Package contains the following (potentially) ",
+                "obsolete packages:"
+            ),
+            obj = potential
         )
     }
 
