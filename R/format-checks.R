@@ -90,7 +90,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
 
     extra <- extra_check_prints_from_env (checks)
     has_extra <- length (extra$env) > 0L |
-        length (checks$checks$scrap) > 0L
+        length (checks$checks$has_scrap) > 0L
     if (has_extra) {
         e <- env2namespace ("pkgcheck")
         md_out <- c (
@@ -101,7 +101,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
             "### 4. Other Checks",
             ""
         )
-        if (length (checks$checks$scrap) > 0L) {
+        if (length (checks$checks$has_scrap) > 0L) {
             md_out <- c (
                 md_out,
                 print_check_md (
