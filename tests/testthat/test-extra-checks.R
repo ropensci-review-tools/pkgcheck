@@ -47,4 +47,15 @@ test_that ("extra checks", {
     writeLines (md, con = file.path (md_dir, "checks-extra.md"))
 
     testthat::expect_snapshot_file (file.path (md_dir, "checks-extra.md"))
+
+    h <- render_markdown (md, open = FALSE)
+    f <- file.path (md_dir, "checks-extra.html")
+    file.rename (h, f)
+    # title includes path, so reset to generic value:
+    h <- readLines (f)
+    i <- grep ("^<title>", h) [1]
+    h [i] <- "<title>pkgcheck.knit</title>"
+    writeLines (h, con = f)
+
+    testthat::expect_snapshot_file (f)
 })
