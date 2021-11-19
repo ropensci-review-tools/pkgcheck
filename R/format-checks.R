@@ -98,7 +98,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
             "",
             "---",
             "",
-            "### 4. Other Checks",
+            paste0 ("### ", sec_num + 2, ". Other Checks"),
             ""
         )
         if (length (checks$checks$has_scrap) > 0L) {
