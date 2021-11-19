@@ -260,12 +260,12 @@ print_check_md <- function (checks, what, pkg_env) {
     if (!chk_output$check_pass) {
         out <- c (
             "",
-            paste0 (symbol_crs (), " ", chk_output$print$message)
+            paste0 (symbol_crs (), " ", chk_output$print$msg_pre)
         )
-    } else if (nchar (chk_output$print$message) > 0L) {
+    } else if (nchar (chk_output$print$msg_pre) > 0L) {
         out <- c (
             "",
-            paste0 (symbol_tck (), " ", chk_output$print$message)
+            paste0 (symbol_tck (), " ", chk_output$print$msg_pre)
         )
     }
 
@@ -274,6 +274,15 @@ print_check_md <- function (checks, what, pkg_env) {
             out,
             "",
             paste0 ("- ", chk_output$print$obj),
+            ""
+        )
+    }
+
+    if (length (chk_output$print$msg_post) > 0L) {
+        out <- c (
+            out,
+            "",
+            chk_output$print$msg_post,
             ""
         )
     }
