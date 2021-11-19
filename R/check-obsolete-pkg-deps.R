@@ -32,7 +32,8 @@ output_pkgchk_obsolete_pkg_deps <- function (checks) {
     if (!out$check_pass) {
         out$summary <- paste0 (
             "Package depends on the following obsolete packages: [",
-            checks$checks$obsolete_pkg_deps, "]"
+            paste0 (checks$checks$obsolete_pkg_deps, collapse = ","),
+            "]"
         )
     }
 
