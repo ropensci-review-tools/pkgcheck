@@ -26,6 +26,7 @@ repos:
           .*\.[rR]|
           .*\.Rproj|
           .*\.py|
+          .*\.html|
           .*\.feather|
           .*\.rds|
           .*\.Rds|

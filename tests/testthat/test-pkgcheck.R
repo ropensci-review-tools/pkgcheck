@@ -85,6 +85,11 @@ test_that ("pkgcheck", {
     writeLines (md, con = file.path (md_dir, "checks.md"))
 
     testthat::expect_snapshot_file (file.path (md_dir, "checks.md"))
+
+    h <- render_markdown (md, open = FALSE)
+    f <- file.path (md_dir, "checks.html")
+    file.rename (h, f)
+    testthat::expect_snapshot_file (f)
 })
 
 test_that ("pkgcheck without goodpractice", {
