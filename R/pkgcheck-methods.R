@@ -224,23 +224,28 @@ print_check <- function (checks, what) {
 print_check_screen <- function (checks, what, pkg_env) {
 
     if (length (checks$checks [[what]]) == 0L) {
-          return ()
-      }
+        return ()
+    }
 
     output_fn <- get (paste0 ("output_pkgchk_", what), envir = pkg_env)
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
 
     if (chk_output$check_pass) {
-        cli::cli_alert_success (chk_output$print$message)
+        cli::cli_alert_success (chk_output$print$msg_pre)
     } else {
-        cli::cli_alert_danger (chk_output$print$message)
+        cli::cli_alert_danger (chk_output$print$msg_pre)
     }
 
     if (is.vector (chk_output$print$obj)) {
         cli::cli_ul ()
         cli::cli_li (chk_output$print$obj)
         cli::cli_end ()
+    }
+
+    if (length (chk_output$print$msg_post) > 0L) {
+        cli::cli_text ()
+        cli::cli_text (chk_output$print$msg_post)
     }
 }
 

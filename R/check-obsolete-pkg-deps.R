@@ -54,11 +54,17 @@ output_pkgchk_obsolete_pkg_deps <- function (checks) { # nolint
     if (length (potential) > 0L) {
 
         out$print <- list (
-            message = paste0 (
+            msg_pre = paste0 (
                 "Package contains the following (potentially) ",
                 "obsolete packages:"
             ),
-            obj = potential
+            obj = potential,
+            msg_post = paste0 (
+                "See our ",
+                "[Recommended Scaffolding](https://devguide.ropensci.org/",
+                "building.html?q=scaffol#recommended-scaffolding)",
+                " for alternatives."
+            )
         )
     }
 

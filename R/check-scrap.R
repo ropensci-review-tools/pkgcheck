@@ -44,7 +44,7 @@ pkgchk_has_scrap <- function (checks) {
 output_pkgchk_has_scrap <- function (checks) {
 
     out <- list (
-        check_pass = length (checks$checks$scrap) == 0L,
+        check_pass = length (checks$checks$has_scrap) == 0L,
         summary = "",
         print = ""
     )
@@ -52,11 +52,12 @@ output_pkgchk_has_scrap <- function (checks) {
     if (!out$check_pass) {
         out$summary <- "Package contains unexpected files."
         out$print <- list (
-            message = paste0 (
+            msg_pre = paste0 (
                 "Package contains the ",
                 "following unexpected files:"
             ),
-            obj = checks$checks$scrap
+            obj = checks$checks$has_scrap,
+            msg_post = character (0)
         )
     }
 
