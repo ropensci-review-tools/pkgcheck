@@ -64,7 +64,7 @@ pkgchk_ci_badges <- function (u) {
         return (NULL)
     }
 
-    platforms <- c ("github", "travis", "gitlab")
+    platforms <- paste0 ("https\\:\\/\\/", c ("github", "travis", "gitlab"))
     badges <- badges [grep (
         paste0 (platforms, collapse = "|"),
         badges
