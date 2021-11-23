@@ -64,7 +64,7 @@ pkgchk_ci_badges <- function (u) {
         return (NULL)
     }
 
-    platforms <- paste0 ("https\\:\\/\\/", c ("github", "travis", "gitlab"))
+    platforms <- paste0 ("https\\:\\/\\/", c ("github", "gitlab"))
     badges <- badges [grep (
         paste0 (platforms, collapse = "|"),
         badges
@@ -92,9 +92,6 @@ pkgchk_ci_badges <- function (u) {
                 "/actions"
             )
 
-        } else if (p == "travis") {
-
-            p_u <- gsub ("\\.svg$", "", badges [index])
         }
 
         badges [index] <- paste0 (
