@@ -54,7 +54,7 @@ pkgchk_ci_badges <- function (u) {
 
     f <- tempfile (fileext = ".md")
     chk <- utils::download.file (u_readme, destfile = f, quiet = TRUE) # nolint
-    readme <- readLines (f, encoding = "UTF-8")
+    readme <- rm_html_comments (readLines (f, encoding = "UTF-8"))
 
     badges <- unlist (regmatches (
         readme,
@@ -111,6 +111,34 @@ pkgchk_ci_badges <- function (u) {
     return (badges)
 }
 
+#' Remove all html-comment chunks from readme
+#'
+#' See #109: Some READMEs may have badges within html comments, and these should
+#' be removed prior to checking presence of CI badges.
+#' @param x Character vector of the README file.
+#' @noRd
+rm_html_comments <- function (x) {
+
+    # First remove single-line comments:
+    x <- gsub ("<!\\-\\-.*\\-\\->", "", x)
+
+    # Then identify and remove multi-line html comments:
+    g <- cbind (
+        which (regexpr ("<!\\-\\-", x) > 0L),
+        which (regexpr ("\\-\\->", x) > 0L)
+    )
+    if (nrow (g) > 0L) {
+
+        index <- unlist (apply (g, 1, function (i) seq (i [1], i [2])))
+        if (methods::is (index, "matrix")) {
+            index <- sort (as.vector (index))
+        }
+
+        x <- x [-index]
+    }
+
+    return (x)
+}
 
 
 #' CI results for GitHub only
