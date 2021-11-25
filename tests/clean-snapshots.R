@@ -40,7 +40,6 @@ edit_html <- function (f) {
     h <- readLines (f)
 
     # title includes path, so reset to generic value:
-    h <- readLines (f)
     i <- grep ("^<title>", h) [1]
     h [i] <- "<title>pkgcheck.knit</title>"
 
