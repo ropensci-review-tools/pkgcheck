@@ -29,6 +29,7 @@ test_that ("extra checks", {
 
     h <- render_markdown (md, open = FALSE)
     f <- file.path (md_dir, "checks-extra.html")
+    file.copy (h, f)
     edit_html (f) # from clean-snapshots.R
 
     testthat::expect_snapshot_file (f)
