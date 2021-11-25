@@ -39,7 +39,7 @@ output_pkgchk_obsolete_pkg_deps <- function (checks) { # nolint
     obs_pkg_deps <- checks$checks$obsolete_pkg_deps [index]
 
     out <- list (
-        check_pass = length (checks$checks$obsolete_pkg_deps) == 0L,
+        check_pass = length (obs_pkg_deps) == 0L,
         summary = "",
         print = ""
     )
