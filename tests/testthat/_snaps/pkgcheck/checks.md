@@ -15,6 +15,8 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: Package coverage is 0% (should be at least 75%).
 - :heavy_multiplication_x: Statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
+- :heavy_check_mark: R CMD check found no errors.
+- :heavy_check_mark: R CMD check found no warnings.
 
 **Important:** All failing checks above must be addressed prior to proceeding
 
@@ -112,6 +114,37 @@ Click to see the [interactive network visualisation of calls between objects in 
 
 
 ---
+
+
+#### 3b. `goodpractice` results
+
+
+#### `R CMD check` with [rcmdcheck](https://r-lib.github.io/rcmdcheck/)
+
+R CMD check generated the following check_fails:
+
+1. description_url
+2. description_bugreports
+
+
+#### Test coverage with [covr](https://covr.r-lib.org/)
+
+Package coverage: 0
+
+The following files are not completely covered by tests:
+
+file | coverage
+--- | ---
+R/test.R | 0%
+src/cpptest.cpp | 0%
+
+#### Cyclocomplexity with [cyclocomp](https://github.com/MangoTheCat/cyclocomp)
+
+No functions have cyclocomplexity >= 15
+
+#### Static code analyses with [lintr](https://github.com/jimhester/lintr)
+
+[lintr](https://github.com/jimhester/lintr) found no issues with this package!
 
 
 
