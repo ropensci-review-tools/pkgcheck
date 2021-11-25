@@ -1,4 +1,6 @@
 
+source ("../clean-snapshots.R")
+
 test_that ("pkgcheck", {
 
     withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
@@ -48,38 +50,8 @@ test_that ("pkgcheck", {
     # *****************************************************************
     # ***********************   SNAPSHOT TEST   ***********************
     # *****************************************************************
-    #
-    # some checks like rcmdcheck differ on different systems for things like
-    # compilation flags, so the snapshot test excludes any rmcdcheck output. It
-    # also reverts the final package versions to a generic number.
-    edit_markdown <- function (md) {
-        rcmd <- grep ("R CMD check", md) [1:2] # summary items
-        gp <- grep ("`goodpractice` results", md)
-        end_fold <- grep ("<\\/details>", md)
-        # then -3 to keep ["", "</p>", "</details>"]:
-        gp <- seq (gp, end_fold [end_fold > gp] [1] - 3)
 
-        md <- md [-c (rcmd, gp)]
-
-        change_pkg_vers <- function (md, pkg = "pkgstats", to = "42") {
-            i <- grep ("Package Versions", md)
-            pkg_i <- grep (pkg, md)
-            pkg_i <- pkg_i [pkg_i > i] [1]
-            md [pkg_i] <- gsub ("([0-9]\\.)+[0-9]+", to, md [pkg_i])
-            # white space also changes with version numbers:
-            md [pkg_i] <- gsub (
-                paste0 (to, "\\s+"),
-                paste0 (to, "    "), md [pkg_i]
-            )
-            return (md)
-        }
-        md <- change_pkg_vers (md, "pkgstats")
-        md <- change_pkg_vers (md, "pkgcheck")
-        md <- change_pkg_vers (md, "srr")
-
-        return (md)
-    }
-    md <- edit_markdown (md)
+    md <- edit_markdown (md) # from clean-snapshots.R
 
     md_dir <- withr::local_tempdir ()
     writeLines (md, con = file.path (md_dir, "checks.md"))
@@ -89,11 +61,7 @@ test_that ("pkgcheck", {
     h <- render_markdown (md, open = FALSE)
     f <- file.path (md_dir, "checks.html")
     file.rename (h, f)
-    # title includes path, so reset to generic value:
-    h <- readLines (f)
-    i <- grep ("^<title>", h) [1]
-    h [i] <- "<title>pkgcheck.knit</title>"
-    writeLines (h, con = f)
+    edit_html (f) # from clean-snapshots.R
 
     testthat::expect_snapshot_file (f)
 })
