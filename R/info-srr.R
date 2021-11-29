@@ -49,6 +49,10 @@ pkginfo_srr_report <- function (path) {
         Sys.getenv ("PKGCHECK_CACHE_DIR"),
         "static"
     )
+    if (!dir.exists (static_dir)) {
+        dir.create (static_dir, recursive = TRUE)
+    }
+
     f <- paste0 (pkg_hash [1], "_srr", pkg_hash [2])
     srr_report_file <- file.path (static_dir, paste0 (f, ".html"))
     srr_md_file <- file.path (static_dir, paste0 (f, ".md"))
