@@ -30,7 +30,7 @@ test_that ("pkgcheck", {
     # controlled (such as not being able to find "MASS" pkg).
     chk$goodpractice <- NULL
     # For some reason, 'pkgstats' also fails `pkgname_available` on some systems
-    checks$checks$pkgname_available <- TRUE
+    chk$checks$pkgname_available <- TRUE
 
     items <- c ("pkg", "info", "checks", "meta")
     expect_true (all (items %in% names (chk)))
