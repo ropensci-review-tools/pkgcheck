@@ -18,13 +18,6 @@ test_that ("extra checks", {
     checks$checks$has_scrap <- c ("a", "b")
     checks$checks$obsolete_pkg_deps <- c ("blah", "sp", "rgdal")
 
-    # goodpractice -> rcmdcheck fails on some machines for reasons that can't be
-    # controlled (such as not being able to find "MASS" pkg).
-    rcmd <- checks$goodpractice$rcmdcheck
-    rcmd$errors <- rcmd$warnings <- rcmd$notes <- character (0)
-    rcmd$test_fail <- list ()
-    checks$goodpractice$rcmdcheck <- rcmd
-
     md <- checks_to_markdown (checks)
 
     # *****************************************************************
