@@ -105,8 +105,8 @@ checks_to_markdown <- function (checks, render = FALSE) {
         extras <- c ("has_scrap", "obsolete_pkg_deps")
         lens <- vapply (
             extras, function (i) {
-                  length (checks$checks [[i]])
-              },
+                length (checks$checks [[i]])
+            },
             integer (1)
         )
         extras <- extras [which (lens > 0L)]
@@ -373,12 +373,19 @@ pkg_network <- function (checks, sec_num) {
     )
 
     if (!checks$info$network_file %in% flist) {
+
         unlink (flist, recursive = TRUE)
+
+        if (!dir.exists (visjs_dir)) {
+            dir.create (visjs_dir, recursive = TRUE)
+        }
+
         visjs_ptn <- basename (checks$info$network_file)
         visjs_ptn <- tools::file_path_sans_ext (visjs_ptn)
         flist <- list.files (dirname (checks$info$network_file),
             pattern = visjs_ptn,
-            full.names = TRUE
+            full.names = TRUE,
+            recursive = TRUE
         )
 
         file.copy (flist, visjs_dir, recursive = TRUE)
