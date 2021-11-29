@@ -21,6 +21,10 @@ edit_markdown <- function (md) {
     md <- change_pkg_vers (md, "pkgcheck")
     md <- change_pkg_vers (md, "srr")
 
+    # and change path to visjs html file
+    i <- grep ("interactive network visualisation", md)
+    md [i] <- gsub ("\\]\\(.*$", "](network.html)", md [i])
+
     return (md)
 }
 
