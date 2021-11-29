@@ -1,7 +1,7 @@
 test_that ("pkgcheck_bg() works", {
 
-    withr::local_envvar (list ("PKGCHECK_CACHE_DIR" =
-                               file.path (tempdir (), "pkgcheck")))
+    withr::local_options (list ("pkgcheck.cache_dir" =
+                                file.path (tempdir (), "pkgcheck")))
 
     pkgname <- paste0 (sample (c (letters, LETTERS), 8), collapse = "")
     if (dir.exists (file.path (tempdir (), pkgname))) {
