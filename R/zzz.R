@@ -1,6 +1,8 @@
 # nocov start
 .onLoad <- function (libname, pkgname) { # nolint
 
+    # CACHE_DIR can be set as local envvar, but entire package uses `options`
+    # and not `Sys.getenv`!
     cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
 
     if (cache_dir == "") {
@@ -17,7 +19,6 @@
         dir.create (cache_dir, recursive = TRUE)
     }
     cache_dir <- normalizePath (cache_dir, winslash = winslash)
-    Sys.setenv ("PKGCHECK_CACHE_DIR" = cache_dir)
 
     if (!dir.exists (file.path (cache_dir, "static"))) {
         dir.create (file.path (cache_dir, "static"), recursive = TRUE)
@@ -37,6 +38,5 @@
 .onUnload <- function (libname, pkgname) { # nolint
 
     options ("pkgcheck.cache_dir" = NULL)
-    Sys.unsetenv ("PKGCHECK_CACHE_DIR")
 }
 # nocov end
