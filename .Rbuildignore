@@ -20,3 +20,4 @@ data-raw/
 ^ctags$
 ^inst/precommit$
 ^inst/WORDLIST$
+^\.env$
