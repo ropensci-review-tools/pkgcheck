@@ -28,12 +28,9 @@ test_that ("pkgcheck", {
 
     # goodpractice -> rcmdcheck fails on some machines for reasons that can't be
     # controlled (such as not being able to find "MASS" pkg).
-    rcmd <- chk$goodpractice$rcmdcheck
-    rcmd$errors <- rcmd$warnings <- rcmd$notes <- character (0)
-    rcmd$test_fail <- list ()
-    chk$goodpractice$rcmdcheck <- rcmd
+    chk$goodpractice <- NULL
 
-    items <- c ("pkg", "info", "checks", "meta", "goodpractice")
+    items <- c ("pkg", "info", "checks", "meta")
     expect_true (all (items %in% names (chk)))
 
     items <- c (
