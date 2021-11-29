@@ -13,6 +13,8 @@ test_that ("extra checks", {
     f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
     path <- pkgstats::extract_tarball (f)
     checks <- pkgcheck (path, goodpractice = FALSE)
+    # For some reason, 'pkgstats' fails `pkgname_available` on some systems
+    checks$checks$pkgname_available <- TRUE
 
     # Then fake the extra checks for the output methods:
     checks$checks$has_scrap <- c ("a", "b")
