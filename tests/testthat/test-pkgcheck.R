@@ -5,6 +5,8 @@ test_that ("pkgcheck", {
 
     withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
     withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
+    withr::local_envvar (list ("PKGCHECK_CACHE_DIR" =
+                               file.path (tempdir (), "pkgcheck")))
 
     pkgname <- "testpkgchecknotapkg"
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
@@ -77,6 +79,9 @@ test_that ("pkgcheck without goodpractice", {
         roxygen2::roxygenise (d),
         type = "message"
     )
+
+    withr::local_envvar (list ("PKGCHECK_CACHE_DIR" =
+                               file.path (tempdir (), "pkgcheck")))
 
     expect_output (
         chk <- pkgcheck (d, goodpractice = FALSE)

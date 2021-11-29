@@ -3,6 +3,11 @@ test_that ("pkgcheck", {
 
     skip_on_os ("windows")
 
+    withr::local_envvar (list (
+        "PKGCHECK_CACHE_DIR" =
+            file.path (tempdir (), "pkgcheck")
+    ))
+
     pkgname <- paste0 (
         sample (c (letters, LETTERS), 8),
         collapse = ""
