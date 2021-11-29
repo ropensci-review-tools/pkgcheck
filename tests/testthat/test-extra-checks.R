@@ -5,8 +5,10 @@ test_that ("extra checks", {
 
     withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
     withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
-    withr::local_options (list ("pkgcheck.cache_dir" =
-                                file.path (tempdir (), "pkgcheck")))
+    withr::local_options (list (
+        "pkgcheck.cache_dir" =
+            file.path (tempdir (), "pkgcheck")
+    ))
 
     f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
     path <- pkgstats::extract_tarball (f)
