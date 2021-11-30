@@ -22,31 +22,31 @@ test_that ("pkgcheck", {
     expect_true (any (grepl ("srrstats", x)))
 
     expect_output (
-        chk <- pkgcheck (d)
+        checks <- pkgcheck (d)
     )
-    expect_type (chk, "list")
+    expect_type (checks, "list")
 
     # goodpractice -> rcmdcheck fails on some machines for reasons that can't be
     # controlled (such as not being able to find "MASS" pkg).
-    chk$goodpractice <- NULL
+    checks$goodpractice <- NULL
     # Checks on systems without the right API keys may fail checks which rely on
     # URL queries, so these are manually reset here:
-    chk$checks$pkgname_available <- TRUE
-    chk$info$badges <- NULL # then fails CI checks
+    checks$checks$pkgname_available <- TRUE
+    checks$info$badges <- NULL # then fails CI checks
 
     items <- c ("pkg", "info", "checks", "meta")
-    expect_true (all (items %in% names (chk)))
+    expect_true (all (items %in% names (checks)))
 
     items <- c (
         "name", "path", "version", "url", "BugReports",
         "license", "summary", "dependencies"
     )
-    expect_true (all (items %in% names (chk$pkg)))
+    expect_true (all (items %in% names (checks$pkg)))
 
     items <- c ("git", "srr", "pkgstats", "network_file")
-    expect_true (all (items %in% names (chk$info)))
+    expect_true (all (items %in% names (checks$info)))
 
-    md <- checks_to_markdown (chk, render = FALSE)
+    md <- checks_to_markdown (checks, render = FALSE)
 
     a <- attributes (md)
     expect_true (length (a) > 0L)
@@ -96,12 +96,12 @@ test_that ("pkgcheck without goodpractice", {
     ))
 
     expect_output (
-        chk <- pkgcheck (d, goodpractice = FALSE)
+        checks <- pkgcheck (d, goodpractice = FALSE)
     )
 
     # items from above including goodpractice:
     items <- c ("pkg", "info", "checks", "meta", "goodpractice")
-    expect_false (all (items %in% names (chk)))
+    expect_false (all (items %in% names (checks)))
     items <- c ("pkg", "info", "checks", "meta")
-    expect_true (all (items %in% names (chk)))
+    expect_true (all (items %in% names (checks)))
 })
