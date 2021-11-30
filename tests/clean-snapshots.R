@@ -56,5 +56,23 @@ edit_html <- function (f) {
 
     h <- h [index]
 
+    # some machines/systems split `<summary>` items across multiple lines,
+    # others concatenate, so concanate all regardless:
+    i <- grep ("^<summary.*>$", h)
+    j <- grep ("^<\\/summary>$", h)
+    len <- min (c (length (i), length (j)))
+    ij <- cbind (i [seq (len)], j [seq (len)])
+    # rm any which are on single line:
+    ij <- ij [which (ij [, 2] > ij [, 1]), ]
+    index <- apply (ij, 1, function (i) i [1]:i [2])
+    if (!is.list (index)) {
+        index <- lapply (seq (ncol (index)), function (i) index [, i])
+    }
+    index <- rev (index)
+    for (i in index) {
+        h [i [1]] <- paste0 (h [i], collapse = "")
+        h <- h [-(i [-1])]
+    }
+
     writeLines (h, con = f)
 }
