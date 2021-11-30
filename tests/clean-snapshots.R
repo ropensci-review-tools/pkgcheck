@@ -29,10 +29,9 @@ edit_markdown <- function (md) {
 }
 
 # issue#111
-# html output includes `.js` src files and other stuff which can have machine
-# and OS-specific components, plus the titles automatically append the path
-# including value of `tempdir`. This clean all of that out, leaving just the
-# bits representing the report details.
+# html output is not generally reproducible, because all sorts of scripts get
+# inserted on different systems. This reduces the entire html file to the data
+# within the primary `<div>` containers only.
 #
 # Note that it presumed that `edit_markdown` has already been called to revert
 # package versions to generic values prior to rendering html version of that
@@ -47,14 +46,15 @@ edit_html <- function (f) {
     i <- grep ("^<title>", h) [1]
     h [i] <- "<title>pkgcheck.knit</title>"
 
-    # rm bundled scripts, which can easily be identified via nchar
-    h <- h [which (nchar (h) < 1000)]
-    # plus one script and one css data ref
-    ptn <- "^<(script\\ssrc|meta|link\\shref=\"data\\:text\\/css)"
-    i <- grep (ptn, h)
-    if (length (i) > 0) {
-        h <- h [-i]
-    }
+    # reduce down to only elements within the main `div` containers:
+    i <- grep ("^<div.*>$", h)
+    j <- grep ("^<\\/div>$", h)
+    len <- min (c (length (i), length (j)))
+    ij <- cbind (i [seq (len)], j [seq (len)])
+    index <- apply (ij, 1, function (i) i [1]:i [2])
+    index <- sort (unique (unlist (index)))
+
+    h <- h [index]
 
     writeLines (h, con = f)
 }
