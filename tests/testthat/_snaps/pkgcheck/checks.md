@@ -10,7 +10,7 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: 'DESCRIPTION' does not have a URL field.
 - :heavy_multiplication_x: 'DESCRIPTION' does not have a BugReports field.
 - :heavy_multiplication_x: Package has no HTML vignettes
-- :heavy_multiplication_x: These functions do not have examples: [test_fn.Rd].
+- :heavy_multiplication_x: These functions do not have examples: [test_fn].
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
 - :heavy_multiplication_x: Statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
