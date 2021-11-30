@@ -15,29 +15,30 @@ pkgchk_fns_have_exs <- function (checks) {
     full.names = TRUE
     )
 
-    # don't check for examples in datasets (#103)
-    has_ex <- vapply (rd, function (i) {
+    # don't check for examples in datasets (#103), identified by keyword
+    what <- c ("name", "keyword", "examples")
+    rd_dat <- vapply (rd, function (i) {
         rd_i <- tools::parse_Rd (i)
-        ex <- get_Rd_meta (rd_i, "examples")
-        kw <- get_Rd_meta (rd_i, "keyword")
-        if (length (kw) == 0L) {
-            kw <- ""
+        dat <- lapply (what, function (j) {
+            get_Rd_meta (rd_i, j)
+        })
+        if (length (dat [[2]]) == 0L) {
+            dat [[2]] <- ""
         }
-        (length (ex) > 0 | kw == "datasets")
+        dat [[3]] <- length (dat [[3]])
+        unlist (dat)
     },
-    logical (1),
+    character (3),
     USE.NAMES = TRUE
     )
+    rd_dat <- data.frame (t (rd_dat), row.names = NULL)
+    names (rd_dat) <- what
 
-    names (has_ex) <-
-        vapply (
-            names (has_ex), function (i) {
-                utils::tail (decompose_path (i) [[1]], 1L)
-            },
-            character (1)
-        )
+    # rm internal and datasets, where all re-exported fns should be internal.
+    rd_dat <- rd_dat [which (!rd_dat$keyword %in% c ("internal", "datasets")), ]
 
-    has_ex <- has_ex [which (!grepl ("\\-package\\.Rd$", names (has_ex)))]
+    has_ex <- rd_dat$examples > 0L
+    names (has_ex) <- rd_dat$name
 
     return (has_ex)
 }
