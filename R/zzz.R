@@ -9,16 +9,11 @@
         cache_dir <- file.path (rappdirs::user_cache_dir (), "pkgcheck")
     }
 
-    if (grepl ("\\/", normalizePath ("~"))) {
-        winslash <- "/"
-    } else {
-        winslash <- "\\"
-    }
+    cache_dir <- fs::path_abs (cache_dir)
 
     if (!dir.exists (cache_dir)) {
         dir.create (cache_dir, recursive = TRUE)
     }
-    cache_dir <- normalizePath (cache_dir, winslash = winslash)
 
     if (!dir.exists (file.path (cache_dir, "static"))) {
         dir.create (file.path (cache_dir, "static"), recursive = TRUE)
