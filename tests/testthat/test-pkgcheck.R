@@ -5,8 +5,8 @@ test_that ("pkgcheck", {
 
     withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
     withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
-    withr::local_options (list (
-        "pkgcheck.cache_dir" =
+    withr::local_envvar (list (
+        "PKGCHECK_CACHE_DIR" =
             file.path (tempdir (), "pkgcheck")
     ))
 
@@ -90,8 +90,8 @@ test_that ("pkgcheck without goodpractice", {
         type = "message"
     )
 
-    withr::local_options (list (
-        "pkgcheck.cache_dir" =
+    withr::local_envvar (list (
+        "PKGCHECK_CACHE_DIR" =
             file.path (tempdir (), "pkgcheck")
     ))
 

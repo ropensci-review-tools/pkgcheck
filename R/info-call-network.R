@@ -11,7 +11,7 @@ fn_call_network <- function (s) {
     }
 
     visjs_dir <- file.path (
-        getOption ("pkgcheck.cache_dir"),
+        Sys.getenv ("PKGCHECK_CACHE_DIR"),
         "static"
     )
     if (!dir.exists (visjs_dir)) {

@@ -46,7 +46,7 @@ pkginfo_srr_report <- function (path) {
     # get path to report in cache dir:
     pkg_hash <- current_hash (path)
     static_dir <- file.path (
-        getOption ("pkgcheck.cache_dir"),
+        Sys.getenv ("PKGCHECK_CACHE_DIR"),
         "static"
     )
     if (!dir.exists (static_dir)) {

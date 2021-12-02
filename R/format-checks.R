@@ -363,8 +363,11 @@ pkg_network <- function (checks, sec_num) {
         ))
     }
 
-    cache_dir <- getOption ("pkgcheck.cache_dir")
+    cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
     visjs_dir <- file.path (cache_dir, "static") # in api.R
+    if (!dir.exists (visjs_dir)) {
+        dir.create (visjs_dir, recursive = TRUE)
+    }
 
     flist <- list.files (
         visjs_dir,

@@ -1,7 +1,7 @@
 test_that ("pkgcheck_bg() works", {
 
-    withr::local_options (list (
-        "pkgcheck.cache_dir" =
+    withr::local_envvar (list (
+        "PKGCHECK_CACHE_DIR" =
             file.path (tempdir (), "pkgcheck")
     ))
 

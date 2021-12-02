@@ -14,7 +14,7 @@
 #' @export
 logfile_names <- function (path) {
 
-    temp_dir <- file.path (getOption ("pkgcheck.cache_dir"), "templogs")
+    temp_dir <- file.path (Sys.getenv ("PKGCHECK_CACHE_DIR"), "templogs")
     if (!dir.exists (temp_dir)) {
         dir.create (temp_dir, recursive = TRUE)
     }
@@ -89,7 +89,7 @@ cache_pkgstats_component <- function (path, what = "goodpractice") {
     pkg_hash <- current_hash (path)
     fname <- paste0 (pkg_hash [1], "_", pkg_hash [2])
     cache_dir <- file.path (
-        getOption ("pkgcheck.cache_dir"),
+        Sys.getenv ("PKGCHECK_CACHE_DIR"),
         dir_name
     )
     if (!dir.exists (cache_dir)) {

@@ -3,8 +3,8 @@ test_that ("pkgcheck", {
 
     skip_on_os ("windows")
 
-    withr::local_options (list (
-        "pkgcheck.cache_dir" =
+    withr::local_envvar (list (
+        "PKGCHECK_CACHE_DIR" =
             file.path (tempdir (), "pkgcheck")
     ))
 

@@ -31,7 +31,8 @@ pkgcheck_bg <- function (path) {
 
     e <- c (callr::rcmd_safe_env (),
         "PKGCHECK_PXBG_STOP" = stopfile,
-        "PKGCHECK_BG" = TRUE
+        "PKGCHECK_BG" = TRUE,
+        "PKGCHECK_CACHE_DIR" = Sys.getenv ("PKGCHECK_CACHE_DIR")
     )
 
     Sys.setenv ("PKGCHECK_PXBG_STOP" = stopfile)
