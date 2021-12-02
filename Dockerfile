@@ -135,7 +135,7 @@ RUN apt-get install -y \
   global \
   libgit2-dev \
   libssl-dev \
-  libcurl4-gnutls-dev \
+  #libcurl4-gnutls-dev \
   libcurl4-openssl-dev \
   libgdal-dev \
   libgeos-dev \
