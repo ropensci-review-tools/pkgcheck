@@ -153,6 +153,7 @@ RUN apt-get install -y \
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
+  arrow \
   devtools \
   foreign \
   glmnet \
@@ -170,3 +171,5 @@ RUN install2.r \
   tidyverse \
   xts \
   zoo
+
+RUN Rscript -e arrow::install_arrow()
