@@ -136,7 +136,7 @@ RUN apt-get install -y \
   libgit2-dev \
   libssl-dev \
   libcurl4-gnutls-dev \
-  #libcurl4-openssl-dev \
+  libcurl4-openssl-dev \
   libgdal-dev \
   libgeos-dev \
   libproj-dev \
@@ -150,6 +150,9 @@ RUN apt-get install -y \
   texlive-fonts-extra \
   pandoc \
   pandoc-citeproc
+
+# https://arrow.apache.org/docs/r/articles/install.html#s3-support
+ENV ARROW_S3 "ON"
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
@@ -171,5 +174,3 @@ RUN install2.r \
   tidyverse \
   xts \
   zoo
-
-RUN Rscript -e arrow::install_arrow()
