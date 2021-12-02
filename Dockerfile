@@ -158,6 +158,7 @@ ENV ARROW_S3 "ON"
 RUN install2.r \
   arrow \
   devtools \
+  duckdb \
   foreign \
   glmnet \
   lme4 \
