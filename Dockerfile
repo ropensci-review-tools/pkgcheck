@@ -175,3 +175,7 @@ RUN install2.r \
   tidyverse \
   xts \
   zoo
+
+# arrow docs suggest this shouldn't be needed, but s3
+# support doesn't work without re-install/compile:
+RUN Rscript -e 'arrow::install_arrow()'
