@@ -15,8 +15,8 @@
 
     if (Sys.getenv ("PKGCHECK_CACHE_DIR_UNSET") == "true") {
 
-        Sys.setenv ("PKGCHECK_CACHE_DIR")
-        Sys.setenv ("PKGCHECK_CACHE_DIR_UNSET")
+        Sys.unsetenv ("PKGCHECK_CACHE_DIR")
+        Sys.unsetenv ("PKGCHECK_CACHE_DIR_UNSET")
     }
 }
 # nocov end
