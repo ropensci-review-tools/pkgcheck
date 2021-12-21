@@ -5,7 +5,7 @@
 \alias{pkgstats_data}
 \title{Statistics on all CRAN packages from 'pkgstats'}
 \format{
-An object of class \code{data.frame} with 14834 rows and 81 columns.
+An object of class \code{grouped_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 21091 rows and 91 columns.
 }
 \usage{
 pkgstats_data
