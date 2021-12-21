@@ -54,7 +54,7 @@ stats_checks <- function (s, threshold = 0.05) {
     dat$loc_src [dat$files_src == 0] <- NA_integer_
     dat$loc_inst [dat$files_inst == 0] <- NA_integer_
     dat$loc_vignettes [dat$files_vignettes == 0] <- NA_integer_
-    dat$loc_tests [dat$files_test == 0] <- NA_integer_
+    dat$loc_tests [dat$files_tests == 0] <- NA_integer_
 
     nms <- names (dat)
     index <- which (vapply (
