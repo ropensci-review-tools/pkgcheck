@@ -1,0 +1,278 @@
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<script>
+$(document).ready(function(){
+    $('[tooltip="tooltip"]').tooltip();
+});
+</script>
+<div id="checks-for-pkgstats-v9.9" class="section level2">
+<h2>Checks for <a href="https://github.com/ropensci-review-tools/pkgstats">pkgstats (v9.9)</a></h2>
+<p>git hash: <a href="https://github.com/ropensci-review-tools/pkgstats/tree/"></a></p>
+<ul>
+<li>✅ Package name is available</li>
+<li>✅ has a ‘CITATION’ file.</li>
+<li>❌ Package depends on the following obsolete packages: [blah]</li>
+<li>❌ does not have a ‘codemeta.json’ file.</li>
+<li>❌ does not have a ‘contributing’ file.</li>
+<li>✅ uses ‘roxygen2’.</li>
+<li>✅ ‘DESCRIPTION’ has a URL field.</li>
+<li>✅ ‘DESCRIPTION’ has a BugReports field.</li>
+<li>❌ Package has no HTML vignettes</li>
+<li>❌ These functions do not have examples: [pkgstats_from_archive].</li>
+<li>✅ Package has continuous integration checks.</li>
+<li>❌ Package contains unexpected files.</li>
+</ul>
+<p><strong>Important:</strong> All failing checks above must be addressed prior to proceeding</p>
+<p>Package License: GPL-3</p>
+<hr />
+<div id="statistical-properties" class="section level3">
+<h3>1. Statistical Properties</h3>
+<p>This package features some noteworthy statistical properties which may need to be clarified by a handling editor prior to progressing.</p>
+<details>
+<summary>Details of statistical properties (click to open)</summary>
+<p>
+<p>The package has:</p>
+<ul>
+<li>code in C++ (9% in 3 files) and R (91% in 19 files)</li>
+<li>1 authors</li>
+<li>no vignette</li>
+<li>no internal data file</li>
+<li>9 imported packages</li>
+<li>11 exported functions (median 43 lines of code)</li>
+<li>120 non-exported functions in R (median 21 lines of code)</li>
+<li>12 R functions (median 16 lines of code)</li>
+</ul>
+<hr />
+<p>Statistical properties of package structure as distributional percentiles in relation to all current CRAN packages The following terminology is used: - <code>loc</code> = “Lines of Code” - <code>fn</code> = “function” - <code>exp</code>/<code>not_exp</code> = exported / not exported</p>
+<p>The final measure (<code>fn_call_network_size</code>) is the total number of calls between functions (in R), or more abstract relationships between code objects in other languages. Values are flagged as “noteworthy” when they lie in the upper or lower 5th percentile.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">measure</th>
+<th align="right">value</th>
+<th align="right">percentile</th>
+<th align="left">noteworthy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Number of files in R directory">files_R</a></td>
+<td align="right">19</td>
+<td align="right">79.7</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Number of files in src directory">files_src</a></td>
+<td align="right">3</td>
+<td align="right">84.3</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Number of files in vignettes directory">files_vignettes</a></td>
+<td align="right">0</td>
+<td align="right">0.0</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Number of files in tests directory">files_tests</a></td>
+<td align="right">7</td>
+<td align="right">86.4</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Lines of code (excluding documentation and empty lines) in R directory">loc_R</a></td>
+<td align="right">2698</td>
+<td align="right">89.0</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Lines of code (excluding documentation and empty lines) in src directory">loc_src</a></td>
+<td align="right">277</td>
+<td align="right">33.9</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Lines of code (excluding documentation and empty lines) in tests directory">loc_tests</a></td>
+<td align="right">266</td>
+<td align="right">61.5</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Number of vignettes">num_vignettes</a></td>
+<td align="right">0</td>
+<td align="right">0.0</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Total number of exported and non-exported R functions">n_fns_r</a></td>
+<td align="right">131</td>
+<td align="right">82.6</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Total number of exported R functions">n_fns_r_exported</a></td>
+<td align="right">11</td>
+<td align="right">48.6</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Total number of non-exported R functions">n_fns_r_not_exported</a></td>
+<td align="right">120</td>
+<td align="right">87.0</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Total number of exported and non-exported src functions">n_fns_src</a></td>
+<td align="right">12</td>
+<td align="right">33.3</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Median number of functions per R source file">n_fns_per_file_r</a></td>
+<td align="right">4</td>
+<td align="right">58.6</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Median number of functions per src source file">n_fns_per_file_src</a></td>
+<td align="right">4</td>
+<td align="right">40.2</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Median number of parameters per exported R function">num_params_per_fn</a></td>
+<td align="right">1</td>
+<td align="right">1.6</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Median number of lines of code for each R function">loc_per_fn_r</a></td>
+<td align="right">23</td>
+<td align="right">66.0</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Median number of lines of code for each exported R function">loc_per_fn_r_exp</a></td>
+<td align="right">43</td>
+<td align="right">75.2</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Median number of lines of code for each non-exported R function">loc_per_fn_r_not_exp</a></td>
+<td align="right">22</td>
+<td align="right">66.5</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Median number of lines of code for each src function">loc_per_fn_src</a></td>
+<td align="right">16</td>
+<td align="right">55.6</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Relative proportion of white characters within each R code line">rel_whitespace_R</a></td>
+<td align="right">19</td>
+<td align="right">88.9</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Relative proportion of white characters within each src code line">rel_whitespace_src</a></td>
+<td align="right">24</td>
+<td align="right">41.5</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Relative proportion of white characters within each test line">rel_whitespace_tests</a></td>
+<td align="right">27</td>
+<td align="right">64.6</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Median number of lines of documentation for each exported R function">doclines_per_fn_exp</a></td>
+<td align="right">31</td>
+<td align="right">34.8</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a tooltip="tooltip" title="Median number of lines of documentation for each non-exported R function">doclines_per_fn_not_exp</a></td>
+<td align="right">0</td>
+<td align="right">0.0</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left"><a tooltip="tooltip" title="Total number of calls from one package function to another">fn_call_network_size</a></td>
+<td align="right">104</td>
+<td align="right">79.9</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<hr />
+</p>
+</details>
+</div>
+<div id="a.-network-visualisation" class="section level3">
+<h3>1a. Network visualisation</h3>
+<p>Click to see the <a href="network.html">interactive network visualisation of calls between objects in package</a></p>
+<hr />
+</div>
+<div id="goodpractice-and-other-checks" class="section level3">
+<h3>2. <code>goodpractice</code> and other checks</h3>
+<p>(‘goodpractice’ not included with these checks)</p>
+<hr />
+</div>
+<div id="other-checks" class="section level3">
+<h3>3. Other Checks</h3>
+<p>❌ Package contains the following unexpected files:</p>
+<ul>
+<li>a</li>
+<li>b</li>
+</ul>
+<p>❌ Package contains the following (potentially) obsolete packages:</p>
+<ul>
+<li>sp</li>
+<li>rgdal</li>
+</ul>
+<p>See our <a href="https://devguide.ropensci.org/building.html?q=scaffol#recommended-scaffolding">Recommended Scaffolding</a> for alternatives.</p>
+<hr />
+<details>
+<summary>Package Versions</summary>
+<p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">package</th>
+<th align="left">version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">pkgstats</td>
+<td align="left">42</td>
+</tr>
+<tr class="even">
+<td align="left">pkgcheck</td>
+<td align="left">42</td>
+</tr>
+</tbody>
+</table>
+</p>
+</details>
+</div>
+</div>
+
+
+
+
+</div>

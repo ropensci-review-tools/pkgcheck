@@ -16,7 +16,7 @@ test_that ("extra checks", {
     # Checks on systems without the right API keys may fail checks which rely on
     # URL queries, so these are manually reset here:
     checks$checks$pkgname_available <- TRUE
-    checks$info$badges <- NULL # then fails CI checks
+    checks$info$badges <- character (0)
 
     # Then fake the extra checks for the output methods:
     checks$checks$has_scrap <- c ("a", "b")
