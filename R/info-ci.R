@@ -74,8 +74,9 @@ pkgchk_ci_badges <- function (u) {
 
         index <- grep (p, badges)
         p_u <- p
+        p_no_regex <- gsub ("\\\\", "", p)
 
-        if (p == "github") {
+        if (p == "https\\:\\/\\/github") {
 
             wf_nms <- vapply (badges [index], function (i) {
                 utils::tail (strsplit (i, "/") [[1]], 2) [1]
@@ -96,7 +97,7 @@ pkgchk_ci_badges <- function (u) {
 
         badges [index] <- paste0 (
             "[![",
-            p,
+            wf_nms,
             "](",
             badges [index],
             ")](",
