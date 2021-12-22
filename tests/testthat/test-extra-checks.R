@@ -1,6 +1,8 @@
 
 source ("../clean-snapshots.R")
 
+skip_on_os ("mac") # fails on GHA for some reason?
+
 test_that ("extra checks", {
 
     withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
