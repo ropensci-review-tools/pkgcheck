@@ -13,3 +13,6 @@ reference:
 - title: Package data
   contents:
   - has_concept("data")
+- title: Guides
+  contents:
+  - read_pkg_guide
