@@ -34,7 +34,18 @@ pkgchk_on_cran <- function (checks) {
         } else {
             h2 <- paste0 (rvest::html_elements (x, "h2"))
             h2 <- gsub ("<h2>|<\\/h2>", "", h2)
-            res <- grepl (desc$Title, h2, ignore.case = TRUE)
+            res <- grepl (desc$Title, h2, fixed = TRUE) |
+                grepl (desc$Title, h2, ignore.case = TRUE, perl = TRUE)
+
+            if (!res) { # Title may have changed; check URL as backup
+                tab <- rvest::html_table (x) [[1]]
+                if (ncol (tab) == 2) {
+                    names (tab) <- c ("field", "value")
+                    tab <- tab [grep ("^URL", tab$field), ]
+                    url <- paste0 (tab$value, collapse = ", ")
+                    res <- identical (url, desc$URL)
+                }
+            }
         }
     }
 
