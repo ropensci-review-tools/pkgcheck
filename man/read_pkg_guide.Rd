@@ -4,7 +4,7 @@
 \alias{read_pkg_guide}
 \title{Browse packaging guidelines}
 \usage{
-read_pkg_guide(which = "release")
+read_pkg_guide(which = c("release", "dev"))
 }
 \arguments{
 \item{which}{Whether to read the released or "dev" development version.}
