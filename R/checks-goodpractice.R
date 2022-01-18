@@ -48,8 +48,8 @@ summarise_gp_checks <- function (checks) {
                 " R CMD check found ",
                 nerr,
                 ifelse (nerr == 1,
-                    "error.",
-                    "errors."
+                    " error.",
+                    " errors."
                 )
             )
         }
@@ -68,8 +68,8 @@ summarise_gp_checks <- function (checks) {
                 " R CMD check found ",
                 nwarn,
                 ifelse (nwarn == 1,
-                    "warning.",
-                    "warnings."
+                    " warning.",
+                    " warnings."
                 )
             )
         }
