@@ -35,6 +35,11 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
 
     s <- pkgstats_info (path)
 
+    if (nrow (s$stats$objects) == 0L) {
+        # There are no R objects/fns; current goodpractice (1.0.2.9000) fails
+        goodpractice <- FALSE
+    }
+
     checks <- pkgcheck_object ()
     checks$pkg <- s$out [c (
         "name", "path", "version", "url",
