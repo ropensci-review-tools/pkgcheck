@@ -56,5 +56,5 @@ jobs:
             'ropensci-review-tools',
             'pkgcheck-action',
             'publish.yaml',
-            'main',
+            'main'
           });
