@@ -18,6 +18,7 @@ Imports:
     cli,
     covr,
     curl,
+    fs,
     gert,
     ghql,
     goodpractice,

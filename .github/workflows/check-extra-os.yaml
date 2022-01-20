@@ -59,8 +59,5 @@ jobs:
         with:
            extra-packages: any::rcmdcheck
 
-      - run: rappdirs::user_cache_dir()
-        shell: Rscript {0}
-
       - uses: r-lib/actions/check-r-package@v2
 
