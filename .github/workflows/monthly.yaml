@@ -16,4 +16,5 @@ jobs:
       uses: peter-evans/create-or-update-comment@v1.4.5
       with:
         issue_num: 123
-        body: It's time to renew your RRT_TOKEN
+        body: |
+          It's time to renew your RRT_TOKEN
