@@ -46,15 +46,16 @@ jobs:
         tags: |
           mpadge/pkgcheck:latest
           ghcr.io/ropensci-review-tools/pkgcheck:latest
-
+    
     - name: Trigger pkgcheck-action build
       if: ${{ github.event_name != 'pull_request' }}
       uses: actions/github-script@v5
       with:
+        github-token: ${{ secrets.RRT_TOKEN }}
         script: |
           await github.rest.actions.createWorkflowDispatch({
-            'ropensci-review-tools',
-            'pkgcheck-action',
-            'publish.yaml',
-            'main',
+            owner: 'ropensci-review-tools',
+            repo: 'pkgcheck-action',
+            workflow_id: 'publish.yaml',
+            ref: 'main'
           });
