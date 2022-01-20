@@ -1,0 +1,21 @@
+name: dispatch-test
+
+on:
+  pull_request:
+    branches:
+      - main
+  
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger pkgcheck-action build
+        uses: actions/github-script@v5
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'ropensci-review-tools',
+              repo: 'pkgcheck-action',
+              workflow_id: 'publish.yaml',
+              ref: 'main',
+            });
