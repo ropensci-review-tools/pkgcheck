@@ -17,8 +17,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: ropensci-review-tools/pkgcheck-action@main
-        with:
-          # Create an issue containing the pkgcheck results
-          issue-name: 'pkgcheck results'
-          # This would create an issue for each branch this action is run on.
-          # issue-name: 'pkgcheck results - ${{ github.ref_name }}'
