@@ -199,8 +199,9 @@ use_github_check <- function (dir = ".github/workflows",
                               file_name = "pkgcheck.yaml",
                               inputs = NULL) {
     yaml <- system.file (
-        "inst/pkgcheck.yaml",
-        package = "pkgcheck"
+        "pkgcheck.yaml",
+        package = "pkgcheck",
+        mustWork = TRUE
     ) %>% readLines ()
 
     if (!is.null (inputs)) {
