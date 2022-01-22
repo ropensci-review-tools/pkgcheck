@@ -25,6 +25,7 @@ Imports:
     curl,
     gert,
     ghql,
+    glue,
     goodpractice,
     httr,
     jsonlite,

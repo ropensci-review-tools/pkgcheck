@@ -27,6 +27,13 @@
       "@type": "Person",
       "givenName": "Maëlle",
       "familyName": "Salmon"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Jacob",
+      "familyName": "Wujciak-Jens",
+      "email": "jacob@wujciak.de",
+      "@id": "https://orcid.org/0000-0002-7281-3989"
     }
   ],
   "maintainer": [
@@ -194,6 +201,18 @@
     },
     "7": {
       "@type": "SoftwareApplication",
+      "identifier": "glue",
+      "name": "glue",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=glue"
+    },
+    "8": {
+      "@type": "SoftwareApplication",
       "identifier": "goodpractice",
       "name": "goodpractice",
       "provider": {
@@ -204,7 +223,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=goodpractice"
     },
-    "8": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "httr",
       "name": "httr",
@@ -216,7 +235,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httr"
     },
-    "9": {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
@@ -228,7 +247,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
-    "10": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
@@ -240,18 +259,18 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=magrittr"
     },
-    "11": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "12": {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "pkgstats",
       "name": "pkgstats",
       "sameAs": "https://github.com/ropensci-review-tools/pkgstats"
     },
-    "13": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "rappdirs",
       "name": "rappdirs",
@@ -263,7 +282,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rappdirs"
     },
-    "14": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
@@ -275,7 +294,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     },
-    "15": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "rprojroot",
       "name": "rprojroot",
@@ -287,7 +306,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rprojroot"
     },
-    "16": {
+    "17": {
       "@type": "SoftwareApplication",
       "identifier": "rvest",
       "name": "rvest",
@@ -299,20 +318,16 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rvest"
     },
-    "17": {
+    "18": {
       "@type": "SoftwareApplication",
       "identifier": "srr",
       "name": "srr",
       "sameAs": "https://github.com/ropensci-review-tools/srr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "3680.52KB",
+  "fileSize": "3686.418KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab",
-    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
+  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
   "developmentStatus": "https://www.repostatus.org/#concept"
 }
