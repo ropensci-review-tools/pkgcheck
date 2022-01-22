@@ -11,7 +11,7 @@ on:
   # Run on every push to main
   push:
     branch: 
-      -main
+      - main
 
 jobs: 
   check:
