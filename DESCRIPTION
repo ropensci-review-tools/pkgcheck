@@ -4,7 +4,12 @@ Version: 0.0.2.215
 Authors@R: c(
     person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2172-5265")),
-    person("Maëlle", "Salmon", role = "aut")
+    person("Maëlle", "Salmon", role = "aut"),
+    person(given = "Jacob",
+             family = "Wujciak-Jens",
+             role = "aut",
+             email = "jacob@wujciak.de",
+             comment = c(ORCID = "0000-0002-7281-3989"))
   )
 Description: Check whether a package is ready for submission to rOpenSci’s
     peer review system.
