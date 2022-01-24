@@ -15,12 +15,12 @@ expect_error(use_github_action_pkgcheck(dir = dir, inputs = list(notaninput = 23
 # Success
 # macOS GitHub runners append "/private" to paths when they are actually created:
 gha_path <-  gsub ("^\\/private", "", use_github_action_pkgcheck(dir = dir))
-# Constructed paths also use one double-separator between machine and Rtemp dirs:
-gha_path <- gsub ("\\/\\/", "/", gha_path)
-expect_equal(gha_path, path)
+# paths on mac also use one double-separator between machine and Rtemp dirs:
+expect_equal (gsub ("\\/\\/", "/", gha_path),
+              gsub ("\\/\\/", "/", path))
 gha_path <- gsub ("^\\/private", "", use_github_action_pkgcheck(dir = dir, overwrite = TRUE))
-gha_path <- gsub ("\\/\\/", "/", gha_path)
-expect_equal(gha_path, path)
+expect_equal (gsub ("\\/\\/", "/", gha_path),
+              gsub ("\\/\\/", "/", path))
 expect_snapshot_file(path)
 expect_snapshot_file(use_github_action_pkgcheck(dir = dir, file_name = "with_inputs.yaml", inputs = list(`post-to-issue` = "true", `summary-only` = "false", ref = "main")))
 
