@@ -11,6 +11,7 @@ test_that ("extra checks", {
         "PKGCHECK_CACHE_DIR" =
             file.path (tempdir (), "pkgcheck")
     ))
+    withr::local_envvar (list ("GITHUB_ACTIONS" = "true"))
 
     f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
     path <- pkgstats::extract_tarball (f)

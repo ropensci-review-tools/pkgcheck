@@ -423,6 +423,7 @@ visjs_description <- function (checks) {
 
     } else {
 
+        # nocov start
         network_file <- Sys.getenv (
             "PKGCHECK_TEST_NETWORK_FILE",
             checks$info$network_file
@@ -433,6 +434,7 @@ visjs_description <- function (checks) {
             network_file,
             ")"
         )
+        # nocov end
     }
 
     return (res)
