@@ -23,6 +23,7 @@ Useful links:
 Authors:
 \itemize{
   \item Maëlle Salmon
+  \item Jacob Wujciak-Jens \email{jacob@wujciak.de} (\href{https://orcid.org/0000-0002-7281-3989}{ORCID})
 }
 
 }

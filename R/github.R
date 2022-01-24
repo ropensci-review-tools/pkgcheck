@@ -191,10 +191,10 @@ get_latest_commit <- function (org, repo) {
 #' ```
 #' @examples
 #' \dontrun{
-#' use_github_check (inputs = list (`post-to-issue` = "false"))
+#' use_github_action_pkgcheck (inputs = list (`post-to-issue` = "false"))
 #' }
 #' @export
-use_github_check <- function (dir = ".github/workflows",
+use_github_action_pkgcheck <- function (dir = ".github/workflows",
                               overwrite = FALSE,
                               file_name = "pkgcheck.yaml",
                               inputs = NULL) {
