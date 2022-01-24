@@ -198,6 +198,27 @@ use_github_check <- function (dir = ".github/workflows",
                               overwrite = FALSE,
                               file_name = "pkgcheck.yaml",
                               inputs = NULL) {
+
+    if (!is.character (file_name)) {
+        stop ("'file_name' must be a character argument")
+    }
+    if (length (file_name) != 1L) {
+        stop ("'file_name' must be a single value")
+    }
+    dir <- normalizePath (dir, mustWork = FALSE)
+    if (!dir.exists (dir)) {
+        stop ("Directory [", dir, "] does no exist.")
+    }
+    path <- file.path (dir, file_name)
+    if (file.exists (path) && !overwrite) {
+        cli::cli_abort (
+            c (
+                "The file {.file {path}} already exists!",
+                i = "Use {.arg overwrite = TRUE} to replace the existing file."
+            )
+        )
+    }
+
     yaml <- system.file (
         "pkgcheck.yaml",
         package = "pkgcheck",
@@ -235,17 +256,6 @@ use_github_check <- function (dir = ".github/workflows",
     }
 
     yaml <- c (yaml, inputs)
-    stopifnot (is.character (file_name))
-    path <- file.path (dir, file_name)
-    if (!dir.exists (dir)) dir.create (dir, recursive = TRUE)
-    if (file.exists (path) && !overwrite) {
-        cli::cli_abort (
-            c (
-                "The file {.file {path}} already exists!",
-                i = "Use {.arg overwrite = TRUE} to replace the existing file."
-            )
-        )
-    }
 
     writeLines (yaml, path)
 
