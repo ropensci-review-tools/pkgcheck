@@ -200,14 +200,14 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
                               inputs = NULL) {
 
     if (!is.character (file_name)) {
-        stop ("'file_name' must be a character argument")
+        cli::cli_abort ("{.arg file_name} must be a character argument")
     }
     if (length (file_name) != 1L) {
-        stop ("'file_name' must be a single value")
+        cli::cli_abort ("{.arg file_name} must be a single value")
     }
     dir <- normalizePath (dir, mustWork = FALSE)
     if (!dir.exists (dir)) {
-        stop ("Directory [", dir, "] does no exist.")
+        cli::cli_abort ("Directory {.path {dir}} does not exist.")
     }
     path <- file.path (dir, file_name)
     if (file.exists (path) && !overwrite) {
