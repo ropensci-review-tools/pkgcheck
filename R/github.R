@@ -195,9 +195,9 @@ get_latest_commit <- function (org, repo) {
 #' }
 #' @export
 use_github_action_pkgcheck <- function (dir = ".github/workflows",
-                              overwrite = FALSE,
-                              file_name = "pkgcheck.yaml",
-                              inputs = NULL) {
+                                        overwrite = FALSE,
+                                        file_name = "pkgcheck.yaml",
+                                        inputs = NULL) {
 
     if (!is.character (file_name)) {
         stop ("'file_name' must be a character argument")
@@ -207,7 +207,7 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
     }
     dir <- normalizePath (dir, mustWork = FALSE)
     if (!dir.exists (dir)) {
-        stop ("Directory [", dir, "] does no exist.")
+        dir.create (dir, recursive = TRUE)
     }
     path <- file.path (dir, file_name)
     if (file.exists (path) && !overwrite) {
