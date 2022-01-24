@@ -407,7 +407,7 @@ pkg_network <- function (checks, sec_num) {
 #' @noRd
 visjs_description <- function (checks) {
 
-    if (Sys.getenv ("GITHUB_WORKFLOW") == "pkgcheck") {
+    if (Sys.getenv ("GITHUB_ACTIONS") == "true") {
 
         orgrepo <- strsplit (checks$pkg$path, "\\/") [[1]]
         org <- utils::tail (orgrepo, 2) [1]
