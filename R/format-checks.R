@@ -431,7 +431,7 @@ visjs_description <- function (checks) {
         res <- paste0 (
             "Click to see the [interactive network visualisation of calls ",
             "between objects in package](",
-            network_file (checks),
+            network_file,
             ")"
         )
         # nocov end
