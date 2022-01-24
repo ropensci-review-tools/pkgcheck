@@ -3,7 +3,7 @@ cli::test_that_cli("use_github_action_pkgcheck", {
 
 expect_snapshot_error(use_github_action_pkgcheck(file_name = 23))
 expect_snapshot_error(use_github_action_pkgcheck(file_name = c("some", "files")))
-expect_error(use_github_action_pkgcheck(dir = dir), "not exist")
+
   dir.create(dir, recursive = TRUE)
   path <- file.path(dir, "pkgcheck.yaml")
   file.create(path)
