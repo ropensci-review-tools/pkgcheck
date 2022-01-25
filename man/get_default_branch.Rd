@@ -24,6 +24,7 @@ exported to enable it to be used within the \pkg{plumber} API.
 \seealso{
 Other github: 
 \code{\link{get_gh_token}()},
-\code{\link{get_latest_commit}()}
+\code{\link{get_latest_commit}()},
+\code{\link{use_github_action_pkgcheck}()}
 }
 \concept{github}

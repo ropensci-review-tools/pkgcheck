@@ -193,6 +193,7 @@ get_latest_commit <- function (org, repo) {
 #' \dontrun{
 #' use_github_action_pkgcheck (inputs = list (`post-to-issue` = "false"))
 #' }
+#' @family github
 #' @export
 use_github_action_pkgcheck <- function (dir = ".github/workflows",
                                         overwrite = FALSE,

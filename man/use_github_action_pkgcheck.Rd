@@ -70,3 +70,10 @@ examples.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{inputs:
 use_github_action_pkgcheck (inputs = list (`post-to-issue` = "false"))
 }
 }
+\seealso{
+Other github: 
+\code{\link{get_default_branch}()},
+\code{\link{get_gh_token}()},
+\code{\link{get_latest_commit}()}
+}
+\concept{github}
