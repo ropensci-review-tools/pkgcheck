@@ -10,7 +10,7 @@ issue](https://github.com/ropensci-review-tools/pkgcheck/issues).
 ## Development guidelines
 
 If you'd like to contribute changes to `pkgcheck`, we use [the GitHub
-flow](https://guides.github.com/introduction/flow/index.html) for proposing,
+flow](https://docs.github.com/en/get-started/quickstart/github-flow) for proposing,
 submitting, reviewing, and accepting changes. If you haven't done this before,
 there's a nice [overview of git](https://r-pkgs.org/git.html), as well
 as [best practices for submitting pull requests](http://r-pkgs.org/git.html#pr-make)
