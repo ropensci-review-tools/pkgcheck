@@ -10,6 +10,7 @@ test_that ("pkgcheck", {
             file.path (tempdir (), "pkgcheck")
     ))
     withr::local_envvar (list ("GITHUB_ACTIONS" = "true"))
+    withr::local_envvar (list ("GITHUB_REPOSITORY" = "org/repo"))
 
     pkgname <- "testpkgchecknotapkg"
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
