@@ -409,19 +409,15 @@ visjs_description <- function (checks) {
 
     if (Sys.getenv ("GITHUB_ACTIONS") == "true") {
 
-        msg <- "latest 'pkgcheck' action"
-        if (length (checks$pkg$url) > 0L) {
-            if (grepl ("\\/", checks$pkg$url)) {
-                orgrepo <- strsplit (checks$pkg$url, "\\/") [[1]]
-                org <- utils::tail (orgrepo, 2) [1]
-                repo <- utils::tail (orgrepo, 1)
-                msg <- paste0 (
-                    "[", msg, "](",
-                    "https://github.com", org, "/", repo,
-                    "/actions)"
-                )
-            }
-        }
+        gh_repo <- Sys.getenv ("GITHUB_REPOSITORY")
+        orgrepo <- strsplit (gh_repo, "\\/") [[1]]
+        org <- utils::tail (orgrepo, 2) [1]
+        repo <- utils::tail (orgrepo, 1)
+        msg <- paste0 (
+            "[latest 'pkgcheck' action](",
+            "https://github.com", org, "/", repo,
+            "/actions)"
+        )
 
         res <- paste0 (
             "An interactive visualisation of calls between objects in ",
