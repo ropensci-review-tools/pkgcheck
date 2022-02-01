@@ -20,6 +20,8 @@ jobs:
         with:
           issue_number: 123
           body: |
-            @mpadge It's time to renew your 'RRT_TOKEN' (with repo and workflow access)
+            @mpadge It's time to renew your 'RRT_TOKEN'
+            - grant both repo and workflow access
+            - copy token to `pkgcheck-action` repo secrets
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
