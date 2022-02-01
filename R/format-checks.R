@@ -409,7 +409,7 @@ visjs_description <- function (checks) {
 
     if (Sys.getenv ("GITHUB_ACTIONS") == "true") {
 
-        orgrepo <- strsplit (checks$pkg$path, "\\/") [[1]]
+        orgrepo <- strsplit (checks$pkg$url, "\\/") [[1]]
         org <- utils::tail (orgrepo, 2) [1]
         repo <- utils::tail (orgrepo, 1)
 
