@@ -409,15 +409,22 @@ visjs_description <- function (checks) {
 
     if (Sys.getenv ("GITHUB_ACTIONS") == "true") {
 
-        orgrepo <- strsplit (checks$pkg$url, "\\/") [[1]]
-        org <- utils::tail (orgrepo, 2) [1]
-        repo <- utils::tail (orgrepo, 1)
+        msg <- "latest 'pkgcheck' action"
+        if (nchar (checks$pkg$url) > 6L) {
+            orgrepo <- strsplit (checks$pkg$url, "\\/") [[1]]
+            org <- utils::tail (orgrepo, 2) [1]
+            repo <- utils::tail (orgrepo, 1)
+            msg <- paste0 (
+                "[", msg, "](",
+                "https://github.com", org, "/", repo,
+                "/actions)"
+            )
+        }
 
         res <- paste0 (
             "An interactive visualisation of calls between objects in ",
             "the package has been uploaded as a workflow artefact. To view ",
-            "it, click on results from the [latest 'pkgcheck' action](",
-            "https://github.com/", org, "/", repo, "/actions), scroll to ",
+            "it, click on results from the ", msg, ", scroll to ",
             "the bottom, and click on the 'visual-network' artefact."
         )
 
