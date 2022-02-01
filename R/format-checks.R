@@ -410,15 +410,17 @@ visjs_description <- function (checks) {
     if (Sys.getenv ("GITHUB_ACTIONS") == "true") {
 
         msg <- "latest 'pkgcheck' action"
-        if (nchar (checks$pkg$url) > 6L) {
-            orgrepo <- strsplit (checks$pkg$url, "\\/") [[1]]
-            org <- utils::tail (orgrepo, 2) [1]
-            repo <- utils::tail (orgrepo, 1)
-            msg <- paste0 (
-                "[", msg, "](",
-                "https://github.com", org, "/", repo,
-                "/actions)"
-            )
+        if (length (checks$pkg$url) > 0L) {
+            if (grepl ("\\/", checks$pkg$url)) {
+                orgrepo <- strsplit (checks$pkg$url, "\\/") [[1]]
+                org <- utils::tail (orgrepo, 2) [1]
+                repo <- utils::tail (orgrepo, 1)
+                msg <- paste0 (
+                    "[", msg, "](",
+                    "https://github.com", org, "/", repo,
+                    "/actions)"
+                )
+            }
         }
 
         res <- paste0 (
