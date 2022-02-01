@@ -23,3 +23,5 @@ r_fn <- c (
     r_fn [i2:length (r_fn)]
 )
 writeLines (r_fn, f)
+
+devtools::document ()
