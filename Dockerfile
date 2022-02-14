@@ -156,6 +156,9 @@ RUN apt-get install -y \
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
 ENV ARROW_S3 "ON"
 
+#ENV R_REMOTES_UPGRADE "always"
+ENV NOT_CRAN "true"
+
 # A selection of R packages, including extra stats packages
 RUN install2.r \
   arrow \
