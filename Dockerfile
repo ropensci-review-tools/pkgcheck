@@ -156,6 +156,7 @@ RUN apt-get install -y \
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
 ENV ARROW_S3 "ON"
 
+# ropensci-review-tools/pkgcheck/issues/134:
 #ENV R_REMOTES_UPGRADE "always"
 ENV NOT_CRAN "true"
 
