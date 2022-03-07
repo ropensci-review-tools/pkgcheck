@@ -122,7 +122,7 @@ cache_pkgstats_component <- function (path, what = "goodpractice") {
         # this envvar is for goodpractice, but no harm setting for other
         # components too
         Sys.setenv ("_R_CHECK_FORCE_SUGGESTS_" = FALSE)
-        out <- do.call (this_fn, list (path))
+        out <- suppressWarnings (do.call (this_fn, list (path)))
         Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
 
         saveRDS (out, cache_file)
