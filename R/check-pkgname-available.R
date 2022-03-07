@@ -9,7 +9,9 @@ pkgchk_pkgname_available <- function (checks) {
     desc <- data.frame (read.dcf (file.path (
         checks$pkg$path,
         "DESCRIPTION"
-    )))
+    )),
+    stringsAsFactors = FALSE
+    )
     pkg <- desc$Package
 
     pkg_grepped <- grep (
@@ -18,7 +20,9 @@ pkgchk_pkgname_available <- function (checks) {
         value = TRUE
     )
 
-    ap <- data.frame (utils::available.packages ())
+    ap <- data.frame (utils::available.packages (),
+        stringsAsFactors = FALSE
+    )
 
     return (
         !pkg %in% ap$Package &

@@ -31,7 +31,11 @@ pkgchk_fns_have_exs <- function (checks) {
     character (3),
     USE.NAMES = TRUE
     )
-    rd_dat <- data.frame (t (rd_dat), row.names = NULL)
+    rd_dat <- data.frame (
+        t (rd_dat),
+        row.names = NULL,
+        stringsAsFactors = FALSE
+    )
     names (rd_dat) <- what
 
     # rm internal and datasets, where all re-exported fns should be internal.

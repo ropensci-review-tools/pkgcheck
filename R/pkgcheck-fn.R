@@ -171,7 +171,8 @@ parse_pkg_deps <- function (s) {
 
     data.frame (
         type = d [, 1],
-        package = d [, 2]
+        package = d [, 2],
+        stringsAsFactors = FALSE
     )
 }
 

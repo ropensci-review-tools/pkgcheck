@@ -184,7 +184,8 @@ ci_results_gh <- function (path) {
             status = i$status,
             conclusion = concl,
             sha = i$head_sha,
-            time = i$created_at
+            time = i$created_at,
+            stringsAsFactors = FALSE
         )
     })
     dat <- do.call (rbind, dat)

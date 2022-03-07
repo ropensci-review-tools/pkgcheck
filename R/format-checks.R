@@ -134,7 +134,8 @@ checks_to_markdown <- function (checks, render = FALSE) {
     v <- data.frame (
         package = names (checks$meta),
         version = checks$meta,
-        row.names = NULL
+        row.names = NULL,
+        stringsAsFactors = FALSE
     )
     md_out <- c (
         md_out,
@@ -665,6 +666,7 @@ tooltip_dictionary <- function () {
 
     data.frame (
         what = out [, 1],
-        tooltip = out [, 2]
+        tooltip = out [, 2],
+        stringsAsFactors = FALSE
     )
 }

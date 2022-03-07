@@ -10,7 +10,10 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
         return (character (0))
     }
 
-    d <- data.frame (read.dcf (desc))
+    d <- data.frame (
+        read.dcf (desc),
+        stringsAsFactors = FALSE
+    )
     if (!type %in% names (d)) {
         return (character (0))
     }

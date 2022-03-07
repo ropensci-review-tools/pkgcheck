@@ -49,7 +49,9 @@ current_hash <- function (path) {
         stop ("path [", path, "] does not appear to be an R package")
     }
 
-    desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")))
+    desc <- data.frame (read.dcf (file.path (path, "DESCRIPTION")),
+        stringsAsFactors = FALSE
+    )
     pkg <- desc$Package
 
     if (repo_is_git (path)) {

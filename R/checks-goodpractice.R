@@ -139,7 +139,8 @@ extract_gp_components <- function (gp) {
         )
         covr <- data.frame (
             source = names (covr),
-            percent = as.numeric (covr)
+            percent = as.numeric (covr),
+            stringsAsFactors = FALSE
         )
     }
 
@@ -475,7 +476,8 @@ lintr_report <- function (x) {
     msgs <- table (x$lint$message)
     msgs <- data.frame (
         message = names (msgs),
-        n = as.integer (msgs)
+        n = as.integer (msgs),
+        stringsAsFactors = FALSE
     )
 
     ret <- c (

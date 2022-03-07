@@ -11,10 +11,14 @@ pkgchk_on_cran <- function (checks) {
     desc <- data.frame (read.dcf (file.path (
         checks$pkg$path,
         "DESCRIPTION"
-    )))
+    )),
+    stringsAsFactors = FALSE
+    )
     pkg <- desc$Package
 
-    ap <- data.frame (utils::available.packages ())
+    ap <- data.frame (utils::available.packages (),
+        stringsAsFactors = FALSE
+    )
     res <- pkg %in% ap$Package
 
     if (res) {

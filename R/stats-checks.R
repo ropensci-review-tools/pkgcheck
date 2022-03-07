@@ -85,7 +85,8 @@ stats_checks <- function (s, threshold = 0.05) {
         measure = names (pc),
         value = as.numeric (s [1, index]),
         percentile = pc,
-        row.names = NULL
+        row.names = NULL,
+        stringsAsFactors = FALSE
     )
 
     keep <- c (
@@ -112,7 +113,8 @@ stats_checks <- function (s, threshold = 0.05) {
     rel_white <- data.frame (
         measure = measure,
         value = 100 * rel_white_pkg,
-        percentile = rel_white_score
+        percentile = rel_white_score,
+        stringsAsFactors = FALSE
     ) [index, ]
     i <- max (grep ("^loc_", pc$measure))
     pc <- rbind (
