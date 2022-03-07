@@ -7,7 +7,7 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
 
     desc <- file.path (path, "DESCRIPTION")
     if (!file.exists (desc)) {
-        return (character (0))
+        return ("")
     }
 
     d <- data.frame (
@@ -15,7 +15,7 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
         stringsAsFactors = FALSE
     )
     if (!type %in% names (d)) {
-        return (character (0))
+        return ("")
     }
 
     u <- strsplit (d [[type]], "\\s+") [[1]]
@@ -28,6 +28,10 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
     }
 
     u <- gsub (",|\\s+", "", u)
+
+    if (length (u) == 0L) {
+        u <- ""
+    }
 
     return (u [1])
 }
