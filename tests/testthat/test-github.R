@@ -22,8 +22,8 @@ cli::test_that_cli ("use_github_action_pkgcheck", {
     )
     gha_path <- gsub ("^\\/private", "", use_github_action_pkgcheck (dir = dir, overwrite = TRUE))
     expect_equal (
-        gsub ("\\/\\/", "/", gha_path),
-        gsub ("\\/\\/", "/", path)
+        fs::path_tidy (gha_path),
+        fs::path_tidy (path)
     )
     expect_snapshot_file (path)
     expect_snapshot_file (use_github_action_pkgcheck (dir = dir, file_name = "with_inputs.yaml", inputs = list (`post-to-issue` = "true", `summary-only` = "false", ref = "main")))
