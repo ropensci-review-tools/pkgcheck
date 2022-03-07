@@ -255,6 +255,8 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
         inputs <- c (with, inputs)
     }
 
+    yaml <- git_current_branch (yaml)
+
     yaml <- c (yaml, inputs)
 
     writeLines (yaml, path)
@@ -264,4 +266,21 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
     )
 
     invisible (path)
+}
+
+git_current_branch <- function (yaml) {
+
+    here <- rprojroot::find_root (rprojroot::is_r_package)
+    branch <- gert::git_branch (repo = here)
+
+    if (branch != "main") {
+        i <- grep ("@main$", yaml)
+        yaml [i] <- gsub (
+            "@main$",
+            paste0 ("@", branch),
+            yaml [i]
+        )
+    }
+
+    return (yaml)
 }
