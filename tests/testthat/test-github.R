@@ -1,4 +1,4 @@
-cli::test_that_cli ("use_github_action_pkgcheck", {
+test_that ("use_github_action_pkgcheck", {
 
     dir <- fs::path (fs::file_temp (pattern = "pkgcheck"), ".github")
     # nolint start
