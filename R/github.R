@@ -289,6 +289,7 @@ add_branch_to_yaml <- function (yaml, branch = gert::git_branch ()) {
 
         i <- grep ("^\\s+branches\\:$", yaml)
         j <- grep ("^\\s+\\-\\s*\\w+$", yaml)
+        j <- j [which (j > i)]
         j <- j [which (c (1L, diff (j)) == 1L)]
         branches <- gsub ("^\\s+\\-\\s+", "", yaml [j])
         if (!branch %in% branches) {
