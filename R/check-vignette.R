@@ -8,7 +8,7 @@ pkgchk_has_vignette <- function (checks) {
 
     # from pkgdown
     # https://github.com/r-lib/pkgdown/blob/705ff7c650bb1c7d46d35e72f27ad093689e2f29/R/package.r#L202 # nolint
-    base <- file.path (checks$pkg$path, "vignettes")
+    base <- fs::path (checks$pkg$path, "vignettes")
 
     vig_path <- character (0L)
 

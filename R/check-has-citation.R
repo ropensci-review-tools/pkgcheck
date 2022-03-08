@@ -10,7 +10,7 @@
 #' @noRd
 pkgchk_has_citation <- function (checks) {
 
-    "CITATION" %in% list.files (file.path (checks$pkg$path, "inst"))
+    "CITATION" %in% list.files (fs::path (checks$pkg$path, "inst"))
 }
 
 # ---- output-pkgchk-citation ----

@@ -150,7 +150,7 @@ stats_checks <- function (s, threshold = 0.05) {
         "fn_call_network_size"
 
     # language summary:
-    loc <- pkgstats::loc_stats (file.path (attr (s, "path")))
+    loc <- pkgstats::loc_stats (fs::path (attr (s, "path")))
     loc <- loc [which (loc$dir %in% c ("R", "inst", "src")), ]
     loc <- vapply (unique (loc$language), function (i) {
         c (

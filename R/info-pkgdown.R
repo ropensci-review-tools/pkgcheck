@@ -7,7 +7,7 @@
 pkginfo_pkgdown <- function (path) {
 
     rd_files <- list.files (
-        file.path (path, "man"),
+        fs::path (path, "man"),
         pattern = "\\.Rd$",
         full.names = TRUE
     )

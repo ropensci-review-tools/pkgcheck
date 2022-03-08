@@ -6,7 +6,7 @@
 #' @noRd
 pkgchk_pkgname_available <- function (checks) {
 
-    desc <- data.frame (read.dcf (file.path (
+    desc <- data.frame (read.dcf (fs::path (
         checks$pkg$path,
         "DESCRIPTION"
     )),

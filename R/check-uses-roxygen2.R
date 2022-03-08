@@ -8,7 +8,7 @@
 pkgchk_uses_roxygen2 <- function (checks) {
 
     rd <- list.files (
-        file.path (checks$pkg, "man"),
+        fs::path (checks$pkg, "man"),
         pattern = "\\.Rd$",
         full.names = TRUE
     )

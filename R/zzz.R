@@ -4,8 +4,10 @@
     cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
 
     if (cache_dir == "") {
-        cache_dir <- file.path (rappdirs::user_cache_dir (), "pkgcheck")
-        cache_dir <- normalizePath (cache_dir, mustWork = FALSE)
+        cache_dir <- fs::path_norm (fs::path (
+            rappdirs::user_cache_dir (),
+            "pkgcheck"
+        ))
         Sys.setenv ("PKGCHECK_CACHE_DIR" = cache_dir)
         Sys.setenv ("PKGCHECK_CACHE_DIR_UNSET" = "true")
     }

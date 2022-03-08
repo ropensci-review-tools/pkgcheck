@@ -45,7 +45,7 @@ pkginfo_srr_report <- function (path) {
 
     # get path to report in cache dir:
     pkg_hash <- current_hash (path)
-    static_dir <- file.path (
+    static_dir <- fs::path (
         Sys.getenv ("PKGCHECK_CACHE_DIR"),
         "static"
     )
@@ -54,8 +54,8 @@ pkginfo_srr_report <- function (path) {
     }
 
     f <- paste0 (pkg_hash [1], "_srr", pkg_hash [2])
-    srr_report_file <- file.path (static_dir, paste0 (f, ".html"))
-    srr_md_file <- file.path (static_dir, paste0 (f, ".md"))
+    srr_report_file <- fs::path (static_dir, paste0 (f, ".html"))
+    srr_md_file <- fs::path (static_dir, paste0 (f, ".md"))
 
     flist <- list.files (static_dir,
         full.names = TRUE

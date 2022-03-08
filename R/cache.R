@@ -14,7 +14,7 @@
 #' @export
 logfile_names <- function (path) {
 
-    temp_dir <- file.path (Sys.getenv ("PKGCHECK_CACHE_DIR"), "templogs")
+    temp_dir <- fs::path (Sys.getenv ("PKGCHECK_CACHE_DIR"), "templogs")
     if (!dir.exists (temp_dir)) {
         dir.create (temp_dir, recursive = TRUE)
     }
@@ -22,8 +22,8 @@ logfile_names <- function (path) {
     pkg_hash <- current_hash (path)
     pkg_hash_fmt <- paste0 (pkg_hash, collapse = "_")
 
-    sout <- file.path (temp_dir, paste0 (pkg_hash_fmt, "_stdout"))
-    serr <- file.path (temp_dir, paste0 (pkg_hash_fmt, "_stderr"))
+    sout <- fs::path (temp_dir, paste0 (pkg_hash_fmt, "_stdout"))
+    serr <- fs::path (temp_dir, paste0 (pkg_hash_fmt, "_stderr"))
 
     otherlogs <- list.files (
         temp_dir,
@@ -45,7 +45,7 @@ logfile_names <- function (path) {
 #' @noRd
 current_hash <- function (path) {
 
-    if (!file.exists (file.path (path, "DESCRIPTION"))) {
+    if (!fs::file_exists (fs::path (path, "DESCRIPTION"))) {
         stop ("path [", path, "] does not appear to be an R package")
     }
 
@@ -98,7 +98,7 @@ cache_pkgstats_component <- function (path, what = "goodpractice") {
         dir.create (cache_dir, recursive = TRUE)
     }
 
-    cache_file <- file.path (cache_dir, fname)
+    cache_file <- fs::path (cache_dir, fname)
 
     # rm old components:
     flist <- list.files (cache_dir,
@@ -113,7 +113,7 @@ cache_pkgstats_component <- function (path, what = "goodpractice") {
         chk <- file.remove (flist)
     }
 
-    if (file.exists (cache_file)) {
+    if (fs::file_exists (cache_file)) {
 
         out <- readRDS (cache_file)
 

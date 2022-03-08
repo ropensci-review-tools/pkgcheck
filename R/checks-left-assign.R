@@ -12,7 +12,7 @@
 #' @noRd
 pkgchk_left_assign <- function (checks) {
 
-    rdir <- file.path (checks$pkg$path, "R")
+    rdir <- fs::path (checks$pkg$path, "R")
     if (!file.exists (rdir)) {
         return (list (
             global = FALSE,

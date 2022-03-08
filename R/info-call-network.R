@@ -10,7 +10,7 @@ fn_call_network <- function (s) {
         return (NULL)
     }
 
-    visjs_dir <- file.path (
+    visjs_dir <- fs::path (
         Sys.getenv ("PKGCHECK_CACHE_DIR"),
         "static"
     )
@@ -24,7 +24,7 @@ fn_call_network <- function (s) {
         substring (s$out$git$HEAD, 1, 8),
         ".html"
     )
-    visjs_path <- file.path (visjs_dir, visjs_file)
+    visjs_path <- fs::path (visjs_dir, visjs_file)
 
     # clean up any older ones
     flist <- list.files (
@@ -47,8 +47,8 @@ fn_call_network <- function (s) {
         if (!"lib" %in% list.files (visjs_dir)) {
             if (length (libdir) > 0) {
                 libdir <- libdir [1]
-                fpath <- file.path (libdir, "..")
-                newlibdir <- file.path (normalizePath (fpath), "lib")
+                fpath <- fs::path (libdir, "..")
+                newlibdir <- fs::path (fs::path_norm (fpath), "lib")
                 file.rename (libdir, newlibdir)
             }
         } else {

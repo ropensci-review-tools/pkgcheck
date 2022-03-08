@@ -6,7 +6,7 @@
 #' @noRd
 convert_path <- function (path = ".") {
 
-    path <- normalizePath (path)
+    path <- fs::path_norm (path)
 
     # see also https://github.com/r-lib/usethis/blob/master/R/proj.R
     proj_crit <- function () {

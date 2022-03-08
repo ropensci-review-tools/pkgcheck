@@ -365,7 +365,7 @@ pkg_network <- function (checks, sec_num) {
     }
 
     cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
-    visjs_dir <- file.path (cache_dir, "static") # in api.R
+    visjs_dir <- fs::path (cache_dir, "static") # in api.R
     if (!dir.exists (visjs_dir)) {
         dir.create (visjs_dir, recursive = TRUE)
     }

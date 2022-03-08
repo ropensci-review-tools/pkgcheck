@@ -60,7 +60,7 @@ list_pkgchecks <- function (quiet = FALSE) {
 #' @noRd
 exported_fns <- function (path) {
 
-    nspace <- readLines (file.path (path, "NAMESPACE"))
+    nspace <- readLines (fs::path (path, "NAMESPACE"))
     exports <- grep ("^export\\s?\\(", nspace, value = TRUE)
     exports <- gsub ("^export\\s?\\(|\\)$", "", exports)
     exports <- unlist (strsplit (exports, ",\\s?"))

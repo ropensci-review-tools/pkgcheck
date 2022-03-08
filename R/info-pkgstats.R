@@ -5,7 +5,7 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
 
     type <- match.arg (type, c ("URL", "BugReports"))
 
-    desc <- file.path (path, "DESCRIPTION")
+    desc <- fs::path (path, "DESCRIPTION")
     if (!file.exists (desc)) {
         return ("")
     }

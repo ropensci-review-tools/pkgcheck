@@ -209,7 +209,7 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
     if (!dir.exists (dir)) {
         dir.create (dir, recursive = TRUE)
     }
-    path <- file.path (dir, file_name)
+    path <- fs::path (dir, file_name)
     if (file.exists (path) && !overwrite) {
         cli::cli_abort (
             c (
