@@ -150,6 +150,8 @@ get_latest_commit <- function (org, repo) {
 #' @param dir Directory the file is written to.
 #' @param overwrite Overwrite existing file?
 #' @param file_name Name of the workflow file.
+#' @param branch Name of git branch for checks to run; defaults to currently
+#' active branch.
 #' @param inputs Named list of inputs to the
 #'   `ropensci-review-tools/pkgcheck-action`. See details below.
 #' @return The path to the new file, invisibly.
@@ -191,12 +193,14 @@ get_latest_commit <- function (org, repo) {
 #' @examples
 #' \dontrun{
 #' use_github_action_pkgcheck (inputs = list (`post-to-issue` = "false"))
+#' use_github_action_pkgcheck (branch = "main")
 #' }
 #' @family github
 #' @export
 use_github_action_pkgcheck <- function (dir = ".github/workflows",
                                         overwrite = FALSE,
                                         file_name = "pkgcheck.yaml",
+                                        branch = gert::git_branch (),
                                         inputs = NULL) {
 
     if (!is.character (file_name)) {
@@ -255,7 +259,7 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
         inputs <- c (with, inputs)
     }
 
-    yaml <- git_current_branch (yaml)
+    yaml <- add_branch_to_yaml (yaml, branch)
 
     yaml <- c (yaml, inputs)
 
@@ -268,28 +272,37 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
     invisible (path)
 }
 
-#' Get current git branch
+#' Modify yaml action to specified branch.
 #'
 #' This does not work in covr on github, so need to disable there.
 #' @param yaml The YAML template of the pkgcheck action
+#' @inheritParams use_github_action_pkgcheck
 #' @return Same as input with branch (potentially) modified to current branch.
 #' @noRd
-git_current_branch <- function (yaml) {
+add_branch_to_yaml <- function (yaml, branch = gert::git_branch ()) {
 
     if (Sys.getenv ("GITHUB_ACTIONS") == "true") {
         return (yaml)
     }
 
-    here <- rprojroot::find_root (rprojroot::is_r_package)
-    branch <- gert::git_branch (repo = here)
-
     if (branch != "main") {
-        i <- grep ("@main$", yaml)
-        yaml [i] <- gsub (
-            "@main$",
-            paste0 ("@", branch),
-            yaml [i]
-        )
+
+        i <- grep ("^\\s+branches\\:$", yaml)
+        j <- grep ("^\\s+\\-\\s*\\w+$", yaml)
+        j <- j [which (c (1L, diff (j)) == 1L)]
+        branches <- gsub ("^\\s+\\-\\s+", "", yaml [j])
+        if (!branch %in% branches) {
+            j <- max (j)
+            yaml <- c (
+                yaml [seq (j)],
+                paste0 (
+                    paste0 (rep (" ", 6), collapse = ""),
+                    "- ",
+                    branch
+                ),
+                yaml [(j + 1):length (yaml)]
+            )
+        }
     }
 
     return (yaml)

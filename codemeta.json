@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.2.253",
+  "version": "0.0.2.254",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -177,6 +177,18 @@
     },
     "5": {
       "@type": "SoftwareApplication",
+      "identifier": "fs",
+      "name": "fs",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=fs"
+    },
+    "6": {
+      "@type": "SoftwareApplication",
       "identifier": "gert",
       "name": "gert",
       "provider": {
@@ -187,7 +199,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=gert"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "ghql",
       "name": "ghql",
@@ -199,7 +211,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ghql"
     },
-    "7": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "glue",
       "name": "glue",
@@ -211,7 +223,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=glue"
     },
-    "8": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "goodpractice",
       "name": "goodpractice",
@@ -223,7 +235,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=goodpractice"
     },
-    "9": {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "httr",
       "name": "httr",
@@ -235,7 +247,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httr"
     },
-    "10": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
@@ -247,7 +259,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
-    "11": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
@@ -259,18 +271,18 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=magrittr"
     },
-    "12": {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "13": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "pkgstats",
       "name": "pkgstats",
       "sameAs": "https://github.com/ropensci-review-tools/pkgstats"
     },
-    "14": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "rappdirs",
       "name": "rappdirs",
@@ -282,7 +294,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rappdirs"
     },
-    "15": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
@@ -294,7 +306,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     },
-    "16": {
+    "17": {
       "@type": "SoftwareApplication",
       "identifier": "rprojroot",
       "name": "rprojroot",
@@ -306,7 +318,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rprojroot"
     },
-    "17": {
+    "18": {
       "@type": "SoftwareApplication",
       "identifier": "rvest",
       "name": "rvest",
@@ -318,20 +330,16 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rvest"
     },
-    "18": {
+    "19": {
       "@type": "SoftwareApplication",
       "identifier": "srr",
       "name": "srr",
       "sameAs": "https://github.com/ropensci-review-tools/srr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "3707.199KB",
+  "fileSize": "3707.951KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab",
-    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
+  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

@@ -8,6 +8,7 @@ use_github_action_pkgcheck(
   dir = ".github/workflows",
   overwrite = FALSE,
   file_name = "pkgcheck.yaml",
+  branch = gert::git_branch(),
   inputs = NULL
 )
 }
@@ -17,6 +18,9 @@ use_github_action_pkgcheck(
 \item{overwrite}{Overwrite existing file?}
 
 \item{file_name}{Name of the workflow file.}
+
+\item{branch}{Name of git branch for checks to run; defaults to currently
+active branch.}
 
 \item{inputs}{Named list of inputs to the
 \code{ropensci-review-tools/pkgcheck-action}. See details below.}
@@ -67,6 +71,7 @@ examples.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{inputs:
 \examples{
 \dontrun{
 use_github_action_pkgcheck (inputs = list (`post-to-issue` = "false"))
+use_github_action_pkgcheck (branch = "main")
 }
 }
 \seealso{
