@@ -13,6 +13,13 @@ cli::test_that_cli ("use_github_action_pkgcheck", {
     expect_snapshot_error (use_github_action_pkgcheck (dir = dir, inputs = "not a list"))
     expect_error (use_github_action_pkgcheck (dir = dir, inputs = list (notaninput = 23)), "not valid")
 
+    # Success - but skip on windows and mac because GHA machines use completely
+    # different paths
+    testthat::skip_on_os ("windows")
+    testthat::skip_on_os ("mac")
+    gha_path <- use_github_action_pkgcheck (dir = dir)
+    expect_equal (path, gha_path)
+
     expect_snapshot_file (path)
     expect_snapshot_file (use_github_action_pkgcheck (dir = dir, file_name = "with_inputs.yaml", inputs = list (`post-to-issue` = "true", `summary-only` = "false", ref = "main")))
 
