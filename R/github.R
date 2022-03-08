@@ -268,7 +268,17 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
     invisible (path)
 }
 
+#' Get current git branch
+#'
+#' This does not work in covr on github, so need to disable there.
+#' @param yaml The YAML template of the pkgcheck action
+#' @return Same as input with branch (potentially) modified to current branch.
+#' @noRd
 git_current_branch <- function (yaml) {
+
+    if (Sys.getenv ("GITHUB_ACTIONS") == "true") {
+        return (yaml)
+    }
 
     here <- rprojroot::find_root (rprojroot::is_r_package)
     branch <- gert::git_branch (repo = here)
