@@ -86,7 +86,7 @@ get_gh_token <- function (token_name = "") {
     return (unique (toks))
 }
 
-#' get_default_branch
+#' get_default_github_branch
 #'
 #' @note This function is not intended to be called directly, and is only
 #' exported to enable it to be used within the \pkg{plumber} API.
@@ -96,7 +96,7 @@ get_gh_token <- function (token_name = "") {
 #' @return Name of default branch on GitHub
 #' @family github
 #' @export
-get_default_branch <- function (org, repo) {
+get_default_github_branch <- function (org, repo) {
 
     token <- get_gh_token ()
 
@@ -134,7 +134,7 @@ get_latest_commit <- function (org, repo) {
         headers = list (Authorization = paste0 ("Bearer ", token))
     )
 
-    branch <- get_default_branch (org, repo)
+    branch <- get_default_github_branch (org, repo)
 
     qry <- commits_qry (gh_cli, org = org, repo = repo, branch = branch)
     x <- gh_cli$exec (qry$queries$get_commits) %>%

@@ -30,7 +30,7 @@ pkginfo_git_info <- function (path) {
         org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
         has_token <- length (get_gh_token ()) > 0L
         if (curl::has_internet () & has_token) {
-            branch <- get_default_branch (org, repo)
+            branch <- get_default_github_branch (org, repo)
         }
     }
 

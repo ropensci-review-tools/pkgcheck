@@ -76,7 +76,7 @@ use_github_action_pkgcheck (branch = "main")
 }
 \seealso{
 Other github: 
-\code{\link{get_default_branch}()},
+\code{\link{get_default_github_branch}()},
 \code{\link{get_gh_token}()},
 \code{\link{get_latest_commit}()}
 }

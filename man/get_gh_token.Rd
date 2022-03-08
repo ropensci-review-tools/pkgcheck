@@ -18,7 +18,7 @@ Get GitHub token
 }
 \seealso{
 Other github: 
-\code{\link{get_default_branch}()},
+\code{\link{get_default_github_branch}()},
 \code{\link{get_latest_commit}()},
 \code{\link{use_github_action_pkgcheck}()}
 }

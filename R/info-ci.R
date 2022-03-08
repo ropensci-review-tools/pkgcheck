@@ -21,7 +21,7 @@ pkgchk_ci_badges <- function (u) {
     repo <- utils::tail (orgrepo, 1)
     # note: default branch is github only, so will only work if repo is also
     # mirrored on github!
-    branch <- get_default_branch (org, repo)
+    branch <- get_default_github_branch (org, repo)
 
     if (grepl ("github", u)) {
 
