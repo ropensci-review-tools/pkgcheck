@@ -110,6 +110,8 @@ get_default_github_branch <- function (org, repo) {
         jsonlite::fromJSON ()
     branch <- x$data$repository$defaultBranchRef$name
 
+    # Then also check if repo has pkgcheck action yaml file:
+
     return (branch)
 }
 
@@ -307,4 +309,56 @@ add_branch_to_yaml <- function (yaml, branch = gert::git_branch ()) {
     }
 
     return (yaml)
+}
+
+#' Get branch specified in pkgcheck GitHub workflow, if one exists.
+#'
+#' @noRd
+pkgcheck_workflow_branch <- function (org, repo) {
+
+    default_branch <- get_default_github_branch (org, repo)
+
+    branches <- ""
+
+    u <- paste0 (
+        "https://api.github.com/repos/",
+        org,
+        "/",
+        repo,
+        "/git/trees/",
+        default_branch,
+        "?recursive=1"
+    )
+    x <- httr::GET (u) %>%
+        httr::content ()
+    paths <- vapply (x$tree, function (i) i$path, character (1))
+    workflows <- grep ("^\\.github\\/workflows", paths, value = TRUE)
+
+    if (any (grepl ("pkgcheck", workflows))) {
+
+        this <- workflows [grep ("pkgcheck", workflows) [1]]
+        u_wf <- paste0 (
+            "https://raw.githubusercontent.com/",
+            org,
+            "/",
+            repo,
+            "/",
+            default_branch,
+            "/",
+            this
+        )
+        f <- file.path (tempdir (), basename (this))
+        download.file (u_wf, f, quiet = TRUE)
+        yaml <- readLines (f)
+
+        chk <- file.remove (f)
+
+        i <- grep ("^\\s+branches\\:$", yaml)
+        j <- grep ("^\\s+\\-\\s*\\w+$", yaml)
+        j <- j [which (j > i)]
+        j <- j [which (c (1L, diff (j)) == 1L)]
+        branches <- gsub ("^\\s+\\-\\s+", "", yaml [j])
+    }
+
+    return (branches)
 }
