@@ -35,7 +35,8 @@ test_that ("yaml branch", {
 
     expect_true (any (grepl ("^\\s+\\-\\s*main$", yaml)))
 
-    yaml1 <- add_branch_to_yaml (yaml)
+    # hard-code branch to avoid gert call, which may fail on GHA:
+    yaml1 <- add_branch_to_yaml (yaml, branch = "main")
     expect_identical (yaml, yaml1)
 
     yaml2 <- add_branch_to_yaml (yaml, branch = "new-branch")
@@ -45,7 +46,5 @@ test_that ("yaml branch", {
 
     pos1 <- grep ("^\\s+\\-\\s*main$", yaml)
     pos2 <- grep ("^\\s+\\-\\s*new-branch$", yaml2)
-    if (Sys.getenv ("GITHUB_ACTIONS") == "") {
-        expect_equal (pos2 - pos1, 1L)
-    }
+    expect_equal (pos2 - pos1, 1L)
 })

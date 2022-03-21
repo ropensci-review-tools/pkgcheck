@@ -283,10 +283,6 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
 #' @noRd
 add_branch_to_yaml <- function (yaml, branch = gert::git_branch ()) {
 
-    if (Sys.getenv ("GITHUB_ACTIONS") == "true") {
-        return (yaml)
-    }
-
     if (branch != "main") {
 
         i <- grep ("^\\s+branches\\:$", yaml)
