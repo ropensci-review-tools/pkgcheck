@@ -212,6 +212,7 @@ pkgstats_format <- function (checks, sec_num) {
             "current CRAN packages"
         ),
         "The following terminology is used:",
+        "",
         "- `loc` = \"Lines of Code\"",
         "- `fn` = \"function\"",
         "- `exp`/`not_exp` = exported / not exported",
