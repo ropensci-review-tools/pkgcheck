@@ -17,11 +17,17 @@ test_that ("use_github_action_pkgcheck", {
     # different paths
     testthat::skip_on_os ("windows")
     testthat::skip_on_os ("mac")
-    gha_path <- use_github_action_pkgcheck (dir = dir)
+    gha_path <- use_github_action_pkgcheck (dir = dir, branch = "main")
     expect_equal (path, gha_path)
 
     expect_snapshot_file (path)
-    expect_snapshot_file (use_github_action_pkgcheck (dir = dir, file_name = "with_inputs.yaml", inputs = list (`post-to-issue` = "true", `summary-only` = "false", ref = "main")))
+    expect_snapshot_file (
+        use_github_action_pkgcheck (dir = dir,
+                                    file_name = "with_inputs.yaml",
+                                    branch = "main",
+                                    inputs = list (`post-to-issue` = "true",
+                                                   `summary-only` = "false",
+                                                   ref = "main")))
 
 })
 
