@@ -348,7 +348,7 @@ pkgcheck_workflow_branch <- function (org, repo) {
             this
         )
         f <- file.path (tempdir (), basename (this))
-        download.file (u_wf, f, quiet = TRUE)
+        utils::download.file (u_wf, f, quiet = TRUE)
         yaml <- readLines (f)
 
         chk <- file.remove (f)
