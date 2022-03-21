@@ -32,7 +32,7 @@ test_that ("goodpractice", {
     expect_true (length (md) > 10L)
     expect_true (any (grepl ("`goodpractice` results", md)))
     expect_true (any (grepl ("R CMD check", md)))
-    expect_true (any (grepl ("Test Coverage", md)))
+    # expect_true (any (grepl ("Test Coverage", md)))
     expect_true (any (grepl ("Static code analyses", md)))
 
     checks$goodpractice$rcmdcheck <- try (stop ("nope"), silent = TRUE)
