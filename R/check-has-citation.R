@@ -22,10 +22,12 @@ output_pkgchk_has_citation <- function (checks) {
         print = ""
     )
 
-    out$summary <- paste0 (
-        ifelse (out$check_pass, "has", "does not have"),
-        " a 'CITATION' file."
-    )
+    # disabled:
+    # https://github.com/ropensci-review-tools/pkgcheck/issues/115
+    #out$summary <- paste0 (
+    #    ifelse (out$check_pass, "has", "does not have"),
+    #    " a 'CITATION' file."
+    #)
 
     return (out)
 }
