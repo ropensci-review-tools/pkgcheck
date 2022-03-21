@@ -159,7 +159,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
         i0 <- grep ("^The following terminology is used", md_out)
         i1 <- grep ("^\\-\\s", md_out)
         i1 <- i1 [i1 > i0] [1]
-        i2 <- which (nzchar (md_out))
+        i2 <- which (!nzchar (md_out))
         i2 <- i2 [i2 > i1] [1]
 
         if (length (i2) == 1L) {
