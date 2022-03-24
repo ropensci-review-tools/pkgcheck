@@ -169,11 +169,19 @@ parse_pkg_deps <- function (s) {
 
     d <- do.call (rbind, d)
 
-    data.frame (
+    out <- data.frame (
         type = d [, 1],
         package = d [, 2],
+        ncalls = NA_integer_,
         stringsAsFactors = FALSE
     )
+
+    # Then tally number of calls from 'external_calls' data
+    ex_tab <- table (s$external_calls$package)
+    index <- which (out$package %in% names (ex_tab))
+    out$ncalls [index] <- ex_tab [match (out$package [index], names (ex_tab))]
+
+    return (out)
 }
 
 #' Format \pkg{pkgstats} data
