@@ -26,7 +26,7 @@ pkgchk_fns_have_exs <- function (checks) {
             dat [[2]] <- ""
         }
         dat [[3]] <- length (dat [[3]])
-        unlist (dat)
+        unlist (dat) [1:3]
     },
     character (3),
     USE.NAMES = TRUE
