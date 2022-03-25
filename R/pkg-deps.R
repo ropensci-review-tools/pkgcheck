@@ -17,7 +17,7 @@ pkgdeps_as_table <- function (checks) {
     }
 
     re_exports <- get_re_exports (checks$pkg$path)
-    if (nrow (re_exports) > 0L) {
+    if (length (re_exports) > 0L) {
         index <- which (
             deps$package %in% re_exports$package &
                 is.na (deps$ncalls)
