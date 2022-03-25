@@ -11,7 +11,7 @@ pkgdeps_as_table <- function (checks) {
 
     deps$package [deps$package == "NA"] <- NA_character_
 
-    index <- which (deps$type == "depends" && is.na (deps$package))
+    index <- which (deps$type == "depends" & is.na (deps$package))
     if (length (index) > 0L) {
         deps <- deps [-index, ]
     }
