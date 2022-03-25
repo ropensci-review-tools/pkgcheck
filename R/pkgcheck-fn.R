@@ -47,6 +47,9 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
         "dependencies"
     )]
 
+    checks$pkg$external_calls <-
+        sort (table (s$stats$external_calls$package), decreasing = TRUE)
+
     if ("srr" %in% names (s$out)) {
         checks$info <- s$out [c ("git", "srr", "pkgstats")]
     } else {
