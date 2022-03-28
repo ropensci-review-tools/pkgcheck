@@ -69,7 +69,7 @@ output_pkgchk_has_bugs <- function (checks) {
 url_exists <- function (x, non_2xx_return_value = FALSE, quiet = FALSE, ...) {
 
     # you don't need thse two functions if you're already using `purrr`
-    # but `purrr` is a heavyweight compiled pacakge that introduces
+    # but `purrr` is a heavyweight compiled package that introduces
     # many other "tidyverse" dependencies and this doesnt.
 
     capture_error <- function (code, otherwise = NULL, quiet = TRUE) {
