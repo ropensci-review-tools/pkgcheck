@@ -77,5 +77,20 @@ edit_html <- function (f) {
         h <- h [-(i [-1])]
     }
 
+    # finally, some generate a `colgroup` group specifying column widths, while
+    # others do not, so remove that:
+    i <- grep ("^<colgroup>$", h)
+    if (length (i) > 0L) {
+        j <- grep ("^<\\/colgroup>$", h)
+        ij <- apply (
+            cbind (i, j),
+            1,
+            function (k) seq (k [1], k [2]),
+            simplify = FALSE
+        )
+        ij <- unlist (ij)
+        h <- h [seq_along (h) [-ij]]
+    }
+
     writeLines (h, con = f)
 }
