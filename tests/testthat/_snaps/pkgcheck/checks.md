@@ -47,10 +47,13 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 |suggests   |testthat |     NA|
 |linking_to |Rcpp     |     NA|
 
----
+Click below for tallies of functions used in each package. Locations of each call within this package may be generated locally by running 's <- pkgstats::pkgstats(<path/to/repo>)', and examining the 'external_calls' table.
 
 
 </p></details>
+
+---
+
 
 ### 3. Statistical Properties
 
