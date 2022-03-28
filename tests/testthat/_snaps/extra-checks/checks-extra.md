@@ -31,8 +31,8 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 
 |type       |package    | ncalls|
 |:----------|:----------|------:|
-|internal   |base       |    445|
-|internal   |pkgstats   |    107|
+|internal   |base       |    447|
+|internal   |pkgstats   |     99|
 |internal   |stats      |     16|
 |internal   |graphics   |     10|
 |internal   |utils      |     10|
