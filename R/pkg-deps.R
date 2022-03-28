@@ -38,10 +38,17 @@ pkgdeps_as_table <- function (checks) {
     ext <- checks$pkg$external_calls
     index <- which (!names (ext) %in% deps$package)
     internal <- data.frame (
-        type = "internal",
-        package = names (ext [index]),
-        ncalls = as.integer (ext [index])
+        type = character (0L),
+        package = character (0L),
+        ncalls = integer (0L)
     )
+    if (length (index) > 0L) {
+        internal <- data.frame (
+            type = "internal",
+            package = names (ext [index]),
+            ncalls = as.integer (ext [index])
+        )
+    }
 
     deps <- rbind (internal, deps)
 
