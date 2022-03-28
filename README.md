@@ -225,9 +225,9 @@ remainder include:
     relationships between objects (such as functions) within a package,
     within and between each computer language used in the package.
 -   `gp` containing the output of the [`goodpractice`
-    pacakge](http://mangothecat.github.io/goodpractice/), itself
+    package](http://mangothecat.github.io/goodpractice/), itself
     including results from:
-    -   the [`rcmdcheck` pacakge](https://r-lib.github.io/rcmdcheck) for
+    -   the [`rcmdcheck` package](https://r-lib.github.io/rcmdcheck) for
         running `R CMD check`
     -   the [`covr` package](https://covr.r-lib.org) for assessing code
         coverage
@@ -238,7 +238,7 @@ remainder include:
         analysing the structure of `DESCRIPTION` files
     -   the [`lintr` package](https://github.com/jimhester/lintr)
     -   additional checks applied by the [`goodpractice`
-        pacakge](http://mangothecat.github.io/goodpractice/)
+        package](http://mangothecat.github.io/goodpractice/)
 
 Note that results from [`lintr`
 package](https://github.com/jimhester/lintr) are **not** reported in the
