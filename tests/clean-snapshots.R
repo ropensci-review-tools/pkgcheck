@@ -28,6 +28,25 @@ edit_markdown <- function (md) {
     i <- grep ("An interactive visualisation", md)
     md [i] <- gsub ("\\]\\(.*\\)", "](network.html)", md [i])
 
+    # remove <details> sections of function usage because numbers of function
+    # calls to dependency packages can be artibrarily ordered when numbers of
+    # calls are equal.
+    i <- grep ("^<details>", md)
+    j <- grep ("</details>", md)
+    # These are the sub-sections:
+    index <- which (j [-length (i)] > i [-1])
+    if (length (index) > 0L) {
+        index <- seq (min (i [index + 1]), max (j [index]))
+        md <- md [-index]
+    }
+
+    # and for some reason, the covr environment pulls in an extra external
+    # package which must be removed to align snapshots:
+    i <- grep ("\\|mgcv", md)
+    if (length (i) > 0L) {
+        md <- md [-i]
+    }
+
     return (md)
 }
 
@@ -77,8 +96,9 @@ edit_html <- function (f) {
         h <- h [-(i [-1])]
     }
 
-    # finally, some generate a `colgroup` group specifying column widths, while
-    # others do not, so remove that:
+    # some machines/systems generate a `colgroup` group specifying column
+    # widths, while others do not (likely pandoc v1 - v2 difference), so remove
+    # that:
     i <- grep ("^<colgroup>$", h)
     if (length (i) > 0L) {
         j <- grep ("^<\\/colgroup>$", h)
