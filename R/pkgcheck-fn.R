@@ -47,8 +47,14 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
         "dependencies"
     )]
 
-    checks$pkg$external_calls <-
-        sort (table (s$stats$external_calls$package), decreasing = TRUE)
+    ex <- s$stats$external_calls
+    checks$pkg$external_calls <- sort (table (ex$package), decreasing = TRUE)
+
+    pkgs <- sort (table (ex$package), decreasing = TRUE)
+    checks$pkg$external_fns <- lapply (names (pkgs), function (i) {
+        sort (table (ex$call [which (ex$package == i)]), decreasing = TRUE)
+    })
+    names (checks$pkg$external_fns) <- names (pkgs)
 
     if ("srr" %in% names (s$out)) {
         checks$info <- s$out [c ("git", "srr", "pkgstats")]

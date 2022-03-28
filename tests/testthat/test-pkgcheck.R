@@ -41,7 +41,8 @@ test_that ("pkgcheck", {
 
     items <- c (
         "name", "path", "version", "url", "BugReports",
-        "license", "summary", "dependencies", "external_calls"
+        "license", "summary", "dependencies", "external_calls",
+        "external_fns"
     )
     expect_identical (names (checks$pkg), items)
 
