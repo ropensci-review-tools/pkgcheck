@@ -543,7 +543,31 @@ render_markdown <- function (md, open = TRUE) {
     fmd <- paste0 (f, ".Rmd")
     fhtml <- paste0 (f, ".html")
     writeLines (md, con = fmd)
-    fmt <- rmarkdown::html_document (pandoc_args = list ("--columns=800"))
+
+    # cribbed thanks to @maelle from
+    # https://github.com/r-lib/hugodown/blob/main/R/md-document.R
+    pandoc <- rmarkdown::pandoc_options (
+        to = paste0 (
+            rmarkdown::rmarkdown_format (),
+            "+hard_line_breaks"
+        ),
+        from = paste0 (rmarkdown::rmarkdown_format (), "+emoji"),
+        args = "--wrap=none",
+        ext = ".html"
+    )
+
+    # knitr arg is needed for 'output_format', and that in turn requires fig
+    # dimensions, for which values have no effect here.
+    knitr <- rmarkdown::knitr_options_html (
+        fig_width = 7,
+        fig_height = 7,
+        fig_retina = 7,
+        keep_md = FALSE
+    )
+    fmt <- rmarkdown::output_format (
+        knitr = knitr,
+        pandoc = pandoc
+    )
     rmarkdown::render (fmd, output_format = fmt, output_file = fhtml)
 
     if (open) {
