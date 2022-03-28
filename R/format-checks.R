@@ -543,7 +543,7 @@ render_markdown <- function (md, open = TRUE) {
     fmd <- paste0 (f, ".Rmd")
     fhtml <- paste0 (f, ".html")
     writeLines (md, con = fmd)
-    fmt <- rmarkdown::html_document (pandoc_args = list ("--columns=80"))
+    fmt <- rmarkdown::html_document (pandoc_args = list ("--columns=800"))
     rmarkdown::render (fmd, output_format = fmt, output_file = fhtml)
 
     if (open) {
