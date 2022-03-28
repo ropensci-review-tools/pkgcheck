@@ -201,6 +201,8 @@ pkgdeps_format <- function (checks, sec_num) {
 
     deps <- pkgdeps_as_table (checks)
 
+    external_fns <- pkgfns_as_details (checks)
+
     deps <- knitr::kable (deps, row.names = FALSE)
 
     deps_rep <- c (
@@ -226,10 +228,12 @@ pkgdeps_format <- function (checks, sec_num) {
         "",
         deps,
         "",
+        pkgfns_as_details (checks),
+        "",
+        "</p></details>",
+        "",
         "---",
-        "",
-        "",
-        "</p></details>"
+        ""
     )
 
     return (deps_rep)

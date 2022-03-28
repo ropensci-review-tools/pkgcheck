@@ -116,3 +116,45 @@ get_re_exports <- function (path) {
 
     return (re_exports)
 }
+
+
+#' Format package function tallies as extra details sub-sections
+#'
+#' @param checks Result of main \link{pkgcheck} function
+#' @return A character vector to add to markdown output.
+#' @noRd
+pkgfns_as_details <- function (checks) {
+
+    fns <- checks$pkg$external_fns
+
+    out <- lapply (seq_along (fns), function (i) {
+        tallies <- paste0 (
+            names (fns [[i]]),
+            " (", fns [[i]], ")"
+        )
+        c (
+            "<details>",
+            "",
+            paste0 (
+                "<summary>",
+                names (fns) [i],
+                "</summary>"
+            ),
+            "",
+            "<p>",
+            paste0 (tallies, collapse = ", "),
+            "</p></details>"
+        )
+    })
+
+    c (
+        paste0 (
+            "Click below for tallies of functions used in each package. ",
+            "Locations of each call within this package may be generated ",
+            "locally by running 's <- pkgstats::pkgstats(<path/to/repo>)', ",
+            "and examining the 'external_calls' table."
+        ),
+        "",
+        unlist (out)
+    )
+}
