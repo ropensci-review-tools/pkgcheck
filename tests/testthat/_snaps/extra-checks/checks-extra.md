@@ -57,10 +57,125 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 |suggests   |testthat   |     NA|
 |linking_to |cpp11      |     NA|
 
----
+Click below for tallies of functions used in each package. Locations of each call within this package may be generated locally by running 's <- pkgstats::pkgstats(<path/to/repo>)', and examining the 'external_calls' table.
 
+<details>
+
+<summary>base</summary>
+
+<p>
+c (37), which (31), vapply (27), data.frame (22), list (19), file.path (18), length (18), paste0 (15), lapply (13), names (12), grep (10), is.na (10), list.files (10), unique (10), for (9), gsub (8), mean (8), normalizePath (8), tempfile (8), nrow (7), args (6), rbind (6), license (5), match (5), rep (5), seq (5), sum (5), tryCatch (5), LETTERS (4), character (4), letters (4), parse (4), replace (4), sample (4), any (3), apply (3), as.integer (3), date (3), file.remove (3), getwd (3), grepl (3), ifelse (3), seq_along (3), strsplit (3), tempdir (3), version (3), Sys.which (2), attr (2), by (2), dir (2), dirname (2), integer (2), matrix (2), min (2), ncol (2), proc.time (2), read.dcf (2), regmatches (2), return (2), as.list (1), as.logical (1), basename (1), cbind (1), ceiling (1), do.call (1), eval (1), file.copy (1), format (1), gregexpr (1), is.null (1), ls (1), max (1), objects (1), row.names (1), substring (1), suppressWarnings (1), unlink (1), unname (1)
+</p></details>
+<details>
+
+<summary>pkgstats</summary>
+
+<p>
+extract_deps (5), control_parse (4), get_ctags (4), decompose_path (3), file_exts (3), get_n_fns_per_file (3), add_src_to_fn_data (2), all_functions (2), aut_types (2), average_leading_white (2), clone_ctags (2), cpp_loc (2), ctags_test (2), desc_stats (2), eval1 (2), external_call_network (2), extract_call_content (2), fn_var_call_graph_r (2), fn_var_call_graph_src (2), get_data_stats (2), get_file_types (2), get_num_demos (2), get_num_vignettes (2), get_one_params (2), get_translations (2), loc_indentation (2), loc_stats (2), make_gtags (2), pkgstats (2), add_base_recommended_pkgs (1), add_if_missing (1), add_igraph_stats (1), add_other_pkgs_to_calls (1), check_path (1), ctags_install (1), ctags_is_exuberant (1), ctags_is_universal (1), ctags_make (1), desc_summary (1), excluded_file_ptn (1), external_call_summary (1), extract_tarball (1), get_gtags (1), gtags_from_one_file (1), gtags_install (1), has_ctags (1), has_git (1), has_gtags (1), loc_summary (1), network_summary (1), null_stats (1), object_summary (1), pkgstats_from_archive (1), pkgstats_summary (1), rd_stats (1), rename_files_in_r (1), src_stats (1), tags_data (1), which_ctags (1), which_unix (1)
+</p></details>
+<details>
+
+<summary>stats</summary>
+
+<p>
+median (13), start (3)
+</p></details>
+<details>
+
+<summary>sys</summary>
+
+<p>
+exec_wait (13)
+</p></details>
+<details>
+
+<summary>graphics</summary>
+
+<p>
+text (6), arrows (4)
+</p></details>
+<details>
+
+<summary>utils</summary>
+
+<p>
+capture.output (2), tail (2), tar (2), getFromNamespace (1), getParseData (1), installed.packages (1), untar (1)
+</p></details>
+<details>
+
+<summary>readr</summary>
+
+<p>
+read_tsv (3), locale (2), count_fields (1), read_lines (1), tokenizer_tsv (1)
+</p></details>
+<details>
+
+<summary>brio</summary>
+
+<p>
+read_lines (7)
+</p></details>
+<details>
+
+<summary>dplyr</summary>
+
+<p>
+group_by (3), left_join (2), arrange (1), count (1)
+</p></details>
+<details>
+
+<summary>withr</summary>
+
+<p>
+with_dir (5)
+</p></details>
+<details>
+
+<summary>fs</summary>
+
+<p>
+path_split (2), path_tidy (2)
+</p></details>
+<details>
+
+<summary>igraph</summary>
+
+<p>
+betweenness (1), clusters (1), graph_from_data_frame (1)
+</p></details>
+<details>
+
+<summary>visNetwork</summary>
+
+<p>
+visNetwork (2), visSave (1)
+</p></details>
+<details>
+
+<summary>tools</summary>
+
+<p>
+Rd2txt (1), parse_Rd (1)
+</p></details>
+<details>
+
+<summary>hms</summary>
+
+<p>
+hms (1)
+</p></details>
+<details>
+
+<summary>pbapply</summary>
+
+<p>
+pblapply (1)
+</p></details>
 
 </p></details>
+
+---
+
 
 ### 2. Statistical Properties
 
