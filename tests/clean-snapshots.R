@@ -29,7 +29,7 @@ edit_markdown <- function (md) {
     md [i] <- gsub ("\\]\\(.*\\)", "](network.html)", md [i])
 
     # remove <details> sections of function usage because numbers of function
-    # calls to dependency packages can be artibrarily ordered when numbers of
+    # calls to dependency packages can be arbitrarily ordered when numbers of
     # calls are equal.
     i <- grep ("^<details>", md)
     j <- grep ("</details>", md)
