@@ -43,9 +43,13 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
     message ("")
 
     if ("network_file" %in% names (x$info)) {
-        cli::cli_alert_info ("Package network diagram is at [{x$info$network_file}].")
+        cli::cli_alert_info (
+            "Package network diagram is at [{x$info$network_file}]."
+        )
     } else {
-        cli::cli_alert_warning ("This package has no function call network.")
+        cli::cli_alert_warning (
+            "This package has no function call network."
+        )
     }
     message ("")
 
