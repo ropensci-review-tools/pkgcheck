@@ -1,5 +1,11 @@
+
+#' Generic print method for 'pkgcheck' objects.
+#' @param x A 'pkgcheck' object to be printed.
+#' @param deps If 'TRUE', include details of dependency packages and function
+#' usage.
+#' @param ... Further arguments pass to or from other methods (not used here).
 #' @export
-print.pkgcheck <- function (x, ...) {
+print.pkgcheck <- function (x, deps = FALSE, ...) {
 
     requireNamespace ("goodpractice")
 
@@ -14,6 +20,10 @@ print.pkgcheck <- function (x, ...) {
     }
     print_structure (x)
 
+    if (deps) {
+        print_deps (x)
+    }
+
     pkg_fns <- ls (env2namespace ("pkgcheck"))
     output_fns <- gsub (
         "^output\\_pkgchk\\_", "",
@@ -26,16 +36,20 @@ print.pkgcheck <- function (x, ...) {
     out <- lapply (output_fns, function (i) print_check (x, i))
     out <- do.call (c, out [which (nchar (out) > 0L)])
 
-    cli::cli_h3 ("All statistics")
+    cli::cli_h2 ("Package statistics")
     x$info$pkgstats$value <- round (x$info$pkgstats$value, digits = 1)
     x$info$pkgstats$percentile <- round (x$info$pkgstats$percentile, digits = 1)
     print (x$info$pkgstats)
     message ("")
 
     if ("network_file" %in% names (x$info)) {
-        cli::cli_alert_info ("Package network diagram is at [{x$info$network_file}].")
+        cli::cli_alert_info (
+            "Package network diagram is at [{x$info$network_file}]."
+        )
     } else {
-        cli::cli_alert_warning ("This package has no function call network.")
+        cli::cli_alert_warning (
+            "This package has no function call network."
+        )
     }
     message ("")
 
@@ -196,6 +210,46 @@ print_structure <- function (x) {
 
 
     cli::cli_li (s)
+}
+
+#' Print dependency information
+#' @noRd
+print_deps <- function (checks) {
+
+    deps <- knitr::kable (
+        pkgdeps_as_table (checks),
+        row.names = FALSE
+    )
+
+    fns_raw <- checks$pkg$external_fns
+
+    fns <- lapply (seq_along (fns_raw), function (i) {
+        tallies <- paste0 (
+            names (fns_raw [[i]]),
+            " (", fns_raw [[i]], ")"
+        )
+    })
+    names (fns) <- names (fns_raw)
+
+    cli::cli_h2 ("Package Dependency Usage")
+
+    cli::cli_alert_info (
+        "Package depends on the following packages:"
+    )
+    cli::cli_text (
+        "  (where 'ncalls' is numbers of calls made to each package)"
+    )
+    message ("")
+    print (deps)
+    message ("")
+
+    cli::cli_alert_info (
+        "Tallies of numbers of function calls to each dependent package:"
+    )
+    for (f in seq_along (fns)) {
+        cli::cli_h3 (names (fns) [f])
+        cli::cli_text (paste0 (fns [[f]], collapse = ", "))
+    }
 }
 
 #' Generic function to print checks based on result of corresponding

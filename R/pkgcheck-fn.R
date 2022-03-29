@@ -47,6 +47,15 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
         "dependencies"
     )]
 
+    ex <- s$stats$external_calls
+    checks$pkg$external_calls <- sort (table (ex$package), decreasing = TRUE)
+
+    pkgs <- sort (table (ex$package), decreasing = TRUE)
+    checks$pkg$external_fns <- lapply (names (pkgs), function (i) {
+        sort (table (ex$call [which (ex$package == i)]), decreasing = TRUE)
+    })
+    names (checks$pkg$external_fns) <- names (pkgs)
+
     if ("srr" %in% names (s$out)) {
         checks$info <- s$out [c ("git", "srr", "pkgstats")]
     } else {
@@ -169,11 +178,19 @@ parse_pkg_deps <- function (s) {
 
     d <- do.call (rbind, d)
 
-    data.frame (
+    out <- data.frame (
         type = d [, 1],
         package = d [, 2],
+        ncalls = NA_integer_,
         stringsAsFactors = FALSE
     )
+
+    # Then tally number of calls from 'external_calls' data
+    ex_tab <- table (s$external_calls$package)
+    index <- which (out$package %in% names (ex_tab))
+    out$ncalls [index] <- ex_tab [match (out$package [index], names (ex_tab))]
+
+    return (out)
 }
 
 #' Format \pkg{pkgstats} data

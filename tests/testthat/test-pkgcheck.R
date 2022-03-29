@@ -37,16 +37,20 @@ test_that ("pkgcheck", {
     checks$info$badges <- NULL # then fails CI checks
 
     items <- c ("pkg", "info", "checks", "meta")
-    expect_true (all (items %in% names (checks)))
+    expect_identical (names (checks), items)
 
     items <- c (
         "name", "path", "version", "url", "BugReports",
-        "license", "summary", "dependencies"
+        "license", "summary", "dependencies", "external_calls",
+        "external_fns"
     )
-    expect_true (all (items %in% names (checks$pkg)))
+    expect_identical (names (checks$pkg), items)
 
-    items <- c ("git", "srr", "pkgstats", "network_file")
-    expect_true (all (items %in% names (checks$info)))
+    items <- c (
+        "git", "srr", "pkgstats",
+        "pkgdown_concepts", "network_file"
+    )
+    expect_identical (names (checks$info), items)
 
     md <- checks_to_markdown (checks, render = FALSE)
 
