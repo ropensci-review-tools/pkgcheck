@@ -540,19 +540,19 @@ render_markdown <- function (md, open = TRUE) {
     md <- add_stats_tooltips (md)
 
     f <- tempfile (pattern = "pkgcheck")
-    fmd <- paste0 (f, ".Rmd")
-    fhtml <- paste0 (f, ".html")
-    writeLines (md, con = fmd)
+    f_md <- paste0 (f, ".Rmd")
+    f_html <- paste0 (f, ".html")
+    writeLines (md, con = f_md)
 
-    fmt <- rmarkdown::html_document (pandoc_args = list ("--wrap=preserve"))
+    output_fmt <- rmarkdown::html_document (pandoc_args = list ("--wrap=preserve"))
 
-    rmarkdown::render (fmd, output_format = fmt, output_file = fhtml)
+    rmarkdown::render (f_md, output_format = output_fmt, output_file = f_html)
 
     if (open) {
-        utils::browseURL (fhtml)
+        utils::browseURL (f_html)
     }
 
-    invisible (fhtml)
+    invisible (f_html)
 }
 
 add_stats_tooltips <- function (md) {
