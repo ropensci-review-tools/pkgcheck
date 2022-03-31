@@ -167,8 +167,8 @@ See our [Recommended Scaffolding](https://devguide.ropensci.org/building.html?q=
 <summary>Package Versions</summary>
 <p>
 
-|package  |version   |
-|:--------|:---------|
+|package  |version  |
+|:--------|:--------|
 |pkgstats |42    |
 |pkgcheck |42    |
 
