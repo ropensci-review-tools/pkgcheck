@@ -121,11 +121,11 @@ rm_html_comments <- function (x) {
     x <- gsub ("<!\\-\\-.*\\-\\->", "", x)
 
     # Then identify and remove multi-line html comments:
-    g <- cbind (
-        which (regexpr ("<!\\-\\-", x) > 0L),
-        which (regexpr ("\\-\\->", x) > 0L)
-    )
-    if (nrow (g) > 0L) {
+    cmt_open <- which (regexpr ("<!\\-\\-", x) > 0L)
+    cmt_close <- which (regexpr ("\\-\\->", x) > 0L)
+
+    if (length (cmt_open) == length (cmt_close) & length (cmt_open) > 0L) {
+        g <- cbind (cmt_open, cmt_close)
 
         index <- unlist (apply (g, 1, function (i) seq (i [1], i [2])))
         if (methods::is (index, "matrix")) {
