@@ -23,6 +23,7 @@ options (repos = c (
     ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
     CRAN = "https://cloud.r-project.org"
 ))
+library (pkgcheck)
 ```
 
 This vignette describes how to modify or extend the existing suite of checks
@@ -184,10 +185,11 @@ items:
 `summary` and `print` methods may be suppressed by assigning values of `""`.
 The above example of `pkgcheck_has_citation` has `print = ""`, and so no
 information from this check will appear as output of the `print` method. The
-`summary` field has a value that is specified for both `TRUE` and `FALSE`
-values of `check_pass`. The value is determined by the result of the main
-`pkgchk_has_citation()` call, and is converted into a green tick if `TRUE`, or
-a red cross if `FALSE`.
+`summary` field is commented-out in the current version, but left to illustrate
+here that it has a value that is specified for both `TRUE` and `FALSE` values
+of `check_pass`, via an `ifelse` statement. The value is determined by the
+result of the main `pkgchk_has_citation()` call, and is converted into a green
+tick if `TRUE`, or a red cross if `FALSE`.
 
 Checks for which `print` information is desired require a non-empty `print`
 item, as in the [`output_pkgchk_has_scrap()`
@@ -225,4 +227,148 @@ locally-defined checks, as explored in the following section.
 
 ## 3. Creating new checks
 
-(Coming soon ...)
+The [main `pkgcheck()` function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) has an additional parameter, `extra_env` which specifies,
+
+> Additional environments from which to collate checks. Other package names may
+> be appended using c, as in c(.GlobalEnv, "mypkg").
+
+This allows specific checks to be defined locally, and run by passing the name
+of the environment in which those checks are defined in this parameter. This
+section illustrates the process using the bundled "tarball" (that is, `.tar.gz`
+file) of one version of [the `pkgstats`
+package](https://github.com/ropensc-review-tools/pkgstats) included with that
+package.
+
+```{r pkgstats-check, eval = FALSE}
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+path <- pkgstats::extract_tarball (f)
+checks <- pkgcheck (path)
+summary (checks)
+```
+```{r pkgstats-check-out, echo = FALSE, eval = TRUE}
+cli::cli_h1 ("pkgstats 9.9")
+message ("")
+s <- c ("- :heavy_check_mark: Package name is available",
+        "- :heavy_multiplication_x: does not have a 'codemeta.json' file.",
+        "- :heavy_multiplication_x: does not have a 'contributing' file.",
+        "- :heavy_check_mark: uses 'roxygen2'.",
+        "- :heavy_check_mark: 'DESCRIPTION' has a URL field.",
+        "- :heavy_check_mark: 'DESCRIPTION' has a BugReports field.",
+        "- :heavy_multiplication_x: Package has no HTML vignettes",
+        "- :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].",
+        "- :heavy_check_mark: Package has continuous integration checks.",
+        "- :heavy_multiplication_x: Package coverage failed",
+        "- :heavy_multiplication_x: R CMD check found 1 error.",
+        "- :heavy_check_mark: R CMD check found no warnings.")
+
+for (i in s) {
+    msg <- strsplit (i, "(mark|\\_x):\\s+") [[1]] [2]
+    if (grepl ("heavy_check_mark", i)) {
+        cli::cli_alert_success (msg)
+    } else {
+        cli::cli_alert_danger (msg)
+    }
+}
+
+message ("")
+cli::cli_alert_info ("Current status:")
+cli::cli_alert_danger ("This package is not ready to be submitted.")
+```
+
+Let's now presume I have a reputation in the R community for all of my packages
+starting with "aa", to ensure they are always listed first. This section
+demonstrates how to implement a check that only passes if the first two letters
+of the package name are "aa". The first step described above is to define the
+check itself via a function prefixed with `pkgchk_`. The easiest approach would
+be for the `pkgcheck_` function to directly check the name, and return a
+logical flag indicating whether or not the same starts with "aa". The resultant
+`summary` and `print` methods can, however, only use the information provided
+by the initial `pkgchk_` function. That means if we want to print the actual
+name in the result of either of those functions, to show that it indeed does
+not form the desired patter, we need to return that information. The check
+function is then simply:
+
+```{r check-aa}
+pkgchk_starts_with_aa <- function (checks) {
+    checks$pkg$name
+}
+```
+
+We then need to define the output functions:
+
+```{r}
+output_pkgchk_starts_with_aa <- function (checks) {
+
+    out <- list (
+                 check_pass = grepl ("^aa",
+                                     checks$checks$starts_with_aa,
+                                     ignore.case = TRUE),
+                 summary = "",
+                 print = ""
+    )
+
+    out$summary <- paste0 ("Package name [",
+                           checks$checks$starts_with_aa,
+                           "] does ",
+                           ifelse (out$check_pass,
+                                   "",
+                                   "NOT"),
+                           " start with 'aa'")
+
+    return (out)
+}
+```
+
+If we simply define those function in the global workspace of our current R
+session, calling `pkgcheck()` again will automatically detect those checks and
+include them in our output:
+
+```{r pkgstats-check-out2, echo = FALSE, eval = TRUE}
+cli::cli_h1 ("pkgstats 9.9")
+message ("")
+s <- c ("- :heavy_check_mark: Package name is available",
+        "- :heavy_multiplication_x: does not have a 'codemeta.json' file.",
+        "- :heavy_multiplication_x: does not have a 'contributing' file.",
+        "- :heavy_check_mark: uses 'roxygen2'.",
+        "- :heavy_check_mark: 'DESCRIPTION' has a URL field.",
+        "- :heavy_check_mark: 'DESCRIPTION' has a BugReports field.",
+        "- :heavy_multiplication_x: Package has no HTML vignettes",
+        "- :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].",
+        "- :heavy_check_mark: Package has continuous integration checks.",
+        "- :heavy_multiplication_x: Package coverage failed",
+        "- :heavy_multiplication_x: Package name [pkgstats] does NOT start with 'aa'",
+        "- :heavy_multiplication_x: R CMD check found 1 error.",
+        "- :heavy_check_mark: R CMD check found no warnings.")
+
+for (i in s) {
+    msg <- strsplit (i, "(mark|\\_x):\\s+") [[1]] [2]
+    if (grepl ("heavy_check_mark", i)) {
+        cli::cli_alert_success (msg)
+    } else {
+        cli::cli_alert_danger (msg)
+    }
+}
+
+message ("")
+cli::cli_alert_info ("Current status:")
+cli::cli_alert_danger ("This package is not ready to be submitted.")
+```
+
+Customised personal checks can be incorporated by defining them in a local
+package, loading that into the workspace, and passing the name of the package
+to the `extra_env` parameter.
+
+## 4. The order of checks
+
+*This section is for `pkgcheck` developers only - users can not modify the order
+in which check results are summarised or printed.*
+
+The order of the `summary` output is determined from [a function called
+`order_checks()` in the `R/summarise-checks.R`
+file](https://github.com/ropensci-review-tools/pkgcheck/blob/6c99a804cea99af4fca8e27e41784ecd6b7f1501/R/summarise-checks.R#L92-L114).
+Any additional checks defined in an `extra_env` will appear *after* all of the
+standard checks, and prior to the `R CMD check` results which always appear
+last. This order may only be modified by editing the list in that function.
+The order of check results in the `print` method is also hard-coded, defined in
+the [main `print.pkgcheck`
+method](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R).
