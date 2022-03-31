@@ -227,7 +227,11 @@ locally-defined checks, as explored in the following section.
 
 ## 3. Creating new checks
 
-The [main `pkgcheck()` function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) has an additional parameter, `extra_env` which specifies,
+### 3.1 New Local Checks (*for package users*)
+
+The [main `pkgcheck()`
+function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) has an
+additional parameter, `extra_env` which specifies,
 
 > Additional environments from which to collate checks. Other package names may
 > be appended using c, as in c(.GlobalEnv, "mypkg").
@@ -358,17 +362,48 @@ Customised personal checks can be incorporated by defining them in a local
 package, loading that into the workspace, and passing the name of the package
 to the `extra_env` parameter.
 
-## 4. The order of checks
+### 3.2 New `pkgcheck` Checks (*for `pkgcheck` developers*)
 
-*This section is for `pkgcheck` developers only - users can not modify the order
-in which check results are summarised or printed.*
-
-The order of the `summary` output is determined from [a function called
-`order_checks()` in the `R/summarise-checks.R`
-file](https://github.com/ropensci-review-tools/pkgcheck/blob/6c99a804cea99af4fca8e27e41784ecd6b7f1501/R/summarise-checks.R#L92-L114).
-Any additional checks defined in an `extra_env` will appear *after* all of the
-standard checks, and prior to the `R CMD check` results which always appear
-last. This order may only be modified by editing the list in that function.
-The order of check results in the `print` method is also hard-coded, defined in
-the [main `print.pkgcheck`
+New checks can be added to this package by creating new files in the `/R`
+directory prefixed with `pkgchk_`, and including the two functions described
+above (a check and an output function). The check name will then need to be
+included in [the `order_checks()` function in the `R/summarise-checks.R`
+file](https://github.com/ropensci-review-tools/pkgcheck/blob/6c99a804cea99af4fca8e27e41784ecd6b7f1501/R/summarise-checks.R#L92-L114),
+which determines the order of checks in the `summary` output. Checks which are
+not defined in this ordering, including any defined via `extra_env` parameters,
+appear *after* all of the standard checks, and prior to the `R CMD check`
+results which always appear last. This order may only be modified by editing
+the list in that function. The order of check results in the `print` method is
+also hard-coded, defined in the [main `print.pkgcheck`
 method](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R).
+As explicitly stated in that function, any new checks should also be included
+in the `print` method just after [the first reference to `"misc_checks"`](https://github.com/ropensci-review-tools/pkgcheck/blob/2e025c276c84b45bc46f72ec5d8b029de83ac211/R/pkgcheck-methods.R#L65-L71), via an additional line:
+
+```{r new-check-print, eval = FALSE}
+print_check_screen (x, "<name-of-new-check>", pkg_env)
+```
+
+The `print_check_screen()` function will then automatically activate the
+`print` method of any new checks. This line should be added even if a new check
+has no `print` method (as in the `starts_with_aa` example above), to provide an
+explicit record of all internally-defined miscellaneous checks.
+
+Finally, any new checks also need to be included in tests. The test suites run
+on generic, mostly empty packages constructed with [the
+`srr::srr_stats_pkg_skeleton()`
+function](https://docs.ropensci.org/srr/reference/srr_stats_pkg_skeleton.html),
+as in the [main `test-pkgcheck.R` test
+functions](https://github.com/ropensci-review-tools/pkgcheck/blob/main/tests/testthat/test-pkgcheck.R).
+Additional tests are also performed on the `pkgstats` tarball illustrated
+above. The default results of any new checks will be automatically tested by
+the existing test suite, but it is important to test all potential results. The
+[`test-extra-checks.R`
+file](https://github.com/ropensci-review-tools/pkgcheck/blob/main/tests/testthat/test-extra-checks.R)
+is the main location for testing additional tests, with lines in that file
+demonstrating how the main results can be readily modified to reflect
+alternative outputs of check functions (such as `pkgchk_has_scrap` and
+`pkgchk_obsolete_pkg_deps`). The output functions defined as part of checks,
+including any new checks, do not need to be explicitly tested, as the entire
+output is tested via [`testthat`
+snapshots](https://testthat.r-lib.org/articles/snapshotting.html). Snapshot
+results need to be updated to reflect any additional tests.
