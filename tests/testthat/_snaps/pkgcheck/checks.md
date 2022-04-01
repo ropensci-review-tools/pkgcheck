@@ -137,8 +137,8 @@ An interactive visualisation of calls between objects in the package has been up
 <summary>Package Versions</summary>
 <p>
 
-|package  |version   |
-|:--------|:---------|
+|package  |version |
+|:--------|:------|
 |pkgstats |42    |
 |pkgcheck |42    |
 |srr      |42    |
