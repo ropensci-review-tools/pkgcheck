@@ -15,13 +15,17 @@ jobs:
 
     steps:
 
-      - name: create comment
-        uses: peter-evans/create-or-update-comment@v1.4.5
+      - name: Create Issue Comment
+        uses: actions/github-script@v5
         with:
-          issue_number: 123
-          body: |
-            @mpadge It's time to renew your 'RRT_TOKEN'
-            - grant both repo and workflow access
-            - copy token to `pkgcheck-action` repo secrets
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+
+            github.rest.issues.createComment({
+              owner: "ropensc-review-tools",
+              repo: "pkgcheck",
+              issue_number: 123,
+              body: |
+                @mpadge It's time to renew your 'RRT_TOKEN'
+                - grant both repo and workflow access
+                - copy token to `pkgcheck-action` repo secrets
+            })
