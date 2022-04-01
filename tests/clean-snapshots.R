@@ -21,6 +21,16 @@ edit_markdown <- function (md) {
     md <- change_pkg_vers (md, "pkgcheck")
     md <- change_pkg_vers (md, "srr")
 
+    # The headers of those tables also change between machines and/or pandoc
+    # versions, some stretching `-`s to fit text, some using fixed with. This
+    # ensure regularity
+    i <- grep ("Package Versions", md)
+    vers_i <- grep ("version\\s+\\|$", md)
+    vers_i <- vers_i [which (vers_i > i)] [1]
+    md [vers_i] <- gsub ("version\\s+\\|$", "version |", md [vers_i])
+    hbar_i <- vers_i + 1 # always!
+    md [hbar_i] <- gsub ("\\:\\-+\\|$", ":------|", md [hbar_i])
+
     # change path to visjs html file when generated locally:
     i <- grep ("interactive network visualisation", md)
     md [i] <- gsub ("\\]\\(.*$", "](network.html)", md [i])
