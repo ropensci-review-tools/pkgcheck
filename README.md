@@ -106,19 +106,18 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package name is available
-## ✖ does not have a 'CITATION' file.
 ## ✖ does not have a 'codemeta.json' file.
 ## ✖ does not have a 'contributing' file.
 ## ✔ uses 'roxygen2'.
 ## ✔ 'DESCRIPTION' has a URL field.
 ## ✖ 'DESCRIPTION' does not have a BugReports field.
-## ✖ Package has at no HTML vignettes
+## ✖ Package has no HTML vignettes
 ## ✔ All functions have examples.
 ## ✖ Package has no continuous integration checks.
-## ✖ Package coverage is 0% (should be at least 75%).
+## ✖ Package coverage failed
 ## ✔ R CMD check found no errors.
 ## ✔ R CMD check found no warnings.
 ## 
@@ -134,6 +133,32 @@ them in black-and-white.) The object returned from the `pkgcheck`
 function is a complex nested list with around a dozen primary
 components. Full information can be obtained by simply calling the
 default `print` method by typing the object name (`x`).
+
+## The `pkgcheck` GitHub action
+
+The `pkgcheck` package also has an associated GitHub action in [the
+`pkgcheck-action`
+repository](https://github.com/ropensci-review-tools/pkgcheck-action).
+You can use this action to run `pkgcheck` every time you push commits to
+GitHub, just like the `rcmdcheck()` checks which can be installed and
+run via [the `usethis::use_github_action_check_standard()`
+function](https://usethis.r-lib.org/reference/github_actions.html).
+`pkgcheck` includes an analogous function,
+[`use_github_action_pkgcheck()`](https://docs.ropensci.org/pkgcheck/reference/use_github_action_pkgcheck.html),
+which will download the workflow file defining the action into your
+local `.github/workflows` folder. See [the `pkgcheck-action`
+repository](https://github.com/ropensci-review-tools/pkgcheck-action)
+for more details.
+
+You can also add a `pkgcheck` badge, just like that `rcmdcheck` badge,
+that will always reflect the current state of your repository’s
+`pkgcheck` results. To add a badge, copy the following line to your
+README file, filling in details of the GitHub organization and
+repository name (`<org>` and `<repo>`, respectively):
+
+``` markdown
+[![pkgcheck](https://github.com/<org>/<repo>/workflows/pkgcheck/badge.svg)](https://github.com/<org>/<repo>/actions?query=workflow%3Apkgcheck)
+```
 
 ## What is checked?
 
@@ -349,17 +374,19 @@ project, you agree to abide by its terms.
 
 ## Contributors
 
-
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
-All contributions to this project are gratefully acknowledged using the [`allcontributors` package](https://github.com/ropenscilabs/allcontributors) following the [all-contributors](https://allcontributors.org) specification. Contributions of any kind are welcome!
+All contributions to this project are gratefully acknowledged using the
+[`allcontributors`
+package](https://github.com/ropenscilabs/allcontributors) following the
+[all-contributors](https://allcontributors.org) specification.
+Contributions of any kind are welcome!
 
 ### Code
 
 <table>
-
 <tr>
 <td align="center">
 <a href="https://github.com/mpadge">
@@ -392,14 +419,11 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=noamross">noamross</a>
 </td>
 </tr>
-
 </table>
-
 
 ### Issue Authors
 
 <table>
-
 <tr>
 <td align="center">
 <a href="https://github.com/piyalkarum">
@@ -420,14 +444,11 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Asteffilazerte">steffilazerte</a>
 </td>
 </tr>
-
 </table>
-
 
 ### Issue Contributors
 
 <table>
-
 <tr>
 <td align="center">
 <a href="https://github.com/dgkf">
@@ -448,9 +469,7 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Ajhollist">jhollist</a>
 </td>
 </tr>
-
 </table>
-
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->

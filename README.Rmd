@@ -85,10 +85,7 @@ file (or creating this if it does not yet exist). Once `pkgstats` has been
 successfully installed, the `pkgcheck` package can then be loaded via
 a `library` call:
 
-```{r load, echo = FALSE, message = FALSE}
-devtools::load_all (".", export_all = FALSE)
-```
-```{r load-fakey, eval = FALSE}
+```{r load, echo = TRUE, message = FALSE}
 library (pkgcheck)
 ```
 
@@ -105,7 +102,7 @@ package](https://github.com/ropensci-review-tools/srr), generated with the
 [`srr_stats_pkg_skeleton()`
 function](https://docs.ropensci.org/srr/reference/srr_stats_pkg_skeleton.html):
 
-```{r pkgcheck, echo = TRUE, message = FALSE, include = FALSE}
+```{r pkgcheck, echo = TRUE, message = FALSE}
 mydir <- file.path (tempdir (), "srr-demo")
 gert::git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
 x <- pkgcheck (mydir)
@@ -125,6 +122,33 @@ black-and-white.) The object returned from the `pkgcheck` function is a complex
 nested list with around a dozen primary components. Full information can be
 obtained by simply calling the default `print` method by typing the object name
 (`x`).
+
+## The `pkgcheck` GitHub action
+
+The `pkgcheck` package also has an associated GitHub action in [the
+`pkgcheck-action`
+repository](https://github.com/ropensci-review-tools/pkgcheck-action).
+You can use this action to run `pkgcheck` every time you push commits to
+GitHub, just like the `rcmdcheck()` checks which can be installed and run via
+[the `usethis::use_github_action_check_standard()`
+function](https://usethis.r-lib.org/reference/github_actions.html). `pkgcheck`
+includes an analogous function,
+[`use_github_action_pkgcheck()`](https://docs.ropensci.org/pkgcheck/reference/use_github_action_pkgcheck.html),
+which will download the workflow file defining the action into your local
+`.github/workflows` folder. See [the `pkgcheck-action`
+repository](https://github.com/ropensci-review-tools/pkgcheck-action)
+for more details.
+
+You can also add a `pkgcheck` badge, just like that `rcmdcheck` badge, that
+will always reflect the current state of your repository's `pkgcheck` results.
+To add a badge, copy the following line to your README file, filling in details
+of the GitHub organization and repository name (`<org>` and `<repo>`,
+respectively):
+
+```{markdown}
+[![pkgcheck](https://github.com/<org>/<repo>/workflows/pkgcheck/badge.svg)](https://github.com/<org>/<repo>/actions?query=workflow%3Apkgcheck)
+```
+
 
 ## What is checked?
 
