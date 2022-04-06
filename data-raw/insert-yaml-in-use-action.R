@@ -4,11 +4,12 @@
 # Grab inputs from pkgcheck-action/action.yaml
 action_dir <- normalizePath (file.path (here::here (), "..", "pkgcheck-action"))
 if (!dir.exists (action_dir)) {
-      stop ("Directory [", action_dir, "] not found.")
-  }
+    stop ("Directory [", action_dir, "] not found.")
+}
 
 y <- readLines (file.path (action_dir, "action.yaml"))
 index <- grep ("^[[:alpha:]].*\\:$", y)
+index <- index [which (index >= grep ("^inputs", y))]
 inputs <- y [seq (index [1], index [2] - 1)]
 inputs <- inputs [nzchar (inputs)]
 
@@ -22,6 +23,7 @@ r_fn <- c (
     paste0 ("#' ", inputs),
     r_fn [i2:length (r_fn)]
 )
+r_fn <- gsub ("\\s+$", "", r_fn)
 writeLines (r_fn, f)
 
 devtools::document ()
