@@ -24,7 +24,7 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
         print_deps (x)
     }
 
-    pkg_fns <- ls (env2namespace ("pkgcheck"))
+    pkg_fns <- ls ("package:pkgcheck", envir = loadNamespace ("pkgcheck"))
     output_fns <- gsub (
         "^output\\_pkgchk\\_", "",
         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
