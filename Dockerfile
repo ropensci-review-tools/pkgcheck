@@ -182,6 +182,8 @@ RUN install2.r \
   xts \
   zoo
 
+RUN installGithub.r MangoTheCat/goodpractice
+
 # arrow docs suggest this shouldn't be needed, but s3
 # support doesn't work without re-install/compile:
 RUN Rscript -e 'arrow::install_arrow()'
