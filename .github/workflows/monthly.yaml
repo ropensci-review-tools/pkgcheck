@@ -21,7 +21,7 @@ jobs:
           script: |
 
             github.rest.issues.createComment({
-              owner: "ropensc-review-tools",
+              owner: "ropensci-review-tools",
               repo: "pkgcheck",
               issue_number: 123,
               body: 
