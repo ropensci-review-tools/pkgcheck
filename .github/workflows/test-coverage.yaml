@@ -42,7 +42,9 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-           extra-packages: covr
+           extra-packages: |
+             github::MangoTheCat/goodpractice
+             covr
 
       - name: Test coverage
         run: covr::codecov()
