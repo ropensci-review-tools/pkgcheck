@@ -5,12 +5,12 @@
 #' `pkgcheck_` and not `pkgchk_` because it is structured differently to
 #' standard `pkgchk_` checks, and this avoids any method confusion.
 #'
-#' @param path Path to local source of repository
+#' @inheritParams pkgcheck
 #' @return A \pkg{goodpractice} report
 #' @noRd
-pkgcheck_gp_report <- function (path) {
+pkgcheck_gp_report <- function (path, use_cache) {
 
-    cache_pkgstats_component (path, "goodpractice")
+    cache_pkgstats_component (path, use_cache, "goodpractice")
 }
 
 #' return tick or cross

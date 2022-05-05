@@ -72,7 +72,7 @@ current_hash <- function (path) {
     c (pkg, hash)
 }
 
-cache_pkgstats_component <- function (path, what = "goodpractice") {
+cache_pkgstats_component <- function (path, use_cache, what = "goodpractice") {
 
     what <- match.arg (what, c ("goodpractice", "pkgstats"))
 
@@ -113,7 +113,7 @@ cache_pkgstats_component <- function (path, what = "goodpractice") {
         chk <- file.remove (flist)
     }
 
-    if (fs::file_exists (cache_file)) {
+    if (fs::file_exists (cache_file) & use_cache) {
 
         out <- readRDS (cache_file)
 

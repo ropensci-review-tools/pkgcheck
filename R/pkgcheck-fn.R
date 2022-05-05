@@ -5,13 +5,17 @@
 #' @param path Path to local repository
 #' @param goodpractice If `FALSE`, skip goodpractice checks. May be useful in
 #' development stages to more quickly check other aspects.
+#' @param use_cache Checks are cached for rapid retrieval, and only re-run if
+#' the git hash of the local repository changes. Setting `use_cache` to `FALSE`
+#' will for checks to be re-run even if the git hash has not changed.
 #' @param extra_env Additional environments from which to collate checks. Other
 #' package names may be appended using `c`, as in `c(.GlobalEnv, "mypkg")`.
 #' @return A `pkgcheck` object detailing all package assessments automatically
 #' applied to packages submitted for peer review.
 #' @family pkgcheck_fns
 #' @export
-pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
+pkgcheck <- function (path = ".", goodpractice = TRUE,
+                      use_cache = TRUE, extra_env = .GlobalEnv) {
 
     options (pkgcheck_extra_env = extra_env)
 
@@ -33,7 +37,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
         }
     }
 
-    s <- pkgstats_info (path)
+    s <- pkgstats_info (path, use_cache)
 
     if (nrow (s$stats$objects) == 0L) {
         # There are no R objects/fns; current goodpractice (1.0.2.9000) fails
@@ -67,7 +71,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE, extra_env = .GlobalEnv) {
     checks$info$network_file <- fn_call_network (s)
 
     if (goodpractice) {
-        checks$goodpractice <- pkgcheck_gp_report (path)
+        checks$goodpractice <- pkgcheck_gp_report (path, use_cache)
     } else {
         checks$goodpractice <- NULL
     }
@@ -133,9 +137,9 @@ checks_running_in_bg <- function (path) {
         !file.exists (stopfile))
 }
 
-pkgstats_info <- function (path) {
+pkgstats_info <- function (path, use_cache) {
 
-    s <- suppressWarnings (cache_pkgstats_component (path, "pkgstats"))
+    s <- suppressWarnings (cache_pkgstats_component (path, use_cache, "pkgstats"))
     s$path <- path
 
     out <- list ()
