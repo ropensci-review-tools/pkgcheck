@@ -163,7 +163,7 @@ ci_results_gh <- function (path) {
         "/actions/runs"
     )
 
-    runs <- httr::GET (url) %>% httr::content ()
+    runs <- jsonlite::fromJSON (url)
 
     if (!"total_count" %in% names (runs)) {
         return (NULL)
@@ -173,22 +173,17 @@ ci_results_gh <- function (path) {
         return (NULL)
     }
 
-    dat <- lapply (runs$workflow_runs, function (i) {
-        # in-progress runs have no conclusion entry:
-        concl <- i$conclusion
-        if (is.null (concl)) {
-            concl <- ""
-        }
-        data.frame (
-            name = i$name,
-            status = i$status,
-            conclusion = concl,
-            sha = i$head_sha,
-            time = i$created_at,
-            stringsAsFactors = FALSE
-        )
-    })
-    dat <- do.call (rbind, dat)
+    dat <- data.frame (
+        id = runs$workflow_runs$id,
+        name = runs$workflow_runs$name,
+        status = runs$workflow_runs$status,
+        conclusion = runs$workflow_runs$conclusion,
+        sha = runs$workflow_runs$head_sha,
+        run_number = runs$workflow_runs$run_number,
+        time = runs$workflow_runs$created_at,
+        stringsAsFactors = FALSE
+    )
+
     dat$time <- strptime (dat$time, "%Y-%m-%dT%H:%M:%SZ")
     dat$time_dbl <- as.double (dat$time)
     # non-dply group_by %>% summarise:
