@@ -10,7 +10,7 @@
 #' @noRd
 pkgcheck_gp_report <- function (path, use_cache) {
 
-    cache_pkgstats_component (path, use_cache, "goodpractice")
+    cache_pkgcheck_component (path, use_cache, "goodpractice")
 }
 
 #' return tick or cross

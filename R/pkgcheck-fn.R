@@ -139,7 +139,7 @@ checks_running_in_bg <- function (path) {
 
 pkgstats_info <- function (path, use_cache) {
 
-    s <- suppressWarnings (cache_pkgstats_component (path, use_cache, "pkgstats"))
+    s <- suppressWarnings (cache_pkgcheck_component (path, use_cache, "pkgstats"))
     s$path <- path
 
     out <- list ()

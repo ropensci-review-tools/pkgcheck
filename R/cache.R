@@ -72,7 +72,7 @@ current_hash <- function (path) {
     c (pkg, hash)
 }
 
-cache_pkgstats_component <- function (path, use_cache, what = "goodpractice") {
+cache_pkgcheck_component <- function (path, use_cache, what = "goodpractice") {
 
     what <- match.arg (what, c ("goodpractice", "pkgstats"))
 
