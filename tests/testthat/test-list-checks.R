@@ -4,7 +4,7 @@ test_that ("list-checks", {
         chks <- list_pkgchecks (),
         "The following checks are currently implemented"
     )
-    expect_length (chks, 16L)
+    expect_length (chks, 17L)
 
     expect_silent (
         chks2 <- list_pkgchecks (quiet = TRUE)
