@@ -70,8 +70,8 @@ checks_to_markdown <- function (checks, render = FALSE) {
             md_out,
             "<details>",
             paste0 (
-                "<summary>Details of goodpractice and other ",
-                "checks (click to open)</summary>"
+                "<summary>Details of goodpractice checks ",
+                "(click to open)</summary>"
             ),
             "<p>",
             "",
@@ -92,9 +92,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
     }
 
     extra <- extra_check_prints_from_env (checks)
-    has_extra <- length (extra$env) > 0L |
-        length (checks$checks$has_scrap) > 0L |
-        length (checks$checks$obsolete_pkg_deps) > 0L
+    has_extra <- length (extra$env) > 0L | sum (misc_check_counts (checks)) > 0L
     if (has_extra) {
         e <- env2namespace ("pkgcheck")
         md_out <- c (
@@ -103,17 +101,18 @@ checks_to_markdown <- function (checks, render = FALSE) {
             "---",
             "",
             paste0 ("### ", sec_num + 2, ". Other Checks"),
+            "",
+            "<details>",
+            paste0 (
+                "<summary>Details of other checks ",
+                "(click to open)</summary>"
+            ),
+            "<p>",
             ""
         )
-        extras <- c ("has_scrap", "obsolete_pkg_deps")
-        lens <- vapply (
-            extras, function (i) {
-                length (checks$checks [[i]])
-            },
-            integer (1)
-        )
-        extras <- extras [which (lens > 0L)]
-        for (ex in extras) {
+        extras <- misc_check_counts (checks)
+        extras <- extras [which (extras > 0L)]
+        for (ex in names (extras)) {
             md_out <- c (
                 md_out,
                 print_check_md (
@@ -132,6 +131,14 @@ checks_to_markdown <- function (checks, render = FALSE) {
                 )
             }
         }
+
+        md_out <- c (
+            md_out,
+            "",
+            "</p>",
+            "</details>",
+            ""
+        )
     }
 
     v <- data.frame (
