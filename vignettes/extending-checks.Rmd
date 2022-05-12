@@ -406,4 +406,9 @@ alternative outputs of check functions (such as `pkgchk_has_scrap` and
 including any new checks, do not need to be explicitly tested, as the entire
 output is tested via [`testthat`
 snapshots](https://testthat.r-lib.org/articles/snapshotting.html). Snapshot
-results need to be updated to reflect any additional tests.
+results need to be updated to reflect any additional tests. Finally, the
+[`test-list-checks.R`
+file](https://github.com/ropensci-review-tools/pkgcheck/blob/main/tests/testthat/test-list-checks.R)
+tests the total number of internally-defined checks as `expect_length (ncks,
+..)`. The number tested there also needs to be incremented by one for each new
+check.
