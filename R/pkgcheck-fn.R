@@ -60,11 +60,11 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
     })
     names (checks$pkg$external_fns) <- names (pkgs)
 
+    info_items <- c ("fn_names", "git", "pkgstats")
     if ("srr" %in% names (s$out)) {
-        checks$info <- s$out [c ("git", "srr", "pkgstats")]
-    } else {
-        checks$info <- s$out [c ("git", "pkgstats")]
+        info_items <- c (info_items, "srr")
     }
+    checks$info <- s$out [info_items]
 
     checks$info$pkgdown_concepts <- pkginfo_pkgdown (path)
 
@@ -158,6 +158,8 @@ pkgstats_info <- function (path, use_cache) {
     out$srr <- pkginfo_srr_report (path)
 
     out$pkgstats <- fmt_pkgstats_info (s)
+
+    out$fn_names <- pkgstats::pkgstats_fn_names (path)
 
     return (list (
         stats = s,
