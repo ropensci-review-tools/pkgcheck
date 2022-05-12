@@ -47,10 +47,10 @@ test_that ("pkgcheck", {
     expect_identical (names (checks$pkg), items)
 
     items <- c (
-        "git", "srr", "pkgstats",
+        "fn_names", "git", "srr", "pkgstats",
         "pkgdown_concepts", "network_file"
     )
-    expect_identical (names (checks$info), items)
+    expect_identical (sort (names (checks$info)), sort (items))
 
     md <- checks_to_markdown (checks, render = FALSE)
 
