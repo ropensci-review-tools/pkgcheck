@@ -104,6 +104,7 @@ order_checks <- function (fns) {
         "has_bugs",
         "has_vignette",
         "fns_have_exs",
+        "unique_fn_names",
         "global_assign",
         "ci",
         "covr",

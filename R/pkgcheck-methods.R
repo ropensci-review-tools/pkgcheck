@@ -63,9 +63,11 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
     pkg_env <- env2namespace ("pkgcheck")
     # internal misc checks; modify condition when more checks are added
     has_misc_checks <- (length (x$checks$has_scrap) > 0L |
-        length (x$checks$obsolete_pkg_deps > 0L))
+        length (x$checks$obsolete_pkg_deps > 0L) |
+        nrow (x$checks$unique_fn_names) > 0L)
     if (has_misc_checks) {
         cli::cli_h2 ("Other checks")
+        print_check_screen (x, "unique_fn_names", pkg_env)
         print_check_screen (x, "has_scrap", pkg_env)
         print_check_screen (x, "obsolete_pkg_deps", pkg_env)
     }
