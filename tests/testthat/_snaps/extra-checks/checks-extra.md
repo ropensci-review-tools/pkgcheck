@@ -146,6 +146,10 @@ An interactive visualisation of calls between objects in the package has been up
 
 ### 4. Other Checks
 
+<details>
+<summary>Details of other checks (click to open)</summary>
+<p>
+
 
 :heavy_multiplication_x: Package contains the following unexpected files:
 
@@ -160,6 +164,19 @@ An interactive visualisation of calls between objects in the package has been up
 
 
 See our [Recommended Scaffolding](https://devguide.ropensci.org/building.html?q=scaffol#recommended-scaffolding) for alternatives.
+
+
+:heavy_multiplication_x: The following 2 function names are duplicated in other packages:
+
+-  - `desc_stats` from descstatsr, exploratory, ezr, kim
+-  - `plot_network` from cape, dbnR, HeteroGGM, immcp, imsig, LSVAR, SeqNet, SubgrPlots
+
+
+
+
+
+</p>
+</details>
 
 
 ---
