@@ -47,6 +47,8 @@ test_that ("extra checks", {
     testthat::expect_snapshot_file (f)
 
     # Then snapshot tests of print & summary methods
+    # This loads goodpractice, so first do that to avoid load message
+    requireNamespace ("goodpractice")
     f <- tempfile (fileext = ".md")
     x <- capture.output (print (checks), file = f, type = "message")
 
