@@ -45,4 +45,14 @@ test_that ("extra checks", {
     edit_html (f) # from clean-snapshots.R
 
     testthat::expect_snapshot_file (f)
+
+    # Then snapshot tests of print & summary methods
+    f <- tempfile (fileext = ".md")
+    x <- capture.output (print (checks), file = f, type = "message")
+
+    md <- edit_markdown (readLines (f), print_method = TRUE)
+    md_dir <- withr::local_tempdir ()
+    writeLines (md, con = file.path (md_dir, "checks-print.md"))
+
+    testthat::expect_snapshot_file (file.path (md_dir, "checks-print.md"))
 })

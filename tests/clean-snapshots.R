@@ -3,7 +3,9 @@
 # some checks like rcmdcheck differ on different systems for things like
 # compilation flags, so the snapshot test excludes any rmcdcheck output. It
 # also reverts the final package versions to a generic number.
-edit_markdown <- function (md) {
+#
+# print_method edits the output of `print.pkgcheck`.
+edit_markdown <- function (md, print_method = FALSE) {
 
     change_pkg_vers <- function (md, pkg = "pkgstats", to = "42") {
         i <- grep ("Package Versions", md)
@@ -20,6 +22,19 @@ edit_markdown <- function (md) {
     md <- change_pkg_vers (md, "pkgstats")
     md <- change_pkg_vers (md, "pkgcheck")
     md <- change_pkg_vers (md, "srr")
+
+    if (print_method) {
+
+        # change path to visjs html file when generated locally:
+        i <- grep ("network diagram", md)
+        md [i] <- gsub (
+            "network\\sdiagram\\sis\\sat\\s.*$",
+            "network diagram is not here.",
+            md [i]
+        )
+
+        return (md)
+    }
 
     # The headers of those tables also change between machines and/or pandoc
     # versions, some stretching `-`s to fit text, some using fixed with. This
