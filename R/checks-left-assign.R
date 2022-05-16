@@ -106,6 +106,10 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
     tags <- tags [which (tags$file %in% global$file &
         grepl ("RefClass", tags$content)), ]
 
+    if (nrow (tags) == 0L) {
+        return (assigns)
+    }
+
     for (i in seq (nrow (tags))) {
 
         f <- file.path (checks$pkg$path, tags$file [i])
