@@ -16,7 +16,7 @@ pkgchk_fns_have_exs <- function (checks) {
     )
 
     # don't check for examples in datasets (#103), identified by keyword
-    what <- c ("name", "keyword", "examples")
+    what <- c ("name", "docType", "keyword", "examples")
     rd_dat <- vapply (rd, function (i) {
         rd_i <- tools::parse_Rd (i)
         dat <- lapply (what, function (j) {
@@ -25,10 +25,13 @@ pkgchk_fns_have_exs <- function (checks) {
         if (length (dat [[2]]) == 0L) {
             dat [[2]] <- ""
         }
-        dat [[3]] <- length (dat [[3]])
-        unlist (dat) [1:3]
+        if (length (dat [[3]]) == 0L) {
+            dat [[3]] <- ""
+        }
+        dat [[4]] <- length (dat [[4]])
+        unlist (dat) [1:4]
     },
-    character (3),
+    character (4),
     USE.NAMES = TRUE
     )
     rd_dat <- data.frame (
@@ -40,6 +43,7 @@ pkgchk_fns_have_exs <- function (checks) {
 
     # rm internal and datasets, where all re-exported fns should be internal.
     rd_dat <- rd_dat [which (!rd_dat$keyword %in% c ("internal", "datasets")), ]
+    rd_dat <- rd_dat [which (!rd_dat$docType %in% c ("package", "data")), ]
 
     has_ex <- rd_dat$examples > 0L
     names (has_ex) <- rd_dat$name
