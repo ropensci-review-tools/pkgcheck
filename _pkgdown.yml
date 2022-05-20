@@ -1,5 +1,8 @@
 url: https://docs.ropensci.org/pkgcheck
 
+figures:
+  dev: grDevices::png
+
 reference:
 - title: Main functions
   contents:
