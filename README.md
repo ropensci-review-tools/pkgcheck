@@ -61,13 +61,14 @@ package](https://github.com/ropensci-review-tools/pkgstats) also
 requires the system libraries [`ctags`](https://ctags.io) and [GNU
 `global`](https://www.gnu.org/software/global/) to be installed.
 Procedures to install these libraries on various operating systems are
-described in the [`pkgstats`
-README](https://docs.ropensci.org/pkgstats). This package also uses the
-[GitHub GraphQL API](https://developer.github.com/v4) which requires a
-local GitHub token to be stored with an unambiguous name including
-`GITHUB`, such as `GITHUB_TOKEN` (recommended), or `GITHUB_PAT` (for
-Personal Authorization Token). This can be obtained from GitHub (via
-your user settings), and stored using
+described in a [`pkgstats`
+vignette](https://docs.ropensci.org/pkgstats/articles/installation.html).
+This package also uses the [GitHub GraphQL
+API](https://developer.github.com/v4) which requires a local GitHub
+token to be stored with an unambiguous name including `GITHUB`, such as
+`GITHUB_TOKEN` (recommended), or `GITHUB_PAT` (for Personal
+Authorization Token). This can be obtained from GitHub (via your user
+settings), and stored using
 
 ``` r
 Sys.setenv ("GITHUB_TOKEN" = "<my_token>")
@@ -106,7 +107,7 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package name is available
 ## ✖ does not have a 'codemeta.json' file.
