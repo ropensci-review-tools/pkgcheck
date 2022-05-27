@@ -13,7 +13,20 @@ pkgchk_unique_fn_names <- function (checks) {
 
     f <- cache_fn_name_db ()
 
-    fn_names_cran <- readRDS (f)
+    fn_names_cran <- tryCatch (
+        readRDS (f),
+        error = function (e) NULL
+    )
+
+    # fail to read local data:
+    if (is.null (fn_names_cran)) {
+        return (data.frame (
+            package = character (0),
+            version = character (0),
+            fn_name = character (0)
+        ))
+    }
+
     index <- which (!fn_names_cran$package == checks$pkg$name)
     fn_names_cran <- fn_names_cran [index, ]
 

@@ -1,3 +1,7 @@
+
+# These tests fail on GHA on windows because of path issues
+skip_on_os ("windows")
+
 test_that ("pkgcheck_bg() works", {
 
     withr::local_envvar (list (
