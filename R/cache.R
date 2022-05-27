@@ -125,8 +125,12 @@ cache_pkgcheck_component <- function (path, use_cache, what = "goodpractice") {
         out <- suppressWarnings (do.call (this_fn, list (path)))
         Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
 
+        # writing to cache_dir fails on some GHA windows machines.
         if (dir.exists (cache_dir)) {
-            saveRDS (out, cache_file)
+            chk <- tryCatch (
+                saveRDS (out, cache_file),
+                error = function (e) NULL
+            )
         }
     }
 
