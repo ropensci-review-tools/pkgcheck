@@ -69,6 +69,9 @@ test_that ("pkgcheck", {
     # ***********************   SNAPSHOT TEST   ***********************
     # *****************************************************************
 
+    # paths in these snapshots are not stable on windows, so skipped here
+    skip_on_os ("windows")
+
     md <- edit_markdown (md) # from clean-snapshots.R
 
     md_dir <- withr::local_tempdir ()
