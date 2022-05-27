@@ -125,7 +125,9 @@ cache_pkgcheck_component <- function (path, use_cache, what = "goodpractice") {
         out <- suppressWarnings (do.call (this_fn, list (path)))
         Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
 
-        saveRDS (out, cache_file)
+        if (dir.exists (cache_dir)) {
+            saveRDS (out, cache_file)
+        }
     }
 
     return (out)
