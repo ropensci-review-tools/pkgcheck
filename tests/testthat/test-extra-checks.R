@@ -1,7 +1,10 @@
 
 source ("../clean-snapshots.R")
 
-skip_on_os ("mac") # fails on GHA for some reason?
+# These tests fail on GHA on both mac and windows because they can't find the
+# tarball.
+skip_on_os ("mac")
+skip_on_os ("windows")
 
 test_that ("extra checks", {
 
