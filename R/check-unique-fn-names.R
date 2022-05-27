@@ -36,7 +36,7 @@ cache_fn_name_db <- function () {
         "https://github.com/ropensci-review-tools/pkgstats/",
         "releases/download/v0.0.3/pkgstats-fn-names.Rds"
     )
-    download.file (u, f, quiet = TRUE)
+    utils::download.file (u, f, quiet = TRUE)
 
     return (f)
 }
@@ -65,13 +65,13 @@ output_pkgchk_unique_fn_names <- function (checks) { # nolint
         obj <- lapply (
             split (obj, f = as.factor (obj$fn_name)),
             function (i) {
-                    paste0 (
-                        " - `",
-                        i$fn_name [1],
-                        "` from ",
-                        paste0 (i$package, collapse = ", ")
-                    )
-                }
+                paste0 (
+                    " - `",
+                    i$fn_name [1],
+                    "` from ",
+                    paste0 (i$package, collapse = ", ")
+                )
+            }
         )
 
         out$print <- list (
