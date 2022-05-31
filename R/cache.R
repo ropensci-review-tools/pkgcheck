@@ -72,7 +72,10 @@ current_hash <- function (path) {
     c (pkg, hash)
 }
 
-cache_pkgcheck_component <- function (path, use_cache, uses_renv, what = "goodpractice") {
+cache_pkgcheck_component <- function (path,
+                                      use_cache,
+                                      uses_renv,
+                                      what = "goodpractice") {
 
     what <- match.arg (what, c ("goodpractice", "pkgstats"))
 
@@ -123,8 +126,7 @@ cache_pkgcheck_component <- function (path, use_cache, uses_renv, what = "goodpr
         # components too
         Sys.setenv ("_R_CHECK_FORCE_SUGGESTS_" = FALSE)
         if (uses_renv) {
-            requireNamespace ("renv")
-            renv::deactivate (project = path)
+            renv_deactivate (path) # in R/info-renv.R
             message (
                 "To reactivate renv, run `renv::activate()` in ",
                 "your project directory after `pkgcheck` has finished"

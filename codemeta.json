@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.3.051",
+  "version": "0.0.3.52",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.3 (2022-03-10)",
+  "runtimePlatform": "R version 4.2.0 (2022-04-22)",
   "author": [
     {
       "@type": "Person",
@@ -227,13 +227,7 @@
       "@type": "SoftwareApplication",
       "identifier": "goodpractice",
       "name": "goodpractice",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=goodpractice"
+      "sameAs": "https://github.com/MangoTheCat/goodpractice"
     },
     "10": {
       "@type": "SoftwareApplication",
@@ -336,14 +330,10 @@
       "name": "srr",
       "sameAs": "https://github.com/ropensci-review-tools/srr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "3807.599KB",
+  "fileSize": "3813.455KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab",
-    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
+  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
   "developmentStatus": "https://www.repostatus.org/#concept"
 }
