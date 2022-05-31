@@ -48,7 +48,7 @@ test_that ("pkgcheck", {
 
     items <- c (
         "fn_names", "git", "srr", "pkgstats",
-        "pkgdown_concepts", "network_file"
+        "pkgdown_concepts", "network_file", "uses_renv"
     )
     expect_identical (sort (names (checks$info)), sort (items))
 

@@ -8,9 +8,9 @@
 #' @inheritParams pkgcheck
 #' @return A \pkg{goodpractice} report
 #' @noRd
-pkgcheck_gp_report <- function (path, use_cache) {
+pkgcheck_gp_report <- function (path, use_cache, uses_renv) {
 
-    cache_pkgcheck_component (path, use_cache, "goodpractice")
+    cache_pkgcheck_component (path, use_cache, uses_renv, "goodpractice")
 }
 
 #' return tick or cross

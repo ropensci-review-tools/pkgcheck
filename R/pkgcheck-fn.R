@@ -67,11 +67,11 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
     checks$info <- s$out [info_items]
 
     checks$info$pkgdown_concepts <- pkginfo_pkgdown (path)
-
     checks$info$network_file <- fn_call_network (s)
+    checks$info$uses_renv <- pkginfo_uses_renv (path)
 
     if (goodpractice) {
-        checks$goodpractice <- pkgcheck_gp_report (path, use_cache)
+        checks$goodpractice <- pkgcheck_gp_report (path, use_cache, checks$info$uses_renv)
     } else {
         checks$goodpractice <- NULL
     }
@@ -140,7 +140,7 @@ checks_running_in_bg <- function (path) {
 pkgstats_info <- function (path, use_cache) {
 
     s <- suppressWarnings (
-        cache_pkgcheck_component (path, use_cache, "pkgstats")
+        cache_pkgcheck_component (path, use_cache, uses_renv = FALSE, "pkgstats")
     )
     s$path <- path
 

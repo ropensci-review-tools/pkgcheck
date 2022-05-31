@@ -65,6 +65,7 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
         cli::cli_h2 ("Other checks")
         print_check_screen (x, "unique_fn_names", pkg_env)
         print_check_screen (x, "has_scrap", pkg_env)
+        # print_check_screen (x, "uses_renv", pkg_env)
         print_check_screen (x, "obsolete_pkg_deps", pkg_env)
     }
 

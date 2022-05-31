@@ -110,6 +110,7 @@ order_checks <- function (fns) {
         "covr",
         "has_scrap",
         "left_assign",
+        "uses_renv",
         "srr_missing",
         "srr_todo"
     )
