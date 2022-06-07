@@ -1,6 +1,4 @@
 
-source ("../clean-snapshots.R")
-
 test_that ("pkgcheck", {
 
     withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))

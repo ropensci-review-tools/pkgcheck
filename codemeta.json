@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.3.52",
+  "version": "0.0.3.053",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -330,10 +330,14 @@
       "name": "srr",
       "sameAs": "https://github.com/ropensci-review-tools/srr"
     },
-    "SystemRequirements": null
+    "SystemRequirements": {}
   },
   "fileSize": "3813.455KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
+  "contIntegration": [
+    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
+    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab",
+    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
+  ],
   "developmentStatus": "https://www.repostatus.org/#concept"
 }

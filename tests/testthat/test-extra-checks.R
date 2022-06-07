@@ -1,6 +1,4 @@
 
-source ("../clean-snapshots.R")
-
 # These tests fail on GHA on both mac and windows because they can't find the
 # tarball.
 skip_on_os ("mac")
