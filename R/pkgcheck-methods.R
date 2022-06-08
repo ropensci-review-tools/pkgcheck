@@ -295,6 +295,11 @@ print_check_screen <- function (checks, what, pkg_env) {
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
 
+    has_print <- all (nzchar (chk_output$print)) | length (chk_output$print) > 1L
+    if (!has_print) {
+        return ()
+    }
+
     if (chk_output$check_pass) {
         cli::cli_alert_success (chk_output$print$msg_pre)
     } else {
