@@ -208,9 +208,28 @@ pkgdeps_format <- function (checks, sec_num) {
 
     deps <- pkgdeps_as_table (checks)
 
-    external_fns <- pkgfns_as_details (checks)
+    import_note <- NULL
+    imported_fns <- deps [deps$type == "imports", ]
+    if (any (is.na (imported_fns$ncalls))) {
+        subs <- c ("Some", "no")
+        if (all (is.na (imported_fns$ncalls))) {
+            subs <- c ("No", "")
+        }
+        import_note <- c (
+            "",
+            paste0 (
+                "**NOTE:** ",
+                subs [1],
+                " imported packages appear to have ",
+                subs [2],
+                " associated function calls; please ensure with author ",
+                "that these 'Imports' are listed appropriately."
+            ),
+            ""
+        )
+    }
 
-    deps <- knitr::kable (deps, row.names = FALSE)
+    external_fns <- pkgfns_as_details (checks)
 
     deps_rep <- c (
         "",
@@ -233,15 +252,18 @@ pkgdeps_format <- function (checks, sec_num) {
             "system which may not be entirely accurate."
         ),
         "",
-        deps,
+        knitr::kable (deps, row.names = FALSE),
         "",
         pkgfns_as_details (checks),
+        "",
+        import_note,
         "",
         "</p></details>",
         "",
         "---",
         ""
     )
+
 
     return (deps_rep)
 }
