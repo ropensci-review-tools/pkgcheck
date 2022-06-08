@@ -326,6 +326,11 @@ print_check_md <- function (checks, what, pkg_env) {
 
     out <- NULL
 
+    has_print <- all (nzchar (chk_output$print)) | length (chk_output$print) > 1L
+    if (!has_print) {
+        return (out)
+    }
+
     if (!chk_output$check_pass) {
         out <- c (
             "",
