@@ -65,7 +65,7 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
         cli::cli_h2 ("Other checks")
         print_check_screen (x, "unique_fn_names", pkg_env)
         print_check_screen (x, "has_scrap", pkg_env)
-        # print_check_screen (x, "uses_renv", pkg_env)
+        print_check_screen (x, "renv_activated", pkg_env)
         print_check_screen (x, "obsolete_pkg_deps", pkg_env)
     }
 
@@ -92,7 +92,8 @@ misc_check_counts <- function (x) {
     c (
         has_scrap = length (x$checks$has_scrap),
         obsolete_pkg_deps = length (x$checks$obsolete_pkg_deps),
-        unique_fn_names = nrow (x$checks$unique_fn_names)
+        unique_fn_names = nrow (x$checks$unique_fn_names),
+        renv_activated = as.integer (x$checks$renv_activated)
     )
 }
 

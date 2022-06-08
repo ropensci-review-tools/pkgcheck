@@ -5,21 +5,21 @@
 #' \pkg{goodpractice} results.
 #' @return TRUE if `renv` is used; otherwise FALSE
 #' @noRd
-pkgchk_uses_renv <- function (checks) {
+pkgchk_renv_activated <- function (checks) {
 
-    return (checks$info$uses_renv)
+    return (checks$info$renv_activated)
 }
 
-output_pkgchk_uses_renv <- function (checks) {
+output_pkgchk_renv_activated <- function (checks) {
 
     out <- list (
-        check_pass = !checks$checks$uses_renv,
+        check_pass = !checks$checks$renv_activated,
         summary = "",
         print = ""
     )
 
     if (!out$check_pass) {
-        out$summary <- "Package uses renv"
+        out$summary <- "Package has renv activated"
     }
 
     return (out)

@@ -1,10 +1,13 @@
 
-#' Check for renv files in package directory
+#' Check whether renv is activated
+#'
+#' The actual check is whether \package{renv} is actually activated, which is
+#' done by adding a line to a local `.Rprofile` file, `source("renv/init.R")`.
 #'
 #' @param path Location of local repository
 #'
 #' @noRd
-pkginfo_uses_renv <- function (path) {
+pkginfo_renv_activated <- function (path) {
 
     files <- list.files (
         path,
@@ -12,7 +15,31 @@ pkginfo_uses_renv <- function (path) {
         full.names = TRUE
     )
 
-    return (length (files) > 0L)
+    if (length (files) == 0L) {
+        return (FALSE)
+    }
+
+    rprof <- list.files (
+        path,
+        all.files = TRUE,
+        pattern = "^\\.Rprofile$",
+        full.names = TRUE
+    )
+    if (length (rprof) == 0L) {
+        return (FALSE)
+    }
+
+    rprof <- readLines (rprof)
+    # from renv/R/infrastructure.R + json.R
+    renv_path <- encodeString ("renv/activate.R", quote = "\"", justify = "none")
+    ptn <- sprintf ("source(%s)", renv_path)
+    source_line <- grep (ptn, rprof, fixed = TRUE, value = TRUE)
+
+    if (length (source_line) != 1L) { # only ever 0 or 1
+        return (FALSE)
+    }
+
+    return (!grepl ("^(\\s*?)#", source_line))
 }
 
 #' Internal implementation of `renv::deactivate()`

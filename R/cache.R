@@ -74,7 +74,7 @@ current_hash <- function (path) {
 
 cache_pkgcheck_component <- function (path,
                                       use_cache,
-                                      uses_renv,
+                                      renv_activated,
                                       what = "goodpractice") {
 
     what <- match.arg (what, c ("goodpractice", "pkgstats"))
@@ -125,7 +125,7 @@ cache_pkgcheck_component <- function (path,
         # this envvar is for goodpractice, but no harm setting for other
         # components too
         Sys.setenv ("_R_CHECK_FORCE_SUGGESTS_" = FALSE)
-        if (uses_renv) {
+        if (renv_activated) {
             renv_deactivate (path) # in R/info-renv.R
             message (
                 "To reactivate renv, run `renv::activate()` in ",
