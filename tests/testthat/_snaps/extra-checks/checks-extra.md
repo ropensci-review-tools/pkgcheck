@@ -61,6 +61,10 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 Click below for tallies of functions used in each package. Locations of each call within this package may be generated locally by running 's <- pkgstats::pkgstats(<path/to/repo>)', and examining the 'external_calls' table.
 
 
+
+**NOTE:** Some imported packages appear to have no associated function calls; please ensure with author that these 'Imports' are listed appropriately.
+
+
 </p></details>
 
 ---
