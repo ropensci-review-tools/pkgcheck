@@ -31,7 +31,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
             stop (
                 "The 'pkgstats' package requires 'ctags' which does ",
                 "not seem to be installed correctly.\nSee ",
-                "https://docs.ropensci.org/pkgstats/#installation",
+                "https://docs.ropensci.org/pkgstats/articles/installation.html",
                 " for details on how to install 'ctags'."
             )
         }
