@@ -6,6 +6,7 @@
     if (cache_dir == "") {
         cache_dir <- fs::path_expand (fs::path (
             rappdirs::user_cache_dir (),
+            "R",
             "pkgcheck"
         ))
         Sys.setenv ("PKGCHECK_CACHE_DIR" = cache_dir)
