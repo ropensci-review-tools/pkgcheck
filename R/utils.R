@@ -96,7 +96,7 @@ env2namespace <- function (e) {
         }
 
         e <- tryCatch (
-            asNamespace (pkg),
+            asNamespace (e),
             error = function (err) NULL
         )
     }
