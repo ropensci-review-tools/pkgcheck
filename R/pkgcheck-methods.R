@@ -87,13 +87,14 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
 }
 
 # internal misc checks; modify condition when more checks are added
+# But only add checks which have PRINT methods!
 misc_check_counts <- function (x) {
 
     c (
         has_scrap = length (x$checks$has_scrap),
         obsolete_pkg_deps = length (x$checks$obsolete_pkg_deps),
-        unique_fn_names = nrow (x$checks$unique_fn_names),
-        renv_activated = as.integer (x$checks$renv_activated)
+        unique_fn_names = nrow (x$checks$unique_fn_names)
+        # renv_activated = as.integer (x$checks$renv_activated) # summary only
     )
 }
 
