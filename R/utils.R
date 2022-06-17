@@ -90,16 +90,15 @@ env2namespace <- function (e) {
     if (!is.environment (e)) {
 
         s <- search ()
-        e <- s [grep (paste0 (e, "$"), s)]
-
-        if (length (e) != 1L) {
-            e <- NULL
-        } else {
-            pkg <- gsub ("package\\:", "", e)
-            e <- tryCatch (asNamespace (pkg),
-                error = function (err) NULL
-            )
+        if (any (grepl (paste0 (e, "$"), s))) {
+            e <- s [grep (paste0 (e, "$"), s)] [1] # hard-code to 1st value
+            e <- gsub ("package\\:", "", e)
         }
+
+        e <- tryCatch (
+            asNamespace (pkg),
+            error = function (err) NULL
+        )
     }
 
     return (e)
