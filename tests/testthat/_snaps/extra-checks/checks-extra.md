@@ -2,7 +2,7 @@
 
 git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 
-- :heavy_check_mark: Package name is available
+- :heavy_check_mark: Package is already on CRAN.
 - :heavy_multiplication_x: Package depends on the following obsolete packages: [blah]
 - :heavy_multiplication_x: does not have a 'codemeta.json' file.
 - :heavy_multiplication_x: does not have a 'contributing' file.

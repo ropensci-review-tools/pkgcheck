@@ -1,7 +1,7 @@
 
 -- pkgstats 9.9 ----------------------------------------------------------------
 
-v Package name is available
+v Package is already on CRAN.
 x Package depends on the following obsolete packages: [blah]
 x does not have a 'codemeta.json' file.
 x does not have a 'contributing' file.
