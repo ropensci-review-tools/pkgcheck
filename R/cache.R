@@ -128,8 +128,9 @@ cache_pkgcheck_component <- function (path,
         if (renv_activated) {
             renv_deactivate (path) # in R/info-renv.R
             message (
-                "To reactivate renv, run `renv::activate()` in ",
-                "your project directory after `pkgcheck` has finished"
+                "'renv' has been de-activated; to reactivate, run ",
+                "`renv::activate()` in your project directory after ",
+                "`pkgcheck` has finished"
             )
         }
         out <- suppressWarnings (do.call (this_fn, list (path)))
