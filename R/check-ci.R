@@ -1,7 +1,7 @@
 
 output_pkgchk_ci <- function (checks) {
 
-    check_pass <- length (checks$info$badges) > 0L
+    check_pass <- has_badges <- length (checks$info$badges) > 0L
     # There should really be badges, but if not, accept passing workflow results
     # regardless (see #87):
     if (!check_pass & length (checks$info$github_workflows) > 0L) {
@@ -30,7 +30,10 @@ output_pkgchk_ci <- function (checks) {
     } else {
 
         out$summary <- "Package has continuous integration checks."
-        if (is.na (checks$info$badges [1])) {
+        if (has_badges) {
+            has_badges <- !is.na (checks$info$badges [1])
+        }
+        if (!has_badges) {
             checks$info$badges <- "(There do not appear to be any)"
         }
 
