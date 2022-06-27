@@ -78,7 +78,8 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
 
     u <- pkginfo_url_from_desc (path, type = "URL")
     # hard-code to extract github URLs only:
-    if (!grepl ("github", u, ignore.case = TRUE)) {
+    if (!grepl ("github", u, ignore.case = TRUE) |
+        grepl ("github\\.io", u, ignore.case = TRUE)) {
         u <- pkginfo_url_from_desc (path, type = "BugReports")
         if (grepl ("issues(\\/?)$", u)) {
             u <- gsub ("issues(\\/?)$", "", u)
