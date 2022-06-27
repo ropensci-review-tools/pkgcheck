@@ -124,10 +124,11 @@ get_default_github_branch <- function (org, repo) {
 #'
 #' @param org Github organization
 #' @param repo Github repository
+#' @param branch Branch from which to get latest commit
 #' @return Details of latest commit including OID hash
 #' @family github
 #' @export
-get_latest_commit <- function (org, repo) {
+get_latest_commit <- function (org, repo, branch = NULL) {
 
     token <- get_gh_token ()
 
@@ -136,7 +137,9 @@ get_latest_commit <- function (org, repo) {
         headers = list (Authorization = paste0 ("Bearer ", token))
     )
 
-    branch <- get_default_github_branch (org, repo)
+    if (is.null (branch)) {
+        branch <- get_default_github_branch (org, repo)
+    }
 
     qry <- commits_qry (gh_cli, org = org, repo = repo, branch = branch)
     x <- gh_cli$exec (qry$queries$get_commits) %>%

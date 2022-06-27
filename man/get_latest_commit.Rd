@@ -4,12 +4,14 @@
 \alias{get_latest_commit}
 \title{get_latest_commit}
 \usage{
-get_latest_commit(org, repo)
+get_latest_commit(org, repo, branch = NULL)
 }
 \arguments{
 \item{org}{Github organization}
 
 \item{repo}{Github repository}
+
+\item{branch}{Branch from which to get latest commit}
 }
 \value{
 Details of latest commit including OID hash
