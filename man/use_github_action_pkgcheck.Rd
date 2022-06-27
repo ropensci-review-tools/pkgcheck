@@ -39,7 +39,9 @@ action
 \section{Inputs}{
 
 Inputs with description and default values. Pass all values as strings, see
-examples.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{inputs:
+examples.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{inputs:
   ref:
     description: "The ref to checkout and check. Set to empty string to skip checkout."
     default: "$\{\{ github.ref \}\}"
