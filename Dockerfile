@@ -153,6 +153,12 @@ RUN apt-get install -y \
   pandoc \
   pandoc-citeproc
 
+# Julia:
+# https://github.com/ropensci-review-tools/roreviewapi/issues/28
+RUN apt-get install -y python3-pip
+RUN pip install jill
+RUN jill install --confirm
+
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
 ENV ARROW_S3 "ON"
 
