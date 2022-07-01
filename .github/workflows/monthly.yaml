@@ -26,6 +26,7 @@ jobs:
               issue_number: 123,
               body: 
                 `@mpadge It's time to renew your 'RRT_TOKEN'
-                  - grant both repo and workflow access
-                  - copy token to \`pkgcheck-action\` repo secrets`
+
+                 - grant both repo and workflow access
+                 - copy token to \'pkgcheck\' and \`pkgcheck-action\` repo secrets`
             })
