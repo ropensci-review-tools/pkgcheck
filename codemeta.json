@@ -2,19 +2,19 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "pkgcheck",
-  "description": "Check whether a package is ready for submission to rOpenSci’s peer review system.",
+  "description": "Check whether a package is ready for submission to rOpenSci's peer review system.",
   "name": "pkgcheck: rOpenSci Package Checks",
   "relatedLink": "https://docs.ropensci.org/pkgcheck/",
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.3.076",
+  "version": "0.0.3.077",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.0 (2022-04-22)",
+  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
   "author": [
     {
       "@type": "Person",
@@ -227,7 +227,13 @@
       "@type": "SoftwareApplication",
       "identifier": "goodpractice",
       "name": "goodpractice",
-      "sameAs": "https://github.com/MangoTheCat/goodpractice"
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=goodpractice"
     },
     "10": {
       "@type": "SoftwareApplication",
@@ -274,6 +280,12 @@
       "@type": "SoftwareApplication",
       "identifier": "pkgstats",
       "name": "pkgstats",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
       "sameAs": "https://github.com/ropensci-review-tools/pkgstats"
     },
     "15": {
@@ -332,7 +344,7 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "3813.455KB",
+  "fileSize": "3765.541KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
   "contIntegration": [
     "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
