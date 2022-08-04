@@ -45,7 +45,7 @@ pkginfo_renv_activated <- function (path) {
 #' Internal implementation of `renv::deactivate()`
 #'
 #' Source is
-#' \url{https://github.com/rstudio/renv/blob/main/R/deactivate.R),
+#' \url{https://github.com/rstudio/renv/blob/main/R/deactivate.R},
 #' which directly calls
 #' `renv_infrastructure_remove_rprofile()` in
 #' \url{https://github.com/rstudio/renv/blob/main/R/infrastructure.R}.
