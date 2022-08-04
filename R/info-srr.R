@@ -37,7 +37,7 @@ pkginfo_srr_report <- function (path) {
     } # Not an srr package
 
     srr_okay <- FALSE
-    if (!methods::is (srr, "error") &
+    if (!methods::is (srr, "error") &&
         any (grepl (
             "^All applicable standards \\[v.+\\] have been documented",
             srr
@@ -85,15 +85,20 @@ pkginfo_srr_report <- function (path) {
             path = path,
             view = FALSE
         )
+
         srr_file_from <- attr (srr_rep, "file")
-        if (!file.copy (srr_file_from, srr_report_file)) {
-            warning ("srr html file not copied!")
-        }
-        # srr_report stored the .md as a .Rmd in tempdir():
-        srr_rmd <- tools::file_path_sans_ext (srr_file_from)
-        srr_rmd <- paste0 (srr_rmd, ".Rmd")
-        if (!file.copy (srr_rmd, srr_md_file)) {
-            warning ("srr md file not copied!")
+
+        if (!is.null (srr_file_from)) {
+
+            if (!file.copy (srr_file_from, srr_report_file)) {
+                warning ("srr html file not copied!")
+            }
+            # srr_report stored the .md as a .Rmd in tempdir():
+            srr_rmd <- tools::file_path_sans_ext (srr_file_from)
+            srr_rmd <- paste0 (srr_rmd, ".Rmd")
+            if (!file.copy (srr_rmd, srr_md_file)) {
+                warning ("srr md file not copied!")
+            }
         }
     }
 
@@ -117,7 +122,9 @@ pkginfo_srr_report <- function (path) {
         )
     }
 
-    srr_okay <- length (i) == 0
+    if (srr_okay) {
+        srr_okay <- length (i) == 0
+    }
 
     list (
         message = srr,
