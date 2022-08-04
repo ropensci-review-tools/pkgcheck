@@ -20,6 +20,10 @@
 #'
 #' @param path Location of local repository to report on
 #'
+#' @note Unlike all other checks in this package, this one actually requires the
+#' package to be loaded (because it uses \pkg{roxygen2} which only works on
+#' loaded packages).
+#'
 #' @noRd
 pkginfo_srr_report <- function (path) {
 
