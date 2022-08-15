@@ -86,30 +86,24 @@ srr_checks_to_md <- function (checks) {
         return (NULL)
     }
 
-    cat_plural <- ifelse (
-        length (checks$info$srr$categories == 1),
-        "category",
-        "categories"
-    )
     srr_msg <- ifelse (checks$info$srr$okay,
         paste0 (symbol_tck (), " ", checks$info$srr$message),
         paste0 (symbol_crs (), " ", checks$info$srr$message)
     )
 
-    c (
-        paste0 (
-            "### 1. rOpenSci Statistical Standards ",
-            "([`srr` package]",
-            "(https://github.com/ropensci-review-tools/srr))"
-        ),
-        "",
-        paste0 ("This package is in the following ", cat_plural, ":"),
-        "",
-        paste0 ("- *", checks$info$srr$categories, "*"),
-        "",
-        srr_msg,
-        "",
-        paste0 (
+    cat_plural <- ifelse (
+        length (checks$info$srr$categories == 1),
+        "category",
+        "categories"
+    )
+    cat_msg <- report_msg <- ""
+    if (length (checks$info$srr$categories) > 0L) {
+        cat_msg <- c (
+            paste0 ("This package is in the following ", cat_plural, ":"),
+            "",
+            paste0 ("- *", checks$info$srr$categories, "*")
+        )
+        report_msg <- paste0 (
             "Click to see the [report of author-reported ",
             "standards compliance of the package with links to ",
             "associated lines of code](",
@@ -118,7 +112,21 @@ srr_checks_to_md <- function (checks) {
             "[`srr_report()` function]",
             "(https://docs.ropensci.org/srr/reference/srr_report.html) ",
             "from within a local clone of the repository."
+        )
+    }
+
+    c (
+        paste0 (
+            "### 1. rOpenSci Statistical Standards ",
+            "([`srr` package]",
+            "(https://github.com/ropensci-review-tools/srr))"
         ),
+        "",
+        cat_msg,
+        "",
+        srr_msg,
+        "",
+        report_msg,
         "",
         "---",
         ""
