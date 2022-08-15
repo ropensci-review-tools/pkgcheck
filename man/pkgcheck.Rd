@@ -35,6 +35,7 @@ requirements
 }
 \seealso{
 Other pkgcheck_fns: 
-\code{\link{pkgcheck_bg}()}
+\code{\link{pkgcheck_bg}()},
+\code{\link{print.pkgcheck}()}
 }
 \concept{pkgcheck_fns}

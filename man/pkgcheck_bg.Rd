@@ -30,6 +30,7 @@ checks.
 }
 \seealso{
 Other pkgcheck_fns: 
-\code{\link{pkgcheck}()}
+\code{\link{pkgcheck}()},
+\code{\link{print.pkgcheck}()}
 }
 \concept{pkgcheck_fns}

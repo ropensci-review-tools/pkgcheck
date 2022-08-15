@@ -4,6 +4,7 @@
 #' @param deps If 'TRUE', include details of dependency packages and function
 #' usage.
 #' @param ... Further arguments pass to or from other methods (not used here).
+#' @family pkgcheck_fns
 #' @export
 print.pkgcheck <- function (x, deps = FALSE, ...) {
 

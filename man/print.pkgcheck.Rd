@@ -17,3 +17,9 @@ usage.}
 \description{
 Generic print method for 'pkgcheck' objects.
 }
+\seealso{
+Other pkgcheck_fns: 
+\code{\link{pkgcheck_bg}()},
+\code{\link{pkgcheck}()}
+}
+\concept{pkgcheck_fns}
