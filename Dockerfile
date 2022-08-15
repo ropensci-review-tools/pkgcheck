@@ -122,7 +122,7 @@ RUN VERSION=`curl "https://api.github.com/repos/cli/cli/releases/latest" | grep 
 #RUN cp -r gh_${VERSION}_linux_amd64/share/man/man1/* /usr/share/man/man1/
 
 # still need ubuntugis for gdal 3.1.0 (currently standard candidate is 3.0.4)
-RUN add-apt-repository -y ppa:ubuntugis/ppa \
+RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
     && apt update \
     && apt -y upgrade
 
