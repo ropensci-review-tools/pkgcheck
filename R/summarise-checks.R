@@ -98,6 +98,7 @@ order_checks <- function (fns) {
         "obsolete_pkg_deps",
         "has_codemeta",
         "has_contrib",
+        "fns_have_return_vals",
         "uses_roxygen2",
         "pkgdown",
         "has_url",
