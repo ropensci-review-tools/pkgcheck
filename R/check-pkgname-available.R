@@ -1,5 +1,5 @@
 
-#' Check that package name is available and/or already on CRAN
+#' Check that package name is available and/or already on CRAN.
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.

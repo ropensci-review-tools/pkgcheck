@@ -1,4 +1,14 @@
-
+#' Check that 'srr' documentation for statistics pacakges is complete.
+#'
+#' Procedures for preparing and submitting statistical packages are described in
+#' [our "*Stats Dev Guide*"](https://stats-devguide.ropensci.org). Statistical
+#' packages must use [the 'srr' (software review roclets)
+#' package](https://docs.ropensci.org/srr) to document compliance with our
+#' statistical standards. This check uses [the `srr::srr_stats_pre_submit()`
+#' function](https://docs.ropensci.org/srr/reference/srr_stats_pre_submit.html)
+#' to confirm that compliance with all relevant standards has been documented.
+#'
+#' @noRd
 pkgchk_srr <- function (checks) {
 
     checks$info$srr$okay

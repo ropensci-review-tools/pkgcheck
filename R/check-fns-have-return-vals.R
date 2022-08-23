@@ -1,9 +1,13 @@
 
-#' List any `roxygen2` function blocks which do not have return values.
+#' Check that all functions document their return values.
 #'
-#' This is currently the only function which uses `roxygen2::parse_file()`. If
-#' any further functions use this, it might be better to move this to an "info"
-#' item and out of this specific "check" item.
+#' The reflects a CRAN checks for all new submissions, to ensure that return
+#' values are documented for all functions. This check applies even to functions
+#' which are called for their side effects and return `NULL`.
+#'
+#' @note This is currently the only function which uses
+#' `roxygen2::parse_file()`. If any further functions use this, it might be
+#' better to move this to an "info" item and out of this specific "check" item.
 #'
 #' @noRd
 pkgchk_fns_have_return_vals <- function (checks) {

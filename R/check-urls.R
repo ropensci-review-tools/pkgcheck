@@ -1,4 +1,6 @@
-
+#' Check that a package 'DESCRIPTION' file lists a valid URL.
+#'
+#' @noRd
 pkgchk_has_url <- function (checks) {
 
     out <- length (checks$pkg$url) > 0L
@@ -9,6 +11,10 @@ pkgchk_has_url <- function (checks) {
     return (out)
 }
 
+#' Check that a package 'DESCRIPTION' file lists a valid URL in the "BugReports"
+#' field.
+#'
+#' @noRd
 pkgchk_has_bugs <- function (checks) {
 
     out <- length (checks$pkg$BugReports) > 0L

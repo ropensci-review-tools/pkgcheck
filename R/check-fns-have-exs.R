@@ -1,5 +1,5 @@
 
-#' Check whether all functions have examples
+#' Check whether all functions have examples.
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.

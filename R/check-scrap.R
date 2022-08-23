@@ -3,6 +3,13 @@
 # ---- pkgchk-scrap ----
 #' Check whether the package contains any useless files like `.DS_Store`.
 #'
+#' Files currently considered "scrap" are:
+#'
+#' 1. ".DS_Store"
+#' 2. "Thumbs.db"
+#' 3. ".vscode"
+#' 4. ".o" files
+#'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
 #' @return Names of any items which should not be present; otherwise an empty

@@ -2,6 +2,10 @@
 
 #' Check whether package has contributor guidelines in a 'contributing' file.
 #'
+#' A "contributing" file is required for all rOpenSci packages, as documented
+#' [in our "*Contributing
+#' Guide*](https://devguide.ropensci.org/collaboration.html?q=contributing#contributing-guide).
+#'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
 #' @return Logical flag

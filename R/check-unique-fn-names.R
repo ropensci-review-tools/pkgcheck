@@ -2,7 +2,8 @@
 #' Check whether all function names are unique.
 #'
 #' Uses the database of function names from all CRAN packages associated with
-#' \pkg{pkgstats} release.
+#' [releases of the `pkgstats`
+#' package](https://github.com/ropensci-review-tools/pkgstats/releases).
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.

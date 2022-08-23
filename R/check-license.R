@@ -1,5 +1,8 @@
 
-#' Check whether the package license is acceptable
+#' Check whether the package license is acceptable.
+#'
+#' Details of acceptable licenses are provided in the links in [our *Packaging
+#' Guide*](https://devguide.ropensci.org/building.html#licence).
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
@@ -15,8 +18,8 @@ pkgchk_license <- function (checks) {
     llist <- paste0 (license_list (), collapse = "|")
     okay <- vapply (
         licenses, function (i) {
-              grepl (llist, i)
-          },
+            grepl (llist, i)
+        },
         logical (1)
     )
 

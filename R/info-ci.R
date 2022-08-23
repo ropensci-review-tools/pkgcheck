@@ -1,11 +1,11 @@
 # CI checks have no print method, as they are currently only put into the full
 # html report, and otherwise only appear in summary.
 
-#' Get all CI badges from a repository
+#' Get all CI badges from a repository, and check that jobs currently pass.
 #'
 #' This extracts badges directly from README files. If none are found and a repo
-#' is GitHub, then `ci_results_github()` is called to check CI status from
-#' workflow files.
+#' is GitHub, then an additional function is called to check CI status directly
+#' from GitHub workflow files.
 #'
 #' @param u URL of repo
 #' @return Character vector of hyperlinked badge images

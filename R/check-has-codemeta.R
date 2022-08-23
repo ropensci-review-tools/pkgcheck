@@ -1,5 +1,9 @@
 
-#' Check whether a package has a `codemeta.json` file
+#' Check whether a package has a `codemeta.json` file.
+#'
+#' "codemeta.json" files are recommended for all rOpenSci packages, as
+#' documented [in our "*Packaging
+#' Guide*](https://devguide.ropensci.org/building.html#creating-metadata-for-your-package).
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.

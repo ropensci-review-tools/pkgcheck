@@ -1,8 +1,10 @@
 
-#' Check whether a package is on CRAN or not
+#' Check whether a package is on CRAN or not.
 #'
-#' This does not currently appear in either summary or print methods, and is
-#' only used as part of `pkcchk_pkgname_available`.
+#' This does not currently appear in any 'pkgcheck' output (that is, neither in
+#' summary or print methods), and is only used as part of
+#' `pkcchk_pkgname_available`.
+#'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
 #' @noRd

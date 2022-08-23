@@ -2,11 +2,20 @@
 # method, nor do they appear in markdown formatted reports.
 
 #' Check that left-assignment operators are used consistently throughout a
-#' package. "LEFT_ASSIGN" tokens can also be `:=`, so these must also be
-#' tallied, but are ignored.
-#' Left-assign operators are: ("=", "<-", "<<-", ":=").
-#' https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3283-L3290
-#' https://github.com/wch/r-source/blob/trunk/src/main/gram.y#L3346-L3349
+#' package.
+#'
+#' Left-assign operators recognised by R are: ("=", "<-", "<<-", ":="), as
+#' defined in  [the main grammar
+#' definition](https://github.com/wch/r-source/blob/trunk/src/main/gram.y).
+#' This actually checks the following two conditions:
+#'
+#' 1. Check that any "global assignment operators" ("<<-") are only used in
+#' appropriate contexts; and
+#' 2. Check that all left-assignment operators are consistent, so either all use
+#' "=", or all use "<-", but do not mix these two symbols.
+#'
+#' The `:=` operator is ignored in these checks.
+#'
 #' @inheritParams pkg_uses_roxygen2
 #' @return Named vector of 2 values tallying instances of usage of `<-` and `=`.
 #' @noRd
