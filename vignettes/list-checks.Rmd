@@ -1,0 +1,78 @@
+---
+title: "Current pkgcheck checks"
+author: 
+  - "Mark Padgham"
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{Current checks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set (
+    collapse = TRUE,
+    warning = TRUE,
+    message = TRUE,
+    width = 120,
+    comment = "#>",
+    fig.retina = 2,
+    fig.path = "README-"
+)
+options (repos = c (
+    ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
+    CRAN = "https://cloud.r-project.org"
+))
+library (pkgcheck)
+requireNamespace ("roxygen2")
+```
+
+The following checks are currently implemented in the `pkgcheck` package:
+
+```{r list-checks, results = 'asis', echo = FALSE}
+base_dir <- rprojroot::find_root (rprojroot::is_r_package)
+flist <- list.files (file.path (base_dir, "R"), full.names = TRUE, pattern = "\\.R$")
+blocks <- lapply (flist, function (i) roxygen2::parse_file (i, env = NULL))
+blocks <- do.call (c, blocks) # flatten embedded lists
+
+fn_names <- vapply (blocks, function (i) {
+    pd <- utils::getParseData (parse (
+        text = deparse (i$call),
+        keep.source = TRUE,
+        encoding = "UTF-8"
+    ))
+    if (!any (pd$token == "SYMBOL")) {
+        return ("")
+    } else {
+        pd$text [which (pd$token == "SYMBOL") [1]]
+    }},
+character (1L),
+USE.NAMES = FALSE
+)
+
+index <- grep ("^pkgchk\\_", fn_names)
+blocks <- blocks [index]
+fn_names <- fn_names [index]
+
+block_docs <- lapply (seq_along (blocks), function (i) {
+    list (
+        fn_name = paste0 (i, ". ", fn_names [i]),
+        title = roxygen2::block_get_tag (blocks [[i]], "title")$val,
+        desc = roxygen2::block_get_tag (blocks [[i]], "description")$val,
+        notes = unlist (roxygen2::block_get_tags (blocks [[i]], "note"))
+    )
+})
+
+block_str <- unlist (lapply (block_docs, function (i) {
+    c (
+        paste0 ("## *", i$fn_name, "*"),
+        "",
+        i$title,
+        "",
+        i$desc,
+        ""
+    )
+}))
+
+cat (paste0 (block_str, collapse = "\n"))
+```

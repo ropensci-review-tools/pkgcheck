@@ -1,6 +1,6 @@
 LFILE = README
 YFILE = data-raw/insert-yaml-in-use-action
-VIGNETTE = extending-checks
+VIGNETTE = list-checks
 
 #all: insert knith #open 
 all: init vignette
