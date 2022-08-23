@@ -16,6 +16,9 @@ Character vector of names of all checks (invisibly)
 \description{
 List all checks currently implemented
 }
+\examples{
+list_pkgchecks ()
+}
 \seealso{
 Other extra: 
 \code{\link{checks_to_markdown}()},

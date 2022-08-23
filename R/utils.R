@@ -33,6 +33,8 @@ decompose_path <- function (f) {
 #' @param quiet If `TRUE`, print all checks to screen. Function invisibly
 #' returns list of checks regardless.
 #' @return Character vector of names of all checks (invisibly)
+#' @examples
+#' list_pkgchecks ()
 #' @family extra
 #' @export
 list_pkgchecks <- function (quiet = FALSE) {
