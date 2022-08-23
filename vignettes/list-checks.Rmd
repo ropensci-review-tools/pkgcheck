@@ -59,19 +59,26 @@ block_docs <- lapply (seq_along (blocks), function (i) {
         fn_name = paste0 (i, ". ", fn_names [i]),
         title = roxygen2::block_get_tag (blocks [[i]], "title")$val,
         desc = roxygen2::block_get_tag (blocks [[i]], "description")$val,
+        details = roxygen2::block_get_tag (blocks [[i]], "details")$val,
         notes = unlist (roxygen2::block_get_tags (blocks [[i]], "note"))
     )
 })
+# notes are not listed, only title, description, and detail fields.
 
 block_str <- unlist (lapply (block_docs, function (i) {
-    c (
+    ret <- c (
         paste0 ("## *", i$fn_name, "*"),
         "",
         i$title,
         "",
-        i$desc,
-        ""
+        i$desc
     )
+
+    if (!is.null (i$details)) {
+        ret <- c (ret, "", i$details)
+    }
+
+    c (ret, "")
 }))
 
 cat (paste0 (block_str, collapse = "\n"))
