@@ -58,7 +58,6 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
            extra-packages: |
-             github::ropensci-review-tools/pkgstats
              any::rcmdcheck
 
       - run: rappdirs::user_cache_dir()
