@@ -6,7 +6,7 @@
 # Finally, a standard setup for RCMD check, plus a few additional system
 # libraries.
 
-FROM rocker/r-bspm:20.04
+FROM eddelbuettel/r2u:20.04
 MAINTAINER Mark Padgham <mark.padgham@email.com>
 
 RUN apt-get install -y --no-install-recommends \
