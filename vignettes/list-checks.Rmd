@@ -27,7 +27,9 @@ library (pkgcheck)
 requireNamespace ("roxygen2")
 ```
 
-The following checks are currently implemented in the `pkgcheck` package:
+The following checks are currently implemented in the `pkgcheck` package.
+Several of these are by default only shown when they fail; absence from a
+resultant checklist may be interpreted to indicate successful checks.
 
 ```{r list-checks, results = 'asis', echo = FALSE}
 base_dir <- rprojroot::find_root (rprojroot::is_r_package)
