@@ -3,10 +3,13 @@ YFILE = data-raw/insert-yaml-in-use-action
 VIGNETTE = list-checks
 
 #all: insert knith #open 
-all: init vignette
+all: init readme vignette
 
 init:
 	echo "pkgdown::init_site()" | R --no-save -q
+
+readme:
+	echo "pkgdown::build_home(preview=FALSE,,quiet=FALSE)" | R --no-save -q
 
 vignette:
 	echo "pkgdown::build_article('$(VIGNETTE)',quiet=FALSE)" | R --no-save -q
