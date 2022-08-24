@@ -13,69 +13,48 @@
 pkgchk_fns_have_return_vals <- function (checks) {
 
     flist <- list.files (
-        file.path (checks$pkg$path, "R"),
+        file.path (checks$pkg$path, "man"),
         full.names = TRUE,
-        recursive = TRUE,
-        pattern = "\\.(R|r)$"
+        recursive = FALSE,
+        pattern = "\\.Rd$"
     )
 
-    suppressWarnings ({
-        blocks <- lapply (flist, function (i) {
-            tryCatch (roxygen2::parse_file (i, env = NULL),
-                error = function (e) list ()
-            )
-        })
-    })
-    names (blocks) <- flist
-    blocks <- do.call (c, blocks)
-
-    fn_index <- which (vapply (
-        blocks,
-        function (i) {
-            !is.null (i$call) &&
-                length (roxygen2::block_get_tags (i, "export")) > 0L
-        },
-        logical (1L),
-        USE.NAMES = FALSE
-    ))
-    blocks <- blocks [fn_index]
-
-
-    no_ret_tags <- which (vapply (
-        blocks,
-        function (i) {
-            length (roxygen2::block_get_tags (i, "return")) == 0L
-        },
-        logical (1L),
-        USE.NAMES = FALSE
-    ))
-    if (length (no_ret_tags) == 0L) {
-        return (NULL)
-    }
-
-    blocks <- blocks [no_ret_tags]
-
-    fn_names <- vapply (blocks, function (i) {
-        pd <- utils::getParseData (parse (
-            text = deparse (i$call),
-            keep.source = TRUE,
-            encoding = "UTF-8"
-        ))
+    get1tag <- function (tags, rd, what = "docType") {
+        index <- grep (paste0 (what, "$"), tags)
         ret <- ""
-        # Only extract initial "SYBMOL" of objects which parse as functions:
-        if (any (pd$token == "SYMBOL") && nrow (pd) > 4) {
-            pd <- pd [which (nzchar (pd$text)) [1:3], ]
-            if (pd$text [3] == "function") {
-                ret <- pd$text [which (pd$token == "SYMBOL")]
-            }
+        if (length (index) > 0) {
+            ret <- lapply (rd [index], function (j) {
+                paste0 (unlist (j), collapse = "")
+            })
+            ret <- unlist (ret)
         }
         return (ret)
-    },
-    character (1L),
-    USE.NAMES = FALSE
+    }
+
+    tag_data <- lapply (flist, function (f) {
+        x <- tools::parse_Rd (f)
+        tags <- unlist (lapply (x, function (i) attr (i, "Rd_tag")))
+        list (
+            docType = get1tag (tags, x, "docType"),
+            value = get1tag (tags, x, "value"),
+            alias = get1tag (tags, x, "alias"),
+            name = get1tag (tags, x, "name"),
+            keyword = get1tag (tags, x, "keyword")
+        )
+    })
+
+    doc_types <- vapply (tag_data, function (i) i$docType, character (1L))
+    keywords <- vapply (tag_data, function (i) i$keyword, character (1L))
+    value <- vapply (tag_data, function (i) i$value, character (1L))
+    rd_names <- vapply (tag_data, function (i) i$name, character (1L))
+
+    index <- which (
+        !nzchar (doc_types) &
+            !keywords %in% c ("datasets", "internal") &
+            !nzchar (value)
     )
 
-    return (fn_names [which (nzchar (fn_names))])
+    return (rd_names [index])
 }
 
 output_pkgchk_fns_have_return_vals <- function (checks) { # nolint
