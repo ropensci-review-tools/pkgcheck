@@ -61,16 +61,21 @@ pkgchk_fns_have_return_vals <- function (checks) {
             keep.source = TRUE,
             encoding = "UTF-8"
         ))
-        if (!any (pd$token == "SYMBOL")) {
-            return ("")
-        } else {
-            pd$text [which (pd$token == "SYMBOL") [1]]
-        }},
+        ret <- ""
+        # Only extract initial "SYBMOL" of objects which parse as functions:
+        if (any (pd$token == "SYMBOL") && nrow (pd) > 4) {
+            pd <- pd [which (nzchar (pd$text)) [1:3], ]
+            if (pd$text [3] == "function") {
+                ret <- pd$text [which (pd$token == "SYMBOL")]
+            }
+        }
+        return (ret)
+    },
     character (1L),
     USE.NAMES = FALSE
     )
 
-    return (fn_names)
+    return (fn_names [which (nzchar (fn_names))])
 }
 
 output_pkgchk_fns_have_return_vals <- function (checks) { # nolint
