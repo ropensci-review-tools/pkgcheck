@@ -565,6 +565,7 @@ render_markdown <- function (md, open = TRUE) {
 
     md <- gsub ("\\:heavy\\_check\\_mark\\:", "&#9989;", md)
     md <- gsub ("\\:heavy\\_multiplication\\_x\\:", "&#10060;", md)
+    md <- gsub ("\\:eyes\\:", "&#128064;", md)
 
     md <- add_stats_tooltips (md)
 

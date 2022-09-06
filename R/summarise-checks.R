@@ -25,10 +25,16 @@ summarise_all_checks <- function (checks) {
     if (!has_gp) {
         output_fns <- output_fns [which (!grepl ("covr", output_fns))]
     }
+    ordered_checks <- order_checks (output_fns)
     out <- lapply (
-        order_checks (output_fns),
+        ordered_checks,
         function (i) summarise_check (checks, i, pkg_env)
     )
+    # "watch" checks; issue #144
+    index <- which (ordered_checks %in% watch_checks (output_fns))
+    out [index] <-
+        gsub ("\\:heavy\\_multiplication\\_x\\:", ":eyes:", out [index])
+
     out <- do.call (c, out)
 
     out <- c (out, summarise_extra_env_checks (checks))
@@ -43,6 +49,11 @@ summarise_all_checks <- function (checks) {
         )
     }
 
+    # re-order "watch" checks to bottom
+    index1 <- grep ("\\:heavy\\_(multiplication\\_x|check\\_mark)\\:", out)
+    index2 <- grep ("\\:eyes\\:", out)
+    out <- out [c (index1, index2)]
+
     checks_okay <- !any (grepl (symbol_crs (), out))
     if (!checks_okay) {
         out <- c (
@@ -52,6 +63,15 @@ summarise_all_checks <- function (checks) {
                 "**Important:** All failing checks above ",
                 "must be addressed prior to proceeding"
             )
+        )
+    }
+
+    if (any (grepl ("\\:eyes\\:", out))) {
+        out <- c (
+            out,
+            "",
+            "(Checks marked with :eyes: may be optionally addressed.)",
+            ""
         )
     }
 
@@ -105,7 +125,6 @@ order_checks <- function (fns) {
         "has_bugs",
         "has_vignette",
         "fns_have_exs",
-        "unique_fn_names",
         "global_assign",
         "ci",
         "covr",
@@ -113,13 +132,26 @@ order_checks <- function (fns) {
         "left_assign",
         "renv_activated",
         "srr_missing",
-        "srr_todo"
+        "srr_todo",
+        # These are "watch" checks, not outright fails; they must be
+        # additionally explicitly listed below in `watch_checks()`:
+        "unique_fn_names"
     )
 
     fns <- fns [which (fns %in% ord)]
     fns <- fns [match (ord, fns)]
 
     return (fns)
+}
+
+watch_checks <- function (output_fns) {
+
+    all_checks <- order_checks (output_fns)
+    watch_list <- c (
+        "unique_fn_names"
+    )
+
+    all_checks [which (all_checks %in% watch_list)]
 }
 
 #' Generic function to summarise checks based on result of corresponding
