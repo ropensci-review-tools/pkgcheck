@@ -157,7 +157,7 @@ output_pkgchk_global_assign <- function (checks) {
     ) # no print method
 
     if (!out$check_pass) {
-        out$summary <- " Package uses global assignment operator ('<<-')."
+        out$summary <- "Package uses global assignment operator ('<<-')."
     }
 
     return (out)
