@@ -11,9 +11,9 @@ v 'DESCRIPTION' has a URL field.
 v 'DESCRIPTION' has a BugReports field.
 x Package has no HTML vignettes
 x These functions do not have examples: [pkgstats_from_archive].
-x Function names are duplicated in other packages
-v Package has continuous integration checks.
+x Package has no continuous integration checks.
 x Package contains unexpected files.
+i Function names are duplicated in other packages
 
 i Current status:
 x This package is not ready to be submitted.
