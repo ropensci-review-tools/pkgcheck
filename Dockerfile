@@ -182,6 +182,7 @@ RUN install2.r \
   RcppParallel \
   randomForest \
   rmarkdown \
+  seasonal \
   sf \
   survival \
   tidymodels \
