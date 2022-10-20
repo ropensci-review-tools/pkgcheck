@@ -12,7 +12,7 @@ git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 - :heavy_check_mark: 'DESCRIPTION' has a BugReports field.
 - :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].
-- :heavy_multiplication_x:  Package has no continuous integration checks.
+- :heavy_check_mark: Package has continuous integration checks.
 - :heavy_multiplication_x: Package contains unexpected files.
 - :eyes: Function names are duplicated in other packages
 
