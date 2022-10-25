@@ -47,7 +47,7 @@ output_pkgchk_srr_missing <- function (checks) {
     )
 
     if (!out$check_pass) {
-        out$summary <- "Statistical standards are missing"
+        out$summary <- "Some statistical standards are missing"
     }
 
     return (out)
