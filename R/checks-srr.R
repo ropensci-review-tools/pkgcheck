@@ -96,10 +96,19 @@ srr_checks_to_md <- function (checks) {
         return (NULL)
     }
 
-    srr_msg <- ifelse (checks$info$srr$okay,
-        paste0 (symbol_tck (), " ", checks$info$srr$message),
-        paste0 (symbol_crs (), " ", checks$info$srr$message)
-    )
+    while (!nzchar (checks$info$srr$message [1])) {
+        checks$info$srr$message <- checks$info$srr$message [-1]
+    }
+
+    sym <- ifelse (checks$info$srr$okay, symbol_tck (), symbol_crs ())
+    srr_msg <- paste (sym, checks$info$srr$message [1])
+    if (length (checks$info$srr$message) > 1L) {
+        srr_msg <- paste0 (c (
+            srr_msg,
+            checks$info$srr$message [-1],
+            collapse = "\n"
+        ))
+    }
 
     cat_plural <- ifelse (
         length (checks$info$srr$categories == 1),
