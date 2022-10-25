@@ -62,16 +62,19 @@ print_srr <- function (x) {
     cli::cli_text ("")
     cli::cli_alert_info ("Compliance with rOpenSci statistical standards:")
 
+    while (!nzchar (x$info$srr$message [1])) {
+        x$info$srr$message <- x$info$srr$message [-1]
+    }
+
     if (x$info$srr$okay) {
         cli::cli_alert_success (x$info$srr$message)
     } else {
         cli::cli_alert_danger (x$info$srr$message [1])
         if (length (x$info$srr$message) > 1) {
-            m <- x$info$srr$message [-1]
+            m <- x$info$srr$message
             if (grepl ("missing from your code", m [1])) {
-                cli::cli_text (m [1])
-                cli::cli_text ("")
-                m <- paste0 (m [which (m != "")] [-1], collapse = ", ")
+                m <- m [which (nzchar (m))] [-1]
+                m <- paste0 (m, collapse = ", ")
                 cli::cli_text (paste0 (m, "."))
             }
         }
