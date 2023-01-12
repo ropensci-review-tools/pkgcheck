@@ -179,10 +179,14 @@ parse_pkg_deps <- function (s) {
     fields <- c ("depends", "imports", "suggests", "linking_to")
 
     d <- lapply (fields, function (i) {
-        cbind (
+        out <- cbind (
             i,
             strsplit (s$desc [[i]], ",\\s*") [[1]]
         )
+        if (length (out) == 1) {
+            out <- c (out, "NA")
+        }
+        return (out)
     })
 
     d <- do.call (rbind, d)
