@@ -8,6 +8,7 @@ repos:
         args: [--style_pkg=spaceout, --style_fun=spaceout_style]    
         additional_dependencies:
         - ropensci-review-tools/spaceout
+        - styler
           #-   id: roxygenize
     # codemeta must be above use-tidy-description when both are used
     # -   id: codemeta-description-updated
