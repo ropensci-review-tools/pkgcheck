@@ -28,7 +28,7 @@ This package is in the following category:
 - *Regression and Supervised Learning*
 
 :heavy_multiplication_x: This package still has TODO standards and can not be submitted
-Package can not be submitted because the following standards [v0.1.0] are missing from your code:
+Package can not be submitted because the following standards [v0.2.0] are missing from your code:
 
 G1.0
 G1.4a
