@@ -193,3 +193,7 @@ RUN install2.r \
 # arrow docs suggest this shouldn't be needed, but s3
 # support doesn't work without re-install/compile:
 RUN Rscript -e 'arrow::install_arrow()'
+
+# Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
+# need to reinstall 'sf':
+RUN Rscript -e 'install.packages("sf")'
