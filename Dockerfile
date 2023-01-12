@@ -195,5 +195,5 @@ RUN install2.r \
 RUN Rscript -e 'arrow::install_arrow()'
 
 # Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
-# need to reinstall 'sf':
-RUN Rscript -e 'install.packages("sf")'
+# need to reinstall 'sf' without bspm:
+RUN Rscript -e 'bspm::disable();install.packages("sf");bspm::enable()'
