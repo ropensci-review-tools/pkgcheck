@@ -29,13 +29,19 @@ pkgchk_obsolete_pkg_deps <- function (checks) {
 output_pkgchk_obsolete_pkg_deps <- function (checks) { # nolint
 
     # https://github.com/ropensci/software-review-meta/issues/47
-    potential <- paste0 (c ("sp", "rgdal", "maptools", "rgeos"), collapse = "|")
+    # potential <- paste0 (c ("sp", "rgdal", "maptools", "rgeos"), collapse = "|")
+    # Elevate "sp" to "truly obsolete"
+    potential <- paste0 (c ("rgdal", "maptools", "rgeos"), collapse = "|")
     potential <- grep (potential, checks$checks$obsolete_pkg_deps, value = TRUE)
 
-    index <- which (!grepl (
-        paste0 (potential, collapse = "|"),
-        checks$checks$obsolete_pkg_deps
-    ))
+    if (length (potential) == 0) {
+        index <- seq_along (checks$checks$obsolete_pkg_deps)
+    } else {
+        index <- which (!grepl (
+            paste0 (potential, collapse = "|"),
+            checks$checks$obsolete_pkg_deps
+        ))
+    }
     obs_pkg_deps <- checks$checks$obsolete_pkg_deps [index]
 
     out <- list (

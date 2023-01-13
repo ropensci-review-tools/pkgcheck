@@ -149,6 +149,7 @@ watch_checks <- function (output_fns) {
 
     all_checks <- order_checks (output_fns)
     watch_list <- c (
+        "obsolete_pkg_deps",
         "unique_fn_names"
     )
 
