@@ -3,7 +3,6 @@
 git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 
 - :heavy_check_mark: Package is already on CRAN.
-- :heavy_multiplication_x: Package depends on the following obsolete packages: [blah]
 - :heavy_multiplication_x: does not have a 'codemeta.json' file.
 - :heavy_multiplication_x: does not have a 'contributing' file.
 - :heavy_multiplication_x: The following functions have no documented return values: [ctags_install, desc_stats, rd_stats, tags_data]
@@ -14,6 +13,7 @@ git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 - :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].
 - :heavy_check_mark: Package has continuous integration checks.
 - :heavy_multiplication_x: Package contains unexpected files.
+- :eyes: Package depends on the following obsolete packages: [blah,sp]
 - :eyes: Function names are duplicated in other packages
 
 **Important:** All failing checks above must be addressed prior to proceeding
@@ -167,6 +167,7 @@ An interactive visualisation of calls between objects in the package has been up
 
 :heavy_multiplication_x: Package contains the following (potentially) obsolete packages:
 
+- blah
 - sp
 - rgdal
 

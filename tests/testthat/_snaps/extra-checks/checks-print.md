@@ -2,7 +2,6 @@
 -- pkgstats 9.9 ----------------------------------------------------------------
 
 v Package is already on CRAN.
-x Package depends on the following obsolete packages: [blah]
 x does not have a 'codemeta.json' file.
 x does not have a 'contributing' file.
 x The following functions have no documented return values: [ctags_install, desc_stats, rd_stats, tags_data]
@@ -13,6 +12,7 @@ x Package has no HTML vignettes
 x These functions do not have examples: [pkgstats_from_archive].
 v Package has continuous integration checks.
 x Package contains unexpected files.
+i Package depends on the following obsolete packages: [blah,sp]
 i Function names are duplicated in other packages
 
 i Current status:
@@ -66,6 +66,7 @@ x Package contains the following unexpected files:
   * a
   * b
 x Package contains the following (potentially) obsolete packages:
+  * blah
   * sp
   * rgdal
 

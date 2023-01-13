@@ -21,7 +21,6 @@ $(document).ready(function(){
 <p>git hash: <a href="https://github.com/ropensci-review-tools/pkgstats/tree/"></a></p>
 <ul>
 <li>✅ Package is already on CRAN.</li>
-<li>❌ Package depends on the following obsolete packages: [blah]</li>
 <li>❌ does not have a ‘codemeta.json’ file.</li>
 <li>❌ does not have a ‘contributing’ file.</li>
 <li>❌ The following functions have no documented return values: [ctags_install, desc_stats, rd_stats, tags_data]</li>
@@ -32,6 +31,7 @@ $(document).ready(function(){
 <li>❌ These functions do not have examples: [pkgstats_from_archive].</li>
 <li>✅ Package has continuous integration checks.</li>
 <li>❌ Package contains unexpected files.</li>
+<li>👀 Package depends on the following obsolete packages: [blah,sp]</li>
 <li>👀 Function names are duplicated in other packages</li>
 </ul>
 <p><strong>Important:</strong> All failing checks above must be addressed prior to proceeding</p>
@@ -401,6 +401,7 @@ The following terminology is used:</p>
 </ul>
 <p>❌ Package contains the following (potentially) obsolete packages:</p>
 <ul>
+<li>blah</li>
 <li>sp</li>
 <li>rgdal</li>
 </ul>
