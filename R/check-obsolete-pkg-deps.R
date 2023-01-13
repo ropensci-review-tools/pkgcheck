@@ -57,14 +57,18 @@ output_pkgchk_obsolete_pkg_deps <- function (checks) { # nolint
         )
     }
 
-    if (length (potential) > 0L) {
+    if (length (potential) > 0L || !out$check_pass) {
+
+        ptl <- ifelse (length (potential) > 0L, "(potentially) ", "")
+        obs_pkgs <- unique (c (obs_pkg_deps, potential))
 
         out$print <- list (
             msg_pre = paste0 (
-                "Package contains the following (potentially) ",
+                "Package contains the following ",
+                ptl,
                 "obsolete packages:"
             ),
-            obj = potential,
+            obj = obs_pkgs,
             msg_post = paste0 (
                 "See our ",
                 "[Recommended Scaffolding](https://devguide.ropensci.org/",
