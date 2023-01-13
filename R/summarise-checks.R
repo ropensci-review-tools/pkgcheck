@@ -139,6 +139,7 @@ order_checks <- function (fns) {
     )
 
     fns <- fns [which (fns %in% ord)]
+    ord <- ord [which (ord %in% fns)] # b/c 'covr' is removed w/o gp
     fns <- fns [match (ord, fns)]
 
     return (fns)
