@@ -20,59 +20,149 @@ RUN apt-get install -y --no-install-recommends \
         && chgrp 1000 /usr/local/lib/R/site-library \
         && install.r remotes
 
+# still need ubuntugis for gdal 3.1.0 (currently standard candidate is 3.0.4)
+RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
+    && apt update \
+    && apt -y upgrade
 
 # GitHub Ubuntu-20.04 runner, but not imagemagick because v7 needs to be
 # compiled with librsvg2, rather than binary-installed
 # https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
+# netbase: https://github.com/tensorflow/haskell/issues/182
 RUN apt-get update -qq && apt-get install -y \
     acl \
+    apt-utils \
+    autoconf automake \
     binutils \
     bison \
     brotli \
     build-essential \
     bzip2 \
+    cargo \
+    cmake \
+    coinor-libcbc-dev  \
+    coinor-libsymphony-dev \
     coreutils \
     curl \
     dbus \
     dnsutils \
+    dos2unix \
     dpkg \
     fakeroot \
     file \
+    flac \
     flex \
+    fonts-emojione \
     fonts-noto-color-emoji \
     ftp \
+    gcc \
+    git \
+    global \
     gnupg2 \
     haveged \
     iproute2 \
     iputils-ping \
+    jags \
     jq \
+    language-pack-en-base \
     lib32z1 \
+    libapparmor-dev \
+    libarchive-dev \
+    libavfilter-dev \
+    libbam-dev \
+    libboost-filesystem-dev \
+    libboost-program-options-dev \
     libc++-dev \
     libc++abi-dev \
+    libcairo2-dev \
     libcurl4 \
+    libcurl4-openssl-dev \
+    libdb-dev \
+    libeigen3-dev \
+    libelf-dev \
+    libfftw3-dev \
+    libfreetype6-dev \
+    libfribidi-dev \
     libgbm-dev \
     libgconf-2-4 \
+    libgdal-dev \
+    libgeos-dev \
+    libgit2-dev \
+    libglpk-dev \
+    libglu1-mesa-dev \
+    libgpgme-dev \
     libgsl-dev \
     libgtk-3-0 \
+    libharfbuzz-dev \
+    libhdf5-dev \
+    libhiredis-dev \
+    libicu-dev \
+    libjansson-dev \
+    libjpeg-dev \
+    libjq-dev \
+    libmagick++-dev \
+    libmpfr-dev \
+    libmysqlclient-dev \
+    libnetcdf-dev \
+    libnng-dev \
+    libopenbabel-dev \
+    libopenblas0 \
+    libopencv-dev \
+    libpng-dev \
+    libpoppler-cpp-dev \
+    libpq-dev \
+    libproj-dev \
+    libprotobuf-dev \
+    libprotoc-dev \
+    librabbitmq-dev \
+    librdf0 \
+    librrd-dev \
+    librsvg2-dev \
+    libsasl2-dev \
+    libseccomp-dev \
     libsecret-1-dev \
+    libsodium-dev \
     libsqlite3-dev \
+    libssh-dev \
+    libssh2-1-dev \
+    libssl-dev \
+    libtesseract-dev \
+    libtiff-dev \
+    libudunits2-dev \
     libunwind8 \
+    libv8-dev \
+    libwebp-dev \
     libxkbfile-dev \
+    libxml2-dev \
+    libxslt-dev \
+    libxslt1-dev \
     libxss1 \
+    libyaml-dev \
+    libzmq3-dev \
     locales \
+    make \
     m4 \
     mediainfo \
     net-tools \
+    netbase \
     netcat \
     openssh-client \
     p7zip-full \
     p7zip-rar \
+    pandoc \
+    pandoc-citeproc \
     parallel \
     pass \
     patchelf \
     pkg-config \
     pollinate \
+    protobuf-compiler \
     python-is-python3 \
+    python3-docutils \
+    python3-numpy \
+    python3-pip \
+    r-base-dev \
+    r-cran-rjava \
     rpm \
     rsync \
     shellcheck \
@@ -81,10 +171,17 @@ RUN apt-get update -qq && apt-get install -y \
     ssh \
     swig \
     telnet \
+    tesseract-ocr-eng \
     texinfo \
+    texlive-fonts-extra \
+    texlive-fonts-recommended \
+    texlive-latex-base \
+    texlive-latex-extra \
     time \
     tk \
+    ttf-mscorefonts-installer \
     tzdata \
+    unixodbc-dev \
     unzip \
     upx \
     wget \
@@ -92,20 +189,12 @@ RUN apt-get update -qq && apt-get install -y \
     xvfb \
     xz-utils \
     zip \
+    zlib1g-dev \
     zstd \
-    zsync
+    zsync && \
+    apt-get clean
 
 # ctags install
-RUN apt-get install -y \
-    apt-utils \
-    gcc make \
-    autoconf automake \
-    git-core \
-    python3-docutils \
-    libseccomp-dev \
-    libjansson-dev \
-    libyaml-dev \
-    libxml2-dev
 RUN git clone https://github.com/universal-ctags/ctags.git \
     && cd ctags \
     && ./autogen.sh \
@@ -121,41 +210,8 @@ RUN VERSION=`curl "https://api.github.com/repos/cli/cli/releases/latest" | grep 
     && cp gh_${VERSION}_linux_amd64/bin/gh /usr/local/bin/
 #RUN cp -r gh_${VERSION}_linux_amd64/share/man/man1/* /usr/share/man/man1/
 
-# still need ubuntugis for gdal 3.1.0 (currently standard candidate is 3.0.4)
-RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
-    && apt update \
-    && apt -y upgrade
-
-# netbase is critical:
-# https://github.com/commercialhaskell/stack/issues/2372#issuecomment-234113085
-# https://github.com/tensorflow/haskell/issues/182
-RUN apt-get install -y \
-  cargo \
-  dos2unix \
-  global \
-  libgit2-dev \
-  libssl-dev \
-  #libcurl4-gnutls-dev \
-  libcurl4-openssl-dev \
-  libgdal-dev \
-  libgeos-dev \
-  libjq-dev \
-  libproj-dev \
-  libglpk-dev \
-  libsodium-dev \
-  libudunits2-dev \
-  libxslt1-dev \
-  netbase \
-  texlive-latex-base \
-  texlive-fonts-recommended \
-  texlive-latex-extra \
-  texlive-fonts-extra \
-  pandoc \
-  pandoc-citeproc
-
 # Julia:
 # https://github.com/ropensci-review-tools/roreviewapi/issues/28
-RUN apt-get install -y python3-pip
 RUN pip install jill
 RUN jill install --confirm
 
