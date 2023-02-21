@@ -78,6 +78,7 @@ pkgchk_left_assign <- function (checks) {
     )
 
     assigns <- rm_global_assign_in_ref_class (assigns, checks)
+    assigns <- rm_global_assign_in_memoise (assigns, checks)
 
     assigns <- rowSums (assigns)
     # rm `:=`:
@@ -147,6 +148,48 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
 
     return (assigns)
 }
+
+# Remove any memoise global assigns in `.onLoad` fucntions (#167)
+rm_global_assign_in_memoise <- function (assigns, checks) {
+
+    global_row <- which (rownames (assigns) == "<<-")
+    global <- assigns [global_row, ]
+    global <- global [global > 0]
+    if (length (global) == 0L) {
+        return (assigns)
+    }
+
+    global <- data.frame (
+        file = gsub (checks$pkg$path, "", names (global)),
+        n = as.integer (global)
+    )
+    global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
+
+    loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")
+    get_ctags <- utils::getFromNamespace ("get_ctags", "pkgstats")
+
+    loc <- loc_stats (checks$pkg$path)
+    has_tabs <- any (loc$ntabs > 0L)
+    tags <- withr::with_dir (checks$pkg$path, get_ctags ("R", has_tabs))
+    tags <- tags [which (tags$file %in% global$file), ]
+
+    for (f in unique (tags$file)) {
+
+        f_full <- fs::path (checks$pkg$path, f)
+        tags_f <- tags [which (tags$file == f), ]
+        onload_i <- which (tags_f$tag == ".onLoad")
+        if (length (onload_i == 1L)) {
+            onload_index <- seq (tags_f$start [onload_i], tags_f$end [onload_i])
+            tags_in_onload <- tags_f [tags_f$start %in% onload_index, ]
+            memoise_assign <- grep ("<<\\-\\s?memoise", tags_in_onload$content)
+            col_num <- match (f_full, colnames (assigns))
+            assigns [global_row, col_num] <- assigns [global_row, col_num] - length (memoise_assign)
+        }
+    }
+
+    return (assigns)
+}
+
 
 output_pkgchk_global_assign <- function (checks) {
 
