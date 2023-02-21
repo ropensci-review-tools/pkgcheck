@@ -1,4 +1,3 @@
-
 test_that ("pkgcheck", {
 
     withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
@@ -12,6 +11,25 @@ test_that ("pkgcheck", {
 
     pkgname <- "testpkgchecknotapkg"
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
+    # Add memoise to check global assign in memoised fns:
+    f_desc <- fs::path (d, "DESCRIPTION")
+    desc <- readLines (f_desc)
+    i <- grep ("Rcpp$", desc) [1]
+    desc <- c (
+        desc [seq_len (i - 1)],
+        "    Rcpp,",
+        "    memoise",
+        desc [seq (i + 1, length (desc))]
+    )
+    writeLines (desc, f_desc)
+    # Define memoised fn in new 'zzz.R' file:
+    f_zzz <- fs::path (d, "zzz.R")
+    zzz <- c (
+        ".onLoad <- function(libname, pkgname) {",
+        "    test_fn <<- memoise::memoise(test_fn)",
+        "}"
+    )
+    writeLines (zzz, f_zzz)
 
     x <- capture.output (
         roxygen2::roxygenise (d),

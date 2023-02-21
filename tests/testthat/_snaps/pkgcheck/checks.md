@@ -154,6 +154,7 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 |type       |package  | ncalls|
 |:----------|:--------|------:|
 |imports    |Rcpp     |     NA|
+|imports    |memoise  |     NA|
 |suggests   |testthat |     NA|
 |linking_to |Rcpp     |     NA|
 
@@ -183,7 +184,7 @@ The package has:
 - 1 authors
 - no  vignette
 - no internal data file
-- 1 imported package
+- 2 imported packages
 - 1 exported function (median 3 lines of code)
 - 2 non-exported functions in R (median 3 lines of code)
 - 2 R functions (median 5 lines of code)
