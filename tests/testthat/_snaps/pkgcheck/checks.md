@@ -14,6 +14,7 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
 - :heavy_multiplication_x: Some statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
+- :heavy_multiplication_x: Statistical standards should be documented in most package files, yet are mostly only documented in one file.
 
 **Important:** All failing checks above must be addressed prior to proceeding
 
@@ -135,6 +136,7 @@ RE7.2
 RE7.3
 RE7.4
 
+Statistical standards should be documented in most package files, yet are mostly only documented in one file.
 
 
 
