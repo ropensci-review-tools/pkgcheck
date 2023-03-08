@@ -36,13 +36,14 @@ pkginfo_srr_report <- function (path) {
         return (NULL)
     } # Not an srr package
 
-    srr_okay <- FALSE
-    if (!methods::is (srr, "error") &&
-        any (grepl (
-            "^All applicable standards \\[v.+\\] have been documented",
-            srr
-        ))) {
-        srr_okay <- TRUE
+    srr_okay <- !methods::is (srr, "error")
+    # Warning messages for standards in single directory, or most standards in
+    # single file, from srr/R/pre-submit.R:
+    warn_msg <- "should be documented in"
+    if (srr_okay && any (grepl (warn_msg, srr))) {
+        srr <- grep (warn_msg, srr, value = TRUE)
+        srr <- gsub ("^S", "Statistical s", srr)
+        srr_okay <- FALSE
     }
 
     categories <- stds <- NULL
