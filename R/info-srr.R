@@ -41,8 +41,8 @@ pkginfo_srr_report <- function (path) {
     # single file, from srr/R/pre-submit.R:
     warn_msg <- "should be documented in"
     if (srr_okay && any (grepl (warn_msg, srr))) {
-        srr <- grep (warn_msg, srr, value = TRUE)
-        srr <- gsub ("^S", "Statistical s", srr)
+        srr [grep (warn_msg, srr)] <-
+            gsub ("^S", "Statistical s", srr [grep (warn_msg, srr)])
         srr_okay <- FALSE
     }
 

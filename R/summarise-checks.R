@@ -133,6 +133,7 @@ order_checks <- function (fns) {
         "renv_activated",
         "srr_missing",
         "srr_todo",
+        "srr_most_in_one_file",
         # These are "watch" checks, not outright fails; they must be
         # additionally explicitly listed below in `watch_checks()`:
         "unique_fn_names"

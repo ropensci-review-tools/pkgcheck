@@ -53,6 +53,22 @@ output_pkgchk_srr_missing <- function (checks) {
     return (out)
 }
 
+output_pkgchk_srr_most_in_one_file <- function (checks) {
+
+    srr <- checks$info$srr
+
+    warn_msg <- "should be documented in"
+    check_pass <- !any (grepl (warn_msg, srr$message))
+
+    out <- list (
+        check_pass = check_pass,
+        summary = grep (warn_msg, srr$message, value = TRUE),
+        print = ""
+    )
+
+    return (out)
+}
+
 print_srr <- function (x) {
 
     cli::cli_h2 ("rOpenSci Statistical Standards")
