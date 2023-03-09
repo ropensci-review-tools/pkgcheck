@@ -9,7 +9,7 @@
 FROM eddelbuettel/r2u:20.04
 MAINTAINER Mark Padgham <mark.padgham@email.com>
 
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
                 sudo \
                 r-cran-bspm \
         && echo "bspm::enable()" >> /etc/R/Rprofile.site \
