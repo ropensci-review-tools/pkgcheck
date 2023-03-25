@@ -148,23 +148,26 @@ extract_gp_components <- function (gp) {
     cyc <- gp$cyclocomp
 
     # -------------- lintr:
-    lint_file <- vapply (gp$lintr, function (i) i$filename, character (1))
-    lint_line <- vapply (gp$lintr, function (i) i$line_number, integer (1))
-    lint_type <- vapply (gp$lintr, function (i) i$type, character (1))
-    lint_message <- vapply (gp$lintr, function (i) i$message, character (1))
-    lints <- data.frame (
-        file = lint_file,
-        line = lint_line,
-        type = lint_type,
-        message = lint_message,
-        stringsAsFactors = FALSE
-    )
-    # lintr reports library calls in tests dir, which are okay
-    index <- which (grepl ("^tests", lints$file) &
-        grepl ("^Avoid library", lints$message))
-    lints <- lints [-index, ]
-    if (nrow (lints) == 0) {
-        lints <- list ()
+    lints <- list ()
+    if (!methods::is (gp$lintr, "try-error")) {
+        lint_file <- vapply (gp$lintr, function (i) i$filename, character (1))
+        lint_line <- vapply (gp$lintr, function (i) i$line_number, integer (1))
+        lint_type <- vapply (gp$lintr, function (i) i$type, character (1))
+        lint_message <- vapply (gp$lintr, function (i) i$message, character (1))
+        lints <- data.frame (
+            file = lint_file,
+            line = lint_line,
+            type = lint_type,
+            message = lint_message,
+            stringsAsFactors = FALSE
+        )
+        # lintr reports library calls in tests dir, which are okay
+        index <- which (grepl ("^tests", lints$file) &
+            grepl ("^Avoid library", lints$message))
+        lints <- lints [-index, ]
+        if (nrow (lints) == 0) {
+            lints <- list ()
+        }
     }
 
     # -------------- rcmdcheck:
