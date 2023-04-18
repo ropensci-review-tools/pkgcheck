@@ -27,6 +27,7 @@ jobs:
               body: 
                 `@mpadge It's time to renew your 'RRT_TOKEN'
 
+                 - (Re-)Generate **personal** token called 'RRT_TOKEN'
                  - grant both repo and workflow access
-                 - copy token to \'pkgcheck\' and \`pkgcheck-action\` repo secrets`
+                 - copy token to \'pkgcheck\' and \'pkgcheck-action\' repo secrets`
             })
