@@ -272,19 +272,17 @@ project, you agree to abide by its terms.
 
 ## Contributors
 
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
-All contributions to this project are gratefully acknowledged using the
-[`allcontributors`
-package](https://github.com/ropenscilabs/allcontributors) following the
-[all-contributors](https://allcontributors.org) specification.
-Contributions of any kind are welcome!
+All contributions to this project are gratefully acknowledged using the [`allcontributors` package](https://github.com/ropenscilabs/allcontributors) following the [all-contributors](https://allcontributors.org) specification. Contributions of any kind are welcome!
 
 ### Code
 
 <table>
+
 <tr>
 <td align="center">
 <a href="https://github.com/mpadge">
@@ -317,11 +315,14 @@ Contributions of any kind are welcome!
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=noamross">noamross</a>
 </td>
 </tr>
+
 </table>
+
 
 ### Issue Authors
 
 <table>
+
 <tr>
 <td align="center">
 <a href="https://github.com/piyalkarum">
@@ -343,7 +344,7 @@ Contributions of any kind are welcome!
 </td>
 <td align="center">
 <a href="https://github.com/phuongquan">
-<img src="https://avatars.githubusercontent.com/u/38658964?v=4" width="100px;" alt=""/>
+<img src="https://avatars.githubusercontent.com/u/38658964?u=5761c2835f0a4853c9d7fb844061056a23d29564&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Aphuongquan">phuongquan</a>
 </td>
@@ -366,6 +367,8 @@ Contributions of any kind are welcome!
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3ARobinlovelace">Robinlovelace</a>
 </td>
 </tr>
+
+
 <tr>
 <td align="center">
 <a href="https://github.com/schneiderpy">
@@ -373,12 +376,21 @@ Contributions of any kind are welcome!
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Aschneiderpy">schneiderpy</a>
 </td>
+<td align="center">
+<a href="https://github.com/eliocamp">
+<img src="https://avatars.githubusercontent.com/u/8617595?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Aeliocamp">eliocamp</a>
+</td>
 </tr>
+
 </table>
+
 
 ### Issue Contributors
 
 <table>
+
 <tr>
 <td align="center">
 <a href="https://github.com/dgkf">
@@ -410,8 +422,16 @@ Contributions of any kind are welcome!
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Asantikka">santikka</a>
 </td>
+<td align="center">
+<a href="https://github.com/bnicenboim">
+<img src="https://avatars.githubusercontent.com/u/5982330?u=ec5543c6d11255fd330fc03f5880a1d7bdefadd7&v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Abnicenboim">bnicenboim</a>
+</td>
 </tr>
+
 </table>
+
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
