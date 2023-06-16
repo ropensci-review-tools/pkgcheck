@@ -46,9 +46,9 @@ And then install the usual way with,
 install.packages ("pkgcheck")
 ```
 
-Alternatively, the package can be installed by running one of the following
-lines:
-
+Alternatively, the package can be installed by first installing either the
+[remotes](https://remotes.r-lib.org) or [pak](https://pak.r-lib.org/) packages
+and running one of the following lines:
 
 
 ```{r remotes, eval = FALSE}
