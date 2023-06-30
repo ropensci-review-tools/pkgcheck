@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.1.026",
+  "version": "0.1.1.027",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.2 (2022-10-31)",
+  "runtimePlatform": "R version 4.3.0 (2023-04-21)",
   "author": [
     {
       "@type": "Person",
@@ -344,7 +344,7 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "3866.884KB",
+  "fileSize": "3842.472KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
   "contIntegration": [
     "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
