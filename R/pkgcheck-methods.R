@@ -1,9 +1,9 @@
-
 #' Generic print method for 'pkgcheck' objects.
 #' @param x A 'pkgcheck' object to be printed.
 #' @param deps If 'TRUE', include details of dependency packages and function
 #' usage.
 #' @param ... Further arguments pass to or from other methods (not used here).
+#' @return Nothing. Method called purely for side-effect of printing to screen.
 #' @family pkgcheck_fns
 #' @export
 print.pkgcheck <- function (x, deps = FALSE, ...) {

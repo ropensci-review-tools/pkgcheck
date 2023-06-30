@@ -14,6 +14,9 @@ usage.}
 
 \item{...}{Further arguments pass to or from other methods (not used here).}
 }
+\value{
+Nothing. Method called purely for side-effect of printing to screen.
+}
 \description{
 Generic print method for 'pkgcheck' objects.
 }

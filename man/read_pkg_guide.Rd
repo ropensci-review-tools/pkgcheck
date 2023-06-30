@@ -9,6 +9,11 @@ read_pkg_guide(which = c("release", "dev"))
 \arguments{
 \item{which}{Whether to read the released or "dev" development version.}
 }
+\value{
+Nothing. Function called purely for side-effect of opening web page
+with package guidelines.
+}
 \description{
-Browse packaging guidelines
+A convenience function to automatically open the web page of rOpenSci's
+"Package Development Guide" in the default browser.
 }
