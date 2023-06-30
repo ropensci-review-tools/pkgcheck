@@ -1,4 +1,3 @@
-
 default_branch_qry <- function (gh_cli, org, repo) {
 
     q <- paste0 ("{
@@ -265,11 +264,12 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
 
         if (any (broken_inputs)) {
             cli::cli_abort (
-                c (paste0 (
-                    "The following {.arg inputs} are not valid: ",
-                    "{ names (inputs)[broken_inputs] }"
-                ),
-                i = "Please check {.code ?use_github_check} for valid inputs."
+                c (
+                    paste0 (
+                        "The following {.arg inputs} are not valid: ",
+                        "{ names (inputs)[broken_inputs] }"
+                    ),
+                    i = "Please check {.code ?use_github_check} for valid inputs."
                 )
             )
         }
