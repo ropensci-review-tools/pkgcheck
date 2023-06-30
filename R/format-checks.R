@@ -1,4 +1,3 @@
-
 #' Convert checks to markdown-formatted report
 #'
 #' @param checks Result of main \link{pkgcheck} function
@@ -7,6 +6,12 @@
 #' @return Markdown-formatted version of check report
 #' @family extra
 #' @export
+#' @examples
+#' \dontrun{
+#' checks <- pkgcheck ("/path/to/my/package")
+#' md <- checks_to_markdown (checks) # markdown-formatted character vector
+#' md <- checks_to_markdown (checks, render = TRUE) # HTML version
+#' }
 checks_to_markdown <- function (checks, render = FALSE) {
 
     md_chks <- summarise_all_checks (checks)
@@ -561,6 +566,18 @@ visjs_description <- function (checks) {
 #' @return (invisible) Location of `.html`-formatted version of input.
 #' @family extra
 #' @export
+#' @examples
+#' \dontrun{
+#' checks <- pkgcheck ("/path/to/my/package")
+#' # Generate standard markdown-formatted character vector:
+#' md <- checks_to_markdown (checks)
+#'
+#' # Directly generate HTML output:
+#' h <- checks_to_markdown (checks, render = TRUE) # HTML version
+#'
+#' # Or convert markdown-formatted version to HTML:
+#' h <- render_markdown (md)
+#' }
 render_markdown <- function (md, open = TRUE) {
 
     md <- gsub ("\\:heavy\\_check\\_mark\\:", "&#9989;", md)

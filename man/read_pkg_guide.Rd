@@ -17,3 +17,8 @@ with package guidelines.
 A convenience function to automatically open the web page of rOpenSci's
 "Package Development Guide" in the default browser.
 }
+\examples{
+\dontrun{
+read_pkg_guide ()
+}
+}

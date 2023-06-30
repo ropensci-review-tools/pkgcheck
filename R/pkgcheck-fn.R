@@ -1,4 +1,3 @@
-
 #' Generate report on package compliance with rOpenSci Statistical Software
 #' requirements
 #'
@@ -14,6 +13,15 @@
 #' applied to packages submitted for peer review.
 #' @family pkgcheck_fns
 #' @export
+#' @examples
+#' \dontrun{
+#' checks <- pkgcheck ("/path/to/my/package") # default full check
+#' summary (checks)
+#' # Or to run only checks implemented in 'pkgcheck' and not the
+#' # additional \pkg{goodpractice} checks:
+#' checks <- pkgcheck ("/path/to/my/package", goodpractice = FALSE)
+#' summary (checks)
+#' }
 pkgcheck <- function (path = ".", goodpractice = TRUE,
                       use_cache = TRUE, extra_env = .GlobalEnv) {
 

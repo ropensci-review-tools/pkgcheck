@@ -20,6 +20,13 @@ Nothing. Method called purely for side-effect of printing to screen.
 \description{
 Generic print method for 'pkgcheck' objects.
 }
+\examples{
+\dontrun{
+checks <- pkgcheck ("/path/to/my/package")
+print (checks) # print full checks, starting with summary
+summary (checks) # print summary only
+}
+}
 \seealso{
 Other pkgcheck_fns: 
 \code{\link{pkgcheck_bg}()},

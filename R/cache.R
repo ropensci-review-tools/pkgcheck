@@ -1,4 +1,3 @@
-
 #' Set up stdout & stderr cache files for `r_bg` process
 #'
 #' @param path Path to local repository
@@ -12,6 +11,11 @@
 #' own distinct endpoint calls.
 #' @family extra
 #' @export
+#' @examples
+#' \dontrun{
+#' logfiles <- logfiles_namnes ("/path/to/my/package")
+#' print (logfiles)
+#' }
 logfile_names <- function (path) {
 
     temp_dir <- fs::path (Sys.getenv ("PKGCHECK_CACHE_DIR"), "templogs")

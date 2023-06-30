@@ -52,6 +52,10 @@ commits_qry <- function (gh_cli, org, repo, branch = "main") {
 #' variables.
 #' @family github
 #' @export
+#' @examples
+#' \dontrun{
+#' token <- get_gh_token ()
+#' }
 get_gh_token <- function (token_name = "") {
 
     e <- Sys.getenv ()
@@ -96,6 +100,12 @@ get_gh_token <- function (token_name = "") {
 #' @return Name of default branch on GitHub
 #' @family github
 #' @export
+#' @examples
+#' \dontrun{
+#' org <- "ropensci-review-tools"
+#' repo <- "pkgcheck"
+#' branch <- get_default_github_branch (org, repo)
+#' }
 get_default_github_branch <- function (org, repo) {
 
     token <- get_gh_token ()
@@ -128,6 +138,12 @@ get_default_github_branch <- function (org, repo) {
 #' @return Details of latest commit including OID hash
 #' @family github
 #' @export
+#' @examples
+#' \dontrun{
+#' org <- "ropensci-review-tools"
+#' repo <- "pkgcheck"
+#' commit <- get_latest_commit (org, repo)
+#' }
 get_latest_commit <- function (org, repo, branch = NULL) {
 
     token <- get_gh_token ()

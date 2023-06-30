@@ -8,6 +8,10 @@
 #' with package guidelines.
 #'
 #' @export
+#' @examples
+#' \dontrun{
+#' read_pkg_guide ()
+#' }
 read_pkg_guide <- function (which = c ("release", "dev")) {
     which <- match.arg (which [1],
         c ("release", "dev"),

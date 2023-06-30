@@ -6,6 +6,12 @@
 #' @return Nothing. Method called purely for side-effect of printing to screen.
 #' @family pkgcheck_fns
 #' @export
+#' @examples
+#' \dontrun{
+#' checks <- pkgcheck ("/path/to/my/package")
+#' print (checks) # print full checks, starting with summary
+#' summary (checks) # print summary only
+#' }
 print.pkgcheck <- function (x, deps = FALSE, ...) {
 
     requireNamespace ("goodpractice")

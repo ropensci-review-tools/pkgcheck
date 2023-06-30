@@ -25,6 +25,13 @@ GitHub, which will not necessarily be the same as information returned from
 \code{gert::git_info} if the \code{HEAD} of a local repository does not point to the
 same default branch.
 }
+\examples{
+\dontrun{
+org <- "ropensci-review-tools"
+repo <- "pkgcheck"
+commit <- get_latest_commit (org, repo)
+}
+}
 \seealso{
 Other github: 
 \code{\link{get_default_github_branch}()},

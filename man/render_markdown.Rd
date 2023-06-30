@@ -17,6 +17,19 @@ render_markdown(md, open = TRUE)
 \description{
 render markdown-formatted input into 'html'
 }
+\examples{
+\dontrun{
+checks <- pkgcheck ("/path/to/my/package")
+# Generate standard markdown-formatted character vector:
+md <- checks_to_markdown (checks)
+
+# Directly generate HTML output:
+h <- checks_to_markdown (checks, render = TRUE) # HTML version
+
+# Or convert markdown-formatted version to HTML:
+h <- render_markdown (md)
+}
+}
 \seealso{
 Other extra: 
 \code{\link{checks_to_markdown}()},

@@ -23,6 +23,12 @@ controls the main \link{pkgcheck}. The \code{stdout} and \code{stderr} pipes fro
 process are stored in the cache directory so they can be inspected via their
 own distinct endpoint calls.
 }
+\examples{
+\dontrun{
+logfiles <- logfiles_namnes ("/path/to/my/package")
+print (logfiles)
+}
+}
 \seealso{
 Other extra: 
 \code{\link{checks_to_markdown}()},

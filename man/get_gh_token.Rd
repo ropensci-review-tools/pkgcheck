@@ -16,6 +16,11 @@ variables.
 \description{
 Get GitHub token
 }
+\examples{
+\dontrun{
+token <- get_gh_token ()
+}
+}
 \seealso{
 Other github: 
 \code{\link{get_default_github_branch}()},

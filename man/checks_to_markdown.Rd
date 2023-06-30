@@ -18,6 +18,13 @@ Markdown-formatted version of check report
 \description{
 Convert checks to markdown-formatted report
 }
+\examples{
+\dontrun{
+checks <- pkgcheck ("/path/to/my/package")
+md <- checks_to_markdown (checks) # markdown-formatted character vector
+md <- checks_to_markdown (checks, render = TRUE) # HTML version
+}
+}
 \seealso{
 Other extra: 
 \code{\link{list_pkgchecks}()},
