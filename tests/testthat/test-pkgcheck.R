@@ -105,7 +105,7 @@ test_that ("pkgcheck", {
 
     testthat::expect_snapshot_file (file.path (md_dir, "checks.md"))
 
-    h <- render_markdown (md, open = FALSE)
+    h <- render_md2html (md, open = FALSE)
     f <- file.path (md_dir, "checks.html")
     file.rename (h, f)
     edit_html (f) # from clean-snapshots.R

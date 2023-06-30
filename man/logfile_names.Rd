@@ -33,6 +33,6 @@ print (logfiles)
 Other extra: 
 \code{\link{checks_to_markdown}()},
 \code{\link{list_pkgchecks}()},
-\code{\link{render_markdown}()}
+\code{\link{render_md2html}()}
 }
 \concept{extra}

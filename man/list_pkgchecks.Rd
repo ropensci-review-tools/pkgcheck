@@ -23,6 +23,6 @@ list_pkgchecks ()
 Other extra: 
 \code{\link{checks_to_markdown}()},
 \code{\link{logfile_names}()},
-\code{\link{render_markdown}()}
+\code{\link{render_md2html}()}
 }
 \concept{extra}

@@ -168,7 +168,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
     )
 
     if (render) {
-        render_markdown (md_out, open = TRUE)
+        render_md2html (md_out, open = TRUE)
     } else {
 
         i0 <- grep ("^The following terminology is used", md_out)
@@ -576,9 +576,9 @@ visjs_description <- function (checks) {
 #' h <- checks_to_markdown (checks, render = TRUE) # HTML version
 #'
 #' # Or convert markdown-formatted version to HTML:
-#' h <- render_markdown (md)
+#' h <- render_md2html (md)
 #' }
-render_markdown <- function (md, open = TRUE) {
+render_md2html <- function (md, open = TRUE) {
 
     md <- gsub ("\\:heavy\\_check\\_mark\\:", "&#9989;", md)
     md <- gsub ("\\:heavy\\_multiplication\\_x\\:", "&#10060;", md)

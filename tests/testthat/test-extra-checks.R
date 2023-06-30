@@ -1,4 +1,3 @@
-
 # These tests fail on GHA on both mac and windows because they can't find the
 # tarball.
 skip_on_os ("mac")
@@ -40,7 +39,7 @@ test_that ("extra checks", {
 
     testthat::expect_snapshot_file (file.path (md_dir, "checks-extra.md"))
 
-    h <- render_markdown (md, open = FALSE)
+    h <- render_md2html (md, open = FALSE)
     f <- file.path (md_dir, "checks-extra.html")
     file.copy (h, f)
     edit_html (f) # from clean-snapshots.R

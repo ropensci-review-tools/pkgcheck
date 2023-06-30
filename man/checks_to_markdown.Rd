@@ -29,6 +29,6 @@ md <- checks_to_markdown (checks, render = TRUE) # HTML version
 Other extra: 
 \code{\link{list_pkgchecks}()},
 \code{\link{logfile_names}()},
-\code{\link{render_markdown}()}
+\code{\link{render_md2html}()}
 }
 \concept{extra}
