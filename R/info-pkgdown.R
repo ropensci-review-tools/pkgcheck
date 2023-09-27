@@ -1,4 +1,3 @@
-
 #' Get list of all 'concepts' used to group man entries.
 #'
 #' @param path Location of local repository to report on

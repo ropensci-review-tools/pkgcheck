@@ -1,4 +1,3 @@
-
 #' Check whether all functions have examples.
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
@@ -8,11 +7,12 @@
 #' @noRd
 pkgchk_fns_have_exs <- function (checks) {
 
-    rd <- list.files (fs::path (
-        checks$pkg$path, "man"
-    ),
-    pattern = "\\.Rd$",
-    full.names = TRUE
+    rd <- list.files (
+        fs::path (
+            checks$pkg$path, "man"
+        ),
+        pattern = "\\.Rd$",
+        full.names = TRUE
     )
 
     # don't check for examples in datasets (#103), identified by keyword

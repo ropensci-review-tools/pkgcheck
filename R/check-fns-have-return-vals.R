@@ -1,4 +1,3 @@
-
 #' Check that all functions document their return values.
 #'
 #' The reflects a CRAN checks for all new submissions, to ensure that return
