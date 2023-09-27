@@ -273,6 +273,7 @@ project, you agree to abide by its terms.
 ## Contributors
 
 
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -338,7 +339,7 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 </td>
 <td align="center">
 <a href="https://github.com/steffilazerte">
-<img src="https://avatars.githubusercontent.com/u/14676081?u=0c1a4469750eba5a6f398c35ba34a2dd600a873e&v=4" width="100px;" alt=""/>
+<img src="https://avatars.githubusercontent.com/u/14676081?u=579dde6328e94bc3787c99a42f7668a71884cd13&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Asteffilazerte">steffilazerte</a>
 </td>
@@ -381,6 +382,12 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <img src="https://avatars.githubusercontent.com/u/8617595?v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Aeliocamp">eliocamp</a>
+</td>
+<td align="center">
+<a href="https://github.com/osorensen">
+<img src="https://avatars.githubusercontent.com/u/21175639?u=086f58ad19c3fa56899f53a57567902e6f716074&v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Aosorensen">osorensen</a>
 </td>
 </tr>
 
