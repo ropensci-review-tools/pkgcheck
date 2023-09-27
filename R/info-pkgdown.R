@@ -13,7 +13,7 @@ pkginfo_pkgdown <- function (path) {
     )
 
     concepts <- vapply (rd_files, function (i) {
-        rd_i <- tools::parse_Rd (i)
+        rd_i <- tools::parse_Rd (i, permissive = TRUE)
         get_Rd_meta (rd_i, "concept") [1]
     },
     character (1),

@@ -18,7 +18,7 @@ pkgchk_fns_have_exs <- function (checks) {
     # don't check for examples in datasets (#103), identified by keyword
     what <- c ("name", "docType", "keyword", "examples")
     rd_dat <- vapply (rd, function (i) {
-        rd_i <- tools::parse_Rd (i)
+        rd_i <- tools::parse_Rd (i, permissive = TRUE)
         dat <- lapply (what, function (j) {
             get_Rd_meta (rd_i, j)
         })

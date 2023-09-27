@@ -32,7 +32,7 @@ pkgchk_fns_have_return_vals <- function (checks) {
     }
 
     tag_data <- lapply (flist, function (f) {
-        x <- tools::parse_Rd (f)
+        x <- tools::parse_Rd (f, permissive = TRUE)
         tags <- unlist (lapply (x, function (i) attr (i, "Rd_tag")))
         list (
             docType = get1tag (tags, x, "docType"),
