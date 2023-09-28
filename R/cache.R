@@ -138,11 +138,7 @@ cache_pkgcheck_component <- function (path,
             )
         }
 
-        # out <- suppressWarnings (do.call (this_fn, list (path)))
-        # temp change until https://github.com/r-lib/covr/pull/539
-        out <- suppressWarnings ({
-            withr::with_dir (path, do.call (this_fn, list (path)))
-        })
+        out <- suppressWarnings (do.call (this_fn, list (path)))
 
         Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
 
