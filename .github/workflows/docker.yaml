@@ -21,7 +21,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
 
     - name: Login
       if: ${{ github.event_name != 'pull_request' }}
