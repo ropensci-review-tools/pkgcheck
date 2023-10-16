@@ -215,6 +215,12 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | d
 RUN pip install jill
 RUN jill install --confirm
 
+# Extra python packages:
+RUN pip install numpy pandas
+# ---- Authors: Please submit PRs which insert extra python requirements here,
+# ----  followed by package name and "#<ropensci/software-review issue number>":
+RUN pip install earthengine-api # rgeeExtra #608
+
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
 ENV ARROW_S3 "ON"
 
