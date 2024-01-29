@@ -33,8 +33,9 @@ pkgchk_has_vignette <- function (checks) {
         # - .phtml
         # - .rhtml
         # - .cshtml
+        # - .distill_article
         # so the following pattern suffices:
-        html_prefixes <- "htm(l?)"
+        html_prefixes <- "htm(l?)|distill"
 
         grepl (html_prefixes, format, ignore.case = TRUE)
     }
