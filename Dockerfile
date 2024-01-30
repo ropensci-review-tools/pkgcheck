@@ -232,6 +232,7 @@ ENV NOT_CRAN "true"
 RUN install2.r \
   arrow \
   devtools \
+  distill \
   duckdb \
   foreign \
   glmnet \
