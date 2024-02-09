@@ -42,15 +42,18 @@ pkgchk_fns_have_return_vals <- function (checks) {
         )
     })
 
+    # All of these should have only one value except 'keywords':
     doc_types <- vapply (tag_data, function (i) i$docType, character (1L))
-    keywords <- vapply (tag_data, function (i) i$keyword, character (1L))
+    keywords <- lapply (tag_data, function (i) i$keyword)
     value <- vapply (tag_data, function (i) i$value, character (1L))
     rd_names <- vapply (tag_data, function (i) i$name, character (1L))
 
+    kw_in_data_or_internal <- vapply (keywords, function (i) {
+        any (i %in% c ("datasets", "internal"))
+    }, logical (1L))
+
     index <- which (
-        !nzchar (doc_types) &
-            !keywords %in% c ("datasets", "internal") &
-            !nzchar (value)
+        !nzchar (doc_types) & !kw_in_data_or_internal & !nzchar (value)
     )
 
     return (rd_names [index])
