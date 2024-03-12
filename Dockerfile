@@ -210,6 +210,11 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | d
     && apt update \
     && apt install gh -y
 
+# nix:
+RUN curl --proto '=https' --tlsv1.2 -sSf \
+    -L https://install.determinate.systems/nix | \
+    sh -s -- install linux --no-confirm --init none
+
 # Julia:
 # https://github.com/ropensci-review-tools/roreviewapi/issues/28
 RUN pip install jill
@@ -231,6 +236,7 @@ ENV NOT_CRAN "true"
 # A selection of R packages, including extra stats packages
 RUN install2.r \
   arrow \
+  decor \
   devtools \
   distill \
   duckdb \
