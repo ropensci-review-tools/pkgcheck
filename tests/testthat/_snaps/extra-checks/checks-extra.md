@@ -14,7 +14,6 @@ git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 - :heavy_check_mark: Package has continuous integration checks.
 - :heavy_multiplication_x: Package contains unexpected files.
 - :eyes: Package depends on the following obsolete packages: [blah,sp]
-- :eyes: Function names are duplicated in other packages
 
 **Important:** All failing checks above must be addressed prior to proceeding
 
@@ -173,15 +172,6 @@ An interactive visualisation of calls between objects in the package has been up
 
 
 See our [Recommended Scaffolding](https://devguide.ropensci.org/building.html?q=scaffol#recommended-scaffolding) for alternatives.
-
-
-:heavy_multiplication_x: The following 2 function names are duplicated in other packages:
-
--  - `desc_stats` from descstatsr, exploratory, ezr, kim
--  - `plot_network` from cape, dbnR, HeteroGGM, immcp, imsig, LSVAR, SeqNet, SubgrPlots
-
-
-
 
 
 </p>

@@ -13,7 +13,6 @@ x These functions do not have examples: [pkgstats_from_archive].
 v Package has continuous integration checks.
 x Package contains unexpected files.
 i Package depends on the following obsolete packages: [blah,sp]
-i Function names are duplicated in other packages
 
 i Current status:
 x This package is not ready to be submitted.
@@ -55,12 +54,6 @@ i Package network diagram is not here.
 i 'goodpractice' not included with these checks
 
 -- Other checks --
-
-x The following 2 function names are duplicated in other packages:
-  * - `desc_stats` from descstatsr, exploratory, ezr, kim
-  * - `plot_network` from cape, dbnR, HeteroGGM, immcp, imsig, LSVAR, SeqNet,
-  SubgrPlots
-
 
 x Package contains the following unexpected files:
   * a
