@@ -1,4 +1,3 @@
-
 #' Check whether all function names are unique.
 #'
 #' Uses the database of function names from all CRAN packages associated with
@@ -48,7 +47,7 @@ cache_fn_name_db <- function () {
 
     u <- paste0 (
         "https://github.com/ropensci-review-tools/pkgstats/",
-        "releases/download/v0.0.3/pkgstats-fn-names.Rds"
+        "releases/download/v0.1.2/pkgstats-fn-names.Rds"
     )
     utils::download.file (u, f, quiet = TRUE)
 
