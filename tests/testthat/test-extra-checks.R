@@ -1,7 +1,7 @@
-# These tests fail on GHA on both mac and windows because they can't find the
-# tarball.
-skip_on_os ("mac")
-skip_on_os ("windows")
+test_all <- identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
+    identical (Sys.getenv ("GITHUB_WORKFLOW"), "test-coverage")
+
+skip_if (!test_all)
 
 test_that ("extra checks", {
 
