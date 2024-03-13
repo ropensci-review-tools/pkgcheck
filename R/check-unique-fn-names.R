@@ -11,12 +11,28 @@
 #' @noRd
 pkgchk_unique_fn_names <- function (checks) {
 
-    f <- cache_fn_name_db ()
-
-    fn_names_cran <- tryCatch (
-        readRDS (f),
-        error = function (e) NULL
+    # The cache_path is set to tempdir in tests. This tests is then switched off
+    # to avoid downloading the database just for this test.
+    cache_path <- Sys.getenv ("PKGCHECK_CACHE_DIR")
+    cache_is_temp <- identical (
+        normalizePath (dirname (cache_path)),
+        normalizePath (tempdir ())
     )
+
+    f <- fn_names_cran <- NULL
+    if (!cache_is_temp) {
+        f <- tryCatch (
+            cache_fn_name_db (),
+            error = function (e) NULL
+        )
+    }
+
+    if (!is.null (f)) {
+        fn_names_cran <- tryCatch (
+            readRDS (f),
+            error = function (e) NULL
+        )
+    }
 
     # fail to read local data:
     if (is.null (fn_names_cran)) {
