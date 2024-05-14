@@ -242,7 +242,7 @@ RUN install2.r \
   duckdb \
   foreign \
   glmnet \
-  goodpractice \
+  # goodpractice \
   lme4 \
   mgcv \
   Rcpp \
@@ -257,7 +257,9 @@ RUN install2.r \
   tidymodels \
   tidyverse \
   xts \
-  zoo
+  zoo \
+  && installGithub.r \
+    mangothecat/goodpractice
 
 # arrow docs suggest this shouldn't be needed, but s3
 # support doesn't work without re-install/compile:
