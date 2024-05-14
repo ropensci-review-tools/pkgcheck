@@ -1,4 +1,3 @@
-
 #' Check whether a package is on CRAN or not.
 #'
 #' This does not currently appear in any 'pkgcheck' output (that is, neither in
@@ -12,11 +11,12 @@
 #' @noRd
 pkgchk_on_cran <- function (checks) {
 
-    desc <- data.frame (read.dcf (fs::path (
-        checks$pkg$path,
-        "DESCRIPTION"
-    )),
-    stringsAsFactors = FALSE
+    desc <- data.frame (
+        read.dcf (fs::path (
+            checks$pkg$path,
+            "DESCRIPTION"
+        )),
+        stringsAsFactors = FALSE
     )
     pkg <- desc$Package
 
