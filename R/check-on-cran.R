@@ -7,6 +7,8 @@
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
+#' @return A single logical value indicating whether a package is on CRAN
+#' (`TRUE`), or not (`FALSE`).
 #' @noRd
 pkgchk_on_cran <- function (checks) {
 
