@@ -242,7 +242,6 @@ RUN install2.r \
   duckdb \
   foreign \
   glmnet \
-  # goodpractice \
   lme4 \
   mgcv \
   Rcpp \
@@ -257,8 +256,9 @@ RUN install2.r \
   tidymodels \
   tidyverse \
   xts \
-  zoo \
-  && installGithub.r \
+  zoo
+
+RUN installGithub.r \
     mangothecat/goodpractice
 
 # arrow docs suggest this shouldn't be needed, but s3
