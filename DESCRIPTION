@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.1.2.025
+Version: 0.1.2.026
 Authors@R: c(
     person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2172-5265")),
@@ -15,7 +15,7 @@ URL: https://docs.ropensci.org/pkgcheck/,
     https://github.com/ropensci-review-tools/pkgcheck
 BugReports: https://github.com/ropensci-review-tools/pkgcheck/issues
 Depends: 
-    R (>= 3.4.0)
+    R (>= 3.5.0)
 Imports:
     cli,
     covr,
