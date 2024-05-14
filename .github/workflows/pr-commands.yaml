@@ -26,6 +26,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
+          packages: github::mangothecat/goodpractice
           extra-packages: roxygen2
 
       - name: Document
