@@ -1,7 +1,9 @@
 test_all <- identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
     identical (Sys.getenv ("GITHUB_WORKFLOW"), "test-coverage")
 
-skip_if (!test_all)
+# These tests should not be skipped because the `!test_all` condition then
+# includes the `pkgcheck` workflow itself, which then reduces coverage.
+# skip_if (!test_all)
 
 test_that ("extra checks", {
 
