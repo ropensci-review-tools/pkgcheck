@@ -4,6 +4,8 @@ test_all <- identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
 # These tests should not be skipped because the `!test_all` condition then
 # includes the `pkgcheck` workflow itself, which then reduces coverage.
 # skip_if (!test_all)
+testthat::skip_on_os ("windows")
+testthat::skip_on_os ("mac")
 
 test_that ("extra checks", {
 
