@@ -34,51 +34,114 @@ RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
 # netbase: https://github.com/tensorflow/haskell/issues/182
 RUN apt-get update -qq && apt-get install -y \
     acl \
-    apt-utils \
-    autoconf automake \
+    aria2 \
+    autoconf \
+    automake \
     binutils \
     bison \
     brotli \
-    build-essential \
     bzip2 \
-    cargo \
-    cmake \
-    coinor-libcbc-dev  \
-    coinor-libsymphony-dev \
     coreutils \
     curl \
     dbus \
     dnsutils \
-    dos2unix \
     dpkg \
+    dpkg-dev \
     fakeroot \
     file \
-    flac \
+    findutils \
     flex \
-    fonts-emojione \
     fonts-noto-color-emoji \
     ftp \
+    g++ \
     gcc \
-    git \
-    global \
     gnupg2 \
     haveged \
     iproute2 \
     iputils-ping \
-    jags \
     jq \
-    language-pack-en-base \
     lib32z1 \
+    libc++-dev \
+    libc++abi-dev \
+    libc6-dev \
+    libcurl4 \
+    libgbm-dev \
+    libgconf-2-4 \
+    libgsl-dev \
+    libgtk-3-0 \
+    libmagic-dev \
+    libmagickcore-dev \
+    libmagickwand-dev \
+    libsecret-1-dev \
+    libsqlite3-dev \
+    libtool \
+    libunwind8 \
+    libxkbfile-dev \
+    libxss1 \
+    libyaml-dev \
+    locales \
+    m4 \
+    make \
+    mediainfo \
+    mercurial \
+    net-tools \
+    netcat \
+    openssh-client \
+    p7zip-full \
+    p7zip-rar \
+    parallel \
+    pass \
+    patchelf \
+    pigz \
+    pkg-config \
+    pollinate \
+    python-is-python3 \
+    rpm \
+    rsync \
+    shellcheck \
+    sphinxsearch \
+    sqlite3 \
+    ssh \
+    sshpass \
+    swig \
+    tar \
+    telnet \
+    texinfo \
+    time \
+    tk \
+    tzdata \
+    unzip \
+    upx \
+    wget \
+    xorriso \
+    xvfb \
+    xz-utils \
+    zip \
+    zsync && \
+    apt-get clean
+
+# Extra sysdeps:
+RUN apt-get update -qq && apt-get install -y \
+    apt-utils \
+    build-essential \
+    cargo \
+    cmake \
+    coinor-libcbc-dev  \
+    coinor-libsymphony-dev \
+    dos2unix \
+    flac \
+    fonts-emojione \
+    git \
+    global \
+    jags \
+    language-pack-en-base \
     libapparmor-dev \
     libarchive-dev \
     libavfilter-dev \
     libbam-dev \
     libboost-filesystem-dev \
     libboost-program-options-dev \
-    libc++-dev \
-    libc++abi-dev \
     libcairo2-dev \
-    libcurl4 \
     libcurl4-openssl-dev \
     libdb-dev \
     libeigen3-dev \
@@ -86,16 +149,12 @@ RUN apt-get update -qq && apt-get install -y \
     libfftw3-dev \
     libfreetype6-dev \
     libfribidi-dev \
-    libgbm-dev \
-    libgconf-2-4 \
     libgdal-dev \
     libgeos-dev \
     libgit2-dev \
     libglpk-dev \
     libglu1-mesa-dev \
     libgpgme-dev \
-    libgsl-dev \
-    libgtk-3-0 \
     libharfbuzz-dev \
     libhdf5-dev \
     libhiredis-dev \
@@ -123,79 +182,41 @@ RUN apt-get update -qq && apt-get install -y \
     librsvg2-dev \
     libsasl2-dev \
     libseccomp-dev \
-    libsecret-1-dev \
     libsodium-dev \
-    libsqlite3-dev \
     libssh-dev \
     libssh2-1-dev \
     libssl-dev \
     libtesseract-dev \
     libtiff-dev \
     libudunits2-dev \
-    libunwind8 \
     libv8-dev \
     libwebp-dev \
-    libxkbfile-dev \
     libxml2-dev \
     libxslt-dev \
     libxslt1-dev \
-    libxss1 \
-    libyaml-dev \
     libzmq3-dev \
-    locales \
-    make \
-    m4 \
-    mediainfo \
-    net-tools \
     netbase \
-    netcat \
-    openssh-client \
-    p7zip-full \
-    p7zip-rar \
     pandoc \
     pandoc-citeproc \
-    parallel \
-    pass \
-    patchelf \
-    pkg-config \
-    pollinate \
     protobuf-compiler \
-    python-is-python3 \
     python3-docutils \
     python3-numpy \
     python3-pip \
     r-base-dev \
     r-cran-rjava \
-    rpm \
-    rsync \
-    shellcheck \
-    sphinxsearch \
-    sqlite3 \
-    ssh \
-    swig \
-    telnet \
     tesseract-ocr-eng \
-    texinfo \
     texlive-fonts-extra \
     texlive-fonts-recommended \
     texlive-latex-base \
     texlive-latex-extra \
-    time \
-    tk \
     ttf-mscorefonts-installer \
-    tzdata \
     unixodbc-dev \
-    unzip \
-    upx \
-    wget \
-    xorriso \
-    xvfb \
-    xz-utils \
-    zip \
     zlib1g-dev \
-    zstd \
-    zsync && \
+    zstd && \
     apt-get clean
+
+# For some reason, librdf0-dev doesn't install in the list above:
+RUN apt-get install -y librdf0-dev
 
 # ctags install
 RUN git clone https://github.com/universal-ctags/ctags.git \
