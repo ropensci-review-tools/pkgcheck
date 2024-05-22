@@ -116,6 +116,7 @@ RUN apt-get update -qq && apt-get install -y \
     libprotobuf-dev \
     libprotoc-dev \
     librabbitmq-dev \
+    librdf0-dev \
     librdf0 \
     librrd-dev \
     librsvg2-dev \
