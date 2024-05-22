@@ -20,8 +20,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         && chgrp 1000 /usr/local/lib/R/site-library \
         && install.r remotes
 
-# still need ubuntugis for gdal 3.1.0 (currently standard candidate is 3.0.4)
-RUN apt-get update -qq && apt-get install -y software-properties-common
+# still need ubuntugis for gdal
+RUN apt-get update -qq \
+    && apt-get install -y software-properties-common gpg-agent \
+    && apt-get update
 RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
     && apt update \
     && apt -y upgrade
