@@ -30,7 +30,7 @@ RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
 
 # GitHub Ubuntu-20.04 runner, but not imagemagick because v7 needs to be
 # compiled with librsvg2, rather than binary-installed
-# https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
+# https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2004-Readme.md
 # netbase: https://github.com/tensorflow/haskell/issues/182
 RUN apt-get update -qq && apt-get install -y \
     acl \
