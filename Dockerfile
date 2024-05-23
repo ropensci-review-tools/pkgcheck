@@ -120,7 +120,8 @@ RUN apt-get update -qq && apt-get install -y \
     zsync && \
     apt-get clean
 
-# Extra sysdeps:
+# Extra sysdeps. Note currently using `libcurl4-gnutls-dev` because `librdf`
+# requires `librasqal3-dev` which only works with gnutls and not openssl.
 RUN apt-get update -qq && apt-get install -y \
     apt-utils \
     build-essential \
@@ -142,7 +143,8 @@ RUN apt-get update -qq && apt-get install -y \
     libboost-filesystem-dev \
     libboost-program-options-dev \
     libcairo2-dev \
-    libcurl4-openssl-dev \
+    # libcurl4-openssl-dev \
+    libcurl4-gnutls-dev \
     libdb-dev \
     libeigen3-dev \
     libelf-dev \
