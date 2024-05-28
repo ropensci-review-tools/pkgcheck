@@ -215,6 +215,7 @@ RUN apt-get update -qq && apt-get install -y \
     apt-get clean
 
 # For some reason, librdf0-dev doesn't install in the list above:
+# (See also pkgcheck-action#48)
 RUN apt-get install -y librdf0-dev
 
 # ctags install
@@ -271,6 +272,7 @@ RUN install2.r \
   RcppEigen \
   RcppParallel \
   randomForest \
+  rdflib \
   rmarkdown \
   seasonal \
   sf \
