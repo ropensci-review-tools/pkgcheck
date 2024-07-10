@@ -1,4 +1,3 @@
-
 output_pkgchk_ci <- function (checks) {
 
     check_pass <- has_badges <- length (checks$info$badges) > 0L
@@ -8,6 +7,7 @@ output_pkgchk_ci <- function (checks) {
         wf <- checks$info$github_workflows
         i <- grep ("check|cmd", wf$name, ignore.case = TRUE)
         check_pass <- any (wf$conclusion [i] == "success")
+        check_pass <- ifelse (is.na (check_pass), FALSE, check_pass)
     }
 
     out <- list (
