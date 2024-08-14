@@ -1,4 +1,3 @@
-
 #' Compare 'pkgstats' summary with statistics from all CRAN packages.
 #' @param s Result of `pkgstats::pkgstats_summary`
 #' @param threshold Proportion threshold below which to report on statistically
@@ -17,7 +16,7 @@ stats_checks <- function (s, threshold = 0.05) {
     }
 
 
-    dat <- pkgcheck::pkgstats_data
+    dat <- get_pkgstats_data ()
 
     # convert blank line measures into relative
     b_s <- grep ("^blank\\_lines", names (s))
@@ -166,4 +165,49 @@ stats_checks <- function (s, threshold = 0.05) {
     attr (pc, "files") <- files
 
     return (pc)
+}
+
+get_pkgstats_data <- function () {
+
+    cache_path <- Sys.getenv ("PKGCHECK_CACHE_DIR")
+    f_name <- "pkgstats-CRAN-current.Rds"
+    f_path <- fs::path_norm (fs::path (cache_path, f_name))
+
+    f_path <- dl_pkgstats_data (f_path)
+
+    readRDS (f_path)
+}
+
+dl_pkgstats_data <- function (f_path) {
+
+    pkgstats_remote <- "https://github.com/ropensci-review-tools/pkgstats/"
+    u_tag <- utils::getFromNamespace ("RELEASE_TAG", "pkgstats")
+    u_base <- paste0 (pkgstats_remote, "releases/download/", u_tag, "/")
+    f_name <- "pkgstats-CRAN-current.Rds"
+    url <- paste0 (u_base, f_name)
+
+    latest <- FALSE
+    # Data are updated if older than:
+    update_days <- 7L
+    if (fs::file_exists (f_path)) {
+        latest <- difftime (
+            Sys.Date (),
+            as.Date (fs::file_info (f_path)$modification_time),
+            units = "days"
+        ) <= update_days
+    }
+
+    if (!latest) {
+        req <- httr2::request (url) |>
+            httr2::req_headers ("Accept" = "application/octet-stream")
+        resp <- httr2::req_perform (req)
+
+        if (httr2::resp_is_error (resp)) {
+            return (NULL)
+        }
+
+        writeBin (httr2::resp_body_raw (resp), f_path)
+    }
+
+    return (f_path)
 }
