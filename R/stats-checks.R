@@ -180,8 +180,22 @@ get_pkgstats_data <- function () {
 
 dl_pkgstats_data <- function (f_path) {
 
+    # The cache_path is set to tempdir in tests, in which case static data must
+    # be used in order to generate reproducible test snapshots (see #204).
+    # Default is otherwise to use daily updates of data which then constnatly
+    # change snapshot results.
+    cache_path <- Sys.getenv ("PKGCHECK_CACHE_DIR")
+    cache_is_temp <- identical (
+        normalizePath (dirname (cache_path)),
+        normalizePath (tempdir ())
+    )
+
     pkgstats_remote <- "https://github.com/ropensci-review-tools/pkgstats/"
-    u_tag <- utils::getFromNamespace ("RELEASE_TAG", "pkgstats")
+    u_tag <- ifelse (
+        cache_is_temp,
+        "v0.1.2",
+        utils::getFromNamespace ("RELEASE_TAG", "pkgstats")
+    )
     u_base <- paste0 (pkgstats_remote, "releases/download/", u_tag, "/")
     f_name <- "pkgstats-CRAN-current.Rds"
     url <- paste0 (u_base, f_name)

@@ -108,31 +108,31 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 
 |measure                 | value| percentile|noteworthy |
 |:-----------------------|-----:|----------:|:----------|
-|files_R                 |    19|       78.4|           |
-|files_src               |     3|       85.9|           |
+|files_R                 |    19|       79.5|           |
+|files_src               |     3|       85.4|           |
 |files_vignettes         |     0|        0.0|TRUE       |
-|files_tests             |     7|       82.2|           |
-|loc_R                   |  2698|       87.3|           |
-|loc_src                 |   277|       35.5|           |
-|loc_tests               |   266|       58.0|           |
+|files_tests             |     7|       85.6|           |
+|loc_R                   |  2698|       88.7|           |
+|loc_src                 |   277|       34.4|           |
+|loc_tests               |   266|       61.0|           |
 |num_vignettes           |     0|        0.0|TRUE       |
-|n_fns_r                 |   131|       80.9|           |
-|n_fns_r_exported        |    11|       48.5|           |
-|n_fns_r_not_exported    |   120|       85.2|           |
-|n_fns_src               |    12|       43.1|           |
-|n_fns_per_file_r        |     4|       60.0|           |
-|n_fns_per_file_src      |     4|       49.4|           |
-|num_params_per_fn       |     1|        1.8|TRUE       |
-|loc_per_fn_r            |    23|       66.3|           |
-|loc_per_fn_r_exp        |    43|       75.1|           |
-|loc_per_fn_r_not_exp    |    22|       67.0|           |
-|loc_per_fn_src          |    16|       59.3|           |
-|rel_whitespace_R        |    19|       87.4|           |
-|rel_whitespace_src      |    24|       46.0|           |
-|rel_whitespace_tests    |    27|       62.6|           |
-|doclines_per_fn_exp     |    31|       34.7|           |
+|n_fns_r                 |   131|       82.3|           |
+|n_fns_r_exported        |    11|       49.4|           |
+|n_fns_r_not_exported    |   120|       86.6|           |
+|n_fns_src               |    12|       42.5|           |
+|n_fns_per_file_r        |     4|       59.9|           |
+|n_fns_per_file_src      |     4|       47.5|           |
+|num_params_per_fn       |     1|        1.7|TRUE       |
+|loc_per_fn_r            |    23|       66.5|           |
+|loc_per_fn_r_exp        |    43|       75.4|           |
+|loc_per_fn_r_not_exp    |    22|       67.4|           |
+|loc_per_fn_src          |    16|       56.9|           |
+|rel_whitespace_R        |    19|       88.6|           |
+|rel_whitespace_src      |    24|       44.2|           |
+|rel_whitespace_tests    |    27|       64.5|           |
+|doclines_per_fn_exp     |    31|       36.1|           |
 |doclines_per_fn_not_exp |     0|        0.0|TRUE       |
-|fn_call_network_size    |   104|       78.7|           |
+|fn_call_network_size    |   104|       79.8|           |
 
 ---
 
