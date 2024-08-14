@@ -13,9 +13,6 @@ reference:
 - title: Additional functions
   contents:
   - has_concept("extra")
-- title: Package data
-  contents:
-  - has_concept("data")
 - title: Guides
   contents:
   - read_pkg_guide
