@@ -20,16 +20,7 @@ pkgchk_on_cran <- function (checks) {
     )
     pkg <- desc$Package
 
-    op <- options ()
-    if (is.null (getOption ("repos"))) {
-        # Needed for GitHub runners, because avail.pkgs fails with no mirror set
-        options (repos = c (CRAN = "https://cloud.r-project.org"))
-    }
-    ap <- tryCatch (
-        data.frame (utils::available.packages (), stringsAsFactors = FALSE),
-        error = function (e) NULL
-    )
-    options (op)
+    ap <- get_available_packages ()
     res <- pkg %in% ap$Package
 
     if (res) {

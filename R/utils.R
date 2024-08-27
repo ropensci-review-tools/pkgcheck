@@ -1,4 +1,3 @@
-
 #' Tick symbol for markdown output
 #' @noRd
 symbol_tck <- function () {
@@ -104,4 +103,25 @@ env2namespace <- function (e) {
     }
 
     return (e)
+}
+
+#' Try to get available.packages()
+#'
+#' That function fails when no CRAN mirror is set, which is generally the case
+#' on GitHub runners, even if set as "repos" option. In those cases, this
+#' returns `NULL`.
+#' @noRd
+get_available_packages <- function () {
+    op <- options ()
+    if (is.null (getOption ("repos"))) {
+        # Needed for GitHub runners, because avail.pkgs fails with no mirror set
+        options (repos = c (CRAN = "https://cloud.r-project.org"))
+    }
+    ap <- tryCatch (
+        data.frame (utils::available.packages (), stringsAsFactors = FALSE),
+        error = function (e) NULL
+    )
+    options (op)
+
+    return (ap)
 }

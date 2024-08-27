@@ -1,4 +1,3 @@
-
 #' Check that package name is available and/or already on CRAN.
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
@@ -6,11 +5,12 @@
 #' @noRd
 pkgchk_pkgname_available <- function (checks) {
 
-    desc <- data.frame (read.dcf (fs::path (
-        checks$pkg$path,
-        "DESCRIPTION"
-    )),
-    stringsAsFactors = FALSE
+    desc <- data.frame (
+        read.dcf (fs::path (
+            checks$pkg$path,
+            "DESCRIPTION"
+        )),
+        stringsAsFactors = FALSE
     )
     pkg <- desc$Package
 
@@ -20,9 +20,7 @@ pkgchk_pkgname_available <- function (checks) {
         value = TRUE
     )
 
-    ap <- data.frame (utils::available.packages (),
-        stringsAsFactors = FALSE
-    )
+    ap <- get_available_packages ()
 
     return (
         !pkg %in% ap$Package &
