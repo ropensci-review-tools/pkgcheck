@@ -1,4 +1,3 @@
-
 #' Check whether the package depends on any obsolete packages for which better
 #' alternative should be used.
 #'

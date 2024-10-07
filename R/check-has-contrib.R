@@ -1,5 +1,3 @@
-
-
 #' Check whether package has contributor guidelines in a 'contributing' file.
 #'
 #' A "contributing" file is required for all rOpenSci packages, as documented

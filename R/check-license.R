@@ -1,4 +1,3 @@
-
 #' Check whether the package license is acceptable.
 #'
 #' Details of acceptable licenses are provided in the links in [our *Packaging

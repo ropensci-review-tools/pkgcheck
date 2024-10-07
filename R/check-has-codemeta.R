@@ -1,4 +1,3 @@
-
 #' Check whether a package has a `codemeta.json` file.
 #'
 #' "codemeta.json" files are recommended for all rOpenSci packages, as
