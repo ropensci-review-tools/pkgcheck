@@ -2,7 +2,7 @@
 #' Check whether the package license is acceptable.
 #'
 #' Details of acceptable licenses are provided in the links in [our *Packaging
-#' Guide*](https://devguide.ropensci.org/building.html#licence).
+#' Guide*](https://devguide.ropensci.org/pkg_building.html#licence).
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.

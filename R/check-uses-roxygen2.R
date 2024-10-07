@@ -3,7 +3,7 @@
 #'
 #' Use of 'roxygen2' to generate package documnetation is mandatory for rOpenSci
 #' packages, and is described in detail in [our *Packaging
-#' Guide*](https://devguide.ropensci.org/building.html#roxygen2-use).
+#' Guide*](https://devguide.ropensci.org/pkg_building.html#roxygen-2-use).
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.

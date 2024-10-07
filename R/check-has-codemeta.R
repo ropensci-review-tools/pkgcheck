@@ -3,7 +3,7 @@
 #'
 #' "codemeta.json" files are recommended for all rOpenSci packages, as
 #' documented [in our "*Packaging
-#' Guide*](https://devguide.ropensci.org/building.html#creating-metadata-for-your-package).
+#' Guide*](https://devguide.ropensci.org/pkg_building.html#creating-metadata-for-your-package).
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.

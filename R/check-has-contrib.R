@@ -4,7 +4,7 @@
 #'
 #' A "contributing" file is required for all rOpenSci packages, as documented
 #' [in our "*Contributing
-#' Guide*](https://devguide.ropensci.org/collaboration.html?q=contributing#contributing-guide).
+#' Guide*](https://devguide.ropensci.org/maintenance_collaboration.html#contributing-guide).
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.

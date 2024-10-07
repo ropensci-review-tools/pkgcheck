@@ -46,7 +46,7 @@ f <- c (
     "# source ('./data-raw/license-list.r')",
     "#",
     "# rOpenSci recommendations:",
-    "# https://devguide.ropensci.org/building.html#licence",
+    "# https://devguide.ropensci.org/pkg_building.html#licence",
     "# links to cran list used to fill this license-list at",
     "# https://svn.r-project.org/R/trunk/share/licenses/license.db",
     "# plus OSI list which includes the extra CDDL-1.0 license.",

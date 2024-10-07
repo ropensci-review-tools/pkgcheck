@@ -5,8 +5,8 @@
 #'
 #' "CITATION" files are required for all rOpenSci packages, as documented [in
 #' our "*Packaging
-#' Guide*](https://devguide.ropensci.org/building.html#citation-file). This does
-#' not check the contents of that file in any way.
+#' Guide*](https://devguide.ropensci.org/pkg_building.html#citation-file). This
+#' does not check the contents of that file in any way.
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.

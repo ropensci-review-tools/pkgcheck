@@ -3,7 +3,7 @@
 #' alternative should be used.
 #'
 #' The list of obsolete packages is given in [our *Packaging
-#' Guide*](https://devguide.ropensci.org/building.html#recommended-scaffolding).
+#' Guide*](https://devguide.ropensci.org/pkg_building.html#recommended-scaffolding).
 #' Some of these are truly obsolete, the use of which raises a red cross in the
 #' summary of checks; while others are only potentially obsolete, thus use of
 #' which merely raises a note in the detailed check output.
