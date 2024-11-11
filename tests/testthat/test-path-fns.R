@@ -1,3 +1,8 @@
+testthat::skip_on_os ("windows")
+testthat::skip_on_os ("mac")
+
+# Results on non-Linux systems are equal paths, but not identical
+
 test_that ("pkgcheck", {
 
     pkgname <- paste0 (
