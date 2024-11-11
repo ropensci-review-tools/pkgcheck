@@ -29,7 +29,7 @@ convert_path <- function (path = ".") {
         subdirs <- fs::dir_ls (path, type = "directory")
         proj_root <- unlist (lapply (subdirs, function (d) {
             tryCatch (
-                rprojroot::find_package_root_file (path = d),
+                rprojroot::find_root (rprojroot::is_r_package, path = d),
                 error = function (e) NULL
             )
         }))
@@ -41,5 +41,5 @@ convert_path <- function (path = ".") {
         )
     }
 
-    return (proj_root)
+    return (fs::path (proj_root))
 }
