@@ -112,6 +112,8 @@ test_that ("pkgcheck", {
     edit_html (f) # from clean-snapshots.R
 
     testthat::expect_snapshot_file (f)
+
+    fs::dir_delete (d)
 })
 
 test_that ("pkgcheck without goodpractice", {
@@ -140,4 +142,6 @@ test_that ("pkgcheck without goodpractice", {
     expect_false (all (items %in% names (checks)))
     items <- c ("pkg", "info", "checks", "meta")
     expect_true (all (items %in% names (checks)))
+
+    fs::dir_delete (d)
 })
