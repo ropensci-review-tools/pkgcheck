@@ -288,7 +288,7 @@ RUN install2.r \
   xts \
   zoo
 
-RUN Rscript -e 'credentials::credentials_set()'
+RUN Rscript -e 'credentials::set_github_pat()'
 
 RUN installGithub.r \
     ropensci-review-tools/goodpractice
