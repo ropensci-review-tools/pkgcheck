@@ -41,6 +41,9 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Set credentials
+      run: Rscript -e "credentials::set_github_pat()"
+
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
@@ -49,7 +52,7 @@ jobs:
         tags: |
           mpadge/pkgcheck:latest
           ghcr.io/ropensci-review-tools/pkgcheck:latest
-    
+
     - name: Trigger pkgcheck-action build
       if: ${{ github.event_name != 'pull_request' }}
       uses: actions/github-script@v7
