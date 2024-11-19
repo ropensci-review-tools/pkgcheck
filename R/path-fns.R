@@ -17,30 +17,25 @@ convert_path <- function (path = ".") {
         path <- git_root
     }
 
-    r_root <- tryCatch (
-        rprojroot::find_root (rprojroot::is_r_package, path = path),
+    proj_root <- tryCatch (
+        rprojroot::find_package_root_file (path = path),
         error = function (e) NULL
     )
-    if (is.null (r_root)) {
-
+    if (is.null (proj_root)) {
         subdirs <- fs::dir_ls (path, type = "directory")
-        r_root <- vapply (subdirs, function (d) {
+        proj_root <- unlist (lapply (subdirs, function (d) {
             tryCatch (
                 rprojroot::find_root (rprojroot::is_r_package, path = d),
-                error = function (e) ""
+                error = function (e) NULL
             )
-        }, character (1L), USE.NAMES = FALSE)
-        r_root <- r_root [which (nzchar (r_root))]
-
-        if (length (r_root) != 1L) {
-            cli::cli_abort (paste0 (
-                "Unable to determine unambiguous ",
-                "R source directory from [{r_root}]"
-            ))
-        }
+        }))
     }
 
+    if (length (proj_root) != 1L) {
+        cli::cli_abort (
+            "Could not find unambiguous project root from {proj_root}"
+        )
+    }
 
-
-    return (r_root)
+    return (fs::path (proj_root))
 }

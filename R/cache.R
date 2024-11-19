@@ -108,16 +108,10 @@ cache_pkgcheck_component <- function (path,
     cache_file <- fs::path (cache_dir, fname)
 
     # rm old components:
-    flist <- list.files (cache_dir,
-        pattern = paste0 (
-            pkg_hash [1], # name of package
-            "\\_"
-        ),
-        full.names = TRUE
-    )
-    flist <- flist [which (!grepl (fname, flist))]
+    flist <- fs::dir_ls (cache_dir, regexp = paste0 (pkg_hash [1], "\\_"))
+    flist <- flist [which (!basename (flist) == fname)]
     if (length (flist) > 0) {
-        chk <- file.remove (flist)
+        chk <- fs::file_delete (flist)
     }
 
     if (fs::file_exists (cache_file) & use_cache) {
@@ -143,7 +137,7 @@ cache_pkgcheck_component <- function (path,
         Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
 
         # writing to cache_dir fails on some GHA windows machines.
-        if (dir.exists (cache_dir)) {
+        if (fs::dir_exists (cache_dir)) {
             chk <- tryCatch (
                 saveRDS (out, cache_file),
                 error = function (e) NULL
