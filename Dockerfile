@@ -286,7 +286,7 @@ RUN install2.r \
   zoo
 
 RUN installGithub.r \
-    mangothecat/goodpractice
+    ropensci-review-tools/goodpractice
 
 RUN Rscript -e 'reticulate::virtualenv_create()'
 

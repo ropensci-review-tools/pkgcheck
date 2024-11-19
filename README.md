@@ -14,12 +14,12 @@ Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repo
 Check whether a package is ready for submission to
 [rOpenSci](https://ropensci.org)’s peer review system. The primary
 function collates the output of
-[`goodpractice`](https://github.com/mangothecat/goodpractice), including
-`R CMD check` results, a number of statistics via the [`pkgstats`
-package](https://github.com/ropensci-review-tools/pkgstats), and checks
-for package structure expected for rOpenSci submissions. The output of
-this function immediately indicates whether or not a package is “Ready
-to Submit”.
+[`goodpractice`](https://github.com/ropensci-review-tools/goodpractice),
+including `R CMD check` results, a number of statistics via the
+[`pkgstats` package](https://github.com/ropensci-review-tools/pkgstats),
+and checks for package structure expected for rOpenSci submissions. The
+output of this function immediately indicates whether or not a package
+is “Ready to Submit”.
 
 ## Installation
 
@@ -100,6 +100,7 @@ function](https://docs.ropensci.org/srr/reference/srr_stats_pkg_skeleton.html):
 ``` r
 mydir <- file.path (tempdir (), "srr-demo")
 gert::git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
+devtools::document (mydir, quiet = TRUE) # Generate documentation entries in "/man" directory
 x <- pkgcheck (mydir)
 ```
 
@@ -109,18 +110,20 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package name is available
 ## ✖ does not have a 'codemeta.json' file.
 ## ✖ does not have a 'contributing' file.
+## ✖ The following function has no documented return value: [test_fn]
 ## ✔ uses 'roxygen2'.
 ## ✔ 'DESCRIPTION' has a URL field.
 ## ✖ 'DESCRIPTION' does not have a BugReports field.
 ## ✖ Package has no HTML vignettes
-## ✔ All functions have examples.
+## ✖ These functions do not have examples: [test_fn].
 ## ✖ Package has no continuous integration checks.
 ## ✖ Package coverage failed
+## ✖ Statistical standards should be documented in most package files, yet are mostly only documented in one file.
 ## ✔ R CMD check found no errors.
 ## ✔ R CMD check found no warnings.
 ## 
@@ -194,8 +197,8 @@ with a parameter, `render`, which can be set to `TRUE` to automatically
 render a HTML-formatted representation of the check results, and open it
 in a browser. The formatting differs only slightly from the terminal
 output, mostly through the components of
-[`goodpractice`](http://mangothecat.github.io/goodpractice/) being
-divided into distinct headings, with explicit statements in cases where
+[`goodpractice`](http://docs.ropensci.org/goodpractice/) being divided
+into distinct headings, with explicit statements in cases where
 components pass all checks (the default screen output inherits directly
 from that package, and only reports components which *do not* pass all
 checks).
@@ -213,10 +216,10 @@ copy this directly to your local clipboard with `write_clip(md)`, where
 Running the [`pgkcheck`
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 can be time-consuming, primarily because the
-[`goodpractice`](https://github.com/mangothecat/goodpractice) component
-runs both a full `R CMD check`, and calculates code coverage of all
-tests. To avoid re-generating these results each time, the package saves
-previous reports to a local cache directory defined in
+[`goodpractice`](https://docs.ropensci.org/goodpractice) component runs
+both a full `R CMD check`, and calculates code coverage of all tests. To
+avoid re-generating these results each time, the package saves previous
+reports to a local cache directory defined in
 `Sys.getenv("PKGCHECK_CACHE_DIR")`.
 
 You may manually erase the contents of this `pkgcheck` subdirectory at
@@ -272,19 +275,19 @@ project, you agree to abide by its terms.
 
 ## Contributors
 
-
-
-
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
-All contributions to this project are gratefully acknowledged using the [`allcontributors` package](https://github.com/ropenscilabs/allcontributors) following the [all-contributors](https://allcontributors.org) specification. Contributions of any kind are welcome!
+All contributions to this project are gratefully acknowledged using the
+[`allcontributors`
+package](https://github.com/ropenscilabs/allcontributors) following the
+[all-contributors](https://allcontributors.org) specification.
+Contributions of any kind are welcome!
 
 ### Code
 
 <table>
-
 <tr>
 <td align="center">
 <a href="https://github.com/mpadge">
@@ -311,14 +314,11 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=annakrystalli">annakrystalli</a>
 </td>
 </tr>
-
 </table>
-
 
 ### Issue Authors
 
 <table>
-
 <tr>
 <td align="center">
 <a href="https://github.com/karthik">
@@ -363,8 +363,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3As3alfisc">s3alfisc</a>
 </td>
 </tr>
-
-
 <tr>
 <td align="center">
 <a href="https://github.com/Bisaloo">
@@ -409,8 +407,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Asjentsch">sjentsch</a>
 </td>
 </tr>
-
-
 <tr>
 <td align="center">
 <a href="https://github.com/willgearty">
@@ -419,14 +415,11 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Awillgearty">willgearty</a>
 </td>
 </tr>
-
 </table>
-
 
 ### Issue Contributors
 
 <table>
-
 <tr>
 <td align="center">
 <a href="https://github.com/ddbortoli">
@@ -471,8 +464,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Abnicenboim">bnicenboim</a>
 </td>
 </tr>
-
-
 <tr>
 <td align="center">
 <a href="https://github.com/b-rodrigues">
@@ -487,9 +478,7 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Aphilipp-baumann">philipp-baumann</a>
 </td>
 </tr>
-
 </table>
-
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->

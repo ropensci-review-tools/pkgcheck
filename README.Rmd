@@ -20,7 +20,7 @@ output:
 Check whether a package is ready for submission to
 [rOpenSci](https://ropensci.org)'s peer review system. The primary function
 collates the output of
-[`goodpractice`](https://github.com/mangothecat/goodpractice), including `R CMD
+[`goodpractice`](https://github.com/ropensci-review-tools/goodpractice), including `R CMD
 check` results, a number of statistics via the [`pkgstats`
 package](https://github.com/ropensci-review-tools/pkgstats), and checks for
 package structure expected for rOpenSci submissions. The output of this
@@ -106,6 +106,7 @@ function](https://docs.ropensci.org/srr/reference/srr_stats_pkg_skeleton.html):
 ```{r pkgcheck, echo = TRUE, message = FALSE}
 mydir <- file.path (tempdir (), "srr-demo")
 gert::git_clone ("https://github.com/mpadge/srr-demo", path = mydir)
+devtools::document (mydir, quiet = TRUE) # Generate documentation entries in "/man" directory
 x <- pkgcheck (mydir)
 ```
 
@@ -181,7 +182,7 @@ The package includes an additional function,
 with a parameter, `render`, which can be set to `TRUE` to automatically render
 a HTML-formatted representation of the check results, and open it in a browser.
 The formatting differs only slightly from the terminal output, mostly through
-the components of [`goodpractice`](http://mangothecat.github.io/goodpractice/)
+the components of [`goodpractice`](http://docs.ropensci.org/goodpractice/)
 being divided into distinct headings, with explicit statements in cases where
 components pass all checks (the default screen output inherits directly from
 that package, and only reports components which *do not* pass all checks).
@@ -200,7 +201,7 @@ to your local clipboard with `write_clip(md)`, where `md` is the output of
 Running the [`pgkcheck`
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) can
 be time-consuming, primarily because the
-[`goodpractice`](https://github.com/mangothecat/goodpractice) component runs
+[`goodpractice`](https://docs.ropensci.org/goodpractice) component runs
 both a full `R CMD check`, and calculates code coverage of all tests. To avoid
 re-generating these results each time, the package saves previous reports to
 a local cache directory defined in `Sys.getenv("PKGCHECK_CACHE_DIR")`.
