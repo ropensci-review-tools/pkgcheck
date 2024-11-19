@@ -257,6 +257,8 @@ ENV ARROW_S3 "ON"
 # ropensci-review-tools/pkgcheck/issues/134:
 #ENV R_REMOTES_UPGRADE "always"
 ENV NOT_CRAN "true"
+ENV CI "true"
+ENV ROPENSCI "true"
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
