@@ -17,5 +17,8 @@ test_that ("pkgcheck", {
     gert::git_init (pkg_root)
 
     path_conv <- convert_path (pkg_root)
+    # path_conv should then be subdir:
     expect_identical (path_conv, path)
+
+    fs::dir_delete (pkg_root)
 })
