@@ -263,6 +263,7 @@ ENV ROPENSCI "true"
 # A selection of R packages, including extra stats packages
 RUN install2.r \
   arrow \
+  credentials \
   decor \
   devtools \
   distill \
@@ -286,6 +287,8 @@ RUN install2.r \
   tidyverse \
   xts \
   zoo
+
+RUN Rscript -e 'credentials::credentials_set()'
 
 RUN installGithub.r \
     ropensci-review-tools/goodpractice
