@@ -198,9 +198,11 @@ RUN apt-get update -qq && apt-get install -y \
     pandoc \
     pandoc-citeproc \
     protobuf-compiler \
+    python3-dev \
     python3-docutils \
     python3-numpy \
     python3-pip \
+    python3-venv \
     r-base-dev \
     r-cran-rjava \
     tesseract-ocr-eng \
@@ -273,6 +275,7 @@ RUN install2.r \
   RcppParallel \
   randomForest \
   rdflib \
+  reticulate \
   rmarkdown \
   seasonal \
   sf \
@@ -284,6 +287,8 @@ RUN install2.r \
 
 RUN installGithub.r \
     mangothecat/goodpractice
+
+RUN Rscript -e 'reticulate::virtualenv_create()'
 
 # arrow docs suggest this shouldn't be needed, but s3
 # support doesn't work without re-install/compile:
