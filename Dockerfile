@@ -264,7 +264,6 @@ ENV GITHUB_PAT ${GITHUB_PAT}
 # A selection of R packages, including extra stats packages
 RUN install2.r \
   arrow \
-  credentials \
   decor \
   devtools \
   distill \
