@@ -46,6 +46,8 @@ jobs:
       with:
         context: .
         push: ${{ github.event_name != 'pull_request' }}
+        build-args: |
+            "GITHUB_PAT=${{ secrets.GITHUB_TOKEN }}"
         tags: |
           mpadge/pkgcheck:latest
           ghcr.io/ropensci-review-tools/pkgcheck:latest
