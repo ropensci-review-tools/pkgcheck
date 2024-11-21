@@ -288,7 +288,7 @@ RUN install2.r \
   xts \
   zoo
 
-RUN installGithub.r \
+RUN --mount=type=secret,id=GITHUB_PAT,env=GITHUB_PAT installGithub.r \
     ropensci-review-tools/goodpractice
 
 RUN Rscript -e 'reticulate::virtualenv_create()'
