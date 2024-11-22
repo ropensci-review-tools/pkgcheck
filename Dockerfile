@@ -259,7 +259,6 @@ ENV ARROW_S3 "ON"
 ENV NOT_CRAN "true"
 ENV CI "true"
 ENV ROPENSCI "true"
-ENV GITHUB_PAT ${GITHUB_PAT}
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
