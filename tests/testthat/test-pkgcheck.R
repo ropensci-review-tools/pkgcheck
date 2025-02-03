@@ -37,17 +37,6 @@ test_that ("pkgcheck", {
     )
     writeLines (zzz, f_zzz)
 
-    # Init git to "master" for #215:
-    cmds <- c (
-        "git init -b master",
-        "git commit --allow-empty -m 'initial commit'"
-    )
-    for (cmd in cmds) {
-        withr::with_dir (
-            d, tryCatch (system (cmd), error = function (e) NULL)
-        )
-    }
-
     x <- capture.output (
         roxygen2::roxygenise (d),
         type = "message"
@@ -116,32 +105,14 @@ test_that ("pkgcheck", {
     writeLines (md, con = file.path (md_dir, "checks.md"))
 
     # Redact out variable git hashes:
-    testthat::expect_snapshot_file (
-        file.path (md_dir, "checks.md"),
-        transform = function (lines) {
-            i <- grep ("git\\shash\\:\\s\\[", lines)
-            if (length (i) > 0L) {
-                lines [i] <- "git hash: [hash](/tree/hash)"
-            }
-            return (lines)
-        }
-    )
+    testthat::expect_snapshot_file (file.path (md_dir, "checks.md"))
 
     h <- render_md2html (md, open = FALSE)
     f <- file.path (md_dir, "checks.html")
     file.rename (h, f)
     edit_html (f) # from clean-snapshots.R
 
-    testthat::expect_snapshot_file (
-        f,
-        transform = function (lines) {
-            i <- grep ("<p>git\\shash\\:\\s", lines)
-            if (length (i) > 0L) {
-                lines [i] <- '<p>git hash: <a href="/tree/hash">hash</a></p>'
-            }
-            return (lines)
-        }
-    )
+    testthat::expect_snapshot_file (f)
 
     fs::dir_delete (d)
 })

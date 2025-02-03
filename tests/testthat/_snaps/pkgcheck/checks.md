@@ -1,6 +1,6 @@
 ## Checks for [testpkgchecknotapkg (v0.0.0.9000)]()
 
-git hash: [hash](/tree/hash)
+git hash: [](/tree/)
 
 - :heavy_check_mark: Package name is available
 - :heavy_multiplication_x: does not have a 'codemeta.json' file.

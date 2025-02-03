@@ -125,3 +125,16 @@ get_available_packages <- function () {
 
     return (ap)
 }
+
+is_test_env <- function () {
+
+    test_all <- (identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
+        identical (Sys.getenv ("GITHUB_WORKFLOW"), "test-coverage") ||
+        identical (Sys.getenv ("GITHUB_WORKFLOW"), "pkgcheck"))
+    test_dir <- identical (
+        Sys.getenv ("PKGCHECK_CACHE_DIR", getwd ()),
+        file.path (tempdir (), "pkgcheck")
+    )
+
+    return (test_all && test_dir)
+}

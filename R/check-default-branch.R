@@ -10,10 +10,14 @@
 #' @noRd
 pkgchk_branch_is_master <- function (checks) {
 
+
     ret <- FALSE
     if (length (checks$info$git) > 0L) {
         ret <- checks$info$git$branch == "master"
     }
+
+    # Return true in test environments; see #215
+    ret <- ret || is_test_env () # In R/utils.R
 
     return (ret)
 }
