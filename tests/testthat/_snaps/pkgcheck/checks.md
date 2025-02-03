@@ -1,6 +1,6 @@
 ## Checks for [testpkgchecknotapkg (v0.0.0.9000)]()
 
-git hash: [](/tree/)
+git hash: [hash](/tree/hash)
 
 - :heavy_check_mark: Package name is available
 - :heavy_multiplication_x: does not have a 'codemeta.json' file.
@@ -12,6 +12,7 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [test_fn].
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
+- :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
 - :heavy_multiplication_x: Some statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 - :heavy_multiplication_x: Statistical standards should be documented in most package files, yet are mostly only documented in one file.
