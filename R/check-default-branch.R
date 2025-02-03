@@ -10,7 +10,12 @@
 #' @noRd
 pkgchk_branch_is_master <- function (checks) {
 
-    return (checks$info$git$branch == "master")
+    ret <- FALSE
+    if (length (checks$info$git) > 0L) {
+        ret <- checks$info$git$branch == "master"
+    }
+
+    return (ret)
 }
 
 output_pkgchk_branch_is_master <- function (checks) {
