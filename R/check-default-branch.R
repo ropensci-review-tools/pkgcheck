@@ -1,8 +1,8 @@
 #' Ensure that default GitHub branch is not "master"
 #'
 #' The `$info$git$branch` value is taken by default from GitHub as long as
-#' "DESC" has a remote URL. It is only taken from local git if not remote
-#' GitHub URL can be identified.`
+#' "DESCRIPTION" has a remote URL. It is only taken from local git if not
+#' remote GitHub URL can be identified.`
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
