@@ -37,6 +37,19 @@ test_that ("pkgcheck", {
     )
     writeLines (zzz, f_zzz)
 
+    # Init git to "master" for #215:
+    withr::with_dir (
+        d,
+        tryCatch (system ("git init -b master"), error = function (e) NULL)
+    )
+    withr::with_dir (
+        d,
+        tryCatch (
+            system ("git commit --allow-empty -m 'initial commit'"),
+            error = function (e) NULL
+        )
+    )
+
     x <- capture.output (
         roxygen2::roxygenise (d),
         type = "message"
