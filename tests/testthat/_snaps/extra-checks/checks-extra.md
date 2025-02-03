@@ -13,7 +13,6 @@ git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 - :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].
 - :heavy_multiplication_x:  Package has no continuous integration checks.
 - :heavy_multiplication_x: Package contains unexpected files.
-- :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
 - :eyes: Package depends on the following obsolete packages: [blah,sp]
 
 **Important:** All failing checks above must be addressed prior to proceeding
