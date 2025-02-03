@@ -104,6 +104,7 @@ test_that ("pkgcheck", {
     md_dir <- withr::local_tempdir ()
     writeLines (md, con = file.path (md_dir, "checks.md"))
 
+    # Redact out variable git hashes:
     testthat::expect_snapshot_file (file.path (md_dir, "checks.md"))
 
     h <- render_md2html (md, open = FALSE)

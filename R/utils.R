@@ -125,3 +125,14 @@ get_available_packages <- function () {
 
     return (ap)
 }
+
+is_test_env <- function () {
+
+    is_gha <- identical (Sys.getenv ("GITHUB_ACTIONS", ""), "true")
+    test_dir <- identical (
+        Sys.getenv ("PKGCHECK_CACHE_DIR", getwd ()),
+        file.path (tempdir (), "pkgcheck")
+    )
+
+    return (is_gha && test_dir)
+}
