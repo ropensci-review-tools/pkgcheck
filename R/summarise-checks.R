@@ -131,6 +131,7 @@ order_checks <- function (fns) {
         "has_scrap",
         "left_assign",
         "renv_activated",
+        "branch_is_master",
         "srr_missing",
         "srr_todo",
         "srr_most_in_one_file",
