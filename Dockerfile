@@ -247,13 +247,6 @@ RUN wget https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh \
     && bash jill.sh -y \
     && rm jill.sh
 
-# Extra python packages:
-RUN mkdir /home/.virtualenvs \
-    && python3 -m venv /home/.virtualenvs/venv
-# ---- Authors: Please submit PRs which insert extra python requirements here,
-# ----  followed by package name and "#<ropensci/software-review issue number>":
-RUN /home/.virtualenvs/venv/bin/pip install earthengine-api # rgeeExtra #608
-
 
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
 ENV ARROW_S3="ON"
@@ -295,7 +288,13 @@ RUN install2.r \
 # RUN --mount=type=secret,id=GITHUB_PAT,env=GITHUB_PAT installGithub.r \
 #     ropensci-review-tools/goodpractice
 
+# Created in /root/.virtualenvs/r-reticulate:
 RUN Rscript -e 'reticulate::virtualenv_create()'
+
+# Extra python packages:
+# ---- Authors: Please submit PRs which insert extra python requirements here,
+# ----  followed by package name and "#<ropensci/software-review issue number>":
+RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api # rgeeExtra #608
 
 # arrow docs suggest this shouldn't be needed, but s3
 # support doesn't work without re-install/compile:
