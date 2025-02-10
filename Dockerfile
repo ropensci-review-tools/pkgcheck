@@ -269,6 +269,7 @@ RUN install2.r \
   duckdb \
   foreign \
   glmnet \
+  goodpractice \
   lme4 \
   mgcv \
   Rcpp \
@@ -287,8 +288,9 @@ RUN install2.r \
   xts \
   zoo
 
-RUN --mount=type=secret,id=GITHUB_PAT,env=GITHUB_PAT installGithub.r \
-    ropensci-review-tools/goodpractice
+# This is the format needed to install from GitHub:
+# RUN --mount=type=secret,id=GITHUB_PAT,env=GITHUB_PAT installGithub.r \
+#     ropensci-review-tools/goodpractice
 
 RUN Rscript -e 'reticulate::virtualenv_create()'
 
