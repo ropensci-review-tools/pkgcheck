@@ -252,13 +252,13 @@ RUN pip install numpy pandas
 RUN pip install earthengine-api # rgeeExtra #608
 
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
-ENV ARROW_S3 "ON"
+ENV ARROW_S3="ON"
 
 # ropensci-review-tools/pkgcheck/issues/134:
-#ENV R_REMOTES_UPGRADE "always"
-ENV NOT_CRAN "true"
-ENV CI "true"
-ENV ROPENSCI "true"
+#ENV R_REMOTES_UPGRADE="always"
+ENV NOT_CRAN="true"
+ENV CI="true"
+ENV ROPENSCI="true"
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
