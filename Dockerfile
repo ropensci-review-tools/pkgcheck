@@ -198,8 +198,10 @@ RUN apt-get update -qq && apt-get install -y \
     pandoc \
     protobuf-compiler \
     python3-dev \
+    python3-full \
     python3-docutils \
     python3-numpy \
+    python3-pandas \
     python3-pip \
     python3-venv \
     r-base-dev \
@@ -241,14 +243,15 @@ RUN curl --proto '=https' --tlsv1.2 -sSf \
 
 # Julia:
 # https://github.com/ropensci-review-tools/roreviewapi/issues/28
-RUN pip install jill
-RUN jill install --confirm
+RUN bash -ci "$(curl -fsSL https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh)"
 
 # Extra python packages:
-RUN pip install numpy pandas
+RUN mkdir /home/.virtualenvs \
+    && python3 -m venv /home/.virtualenvs/venv
 # ---- Authors: Please submit PRs which insert extra python requirements here,
 # ----  followed by package name and "#<ropensci/software-review issue number>":
-RUN pip install earthengine-api # rgeeExtra #608
+RUN /home/.virtualenvs/venv/bin/pip install earthengine-api # rgeeExtra #608
+
 
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
 ENV ARROW_S3="ON"
