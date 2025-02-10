@@ -115,7 +115,6 @@ order_checks <- function (fns) {
         "pkgname",
         "license",
         "has_citation",
-        "obsolete_pkg_deps",
         "has_codemeta",
         "has_contrib",
         "fns_have_return_vals",
@@ -137,7 +136,9 @@ order_checks <- function (fns) {
         "srr_most_in_one_file",
         # These are "watch" checks, not outright fails; they must be
         # additionally explicitly listed below in `watch_checks()`:
-        "unique_fn_names"
+        "obsolete_pkg_deps",
+        "unique_fn_names",
+        "num_imports"
     )
 
     fns <- fns [which (fns %in% ord)]
@@ -152,7 +153,8 @@ watch_checks <- function (output_fns) {
     all_checks <- order_checks (output_fns)
     watch_list <- c (
         "obsolete_pkg_deps",
-        "unique_fn_names"
+        "unique_fn_names",
+        "num_imports"
     )
 
     all_checks [which (all_checks %in% watch_list)]

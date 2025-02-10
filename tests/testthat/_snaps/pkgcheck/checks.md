@@ -16,8 +16,12 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: Some statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 - :heavy_multiplication_x: Statistical standards should be documented in most package files, yet are mostly only documented in one file.
+- :eyes: Package has unusually large number of 21 Imports (> 98% of all packages)
 
 **Important:** All failing checks above must be addressed prior to proceeding
+
+(Checks marked with :eyes: may be optionally addressed.)
+
 
 Package License: GPL-3
 
@@ -156,8 +160,27 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 
 |type       |package  | ncalls|
 |:----------|:--------|------:|
-|imports    |Rcpp     |     NA|
 |imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |memoise  |     NA|
+|imports    |Rcpp     |     NA|
 |suggests   |testthat |     NA|
 |linking_to |Rcpp     |     NA|
 
@@ -187,7 +210,7 @@ The package has:
 - 1 authors
 - no  vignette
 - no internal data file
-- 2 imported packages
+- 21 imported packages
 - 1 exported function (median 3 lines of code)
 - 2 non-exported functions in R (median 3 lines of code)
 - 2 R functions (median 5 lines of code)
