@@ -149,6 +149,7 @@ RUN apt-get update -qq && apt-get install -y \
     libfribidi-dev \
     libgdal-dev \
     libgeos-dev \
+    libghc-citeproc-dev \
     libgit2-dev \
     libglpk-dev \
     libglu1-mesa-dev \
@@ -195,7 +196,6 @@ RUN apt-get update -qq && apt-get install -y \
     libzmq3-dev \
     netbase \
     pandoc \
-    pandoc-citeproc \
     protobuf-compiler \
     python3-dev \
     python3-docutils \
