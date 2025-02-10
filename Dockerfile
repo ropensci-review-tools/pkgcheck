@@ -1,12 +1,12 @@
 # This is built on top of a bspm image, generated with the first RUN comand.
 # The second command then installs most but not all of the libraries used to
-# build GitHub's Ubuntu-20.04 runner.
+# build GitHub's Ubuntu-24.04 runner.
 #
 # After that are manual installs of ctags & the GitHub cli (`gh`).
 # Finally, a standard setup for RCMD check, plus a few additional system
 # libraries.
 
-FROM eddelbuettel/r2u:20.04
+FROM eddelbuettel/r2u:24.04
 MAINTAINER Mark Padgham <mark.padgham@email.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -28,7 +28,7 @@ RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
     && apt update \
     && apt -y upgrade
 
-# GitHub Ubuntu-20.04 runner, but not imagemagick because v7 needs to be
+# GitHub Ubuntu-24.04 runner, but not imagemagick because v7 needs to be
 # compiled with librsvg2, rather than binary-installed
 # https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2004-Readme.md
 # netbase: https://github.com/tensorflow/haskell/issues/182
