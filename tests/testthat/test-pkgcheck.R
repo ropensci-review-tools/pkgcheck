@@ -21,10 +21,14 @@ test_that ("pkgcheck", {
     f_desc <- fs::path (d, "DESCRIPTION")
     desc <- readLines (f_desc)
     i <- grep ("Rcpp$", desc) [1]
+
+    # Add lots of 'Imports' to fail 'pkgcheck_num_imports' #218:
+    num_deps_to_add <- 20L
+    deps_add <- c (rep ("    memoise,", num_deps_to_add), "    Rcpp")
+
     desc <- c (
         desc [seq_len (i - 1)],
-        "    Rcpp,",
-        "    memoise",
+        deps_add,
         desc [seq (i + 1, length (desc))]
     )
     writeLines (desc, f_desc)
