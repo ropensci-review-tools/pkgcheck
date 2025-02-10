@@ -243,7 +243,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf \
 
 # Julia:
 # https://github.com/ropensci-review-tools/roreviewapi/issues/28
-RUN bash -ci "$(curl -fsSL https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh)"
+RUN bash -ci "$(curl -fsSL https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh)" -y
 
 # Extra python packages:
 RUN mkdir /home/.virtualenvs \
