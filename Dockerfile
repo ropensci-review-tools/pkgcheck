@@ -66,7 +66,6 @@ RUN apt-get update -qq && apt-get install -y \
     libc6-dev \
     libcurl4 \
     libgbm-dev \
-    libgconf-2-4 \
     libgsl-dev \
     libgtk-3-0 \
     libmagic-dev \
@@ -85,7 +84,7 @@ RUN apt-get update -qq && apt-get install -y \
     mediainfo \
     mercurial \
     net-tools \
-    netcat \
+    netcat-openbsd \
     openssh-client \
     p7zip-full \
     p7zip-rar \
