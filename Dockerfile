@@ -278,7 +278,9 @@ RUN install2.r \
   reticulate \
   rmarkdown \
   seasonal \
+  sf \
   survival \
+  terra \
   tidymodels \
   tidyverse \
   xts \
@@ -301,5 +303,5 @@ RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api # rgeeExtra 
 RUN Rscript -e 'arrow::install_arrow()'
 
 # Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
-# need to reinstall 'sf' without bspm:
+# need to reinstall both 'sf' and 'terra' without bspm:
 RUN Rscript -e 'bspm::disable();install.packages(c("sf","terra"));bspm::enable()'
