@@ -14,11 +14,13 @@ pkgchk_num_imports <- function (checks) {
 
 output_pkgchk_num_imports <- function (checks) {
 
+    import_threshold <- 0.95
+
     ndeps_all <- retrieve_all_pkg_deps ()
     ndeps_pc <- match (checks$checks$num_imports, ndeps_all) / length (ndeps_all)
 
     out <- list (
-        check_pass = ndeps_pc < 0.95,
+        check_pass = ndeps_pc < import_threshold,
         summary = "",
         print = ""
     )
