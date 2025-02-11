@@ -7,7 +7,7 @@
 # libraries.
 
 FROM eddelbuettel/r2u:24.04
-MAINTAINER Mark Padgham <mark.padgham@email.com>
+LABEL org.opencontainers.image.authors="mark.padgham@email.com"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
                 sudo \
