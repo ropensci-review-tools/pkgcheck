@@ -40,7 +40,7 @@ output_pkgchk_num_imports <- function (checks) {
 
 retrieve_all_pkg_deps <- function () {
 
-    ap <- data.frame (utils::available.packages ())
+    ap <- get_available_packages ()
     num_imports <- vapply (ap$Imports, function (i) {
         ifelse (is.na (i), 0L, length (strsplit (i, ",") [[1]]))
     }, integer (1L), USE.NAMES = FALSE)
