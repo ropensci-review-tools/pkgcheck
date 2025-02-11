@@ -18,6 +18,7 @@ output_pkgchk_num_imports <- function (checks) {
 
     ndeps_all <- retrieve_all_pkg_deps ()
     ndeps_pc <- match (checks$checks$num_imports, ndeps_all) / length (ndeps_all)
+    ndeps_pc <- ifelse (length (ndeps_pc) == 0L, 0, ndeps_pc)
 
     out <- list (
         check_pass = ndeps_pc < import_threshold,
