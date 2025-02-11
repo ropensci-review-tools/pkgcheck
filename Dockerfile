@@ -1,13 +1,13 @@
 # This is built on top of a bspm image, generated with the first RUN comand.
 # The second command then installs most but not all of the libraries used to
-# build GitHub's Ubuntu-20.04 runner.
+# build GitHub's Ubuntu-24.04 runner.
 #
 # After that are manual installs of ctags & the GitHub cli (`gh`).
 # Finally, a standard setup for RCMD check, plus a few additional system
 # libraries.
 
-FROM eddelbuettel/r2u:20.04
-MAINTAINER Mark Padgham <mark.padgham@email.com>
+FROM eddelbuettel/r2u:24.04
+LABEL org.opencontainers.image.authors="mark.padgham@email.com"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
                 sudo \
@@ -28,7 +28,7 @@ RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
     && apt update \
     && apt -y upgrade
 
-# GitHub Ubuntu-20.04 runner, but not imagemagick because v7 needs to be
+# GitHub Ubuntu-24.04 runner, but not imagemagick because v7 needs to be
 # compiled with librsvg2, rather than binary-installed
 # https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2004-Readme.md
 # netbase: https://github.com/tensorflow/haskell/issues/182
@@ -66,7 +66,6 @@ RUN apt-get update -qq && apt-get install -y \
     libc6-dev \
     libcurl4 \
     libgbm-dev \
-    libgconf-2-4 \
     libgsl-dev \
     libgtk-3-0 \
     libmagic-dev \
@@ -85,7 +84,7 @@ RUN apt-get update -qq && apt-get install -y \
     mediainfo \
     mercurial \
     net-tools \
-    netcat \
+    netcat-openbsd \
     openssh-client \
     p7zip-full \
     p7zip-rar \
@@ -150,6 +149,7 @@ RUN apt-get update -qq && apt-get install -y \
     libfribidi-dev \
     libgdal-dev \
     libgeos-dev \
+    libghc-citeproc-dev \
     libgit2-dev \
     libglpk-dev \
     libglu1-mesa-dev \
@@ -196,11 +196,12 @@ RUN apt-get update -qq && apt-get install -y \
     libzmq3-dev \
     netbase \
     pandoc \
-    pandoc-citeproc \
     protobuf-compiler \
     python3-dev \
+    python3-full \
     python3-docutils \
     python3-numpy \
+    python3-pandas \
     python3-pip \
     python3-venv \
     r-base-dev \
@@ -242,23 +243,19 @@ RUN curl --proto '=https' --tlsv1.2 -sSf \
 
 # Julia:
 # https://github.com/ropensci-review-tools/roreviewapi/issues/28
-RUN pip install jill
-RUN jill install --confirm
+RUN wget https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh \
+    && bash jill.sh -y \
+    && rm jill.sh
 
-# Extra python packages:
-RUN pip install numpy pandas
-# ---- Authors: Please submit PRs which insert extra python requirements here,
-# ----  followed by package name and "#<ropensci/software-review issue number>":
-RUN pip install earthengine-api # rgeeExtra #608
 
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
-ENV ARROW_S3 "ON"
+ENV ARROW_S3="ON"
 
 # ropensci-review-tools/pkgcheck/issues/134:
-#ENV R_REMOTES_UPGRADE "always"
-ENV NOT_CRAN "true"
-ENV CI "true"
-ENV ROPENSCI "true"
+#ENV R_REMOTES_UPGRADE="always"
+ENV NOT_CRAN="true"
+ENV CI="true"
+ENV ROPENSCI="true"
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
@@ -269,6 +266,7 @@ RUN install2.r \
   duckdb \
   foreign \
   glmnet \
+  goodpractice \
   lme4 \
   mgcv \
   Rcpp \
@@ -282,20 +280,28 @@ RUN install2.r \
   seasonal \
   sf \
   survival \
+  terra \
   tidymodels \
   tidyverse \
   xts \
   zoo
 
-RUN --mount=type=secret,id=GITHUB_PAT,env=GITHUB_PAT installGithub.r \
-    ropensci-review-tools/goodpractice
+# This is the format needed to install from GitHub:
+# RUN --mount=type=secret,id=GITHUB_PAT,env=GITHUB_PAT installGithub.r \
+#     ropensci-review-tools/goodpractice
 
+# Created in /root/.virtualenvs/r-reticulate:
 RUN Rscript -e 'reticulate::virtualenv_create()'
+
+# Extra python packages:
+# ---- Authors: Please submit PRs which insert extra python requirements here,
+# ----  followed by package name and "#<ropensci/software-review issue number>":
+RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api # rgeeExtra #608
 
 # arrow docs suggest this shouldn't be needed, but s3
 # support doesn't work without re-install/compile:
 RUN Rscript -e 'arrow::install_arrow()'
 
 # Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
-# need to reinstall 'sf' without bspm:
-RUN Rscript -e 'bspm::disable();install.packages("sf");bspm::enable()'
+# need to reinstall both 'sf' and 'terra' without bspm:
+RUN Rscript -e 'bspm::disable();install.packages(c("sf","terra"));bspm::enable()'
