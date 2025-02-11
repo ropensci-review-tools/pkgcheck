@@ -7,7 +7,7 @@
 pkgchk_num_imports <- function (checks) {
 
     deps <- checks$pkg$dependencies
-    num_imports <- length (which (deps$type == "imports"))
+    num_imports <- length (which (deps$type == "imports" & !deps$package == "NA"))
 
     return (num_imports)
 }
