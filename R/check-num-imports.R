@@ -2,17 +2,13 @@
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
-#' @return Integer value of number of package "Imports"
+#' @return Numeric vector of two values of (number of package "Imports", and
+#' proportional threshold of all packages with more imports).
 #' @noRd
 pkgchk_num_imports <- function (checks) {
 
     deps <- checks$pkg$dependencies
-    num_imports <- length (which (deps$type == "imports" & !deps$package == "NA"))
-
-    return (num_imports)
-}
-
-output_pkgchk_num_imports <- function (checks) {
+    n <- length (which (deps$type == "imports" & !deps$package == "NA"))
 
     import_threshold <- 0.95
 
@@ -20,8 +16,13 @@ output_pkgchk_num_imports <- function (checks) {
     ndeps_pc <- match (checks$checks$num_imports, ndeps_all) / length (ndeps_all)
     ndeps_pc <- ifelse (length (ndeps_pc) == 0L, 0, ndeps_pc)
 
+    return (c (n, ndeps_pc))
+}
+
+output_pkgchk_num_imports <- function (checks) {
+
     out <- list (
-        check_pass = ndeps_pc < import_threshold,
+        check_pass = checks$checks$num_imports [2] < import_threshold,
         summary = "",
         print = ""
     )
@@ -29,9 +30,9 @@ output_pkgchk_num_imports <- function (checks) {
     if (!out$check_pass) {
         out$summary <- paste0 (
             "Package has unusually large number of ",
-            checks$checks$num_imports,
+            round (checks$checks$num_imports [1]),
             " Imports (> ",
-            floor (100 * ndeps_pc),
+            floor (100 * checks$checks$num_imports [2]),
             "% of all packages)"
         )
     }
