@@ -10,8 +10,6 @@ pkgchk_num_imports <- function (checks) {
     deps <- checks$pkg$dependencies
     n <- length (which (deps$type == "imports" & !deps$package == "NA"))
 
-    import_threshold <- 0.95
-
     ndeps_all <- retrieve_all_pkg_deps ()
     ndeps_pc <- match (checks$checks$num_imports, ndeps_all) / length (ndeps_all)
     ndeps_pc <- ifelse (length (ndeps_pc) == 0L, 0, ndeps_pc)
@@ -20,6 +18,8 @@ pkgchk_num_imports <- function (checks) {
 }
 
 output_pkgchk_num_imports <- function (checks) {
+
+    import_threshold <- 0.95
 
     out <- list (
         check_pass = checks$checks$num_imports [2] < import_threshold,
