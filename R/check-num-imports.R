@@ -11,8 +11,7 @@ pkgchk_num_imports <- function (checks) {
     n <- length (which (deps$type == "imports" & !deps$package == "NA"))
 
     ndeps_all <- retrieve_all_pkg_deps ()
-    ndeps_pc <- match (checks$checks$num_imports, ndeps_all) / length (ndeps_all)
-    ndeps_pc <- ifelse (length (ndeps_pc) == 0L, 0, ndeps_pc)
+    ndeps_pc <- length (which (ndeps_all <= n)) / length (ndeps_all)
 
     return (c (n, ndeps_pc))
 }
