@@ -12,6 +12,9 @@ pkgchk_num_imports <- function (checks) {
 
     ndeps_all <- retrieve_all_pkg_deps ()
     ndeps_pc <- length (which (ndeps_all <= n)) / length (ndeps_all)
+    # If available.packages() fails, then 'ndeps_pc' == NaN:
+    not_a_number <- length (ndeps_pc) == 0L || is.na (ndeps_pc)
+    ndeps_pc <- ifelse (not_a_number, 0L, ndeps_pc)
 
     return (c (n, ndeps_pc))
 }
