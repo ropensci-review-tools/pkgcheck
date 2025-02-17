@@ -305,3 +305,10 @@ RUN Rscript -e 'arrow::install_arrow()'
 # Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
 # need to reinstall both 'sf' and 'terra' without bspm:
 RUN Rscript -e 'bspm::disable();install.packages(c("sf","terra"));bspm::enable()'
+
+# Quarto binary:
+RUN wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.40/quarto-1.6.40-linux-amd64.tar.gz \
+    && mkdir ~/opt \
+    && tar -C ~/opt -xvzf quarto-1.6.40-linux-amd64.tar.gz \
+    && ln -s ~/opt/quarto-1.6.40/bin/quarto /usr/local/bin/quarto \
+    && rm quarto-1.6.40-linux-amd64.tar.gz
