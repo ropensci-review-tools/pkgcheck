@@ -20,7 +20,7 @@ development stages to more quickly check other aspects.}
 
 \item{use_cache}{Checks are cached for rapid retrieval, and only re-run if
 the git hash of the local repository changes. Setting \code{use_cache} to \code{FALSE}
-will for checks to be re-run even if the git hash has not changed.}
+will force checks to be re-run even if the git hash has not changed.}
 
 \item{extra_env}{Additional environments from which to collate checks. Other
 package names may be appended using \code{c}, as in \code{c(.GlobalEnv, "mypkg")}.}

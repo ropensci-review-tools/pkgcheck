@@ -6,7 +6,7 @@
 #' development stages to more quickly check other aspects.
 #' @param use_cache Checks are cached for rapid retrieval, and only re-run if
 #' the git hash of the local repository changes. Setting `use_cache` to `FALSE`
-#' will for checks to be re-run even if the git hash has not changed.
+#' will force checks to be re-run even if the git hash has not changed.
 #' @param extra_env Additional environments from which to collate checks. Other
 #' package names may be appended using `c`, as in `c(.GlobalEnv, "mypkg")`.
 #' @return A `pkgcheck` object detailing all package assessments automatically
