@@ -213,7 +213,7 @@ copy this directly to your local clipboard with `write_clip(md)`, where
 
 ## Caching and running `pkgcheck` in the background
 
-Running the [`pgkcheck`
+Running the [`pkgcheck`
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 can be time-consuming, primarily because the
 [`goodpractice`](https://docs.ropensci.org/goodpractice) component runs
