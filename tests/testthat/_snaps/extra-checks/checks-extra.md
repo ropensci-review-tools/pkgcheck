@@ -133,7 +133,7 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 |rel_whitespace_tests    |    27|       64.5|           |
 |doclines_per_fn_exp     |    31|       36.1|           |
 |doclines_per_fn_not_exp |     0|        0.0|TRUE       |
-|fn_call_network_size    |   104|       79.8|           |
+|fn_call_network_size    |   111|       80.8|           |
 
 ---
 
