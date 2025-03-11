@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.2.122",
+  "version": "0.1.2.123",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.1 (2024-06-14)",
+  "runtimePlatform": "R version 4.4.3 (2025-02-28)",
   "author": [
     {
       "@type": "Person",
@@ -221,7 +221,7 @@
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://github.com/mangothecat/goodpractice"
+      "sameAs": "https://CRAN.R-project.org/package=goodpractice"
     },
     "10": {
       "@type": "SoftwareApplication",
@@ -350,12 +350,17 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "259.412KB",
+  "fileSize": "290.989KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
   "contIntegration": [
     "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3Apush-to-gitlab",
     "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
   ],
-  "developmentStatus": "https://www.repostatus.org/#concept"
+  "developmentStatus": "https://www.repostatus.org/#active",
+  "keywords": [
+    "compliance-automation",
+    "r",
+    "software-analysis",
+    "software-checking"
+  ]
 }
