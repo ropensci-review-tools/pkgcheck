@@ -258,7 +258,7 @@ ENV CI="true"
 ENV ROPENSCI="true"
 
 # cmdstan path
-ENV CMDSTAN_PATH="${HOME}/.cmdstan"
+ENV CMDSTAN_PATH="/root/.cmdstan"
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
