@@ -16,7 +16,7 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: Some statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 - :heavy_multiplication_x: Statistical standards should be documented in most package files, yet are mostly only documented in one file.
-- :eyes: Package has unusually large number of 21 Imports (> 99% of all packages)
+- :eyes: Package has unusually large number of 21 Imports (> 98% of all packages)
 
 **Important:** All failing checks above must be addressed prior to proceeding
 
