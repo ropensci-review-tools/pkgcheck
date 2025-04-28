@@ -591,7 +591,10 @@ render_md2html <- function (md, open = TRUE) {
     f_html <- paste0 (f, ".html")
     writeLines (md, con = f_md)
 
-    output_fmt <- rmarkdown::html_document (pandoc_args = list ("--wrap=preserve"))
+    output_fmt <- rmarkdown::html_document (
+        mathjax = NULL,
+        pandoc_args = list ("--wrap=preserve")
+    )
 
     rmarkdown::render (f_md, output_format = output_fmt, output_file = f_html)
 
