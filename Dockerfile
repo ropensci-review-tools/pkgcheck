@@ -257,6 +257,9 @@ ENV NOT_CRAN="true"
 ENV CI="true"
 ENV ROPENSCI="true"
 
+# cmdstan path
+ENV CMDSTAN_PATH="/root/.cmdstan"
+
 # A selection of R packages, including extra stats packages
 RUN install2.r \
   arrow \
@@ -269,6 +272,7 @@ RUN install2.r \
   goodpractice \
   lme4 \
   mgcv \
+  rstan \
   Rcpp \
   RcppArmadillo \
   RcppEigen \
@@ -289,6 +293,13 @@ RUN install2.r \
 # This is the format needed to install from GitHub:
 # RUN --mount=type=secret,id=GITHUB_PAT,env=GITHUB_PAT installGithub.r \
 #     ropensci-review-tools/goodpractice
+
+# Install cmdstanr from GitHub
+RUN --mount=type=secret,id=GITHUB_PAT,env=GITHUB_PAT installGithub.r \
+     stan-dev/cmdstanr
+
+# Install cmdstan
+RUN Rscript -e 'cmdstanr::check_cmdstan_toolchain(fix = TRUE); cmdstanr::install_cmdstan()'
 
 # Created in /root/.virtualenvs/r-reticulate:
 RUN Rscript -e 'reticulate::virtualenv_create()'
