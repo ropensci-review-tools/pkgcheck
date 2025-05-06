@@ -14,6 +14,27 @@ pkgchk_srr <- function (checks) {
     checks$info$srr$okay
 }
 
+output_pkgchk_srr_okay <- function (checks) {
+
+    srr_okay <- "srr" %in% names (checks$info)
+    if (srr_okay) {
+        srr_okay <- checks$info$srr$okay
+    }
+    out <- list (
+        check_pass = srr_okay,
+        summary = "",
+        print = ""
+    )
+    if (out$check_pass) {
+        out$summary <- paste0 (
+            "This is a statisitcal package which ",
+            "complies with all applicable standards"
+        )
+    }
+
+    return (out)
+}
+
 output_pkgchk_srr_todo <- function (checks) {
 
     out <- list (
