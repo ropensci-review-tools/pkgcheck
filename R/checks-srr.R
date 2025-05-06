@@ -9,7 +9,7 @@
 #' to confirm that compliance with all relevant standards has been documented.
 #'
 #' @noRd
-pkgchk_srr <- function (checks) {
+pkgchk_srr_okay <- function (checks) {
 
     checks$info$srr$okay
 }
