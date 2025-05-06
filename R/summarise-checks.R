@@ -120,6 +120,7 @@ order_checks <- function (fns) {
         "fns_have_return_vals",
         "uses_roxygen2",
         "pkgdown",
+        "has_orcid",
         "has_url",
         "has_bugs",
         "has_vignette",

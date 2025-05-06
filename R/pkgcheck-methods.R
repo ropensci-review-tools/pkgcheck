@@ -75,6 +75,7 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
         print_check_screen (x, "renv_activated", pkg_env)
         print_check_screen (x, "branch_is_master", pkg_env)
         print_check_screen (x, "obsolete_pkg_deps", pkg_env)
+        print_check_screen (x, "has_orcid", pkg_env)
     }
 
     # additional external checks:
