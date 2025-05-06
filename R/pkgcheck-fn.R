@@ -248,7 +248,7 @@ collate_checks <- function (checks) {
 
     pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
     check_fns <- grep ("^pkgchk\\_", pkg_fns, value = TRUE)
-    exclude_these <- "ci\\_badges|srr"
+    exclude_these <- "ci\\_badges"
     check_fns <- check_fns [which (!grepl (exclude_these, check_fns))]
 
     res <- lapply (check_fns, function (i) {

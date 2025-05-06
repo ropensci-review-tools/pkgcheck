@@ -29,6 +29,11 @@ test_that ("extra checks", {
     # Then fake the extra checks for the output methods:
     checks$checks$has_scrap <- c ("a", "b")
     checks$checks$obsolete_pkg_deps <- c ("blah", "sp", "rgdal")
+    checks$info$srr <- list (
+        message = "srr message",
+        okay = TRUE
+    )
+    checks$checks$srr_okay <- TRUE
 
     md <- checks_to_markdown (checks)
 
