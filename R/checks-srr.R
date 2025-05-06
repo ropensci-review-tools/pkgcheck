@@ -27,7 +27,7 @@ output_pkgchk_srr_okay <- function (checks) {
     )
     if (out$check_pass) {
         out$summary <- paste0 (
-            "This is a statisitcal package which ",
+            "This is a statistical package which ",
             "complies with all applicable standards"
         )
     }
