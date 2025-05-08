@@ -7,19 +7,16 @@ pkgchk_has_orcid <- function (checks) {
     stringsAsFactors = FALSE
 )
   authors <- eval (str2lang (desc$Authors.R))
-  #TODO only apply this to authors that aren't institutions
-  has_orcid <- sapply(authors, function(x) !is.null(x$comment["ORCID"]))
+  authors <- authors[!is_institution (authors)]
+  
+  has_orcid <- sapply (authors, function (x) {
+      !is.null (x$comment["ORCID"])
+  })
 
-  names(has_orcid) <- sapply(authors, function(x) paste(x$given, x$family))
+  names (has_orcid) <- sapply (authors, function(x) paste (x$given, x$family))
 
-  return(has_orcid)
-
+  return (has_orcid)
 }
-
-is_institution <- function (person) {
-  is.null(person$family) & person$role %in% c ( "cph", "fnd")
-}
-
 
 output_pkgchk_has_orcid <- function (checks) {
   out <- list (
@@ -40,4 +37,53 @@ output_pkgchk_has_orcid <- function (checks) {
   }
   
   return (out)
+}
+
+
+pkgchk_has_roi <- function (checks) {
+
+  desc <- data.frame (
+    read.dcf (fs::path (
+        checks$pkg$path,
+        "DESCRIPTION"
+    )),
+    stringsAsFactors = FALSE
+)
+  authors <- eval (str2lang (desc$Authors.R))
+  institutions <- authors[is_institution (authors)]
+  
+
+  has_roi <- sapply (institutions, function (x) {
+      !is.null (x$comment["ROI"])
+  })
+
+  names (has_roi) <- sapply (institutions, function(x) x$given)
+
+  return(has_roi)
+
+}
+
+output_pkgchk_has_roi <- function (checks) {
+  out <- list (
+    check_pass = all (checks$checks$has_roi),
+    summary = "All instutions have ROIs",
+    print = ""
+  )
+  
+  if (!out$check_pass) {
+    out$summary <- "Not all institutions have ROIs"
+    out$print <- list (
+      msg_pre = paste0 (
+        "The following institutions are missing ROIs:"
+      ),
+      obj = names (checks$checks$has_roi)[!checks$checks$has_roi],
+      msg_post = character (0)
+    )
+  }
+  
+  return (out)
+}
+
+is_institution <- function (person) {
+  is.null (person$family) & person$role %in% c ( "cph", "fnd")
 }
