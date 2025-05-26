@@ -83,6 +83,9 @@ summarise_all_checks <- function (checks) {
 summarise_extra_env_checks <- function (checks) {
 
     extra_env <- options ("pkgcheck_extra_env") [[1]]
+    if (is.null (extra_env)) {
+        return (NULL)
+    }
     if (!is.list (extra_env)) {
         extra_env <- list (extra_env)
     }

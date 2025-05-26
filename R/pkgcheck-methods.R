@@ -378,6 +378,13 @@ print_check_md <- function (checks, what, pkg_env) {
 extra_check_prints_from_env <- function (checks) {
 
     extra_env <- options ("pkgcheck_extra_env") [[1]]
+    if (is.null (extra_env)) {
+        return (list (
+            env = NULL,
+            prints = NULL
+        ))
+    }
+
     if (!is.list (extra_env)) {
         extra_env <- list (extra_env)
     }
