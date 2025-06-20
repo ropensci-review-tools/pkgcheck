@@ -121,7 +121,7 @@ order_checks <- function (fns) {
         "uses_roxygen2",
         "pkgdown",
         "has_orcid",
-        "has_roi",
+        "has_ror",
         "has_url",
         "has_bugs",
         "has_vignette",
@@ -156,7 +156,9 @@ watch_checks <- function (output_fns) {
     watch_list <- c (
         "obsolete_pkg_deps",
         "unique_fn_names",
-        "num_imports"
+        "num_imports",
+        "has_orcid",
+        "has_ror"
     )
 
     all_checks [which (all_checks %in% watch_list)]
