@@ -72,6 +72,7 @@ pkgchk_has_ror <- function (checks) {
 
   names (has_ror) <- sapply (institutions, function(x) x$given)
 
+  # TODO check if this works with length 0 vector (i.e. no institutions in author list)
   return(has_ror)
 
 }
@@ -79,7 +80,7 @@ pkgchk_has_ror <- function (checks) {
 output_pkgchk_has_ror <- function (checks) {
   out <- list (
     check_pass = all (checks$checks$has_ror),
-    summary = "All instutions have RORs",
+    summary = "",
     print = ""
   )
   
