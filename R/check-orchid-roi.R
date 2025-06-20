@@ -40,7 +40,7 @@ output_pkgchk_has_orcid <- function (checks) {
 }
 
 
-pkgchk_has_roi <- function (checks) {
+pkgchk_has_ror <- function (checks) {
 
   desc <- data.frame (
     read.dcf (fs::path (
@@ -53,30 +53,30 @@ pkgchk_has_roi <- function (checks) {
   institutions <- authors[is_institution (authors)]
   
 
-  has_roi <- sapply (institutions, function (x) {
-      !is.null (x$comment["ROI"])
+  has_ror <- sapply (institutions, function (x) {
+      !is.null (x$comment["ROR"])
   })
 
-  names (has_roi) <- sapply (institutions, function(x) x$given)
+  names (has_ror) <- sapply (institutions, function(x) x$given)
 
-  return(has_roi)
+  return(has_ror)
 
 }
 
-output_pkgchk_has_roi <- function (checks) {
+output_pkgchk_has_ror <- function (checks) {
   out <- list (
-    check_pass = all (checks$checks$has_roi),
-    summary = "All instutions have ROIs",
+    check_pass = all (checks$checks$has_ror),
+    summary = "All instutions have RORs",
     print = ""
   )
   
   if (!out$check_pass) {
-    out$summary <- "Not all institutions have ROIs"
+    out$summary <- "Not all institutions have RORs"
     out$print <- list (
       msg_pre = paste0 (
-        "The following institutions are missing ROIs:"
+        "The following institutions are missing RORs:"
       ),
-      obj = names (checks$checks$has_roi)[!checks$checks$has_roi],
+      obj = names (checks$checks$has_ror)[!checks$checks$has_ror],
       msg_post = character (0)
     )
   }
