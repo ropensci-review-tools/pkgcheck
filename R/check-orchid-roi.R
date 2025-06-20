@@ -1,5 +1,5 @@
 #' Check if authors have ORCID IDs
-#' 
+#'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
 #' @return Names of any items which should not be present; otherwise an empty
@@ -8,21 +8,29 @@
 pkgchk_has_orcid <- function (checks) {
   desc <- data.frame (
     read.dcf (fs::path (
-        checks$pkg$path,
-        "DESCRIPTION"
+      checks$pkg$path,
+      "DESCRIPTION"
     )),
     stringsAsFactors = FALSE
-)
+  )
   authors <- eval (str2lang (desc$Authors.R))
-  authors <- authors[!is_institution (authors)]
-  
-  #TODO use vapply instead of sapply
-  has_orcid <- sapply (authors, function (x) {
-      !is.null (x$comment["ORCID"])
-  })
+  authors <- authors [!is_institution (authors)]
 
-  #TODO use vapply instead of sapply
-  names (has_orcid) <- sapply (authors, function(x) paste (x$given, x$family))
+  has_orcid <- vapply (
+    authors,
+    function (x) {
+      !is.null (x$comment ["ORCID"])
+    },
+    FUN.VALUE = TRUE
+  )
+
+  names (has_orcid) <- vapply (
+    authors,
+    function (x) {
+      paste (x$given, x$family)
+    },
+    FUN.VALUE = "a"
+  )
 
   return (has_orcid)
 }
@@ -67,28 +75,32 @@ pkgchk_has_ror <- function (checks) {
   authors <- eval (str2lang (desc$Authors.R))
   institutions <- authors[is_institution (authors)]
   
-  #TODO use vapply instead of sapply
-  has_ror <- sapply (institutions, function (x) {
+  has_ror <- vapply (
+    institutions,
+    function (x) {
       !is.null (x$comment["ROR"])
-  })
+    },
+    FUN.VALUE = TRUE
+  )
 
-  #TODO use vapply instead of sapply
-  names (has_ror) <- sapply (institutions, function(x) x$given)
-
-  # TODO check if this works with length 0 vector (i.e. no institutions in author list)
+  names (has_ror) <- vapply (
+    institutions,
+    function(x) x$given,
+    FUN.VALUE = "a"
+  )
+  
   return(has_ror)
-
 }
 
 output_pkgchk_has_ror <- function (checks) {
   out <- list (
-    check_pass = all (checks$checks$has_ror),
-    summary = "",
+    check_pass = all (checks$checks$has_ror), #safe because all(list()) returns TRUE
+    summary = "", #silent if passing, since most packages won't have institutions as authors
     print = ""
   )
   
   if (!out$check_pass) {
-    out$summary <- "Not all institutions have RORs"
+    out$summary <- "Institutions listed as authors without RORs"
     out$print <- list (
       msg_pre = paste0 (
         "The following institutions are missing RORs:"
