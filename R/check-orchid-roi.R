@@ -1,4 +1,4 @@
-#' Check if authors have ORCIDs
+#' Check if authors have ORCID IDs
 #' 
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
@@ -16,10 +16,12 @@ pkgchk_has_orcid <- function (checks) {
   authors <- eval (str2lang (desc$Authors.R))
   authors <- authors[!is_institution (authors)]
   
+  #TODO use vapply instead of sapply
   has_orcid <- sapply (authors, function (x) {
       !is.null (x$comment["ORCID"])
   })
 
+  #TODO use vapply instead of sapply
   names (has_orcid) <- sapply (authors, function(x) paste (x$given, x$family))
 
   return (has_orcid)
@@ -28,15 +30,15 @@ pkgchk_has_orcid <- function (checks) {
 output_pkgchk_has_orcid <- function (checks) {
   out <- list (
     check_pass = all (checks$checks$has_orcid),
-    summary = "All authors have ORCIDs",
+    summary = "All authors have ORCID IDs",
     print = ""
   )
   
   if (!out$check_pass) {
-    out$summary <- "Not all authors have ORCIDs"
+    out$summary <- "Not all authors have ORCID IDs"
     out$print <- list (
       msg_pre = paste0 (
-        "The following authors are missing ORCIDs:"
+        "The following authors are missing ORCID IDs:"
       ),
       obj = names (checks$checks$has_orcid)[!checks$checks$has_orcid],
       msg_post = character (0)
@@ -65,11 +67,12 @@ pkgchk_has_ror <- function (checks) {
   authors <- eval (str2lang (desc$Authors.R))
   institutions <- authors[is_institution (authors)]
   
-
+  #TODO use vapply instead of sapply
   has_ror <- sapply (institutions, function (x) {
       !is.null (x$comment["ROR"])
   })
 
+  #TODO use vapply instead of sapply
   names (has_ror) <- sapply (institutions, function(x) x$given)
 
   # TODO check if this works with length 0 vector (i.e. no institutions in author list)
