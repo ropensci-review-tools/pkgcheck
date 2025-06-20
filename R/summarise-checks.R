@@ -121,6 +121,7 @@ order_checks <- function (fns) {
         "uses_roxygen2",
         "pkgdown",
         "has_orcid",
+        "has_roi",
         "has_url",
         "has_bugs",
         "has_vignette",
