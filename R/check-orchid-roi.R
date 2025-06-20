@@ -1,3 +1,10 @@
+#' Check if authors have ORCIDs
+#' 
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
+#' @return Names of any items which should not be present; otherwise an empty
+#' character.
+#' @noRd
 pkgchk_has_orcid <- function (checks) {
   desc <- data.frame (
     read.dcf (fs::path (
@@ -39,7 +46,13 @@ output_pkgchk_has_orcid <- function (checks) {
   return (out)
 }
 
-
+#' Check if instutitions (if there are any) have RORs
+#' 
+#' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
+#' \pkg{goodpractice} results.
+#' @return Names of any items which should not be present; otherwise an empty
+#' character.
+#' @noRd
 pkgchk_has_ror <- function (checks) {
 
   desc <- data.frame (
@@ -84,6 +97,7 @@ output_pkgchk_has_ror <- function (checks) {
   return (out)
 }
 
+# Helper function to determine if an author is an institution
 is_institution <- function (person) {
   is.null (person$family) & person$role %in% c ( "cph", "fnd")
 }
