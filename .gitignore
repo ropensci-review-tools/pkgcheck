@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+.Renviron
 inst/doc
 inst/WORDLIST
 aaa\.Rmd*
