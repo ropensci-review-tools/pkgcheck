@@ -4,6 +4,7 @@ test_that ("use_github_action_pkgcheck", {
     # nolint start
     expect_snapshot_error (use_github_action_pkgcheck (file_name = 23))
     expect_snapshot_error (use_github_action_pkgcheck (file_name = c ("some", "files")))
+    # nolint end
 
     dir.create (dir, recursive = TRUE)
     path <- fs::path (dir, "pkgcheck.yaml")
@@ -22,12 +23,17 @@ test_that ("use_github_action_pkgcheck", {
 
     expect_snapshot_file (path)
     expect_snapshot_file (
-        use_github_action_pkgcheck (dir = dir,
-                                    file_name = "with_inputs.yaml",
-                                    branch = "main",
-                                    inputs = list (`post-to-issue` = "true",
-                                                   `summary-only` = "false",
-                                                   ref = "main")))
+        use_github_action_pkgcheck (
+            dir = dir,
+            file_name = "with_inputs.yaml",
+            branch = "main",
+            inputs = list (
+                `post-to-issue` = "true",
+                `summary-only` = "false",
+                ref = "main"
+            )
+        )
+    )
 
 })
 
