@@ -214,7 +214,7 @@ extract_gp_components <- function (gp) {
         cyclocomp = cyc,
         lint = lints
     )
-    res <- res [which (vapply (res, length, integer (1)) > 0)]
+    res <- res [which (lengths (res) > 0)]
 }
 
 #' Convert \pkg{goodpractice} components into templated report

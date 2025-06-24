@@ -396,7 +396,7 @@ extra_check_prints_from_env <- function (checks) {
         output_fns [which (output_fns %in% names (checks$checks))]
     })
 
-    lens <- vapply (extra_prints, length, integer (1))
+    lens <- lengths (extra_prints)
     extra_prints <- extra_prints [which (lens > 0L)]
     extra_env <- extra_env [which (lens > 0L)]
 
