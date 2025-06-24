@@ -120,7 +120,7 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
         return (assigns)
     }
 
-    for (i in seq (nrow (tags))) {
+    for (i in seq_len (nrow (tags))) {
 
         f <- file.path (checks$pkg$path, tags$file [i])
         if (!file.exists (f)) {

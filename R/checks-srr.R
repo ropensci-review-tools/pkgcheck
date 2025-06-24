@@ -151,7 +151,7 @@ srr_checks_to_md <- function (checks) {
     }
 
     cat_plural <- ifelse (
-        length (checks$info$srr$categories == 1),
+        length (checks$info$srr$categories) == 1,
         "category",
         "categories"
     )

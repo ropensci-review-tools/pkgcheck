@@ -30,11 +30,11 @@ test_that ("goodpractice", {
     gp <- summarise_gp_checks (checks)
     expect_type (gp, "list")
     expect_length (gp, 2L)
-    expect_identical (names (gp), c ("rcmd_errs", "rcmd_warns"))
+    expect_named (gp, c ("rcmd_errs", "rcmd_warns"))
 
     md <- gp_checks_to_md (checks)
     expect_type (md, "character")
-    expect_true (length (md) > 10L)
+    expect_gt (length (md), 10L)
     expect_true (any (grepl ("`goodpractice` results", md)))
     expect_true (any (grepl ("R CMD check", md)))
     # expect_true (any (grepl ("Test Coverage", md)))

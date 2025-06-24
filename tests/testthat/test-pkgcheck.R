@@ -46,7 +46,7 @@ test_that ("pkgcheck", {
         type = "message"
     )
 
-    expect_true (length (x) > 10)
+    expect_gt (length (x), 10)
     expect_true (any (grepl ("srrstats", x)))
 
     expect_output (
@@ -63,14 +63,14 @@ test_that ("pkgcheck", {
     checks$info$badges <- NULL # then fails CI checks
 
     items <- c ("pkg", "info", "checks", "meta")
-    expect_identical (names (checks), items)
+    expect_named (checks, items)
 
     items <- c (
         "name", "path", "version", "url", "BugReports",
         "license", "summary", "dependencies", "external_calls",
         "external_fns"
     )
-    expect_identical (names (checks$pkg), items)
+    expect_named (checks$pkg, items)
 
     items <- c (
         "fn_names",
@@ -86,7 +86,7 @@ test_that ("pkgcheck", {
     md <- checks_to_markdown (checks, render = FALSE)
 
     a <- attributes (md)
-    expect_true (length (a) > 0L)
+    expect_gt (length (a), 0L)
     expect_true (
         all (c (
             "checks_okay",
