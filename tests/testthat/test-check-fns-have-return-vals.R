@@ -1,4 +1,4 @@
-test_that ("check default branch", {
+test_that ("check fns have return values", {
 
     checks <- make_check_data ()
 
@@ -18,6 +18,7 @@ test_that ("check default branch", {
     # Only 1 fn, so text is singular:
     checks$checks$fns_have_return_vals <-
         checks$checks$fns_have_return_vals [1L]
+    ci_out <- output_pkgchk_fns_have_return_vals (checks)
     expect_false (ci_out$check_pass)
     expect_true (grepl (
         "^The following function has no documented return value",

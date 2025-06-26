@@ -1,4 +1,4 @@
-test_that ("check default branch", {
+test_that ("check functions have exs", {
 
     checks <- make_check_data ()
 

@@ -1,4 +1,4 @@
-test_that ("check default branch", {
+test_that ("check license", {
 
     checks <- make_check_data ()
 
