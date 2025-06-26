@@ -23,5 +23,5 @@ test_that ("check covr", {
     checks$goodpractice$covr <- list (pct_by_line = 92.3456)
     ci_out <- output_pkgchk_covr (checks)
     expect_true (ci_out$check_pass)
-    expect_equal (ci_out$summary, "Package coverage is 92.3%")
+    expect_equal (ci_out$summary, "Package coverage is 92.3%.")
 })
