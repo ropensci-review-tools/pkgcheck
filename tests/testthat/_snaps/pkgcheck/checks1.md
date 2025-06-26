@@ -1,4 +1,4 @@
-## Checks for [testpkgchecknotapkg (v0.0.0.9000)]()
+## Checks for [testpkgwithgp (v0.0.0.9000)]()
 
 git hash: [](/tree/)
 
@@ -12,16 +12,15 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [test_fn].
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
+- :heavy_multiplication_x: Package coverage failed
 - :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
 - :heavy_multiplication_x: Some statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 - :heavy_multiplication_x: Statistical standards should be documented in most package files, yet are mostly only documented in one file.
-- :eyes: Package has unusually large number of 21 Imports (> 98% of all packages)
+- :heavy_check_mark: R CMD check found no errors.
+- :heavy_check_mark: R CMD check found no warnings.
 
 **Important:** All failing checks above must be addressed prior to proceeding
-
-(Checks marked with :eyes: may be optionally addressed.)
-
 
 Package License: GPL-3
 
@@ -145,7 +144,7 @@ Statistical standards should be documented in most package files, yet are mostly
 
 
 
-Click to see the [report of author-reported standards compliance of the package with links to associated lines of code](report.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
+Click to see the [report of author-reported standards compliance of the package with links to associated lines of code](/tmp/Rtempdir/pkgcheck/static/testpkgwithgp_srr2000-01-01.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
 
 ---
 
@@ -160,26 +159,6 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 
 |type       |package  | ncalls|
 |:----------|:--------|------:|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
 |imports    |Rcpp     |     NA|
 |suggests   |testthat |     NA|
 |linking_to |Rcpp     |     NA|
@@ -210,7 +189,7 @@ The package has:
 - 1 authors
 - no  vignette
 - no internal data file
-- 21 imported packages
+- 1 imported package
 - 1 exported function (median 3 lines of code)
 - 2 non-exported functions in R (median 3 lines of code)
 - 2 R functions (median 5 lines of code)
@@ -264,13 +243,48 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 
 ### 3a. Network visualisation
 
-An interactive visualisation of calls between objects in the package has been uploaded as a workflow artefact. To view it, click on results from the [latest 'pkgcheck' action](network.html), scroll to the bottom, and click on the 'visual-network' artefact.
+Click to see the [interactive network visualisation of calls between objects in package](network.html)
 
 ---
 
 ### 4. `goodpractice` and other checks
 
-('goodpractice' not included with these checks)
+<details>
+<summary>Details of goodpractice checks (click to open)</summary>
+<p>
+
+
+
+---
+
+
+#### 3b. `goodpractice` results
+
+
+#### `R CMD check` with [rcmdcheck](https://r-lib.github.io/rcmdcheck/)
+
+R CMD check generated the following check_fails:
+
+1. description_url
+2. description_bugreports
+
+
+#### Test coverage with [covr](https://covr.r-lib.org/)
+
+ERROR: Test Coverage Failed
+
+#### Cyclocomplexity with [cyclocomp](https://github.com/MangoTheCat/cyclocomp)
+
+No functions have cyclocomplexity >= 15
+
+#### Static code analyses with [lintr](https://github.com/jimhester/lintr)
+
+[lintr](https://github.com/jimhester/lintr) found no issues with this package!
+
+
+
+</p>
+</details>
 
 ---
 

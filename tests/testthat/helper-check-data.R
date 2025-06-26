@@ -29,10 +29,8 @@ make_check_data_srr_internal <- function (goodpractice = FALSE) {
     withr::local_envvar (list ("GITHUB_ACTIONS" = "true"))
     withr::local_envvar (list ("GITHUB_REPOSITORY" = "org/repo"))
 
-
     pkgname <- paste0 (
-        sample (c (letters, LETTERS), 8),
-        collapse = ""
+        "testpkg", ifelse (goodpractice, "with", "no"), "gp"
     )
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
 

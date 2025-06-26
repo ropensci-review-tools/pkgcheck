@@ -23,6 +23,9 @@ edit_markdown <- function (md, print_method = FALSE) {
     md <- change_pkg_vers (md, "pkgcheck")
     md <- change_pkg_vers (md, "srr")
 
+    i <- grep ("Click to see.*static", md)
+    md [i] <- edit_temp_path_date_time (md [i])
+
     if (print_method) {
 
         # change path to visjs html file when generated locally:
@@ -103,6 +106,9 @@ edit_html <- function (f) {
 
     h <- h [index]
 
+    i <- grep ("Click to see.*static", h)
+    h [i] <- edit_temp_path_date_time (h [i])
+
     # some machines/systems split `<summary>` items across multiple lines,
     # others concatenate, so concanate all regardless:
     i <- grep ("^<summary.*>$", h)
@@ -138,4 +144,19 @@ edit_html <- function (f) {
     }
 
     writeLines (h, con = f)
+}
+
+edit_temp_path_date_time <- function (txt_line) {
+
+    # Standardise date-time inserted by srr for network diagram link:
+    ptn_ymd <- "[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}"
+    ptn_hms <- "[0-9]{2}\\:[0-9]{2}\\:[0-9]+\\.[0-9]+"
+    ptn <- paste0 ("srr", ptn_ymd, "\\-", ptn_hms)
+    txt_line <- gsub (ptn, "srr2000-01-01", txt_line)
+
+    # And network diagram path includes tempdir, so standardised that:
+    ptn <- paste0 (
+        "tmp", .Platform$file.sep, "Rtempdir", .Platform$file.sep, "pkgcheck"
+    )
+    gsub ("tmp.*pkgcheck", ptn, txt_line)
 }
