@@ -35,6 +35,7 @@ test_that ("use_github_action_pkgcheck", {
         )
     )
 
+    fs::dir_delete (fs::path_dir (dir))
 })
 
 test_that ("yaml branch", {

@@ -44,4 +44,5 @@ test_that ("pkgcheck_bg() works", {
     ) [3]
 
     # expect_true (pt2 < pt1) # not always fulfilled
+    fs::dir_delete (d)
 })

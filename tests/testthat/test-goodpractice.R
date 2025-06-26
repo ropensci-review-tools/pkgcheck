@@ -44,4 +44,6 @@ test_that ("goodpractice", {
     gp <- summarise_gp_checks (checks)
     expect_null (gp$rcmd_warns)
     expect_true (grepl ("R CMD check process failed", gp$rcmd_errs))
+
+    fs::dir_delete (d)
 })

@@ -106,19 +106,21 @@ test_that ("pkgcheck", {
     md <- edit_markdown (md) # from clean-snapshots.R
 
     md_dir <- withr::local_tempdir ()
-    writeLines (md, con = file.path (md_dir, "checks.md"))
+    f_md <- file.path (md_dir, "checks.md")
+    writeLines (md, con = f_md)
 
     # Redact out variable git hashes:
     testthat::expect_snapshot_file (file.path (md_dir, "checks.md"))
 
     h <- render_md2html (md, open = FALSE)
-    f <- file.path (md_dir, "checks.html")
-    file.rename (h, f)
+    f_html <- file.path (md_dir, "checks.html")
+    file.rename (h, f_html)
     edit_html (f) # from clean-snapshots.R
 
     testthat::expect_snapshot_file (f)
 
     fs::dir_delete (d)
+    fs::file_delete (c (f_md, f_html))
 })
 
 test_that ("pkgcheck without goodpractice", {
