@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.2.137",
+  "version": "0.1.2.147",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.3 (2025-02-28)",
+  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
   "author": [
     {
       "@type": "Person",
@@ -69,6 +69,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "memoise",
+      "name": "memoise",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=memoise"
     },
     {
       "@type": "SoftwareApplication",
@@ -350,7 +362,7 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "290.989KB",
+  "fileSize": "312.582KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
   "contIntegration": [
     "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
