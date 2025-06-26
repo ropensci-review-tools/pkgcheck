@@ -2,14 +2,15 @@ requireNamespace ("memoise", quietly = TRUE)
 
 make_check_data_internal <- function () {
 
-    withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
-    withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
-    withr::local_envvar (list (
-        "PKGCHECK_CACHE_DIR" =
-            file.path (tempdir (), "pkgcheck")
-    ))
-    withr::local_envvar (list ("GITHUB_ACTIONS" = "true"))
-    withr::local_envvar (list ("GITHUB_REPOSITORY" = "org/repo"))
+    withr::local_envvar (
+        list (
+            "PKGCHECK_SRR_REPORT_FILE" = "report.html",
+            "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
+            "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
+            "GITHUB_ACTIONS" = "true",
+            "GITHUB_REPOSITORY" = "org/repo"
+        )
+    )
 
     f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
     path <- pkgstats::extract_tarball (f)
@@ -20,14 +21,15 @@ make_check_data <- memoise::memoise (make_check_data_internal)
 
 make_check_data_srr_internal <- function (goodpractice = FALSE) {
 
-    withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
-    withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
-    withr::local_envvar (list (
-        "PKGCHECK_CACHE_DIR" =
-            file.path (tempdir (), "pkgcheck")
-    ))
-    withr::local_envvar (list ("GITHUB_ACTIONS" = "true"))
-    withr::local_envvar (list ("GITHUB_REPOSITORY" = "org/repo"))
+    withr::local_envvar (
+        list (
+            "PKGCHECK_SRR_REPORT_FILE" = "report.html",
+            "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
+            "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
+            "GITHUB_ACTIONS" = "true",
+            "GITHUB_REPOSITORY" = "org/repo"
+        )
+    )
 
     pkgname <- paste0 (
         "testpkg", ifelse (goodpractice, "with", "no"), "gp"

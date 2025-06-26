@@ -141,7 +141,7 @@ Statistical standards should be documented in most package files, yet are mostly
 
 
 
-Click to see the [report of author-reported standards compliance of the package with links to associated lines of code](/tmp/Rtempdir/pkgcheck/static/testpkgnogp_srr2000-01-01.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
+Click to see the [report of author-reported standards compliance of the package with links to associated lines of code](report.html), which can be re-generated locally by running the [`srr_report()` function](https://docs.ropensci.org/srr/reference/srr_report.html) from within a local clone of the repository.
 
 ---
 

@@ -6,6 +6,19 @@ skip_if (!test_all)
 
 test_that ("pkgcheck", {
 
+    # need to repeat envvar setting here because they affect output of
+    # 'checks_to_markdown()':
+    withr::local_envvar (
+        list (
+            "PKGCHECK_SRR_REPORT_FILE" = "report.html",
+            "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
+            "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
+            "GITHUB_ACTIONS" = "true",
+            "GITHUB_REPOSITORY" = "org/repo"
+        )
+    )
+
+
     checks0 <- make_check_data_srr (goodpractice = FALSE)
     checks1 <- make_check_data_srr (goodpractice = TRUE)
 
