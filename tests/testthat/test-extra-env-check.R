@@ -1,8 +1,8 @@
-test_that ("pkgcheck", {
+test_that ("pkgcheck with extra env", {
 
     skip_on_os ("windows")
 
-    chk0 <- make_check_data_srr ()
+    chk0 <- make_check_data_srr (goodpractice = FALSE)
 
     nchks0 <- length (chk0$checks)
     md0 <- checks_to_markdown (chk0, render = FALSE)
