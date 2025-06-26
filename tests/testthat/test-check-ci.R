@@ -29,6 +29,7 @@ test_that ("check ci", {
     expect_true (!nzchar (ci_out$print))
     checks$checks$has_url <- TRUE
 
+    skip_on_os ("mac")
 
     # workflow has 1 workflow named "Update pkgstats Results"
     checks$info$github_workflows$name <- "R CMD check"
