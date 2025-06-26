@@ -37,9 +37,9 @@ output_pkgchk_ci <- function (checks) {
 
     } else {
 
-        out$summary <- "Package has continuous integration checks."
+        out$summary <- " Package has continuous integration checks."
         if (!has_badges) {
-            checks$summary <-
+            out$summary <-
                 gsub ("\\.$", ", but no badges on README", out$summary)
             checks$info$badges <- "(There do not appear to be any)"
         } else {
