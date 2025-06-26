@@ -21,7 +21,7 @@ test_that ("check ci", {
     expect_equal (
         ci_out$summary,
         paste0 (
-            " Continuous integration checks unavailable ",
+            "Continuous integration checks unavailable ",
             "(no URL in 'DESCRIPTION')."
         )
     )
