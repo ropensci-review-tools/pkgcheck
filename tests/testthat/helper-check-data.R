@@ -39,7 +39,15 @@ make_check_data_srr_internal <- function (goodpractice = FALSE) {
         type = "message"
     )
 
-    pkgcheck (d, goodpractice = goodpractice, use_cache = FALSE)
+    checks <- pkgcheck (d, goodpractice = goodpractice, use_cache = FALSE)
+    if (goodpractice) {
+        class (checks$goodpractice$covr) <- c (
+            "try-error",
+            class (checks$goodpractice$covr)
+        )
+    }
+
+    return (checks)
 }
 
 make_check_data_srr <- memoise::memoise (make_check_data_srr_internal)
