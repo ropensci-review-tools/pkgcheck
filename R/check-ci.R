@@ -22,7 +22,7 @@ output_pkgchk_ci <- function (checks) {
 
         if (!checks$checks$has_url) {
             out$summary <- paste0 (
-                "Continuous integration checks ",
+                " Continuous integration checks ",
                 "unavailable (no URL in 'DESCRIPTION')."
             )
         } else if (!has_workflows) {
@@ -37,9 +37,9 @@ output_pkgchk_ci <- function (checks) {
 
     } else {
 
-        out$summary <- "Package has continuous integration checks."
+        out$summary <- " Package has continuous integration checks."
         if (!has_badges) {
-            checks$summary <-
+            out$summary <-
                 gsub ("\\.$", ", but no badges on README", out$summary)
             checks$info$badges <- "(There do not appear to be any)"
         } else {
