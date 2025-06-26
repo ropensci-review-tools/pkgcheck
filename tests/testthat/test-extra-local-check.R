@@ -1,4 +1,3 @@
-
 test_that ("pkgcheck", {
 
     skip_on_os ("windows")
@@ -61,4 +60,6 @@ test_that ("pkgcheck", {
     md <- checks_to_markdown (chk1, render = FALSE)
     nchks1_md <- length (grep ("^\\-\\s\\:heavy", md))
     expect_equal (nchks1_md, nchks0_md + 1)
+
+    fs::dir_delete (d)
 })

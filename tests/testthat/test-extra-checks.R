@@ -37,6 +37,8 @@ test_that ("extra checks", {
 
     md <- checks_to_markdown (checks)
 
+    fs::dir_delete (path)
+
     # *****************************************************************
     # ***********************   SNAPSHOT TEST   ***********************
     # *****************************************************************
@@ -44,26 +46,30 @@ test_that ("extra checks", {
     md <- edit_markdown (md) # from clean-snapshots.R
 
     md_dir <- withr::local_tempdir ()
-    writeLines (md, con = file.path (md_dir, "checks-extra.md"))
+    f_md <- fs::path (md_dir, "checks-extra.md")
+    writeLines (md, con = f_md)
 
     testthat::expect_snapshot_file (file.path (md_dir, "checks-extra.md"))
 
     h <- render_md2html (md, open = FALSE)
-    f <- file.path (md_dir, "checks-extra.html")
-    file.copy (h, f)
-    edit_html (f) # from clean-snapshots.R
+    f_html <- file.path (md_dir, "checks-extra.html")
+    file.copy (h, f_html)
+    edit_html (f_html) # from clean-snapshots.R
 
-    testthat::expect_snapshot_file (f)
+    testthat::expect_snapshot_file (f_html)
 
     # Then snapshot tests of print & summary methods
     # This loads goodpractice, so first do that to avoid load message
     requireNamespace ("goodpractice")
-    f <- tempfile (fileext = ".md")
-    x <- capture.output (print (checks), file = f, type = "message")
+    f_tmp <- tempfile (fileext = ".md")
+    x <- capture.output (print (checks), file = f_tmp, type = "message")
 
-    md <- edit_markdown (readLines (f), print_method = TRUE)
+    md <- edit_markdown (readLines (f_tmp), print_method = TRUE)
     md_dir <- withr::local_tempdir ()
-    writeLines (md, con = file.path (md_dir, "checks-print.md"))
+    f_md2 <- fs::path (md_dir, "checks-print.md")
+    writeLines (md, con = f_md2)
 
     testthat::expect_snapshot_file (file.path (md_dir, "checks-print.md"))
+
+    fs::file_delete (c (f_md, f_html, f_tmp, f_md2))
 })
