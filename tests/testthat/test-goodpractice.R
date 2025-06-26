@@ -6,26 +6,7 @@ skip_if (!test_all)
 
 test_that ("goodpractice", {
 
-    withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
-    withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
-    withr::local_envvar (list (
-        "PKGCHECK_CACHE_DIR" =
-            file.path (tempdir (), "pkgcheck")
-    ))
-    withr::local_envvar (list ("GITHUB_ACTIONS" = "true"))
-    withr::local_envvar (list ("GITHUB_REPOSITORY" = "org/repo"))
-
-    pkgname <- paste0 (sample (c (letters, LETTERS), 8), collapse = "")
-    d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
-
-    x <- capture.output (
-        roxygen2::roxygenise (d),
-        type = "message"
-    )
-
-    expect_output (
-        checks <- pkgcheck (d, use_cache = FALSE)
-    )
+    checks <- make_check_data_srr (goodpractice = TRUE)
 
     gp <- summarise_gp_checks (checks)
     expect_type (gp, "list")
@@ -44,6 +25,4 @@ test_that ("goodpractice", {
     gp <- summarise_gp_checks (checks)
     expect_null (gp$rcmd_warns)
     expect_true (grepl ("R CMD check process failed", gp$rcmd_errs))
-
-    fs::dir_delete (d)
 })

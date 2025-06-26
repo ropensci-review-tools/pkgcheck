@@ -9,18 +9,8 @@ testthat::skip_on_os ("mac")
 
 test_that ("extra checks", {
 
-    withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
-    withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
-    withr::local_envvar (list (
-        "PKGCHECK_CACHE_DIR" =
-            file.path (tempdir (), "pkgcheck")
-    ))
-    withr::local_envvar (list ("GITHUB_ACTIONS" = "true"))
-    withr::local_envvar (list ("GITHUB_REPOSITORY" = "org/repo"))
+    checks <- make_check_data ()
 
-    f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
-    path <- pkgstats::extract_tarball (f)
-    checks <- pkgcheck (path, goodpractice = FALSE)
     # Checks on systems without the right API keys may fail checks which rely on
     # URL queries, so these are manually reset here:
     checks$checks$pkgname_available <- TRUE
@@ -36,8 +26,6 @@ test_that ("extra checks", {
     checks$checks$srr_okay <- TRUE
 
     md <- checks_to_markdown (checks)
-
-    fs::dir_delete (path)
 
     # *****************************************************************
     # ***********************   SNAPSHOT TEST   ***********************

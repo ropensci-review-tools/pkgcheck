@@ -153,7 +153,7 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 
 ### 3a. Network visualisation
 
-An interactive visualisation of calls between objects in the package has been uploaded as a workflow artefact. To view it, click on results from the [latest 'pkgcheck' action](network.html), scroll to the bottom, and click on the 'visual-network' artefact.
+Click to see the [interactive network visualisation of calls between objects in package](network.html)
 
 ---
 
