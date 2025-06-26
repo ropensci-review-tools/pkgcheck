@@ -18,7 +18,6 @@ test_that ("pkgcheck", {
         )
     )
 
-
     checks0 <- make_check_data_srr (goodpractice = FALSE)
     checks1 <- make_check_data_srr (goodpractice = TRUE)
 

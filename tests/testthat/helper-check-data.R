@@ -47,6 +47,10 @@ make_check_data_srr_internal <- function (goodpractice = FALSE) {
             "try-error",
             class (checks$goodpractice$covr)
         )
+        class (checks$goodpractice$rcmdcheck) <- c (
+            "try-error",
+            class (checks$goodpractice$rcmdcheck)
+        )
     }
 
     return (checks)

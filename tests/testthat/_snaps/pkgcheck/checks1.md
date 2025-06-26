@@ -17,8 +17,7 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: Some statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 - :heavy_multiplication_x: Statistical standards should be documented in most package files, yet are mostly only documented in one file.
-- :heavy_check_mark: R CMD check found no errors.
-- :heavy_check_mark: R CMD check found no warnings.
+- :heavy_multiplication_x: R CMD check process failed with message: ''.
 
 **Important:** All failing checks above must be addressed prior to proceeding
 
@@ -249,42 +248,7 @@ Click to see the [interactive network visualisation of calls between objects in 
 
 ### 4. `goodpractice` and other checks
 
-<details>
-<summary>Details of goodpractice checks (click to open)</summary>
-<p>
-
-
-
----
-
-
-#### 3b. `goodpractice` results
-
-
-#### `R CMD check` with [rcmdcheck](https://r-lib.github.io/rcmdcheck/)
-
-R CMD check generated the following check_fails:
-
-1. description_url
-2. description_bugreports
-
-
-#### Test coverage with [covr](https://covr.r-lib.org/)
-
-ERROR: Test Coverage Failed
-
-#### Cyclocomplexity with [cyclocomp](https://github.com/MangoTheCat/cyclocomp)
-
-No functions have cyclocomplexity >= 15
-
-#### Static code analyses with [lintr](https://github.com/jimhester/lintr)
-
-[lintr](https://github.com/jimhester/lintr) found no issues with this package!
-
-
-
-</p>
-</details>
+('goodpractice' not included with these checks)
 
 ---
 

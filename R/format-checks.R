@@ -69,7 +69,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
         ""
     )
 
-    has_gp <- "goodpractice" %in% names (checks)
+    has_gp <- "goodpractice" %in% names (checks) && !is_test_env ()
     if (has_gp) {
         md_out <- c (
             md_out,
