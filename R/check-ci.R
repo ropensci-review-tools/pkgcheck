@@ -22,7 +22,7 @@ output_pkgchk_ci <- function (checks) {
 
         if (!checks$checks$has_url) {
             out$summary <- paste0 (
-                " Continuous integration checks ",
+                "Continuous integration checks ",
                 "unavailable (no URL in 'DESCRIPTION')."
             )
         } else if (!has_workflows) {
