@@ -201,15 +201,15 @@
     },
     "7": {
       "@type": "SoftwareApplication",
-      "identifier": "ghql",
-      "name": "ghql",
+      "identifier": "gh",
+      "name": "gh",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=ghql"
+      "sameAs": "https://CRAN.R-project.org/package=gh"
     },
     "8": {
       "@type": "SoftwareApplication",
@@ -360,19 +360,11 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=withr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "312.582KB",
+  "fileSize": "323.926KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
+  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "keywords": [
-    "compliance-automation",
-    "r",
-    "software-analysis",
-    "software-checking"
-  ]
+  "keywords": ["compliance-automation", "r", "software-analysis", "software-checking"]
 }

@@ -1,22 +1,17 @@
-default_branch_qry <- function (gh_cli, org, repo) {
+default_branch_qry <- function (org, repo) {
 
-    q <- paste0 ("{
-            repository(owner:\"", org, "\", name:\"", repo, "\") {
-                       defaultBranchRef {
-                           name
-                       }
-                    }
-            }")
-
-    qry <- ghql::Query$new ()
-    qry$query ("default_branch", q)
-
-    return (qry)
+    paste0 ("{
+        repository(owner:\"", org, "\", name:\"", repo, "\") {
+            defaultBranchRef {
+                name
+            }
+        }
+    }")
 }
 
-commits_qry <- function (gh_cli, org, repo, branch = "main") {
+commits_qry <- function (org, repo, branch = "main") {
 
-    q <- paste0 ("{
+    paste0 ("{
         repository(owner:\"", org, "\", name:\"", repo, "\") {
             branch0: ref(qualifiedName: \"", branch, "\") {
                 target {
@@ -29,19 +24,14 @@ commits_qry <- function (gh_cli, org, repo, branch = "main") {
                                 additions
                                 deletions
                                 authoredDate
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
     }")
-
-    qry <- ghql::Query$new ()
-    qry$query ("get_commits", q)
-
-    return (qry)
 }
 
 #' Get GitHub token
@@ -107,16 +97,8 @@ get_gh_token <- function (token_name = "") {
 #' }
 get_default_github_branch <- function (org, repo) {
 
-    token <- get_gh_token ()
-
-    gh_cli <- ghql::GraphqlClient$new (
-        url = "https://api.github.com/graphql",
-        headers = list (Authorization = paste0 ("Bearer ", token))
-    )
-
-    qry <- default_branch_qry (gh_cli, org = org, repo = repo)
-    x <- gh_cli$exec (qry$queries$default_branch) %>%
-        jsonlite::fromJSON ()
+    qry <- default_branch_qry (org = org, repo = repo)
+    x <- gh::gh_gql (qry)
     branch <- x$data$repository$defaultBranchRef$name
 
     # Then also check if repo has pkgcheck action yaml file:
@@ -145,20 +127,12 @@ get_default_github_branch <- function (org, repo) {
 #' }
 get_latest_commit <- function (org, repo, branch = NULL) {
 
-    token <- get_gh_token ()
-
-    gh_cli <- ghql::GraphqlClient$new (
-        url = "https://api.github.com/graphql",
-        headers = list (Authorization = paste0 ("Bearer ", token))
-    )
-
     if (is.null (branch)) {
         branch <- get_default_github_branch (org, repo)
     }
 
-    qry <- commits_qry (gh_cli, org = org, repo = repo, branch = branch)
-    x <- gh_cli$exec (qry$queries$get_commits) %>%
-        jsonlite::fromJSON ()
+    qry <- commits_qry (org = org, repo = repo, branch = branch)
+    x <- gh::gh_gql (qry)
 
     return (x$data$repository$branch0$target$history$nodes)
 }

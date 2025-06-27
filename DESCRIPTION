@@ -22,7 +22,7 @@ Imports:
     curl,
     fs,
     gert,
-    ghql,
+    gh,
     glue,
     goodpractice,
     httr,
