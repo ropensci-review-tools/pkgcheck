@@ -56,7 +56,8 @@ pkgchk_left_assign <- function (checks) {
             return (assigns)
         }
 
-        la <- table (p$text [which (p$token == "LEFT_ASSIGN")])
+        types <- c ("EQ_ASSIGN", "LEFT_ASSIGN")
+        la <- table (p$text [which (p$token %in% types)])
 
         if (":=" %in% names (la)) {
             assigns [1] <- la [which (names (la) == ":=")]
@@ -81,6 +82,7 @@ pkgchk_left_assign <- function (checks) {
     assigns <- rm_global_assign_in_memoise (assigns, checks)
 
     assigns <- rowSums (assigns)
+    storage.mode (assigns) <- "integer"
     # rm `:=`:
     assigns <- assigns [which (!names (assigns) == ":=")]
 
