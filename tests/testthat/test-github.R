@@ -61,3 +61,35 @@ test_that ("yaml branch", {
     pos2 <- grep ("^\\s+\\-\\s*new-branch$", yaml2)
     expect_equal (pos2 - pos1, 1L)
 })
+
+skip_on_os ("mac")
+
+test_that ("github branch", {
+
+    branch <- httptest2::with_mock_dir ("ghbranch", {
+        get_default_github_branch ("ropensci-review-tools", "pkgcheck")
+    })
+    expect_equal (branch, "main")
+
+    branch <- httptest2::with_mock_dir ("ghbranch", {
+        pkgcheck_workflow_branch ("ropensci-review-tools", "pkgcheck")
+    })
+    expect_equal (branch, "main")
+})
+
+test_that ("github latest commit", {
+
+    commit <- httptest2::with_mock_dir ("ghcommit", {
+        get_latest_commit ("ropensci-review-tools", "pkgcheck")
+    })
+    expect_type (commit, "list")
+    expect_length (commit, 1L)
+    commit <- commit [[1]]
+    expect_type (commit, "list")
+    expect_length (commit, 4L)
+    expect_named (commit, c ("oid", "additions", "deletions", "authoredDate"))
+    expect_type (commit$oid, "character")
+    expect_type (commit$additions, "integer")
+    expect_type (commit$deletions, "integer")
+    expect_type (commit$authoredDate, "character")
+})
