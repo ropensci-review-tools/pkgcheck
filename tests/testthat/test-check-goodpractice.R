@@ -59,4 +59,29 @@ test_that ("check goodpractice", {
 
     rep2 <- covr_report (gp, control = list ())
     expect_identical (rep, rep2)
+
+    # ------ cyclocomp report
+    gp <- checks$goodpractice
+    rep <- cyclo_report (gp)
+    expect_type (rep, "character")
+    expect_true (any (grepl ("No functions have cyclocomplexity", rep)))
+
+    gp$cyclocomp$cyclocomp <- c (1, 15, 30)
+    rep <- cyclo_report (gp)
+    expect_false (any (grepl ("No functions have cyclocomplexity", rep)))
+    expect_true (any (grepl ("functions have cyclocomplexity >= 15", rep)))
+
+    # ------ lintr report
+    gp <- checks$goodpractice
+    rep <- lintr_report (gp)
+    expect_type (rep, "character")
+    expect_true (any (grepl (
+        "found the following [0-9] potential issues",
+        rep
+    )))
+
+    gp$lintr <- NULL
+    rep <- lintr_report (gp)
+    expect_type (rep, "character")
+    expect_true (any (grepl ("no issues with this package", rep)))
 })

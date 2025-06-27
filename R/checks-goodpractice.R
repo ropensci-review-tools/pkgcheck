@@ -464,24 +464,26 @@ lintr_report <- function (x) {
         ),
         ""
     )
+    nolint_msg <- paste0 (
+        "[lintr](https://github.com/jimhester/lintr) ",
+        "found no issues with this package!"
+    )
 
-    if (is.null (x$lint)) {
-        return (c (
-            ret,
-            paste0 (
-                "[lintr](https://github.com/jimhester/lintr) ",
-                "found no issues with this package!"
-            ),
-            ""
-        ))
+    if (is.null (x$lintr)) {
+        return (c (ret, nolint_msg, ""))
     }
 
-    msgs <- table (x$lint$message)
+    lintr <- as.data.frame (x$lintr)
+    msgs <- table (lintr$message)
     msgs <- data.frame (
         message = names (msgs),
         n = as.integer (msgs),
         stringsAsFactors = FALSE
     )
+
+    if (nrow (msgs) == 0L) {
+        return (c (ret, nolint_msg, ""))
+    }
 
     ret <- c (
         ret,
