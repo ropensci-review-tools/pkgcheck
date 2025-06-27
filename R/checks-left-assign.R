@@ -151,7 +151,7 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
     return (assigns)
 }
 
-# Remove any memoise global assigns in `.onLoad` fucntions (#167)
+# Remove any memoise global assigns in `.onLoad` functions (#167)
 rm_global_assign_in_memoise <- function (assigns, checks) {
 
     global_row <- which (rownames (assigns) == "<<-")
@@ -162,7 +162,7 @@ rm_global_assign_in_memoise <- function (assigns, checks) {
     }
 
     global <- data.frame (
-        file = gsub (checks$pkg$path, "", names (global)),
+        file = gsub (checks$pkg$path, "", colnames (assigns)),
         n = as.integer (global)
     )
     global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)

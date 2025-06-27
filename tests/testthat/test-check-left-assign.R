@@ -90,3 +90,28 @@ test_that ("rm_global_assign_in_ref_class", {
 
     fs::dir_delete (path)
 })
+
+test_that ("rm_global_assign_in_memoise", {
+
+    path <- srr::srr_stats_pkg_skeleton (pkg_name = "junk")
+    checks <- list (pkg = list (path = path))
+
+    txt <- c (
+        ".onLoad <- function(libname, pkgname) {",
+        "  test_fn <<- memoise::memoise(test_fn)",
+        "}"
+    )
+    f <- fs::path (path, "R", "zzz.R")
+    writeLines (txt, f)
+
+    assigns <- matrix (0:7, ncol = 2)
+    rownames (assigns) <- c (":=", "<-", "<<-", "=")
+    colnames (assigns) <- file.path (path, "R", c ("test.R", "zzz.R"))
+
+    assigns2 <- rm_global_assign_in_memoise (assigns, checks)
+    i <- which (rownames (assigns) == "<<-")
+    # assigns2 for "zzz.R" should have one less global count because of memoise:
+    expect_equal (assigns [i, 2], assigns2 [i, 2] + 1L)
+
+    fs::dir_delete (path)
+})
