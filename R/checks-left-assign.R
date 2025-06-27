@@ -22,7 +22,7 @@
 pkgchk_left_assign <- function (checks) {
 
     rdir <- fs::path (checks$pkg$path, "R")
-    if (!file.exists (rdir)) {
+    if (!fs::dir_exists (rdir)) {
         return (list (
             global = FALSE,
             usage = c (
@@ -32,15 +32,17 @@ pkgchk_left_assign <- function (checks) {
         ))
     }
 
-    rdir <- normalizePath (rdir)
-    flist <- list.files (rdir,
-        full.names = TRUE,
-        pattern = "\\.q$|\\.r$|\\.s$",
+    rdir <- fs::path_abs (rdir)
+    flist <- fs::dir_ls (rdir,
+        regexp = "\\.q$|\\.r$|\\.s$",
         ignore.case = TRUE
     )
 
     assigns <- vapply (flist, function (i) {
 
+        # NOTE that this call always fails in R CMD check environments,
+        # although it succeeds in individual calls to testthat::test_file().
+        # This means that assigns are always all zero in test results.
         p <- tryCatch (utils::getParseData (parse (i)),
             error = function (e) NULL
         )
@@ -56,7 +58,8 @@ pkgchk_left_assign <- function (checks) {
             return (assigns)
         }
 
-        la <- table (p$text [which (p$token == "LEFT_ASSIGN")])
+        types <- c ("EQ_ASSIGN", "LEFT_ASSIGN")
+        la <- table (p$text [which (p$token %in% types)])
 
         if (":=" %in% names (la)) {
             assigns [1] <- la [which (names (la) == ":=")]
@@ -81,6 +84,7 @@ pkgchk_left_assign <- function (checks) {
     assigns <- rm_global_assign_in_memoise (assigns, checks)
 
     assigns <- rowSums (assigns)
+    storage.mode (assigns) <- "integer"
     # rm `:=`:
     assigns <- assigns [which (!names (assigns) == ":=")]
 
@@ -102,7 +106,7 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
     }
 
     global <- data.frame (
-        file = gsub (checks$pkg$path, "", names (global)),
+        file = gsub (checks$pkg$path, "", colnames (assigns)),
         n = as.integer (global)
     )
     global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
@@ -149,7 +153,7 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
     return (assigns)
 }
 
-# Remove any memoise global assigns in `.onLoad` fucntions (#167)
+# Remove any memoise global assigns in `.onLoad` functions (#167)
 rm_global_assign_in_memoise <- function (assigns, checks) {
 
     global_row <- which (rownames (assigns) == "<<-")
@@ -160,7 +164,7 @@ rm_global_assign_in_memoise <- function (assigns, checks) {
     }
 
     global <- data.frame (
-        file = gsub (checks$pkg$path, "", names (global)),
+        file = gsub (checks$pkg$path, "", colnames (assigns)),
         n = as.integer (global)
     )
     global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
