@@ -115,3 +115,34 @@ test_that ("rm_global_assign_in_memoise", {
 
     fs::dir_delete (path)
 })
+
+test_that ("inconsistent assign operators", {
+
+    path <- srr::srr_stats_pkg_skeleton (pkg_name = "junk")
+    checks <- list (pkg = list (path = path))
+
+    f <- fs::dir_ls (fs::path (path, "R"), regexp = "test\\.R$")
+    txt <- c (
+        readLines (f),
+        "",
+        "test_fn2 <- function() {",
+        "  a = 1",
+        "  b <- 2",
+        "  return (list (a, b))",
+        "}"
+    )
+    writeLines (txt, f)
+
+    ci_out <- output_pkgchk_left_assign (checks)
+
+    expect_false (ci_out$check_pass)
+    expect_length (ci_out$summary, 1L)
+    expect_equal (
+        ci_out$summary,
+        "Package uses inconsistent assignment operators ( '<-' and  '=')."
+    )
+    expect_length (ci_out$print, 1L)
+    expect_true (!nzchar (ci_out$print))
+
+    fs::dir_delete (path)
+})
