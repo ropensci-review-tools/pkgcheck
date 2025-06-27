@@ -22,7 +22,7 @@
 pkgchk_left_assign <- function (checks) {
 
     rdir <- fs::path (checks$pkg$path, "R")
-    if (!file.exists (rdir)) {
+    if (!fs::dir_exists (rdir)) {
         return (list (
             global = FALSE,
             usage = c (
@@ -32,15 +32,17 @@ pkgchk_left_assign <- function (checks) {
         ))
     }
 
-    rdir <- normalizePath (rdir)
-    flist <- list.files (rdir,
-        full.names = TRUE,
-        pattern = "\\.q$|\\.r$|\\.s$",
+    rdir <- fs::path_abs (rdir)
+    flist <- fs::dir_ls (rdir,
+        regexp = "\\.q$|\\.r$|\\.s$",
         ignore.case = TRUE
     )
 
     assigns <- vapply (flist, function (i) {
 
+        # NOTE that this call always fails in R CMD check environments,
+        # although it succeeds in individual calls to testthat::test_file().
+        # This means that assigns are always all zero in test results.
         p <- tryCatch (utils::getParseData (parse (i)),
             error = function (e) NULL
         )
