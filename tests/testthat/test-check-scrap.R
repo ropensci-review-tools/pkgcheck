@@ -31,6 +31,12 @@ test_that ("check scrap", {
     pkgname <- paste0 (sample (c (letters, LETTERS), 8), collapse = "")
     path <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
     withr::with_dir (path, {
+        x <- c (
+            "[user]",
+            "    name = me",
+            "    email = me@email.com"
+        )
+        writeLines (x, ".gitconfig")
         roxygen2::roxygenise ()
         gert::git_init ()
         flist <- fs::dir_ls () # includes compiled '.o' objects!
