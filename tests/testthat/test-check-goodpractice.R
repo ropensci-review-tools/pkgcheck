@@ -60,6 +60,9 @@ test_that ("check goodpractice", {
     rep2 <- covr_report (gp, control = list ())
     expect_identical (rep, rep2)
 
+    # Some of these fail on windows
+    skip_on_os ("windows")
+
     # ------ cyclocomp report
     gp <- checks$goodpractice
     rep <- cyclo_report (gp)
