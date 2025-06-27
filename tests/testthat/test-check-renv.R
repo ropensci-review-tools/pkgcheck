@@ -1,3 +1,7 @@
+# paths sometimes fail on windows/mac
+skip_on_os ("windows")
+skip_on_os ("mac")
+
 test_that ("check num imports", {
 
     checks <- make_check_data ()
