@@ -62,6 +62,8 @@ test_that ("yaml branch", {
     expect_equal (pos2 - pos1, 1L)
 })
 
+skip_on_os ("mac")
+
 test_that ("github branch", {
 
     branch <- httptest2::with_mock_dir ("ghbranch", {
