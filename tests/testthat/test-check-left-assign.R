@@ -59,3 +59,34 @@ test_that ("check pkgchk_left_assign fn", {
 
     fs::dir_delete (path)
 })
+
+test_that ("rm_global_assign_in_ref_class", {
+
+    path <- srr::srr_stats_pkg_skeleton (pkg_name = "junk")
+    checks <- list (pkg = list (path = path))
+
+    f <- fs::dir_ls (fs::path (path, "R"), regexp = "test\\.R$")
+    txt <- c (
+        readLines (f),
+        "",
+        "test_fn2 <- function() {",
+        "  a = 1",
+        "  b <<- 2",
+        "  obj <<- SetRefClass('me')",
+        "  obj$new()",
+        "  return (list (a, b, obj))",
+        "}"
+    )
+    writeLines (txt, f)
+
+    assigns <- matrix (0:3, ncol = 1)
+    rownames (assigns) <- c (":=", "<-", "<<-", "=")
+    colnames (assigns) <- file.path (path, "R", "test.R")
+
+    assigns2 <- rm_global_assign_in_ref_class (assigns, checks)
+    i <- which (rownames (assigns) == "<<-")
+    # assigns2 should have one less global count because of RefClass:
+    expect_equal (assigns [i, 1], assigns2 [i, 1] + 1L)
+
+    fs::dir_delete (path)
+})

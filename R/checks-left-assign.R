@@ -104,7 +104,7 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
     }
 
     global <- data.frame (
-        file = gsub (checks$pkg$path, "", names (global)),
+        file = gsub (checks$pkg$path, "", colnames (assigns)),
         n = as.integer (global)
     )
     global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
