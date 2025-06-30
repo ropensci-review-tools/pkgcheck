@@ -2,8 +2,9 @@
 #' requirements
 #'
 #' @param path Path to local repository
-#' @param goodpractice If `FALSE`, skip goodpractice checks. May be useful in
-#' development stages to more quickly check other aspects.
+#' @param goodpractice If `FALSE`, skip most goodpractice checks except
+#' \pkg{linkr} and 'DESCRIPTION' checks. May be useful in development stages to
+#' more quickly check other aspects.
 #' @param use_cache Checks are cached for rapid retrieval, and only re-run if
 #' the git hash of the local repository changes. Setting `use_cache` to `FALSE`
 #' will force checks to be re-run even if the git hash has not changed.
@@ -79,7 +80,12 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
     checks$info$renv_activated <- pkginfo_renv_activated (path)
 
     if (goodpractice) {
-        checks$goodpractice <- pkgcheck_gp_report (path, use_cache, checks$info$renv_activated)
+        checks$goodpractice <- pkgcheck_gp_report (
+            path,
+            gp_full = TRUE,
+            use_cache = use_cache,
+            renv_activated = checks$info$renv_activated
+        )
     } else {
         checks$goodpractice <- NULL
     }
@@ -151,7 +157,12 @@ checks_running_in_bg <- function (path) {
 pkgstats_info <- function (path, use_cache) {
 
     s <- suppressWarnings (
-        cache_pkgcheck_component (path, use_cache, renv_activated = FALSE, "pkgstats")
+        cache_pkgcheck_component (
+            path,
+            use_cache,
+            renv_activated = FALSE,
+            what = "pkgstats"
+        )
     )
     s$path <- path
 

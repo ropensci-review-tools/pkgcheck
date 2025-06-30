@@ -79,6 +79,7 @@ current_hash <- function (path) {
 cache_pkgcheck_component <- function (path,
                                       use_cache,
                                       renv_activated,
+                                      gp_full = TRUE,
                                       what = "goodpractice") {
 
     what <- match.arg (what, c ("goodpractice", "pkgstats"))
@@ -93,6 +94,13 @@ cache_pkgcheck_component <- function (path,
         goodpractice::goodpractice,
         pkgstats::pkgstats
     )
+
+    args <- list (path)
+    if (what == "goodpractice" && !gp_full) {
+        index <- grep ("^(covr|cyclocomp|rcmdcheck)", goodpractice::all_checks ())
+        chks <- goodpractice::all_checks () [-index]
+        args <- c (args, checks = chks)
+    }
 
 
     pkg_hash <- current_hash (path)
@@ -132,7 +140,7 @@ cache_pkgcheck_component <- function (path,
             )
         }
 
-        out <- suppressWarnings (do.call (this_fn, list (path)))
+        out <- suppressWarnings (do.call (this_fn, args))
 
         Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
 
