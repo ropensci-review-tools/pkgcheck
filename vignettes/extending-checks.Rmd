@@ -423,6 +423,14 @@ done by modifying the `checks` data obtained in the initial call to
 the default value returned from the output function is first tested, and then
 the `checks` value is modified by,
 
+For checks which require either `goodpractice` or [`srr` (software review
+roclets)](https://docs.ropensci.org/srr) for statistical software, initial
+check values should be constructed with an alternative helper function,
+`make_check_data_srr()`, which accepts an additional parameter, `goodpractice`,
+which can be specified as `FALSE` (default) or `TRUE` to return full
+`goodpractice` data. See examples in
+[`test-check-covr.R`](https://github.com/ropensci-review-tools/pkgcheck/blob/main/tests/testthat/test-check-covr.R).
+
 ```{r test-scrap-modify, eval = FALSE}
 checks$checks$has_scrap <- "scrap"
 ```
