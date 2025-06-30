@@ -249,18 +249,6 @@
     },
     "10": {
       "@type": "SoftwareApplication",
-      "identifier": "httr",
-      "name": "httr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=httr"
-    },
-    "11": {
-      "@type": "SoftwareApplication",
       "identifier": "httr2",
       "name": "httr2",
       "provider": {
@@ -271,7 +259,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httr2"
     },
-    "12": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
@@ -283,7 +271,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
-    "13": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
@@ -295,18 +283,18 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=magrittr"
     },
-    "14": {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "15": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "pkgstats",
       "name": "pkgstats",
       "sameAs": "https://github.com/ropensci-review-tools/pkgstats"
     },
-    "16": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "rappdirs",
       "name": "rappdirs",
@@ -318,7 +306,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rappdirs"
     },
-    "17": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
@@ -330,7 +318,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     },
-    "18": {
+    "17": {
       "@type": "SoftwareApplication",
       "identifier": "rprojroot",
       "name": "rprojroot",
@@ -342,7 +330,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rprojroot"
     },
-    "19": {
+    "18": {
       "@type": "SoftwareApplication",
       "identifier": "rvest",
       "name": "rvest",
@@ -354,13 +342,13 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rvest"
     },
-    "20": {
+    "19": {
       "@type": "SoftwareApplication",
       "identifier": "srr",
       "name": "srr",
       "sameAs": "https://github.com/ropensci-review-tools/srr"
     },
-    "21": {
+    "20": {
       "@type": "SoftwareApplication",
       "identifier": "withr",
       "name": "withr",
@@ -372,19 +360,11 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=withr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "326KB",
+  "fileSize": "333.343KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
+  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "keywords": [
-    "compliance-automation",
-    "r",
-    "software-analysis",
-    "software-checking"
-  ]
+  "keywords": ["compliance-automation", "r", "software-analysis", "software-checking"]
 }

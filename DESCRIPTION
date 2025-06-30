@@ -25,7 +25,6 @@ Imports:
     gh,
     glue,
     goodpractice,
-    httr,
     httr2,
     jsonlite,
     magrittr,

@@ -318,8 +318,10 @@ pkgcheck_workflow_branch <- function (org, repo) {
         default_branch,
         "?recursive=1"
     )
-    x <- httr::GET (u) %>%
-        httr::content ()
+    req <- httr2::request (u) %>%
+        httr2::req_perform ()
+    x <- httr2::resp_body_json (req)
+
     paths <- vapply (x$tree, function (i) i$path, character (1))
     workflows <- grep ("^\\.github\\/workflows", paths, value = TRUE)
 
