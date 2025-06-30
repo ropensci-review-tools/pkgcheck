@@ -23,7 +23,7 @@ pkgchk_has_contrib_md <- function (checks) {
     flist <- flist [which (!grepl (ptn, flist))]
 
     flist <- vapply (flist, function (i) {
-        utils::tail (decompose_path (i) [[1]], 1L)
+        utils::tail (fs::path_split (i) [[1]], 1L)
     },
     character (1),
     USE.NAMES = FALSE

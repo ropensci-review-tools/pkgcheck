@@ -66,7 +66,7 @@ pkginfo_srr_report <- function (path) {
         full.names = TRUE
     )
     fnames <- vapply (
-        decompose_path (flist), function (i) {
+        fs::path_split (flist), function (i) {
             utils::tail (i, 1)
         },
         character (1)
