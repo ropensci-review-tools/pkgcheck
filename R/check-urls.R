@@ -78,9 +78,6 @@ url_exists <- function (x, non_2xx_return_value = FALSE, quiet = TRUE, ...) {
     resp <- tryCatch (
         httr2::req_perform (req),
         error = function (e) {
-            if (!quiet) {
-                message ("Error: ", e$message)
-            }
             e
         },
         interrupt = function (e) {
@@ -92,6 +89,9 @@ url_exists <- function (x, non_2xx_return_value = FALSE, quiet = TRUE, ...) {
         status <- httr2::resp_status (resp)
     } else {
         status <- resp$resp$status_code
+    }
+    if (is.null (status)) {
+        return (FALSE)
     }
 
     if (status / 200 > 1) {
