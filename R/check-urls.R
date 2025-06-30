@@ -59,7 +59,7 @@ output_pkgchk_has_bugs <- function (checks) {
     return (out)
 }
 
-#' Bob Rudis's URL checker function
+#' Bob Rudis's URL checker function, updated for httr2
 #'
 #' @param x a single URL
 #' @param non_2xx_return_value what to do if the site exists but the HTTP status
@@ -67,65 +67,44 @@ output_pkgchk_has_bugs <- function (checks) {
 #' @param quiet if not `FALSE`, then every time the `non_2xx_return_value`
 #' condition arises a warning message will be displayed. Default is `FALSE`.
 #' @param ... other params (`timeout()` would be a good one) passed directly to
-#' `httr::HEAD()` and/or `httr::GET()`
+#' \pkg{httr2} functions.
 #'
 #' @note
 #' https://stackoverflow.com/questions/52911812/check-if-url-exists-in-r
 #' @noRd
-url_exists <- function (x, non_2xx_return_value = FALSE, quiet = FALSE, ...) {
+url_exists <- function (x, non_2xx_return_value = FALSE, quiet = TRUE, ...) {
 
-    # you don't need thse two functions if you're already using `purrr`
-    # but `purrr` is a heavyweight compiled package that introduces
-    # many other "tidyverse" dependencies and this doesnt.
-
-    capture_error <- function (code, otherwise = NULL, quiet = TRUE) {
-        tryCatch (
-            list (result = code, error = NULL),
-            error = function (e) {
-                if (!quiet) {
-                    message ("Error: ", e$message)
-                }
-
-                list (result = otherwise, error = e)
-            },
-            interrupt = function (e) {
-                stop ("Terminated by user", call. = FALSE)
-            }
-        )
-    }
-
-    safely <- function (.f, otherwise = NULL, quiet = TRUE) {
-        function (...) capture_error (.f (...), otherwise, quiet)
-    }
-
-    sHEAD <- safely (httr::HEAD) # nolint
-    sGET <- safely (httr::GET) # nolint
-
-    # Try HEAD first since it's lightweight
-    res <- sHEAD (x, ...)
-
-    if (is.null (res$result) ||
-        ((httr::status_code (res$result) %/% 200) != 1)) {
-        res <- sGET (x, ...)
-
-        if (is.null (res$result)) {
-            return (NA)
-        } # or whatever you want to return on "hard" errors
-
-        if (((httr::status_code (res$result) %/% 200) != 1)) {
+    req <- httr2::request (x)
+    resp <- tryCatch (
+        httr2::req_perform (req),
+        error = function (e) {
             if (!quiet) {
-                warning (paste0 (
-                    "Requests for [",
-                    x,
-                    "] responded but without an HTTP status ",
-                    "code in the 200-299 range"
-                ))
+                message ("Error: ", e$message)
             }
-            return (non_2xx_return_value)
+            e
+        },
+        interrupt = function (e) {
+            stop ("Terminated by user", call. = FALSE)
         }
+    )
 
-        return (TRUE)
+    if (!inherits (resp, "httr2_error")) {
+        status <- httr2::resp_status (resp)
     } else {
-        return (TRUE)
+        status <- resp$resp$status_code
     }
+
+    if (status / 200 > 1) {
+        if (!quiet) {
+            warning (paste0 (
+                "Requests for [",
+                x,
+                "] responded with HTTP status ",
+                status
+            ))
+        }
+        return (non_2xx_return_value)
+    }
+
+    return (TRUE)
 }
