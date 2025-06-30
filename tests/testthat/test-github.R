@@ -71,7 +71,7 @@ test_that ("github branch", {
     })
     expect_equal (branch, "main")
 
-    branch <- httptest2::with_mock_dir ("ghbranch", {
+    branch <- httptest2::with_mock_dir ("ghworkflow", {
         pkgcheck_workflow_branch ("ropensci-review-tools", "pkgcheck")
     })
     expect_equal (branch, "main")

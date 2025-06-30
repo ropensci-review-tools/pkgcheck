@@ -28,19 +28,20 @@ pkgchk_has_scrap <- function (checks) {
     } # not NULL!
 
     contents_short <- vapply (
-        decompose_path (contents),
+        fs::path_split (contents),
         function (i) utils::tail (i, 1L),
         character (1)
     )
 
     scrap <- function () {
-        paste0 (c (
-            "^\\.DS_Store$",
-            "^Thumbs.db$",
-            "^\\.vscode$",
-            "\\.o$"
-        ),
-        collapse = "|"
+        paste0 (
+            c (
+                "^\\.DS_Store$",
+                "^Thumbs.db$",
+                "^\\.vscode$",
+                "\\.o$"
+            ),
+            collapse = "|"
         )
     }
 
