@@ -79,16 +79,12 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
     checks$info$network_file <- fn_call_network (s)
     checks$info$renv_activated <- pkginfo_renv_activated (path)
 
-    if (goodpractice) {
-        checks$goodpractice <- pkgcheck_gp_report (
-            path,
-            gp_full = TRUE,
-            use_cache = use_cache,
-            renv_activated = checks$info$renv_activated
-        )
-    } else {
-        checks$goodpractice <- NULL
-    }
+    checks$goodpractice <- pkgcheck_gp_report (
+        path,
+        gp_full = goodpractice,
+        use_cache = use_cache,
+        renv_activated = checks$info$renv_activated
+    )
 
     u <- pkginfo_url_from_desc (path, type = "URL")
     # hard-code to extract github URLs only:
