@@ -62,8 +62,6 @@ i Package network diagram is not here.
 
 -- goodpractice --
 
-i 'goodpractice' not included with these checks
-
 -- Other checks --
 
 x Package contains the following unexpected files:

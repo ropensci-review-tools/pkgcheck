@@ -8,14 +8,27 @@
 #' @inheritParams pkgcheck
 #' @return A \pkg{goodpractice} report
 #' @noRd
-pkgcheck_gp_report <- function (path, use_cache, renv_activated) {
+pkgcheck_gp_report <- function (path,
+                                gp_full = TRUE,
+                                use_cache,
+                                renv_activated) {
 
-    cache_pkgcheck_component (path, use_cache, renv_activated, "goodpractice")
+    cache_pkgcheck_component (
+        path,
+        use_cache,
+        renv_activated,
+        gp_full,
+        "goodpractice"
+    )
 }
 
 #' return tick or cross
 #' @noRd
 summarise_gp_checks <- function (checks) {
+
+    if (!"rcmdcheck" %in% names (checks$goodpractice)) {
+        return (NULL)
+    }
 
     if (methods::is (checks$goodpractice$rcmdcheck, "try-error")) {
 
@@ -234,13 +247,20 @@ convert_gp_components <- function (x,
                                        digits = 2
                                    )) {
 
-    rcmd <- rcmd_report (x)
+    rcmd <- covr <- cycl <- lint <- NULL
 
-    covr <- covr_report (x, control)
-
-    cycl <- cyclo_report (x, control)
-
-    lint <- lintr_report (x)
+    if (any (grepl ("^rcmd", names (x)))) {
+        rcmd <- rcmd_report (x)
+    }
+    if (any (grepl ("^covr", names (x)))) {
+        covr <- covr_report (x, control)
+    }
+    if (any (grepl ("^cycl", names (x)))) {
+        cycl <- cyclo_report (x, control)
+    }
+    if (any (grepl ("^lint", names (x)))) {
+        lint <- lintr_report (x)
+    }
 
     return (c (rcmd, covr, cycl, lint))
 }
