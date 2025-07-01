@@ -36,14 +36,17 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
 
     # Ensure that ctags works properly (#54):
     if (interactive ()) {
-        if (!suppressMessages (pkgstats::ctags_test ())) {
-            stop (
-                "The 'pkgstats' package requires 'ctags' which does ",
-                "not seem to be installed correctly.\nSee ",
-                "https://docs.ropensci.org/pkgstats/articles/installation.html",
-                " for details on how to install 'ctags'."
-            )
-        }
+        tryCatch (
+            pkgstats::ctags_test (),
+            error = function (e) {
+                stop (
+                    "The 'pkgstats' package requires 'ctags' which does ",
+                    "not seem to be installed correctly.\nSee ",
+                    "https://docs.ropensci.org/pkgstats/articles/installation.html",
+                    " for details on how to install 'ctags'."
+                )
+          }
+        )
     }
 
     s <- pkgstats_info (path, use_cache)
