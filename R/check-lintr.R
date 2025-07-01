@@ -10,10 +10,9 @@
 #' @noRd
 pkgchk_lintr <- function (checks) {
 
-    lintr_checks <- grep ("^lintr_", goodpractice::all_checks (), value = TRUE)
-    lintr_results <- goodpractice::gp (checks$pkg$path, checks = lintr_checks)
+    failed_checks <- goodpractice::failed_checks (checks$goodpractice)
+    grep ("^lintr", failed_checks, value = TRUE)
 
-    goodpractice::failed_checks (lintr_results)
 }
 
 output_pkgchk_lintr <- function (checks) {
@@ -30,11 +29,7 @@ output_pkgchk_lintr <- function (checks) {
     if (out$check_pass) {
         out$summary <- "All goodpractice linters passed."
     } else {
-        out$summary <- paste0 (
-            "These goodpractice linters failed: [",
-            paste (failed, collapse = ", "),
-            "]."
-        )
+        out$summary <- "Some goodpractice linters failed."
     }
 
     return (out)
