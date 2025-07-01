@@ -26,6 +26,10 @@ pkgcheck_gp_report <- function (path,
 #' @noRd
 summarise_gp_checks <- function (checks) {
 
+    if (!"rcmdcheck" %in% names (checks$goodpractice)) {
+        return (NULL)
+    }
+
     if (methods::is (checks$goodpractice$rcmdcheck, "try-error")) {
 
         cond <- attr (
