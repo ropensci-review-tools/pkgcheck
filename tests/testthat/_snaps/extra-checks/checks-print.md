@@ -62,7 +62,6 @@ i Package network diagram is not here.
 
 -- goodpractice --
 
-
 -- Other checks --
 
 x Package contains the following unexpected files:
