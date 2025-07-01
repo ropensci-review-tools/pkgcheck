@@ -19,7 +19,7 @@ test_that ("goodpractice", {
     expect_true (any (grepl ("`goodpractice` results", md)))
     expect_true (any (grepl ("R CMD check", md)))
     # expect_true (any (grepl ("Test Coverage", md)))
-    expect_true (any (grepl ("Static code analyses", md)))
+    expect_true (any (grepl ("Cyclocomplexity", md)))
 
     checks$goodpractice$rcmdcheck <- try (stop ("nope"), silent = TRUE)
     gp <- summarise_gp_checks (checks)

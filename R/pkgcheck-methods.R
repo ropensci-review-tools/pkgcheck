@@ -36,8 +36,8 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
         "^output\\_pkgchk\\_", "",
         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
     )
-    has_gp <- "goodpractice" %in% names (x)
-    if (!has_gp) {
+    has_covr <- "covr" %in% names (x$goodpractice)
+    if (!has_covr) {
         output_fns <- output_fns [which (!grepl ("covr", output_fns))]
     }
     out <- lapply (output_fns, function (i) print_check (x, i))
@@ -61,11 +61,7 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
     message ("")
 
     cli::cli_h2 ("goodpractice")
-    if (has_gp) {
-        print (x$goodpractice)
-    } else {
-        cli::cli_alert_info ("'goodpractice' not included with these checks")
-    }
+    print (x$goodpractice)
 
     pkg_env <- env2namespace ("pkgcheck")
     if (sum (misc_check_counts (x)) > 0L) {
