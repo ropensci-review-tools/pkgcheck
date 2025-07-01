@@ -243,13 +243,20 @@ convert_gp_components <- function (x,
                                        digits = 2
                                    )) {
 
-    rcmd <- rcmd_report (x)
+    rcmd <- covr <- cycl <- lint <- NULL
 
-    covr <- covr_report (x, control)
-
-    cycl <- cyclo_report (x, control)
-
-    lint <- lintr_report (x)
+    if (any (grepl ("^rcmd", names (x)))) {
+        rcmd <- rcmd_report (x)
+    }
+    if (any (grepl ("^covr", names (x)))) {
+        covr <- covr_report (x, control)
+    }
+    if (any (grepl ("^cycl", names (x)))) {
+        cycl <- cyclo_report (x, control)
+    }
+    if (any (grepl ("^lint", names (x)))) {
+        lint <- lintr_report (x)
+    }
 
     return (c (rcmd, covr, cycl, lint))
 }
