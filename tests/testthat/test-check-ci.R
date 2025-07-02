@@ -10,7 +10,7 @@ test_that ("check ci", {
     expect_false (ci_out$check_pass)
     expect_equal (
         ci_out$summary,
-        " Package has no continuous integration checks."
+        " Package fails continuous integration checks."
     )
     expect_length (ci_out$print, 1L)
     expect_true (!nzchar (ci_out$print))
