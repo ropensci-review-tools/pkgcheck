@@ -24,6 +24,9 @@ pkgchk_has_orcid <- function (checks) {
     FUN.VALUE = TRUE
   )
 
+  #TODO check if the ORCID is valid. If not, suggest fixing it.
+  # check if the ORCID matches the author name. If not, suggest updaing their ORCID profile
+
   names (has_orcid) <- vapply (
     authors,
     function (x) {
@@ -82,6 +85,8 @@ pkgchk_has_ror <- function (checks) {
     },
     FUN.VALUE = TRUE
   )
+
+  #TODO check if ROR is valid and matches institution name
 
   names (has_ror) <- vapply (
     institutions,
