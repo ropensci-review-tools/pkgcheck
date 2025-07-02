@@ -1,4 +1,3 @@
-
 # These tests fail on GHA on windows because of path issues
 skip_on_os ("windows")
 
@@ -22,7 +21,7 @@ test_that ("pkgcheck_bg() works", {
         type = "message"
     )
 
-    expect_true (length (x) > 10)
+    expect_gt (length (x), 10)
     expect_true (any (grepl ("srrstats", x)))
 
     x <- pkgcheck_bg (d)
@@ -45,4 +44,5 @@ test_that ("pkgcheck_bg() works", {
     ) [3]
 
     # expect_true (pt2 < pt1) # not always fulfilled
+    fs::dir_delete (d)
 })

@@ -21,8 +21,8 @@ summarise_all_checks <- function (checks) {
         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
     )
 
-    has_gp <- "goodpractice" %in% names (checks)
-    if (!has_gp) {
+    has_covr <- "covr" %in% names (checks$goodpractice)
+    if (!has_covr) {
         output_fns <- output_fns [which (!grepl ("covr", output_fns))]
     }
     ordered_checks <- order_checks (output_fns)
@@ -39,9 +39,8 @@ summarise_all_checks <- function (checks) {
 
     out <- c (out, summarise_extra_env_checks (checks))
 
-    if (has_gp) {
-        gp <- summarise_gp_checks (checks)
-
+    gp <- summarise_gp_checks (checks)
+    if (any (grepl ("^rcmd\\_", names (gp)))) {
         out <- c (
             out,
             gp$rcmd_errs,
@@ -83,6 +82,9 @@ summarise_all_checks <- function (checks) {
 summarise_extra_env_checks <- function (checks) {
 
     extra_env <- options ("pkgcheck_extra_env") [[1]]
+    if (is.null (extra_env)) {
+        return (NULL)
+    }
     if (!is.list (extra_env)) {
         extra_env <- list (extra_env)
     }
@@ -131,6 +133,7 @@ order_checks <- function (fns) {
         "left_assign",
         "renv_activated",
         "branch_is_master",
+        "srr_okay",
         "srr_missing",
         "srr_todo",
         "srr_most_in_one_file",

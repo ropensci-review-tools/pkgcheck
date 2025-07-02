@@ -212,7 +212,7 @@ dl_pkgstats_data <- function (f_path) {
     }
 
     if (!latest) {
-        req <- httr2::request (url) |>
+        req <- httr2::request (url) %>%
             httr2::req_headers ("Accept" = "application/octet-stream")
         resp <- httr2::req_perform (req)
 

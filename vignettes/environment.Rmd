@@ -4,7 +4,7 @@ author:
   - "Mark Padgham"
 date: "`r Sys.Date()`"
 vignette: >
-  %\VignetteIndexEntry{How to extend checks}
+  %\VignetteIndexEntry{The 'pkgcheck' computational environment}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

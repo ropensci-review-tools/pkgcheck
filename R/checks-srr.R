@@ -9,9 +9,30 @@
 #' to confirm that compliance with all relevant standards has been documented.
 #'
 #' @noRd
-pkgchk_srr <- function (checks) {
+pkgchk_srr_okay <- function (checks) {
 
     checks$info$srr$okay
+}
+
+output_pkgchk_srr_okay <- function (checks) {
+
+    srr_okay <- "srr" %in% names (checks$info)
+    if (srr_okay) {
+        srr_okay <- checks$info$srr$okay
+    }
+    out <- list (
+        check_pass = srr_okay,
+        summary = "",
+        print = ""
+    )
+    if (out$check_pass) {
+        out$summary <- paste0 (
+            "This is a statistical package which ",
+            "complies with all applicable standards"
+        )
+    }
+
+    return (out)
 }
 
 output_pkgchk_srr_todo <- function (checks) {
@@ -130,7 +151,7 @@ srr_checks_to_md <- function (checks) {
     }
 
     cat_plural <- ifelse (
-        length (checks$info$srr$categories == 1),
+        length (checks$info$srr$categories) == 1,
         "category",
         "categories"
     )

@@ -11,9 +11,10 @@ git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 - :heavy_check_mark: 'DESCRIPTION' has a BugReports field.
 - :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].
-- :heavy_multiplication_x:  Package has no continuous integration checks.
+- :heavy_multiplication_x:  Package fails continuous integration checks, and has no badges on README
 - :heavy_multiplication_x: Package contains unexpected files.
 - :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
+- :heavy_check_mark: This is a statistical package which complies with all applicable standards
 - :eyes: Package depends on the following obsolete packages: [blah,sp]
 
 **Important:** All failing checks above must be addressed prior to proceeding
@@ -25,8 +26,18 @@ Package License: GPL-3
 
 ---
 
+### 1. rOpenSci Statistical Standards ([`srr` package](https://github.com/ropensci-review-tools/srr))
 
-### 1. Package Dependencies
+
+
+:heavy_check_mark: srr message
+
+
+
+---
+
+
+### 2. Package Dependencies
 
 <details>
 <summary>Details of Package Dependency Usage (click to open)</summary>
@@ -74,7 +85,7 @@ Click below for tallies of functions used in each package. Locations of each cal
 ---
 
 
-### 2. Statistical Properties
+### 3. Statistical Properties
 
 This package features some noteworthy statistical properties which may need to be clarified by a handling editor prior to progressing.
 
@@ -140,19 +151,19 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 </p></details>
 
 
-### 2a. Network visualisation
+### 3a. Network visualisation
 
-An interactive visualisation of calls between objects in the package has been uploaded as a workflow artefact. To view it, click on results from the [latest 'pkgcheck' action](network.html), scroll to the bottom, and click on the 'visual-network' artefact.
+Click to see the [interactive network visualisation of calls between objects in package](network.html)
 
 ---
 
-### 3. `goodpractice` and other checks
+### 4. `goodpractice` and other checks
 
 ('goodpractice' not included with these checks)
 
 ---
 
-### 4. Other Checks
+### 5. Other Checks
 
 <details>
 <summary>Details of other checks (click to open)</summary>

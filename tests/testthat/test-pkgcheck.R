@@ -6,73 +6,44 @@ skip_if (!test_all)
 
 test_that ("pkgcheck", {
 
-    withr::local_envvar (list ("PKGCHECK_SRR_REPORT_FILE" = "report.html"))
-    withr::local_envvar (list ("PKGCHECK_TEST_NETWORK_FILE" = "network.html"))
-    withr::local_envvar (list (
-        "PKGCHECK_CACHE_DIR" =
-            file.path (tempdir (), "pkgcheck")
-    ))
-    withr::local_envvar (list ("GITHUB_ACTIONS" = "true"))
-    withr::local_envvar (list ("GITHUB_REPOSITORY" = "org/repo"))
-
-    pkgname <- "testpkgchecknotapkg"
-    d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
-    # Add memoise to check global assign in memoised fns:
-    f_desc <- fs::path (d, "DESCRIPTION")
-    desc <- readLines (f_desc)
-    i <- grep ("Rcpp$", desc) [1]
-
-    # Add lots of 'Imports' to fail 'pkgcheck_num_imports' #218:
-    num_deps_to_add <- 20L
-    deps_add <- c (rep ("    memoise,", num_deps_to_add), "    Rcpp")
-
-    desc <- c (
-        desc [seq_len (i - 1)],
-        deps_add,
-        desc [seq (i + 1, length (desc))]
-    )
-    writeLines (desc, f_desc)
-    # Define memoised fn in new 'zzz.R' file:
-    f_zzz <- fs::path (d, "zzz.R")
-    zzz <- c (
-        ".onLoad <- function(libname, pkgname) {",
-        "    test_fn <<- memoise::memoise(test_fn)",
-        "}"
-    )
-    writeLines (zzz, f_zzz)
-
-    x <- capture.output (
-        roxygen2::roxygenise (d),
-        type = "message"
+    # need to repeat envvar setting here because they affect output of
+    # 'checks_to_markdown()':
+    withr::local_envvar (
+        list (
+            "PKGCHECK_SRR_REPORT_FILE" = "report.html",
+            "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
+            "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
+            "GITHUB_ACTIONS" = "true",
+            "GITHUB_REPOSITORY" = "org/repo"
+        )
     )
 
-    expect_true (length (x) > 10)
-    expect_true (any (grepl ("srrstats", x)))
+    checks0 <- make_check_data_srr (goodpractice = FALSE)
+    checks1 <- make_check_data_srr (goodpractice = TRUE)
 
-    expect_output (
-        checks <- pkgcheck (d)
-    )
-    expect_type (checks, "list")
+    expect_s3_class (checks0, "pkgcheck")
+    expect_s3_class (checks1, "pkgcheck")
 
-    # goodpractice -> rcmdcheck fails on some machines for reasons that can't be
-    # controlled (such as not being able to find "MASS" pkg).
-    checks$goodpractice <- NULL
-    # Checks on systems without the right API keys may fail checks which rely on
-    # URL queries, so these are manually reset here:
-    checks$checks$pkgname_available <- TRUE
-    checks$info$badges <- NULL # then fails CI checks
-
-    items <- c ("pkg", "info", "checks", "meta")
-    expect_identical (names (checks), items)
+    items <- c ("pkg", "info", "checks", "meta", "goodpractice")
+    expect_named (checks0, items)
+    expect_named (checks1, items)
+    gp_items_false <- c ("lintr", "description", "namespace")
+    gp_items_true <- c ("covr", "cyclocomp", "rcmdcheck")
+    expect_true (all (gp_items_false %in% names (checks0$goodpractice)))
+    expect_false (any (gp_items_true %in% names (checks0$goodpractice)))
+    expect_true (all (gp_items_false %in% names (checks1$goodpractice)))
+    expect_true (all (gp_items_true %in% names (checks1$goodpractice)))
 
     items <- c (
         "name", "path", "version", "url", "BugReports",
         "license", "summary", "dependencies", "external_calls",
         "external_fns"
     )
-    expect_identical (names (checks$pkg), items)
+    expect_named (checks0$pkg, items)
+    expect_named (checks1$pkg, items)
 
     items <- c (
+        "badges",
         "fn_names",
         "git",
         "network_file",
@@ -81,20 +52,19 @@ test_that ("pkgcheck", {
         "renv_activated",
         "srr"
     )
-    expect_identical (sort (names (checks$info)), sort (items))
+    expect_identical (sort (names (checks0$info)), sort (items))
+    expect_identical (sort (names (checks1$info)), sort (items))
 
-    md <- checks_to_markdown (checks, render = FALSE)
+    md0 <- checks_to_markdown (checks0, render = FALSE)
+    md1 <- checks_to_markdown (checks1, render = FALSE)
 
-    a <- attributes (md)
-    expect_true (length (a) > 0L)
-    expect_true (
-        all (c (
-            "checks_okay",
-            "is_noteworthy",
-            "network_file",
-            "srr_report_file"
-        ) %in% names (a))
-    )
+    a0 <- attributes (md0)
+    a1 <- attributes (md1)
+    expect_length (a0, 4L)
+    expect_length (a1, 4L)
+    nms <- c ("checks_okay", "is_noteworthy", "network_file", "srr_report_file")
+    expect_true (all (nms %in% names (a0)))
+    expect_true (all (nms %in% names (a1)))
 
     # *****************************************************************
     # ***********************   SNAPSHOT TEST   ***********************
@@ -103,50 +73,31 @@ test_that ("pkgcheck", {
     # paths in these snapshots are not stable on windows, so skipped here
     skip_on_os ("windows")
 
-    md <- edit_markdown (md) # from clean-snapshots.R
+    md0 <- edit_markdown (md0) # from clean-snapshots.R
+    md1 <- edit_markdown (md1) # from clean-snapshots.R
 
     md_dir <- withr::local_tempdir ()
-    writeLines (md, con = file.path (md_dir, "checks.md"))
+    f_md0 <- file.path (md_dir, "checks0.md")
+    writeLines (md0, con = f_md0)
+    f_md1 <- file.path (md_dir, "checks1.md")
+    writeLines (md1, con = f_md1)
 
     # Redact out variable git hashes:
-    testthat::expect_snapshot_file (file.path (md_dir, "checks.md"))
+    testthat::expect_snapshot_file (f_md0)
+    testthat::expect_snapshot_file (f_md1)
 
-    h <- render_md2html (md, open = FALSE)
-    f <- file.path (md_dir, "checks.html")
-    file.rename (h, f)
-    edit_html (f) # from clean-snapshots.R
+    h0 <- render_md2html (md0, open = FALSE)
+    f_html0 <- file.path (md_dir, "checks0.html")
+    file.rename (h0, f_html0)
+    edit_html (f_html0) # from clean-snapshots.R
 
-    testthat::expect_snapshot_file (f)
+    h1 <- render_md2html (md1, open = FALSE)
+    f_html1 <- file.path (md_dir, "checks1.html")
+    file.rename (h1, f_html1)
+    edit_html (f_html1) # from clean-snapshots.R
 
-    fs::dir_delete (d)
-})
+    testthat::expect_snapshot_file (f_html0)
+    testthat::expect_snapshot_file (f_html1)
 
-test_that ("pkgcheck without goodpractice", {
-    pkgname <- paste0 (
-        sample (c (letters, LETTERS), 8),
-        collapse = ""
-    )
-    d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
-
-    x <- capture.output (
-        roxygen2::roxygenise (d),
-        type = "message"
-    )
-
-    withr::local_envvar (list (
-        "PKGCHECK_CACHE_DIR" =
-            file.path (tempdir (), "pkgcheck")
-    ))
-
-    expect_output (
-        checks <- pkgcheck (d, goodpractice = FALSE)
-    )
-
-    # items from above including goodpractice:
-    items <- c ("pkg", "info", "checks", "meta", "goodpractice")
-    expect_false (all (items %in% names (checks)))
-    items <- c ("pkg", "info", "checks", "meta")
-    expect_true (all (items %in% names (checks)))
-
-    fs::dir_delete (d)
+    fs::file_delete (c (f_md0, f_md1, f_html0, f_html1))
 })

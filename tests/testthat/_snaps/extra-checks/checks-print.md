@@ -10,9 +10,10 @@ v 'DESCRIPTION' has a URL field.
 v 'DESCRIPTION' has a BugReports field.
 x Package has no HTML vignettes
 x These functions do not have examples: [pkgstats_from_archive].
-x Package has no continuous integration checks.
+x Package fails continuous integration checks, and has no badges on README
 x Package contains unexpected files.
 x Default GitHub branch of 'master' is not acceptable.
+v This is a statistical package which complies with all applicable standards
 i Package depends on the following obsolete packages: [blah,sp]
 
 i Current status:
@@ -26,6 +27,15 @@ x This package is not ready to be submitted.
 * Number of commits:
 * First commit:
 * Number of authors:
+
+
+-- rOpenSci Statistical Standards --
+
+i The package is in the following 0 categories:
+
+i Compliance with rOpenSci statistical standards:
+v srr message
+i 'srr' report is at [].
 
 
 -- Package Structure --
@@ -51,8 +61,6 @@ i Package network diagram is not here.
 
 
 -- goodpractice --
-
-i 'goodpractice' not included with these checks
 
 -- Other checks --
 

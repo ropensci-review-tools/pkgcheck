@@ -15,8 +15,9 @@ pkgcheck(
 \arguments{
 \item{path}{Path to local repository}
 
-\item{goodpractice}{If \code{FALSE}, skip goodpractice checks. May be useful in
-development stages to more quickly check other aspects.}
+\item{goodpractice}{If \code{FALSE}, skip most goodpractice checks except
+\pkg{linkr} and 'DESCRIPTION' checks. May be useful in development stages to
+more quickly check other aspects.}
 
 \item{use_cache}{Checks are cached for rapid retrieval, and only re-run if
 the git hash of the local repository changes. Setting \code{use_cache} to \code{FALSE}

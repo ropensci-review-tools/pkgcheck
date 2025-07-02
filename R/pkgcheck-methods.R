@@ -36,8 +36,8 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
         "^output\\_pkgchk\\_", "",
         grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
     )
-    has_gp <- "goodpractice" %in% names (x)
-    if (!has_gp) {
+    has_covr <- "covr" %in% names (x$goodpractice)
+    if (!has_covr) {
         output_fns <- output_fns [which (!grepl ("covr", output_fns))]
     }
     out <- lapply (output_fns, function (i) print_check (x, i))
@@ -61,11 +61,7 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
     message ("")
 
     cli::cli_h2 ("goodpractice")
-    if (has_gp) {
-        print (x$goodpractice)
-    } else {
-        cli::cli_alert_info ("'goodpractice' not included with these checks")
-    }
+    print (x$goodpractice)
 
     pkg_env <- env2namespace ("pkgcheck")
     if (sum (misc_check_counts (x)) > 0L) {
@@ -379,6 +375,13 @@ print_check_md <- function (checks, what, pkg_env) {
 extra_check_prints_from_env <- function (checks) {
 
     extra_env <- options ("pkgcheck_extra_env") [[1]]
+    if (is.null (extra_env)) {
+        return (list (
+            env = NULL,
+            prints = NULL
+        ))
+    }
+
     if (!is.list (extra_env)) {
         extra_env <- list (extra_env)
     }
@@ -390,7 +393,7 @@ extra_check_prints_from_env <- function (checks) {
         output_fns [which (output_fns %in% names (checks$checks))]
     })
 
-    lens <- vapply (extra_prints, length, integer (1))
+    lens <- lengths (extra_prints)
     extra_prints <- extra_prints [which (lens > 0L)]
     extra_env <- extra_env [which (lens > 0L)]
 

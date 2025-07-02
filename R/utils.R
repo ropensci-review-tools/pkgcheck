@@ -14,19 +14,6 @@ symbol_crs <- function () {
 
 get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
 
-#' Decompose file paths into character vectors of named directories and final
-#' file names
-#'
-#' @param f One of more file paths with system-dependent file separators
-#' @return List of equivalent character vectors from which paths can be
-#' reconstructed with \link{file.path}
-#' @noRd
-decompose_path <- function (f) {
-
-    # https://github.com/r-lib/fs/blob/4cc4b56c26b9d7f177a676fbb331133bb2584b86/R/path.R # nolint
-    strsplit (f, "^(?=/)(?!//)|(?<!^)(?<!^/)/", perl = TRUE)
-}
-
 #' List all checks currently implemented
 #'
 #' @param quiet If `TRUE`, print all checks to screen. Function invisibly

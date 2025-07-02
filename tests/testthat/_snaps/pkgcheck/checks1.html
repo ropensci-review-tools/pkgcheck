@@ -16,8 +16,8 @@ $(document).ready(function(){
     $('[tooltip="tooltip"]').tooltip();
 });
 </script>
-<div id="checks-for-testpkgchecknotapkg-v0.0.0.9000" class="section level2">
-<h2>Checks for <a href>testpkgchecknotapkg (v0.0.0.9000)</a></h2>
+<div id="checks-for-testpkgwithgp-v0.0.0.9000" class="section level2">
+<h2>Checks for <a href>testpkgwithgp (v0.0.0.9000)</a></h2>
 <p>git hash: <a href="/tree/"></a></p>
 <ul>
 <li>✅ Package name is available</li>
@@ -30,14 +30,14 @@ $(document).ready(function(){
 <li>❌ Package has no HTML vignettes</li>
 <li>❌ These functions do not have examples: [test_fn].</li>
 <li>❌ Continuous integration checks unavailable (no URL in ‘DESCRIPTION’).</li>
+<li>❌ Package coverage failed</li>
 <li>❌ Default GitHub branch of ‘master’ is not acceptable.</li>
 <li>❌ Some statistical standards are missing</li>
 <li>❌ This package still has TODO standards and can not be submitted</li>
 <li>❌ Statistical standards should be documented in most package files, yet are mostly only documented in one file.</li>
-<li>👀 Package has unusually large number of 21 Imports (&gt; 98% of all packages)</li>
+<li>❌ R CMD check process failed with message: ’’.</li>
 </ul>
 <p><strong>Important:</strong> All failing checks above must be addressed prior to proceeding</p>
-<p>(Checks marked with 👀 may be optionally addressed.)</p>
 <p>Package License: GPL-3</p>
 <hr />
 <div id="ropensci-statistical-standards-srr-package" class="section level3">
@@ -173,106 +173,6 @@ RE7.4</p>
 <tbody>
 <tr class="odd">
 <td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">imports</td>
-<td align="left">memoise</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">imports</td>
 <td align="left">Rcpp</td>
 <td align="right">NA</td>
 </tr>
@@ -306,7 +206,7 @@ RE7.4</p>
 <li>1 authors</li>
 <li>no vignette</li>
 <li>no internal data file</li>
-<li>21 imported packages</li>
+<li>1 imported package</li>
 <li>1 exported function (median 3 lines of code)</li>
 <li>2 non-exported functions in R (median 3 lines of code)</li>
 <li>2 R functions (median 5 lines of code)</li>
@@ -489,7 +389,7 @@ The following terminology is used:</p>
 </div>
 <div id="a.-network-visualisation" class="section level3">
 <h3>3a. Network visualisation</h3>
-<p>An interactive visualisation of calls between objects in the package has been uploaded as a workflow artefact. To view it, click on results from the <a href="network.html">latest ‘pkgcheck’ action</a>, scroll to the bottom, and click on the ‘visual-network’ artefact.</p>
+<p>Click to see the <a href="network.html">interactive network visualisation of calls between objects in package</a></p>
 <hr />
 </div>
 <div id="goodpractice-and-other-checks" class="section level3">

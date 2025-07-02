@@ -2,8 +2,9 @@
 #' requirements
 #'
 #' @param path Path to local repository
-#' @param goodpractice If `FALSE`, skip goodpractice checks. May be useful in
-#' development stages to more quickly check other aspects.
+#' @param goodpractice If `FALSE`, skip most goodpractice checks except
+#' \pkg{linkr} and 'DESCRIPTION' checks. May be useful in development stages to
+#' more quickly check other aspects.
 #' @param use_cache Checks are cached for rapid retrieval, and only re-run if
 #' the git hash of the local repository changes. Setting `use_cache` to `FALSE`
 #' will force checks to be re-run even if the git hash has not changed.
@@ -78,11 +79,12 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
     checks$info$network_file <- fn_call_network (s)
     checks$info$renv_activated <- pkginfo_renv_activated (path)
 
-    if (goodpractice) {
-        checks$goodpractice <- pkgcheck_gp_report (path, use_cache, checks$info$renv_activated)
-    } else {
-        checks$goodpractice <- NULL
-    }
+    checks$goodpractice <- pkgcheck_gp_report (
+        path,
+        gp_full = goodpractice,
+        use_cache = use_cache,
+        renv_activated = checks$info$renv_activated
+    )
 
     u <- pkginfo_url_from_desc (path, type = "URL")
     # hard-code to extract github URLs only:
@@ -151,7 +153,12 @@ checks_running_in_bg <- function (path) {
 pkgstats_info <- function (path, use_cache) {
 
     s <- suppressWarnings (
-        cache_pkgcheck_component (path, use_cache, renv_activated = FALSE, "pkgstats")
+        cache_pkgcheck_component (
+            path,
+            use_cache,
+            renv_activated = FALSE,
+            what = "pkgstats"
+        )
     )
     s$path <- path
 
@@ -248,7 +255,7 @@ collate_checks <- function (checks) {
 
     pkg_fns <- ls (envir = asNamespace ("pkgcheck"))
     check_fns <- grep ("^pkgchk\\_", pkg_fns, value = TRUE)
-    exclude_these <- "ci\\_badges|srr"
+    exclude_these <- "ci\\_badges"
     check_fns <- check_fns [which (!grepl (exclude_these, check_fns))]
 
     res <- lapply (check_fns, function (i) {
