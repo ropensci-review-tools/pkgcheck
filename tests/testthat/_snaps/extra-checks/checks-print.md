@@ -11,6 +11,7 @@ v 'DESCRIPTION' has a BugReports field.
 x Package has no HTML vignettes
 x These functions do not have examples: [pkgstats_from_archive].
 x Package fails continuous integration checks, and has no badges on README
+x Some goodpractice linters failed.
 x Package contains unexpected files.
 x Default GitHub branch of 'master' is not acceptable.
 v This is a statistical package which complies with all applicable standards
