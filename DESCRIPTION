@@ -6,7 +6,9 @@ Authors@R: c(
            comment = c(ORCID = "0000-0003-2172-5265")),
     person("Maëlle", "Salmon", role = "aut"),
     person("Jacob", "Wujciak-Jens", , "jacob@wujciak.de", role = "aut",
-           comment = c(ORCID = "0000-0002-7281-3989"))
+           comment = c(ORCID = "0000-0002-7281-3989")),
+    person(c("Kelli", "F."), "Johnson", , "kelli.johnson@noaa.gov",
+           role = "ctb", comment = c(ORCID = "0000-0002-5149-451X"))
   )
 Description: Check whether a package is ready for submission to rOpenSci's
     peer review system.
