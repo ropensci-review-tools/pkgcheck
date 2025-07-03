@@ -14,37 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
-  "author": [
-    {
-      "@type": "Person",
-      "givenName": "Mark",
-      "familyName": "Padgham",
-      "email": "mark.padgham@email.com",
-      "@id": "https://orcid.org/0000-0003-2172-5265"
-    },
-    {
-      "@type": "Person",
-      "givenName": "Maëlle",
-      "familyName": "Salmon"
-    },
-    {
-      "@type": "Person",
-      "givenName": "Jacob",
-      "familyName": "Wujciak-Jens",
-      "email": "jacob@wujciak.de",
-      "@id": "https://orcid.org/0000-0002-7281-3989"
-    }
-  ],
-  "maintainer": [
-    {
-      "@type": "Person",
-      "givenName": "Mark",
-      "familyName": "Padgham",
-      "email": "mark.padgham@email.com",
-      "@id": "https://orcid.org/0000-0003-2172-5265"
-    }
-  ],
+  "runtimePlatform": "R version 4.4.1 (2024-06-14 ucrt)",
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
@@ -360,19 +330,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=withr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "333.343KB",
-  "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "keywords": [
-    "compliance-automation",
-    "r",
-    "software-analysis",
-    "software-checking"
-  ]
+  "fileSize": "357.647KB"
 }
