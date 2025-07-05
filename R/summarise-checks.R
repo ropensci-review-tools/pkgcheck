@@ -141,7 +141,9 @@ order_checks <- function (fns) {
         # additionally explicitly listed below in `watch_checks()`:
         "obsolete_pkg_deps",
         "unique_fn_names",
-        "num_imports"
+        "num_imports",
+        "has_orcid",
+        "has_ror"
     )
 
     fns <- fns [which (fns %in% ord)]
@@ -157,7 +159,9 @@ watch_checks <- function (output_fns) {
     watch_list <- c (
         "obsolete_pkg_deps",
         "unique_fn_names",
-        "num_imports"
+        "num_imports",
+        "has_orcid",
+        "has_ror"
     )
 
     all_checks [which (all_checks %in% watch_list)]
