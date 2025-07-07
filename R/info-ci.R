@@ -183,9 +183,9 @@ ci_results_gh <- function (path) {
             run_number = 101:102,
             created_at = rep ("2025-01-01T00:00:01Z", 2L)
         )
-        runs <- list (total_count = 2L, workflow_runs = wf)
+        runs <- list (total_count = nrow (wf), workflow_runs = wf)
     } else {
-
+        # These lines can not be tested:
         body <- httr2::request (url) |>
             httr2::req_perform ()
         runs <- httr2::resp_body_json (body, simplify = TRUE)
