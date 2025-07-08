@@ -14,7 +14,7 @@ pkgchk_has_orcid <- function (checks) {
     stringsAsFactors = FALSE
   )
   authors <- eval (str2lang (desc$Authors.R))
-  authors <- authors [!is_institution (authors)]
+  authors <- authors [!vapply(authors, is_institution, FUN.VALUE = TRUE)]
 
   has_orcid <- vapply (
     authors,
@@ -120,5 +120,5 @@ output_pkgchk_has_ror <- function (checks) {
 
 # Helper function to determine if an author is an institution
 is_institution <- function (person) {
-  is.null (person$family) & person$role %in% c ( "cph", "fnd")
+  is.null (person$family) & any(person$role %in% c ( "cph", "fnd"))
 }
