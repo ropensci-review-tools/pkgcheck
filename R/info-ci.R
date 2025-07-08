@@ -173,7 +173,23 @@ ci_results_gh <- function (path) {
         "/actions/runs"
     )
 
-    runs <- jsonlite::fromJSON (url)
+    if (is_test_env ()) {
+        wf <- data.frame (
+            id = 1:2,
+            name = c ("R-CMD-check.yaml", "test-coverage.yaml"),
+            status = rep ("completed", 2L),
+            conclusion = rep ("success", 2L),
+            head_sha = c ("abcdefgh123456", "123456abcdefgh"),
+            run_number = 101:102,
+            created_at = rep ("2025-01-01T00:00:01Z", 2L)
+        )
+        runs <- list (total_count = nrow (wf), workflow_runs = wf)
+    } else {
+        # These lines can not be tested:
+        body <- httr2::request (url) |>
+            httr2::req_perform ()
+        runs <- httr2::resp_body_json (body, simplify = TRUE)
+    }
 
     if (!"total_count" %in% names (runs)) {
         return (NULL)
