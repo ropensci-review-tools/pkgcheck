@@ -20,7 +20,7 @@ output_pkgchk_lintr <- function (checks) {
     failed <- checks$checks$lintr
 
     out <- list (
-        check_pass = length (failed) == 0L,
+        check_pass = (length (failed) == 0L),
         summary = "",
         print = ""
     ) # no print method
