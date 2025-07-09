@@ -129,6 +129,7 @@ order_checks <- function (fns) {
         "global_assign",
         "ci",
         "covr",
+        "lintr",
         "has_scrap",
         "left_assign",
         "renv_activated",
