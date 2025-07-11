@@ -1,4 +1,3 @@
-
 # New checks have to be added to the `order_checks` function in `summarise-checks.R`.
 # This test ensures that they are added by failing if not.
 
@@ -14,5 +13,5 @@ test_that ("order checks", {
 
     checks <- order_checks (fns)
 
-    expect_equal (length (fns), length (checks))
+    expect_length (fns, length (checks))
 })

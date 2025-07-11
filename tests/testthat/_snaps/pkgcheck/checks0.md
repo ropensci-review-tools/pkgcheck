@@ -1,4 +1,4 @@
-## Checks for [testpkgchecknotapkg (v0.0.0.9000)]()
+## Checks for [testpkgnogp (v0.0.0.9000)]()
 
 git hash: [](/tree/)
 
@@ -12,16 +12,13 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [test_fn].
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
+- :heavy_check_mark: All goodpractice linters passed.
 - :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
 - :heavy_multiplication_x: Some statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 - :heavy_multiplication_x: Statistical standards should be documented in most package files, yet are mostly only documented in one file.
-- :eyes: Package has unusually large number of 21 Imports (> 98% of all packages)
 
 **Important:** All failing checks above must be addressed prior to proceeding
-
-(Checks marked with :eyes: may be optionally addressed.)
-
 
 Package License: GPL-3
 
@@ -160,26 +157,6 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 
 |type       |package  | ncalls|
 |:----------|:--------|------:|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
-|imports    |memoise  |     NA|
 |imports    |Rcpp     |     NA|
 |suggests   |testthat |     NA|
 |linking_to |Rcpp     |     NA|
@@ -210,7 +187,7 @@ The package has:
 - 1 authors
 - no  vignette
 - no internal data file
-- 21 imported packages
+- 1 imported package
 - 1 exported function (median 3 lines of code)
 - 2 non-exported functions in R (median 3 lines of code)
 - 2 R functions (median 5 lines of code)
@@ -264,7 +241,7 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 
 ### 3a. Network visualisation
 
-An interactive visualisation of calls between objects in the package has been uploaded as a workflow artefact. To view it, click on results from the [latest 'pkgcheck' action](network.html), scroll to the bottom, and click on the 'visual-network' artefact.
+Click to see the [interactive network visualisation of calls between objects in package](network.html)
 
 ---
 

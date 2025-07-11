@@ -8,14 +8,27 @@
 #' @inheritParams pkgcheck
 #' @return A \pkg{goodpractice} report
 #' @noRd
-pkgcheck_gp_report <- function (path, use_cache, renv_activated) {
+pkgcheck_gp_report <- function (path,
+                                gp_full = TRUE,
+                                use_cache,
+                                renv_activated) {
 
-    cache_pkgcheck_component (path, use_cache, renv_activated, "goodpractice")
+    cache_pkgcheck_component (
+        path,
+        use_cache,
+        renv_activated,
+        gp_full,
+        "goodpractice"
+    )
 }
 
 #' return tick or cross
 #' @noRd
 summarise_gp_checks <- function (checks) {
+
+    if (!"rcmdcheck" %in% names (checks$goodpractice)) {
+        return (NULL)
+    }
 
     if (methods::is (checks$goodpractice$rcmdcheck, "try-error")) {
 
@@ -214,7 +227,7 @@ extract_gp_components <- function (gp) {
         cyclocomp = cyc,
         lint = lints
     )
-    res <- res [which (vapply (res, length, integer (1)) > 0)]
+    res <- res [which (lengths (res) > 0)]
 }
 
 #' Convert \pkg{goodpractice} components into templated report
@@ -234,13 +247,20 @@ convert_gp_components <- function (x,
                                        digits = 2
                                    )) {
 
-    rcmd <- rcmd_report (x)
+    rcmd <- covr <- cycl <- lint <- NULL
 
-    covr <- covr_report (x, control)
-
-    cycl <- cyclo_report (x, control)
-
-    lint <- lintr_report (x)
+    if (any (grepl ("^rcmd", names (x)))) {
+        rcmd <- rcmd_report (x)
+    }
+    if (any (grepl ("^covr", names (x)))) {
+        covr <- covr_report (x, control)
+    }
+    if (any (grepl ("^cycl", names (x)))) {
+        cycl <- cyclo_report (x, control)
+    }
+    if (any (grepl ("^lint", names (x)))) {
+        lint <- lintr_report (x)
+    }
 
     return (c (rcmd, covr, cycl, lint))
 }
@@ -464,24 +484,26 @@ lintr_report <- function (x) {
         ),
         ""
     )
+    nolint_msg <- paste0 (
+        "[lintr](https://github.com/jimhester/lintr) ",
+        "found no issues with this package!"
+    )
 
-    if (is.null (x$lint)) {
-        return (c (
-            ret,
-            paste0 (
-                "[lintr](https://github.com/jimhester/lintr) ",
-                "found no issues with this package!"
-            ),
-            ""
-        ))
+    if (is.null (x$lintr)) {
+        return (c (ret, nolint_msg, ""))
     }
 
-    msgs <- table (x$lint$message)
+    lintr <- as.data.frame (x$lintr)
+    msgs <- table (lintr$message)
     msgs <- data.frame (
         message = names (msgs),
         n = as.integer (msgs),
         stringsAsFactors = FALSE
     )
+
+    if (nrow (msgs) == 0L) {
+        return (c (ret, nolint_msg, ""))
+    }
 
     ret <- c (
         ret,

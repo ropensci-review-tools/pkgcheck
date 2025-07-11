@@ -1,0 +1,21 @@
+{
+    "data": {
+        "repository": {
+            "branch0": {
+                "target": {
+                    "id": "C_kwDOD79tu9oAKDI3ZWE1NTE5ZjVjMzI3YzZlZWU2ZThmNzYzYzQzMmJmNWUyNGU1MzE",
+                    "history": {
+                        "nodes": [
+                            {
+                                "oid": "27ea5519f5c327c6eee6e8f763c432bf5e24e531",
+                                "additions": 71,
+                                "deletions": 13,
+                                "authoredDate": "2025-06-27T14:34:06Z"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

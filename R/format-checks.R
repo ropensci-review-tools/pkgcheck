@@ -69,7 +69,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
         ""
     )
 
-    has_gp <- "goodpractice" %in% names (checks)
+    has_gp <- "goodpractice" %in% names (checks) && !is_test_env ()
     if (has_gp) {
         md_out <- c (
             md_out,
@@ -519,7 +519,7 @@ pkg_network <- function (checks, sec_num) {
 #' @noRd
 visjs_description <- function (checks) {
 
-    if (Sys.getenv ("GITHUB_ACTIONS") == "true") {
+    if (Sys.getenv ("GITHUB_ACTIONS") == "true" && !is_test_env ()) {
 
         gh_repo <- Sys.getenv ("GITHUB_REPOSITORY")
         orgrepo <- strsplit (gh_repo, "\\/") [[1]]

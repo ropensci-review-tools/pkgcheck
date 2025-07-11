@@ -1,11 +1,13 @@
 output_pkgchk_ci <- function (checks) {
 
-    check_pass <- has_badges <- length (checks$info$badges) > 0L
-    # There should really be badges, but if not, accept passing workflow results
-    # regardless (see #87):
-    if (!check_pass & length (checks$info$github_workflows) > 0L) {
+    # Relevant issues: #87, #255
+
+    has_badges <- length (checks$info$badges) > 0L
+    check_pass <- has_workflows <- FALSE
+    if (length (checks$info$github_workflows) > 0L) {
         wf <- checks$info$github_workflows
         i <- grep ("check|cmd", wf$name, ignore.case = TRUE)
+        has_workflows <- length (i) > 0L
         check_pass <- any (wf$conclusion [i] == "success")
         check_pass <- ifelse (is.na (check_pass), FALSE, check_pass)
     }
@@ -23,18 +25,25 @@ output_pkgchk_ci <- function (checks) {
                 "Continuous integration checks ",
                 "unavailable (no URL in 'DESCRIPTION')."
             )
-        } else {
+        } else if (!has_workflows) {
             out$summary <- " Package has no continuous integration checks."
+        } else if (has_workflows && !check_pass) {
+            out$summary <- " Package fails continuous integration checks."
+            if (!has_badges) {
+                out$summary <-
+                    gsub ("\\.$", ", and has no badges on README", out$summary)
+            }
         }
 
     } else {
 
-        out$summary <- "Package has continuous integration checks."
-        if (has_badges) {
-            has_badges <- !is.na (checks$info$badges [1])
-        }
+        out$summary <- " Package has continuous integration checks."
         if (!has_badges) {
+            out$summary <-
+                gsub ("\\.$", ", but no badges on README", out$summary)
             checks$info$badges <- "(There do not appear to be any)"
+        } else {
+            has_badges <- !is.na (checks$info$badges [1])
         }
 
         out$print <- c (
@@ -53,7 +62,6 @@ output_pkgchk_ci <- function (checks) {
             )
         }
     }
-
 
     return (out)
 }

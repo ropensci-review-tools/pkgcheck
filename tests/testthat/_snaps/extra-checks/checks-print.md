@@ -10,7 +10,8 @@ v 'DESCRIPTION' has a URL field.
 v 'DESCRIPTION' has a BugReports field.
 x Package has no HTML vignettes
 x These functions do not have examples: [pkgstats_from_archive].
-x Package has no continuous integration checks.
+v Package has continuous integration checks, but no badges on README
+x Some goodpractice linters failed.
 x Package contains unexpected files.
 x Default GitHub branch of 'master' is not acceptable.
 v This is a statistical package which complies with all applicable standards
@@ -61,8 +62,6 @@ i Package network diagram is not here.
 
 
 -- goodpractice --
-
-i 'goodpractice' not included with these checks
 
 -- Other checks --
 
