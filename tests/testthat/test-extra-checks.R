@@ -39,16 +39,15 @@ test_that("extra checks", {
     writeLines(md, con = f_md)
 
     testthat::expect_snapshot_file(
-        file.path(md_dir, "checks-extra.md"),
+        f_md,
         transform = edit_markdown # from helper-snapshots-clean.R
     )
 
     h <- render_md2html(md, open = FALSE)
     f_html <- file.path(md_dir, "checks-extra.html")
     file.copy(h, f_html)
-    edit_html(f_html) # from clean-snapshots.R
 
-    testthat::expect_snapshot_file(f_html)
+    testthat::expect_snapshot_file(f_html, transform = edit_html)
 
     # Then snapshot tests of print & summary methods
     # This loads goodpractice, so first do that to avoid load message
@@ -60,8 +59,5 @@ test_that("extra checks", {
     f_md2 <- fs::path(md_dir, "checks-print.md")
     writeLines(f_tmp, con = f_md2)
 
-    testthat::expect_snapshot_file(
-        file.path(md_dir, "checks-print.md"),
-        transform = edit_markdown
-    )
+    testthat::expect_snapshot_file(f_md2, transform = edit_markdown)
 })

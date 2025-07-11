@@ -90,13 +90,11 @@ test_that("pkgcheck", {
     h0 <- render_md2html(md0, open = FALSE)
     f_html0 <- file.path(md_dir, "checks0.html")
     file.rename(h0, f_html0)
-    edit_html(f_html0) # from clean-snapshots.R
 
     h1 <- render_md2html(md1, open = FALSE)
     f_html1 <- file.path(md_dir, "checks1.html")
     file.rename(h1, f_html1)
-    edit_html(f_html1) # from clean-snapshots.R
 
-    testthat::expect_snapshot_file(f_html0)
-    testthat::expect_snapshot_file(f_html1)
+    testthat::expect_snapshot_file(f_html0, transform = edit_html)
+    testthat::expect_snapshot_file(f_html1, transform = edit_html)
 })
