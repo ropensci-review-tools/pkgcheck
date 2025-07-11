@@ -25,10 +25,8 @@ test_that("extra checks", {
     checks$checks$srr_okay <- TRUE
 
     withr::local_envvar(
-        list(
-            "PKGCHECK_CACHE_DIR" = file.path(tempdir(), "pkgcheck"),
-            "GITHUB_ACTIONS" = "true"
-        )
+        "PKGCHECK_CACHE_DIR" = file.path(tempdir(), "pkgcheck"),
+        "GITHUB_ACTIONS" = "true"
     )
 
     md <- checks_to_markdown(checks)
