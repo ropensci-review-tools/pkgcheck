@@ -10,7 +10,7 @@ v 'DESCRIPTION' has a URL field.
 v 'DESCRIPTION' has a BugReports field.
 x Package has no HTML vignettes
 x These functions do not have examples: [pkgstats_from_archive].
-v Package has continuous integration checks, but no badges on README
+x Package has no continuous integration checks.
 x Some goodpractice linters failed.
 x Package contains unexpected files.
 x Default GitHub branch of 'master' is not acceptable.

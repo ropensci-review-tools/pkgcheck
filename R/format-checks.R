@@ -12,20 +12,23 @@
 #' md <- checks_to_markdown (checks) # markdown-formatted character vector
 #' md <- checks_to_markdown (checks, render = TRUE) # HTML version
 #' }
-checks_to_markdown <- function (checks, render = FALSE) {
+checks_to_markdown <- function(checks, render = FALSE) {
+    md_chks <- summarise_all_checks(checks)
 
-    md_chks <- summarise_all_checks (checks)
-
-    md_out <- c (
-        paste0 (
-            "## Checks for [", checks$pkg$name,
-            " (v", checks$pkg$version, ")](",
-            checks$pkg$url, ")"
+    md_out <- c(
+        paste0(
+            "## Checks for [",
+            checks$pkg$name,
+            " (v",
+            checks$pkg$version,
+            ")](",
+            checks$pkg$url,
+            ")"
         ),
         "",
-        paste0 (
+        paste0(
             "git hash: [",
-            substring (checks$info$git$HEAD, 1, 8),
+            substring(checks$info$git$HEAD, 1, 8),
             "](",
             checks$pkg$url,
             "/tree/",
@@ -35,33 +38,33 @@ checks_to_markdown <- function (checks, render = FALSE) {
         "",
         md_chks,
         "",
-        paste0 ("Package License: ", checks$pkg$license),
+        paste0("Package License: ", checks$pkg$license),
         "",
         "---",
         ""
     )
 
-    md_out <- c (
+    md_out <- c(
         md_out,
-        srr_checks_to_md (checks)
+        srr_checks_to_md(checks)
     )
 
     # sec_nun is (1, 2) for (srr, non-srr) packages
-    sec_num <- as.integer (!is.null (checks$info$srr)) + 1
-    deps_rep <- pkgdeps_format (checks, sec_num)
+    sec_num <- as.integer(!is.null(checks$info$srr)) + 1
+    deps_rep <- pkgdeps_format(checks, sec_num)
     sec_num <- sec_num + 1
-    stats_rep <- pkgstats_format (checks, sec_num)
+    stats_rep <- pkgstats_format(checks, sec_num)
 
-    md_out <- c (
+    md_out <- c(
         md_out,
         deps_rep,
         stats_rep,
         "",
-        pkg_network (checks, sec_num),
+        pkg_network(checks, sec_num),
         "",
         "---",
         "",
-        paste0 (
+        paste0(
             "### ",
             sec_num + 1,
             ". `goodpractice` and other checks"
@@ -69,75 +72,75 @@ checks_to_markdown <- function (checks, render = FALSE) {
         ""
     )
 
-    has_gp <- "goodpractice" %in% names (checks) && !is_test_env ()
+    has_gp <- "goodpractice" %in% names(checks) && !is_test_env()
     if (has_gp) {
-        md_out <- c (
+        md_out <- c(
             md_out,
             "<details>",
-            paste0 (
+            paste0(
                 "<summary>Details of goodpractice checks ",
                 "(click to open)</summary>"
             ),
             "<p>",
             "",
-            print_check (checks, "ci"),
+            print_check(checks, "ci"),
             "",
             "---",
             "",
-            gp_checks_to_md (checks),
+            gp_checks_to_md(checks),
             "",
             "</p>",
             "</details>"
         )
     } else {
-        md_out <- c (
+        md_out <- c(
             md_out,
             "('goodpractice' not included with these checks)"
         )
     }
 
-    extra <- extra_check_prints_from_env (checks)
-    has_extra <- length (extra$env) > 0L | sum (misc_check_counts (checks)) > 0L
+    extra <- extra_check_prints_from_env(checks)
+    has_extra <- length(extra$env) > 0L | sum(misc_check_counts(checks)) > 0L
     if (has_extra) {
-        e <- env2namespace ("pkgcheck")
-        md_out <- c (
+        e <- env2namespace("pkgcheck")
+        md_out <- c(
             md_out,
             "",
             "---",
             "",
-            paste0 ("### ", sec_num + 2, ". Other Checks"),
+            paste0("### ", sec_num + 2, ". Other Checks"),
             "",
             "<details>",
-            paste0 (
+            paste0(
                 "<summary>Details of other checks ",
                 "(click to open)</summary>"
             ),
             "<p>",
             ""
         )
-        extras <- misc_check_counts (checks)
-        extras <- extras [which (extras > 0L)]
-        for (ex in names (extras)) {
-            md_out <- c (
+        extras <- misc_check_counts(checks)
+        extras <- extras[which(extras > 0L)]
+        for (ex in names(extras)) {
+            md_out <- c(
                 md_out,
-                print_check_md (
+                print_check_md(
                     checks,
                     ex,
-                    env2namespace ("pkgcheck")
+                    env2namespace("pkgcheck")
                 )
             )
         }
 
         for (e in extra$env) {
             for (p in extra$prints) {
-                md_out <- c (
+                md_out <- c(
                     md_out,
-                    print_check_md (checks, p, e)
+                    print_check_md(checks, p, e)
                 )
             }
         }
 
-        md_out <- c (
+        md_out <- c(
             md_out,
             "",
             "</p>",
@@ -146,13 +149,13 @@ checks_to_markdown <- function (checks, render = FALSE) {
         )
     }
 
-    v <- data.frame (
-        package = names (checks$meta),
+    v <- data.frame(
+        package = names(checks$meta),
         version = checks$meta,
         row.names = NULL,
         stringsAsFactors = FALSE
     )
-    md_out <- c (
+    md_out <- c(
         md_out,
         "",
         "---",
@@ -161,27 +164,26 @@ checks_to_markdown <- function (checks, render = FALSE) {
         "<summary>Package Versions</summary>",
         "<p>",
         "",
-        knitr::kable (v),
+        knitr::kable(v),
         "",
         "</p>",
         "</details>"
     )
 
     if (render) {
-        render_md2html (md_out, open = TRUE)
+        render_md2html(md_out, open = TRUE)
     } else {
+        i0 <- grep("^The following terminology is used", md_out)
+        i1 <- grep("^\\-\\s", md_out)
+        i1 <- i1[i1 > i0][1]
+        i2 <- which(!nzchar(md_out))
+        i2 <- i2[i2 > i1][1]
 
-        i0 <- grep ("^The following terminology is used", md_out)
-        i1 <- grep ("^\\-\\s", md_out)
-        i1 <- i1 [i1 > i0] [1]
-        i2 <- which (!nzchar (md_out))
-        i2 <- i2 [i2 > i1] [1]
-
-        if (length (i2) == 1L) {
-            md_out <- c (
-                md_out [1:(i2 - 1)],
+        if (length(i2) == 1L) {
+            md_out <- c(
+                md_out[1:(i2 - 1)],
                 "",
-                paste0 (
+                paste0(
                     "All parameters are explained as tooltips in ",
                     "the locally-rendered HTML version of this ",
                     "report generated by [the ",
@@ -190,17 +192,17 @@ checks_to_markdown <- function (checks, render = FALSE) {
                     "reference/checks_to_markdown.html)"
                 ),
                 "",
-                md_out [i2:length (md_out)]
+                md_out[i2:length(md_out)]
             )
         }
     }
 
-    attr (md_out, "checks_okay") <- attr (md_chks, "checks_okay")
-    attr (md_out, "is_noteworthy") <- attr (stats_rep, "is_noteworthy")
-    attr (md_out, "network_file") <- checks$info$network_file
-    attr (md_out, "srr_report_file") <- checks$info$srr$report_file
+    attr(md_out, "checks_okay") <- attr(md_chks, "checks_okay")
+    attr(md_out, "is_noteworthy") <- attr(stats_rep, "is_noteworthy")
+    attr(md_out, "network_file") <- checks$info$network_file
+    attr(md_out, "srr_report_file") <- checks$info$srr$report_file
 
-    return (md_out)
+    return(md_out)
 }
 
 #' Summarise dependencies usage
@@ -209,24 +211,23 @@ checks_to_markdown <- function (checks, render = FALSE) {
 #' 2).
 #' @return Summary of dependency usage as formatted string
 #' @noRd
-pkgdeps_format <- function (checks, sec_num) {
-
-    deps <- pkgdeps_as_table (checks)
+pkgdeps_format <- function(checks, sec_num) {
+    deps <- pkgdeps_as_table(checks)
 
     import_note <- NULL
-    imported_fns <- deps [deps$type == "imports", ]
-    if (any (is.na (imported_fns$ncalls))) {
-        subs <- c ("Some", "no")
-        if (all (is.na (imported_fns$ncalls))) {
-            subs <- c ("No", "")
+    imported_fns <- deps[deps$type == "imports", ]
+    if (any(is.na(imported_fns$ncalls))) {
+        subs <- c("Some", "no")
+        if (all(is.na(imported_fns$ncalls))) {
+            subs <- c("No", "")
         }
-        import_note <- c (
+        import_note <- c(
             "",
-            paste0 (
+            paste0(
                 "**NOTE:** ",
-                subs [1],
+                subs[1],
                 " imported packages appear to have ",
-                subs [2],
+                subs[2],
                 " associated function calls; please ensure with author ",
                 "that these 'Imports' are listed appropriately."
             ),
@@ -234,20 +235,20 @@ pkgdeps_format <- function (checks, sec_num) {
         )
     }
 
-    external_fns <- pkgfns_as_details (checks)
+    external_fns <- pkgfns_as_details(checks)
 
-    deps_rep <- c (
+    deps_rep <- c(
         "",
-        paste0 ("### ", sec_num, ". Package Dependencies"),
+        paste0("### ", sec_num, ". Package Dependencies"),
         "",
         "<details>",
-        paste0 (
+        paste0(
             "<summary>Details of Package Dependency Usage ",
             "(click to open)</summary>"
         ),
         "<p>",
         "",
-        paste0 (
+        paste0(
             "The table below tallies all function calls to all packages ",
             "('ncalls'), both internal (r-base + recommended, along with ",
             "the package itself), and external (imported and suggested ",
@@ -257,9 +258,9 @@ pkgdeps_format <- function (checks, sec_num) {
             "system which may not be entirely accurate."
         ),
         "",
-        knitr::kable (deps, row.names = FALSE),
+        knitr::kable(deps, row.names = FALSE),
         "",
-        pkgfns_as_details (checks),
+        pkgfns_as_details(checks),
         "",
         import_note,
         "",
@@ -269,8 +270,7 @@ pkgdeps_format <- function (checks, sec_num) {
         ""
     )
 
-
-    return (deps_rep)
+    return(deps_rep)
 }
 
 #' Format \pkg{pkgstats} data
@@ -280,31 +280,31 @@ pkgdeps_format <- function (checks, sec_num) {
 #' 2).
 #' @return Report as formatted string
 #' @noRd
-pkgstats_format <- function (checks, sec_num) {
+pkgstats_format <- function(checks, sec_num) {
+    is_noteworthy <- any(checks$info$pkgstats$noteworthy == "TRUE")
 
-    is_noteworthy <- any (checks$info$pkgstats$noteworthy == "TRUE")
-
-    note <- ifelse (is_noteworthy,
-        paste0 (
+    note <- ifelse(
+        is_noteworthy,
+        paste0(
             "This package features some noteworthy ",
             "statistical properties which may need to be ",
             "clarified by a handling editor prior to ",
             "progressing."
         ),
-        paste0 (
+        paste0(
             "The statistical properties of this package are ",
             "all within expected ranges."
         )
     )
 
-    stats_rep <- c (
+    stats_rep <- c(
         "",
-        paste0 ("### ", sec_num, ". Statistical Properties"),
+        paste0("### ", sec_num, ". Statistical Properties"),
         "",
         note,
         "",
         "<details>",
-        paste0 (
+        paste0(
             "<summary>Details of statistical properties ",
             "(click to open)</summary>"
         ),
@@ -312,11 +312,11 @@ pkgstats_format <- function (checks, sec_num) {
         "",
         "The package has:",
         "",
-        pkg_stat_desc (checks),
+        pkg_stat_desc(checks),
         "",
         "---",
         "",
-        paste0 (
+        paste0(
             "Statistical properties of package structure as ",
             "distributional percentiles in relation to all ",
             "current CRAN packages"
@@ -327,7 +327,7 @@ pkgstats_format <- function (checks, sec_num) {
         "- `fn` = \"function\"",
         "- `exp`/`not_exp` = exported / not exported",
         "",
-        paste0 (
+        paste0(
             "The final measure (`fn_call_network_size`) is ",
             "the total number of calls between functions (in ",
             "R), or more abstract relationships between code ",
@@ -336,9 +336,10 @@ pkgstats_format <- function (checks, sec_num) {
             "lower 5th percentile."
         ),
         "",
-        knitr::kable (checks$info$pkgstats,
+        knitr::kable(
+            checks$info$pkgstats,
             row.names = FALSE,
-            digits = c (NA, 0, 1, NA)
+            digits = c(NA, 0, 1, NA)
         ),
         "",
         "---",
@@ -346,85 +347,85 @@ pkgstats_format <- function (checks, sec_num) {
         "</p></details>"
     )
 
-    attr (stats_rep, "is_noteworthy") <- is_noteworthy
+    attr(stats_rep, "is_noteworthy") <- is_noteworthy
 
-    return (stats_rep)
+    return(stats_rep)
 }
 
 #' Initial description of structural properties of package
 #' @param checks Result of main \link{pkgcheck} function
 #' @noRd
-pkg_stat_desc <- function (checks) {
-
+pkg_stat_desc <- function(checks) {
     stats <- checks$info$pkgstats
-    loc <- attr (stats, "language")
-    files <- attr (stats, "files")
+    loc <- attr(stats, "language")
+    files <- attr(stats, "files")
 
-    loc_pc <- gsub (".*\\:\\s?", "", loc)
-    langs <- gsub ("\\:.*$", "", loc)
-    files <- gsub (".*\\:\\s?", "", files)
+    loc_pc <- gsub(".*\\:\\s?", "", loc)
+    langs <- gsub("\\:.*$", "", loc)
+    files <- gsub(".*\\:\\s?", "", files)
 
-    langs <- paste0 (langs, " (", loc_pc, " in ", files, " files)")
+    langs <- paste0(langs, " (", loc_pc, " in ", files, " files)")
 
-    code <- paste0 ("- code in ", langs [1])
-    langs <- langs [-1]
+    code <- paste0("- code in ", langs[1])
+    langs <- langs[-1]
     langs_first <- ""
-    langs_last <- langs [length (langs)]
-    if (length (langs) > 1) {
-        langs_first <- paste0 (
+    langs_last <- langs[length(langs)]
+    if (length(langs) > 1) {
+        langs_first <- paste0(
             ", ",
-            paste0 (langs [-length (langs)],
-                collapse = ", "
-            )
+            paste0(langs[-length(langs)], collapse = ", ")
         )
     }
-    out <- paste0 (code, langs_first, " and ", langs_last)
+    out <- paste0(code, langs_first, " and ", langs_last)
 
     s <- checks$pkg$summary
-    summarise_one <- function (s, what, pre_text, type) {
-        ifelse (s [[what]] == 0L,
-            paste0 ("- no ", pre_text, " ", type),
-            paste0 (
-                "- ", s [[what]], " ", pre_text, " ",
-                ifelse (s [[what]] == 1L,
-                    type,
-                    paste0 (type, "s")
-                )
+    summarise_one <- function(s, what, pre_text, type) {
+        ifelse(
+            s[[what]] == 0L,
+            paste0("- no ", pre_text, " ", type),
+            paste0(
+                "- ",
+                s[[what]],
+                " ",
+                pre_text,
+                " ",
+                ifelse(s[[what]] == 1L, type, paste0(type, "s"))
             )
         )
     }
 
-    out <- c (
+    out <- c(
         out,
-        paste0 ("- ", s$num_authors, " authors"),
-        summarise_one (s, "num_vignettes", "", "vignette"),
-        summarise_one (s, "num_data", "internal", "data file"),
-        summarise_one (s, "imported_pkgs", "imported", "package"),
-        summarise_one (s, "num_exported_fns", "exported", "function")
+        paste0("- ", s$num_authors, " authors"),
+        summarise_one(s, "num_vignettes", "", "vignette"),
+        summarise_one(s, "num_data", "internal", "data file"),
+        summarise_one(s, "imported_pkgs", "imported", "package"),
+        summarise_one(s, "num_exported_fns", "exported", "function")
     )
 
-    if (length (s$loc_exported_fns) > 0L) {
-        out [length (out)] <- paste0 (
-            out [length (out)],
+    if (length(s$loc_exported_fns) > 0L) {
+        out[length(out)] <- paste0(
+            out[length(out)],
             " (median ",
             s$loc_exported_fns,
             " lines of code)"
         )
     }
 
-    out <- c (
+    out <- c(
         out,
-        summarise_one (
-            s, "num_non_exported_fns",
+        summarise_one(
+            s,
+            "num_non_exported_fns",
             "non-exported",
             "function"
         )
     )
-    out [length (out)] <- paste0 (out [length (out)], " in R")
+    out[length(out)] <- paste0(out[length(out)], " in R")
 
-    if (length (s$num_non_exported_fns) > 0L) {
-        out [length (out)] <- paste0 (
-            out [length (out)],
+    if (length(s$num_non_exported_fns) > 0L) {
+        out[length(out)] <- paste0(
+            out[length(out)],
             " (median ",
             s$loc_non_exported_fns,
             " lines of code)"
@@ -432,11 +433,11 @@ pkg_stat_desc <- function (checks) {
     }
 
     if (s$num_src_fns > 0L) {
-        lang_names <- gsub ("\\s.*$", "", langs)
-        out <- c (
+        lang_names <- gsub("\\s.*$", "", langs)
+        out <- c(
             out,
-            paste0 (
-                summarise_one (
+            paste0(
+                summarise_one(
                     s,
                     "num_src_fns",
                     lang_names,
@@ -449,7 +450,7 @@ pkg_stat_desc <- function (checks) {
         )
     }
 
-    return (out)
+    return(out)
 }
 
 #' Output text and URL link to function call network as 'vis.js' file.
@@ -457,58 +458,57 @@ pkg_stat_desc <- function (checks) {
 #' @param sec_num Section numbering to use (1 for non-srr packages; otherwise
 #' 2).
 #' @noRd
-pkg_network <- function (checks, sec_num) {
-
-    out <- c (
+pkg_network <- function(checks, sec_num) {
+    out <- c(
         "",
-        paste0 ("### ", sec_num, "a. Network visualisation"),
+        paste0("### ", sec_num, "a. Network visualisation"),
         ""
     )
 
-    if (!"network_file" %in% names (checks$info)) {
-        return (c (
+    if (!"network_file" %in% names(checks$info)) {
+        return(c(
             out,
-            paste0 (
+            paste0(
                 "This package contains no internal function calls, ",
                 "and therefore no function call network"
             )
         ))
     }
 
-    cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
-    visjs_dir <- fs::path (cache_dir, "static") # in api.R
-    if (!dir.exists (visjs_dir)) {
-        dir.create (visjs_dir, recursive = TRUE)
+    cache_dir <- Sys.getenv("PKGCHECK_CACHE_DIR")
+    visjs_dir <- fs::path(cache_dir, "static") # in api.R
+    if (!dir.exists(visjs_dir)) {
+        dir.create(visjs_dir, recursive = TRUE)
     }
 
-    flist <- list.files (
+    flist <- list.files(
         visjs_dir,
-        pattern = paste0 (checks$pkg$name, "_pkgstats"),
+        pattern = paste0(checks$pkg$name, "_pkgstats"),
         full.names = TRUE
     )
 
     if (!checks$info$network_file %in% flist) {
+        unlink(flist, recursive = TRUE)
 
-        unlink (flist, recursive = TRUE)
-
-        if (!dir.exists (visjs_dir)) {
-            dir.create (visjs_dir, recursive = TRUE)
+        if (!dir.exists(visjs_dir)) {
+            dir.create(visjs_dir, recursive = TRUE)
         }
 
-        visjs_ptn <- basename (checks$info$network_file)
-        visjs_ptn <- tools::file_path_sans_ext (visjs_ptn)
-        flist <- list.files (dirname (checks$info$network_file),
+        visjs_ptn <- basename(checks$info$network_file)
+        visjs_ptn <- tools::file_path_sans_ext(visjs_ptn)
+        flist <- list.files(
+            dirname(checks$info$network_file),
             pattern = visjs_ptn,
             full.names = TRUE,
             recursive = TRUE
         )
 
-        file.copy (flist, visjs_dir, recursive = TRUE)
+        file.copy(flist, visjs_dir, recursive = TRUE)
     }
 
-    return (c (
+    return(c(
         out,
-        visjs_description (checks)
+        visjs_description(checks)
     ))
 }
 
@@ -517,35 +517,36 @@ pkg_network <- function (checks, sec_num) {
 #' output (#127). Relies on detecting envvars:
 #' https://docs.github.com/en/actions/learn-github-actions/environment-variables
 #' @noRd
-visjs_description <- function (checks) {
-
-    if (Sys.getenv ("GITHUB_ACTIONS") == "true" && !is_test_env ()) {
-
-        gh_repo <- Sys.getenv ("GITHUB_REPOSITORY")
-        orgrepo <- strsplit (gh_repo, "\\/") [[1]]
-        org <- utils::tail (orgrepo, 2) [1]
-        repo <- utils::tail (orgrepo, 1)
-        msg <- paste0 (
+visjs_description <- function(checks) {
+    if (Sys.getenv("GITHUB_ACTIONS") == "true" && !is_test_env()) {
+        gh_repo <- Sys.getenv("GITHUB_REPOSITORY")
+        orgrepo <- strsplit(gh_repo, "\\/")[[1]]
+        org <- utils::tail(orgrepo, 2)[1]
+        repo <- utils::tail(orgrepo, 1)
+        msg <- paste0(
             "[latest 'pkgcheck' action](",
-            "https://github.com", org, "/", repo,
+            "https://github.com",
+            org,
+            "/",
+            repo,
             "/actions)"
         )
 
-        res <- paste0 (
+        res <- paste0(
             "An interactive visualisation of calls between objects in ",
             "the package has been uploaded as a workflow artefact. To view ",
-            "it, click on results from the ", msg, ", scroll to ",
+            "it, click on results from the ",
+            msg,
+            ", scroll to ",
             "the bottom, and click on the 'visual-network' artefact."
         )
-
     } else {
-
         # nocov start
-        network_file <- Sys.getenv (
+        network_file <- Sys.getenv(
             "PKGCHECK_TEST_NETWORK_FILE",
             checks$info$network_file
         )
-        res <- paste0 (
+        res <- paste0(
             "Click to see the [interactive network visualisation of calls ",
             "between objects in package](",
             network_file,
@@ -554,9 +555,8 @@ visjs_description <- function (checks) {
         # nocov end
     }
 
-    return (res)
+    return(res)
 }
-
 
 
 #' render markdown-formatted input into 'html'
@@ -578,36 +578,34 @@ visjs_description <- function (checks) {
 #' # Or convert markdown-formatted version to HTML:
 #' h <- render_md2html (md)
 #' }
-render_md2html <- function (md, open = TRUE) {
+render_md2html <- function(md, open = TRUE) {
+    md <- gsub("\\:heavy\\_check\\_mark\\:", "&#9989;", md)
+    md <- gsub("\\:heavy\\_multiplication\\_x\\:", "&#10060;", md)
+    md <- gsub("\\:eyes\\:", "&#128064;", md)
 
-    md <- gsub ("\\:heavy\\_check\\_mark\\:", "&#9989;", md)
-    md <- gsub ("\\:heavy\\_multiplication\\_x\\:", "&#10060;", md)
-    md <- gsub ("\\:eyes\\:", "&#128064;", md)
+    md <- add_stats_tooltips(md)
 
-    md <- add_stats_tooltips (md)
+    f <- withr::local_tempfile(pattern = "pkgcheck")
+    f_md <- paste0(f, ".Rmd")
+    f_html <- paste0(f, ".html")
+    writeLines(md, con = f_md)
 
-    f <- tempfile (pattern = "pkgcheck")
-    f_md <- paste0 (f, ".Rmd")
-    f_html <- paste0 (f, ".html")
-    writeLines (md, con = f_md)
-
-    output_fmt <- rmarkdown::html_document (
+    output_fmt <- rmarkdown::html_document(
         mathjax = NULL,
-        pandoc_args = list ("--wrap=preserve")
+        pandoc_args = list("--wrap=preserve")
     )
 
-    rmarkdown::render (f_md, output_format = output_fmt, output_file = f_html)
+    rmarkdown::render(f_md, output_format = output_fmt, output_file = f_html)
 
     if (open) {
-        utils::browseURL (f_html)
+        utils::browseURL(f_html)
     }
 
-    invisible (f_html)
+    invisible(f_html)
 }
 
-add_stats_tooltips <- function (md) {
-
-    md <- c (
+add_stats_tooltips <- function(md) {
+    md <- c(
         "<script>",
         "$(document).ready(function(){", # nolint
         "    $('[tooltip=\"tooltip\"]').tooltip();", # nolint
@@ -618,186 +616,188 @@ add_stats_tooltips <- function (md) {
         ""
     )
 
-    stats_start <- grep ("\\|measure", md) + 1
-    stats_end <- grep ("^\\-\\-\\-$", md)
-    stats_end <- stats_end [which (stats_end > stats_start)] [1]
+    stats_start <- grep("\\|measure", md) + 1
+    stats_end <- grep("^\\-\\-\\-$", md)
+    stats_end <- stats_end[which(stats_end > stats_start)][1]
 
-    index <- grep ("^\\|[[:alpha:]]", md [stats_start:stats_end])
+    index <- grep("^\\|[[:alpha:]]", md[stats_start:stats_end])
     index <- stats_start + index - 1
 
-    tips <- tooltip_dictionary ()
+    tips <- tooltip_dictionary()
 
     for (i in index) {
-        ptn <- regmatches (md [i], regexpr ("\\w+", md [i]))
+        ptn <- regmatches(md[i], regexpr("\\w+", md[i]))
         if (!ptn %in% tips$what) {
             next
         }
 
-        tip <- tips$tooltip [tips$what == ptn]
+        tip <- tips$tooltip[tips$what == ptn]
 
-        md [i] <- gsub (
+        md[i] <- gsub(
             ptn,
-            paste0 (
+            paste0(
                 "<a tooltip='tooltip' ",
-                "title='", tip, "'>",
-                ptn, "</a>"
+                "title='",
+                tip,
+                "'>",
+                ptn,
+                "</a>"
             ),
-            md [i]
+            md[i]
         )
     }
 
-    return (md)
+    return(md)
 }
 
-tooltip_dictionary <- function () {
-
-    out <- rbind (
-        c (
+tooltip_dictionary <- function() {
+    out <- rbind(
+        c(
             "files_R",
             "Number of files in R directory"
         ),
-        c (
+        c(
             "files_src",
             "Number of files in src directory"
         ),
-        c (
+        c(
             "files_inst",
             "Number of files in inst directory"
         ),
-        c (
+        c(
             "files_vignettes",
             "Number of files in vignettes directory"
         ),
-        c (
+        c(
             "files_tests",
             "Number of files in tests directory"
         ),
-        c (
+        c(
             "loc_R",
-            paste0 (
+            paste0(
                 "Lines of code (excluding documentation and empty lines) ",
                 "in R directory"
             )
         ),
-        c (
+        c(
             "loc_src",
-            paste0 (
+            paste0(
                 "Lines of code (excluding documentation and empty lines) ",
                 "in src directory"
             )
         ),
-        c (
+        c(
             "loc_inst",
-            paste0 (
+            paste0(
                 "Lines of code (excluding documentation and empty lines) ",
                 "in inst directory"
             )
         ),
-        c (
+        c(
             "loc_vignettes",
-            paste0 (
+            paste0(
                 "Lines of code (excluding documentation and empty lines) ",
                 "in vignettes directory"
             )
         ),
-        c (
+        c(
             "loc_tests",
-            paste0 (
+            paste0(
                 "Lines of code (excluding documentation and empty lines) ",
                 "in tests directory"
             )
         ),
-        c (
+        c(
             "num_vignettes",
             "Number of vignettes"
         ),
-        c (
+        c(
             "n_fns_r",
             "Total number of exported and non-exported R functions"
         ),
-        c (
+        c(
             "n_fns_r_exported",
             "Total number of exported R functions"
         ),
-        c (
+        c(
             "n_fns_r_not_exported",
             "Total number of non-exported R functions"
         ),
-        c (
+        c(
             "n_fns_src",
             "Total number of exported and non-exported src functions"
         ),
-        c (
+        c(
             "n_fns_per_file_r",
             "Median number of functions per R source file"
         ),
-        c (
+        c(
             "n_fns_per_file_src",
             "Median number of functions per src source file"
         ),
-        c (
+        c(
             "num_params_per_fn",
             "Median number of parameters per exported R function"
         ),
-        c (
+        c(
             "loc_per_fn_r",
             "Median number of lines of code for each R function"
         ),
-        c (
+        c(
             "loc_per_fn_src",
             "Median number of lines of code for each src function"
         ),
-        c (
+        c(
             "loc_per_fn_r_exp",
             "Median number of lines of code for each exported R function"
         ),
-        c (
+        c(
             "loc_per_fn_r_not_exp",
             "Median number of lines of code for each non-exported R function"
         ),
-        c (
+        c(
             "rel_whitespace_R",
             "Relative proportion of white characters within each R code line"
         ),
-        c (
+        c(
             "rel_whitespace_src",
             "Relative proportion of white characters within each src code line"
         ),
-        c (
+        c(
             "rel_whitespace_inst",
             "Relative proportion of white characters within each inst code line"
         ),
-        c (
+        c(
             "rel_whitespace_vignettes",
             "Relative proportion of white characters within each vignette line"
         ),
-        c (
+        c(
             "rel_whitespace_tests",
             "Relative proportion of white characters within each test line"
         ),
-        c (
+        c(
             "doclines_per_fn_exp",
-            paste0 (
+            paste0(
                 "Median number of lines of documentation for ",
                 "each exported R function"
             )
         ),
-        c (
+        c(
             "doclines_per_fn_not_exp",
-            paste0 (
+            paste0(
                 "Median number of lines of documentation for ",
                 "each non-exported R function"
             )
         ),
-        c (
+        c(
             "fn_call_network_size",
             "Total number of calls from one package function to another"
         )
     )
 
-    data.frame (
-        what = out [, 1],
-        tooltip = out [, 2],
+    data.frame(
+        what = out[, 1],
+        tooltip = out[, 2],
         stringsAsFactors = FALSE
     )
 }
