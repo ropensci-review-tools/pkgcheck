@@ -101,6 +101,4 @@ test_that("pkgcheck", {
 
     testthat::expect_snapshot_file(f_html0)
     testthat::expect_snapshot_file(f_html1)
-
-    fs::file_delete(c(f_md0, f_md1, f_html0, f_html1))
 })

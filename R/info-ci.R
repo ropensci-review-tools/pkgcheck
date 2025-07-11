@@ -10,22 +10,20 @@
 #' @param u URL of repo
 #' @return Character vector of hyperlinked badge images
 #' @noRd
-pkgchk_ci_badges <- function (u) {
-
-    if (!curl::has_internet ()) {
-        return (NULL)
+pkgchk_ci_badges <- function(u) {
+    if (!curl::has_internet()) {
+        return(NULL)
     }
 
-    orgrepo <- strsplit (u, "\\/") [[1]]
-    org <- utils::tail (orgrepo, 2) [1]
-    repo <- utils::tail (orgrepo, 1)
+    orgrepo <- strsplit(u, "\\/")[[1]]
+    org <- utils::tail(orgrepo, 2)[1]
+    repo <- utils::tail(orgrepo, 1)
     # note: default branch is github only, so will only work if repo is also
     # mirrored on github!
-    branch <- get_default_github_branch (org, repo)
+    branch <- get_default_github_branch(org, repo)
 
-    if (grepl ("github", u)) {
-
-        u_readme <- paste0 (
+    if (grepl("github", u)) {
+        u_readme <- paste0(
             "https://raw.githubusercontent.com/",
             org,
             "/",
@@ -34,10 +32,8 @@ pkgchk_ci_badges <- function (u) {
             branch,
             "/README.md"
         )
-
-    } else if (grepl ("gitlab", u)) {
-
-        u_readme <- paste0 (
+    } else if (grepl("gitlab", u)) {
+        u_readme <- paste0(
             "https://gitlab.com/",
             org,
             "/",
@@ -48,65 +44,64 @@ pkgchk_ci_badges <- function (u) {
         )
     }
 
-    if (!url_exists (u_readme, quiet = TRUE)) {
-        return (NULL)
+    if (!url_exists(u_readme, quiet = TRUE)) {
+        return(NULL)
     }
 
-    f <- tempfile (fileext = ".md")
-    chk <- utils::download.file (u_readme, destfile = f, quiet = TRUE) # nolint
-    readme <- rm_html_comments (readLines (f, encoding = "UTF-8"))
+    f <- withr::local_tempfile(fileext = ".md")
+    chk <- utils::download.file(u_readme, destfile = f, quiet = TRUE) # nolint
+    readme <- rm_html_comments(readLines(f, encoding = "UTF-8"))
 
-    badges <- unlist (regmatches (
+    badges <- unlist(regmatches(
         readme,
-        gregexpr ("https.*\\.svg", readme)
+        gregexpr("https.*\\.svg", readme)
     ))
-    if (length (badges) == 0) {
-        return (NULL)
+    if (length(badges) == 0) {
+        return(NULL)
     }
 
-    platforms <- paste0 ("https\\:\\/\\/", c ("github", "gitlab"))
-    badges <- badges [grep (
-        paste0 (platforms, collapse = "|"),
+    platforms <- paste0("https\\:\\/\\/", c("github", "gitlab"))
+    badges <- badges[grep(
+        paste0(platforms, collapse = "|"),
         badges
     )]
 
     for (p in platforms) {
-
-        index <- grep (p, badges)
+        index <- grep(p, badges)
         p_u <- p
-        p_no_regex <- gsub ("\\\\", "", p)
+        p_no_regex <- gsub("\\\\", "", p)
 
         if (p == "https\\:\\/\\/github") {
-
-            wf_nms <- vapply (badges [index], function (i) {
-                utils::tail (strsplit (i, "/") [[1]], 2) [1]
-            },
-            character (1),
-            USE.NAMES = FALSE
+            wf_nms <- vapply(
+                badges[index],
+                function(i) {
+                    utils::tail(strsplit(i, "/")[[1]], 2)[1]
+                },
+                character(1),
+                USE.NAMES = FALSE
             )
 
-            p_u <- paste0 (
+            p_u <- paste0(
                 "https://github.com/",
                 org,
                 "/",
                 repo,
                 "/actions"
             )
-
         }
 
-        badges [index] <- paste0 (
+        badges[index] <- paste0(
             "[![",
             wf_nms,
             "](",
-            badges [index],
+            badges[index],
             ")](",
             p_u,
             ")"
         )
     }
 
-    return (badges)
+    return(badges)
 }
 
 #' Remove all html-comment chunks from readme
@@ -115,27 +110,26 @@ pkgchk_ci_badges <- function (u) {
 #' be removed prior to checking presence of CI badges.
 #' @param x Character vector of the README file.
 #' @noRd
-rm_html_comments <- function (x) {
-
+rm_html_comments <- function(x) {
     # First remove single-line comments:
-    x <- gsub ("<!\\-\\-.*\\-\\->", "", x)
+    x <- gsub("<!\\-\\-.*\\-\\->", "", x)
 
     # Then identify and remove multi-line html comments:
-    cmt_open <- which (regexpr ("<!\\-\\-", x) > 0L)
-    cmt_close <- which (regexpr ("\\-\\->", x) > 0L)
+    cmt_open <- which(regexpr("<!\\-\\-", x) > 0L)
+    cmt_close <- which(regexpr("\\-\\->", x) > 0L)
 
-    if (length (cmt_open) == length (cmt_close) & length (cmt_open) > 0L) {
-        g <- cbind (cmt_open, cmt_close)
+    if (length(cmt_open) == length(cmt_close) & length(cmt_open) > 0L) {
+        g <- cbind(cmt_open, cmt_close)
 
-        index <- unlist (apply (g, 1, function (i) seq (i [1], i [2])))
-        if (methods::is (index, "matrix")) {
-            index <- sort (as.vector (index))
+        index <- unlist(apply(g, 1, function(i) seq(i[1], i[2])))
+        if (methods::is(index, "matrix")) {
+            index <- sort(as.vector(index))
         }
 
-        x <- x [-index]
+        x <- x[-index]
     }
 
-    return (x)
+    return(x)
 }
 
 
@@ -144,28 +138,26 @@ rm_html_comments <- function (x) {
 #' @return A 'data.frame' with one row for each GitHub workflow, and columns for
 #' name, the 'conclusion' status, the git 'sha', and the date.
 #' @noRd
-ci_results_gh <- function (path) {
-
-    u <- pkginfo_url_from_desc (path)
-    if (length (u) == 0L) {
-        return (NULL)
+ci_results_gh <- function(path) {
+    u <- pkginfo_url_from_desc(path)
+    if (length(u) == 0L) {
+        return(NULL)
     }
 
-    if (grepl ("github\\.io", u)) {
-
-        u <- pkginfo_url_from_desc (path, type = "BugReports")
-        if (nzchar (u)) {
-            u <- gsub ("\\/issues(\\/?)$", "", u)
+    if (grepl("github\\.io", u)) {
+        u <- pkginfo_url_from_desc(path, type = "BugReports")
+        if (nzchar(u)) {
+            u <- gsub("\\/issues(\\/?)$", "", u)
         } else {
-            return (NULL)
+            return(NULL)
         }
     }
 
-    url <- strsplit (u, "\\/") [[1]]
-    org <- utils::tail (url, 2) [1]
-    repo <- utils::tail (url, 1)
+    url <- strsplit(u, "\\/")[[1]]
+    org <- utils::tail(url, 2)[1]
+    repo <- utils::tail(url, 1)
 
-    url <- paste0 (
+    url <- paste0(
         "https://api.github.com/repos/",
         org,
         "/",
@@ -173,33 +165,33 @@ ci_results_gh <- function (path) {
         "/actions/runs"
     )
 
-    if (is_test_env ()) {
-        wf <- data.frame (
+    if (is_test_env()) {
+        wf <- data.frame(
             id = 1:2,
-            name = c ("R-CMD-check.yaml", "test-coverage.yaml"),
-            status = rep ("completed", 2L),
-            conclusion = rep ("success", 2L),
-            head_sha = c ("abcdefgh123456", "123456abcdefgh"),
+            name = c("R-CMD-check.yaml", "test-coverage.yaml"),
+            status = rep("completed", 2L),
+            conclusion = rep("success", 2L),
+            head_sha = c("abcdefgh123456", "123456abcdefgh"),
             run_number = 101:102,
-            created_at = rep ("2025-01-01T00:00:01Z", 2L)
+            created_at = rep("2025-01-01T00:00:01Z", 2L)
         )
-        runs <- list (total_count = nrow (wf), workflow_runs = wf)
+        runs <- list(total_count = nrow(wf), workflow_runs = wf)
     } else {
         # These lines can not be tested:
-        body <- httr2::request (url) |>
-            httr2::req_perform ()
-        runs <- httr2::resp_body_json (body, simplify = TRUE)
+        body <- httr2::request(url) |>
+            httr2::req_perform()
+        runs <- httr2::resp_body_json(body, simplify = TRUE)
     }
 
-    if (!"total_count" %in% names (runs)) {
-        return (NULL)
+    if (!"total_count" %in% names(runs)) {
+        return(NULL)
     }
 
     if (runs$total_count == 0) {
-        return (NULL)
+        return(NULL)
     }
 
-    dat <- data.frame (
+    dat <- data.frame(
         id = runs$workflow_runs$id,
         name = runs$workflow_runs$name,
         status = runs$workflow_runs$status,
@@ -210,20 +202,20 @@ ci_results_gh <- function (path) {
         stringsAsFactors = FALSE
     )
 
-    dat$time <- strptime (dat$time, "%Y-%m-%dT%H:%M:%SZ")
-    dat$time_dbl <- as.double (dat$time)
+    dat$time <- strptime(dat$time, "%Y-%m-%dT%H:%M:%SZ")
+    dat$time_dbl <- as.double(dat$time)
     # non-dply group_by %>% summarise:
-    dat <- lapply (
-        split (dat, f = as.factor (dat$name)),
-        function (i) {
-            i [which.max (i$time_dbl), ]
+    dat <- lapply(
+        split(dat, f = as.factor(dat$name)),
+        function(i) {
+            i[which.max(i$time_dbl), ]
         }
     )
-    dat <- do.call (rbind, dat)
+    dat <- do.call(rbind, dat)
 
-    dat$sha <- substring (dat$sha, 1, 6)
-    dat$date <- strftime (dat$time, "%Y-%m-%d")
-    rownames (dat) <- dat$time_dbl <- dat$time <- dat$status <- NULL
+    dat$sha <- substring(dat$sha, 1, 6)
+    dat$date <- strftime(dat$time, "%Y-%m-%d")
+    rownames(dat) <- dat$time_dbl <- dat$time <- dat$status <- NULL
 
-    return (dat)
+    return(dat)
 }

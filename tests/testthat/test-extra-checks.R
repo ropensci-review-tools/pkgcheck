@@ -55,7 +55,7 @@ test_that("extra checks", {
     # Then snapshot tests of print & summary methods
     # This loads goodpractice, so first do that to avoid load message
     requireNamespace("goodpractice")
-    f_tmp <- tempfile(fileext = ".md")
+    f_tmp <- withr::local_tempfile(fileext = ".md")
     x <- capture.output(print(checks), file = f_tmp, type = "message")
 
     md_dir <- withr::local_tempdir()
@@ -66,6 +66,4 @@ test_that("extra checks", {
         file.path(md_dir, "checks-print.md"),
         transform = edit_markdown
     )
-
-    fs::file_delete(c(f_md, f_html, f_tmp, f_md2))
 })
