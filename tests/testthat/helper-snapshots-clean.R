@@ -88,6 +88,12 @@ edit_markdown <- function(md, print_method = FALSE) {
 #
 # @param f Name of html file in current tempdir
 edit_html <- function(h) {
+    # package version
+    h <- gsub("([0-9]\\.)+[0-9]+[0-9]+", "42", h)
+
+    # href
+    h[grep("Click to see", h)] <- "<p>Clickety clop</p>"
+
     # title includes path, so reset to generic value:
     i <- grep("^<title>", h)[1]
     h[i] <- "<title>pkgcheck.knit</title>"
@@ -102,7 +108,7 @@ edit_html <- function(h) {
 
     h <- h[index]
 
-    i <- grep("Click to see.*static", h)
+    i <- grep("Click to see.*", h)
     h[i] <- edit_temp_path_date_time(h[i])
 
     # some machines/systems split `<summary>` items across multiple lines,
