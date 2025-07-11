@@ -21,60 +21,73 @@ pkgchk_uses_dontrun <- function(checks) {
     full.names = TRUE
   )
 
-  parsed_rds <- lapply(
-    rd_files,
-    tools::parse_Rd,
-    warningCalls = FALSE,
-    macros = FALSE,
-    permissive = TRUE
+  parsed_rds <- parse_rd_files(rd_files)
+
+  # Only check Rds that actually have examples
+  has_egs <- pkgchk_fns_have_exs(checks)
+
+  has_dontrun <- vapply(
+    parsed_rds[names(has_egs[has_egs])], 
+    has_dontrun_examples,
+    FUN.VALUE = logical(1L)
   )
 
-  has_dontrun_examples <- vapply(
-    parsed_rds,
-    \(rd) {
-      # get_Rd_meta doesn't get the \dontrun part of the examples section,
-      # so need to look for it manually.
-      # Using as.character() + grepl() may be a bit imprecise, however parsing
-      # the Rd directly is messy, and I think this is sufficient
-      rd_char <- as.character(rd)
-      any(grepl("\\examples", rd_char, fixed = TRUE)) &&
-        any(grepl("\\dontrun", rd_char, fixed = TRUE))
-    },
-    logical(1)
-  )
-
-  fn_names <- if (any(has_dontrun_examples)) {
-    vapply(
-      parsed_rds[has_dontrun_examples],
-      \(rd) {
-        fn_name <- get_Rd_meta(rd, "name")
-        ret <- if (length(fn_name) == 0) "" else fn_name
-        ret
-      },
-      character(1)
-    )
-  } else {
-    character(0)
-  }
-
-  fn_names
+  has_dontrun
 }
 
 output_pkgchk_uses_dontrun <- function(checks) {
   out <- list(
-    check_pass = length(checks$checks$uses_dontrun) == 0,
+    check_pass = all(!checks$checks$uses_dontrun),
     summary = "",
     print = ""
   )
 
   if (!out$check_pass) {
-    out$summary <- "Examples should not use `\\dontrun{{}}` unless really necessary."
+    out$summary <- if (all(checks$checks$uses_dontrun)) {
+      # When #248 is addressed, this condition should be :heavy_multiplication_x:
+      "All examples use `\\dontrun{}`." 
+    } else {
+      # :eyes: when some examples use `\dontrun{}`
+      "Examples should not use `\\dontrun{{}}` unless really necessary."
+    }
     out$print <- paste0(
       "The following functions have examples that use `\\dontrun{{}}`:\n'",
-      paste(checks$checks$uses_dontrun, collapse = "', '"),
+      paste(
+        names(checks$checks$uses_dontrun[checks$checks$uses_dontrun]),
+        collapse = "', '"
+      ),
       "'.\nConsider using `@examplesIf()` to conditionally run examples instead."
     )
   }
 
   return(out)
+}
+
+
+## Utilities for parsing examples in Rd files
+get_Rd_section <- utils::getFromNamespace (".Rd_get_section", "tools")
+
+parse_rd_files <- function(rd_files) {
+  rds <- lapply(
+    rd_files,
+    function(f) {
+      tryCatch(
+        tools::parse_Rd(f, warningCalls = FALSE, macros = FALSE, permissive = TRUE),
+        error = function(e) {
+          warning(sprintf("Error parsing Rd file '%s': %s", file, e$message))
+          NULL
+        }
+      )
+    }
+  )
+  nms <- vapply(rds, get_Rd_meta, FUN.VALUE = character(1), "name")
+  stats::setNames(rds, nms)
+}
+
+has_dontrun_examples <- function(rd) {
+  ex <- get_Rd_section(rd, "examples")  
+  tags <- vapply(ex, function(exi) attr(exi, "Rd_tag"), character(1L))  
+  
+  # Check if there are any \dontrun blocks
+  any(tags == "\\dontrun")
 }
