@@ -43,6 +43,29 @@ list_pkgchecks <- function (quiet = FALSE) {
     invisible (chks)
 }
 
+#' List all .Rd files, but exclude any that are in `.Rbuildignore`.
+#'
+#' # 277 for roxygen2 'devtag'
+#' @noRd
+list_rd_files <- function (path) {
+
+    rd <- list.files (
+        fs::path (path, "man"),
+        pattern = "\\.Rd$",
+        full.names = TRUE
+    )
+    rb <- fs::path (path, ".Rbuildignore")
+    if (fs::file_exists (rb)) {
+        rb <- readLines (rb)
+        rb <- paste0 (grep ("^(\\^?)man", rb, value = TRUE), collapse = "|")
+        if (nzchar (rb)) {
+            rd_rel <- fs::path_rel (rd, path)
+            rd <- rd [which (!grepl (rb, rd_rel))]
+        }
+    }
+    return (rd)
+}
+
 #' Modified verion of getNamespaceExports` to exclude fns re-exported from other
 #' packages
 #' @noRd
