@@ -20,6 +20,8 @@ i Package depends on the following obsolete packages: [blah,sp]
 i Current status:
 x This package is not ready to be submitted.
 
+i 'pkgcheck' version: 7.8.9
+
 
 -- git --
 
