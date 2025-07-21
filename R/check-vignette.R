@@ -21,7 +21,17 @@ pkgchk_has_vignette <- function (checks) {
     }
 
     is_html <- function (f) {
-        format <- rmarkdown::default_output_format (f)$name
+        format <- tryCatch (
+            rmarkdown::default_output_format (f)$name,
+            error = function (e) NULL
+        )
+        if (is.null (format)) {
+            # See https://yihui.org/litedown/#sec:yaml-syntax
+            # litedown uses "taml", which fails with yaml parsers
+            requireNamespace ("xfun", quietly = TRUE)
+            taml <- xfun::taml_load (readLines (f))
+            format <- names (taml$output)
+        }
 
         # See suffix dictionary at
         # ropensci-review-tools/pkgstats/R/type-dict.R
