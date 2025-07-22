@@ -50,7 +50,10 @@ summarise_all_checks <- function (checks) {
     out <- do.call (c, out)
     # Ensure all :eyes: come last:
     index_eyes <- grep ("\\:eyes\\:", out)
-    index_other <- seq_along (out) [-index_eyes]
+    index_other <- seq_along (out)
+    if (length (index_eyes) > 0L) {
+        index_other <- index_other [-index_eyes]
+    }
     out <- c (out [index_other], out [index_eyes])
 
 
