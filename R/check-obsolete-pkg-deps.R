@@ -77,5 +77,7 @@ output_pkgchk_obsolete_pkg_deps <- function (checks) { # nolint
         )
     }
 
+    out$check_type <- "none_watch" # (pass_fail)
+
     return (out)
 }

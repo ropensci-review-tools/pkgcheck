@@ -32,5 +32,7 @@ output_pkgchk_lintr <- function (checks) {
         out$summary <- "Some goodpractice linters failed."
     }
 
+    out$check_type <- "pass_watch"
+
     return (out)
 }
