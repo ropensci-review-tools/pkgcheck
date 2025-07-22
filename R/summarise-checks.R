@@ -30,12 +30,29 @@ summarise_all_checks <- function (checks) {
         ordered_checks,
         function (i) summarise_check (checks, i, pkg_env)
     )
-    # "watch" checks; issue #144
-    index <- which (ordered_checks %in% watch_checks (output_fns))
-    out [index] <-
-        gsub ("\\:heavy\\_multiplication\\_x\\:", ":eyes:", out [index])
+
+    # "watch" checks; issue #144, #248
+    watch_index <- vapply (out, function (i) {
+        ret <- c (FALSE, FALSE)
+        if (!is.null (i) && "check_type" %in% names (attributes (i))) {
+            a <- attr (i, "check_type")
+            ret <- c (grepl ("^watch", a), grepl ("\\_watch$", a))
+        }
+        return (ret)
+    }, logical (2L))
+    index_tick <- which (watch_index [1, ])
+    out [index_tick] <-
+        gsub ("\\:heavy\\_check\\_mark:", ":eyes:", out [index_tick])
+    index_cross <- which (watch_index [2, ])
+    out [index_cross] <-
+        gsub ("\\:heavy\\_multiplication\\_x\\:", ":eyes:", out [index_cross])
 
     out <- do.call (c, out)
+    # Ensure all :eyes: come last:
+    index_eyes <- grep ("\\:eyes\\:", out)
+    index_other <- seq_along (out) [-index_eyes]
+    out <- c (out [index_other], out [index_eyes])
+
 
     out <- c (out, summarise_extra_env_checks (checks))
 
@@ -152,18 +169,6 @@ order_checks <- function (fns) {
     return (fns)
 }
 
-watch_checks <- function (output_fns) {
-
-    all_checks <- order_checks (output_fns)
-    watch_list <- c (
-        "obsolete_pkg_deps",
-        "unique_fn_names",
-        "num_imports"
-    )
-
-    all_checks [which (all_checks %in% watch_list)]
-}
-
 #' Generic function to summarise checks based on result of corresponding
 #' `output_pkgchk_` function.
 #'
@@ -196,6 +201,10 @@ summarise_check <- function (checks, what, pkg_env) {
             " ",
             chk_summary$summary
         )
+    }
+
+    if (!is.null (res) && "check_type" %in% names (chk_summary)) {
+        attr (res, "check_type") <- chk_summary$check_type
     }
 
     return (res)

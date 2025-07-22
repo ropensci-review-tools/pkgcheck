@@ -39,6 +39,8 @@ output_pkgchk_num_imports <- function (checks) {
         )
     }
 
+    out$check_type <- "none_watch" # (pass_fail)
+
     return (out)
 }
 
