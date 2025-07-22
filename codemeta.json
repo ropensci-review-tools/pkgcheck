@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.2.194",
+  "version": "0.1.2.202",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -34,6 +34,13 @@
       "familyName": "Wujciak-Jens",
       "email": "jacob@wujciak.de",
       "@id": "https://orcid.org/0000-0002-7281-3989"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Eunseop",
+      "familyName": "Kim",
+      "email": "markean@pm.me",
+      "@id": "https://orcid.org/0009-0000-2138-788X"
     }
   ],
   "maintainer": [
@@ -142,6 +149,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=visNetwork"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "xfun",
+      "name": "xfun",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=xfun"
     }
   ],
   "softwareRequirements": {
@@ -362,7 +381,7 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "333.343KB",
+  "fileSize": "413.065KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
   "contIntegration": [
     "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",

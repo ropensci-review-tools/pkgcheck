@@ -23,6 +23,9 @@ edit_markdown <- function (md, print_method = FALSE) {
     md <- change_pkg_vers (md, "pkgcheck")
     md <- change_pkg_vers (md, "srr")
 
+    i <- grep ("'pkgcheck'\\sversion\\:\\s[0-9]", md)
+    md [i] <- gsub ("\\:\\s[0-9].*$", ": 7.8.9", md [i])
+
     i <- grep ("Click to see.*static", md)
     md [i] <- edit_temp_path_date_time (md [i])
 

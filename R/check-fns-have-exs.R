@@ -7,13 +7,7 @@
 #' @noRd
 pkgchk_fns_have_exs <- function (checks) {
 
-    rd <- list.files (
-        fs::path (
-            checks$pkg$path, "man"
-        ),
-        pattern = "\\.Rd$",
-        full.names = TRUE
-    )
+    rd <- list_rd_files (checks$pkg$path) # utils.R
 
     # don't check for examples in datasets (#103), identified by keyword
     what <- c ("name", "docType", "keyword", "examples")

@@ -5,11 +5,7 @@
 #' @noRd
 pkginfo_pkgdown <- function (path) {
 
-    rd_files <- list.files (
-        fs::path (path, "man"),
-        pattern = "\\.Rd$",
-        full.names = TRUE
-    )
+    rd_files <- list_rd_files (path) # utils.R
 
     concepts <- vapply (rd_files, function (i) {
         rd_i <- tools::parse_Rd (i, permissive = TRUE)

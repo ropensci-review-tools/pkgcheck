@@ -11,14 +11,16 @@ v 'DESCRIPTION' has a BugReports field.
 x Package has no HTML vignettes
 x These functions do not have examples: [pkgstats_from_archive].
 v Package has continuous integration checks, but no badges on README
-x Some goodpractice linters failed.
 x Package contains unexpected files.
 x Default GitHub branch of 'master' is not acceptable.
 v This is a statistical package which complies with all applicable standards
+i Some goodpractice linters failed.
 i Package depends on the following obsolete packages: [blah,sp]
 
 i Current status:
 x This package is not ready to be submitted.
+
+i 'pkgcheck' version: 7.8.9
 
 
 -- git --
