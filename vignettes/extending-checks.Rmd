@@ -399,7 +399,44 @@ The `print_check_screen()` function will then automatically activate the
 has no `print` method (as in the `starts_with_aa` example above), to provide an
 explicit record of all internally-defined miscellaneous checks.
 
-#### 3.2a Testing new checks
+#### 3.2a Check types
+
+Some checks are defined so that failure results in a &#128064; symbol, rather
+than a default &#10060; symbol. This &#128064; symbol indicates that the
+failures may be worth examining further, and yet do not cause the overall check
+report to fail. This sub-section describes how to define such checks.
+
+All checks include a binary flag, `check_pass`, defined in their
+`output_pkgchk_...` function, like in the example above, which also define
+their output conditions. If `out$summary` is defined for `check_pass`, then
+that output will by default be prefixed with &#9989;, while if `out$summary` is
+defined for `!check_pass`, then that output will by default be prefixed with
+&#10060;. Any instances of &#10060; will cause the whole check suite to fail,
+including on
+[`pkgcheck-action`](https://github.com/ropensci-review-tools/pkgcheck-action).
+
+The `out` value returned from all `output_pkgchk_...` functions is a list that
+must include `check_pass`, `summary`, and `print` items, like in the example
+above. Non-default check types can be defined by an optional extra list-item
+named `check_type`, specified as a string with conditions for
+`"<pass>"_"<fail>"`, where a value of `"watch"` will replace the default
+&#9989; or &#10060; symbols with &#128064;. For example, a check which should
+issue &#9989; on pass yet &#128064; on fail would be specified as,
+```{r, eval = FALSE}
+out$check_pass <- "pass_watch"
+```
+A check which should only issue &#128064; on fail and nothing on success would
+be specified as,
+```{r, eval = FALSE}
+out$check_pass <- "none_watch"
+```
+A check which should issue &#128064; on success and nothing on failure would be specified as,
+```{r, eval = FALSE}
+out$check_pass <- "watch_none"
+```
+
+
+#### 3.2b Testing new checks
 
 Finally, any new checks also need to be included in tests, with most checks
 having a corresponding file in the [`tests/testthat`
