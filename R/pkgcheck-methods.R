@@ -132,10 +132,12 @@ print_summary <- function (x) {
 
     message ("")
     cli::cli_alert_info ("Current status:")
+    is_bot <- identical (Sys.getenv ("ROPENSCI_REVIEW_BOT", "false"), "true")
+    msg <- ifelse (is_bot, praise_from_bot (okay), pkgcheck_praise (okay))
     if (okay) {
-        cli::cli_alert_success ("This package may be submitted.")
+        cli::cli_alert_success (msg)
     } else {
-        cli::cli_alert_danger ("This package is not ready to be submitted.")
+        cli::cli_alert_danger (msg)
     }
 
     message ("")
