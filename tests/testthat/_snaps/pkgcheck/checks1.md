@@ -13,6 +13,7 @@ git hash: [](/tree/)
 - :heavy_multiplication_x: These functions do not have examples: [test_fn].
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
 - :heavy_multiplication_x: Package coverage failed
+- :heavy_check_mark: All goodpractice linters passed.
 - :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
 - :heavy_multiplication_x: Some statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
@@ -232,7 +233,7 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 |rel_whitespace_src      |    27|        4.9|TRUE       |
 |rel_whitespace_tests    |    17|        2.8|TRUE       |
 |doclines_per_fn_exp     |     6|        2.3|TRUE       |
-|doclines_per_fn_not_exp |     0|        0.0|TRUE       |
+|doclines_per_fn_not_exp |     2|      100.0|TRUE       |
 |fn_call_network_size    |     1|       11.7|           |
 
 ---

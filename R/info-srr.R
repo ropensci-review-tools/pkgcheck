@@ -27,9 +27,11 @@
 #' @noRd
 pkginfo_srr_report <- function (path) {
 
-    srr <- tryCatch (
-        srr::srr_stats_pre_submit (path, quiet = TRUE),
-        error = function (e) e
+    suppressMessages (
+        srr <- tryCatch (
+            srr::srr_stats_pre_submit (path, quiet = TRUE),
+            error = function (e) e
+        )
     )
 
     if (is.null (srr)) {

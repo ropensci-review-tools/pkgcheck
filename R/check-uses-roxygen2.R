@@ -10,11 +10,7 @@
 #' @noRd
 pkgchk_uses_roxygen2 <- function (checks) {
 
-    rd <- list.files (
-        fs::path (checks$pkg$path, "man"),
-        pattern = "\\.Rd$",
-        full.names = TRUE
-    )
+    rd <- list_rd_files (checks$pkg$path) # utils.R
 
     chk <- vapply (rd, function (i) {
         l1 <- readLines (i, n = 1L, encoding = "UTF-8")

@@ -139,6 +139,8 @@ print_summary <- function (x) {
     }
 
     message ("")
+    cli::cli_alert_info ("'pkgcheck' version: {packageVersion('pkgcheck')}")
+    message ("")
 }
 
 print_git <- function (x) {
