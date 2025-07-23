@@ -57,6 +57,7 @@ test_that ("extra checks", {
     # This loads goodpractice, so first do that to avoid load message
     requireNamespace ("goodpractice")
     f_tmp <- tempfile (fileext = ".md")
+    set.seed (1L) # for praise.R random sample output
     x <- capture.output (print (checks), file = f_tmp, type = "message")
 
     md <- edit_markdown (readLines (f_tmp), print_method = TRUE)
