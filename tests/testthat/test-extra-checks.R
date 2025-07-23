@@ -57,6 +57,7 @@ test_that ("extra checks", {
     # This loads goodpractice, so first do that to avoid load message
     requireNamespace ("goodpractice")
     f_tmp <- tempfile (fileext = ".md")
+    set.seed (1L) # for praise.R random sample output
     x <- capture.output (print (checks), file = f_tmp, type = "message")
 
     md <- edit_markdown (readLines (f_tmp), print_method = TRUE)
@@ -67,4 +68,36 @@ test_that ("extra checks", {
     testthat::expect_snapshot_file (file.path (md_dir, "checks-print.md"))
 
     fs::file_delete (c (f_md, f_html, f_tmp, f_md2))
+
+    # *****************************************************************
+    # *********   EXTRA CHECKS FOR PRAISE IN SUMMARY OUTPUT   *********
+    # *****************************************************************
+    set.seed (1L)
+    x <- capture.output (summary (checks), type = "message")
+    expect_true (any (grepl ("Sorry about that", x)))
+    withr::with_envvar (
+        list ("ROPENSCI_REVIEW_BOT" = "true"),
+        x <- capture.output (summary (checks), type = "message")
+    )
+    expect_false (any (grepl ("Sorry about that", x)))
+    expect_true (any (grepl ("This package is not ready to be submitted", x)))
+
+    # Fix up all failing checks:
+    checks$checks$has_contrib_md <- checks$checks$has_codemeta <-
+        checks$checks$has_vignette <- TRUE
+    checks$checks$fns_have_return_vals <- checks$checks$has_scrap <- NULL
+    ex <- checks$checks$fns_have_exs
+    ex [which (!ex)] <- TRUE
+    checks$checks$fns_have_exs <- ex
+    checks$checks$branch_is_master <- FALSE
+
+    set.seed (1L)
+    x <- capture.output (summary (checks), type = "message")
+    expect_true (any (grepl ("great work", x)))
+    withr::with_envvar (
+        list ("ROPENSCI_REVIEW_BOT" = "true"),
+        x <- capture.output (summary (checks), type = "message")
+    )
+    expect_false (any (grepl ("great work", x)))
+    expect_true (any (grepl ("This package may be submitted", x)))
 })

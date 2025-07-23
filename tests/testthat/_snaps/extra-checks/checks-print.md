@@ -18,7 +18,7 @@ i Some goodpractice linters failed.
 i Package depends on the following obsolete packages: [blah,sp]
 
 i Current status:
-x This package is not ready to be submitted.
+x Sorry about that, but your package is not quite ready ...
 
 i 'pkgcheck' version: 7.8.9
 
