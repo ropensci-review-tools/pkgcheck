@@ -26,5 +26,10 @@ Authors:
   \item Eunseop Kim \email{markean@pm.me} (\href{https://orcid.org/0009-0000-2138-788X}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item Kelli F. Johnson \email{kelli.johnson@noaa.gov} (\href{https://orcid.org/0000-0002-5149-451X}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}
