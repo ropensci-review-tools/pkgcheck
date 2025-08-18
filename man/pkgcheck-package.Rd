@@ -29,6 +29,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Kelli F. Johnson \email{kelli.johnson@noaa.gov} (\href{https://orcid.org/0000-0002-5149-451X}{ORCID}) [contributor]
+  \item Katrina Brock \email{katrinabrock266@gmail.com} (\href{https://orcid.org/0009-0003-4678-9545}{ORCID}) [contributor]
 }
 
 }
