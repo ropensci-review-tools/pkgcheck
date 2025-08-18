@@ -31,7 +31,8 @@ pkgstats_info <- function (path, use_cache) {
 
     return (list (
         stats = s,
-        out = out
+        out = out,
+        from_cache = attr (s, "from_cache")
     ))
 }
 

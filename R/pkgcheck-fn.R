@@ -89,6 +89,15 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
         renv_activated = checks$info$renv_activated
     )
 
+    from_cache <- s$from_cache || attr (checks$goodpractice, "from_cache")
+    if (from_cache) {
+        cli::cli_alert_info (paste0 (
+            "To re-generate, call 'pkgcheck' function with ",
+            "'use_cache = FALSE', or delete the cached files."
+        ))
+    }
+    attr (checks$goodpractice, "from_cache") <- NULL
+
     u <- pkginfo_url_from_desc (path, type = "URL")
     # hard-code to extract github URLs only:
     if (!grepl ("github", u, ignore.case = TRUE) |
