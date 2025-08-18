@@ -124,7 +124,9 @@ cache_pkgcheck_component <- function (path,
 
     if (fs::file_exists (cache_file) & use_cache) {
 
+        cli::cli_alert_info ("Loading cached {what} results from {cache_file}")
         out <- readRDS (cache_file)
+        attr (out, "from_cache") <- TRUE
 
     } else {
 
@@ -141,6 +143,7 @@ cache_pkgcheck_component <- function (path,
         }
 
         out <- suppressWarnings (do.call (this_fn, args))
+        attr (out, "from_cache") <- FALSE
 
         Sys.unsetenv ("_R_CHECK_FORCE_SUGGESTS_")
 

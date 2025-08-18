@@ -37,7 +37,7 @@ make_check_data_srr_internal <- function (goodpractice = FALSE) {
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
 
     x <- capture.output (
-        roxygen2::roxygenise (d),
+        roxygen2::roxygenise (d, load_code = roxygen2::load_source),
         type = "message"
     )
 
