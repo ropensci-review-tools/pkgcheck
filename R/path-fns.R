@@ -8,11 +8,11 @@ convert_path <- function (path = ".") {
 
     path <- fs::path_norm (path)
 
-    # see also https://github.com/r-lib/usethis/blob/master/R/proj.R
-    path <- x_if_not_null(tryCatch (
-        rprojroot::find_root (rprojroot::is_git_root, path = path),
-        error = function (e) NULL
-    ), path)
+    # # see also https://github.com/r-lib/usethis/blob/master/R/proj.R
+    # path <- x_if_not_null(tryCatch (
+    #     usethis:::proj_find (path = path),
+    #     error = function (e) NULL
+    # ), path)
 
     path <- x_if_not_null(
         tryCatch (
