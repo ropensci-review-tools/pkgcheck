@@ -17,7 +17,7 @@ test_that ("pkgcheck_bg() works", {
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
 
     x <- capture.output (
-        roxygen2::roxygenise (d),
+        roxygen2::roxygenise (d, load_code = roxygen2::load_source),
         type = "message"
     )
 

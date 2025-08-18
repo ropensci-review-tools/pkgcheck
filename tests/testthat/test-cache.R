@@ -2,7 +2,10 @@ test_that ("check cache messages", {
 
     pkgname <- "cachecheckpkg"
     path <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
-    o <- capture.output (roxygen2::roxygenise (path), type = "message")
+    o <- capture.output (
+        roxygen2::roxygenise (path, load_code = roxygen2::load_source),
+        type = "message"
+    )
 
     checks <- pkgcheck (path, goodpractice = FALSE, use_cache = TRUE)
 
