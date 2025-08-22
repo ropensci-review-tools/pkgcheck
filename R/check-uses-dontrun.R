@@ -93,9 +93,45 @@ parse_rd_files <- function(rd_files) {
 }
 
 has_dontrun_examples <- function(rd) {
+  browser()
   ex <- get_Rd_section(rd, "examples")
   tags <- vapply(ex, function(exi) attr(exi, "Rd_tag"), character(1L))
 
   # Check if there are any \dontrun blocks
-  any(tags == "\\dontrun")
+
+  # Code that is not wrapped in \dontrun has the attribute Rd_tag set to "RCODE"
+  # and is listed line-by-line in the examples section (i.e., each line has the
+  # Rd_tag "RCODE" attribute). Code that that is wrapped in \dontrun has the
+  # attribute Rd_tag set to "\\dontrun" and is nested in a list element, and
+  # within that list element the code lines have the Rd_tag attribute set to
+  # "VERB" (i.e. 'verbatim'; not run).
+
+  # Remove RCODE lines that are just whitespace or comments
+  bare_r_code <- grep(
+    "(^\\s+$)|(^#)", 
+    unlist(ex[tags == "RCODE"]), 
+    invert = TRUE, 
+    value = TRUE
+  )
+
+  dontrun_r_code <- grep(
+    "(^\\s+$)|(^#)", 
+    unlist(ex[tags == "\\dontrun"]),
+    invert = TRUE,
+    value = TRUE
+  )
+  
+  any_bare_r_code <- length(bare_r_code) > 0
+  any_dont_run <- length(dontrun_r_code) > 0
+
+  if (any_bare_r_code && any_dont_run) {
+    # If there is bare R code and also \dontrun, we consider it a dontrun example
+    return("some")
+  } else if (any_dont_run) {
+    # If there is only \dontrun, we consider it a dontrun example
+    return("all")
+  } else {
+    # No dontrun examples found
+    return("none")
+  }
 }
