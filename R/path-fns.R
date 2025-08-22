@@ -7,26 +7,25 @@ convert_path <- function (path = ".") {
 
     path <- fs::path_norm (path)
 
-    parent <- tryCatch (
+    proj_root <- tryCatch (
         rprojroot::find_package_root_file (path = path),
         error = function (e) NULL
     )
-
-    path <- if (is.null(parent)) unlist (lapply (
-        fs::dir_ls (path, type = "directory"),
-        function (child) {
+    if (is.null (proj_root)) {
+        subdirs <- fs::dir_ls (path, type = "directory")
+        proj_root <- unlist (lapply (subdirs, function (d) {
             tryCatch (
-                rprojroot::find_root (rprojroot::is_r_package, path = child),
+                rprojroot::find_root (rprojroot::is_r_package, path = d),
                 error = function (e) NULL
             )
-        }
-    )) else parent
+        }))
+    }
 
-    if (length (path) != 1L) {
+    if (length (proj_root) != 1L) {
         cli::cli_abort (
-            "Could not find unambiguous project root from {path}"
+            "Could not find unambiguous project root from {proj_root}"
         )
     }
 
-    return (fs::path (path))
+    return (fs::path (proj_root))
 }
