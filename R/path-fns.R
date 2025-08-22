@@ -4,28 +4,23 @@
 #' an R package.
 #' @noRd
 convert_path <- function (path = ".") {
-    x_if_not_null <- function(x, y) if (is.null(x)) y else x
 
     path <- fs::path_norm (path)
 
-    # # see also https://github.com/r-lib/usethis/blob/master/R/proj.R
-    # path <- x_if_not_null(tryCatch (
-    #     usethis:::proj_find (path = path),
-    #     error = function (e) NULL
-    # ), path)
+    parent <- tryCatch (
+        rprojroot::find_package_root_file (path = path),
+        error = function (e) NULL
+    )
 
-    path <- x_if_not_null(
-        tryCatch (
-            rprojroot::find_package_root_file (path = path),
-            error = function (e) NULL
-        ),
-        unlist (lapply (fs::dir_ls (path, type = "directory"), function (d) {
+    path <- if (is.null(parent)) unlist (lapply (
+        fs::dir_ls (path, type = "directory"),
+        function (child) {
             tryCatch (
-                rprojroot::find_root (rprojroot::is_r_package, path = d),
+                rprojroot::find_root (rprojroot::is_r_package, path = child),
                 error = function (e) NULL
             )
-        }))
-    )
+        }
+    )) else parent
 
     if (length (path) != 1L) {
         cli::cli_abort (
