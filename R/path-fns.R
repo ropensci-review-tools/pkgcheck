@@ -7,16 +7,6 @@ convert_path <- function (path = ".") {
 
     path <- fs::path_norm (path)
 
-    # see also https://github.com/r-lib/usethis/blob/master/R/proj.R
-    git_root <- tryCatch (
-        rprojroot::find_root (rprojroot::is_git_root, path = path),
-        error = function (e) NULL
-    )
-
-    if (!is.null (git_root)) {
-        path <- git_root
-    }
-
     proj_root <- tryCatch (
         rprojroot::find_package_root_file (path = path),
         error = function (e) NULL

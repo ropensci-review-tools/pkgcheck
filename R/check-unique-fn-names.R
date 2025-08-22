@@ -114,5 +114,7 @@ output_pkgchk_unique_fn_names <- function (checks) { # nolint
         )
     }
 
+    out$check_type <- "none_watch" # (pass_fail)
+
     return (out)
 }

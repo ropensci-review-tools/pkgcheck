@@ -1,14 +1,18 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.1.2.193
+Version: 0.1.2.214
 Authors@R: c(
     person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2172-5265")),
     person("Maëlle", "Salmon", role = "aut"),
     person("Jacob", "Wujciak-Jens", , "jacob@wujciak.de", role = "aut",
            comment = c(ORCID = "0000-0002-7281-3989")),
+    person(c("Kelli", "F."), "Johnson", , "kelli.johnson@noaa.gov",
+           role = "ctb", comment = c(ORCID = "0000-0002-5149-451X")),
     person("Eunseop", "Kim", , "markean@pm.me", role = "aut",
-           comment = c(ORCID = "0009-0000-2138-788X"))
+           comment = c(ORCID = "0009-0000-2138-788X")),
+    person("Katrina", "Brock", , "katrinabrock266@gmail.com",
+           role = "ctb", comment = c(ORCID = "0009-0003-4678-9545"))
   )
 Description: Check whether a package is ready for submission to rOpenSci's
     peer review system.
@@ -32,6 +36,7 @@ Imports:
     magrittr,
     methods,
     pkgstats,
+    praise,
     rappdirs,
     rmarkdown,
     rprojroot,
@@ -47,6 +52,7 @@ Suggests:
     roxygen2,
     testthat (>= 3.0.0),
     visNetwork,
+    xfun
 VignetteBuilder: 
     knitr
 Remotes:

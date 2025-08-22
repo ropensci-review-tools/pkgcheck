@@ -151,7 +151,7 @@ ci_results_gh <- function (path) {
         return (NULL)
     }
 
-    if (grepl ("github\\.io", u)) {
+    if (grepl ("github\\.io", u) || !grepl ("github", u)) {
 
         u <- pkginfo_url_from_desc (path, type = "BugReports")
         if (nzchar (u)) {
