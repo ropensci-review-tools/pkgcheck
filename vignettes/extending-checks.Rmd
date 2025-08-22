@@ -423,16 +423,16 @@ named `check_type`, specified as a string with conditions for
 &#9989; or &#10060; symbols with &#128064;. For example, a check which should
 issue &#9989; on pass yet &#128064; on fail would be specified as,
 ```{r, eval = FALSE}
-out$check_pass <- "pass_watch"
+out$check_type <- "pass_watch"
 ```
 A check which should only issue &#128064; on fail and nothing on success would
 be specified as,
 ```{r, eval = FALSE}
-out$check_pass <- "none_watch"
+out$check_type <- "none_watch"
 ```
 A check which should issue &#128064; on success and nothing on failure would be specified as,
 ```{r, eval = FALSE}
-out$check_pass <- "watch_none"
+out$check_type <- "watch_none"
 ```
 
 
