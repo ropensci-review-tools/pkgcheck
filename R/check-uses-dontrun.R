@@ -21,18 +21,7 @@ pkgchk_uses_dontrun <- function(checks) {
     full.names = TRUE
   )
 
-  parsed_rds <- parse_rd_files(rd_files)
-
-  # Only check Rds that actually have examples
-  has_egs <- pkgchk_fns_have_exs(checks)
-
-  has_dontrun <- vapply(
-    parsed_rds[names(has_egs[has_egs])], 
-    has_dontrun_examples,
-    FUN.VALUE = logical(1L)
-  )
-
-  has_dontrun
+  check_for_dontrun(rd_files)
 }
 
 output_pkgchk_uses_dontrun <- function(checks) {
@@ -45,7 +34,7 @@ output_pkgchk_uses_dontrun <- function(checks) {
   if (!out$check_pass) {
     out$summary <- if (all(checks$checks$uses_dontrun)) {
       # When #248 is addressed, this condition should be :heavy_multiplication_x:
-      "All examples use `\\dontrun{}`." 
+      "All examples use `\\dontrun{}`."
     } else {
       # :eyes: when some examples use `\dontrun{}`
       "Examples should not use `\\dontrun{{}}` unless really necessary."
@@ -63,16 +52,35 @@ output_pkgchk_uses_dontrun <- function(checks) {
   return(out)
 }
 
+check_for_dontrun <- function(rd_files) {
+  parsed_rds <- parse_rd_files(rd_files)
+
+  # Only check Rds that actually have examples
+  has_egs <- pkgchk_fns_have_exs(checks)
+
+  has_dontrun <- vapply(
+    parsed_rds[names(has_egs[has_egs])],
+    has_dontrun_examples,
+    FUN.VALUE = logical(1L)
+  )
+
+  has_dontrun
+}
 
 ## Utilities for parsing examples in Rd files
-get_Rd_section <- utils::getFromNamespace (".Rd_get_section", "tools")
+get_Rd_section <- utils::getFromNamespace(".Rd_get_section", "tools")
 
 parse_rd_files <- function(rd_files) {
   rds <- lapply(
     rd_files,
     function(f) {
       tryCatch(
-        tools::parse_Rd(f, warningCalls = FALSE, macros = FALSE, permissive = TRUE),
+        tools::parse_Rd(
+          f,
+          warningCalls = FALSE,
+          macros = FALSE,
+          permissive = TRUE
+        ),
         error = function(e) {
           warning(sprintf("Error parsing Rd file '%s': %s", file, e$message))
           NULL
@@ -85,9 +93,9 @@ parse_rd_files <- function(rd_files) {
 }
 
 has_dontrun_examples <- function(rd) {
-  ex <- get_Rd_section(rd, "examples")  
-  tags <- vapply(ex, function(exi) attr(exi, "Rd_tag"), character(1L))  
-  
+  ex <- get_Rd_section(rd, "examples")
+  tags <- vapply(ex, function(exi) attr(exi, "Rd_tag"), character(1L))
+
   # Check if there are any \dontrun blocks
   any(tags == "\\dontrun")
 }
