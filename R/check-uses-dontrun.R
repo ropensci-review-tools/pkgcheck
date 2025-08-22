@@ -21,7 +21,7 @@ pkgchk_uses_dontrun <- function(checks) {
     full.names = TRUE
   )
 
-  check_for_dontrun(rd_files)
+  uses_dontrun(rd_files)
 }
 
 output_pkgchk_uses_dontrun <- function(checks) {
@@ -52,11 +52,11 @@ output_pkgchk_uses_dontrun <- function(checks) {
   return(out)
 }
 
-check_for_dontrun <- function(rd_files) {
+uses_dontrun <- function(rd_files) {
   parsed_rds <- parse_rd_files(rd_files)
 
   # Only check Rds that actually have examples
-  has_egs <- pkgchk_fns_have_exs(checks)
+  has_egs <- fns_have_exs(rd_files)
 
   has_dontrun <- vapply(
     parsed_rds[names(has_egs[has_egs])],
