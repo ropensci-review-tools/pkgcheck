@@ -93,7 +93,7 @@ parse_rd_files <- function(rd_files) {
 }
 
 has_dontrun_examples <- function(rd) {
-  browser()
+
   ex <- get_Rd_section(rd, "examples")
   tags <- vapply(ex, function(exi) attr(exi, "Rd_tag"), character(1L))
 
