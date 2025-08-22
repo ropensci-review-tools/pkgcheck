@@ -7,7 +7,7 @@
 #' @noRd
 pkgchk_fns_have_exs <- function (checks) {
 
-    files <- list_rd_files (checks$pkg$path) # utils.R
+    rd <- list_rd_files (checks$pkg$path) # utils.R
 
     fns_have_exs(rd)
 }
