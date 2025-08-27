@@ -21,50 +21,52 @@ pkgchk_uses_dontrun <- function(checks) {
     full.names = TRUE
   )
 
-  uses_dontrun(rd_files)
+  rd_files_use_dontrun(rd_files)
 }
 
 output_pkgchk_uses_dontrun <- function(checks) {
+
   out <- list(
-    check_pass = all(!checks$checks$uses_dontrun),
+    check_pass = all(checks$checks$uses_dontrun == "none"),
     summary = "",
     print = ""
   )
 
   if (!out$check_pass) {
-    out$summary <- if (all(checks$checks$uses_dontrun)) {
-      # When #248 is addressed, this condition should be :heavy_multiplication_x:
-      "All examples use `\\dontrun{}`."
+    out$print <- "'.\nConsider using `@examplesIf()` to conditionally run examples instead."
+    if (all(checks$checks$uses_dontrun == "all")) {
+      out$summary <- "All examples use `\\dontrun{}`."
+      out$print <- paste0(
+      "All of your functions' examples use `\\dontrun{}`:\n'",
+      out$print
+      )
     } else {
-      # :eyes: when some examples use `\dontrun{}`
-      "Examples should not use `\\dontrun{{}}` unless really necessary."
+      out$summary <- "Examples should not use `\\dontrun{}` unless really necessary."
+      out$print <- paste0(
+        "The following functions have examples that use `\\dontrun{}`:\n'",
+        paste(
+          names(checks$checks$uses_dontrun[checks$checks$uses_dontrun != "none"]),
+          collapse = "', '"
+        ),
+        out$print
+      )
     }
-    out$print <- paste0(
-      "The following functions have examples that use `\\dontrun{{}}`:\n'",
-      paste(
-        names(checks$checks$uses_dontrun[checks$checks$uses_dontrun]),
-        collapse = "', '"
-      ),
-      "'.\nConsider using `@examplesIf()` to conditionally run examples instead."
-    )
   }
 
   return(out)
 }
 
-uses_dontrun <- function(rd_files) {
+rd_files_use_dontrun <- function(rd_files) {
   parsed_rds <- parse_rd_files(rd_files)
 
   # Only check Rds that actually have examples
   has_egs <- fns_have_exs(rd_files)
 
-  has_dontrun <- vapply(
+  vapply(
     parsed_rds[names(has_egs[has_egs])],
-    has_dontrun_examples,
-    FUN.VALUE = logical(1L)
+    rd_has_dontrun_examples,
+    FUN.VALUE = character(1L)
   )
-
-  has_dontrun
 }
 
 ## Utilities for parsing examples in Rd files
@@ -92,12 +94,10 @@ parse_rd_files <- function(rd_files) {
   stats::setNames(rds, nms)
 }
 
-has_dontrun_examples <- function(rd) {
+rd_has_dontrun_examples <- function(rd) {
 
   ex <- get_Rd_section(rd, "examples")
   tags <- vapply(ex, function(exi) attr(exi, "Rd_tag"), character(1L))
-
-  # Check if there are any \dontrun blocks
 
   # Code that is not wrapped in \dontrun has the attribute Rd_tag set to "RCODE"
   # and is listed line-by-line in the examples section (i.e., each line has the
@@ -124,14 +124,14 @@ has_dontrun_examples <- function(rd) {
   any_bare_r_code <- length(bare_r_code) > 0
   any_dont_run <- length(dontrun_r_code) > 0
 
+  # We could report how many lines are wrapped in \dontrun, but for now we just
+  # return a summary of whether there are any examples that use \dontrun.
   if (any_bare_r_code && any_dont_run) {
-    # If there is bare R code and also \dontrun, we consider it a dontrun example
     return("some")
-  } else if (any_dont_run) {
-    # If there is only \dontrun, we consider it a dontrun example
+  } else if (any_dont_run && !any_bare_r_code) {
     return("all")
   } else {
-    # No dontrun examples found
+    # Either no examples or no dontrun blocks
     return("none")
   }
 }
