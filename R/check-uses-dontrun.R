@@ -32,6 +32,9 @@ output_pkgchk_uses_dontrun <- function(checks) {
     print = ""
   )
 
+  # This is set up so that if all examples use dontrun, it is a failure (red X),
+  # if no examples use dontrun, it is a pass (green check), and if some examples
+  # use dontrun, it is a watch (:eyes:)
   if (!out$check_pass) {
     out$print <- "'.\nConsider using `@examplesIf()` to conditionally run examples instead."
     if (all(checks$checks$uses_dontrun == "all")) {
@@ -50,6 +53,7 @@ output_pkgchk_uses_dontrun <- function(checks) {
         ),
         out$print
       )
+      out$check_type <- "none_watch"
     }
   }
 
