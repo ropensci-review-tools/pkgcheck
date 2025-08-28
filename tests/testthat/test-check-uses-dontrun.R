@@ -25,6 +25,7 @@ test_that ("check examples dont use dontrun", {
     ci_out$summary, 
     "Examples should not use `\\dontrun{}` unless really necessary."
   )
+  expect_equal(ci_out$check_type, "none_watch")
   expect_match(
     ci_out$print, 
     "The following functions have examples that use `\\dontrun{}`", 
