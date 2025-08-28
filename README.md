@@ -275,6 +275,7 @@ project, you agree to abide by its terms.
 
 
 
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -311,11 +312,27 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=markean">markean</a>
 </td>
 <td align="center">
+<a href="https://github.com/katrinabrock">
+<img src="https://avatars.githubusercontent.com/u/16126168?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=katrinabrock">katrinabrock</a>
+</td>
+<td align="center">
 <a href="https://github.com/n-kall">
 <img src="https://avatars.githubusercontent.com/u/33577035?v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=n-kall">n-kall</a>
 </td>
+<td align="center">
+<a href="https://github.com/ateucher">
+<img src="https://avatars.githubusercontent.com/u/2816635?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=ateucher">ateucher</a>
+</td>
+</tr>
+
+
+<tr>
 <td align="center">
 <a href="https://github.com/kellijohnson-NOAA">
 <img src="https://avatars.githubusercontent.com/u/4108564?v=4" width="100px;" alt=""/>
@@ -435,12 +452,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <img src="https://avatars.githubusercontent.com/u/7232514?v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Awillgearty">willgearty</a>
-</td>
-<td align="center">
-<a href="https://github.com/ateucher">
-<img src="https://avatars.githubusercontent.com/u/2816635?v=4" width="100px;" alt=""/>
-</a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Aateucher">ateucher</a>
 </td>
 <td align="center">
 <a href="https://github.com/simpar1471">
