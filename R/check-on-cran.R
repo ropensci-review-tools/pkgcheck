@@ -45,13 +45,16 @@ pkgchk_on_cran <- function (checks) {
                     grepl (desc$Title, h2, ignore.case = TRUE, perl = TRUE)
             }
 
-            tab <- rvest::html_table (x) [[1]]
-            if (ncol (tab) == 2) {
-                names (tab) <- c ("field", "value")
-                tab <- tab [grep ("^URL", tab$field), ]
-                url <- paste0 (tab$value, collapse = ", ")
-                url <- gsub ("\\n|\\s+", " ", url)
-                same_url <- identical (url, desc$URL)
+            tab <- rvest::html_table (x)
+            if (length (tab) > 0L) {
+                tab <- tab [[1]]
+                if (ncol (tab) == 2) {
+                    names (tab) <- c ("field", "value")
+                    tab <- tab [grep ("^URL", tab$field), ]
+                    url <- paste0 (tab$value, collapse = ", ")
+                    url <- gsub ("\\n|\\s+", " ", url)
+                    same_url <- identical (url, desc$URL)
+                }
             }
         }
         res <- same_title || same_url
