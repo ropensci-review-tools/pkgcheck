@@ -162,7 +162,8 @@ order_checks <- function (fns) {
         # additionally explicitly listed below in `watch_checks()`:
         "obsolete_pkg_deps",
         "unique_fn_names",
-        "num_imports"
+        "num_imports",
+        "uses_dontrun"
     )
 
     fns <- fns [which (fns %in% ord)]
