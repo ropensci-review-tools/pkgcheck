@@ -32,6 +32,8 @@ pkgchk_unique_fn_names <- function (checks) {
 #'
 #' @examples
 #' fn_names_on_cran (c ("min", "max"))
+#'
+#' @family extra
 #' @export
 fn_names_on_cran <- function (fn_name) {
 

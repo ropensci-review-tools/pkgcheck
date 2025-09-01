@@ -19,4 +19,13 @@ Check whether a function name exists in any CRAN packages
 }
 \examples{
 fn_names_on_cran (c ("min", "max"))
+
 }
+\seealso{
+Other extra: 
+\code{\link{checks_to_markdown}()},
+\code{\link{list_pkgchecks}()},
+\code{\link{logfile_names}()},
+\code{\link{render_md2html}()}
+}
+\concept{extra}

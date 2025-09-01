@@ -23,6 +23,7 @@ list_pkgchecks ()
 \seealso{
 Other extra: 
 \code{\link{checks_to_markdown}()},
+\code{\link{fn_names_on_cran}()},
 \code{\link{logfile_names}()},
 \code{\link{render_md2html}()}
 }
