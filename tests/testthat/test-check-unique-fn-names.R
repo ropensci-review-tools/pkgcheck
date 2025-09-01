@@ -29,6 +29,9 @@ test_that ("check unique functions names", {
     expect_identical (sort (names (ci_out$print$obj)), sort (dat$fn_name))
 })
 
+# Extracting fn names database from local cache fails on GitHub windows runners:
+skip_on_os ("windows")
+
 test_that ("check fn_names_on_cran fn", {
 
     fn_names <- c ("min", "max")

@@ -1,3 +1,6 @@
+# This fails to find cache paths on GitHub windows runners
+skip_on_os ("windows")
+
 test_that ("check ci", {
 
     checks <- make_check_data ()
