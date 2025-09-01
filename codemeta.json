@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.2.222",
+  "version": "0.1.2.223",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -53,6 +53,13 @@
       "familyName": "Johnson",
       "email": "kelli.johnson@noaa.gov",
       "@id": "https://orcid.org/0000-0002-5149-451X"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Katrina",
+      "familyName": "Brock",
+      "email": "katrinabrock266@gmail.com",
+      "@id": "https://orcid.org/0009-0003-4678-9545"
     }
   ],
   "maintainer": [
@@ -405,7 +412,7 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "501.066KB",
+  "fileSize": "511.756KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
   "contIntegration": [
     "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
