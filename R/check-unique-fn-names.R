@@ -22,6 +22,26 @@ pkgchk_unique_fn_names <- function (checks) {
     fn_names_cran [which (fn_names_cran$fn_name %in% fn_names$fn_name), ]
 }
 
+#' Check whether a function name exists in any CRAN packages
+#'
+#' @param fn_name Character vector of one or more function names to check.
+#'
+#' @return A `data.frame` of three columns, "package", "version", and
+#' "fn_name", identifying any other packages matching specified function
+#' name(s). If no matches are found, the `data.frame` will have no rows.
+#'
+#' @examples
+#' fn_names_on_cran (c ("min", "max"))
+#' @export
+fn_names_on_cran <- function (fn_name) {
+
+    fn_names_cran <- read_fn_names_data ()
+
+    fn_name <- fn_name [which (fn_name %in% fn_names_cran$fn_name)]
+
+    fn_names_cran [which (fn_names_cran$fn_name %in% fn_name), ]
+}
+
 read_fn_names_data <- function () {
 
     # The cache_path is set to tempdir in tests. This tests is then switched off
