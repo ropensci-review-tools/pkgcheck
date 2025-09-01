@@ -11,6 +11,19 @@
 #' @noRd
 pkgchk_unique_fn_names <- function (checks) {
 
+    fn_names_cran <- read_fn_names_data ()
+
+    index <- which (!fn_names_cran$package == checks$pkg$name)
+    fn_names_cran <- fn_names_cran [index, ]
+
+    fn_names <- checks$info$fn_names
+    fn_names <- fn_names [which (fn_names$fn_name %in% fn_names_cran$fn_name), ]
+
+    fn_names_cran [which (fn_names_cran$fn_name %in% fn_names$fn_name), ]
+}
+
+read_fn_names_data <- function () {
+
     # The cache_path is set to tempdir in tests. This tests is then switched off
     # to avoid downloading the database just for this test.
     cache_path <- Sys.getenv ("PKGCHECK_CACHE_DIR")
@@ -19,7 +32,14 @@ pkgchk_unique_fn_names <- function (checks) {
         normalizePath (tempdir ())
     )
 
-    f <- fn_names_cran <- NULL
+    # Default return object:
+    fn_names_cran <- data.frame (
+        package = character (0),
+        version = character (0),
+        fn_name = character (0)
+    )
+
+    f <- NULL
     if (!cache_is_temp) {
         f <- tryCatch (
             cache_fn_name_db (),
@@ -34,22 +54,7 @@ pkgchk_unique_fn_names <- function (checks) {
         )
     }
 
-    # fail to read local data:
-    if (is.null (fn_names_cran)) {
-        return (data.frame (
-            package = character (0),
-            version = character (0),
-            fn_name = character (0)
-        ))
-    }
-
-    index <- which (!fn_names_cran$package == checks$pkg$name)
-    fn_names_cran <- fn_names_cran [index, ]
-
-    fn_names <- checks$info$fn_names
-    fn_names <- fn_names [which (fn_names$fn_name %in% fn_names_cran$fn_name), ]
-
-    fn_names_cran [which (fn_names_cran$fn_name %in% fn_names$fn_name), ]
+    return (fn_names_cran)
 }
 
 cache_fn_name_db <- function () {
