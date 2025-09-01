@@ -27,6 +27,7 @@ md <- checks_to_markdown (checks, render = TRUE) # HTML version
 }
 \seealso{
 Other extra: 
+\code{\link{fn_names_on_cran}()},
 \code{\link{list_pkgchecks}()},
 \code{\link{logfile_names}()},
 \code{\link{render_md2html}()}

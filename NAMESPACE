@@ -3,6 +3,7 @@
 S3method(print,pkgcheck)
 S3method(summary,pkgcheck)
 export(checks_to_markdown)
+export(fn_names_on_cran)
 export(get_default_github_branch)
 export(get_gh_token)
 export(get_latest_commit)

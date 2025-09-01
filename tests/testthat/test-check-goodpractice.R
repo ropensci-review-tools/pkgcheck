@@ -1,3 +1,6 @@
+# This fails to find cache paths on GitHub windows runners
+skip_on_os ("windows")
+
 test_that ("check goodpractice", {
 
     checks <- make_check_data_srr (goodpractice = TRUE)
