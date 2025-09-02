@@ -124,9 +124,12 @@ summary (x)
 ## ✖ Statistical standards should be documented in most package files, yet are mostly only documented in one file.
 ## ✔ R CMD check found no errors.
 ## ✔ R CMD check found no warnings.
+## ℹ Some goodpractice linters failed.
 ## 
 ## ℹ Current status:
-## ✖ This package is not ready to be submitted.
+## ✖ Frustration is a natural part of programming :)
+## 
+## ℹ 'pkgcheck' version: 0.1.2.225
 ## 
 ```
 
@@ -137,6 +140,25 @@ them in black-and-white.) The object returned from the `pkgcheck`
 function is a complex nested list with around a dozen primary
 components. Full information can be obtained by simply calling the
 default `print` method by typing the object name (`x`).
+
+To avoid potential namespace conflicts with existing CRAN packages,
+`pkgcheck` includes the helper function
+[`fn_names_on_cran`](https://docs.ropensci.org/pkgcheck/reference/fn_names_on_cran.html).
+You can use this interactively during development to check if your
+proposed function names are already in use. This is a useful step to
+perform before committing new functions and running a full `pkgcheck`:
+
+``` r
+fn_names_on_cran (c ("min", "max"))
+```
+
+    ##       package version fn_name
+    ## 1    matlab2r   1.1.0     max
+    ## 2    matlab2r   1.1.0     min
+    ## 3      mosaic   1.8.3     max
+    ## 4      mosaic   1.8.3     min
+    ## 5 rapportools     1.1     max
+    ## 6 rapportools     1.1     min
 
 ## The `pkgcheck` GitHub action
 
@@ -273,20 +295,18 @@ project, you agree to abide by its terms.
 
 ## Contributors
 
-
-
-
-
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
-All contributions to this project are gratefully acknowledged using the [`allcontributors` package](https://github.com/ropensci/allcontributors) following the [allcontributors](https://allcontributors.org) specification. Contributions of any kind are welcome!
+All contributions to this project are gratefully acknowledged using the
+[`allcontributors` package](https://github.com/ropensci/allcontributors)
+following the [allcontributors](https://allcontributors.org)
+specification. Contributions of any kind are welcome!
 
 ### Code
 
 <table>
-
 <tr>
 <td align="center">
 <a href="https://github.com/mpadge">
@@ -331,8 +351,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=ateucher">ateucher</a>
 </td>
 </tr>
-
-
 <tr>
 <td align="center">
 <a href="https://github.com/kellijohnson-NOAA">
@@ -347,14 +365,11 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=annakrystalli">annakrystalli</a>
 </td>
 </tr>
-
 </table>
-
 
 ### Issue Authors
 
 <table>
-
 <tr>
 <td align="center">
 <a href="https://github.com/karthik">
@@ -399,8 +414,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3As3alfisc">s3alfisc</a>
 </td>
 </tr>
-
-
 <tr>
 <td align="center">
 <a href="https://github.com/Bisaloo">
@@ -445,8 +458,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Asjentsch">sjentsch</a>
 </td>
 </tr>
-
-
 <tr>
 <td align="center">
 <a href="https://github.com/willgearty">
@@ -467,14 +478,11 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Ae-kotov">e-kotov</a>
 </td>
 </tr>
-
 </table>
-
 
 ### Issue Contributors
 
 <table>
-
 <tr>
 <td align="center">
 <a href="https://github.com/ddbortoli">
@@ -519,8 +527,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Abnicenboim">bnicenboim</a>
 </td>
 </tr>
-
-
 <tr>
 <td align="center">
 <a href="https://github.com/laijasmine">
@@ -553,9 +559,7 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3ATimTaylor">TimTaylor</a>
 </td>
 </tr>
-
 </table>
-
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
