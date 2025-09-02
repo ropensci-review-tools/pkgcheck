@@ -124,6 +124,15 @@ nested list with around a dozen primary components. Full information can be
 obtained by simply calling the default `print` method by typing the object name
 (`x`).
 
+To avoid potential namespace conflicts with existing CRAN packages, `pkgcheck` includes the helper function [`fn_names_on_cran`](https://docs.ropensci.org/pkgcheck/reference/fn_names_on_cran.html).
+You can use this interactively during development to check if your proposed function names are already in use.
+This is a useful step to perform before committing new functions and running a full `pkgcheck`:
+
+```{r fn_names_on_cran}
+fn_names_on_cran (c ("min", "max"))
+```
+
+
 ## The `pkgcheck` GitHub action
 
 The `pkgcheck` package also has an associated GitHub action in [the
