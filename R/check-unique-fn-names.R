@@ -41,7 +41,10 @@ fn_names_on_cran <- function (fn_name) {
 
     fn_name <- fn_name [which (fn_name %in% fn_names_cran$fn_name)]
 
-    fn_names_cran [which (fn_names_cran$fn_name %in% fn_name), ]
+    res <- fn_names_cran [which (fn_names_cran$fn_name %in% fn_name), ]
+    rownames (res) <- NULL
+
+    return (res)
 }
 
 read_fn_names_data <- function () {
