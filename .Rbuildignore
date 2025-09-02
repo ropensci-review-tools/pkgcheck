@@ -20,3 +20,4 @@
 ^makefile$
 ^vignettes/makefile$
 data-raw/
+^air\.toml$
