@@ -18,6 +18,7 @@ pkgchk_on_cran <- function (checks) {
         )),
         stringsAsFactors = FALSE
     )
+    desc$Title <- gsub ("\\s+", " ", gsub ("\\n", " ", desc$Title))
     pkg <- desc$Package
 
     ap <- get_available_packages ()
@@ -40,6 +41,7 @@ pkgchk_on_cran <- function (checks) {
             h2 <- paste0 (rvest::html_elements (x, "h2"))
             h2 <- gsub ("<h2>|<\\/h2>", "", h2)
             h2 <- gsub ("\\n|\\s+", " ", h2)
+            h2 <- gsub (paste0 (pkg, "\\:(\\s+?)"), "", h2)
             if (length (h2) > 0L) {
                 same_title <- grepl (desc$Title, h2, fixed = TRUE) |
                     grepl (desc$Title, h2, ignore.case = TRUE, perl = TRUE)
