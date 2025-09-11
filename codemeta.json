@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.2.227",
+  "version": "0.1.2.228",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -41,6 +41,13 @@
       "familyName": "Kim",
       "email": "markean@pm.me",
       "@id": "https://orcid.org/0009-0000-2138-788X"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Andy",
+      "familyName": "Teucher",
+      "email": "andy.teucher@gmail.com",
+      "@id": "https://orcid.org/0000-0002-7840-692X"
     }
   ],
   "contributor": [
@@ -299,18 +306,6 @@
     },
     "11": {
       "@type": "SoftwareApplication",
-      "identifier": "jsonlite",
-      "name": "jsonlite",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=jsonlite"
-    },
-    "12": {
-      "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
       "provider": {
@@ -321,18 +316,18 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=magrittr"
     },
-    "13": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "14": {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "pkgstats",
       "name": "pkgstats",
       "sameAs": "https://github.com/ropensci-review-tools/pkgstats"
     },
-    "15": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "praise",
       "name": "praise",
@@ -344,7 +339,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=praise"
     },
-    "16": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "rappdirs",
       "name": "rappdirs",
@@ -356,7 +351,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rappdirs"
     },
-    "17": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
@@ -368,7 +363,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     },
-    "18": {
+    "17": {
       "@type": "SoftwareApplication",
       "identifier": "rprojroot",
       "name": "rprojroot",
@@ -380,7 +375,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rprojroot"
     },
-    "19": {
+    "18": {
       "@type": "SoftwareApplication",
       "identifier": "rvest",
       "name": "rvest",
@@ -392,13 +387,13 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rvest"
     },
-    "20": {
+    "19": {
       "@type": "SoftwareApplication",
       "identifier": "srr",
       "name": "srr",
       "sameAs": "https://github.com/ropensci-review-tools/srr"
     },
-    "21": {
+    "20": {
       "@type": "SoftwareApplication",
       "identifier": "withr",
       "name": "withr",
@@ -412,7 +407,7 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "511.756KB",
+  "fileSize": "520.34KB",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
   "contIntegration": [
     "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
