@@ -14,7 +14,7 @@
 #' }
 print.pkgcheck <- function (x, deps = FALSE, ...) {
 
-    requireNamespace ("goodpractice")
+    requireNamespace ("goodpractice", quietly = TRUE)
 
     cli::cli_h1 (paste0 (x$pkg$name, " ", x$pkg$version))
     message ("")
