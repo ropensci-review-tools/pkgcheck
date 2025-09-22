@@ -23,7 +23,10 @@ pkgstats_info <- function (path, use_cache) {
 
     out$git <- pkginfo_git_info (path)
 
-    out$srr <- pkginfo_srr_report (path)
+    if (s$desc$package != "srr") {
+        # 'srr' package has tags, but report fails, so ignore here
+        out$srr <- pkginfo_srr_report (path)
+    }
 
     out$pkgstats <- fmt_pkgstats_info (s)
 
