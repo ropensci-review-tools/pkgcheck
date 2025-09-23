@@ -35,6 +35,7 @@ pkgchk_left_assign <- function (checks) {
     rdir <- fs::path_abs (rdir)
     flist <- fs::dir_ls (rdir,
         regexp = "\\.q$|\\.r$|\\.s$",
+        type = "file",
         ignore.case = TRUE
     )
 
@@ -99,14 +100,14 @@ pkgchk_left_assign <- function (checks) {
 rm_global_assign_in_ref_class <- function (assigns, checks) {
 
     global_row <- which (rownames (assigns) == "<<-")
-    global <- assigns [global_row, ]
-    global <- global [global > 0L]
+    global <- assigns [global_row, , drop = TRUE]
+    global <- global [which (global > 0L)]
     if (length (global) == 0L) {
         return (assigns)
     }
 
     global <- data.frame (
-        file = gsub (checks$pkg$path, "", colnames (assigns)),
+        file = gsub (checks$pkg$path, "", names (global)),
         n = as.integer (global)
     )
     global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
@@ -157,14 +158,14 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
 rm_global_assign_in_memoise <- function (assigns, checks) {
 
     global_row <- which (rownames (assigns) == "<<-")
-    global <- assigns [global_row, ]
-    global <- global [global > 0]
+    global <- assigns [global_row, , drop = TRUE]
+    global <- global [which (global > 0)]
     if (length (global) == 0L) {
         return (assigns)
     }
 
     global <- data.frame (
-        file = gsub (checks$pkg$path, "", colnames (assigns)),
+        file = gsub (checks$pkg$path, "", names (global)),
         n = as.integer (global)
     )
     global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
