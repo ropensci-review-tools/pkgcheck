@@ -28,9 +28,27 @@ pkgchk_has_vignette <- function (checks) {
         if (is.null (format)) {
             # See https://yihui.org/litedown/#sec:yaml-syntax
             # litedown uses "taml", which fails with yaml parsers
+            f_lines <- readLines (f)
             requireNamespace ("xfun", quietly = TRUE)
-            taml <- xfun::taml_load (readLines (f))
-            format <- names (taml$output)
+            # This can fail (xfun v0.53), so requires a fallback:
+            taml <- tryCatch (
+                xfun::taml_load (f_lines),
+                error = function (e) NULL
+            )
+            if (!is.null (taml)) {
+                format <- names (taml$output)
+            } else {
+                # manual taml parsing
+                taml_index <- grep ("^\\-\\-+", f_lines)
+                if (length (taml_index) >= 2L) {
+                    taml_content <- f_lines [seq (taml_index [1] + 1, taml_index [2] - 1)]
+                    index <- grep ("(output|vignette)\\:", taml_content)
+                    if (length (index) >= 2) {
+                        # the whole "output" fields which will contain format
+                        format <- taml_content [seq (index [1], index [2])]
+                    }
+                }
+            }
         }
 
         # See suffix dictionary at
