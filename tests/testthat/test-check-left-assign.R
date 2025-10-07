@@ -2,6 +2,9 @@
 skip_on_os ("windows")
 skip_on_os ("mac")
 
+test_all <- identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
+    identical (Sys.getenv ("GITHUB_JOB"), "test-coverage")
+
 test_that ("check left and global assign", {
 
     checks <- make_check_data ()
@@ -67,6 +70,9 @@ test_that ("check pkgchk_left_assign fn", {
 
     fs::dir_delete (path)
 })
+
+# These rely on pkgstats which is not installed for example on r-univ, so fail.
+skip_if (!test_all)
 
 test_that ("rm_global_assign_in_ref_class", {
 

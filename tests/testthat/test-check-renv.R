@@ -22,6 +22,12 @@ test_that ("check num imports", {
 
 test_that ("info-renv", {
 
+    # Paths are sometimes not cleared up here on r-universe builds:
+    path <- fs::path (fs::path_temp (), "junk")
+    if (fs::dir_exists (path)) {
+        fs::dir_delete (path)
+    }
+
     path <- srr::srr_stats_pkg_skeleton (pkg_name = "junk")
     checks <- list (pkg = list (path = path))
 
