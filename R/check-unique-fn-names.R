@@ -85,9 +85,13 @@ read_fn_names_data <- function () {
 cache_fn_name_db <- function () {
 
     cache_path <- Sys.getenv ("PKGCHECK_CACHE_DIR")
+    if (!fs::dir_exists (cache_path)) {
+        fs::dir_create (cache_path)
+    }
 
-    f <- file.path (cache_path, "pkgstats-fn-names.Rds")
-    if (file.exists (f)) {
+    f <- fs::path (cache_path, "pkgstats-fn-names.Rds")
+
+    if (fs::file_exists (f)) {
         return (f)
     }
 
