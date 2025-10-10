@@ -4,10 +4,13 @@
 \alias{fn_names_on_cran}
 \title{Check whether a function name exists in any CRAN packages}
 \usage{
-fn_names_on_cran(fn_name)
+fn_names_on_cran(fn_name, force_update = FALSE)
 }
 \arguments{
 \item{fn_name}{Character vector of one or more function names to check.}
+
+\item{force_update}{If 'TRUE', locally-cached data of all function names
+from all CRAN packages will be updated to latest version.}
 }
 \value{
 A \code{data.frame} of three columns, "package", "version", and
