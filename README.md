@@ -295,18 +295,17 @@ project, you agree to abide by its terms.
 
 ## Contributors
 
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
-All contributions to this project are gratefully acknowledged using the
-[`allcontributors` package](https://github.com/ropensci/allcontributors)
-following the [allcontributors](https://allcontributors.org)
-specification. Contributions of any kind are welcome!
+All contributions to this project are gratefully acknowledged using the [`allcontributors` package](https://github.com/ropensci/allcontributors) following the [allcontributors](https://allcontributors.org) specification. Contributions of any kind are welcome!
 
 ### Code
 
 <table>
+
 <tr>
 <td align="center">
 <a href="https://github.com/mpadge">
@@ -327,6 +326,12 @@ specification. Contributions of any kind are welcome!
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=assignUser">assignUser</a>
 </td>
 <td align="center">
+<a href="https://github.com/ateucher">
+<img src="https://avatars.githubusercontent.com/u/2816635?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=ateucher">ateucher</a>
+</td>
+<td align="center">
 <a href="https://github.com/markean">
 <img src="https://avatars.githubusercontent.com/u/46692399?v=4" width="100px;" alt=""/>
 </a><br>
@@ -344,13 +349,9 @@ specification. Contributions of any kind are welcome!
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=n-kall">n-kall</a>
 </td>
-<td align="center">
-<a href="https://github.com/ateucher">
-<img src="https://avatars.githubusercontent.com/u/2816635?v=4" width="100px;" alt=""/>
-</a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=ateucher">ateucher</a>
-</td>
 </tr>
+
+
 <tr>
 <td align="center">
 <a href="https://github.com/kellijohnson-NOAA">
@@ -359,17 +360,26 @@ specification. Contributions of any kind are welcome!
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=kellijohnson-NOAA">kellijohnson-NOAA</a>
 </td>
 <td align="center">
+<a href="https://github.com/e-kotov">
+<img src="https://avatars.githubusercontent.com/u/8681379?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=e-kotov">e-kotov</a>
+</td>
+<td align="center">
 <a href="https://github.com/annakrystalli">
 <img src="https://avatars.githubusercontent.com/u/5583057?v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=annakrystalli">annakrystalli</a>
 </td>
 </tr>
+
 </table>
+
 
 ### Issue Authors
 
 <table>
+
 <tr>
 <td align="center">
 <a href="https://github.com/karthik">
@@ -414,10 +424,12 @@ specification. Contributions of any kind are welcome!
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3As3alfisc">s3alfisc</a>
 </td>
 </tr>
+
+
 <tr>
 <td align="center">
 <a href="https://github.com/Bisaloo">
-<img src="https://avatars.githubusercontent.com/u/10783929?u=38e3754466eaa200e20f0609709467b6331cdfbe&v=4" width="100px;" alt=""/>
+<img src="https://avatars.githubusercontent.com/u/10783929?u=92fdf68eafbcdcf8da283b460ab65a2cafb8c7fe&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3ABisaloo">Bisaloo</a>
 </td>
@@ -458,6 +470,8 @@ specification. Contributions of any kind are welcome!
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Asjentsch">sjentsch</a>
 </td>
 </tr>
+
+
 <tr>
 <td align="center">
 <a href="https://github.com/willgearty">
@@ -472,17 +486,20 @@ specification. Contributions of any kind are welcome!
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Asimpar1471">simpar1471</a>
 </td>
 <td align="center">
-<a href="https://github.com/e-kotov">
-<img src="https://avatars.githubusercontent.com/u/8681379?u=c8b4c28fff87ac785df67c71d668c5fa29dde948&v=4" width="100px;" alt=""/>
+<a href="https://github.com/etiennebacher">
+<img src="https://avatars.githubusercontent.com/u/52219252?u=66331618d799d2d4567ecab2812236c9928be368&v=4" width="100px;" alt=""/>
 </a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Ae-kotov">e-kotov</a>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Aetiennebacher">etiennebacher</a>
 </td>
 </tr>
+
 </table>
+
 
 ### Issue Contributors
 
 <table>
+
 <tr>
 <td align="center">
 <a href="https://github.com/ddbortoli">
@@ -527,6 +544,8 @@ specification. Contributions of any kind are welcome!
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Abnicenboim">bnicenboim</a>
 </td>
 </tr>
+
+
 <tr>
 <td align="center">
 <a href="https://github.com/laijasmine">
@@ -536,7 +555,7 @@ specification. Contributions of any kind are welcome!
 </td>
 <td align="center">
 <a href="https://github.com/b-rodrigues">
-<img src="https://avatars.githubusercontent.com/u/2998834?u=1067df184bd6f659befa96050717702842db557c&v=4" width="100px;" alt=""/>
+<img src="https://avatars.githubusercontent.com/u/2998834?u=815e6c1eedc0305ca7a62a89293efbe488583fce&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Ab-rodrigues">b-rodrigues</a>
 </td>
@@ -559,7 +578,9 @@ specification. Contributions of any kind are welcome!
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3ATimTaylor">TimTaylor</a>
 </td>
 </tr>
+
 </table>
+
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->

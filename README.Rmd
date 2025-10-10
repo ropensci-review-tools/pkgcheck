@@ -275,6 +275,7 @@ project, you agree to abide by its terms.
 
 
 
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -305,6 +306,12 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=assignUser">assignUser</a>
 </td>
 <td align="center">
+<a href="https://github.com/ateucher">
+<img src="https://avatars.githubusercontent.com/u/2816635?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=ateucher">ateucher</a>
+</td>
+<td align="center">
 <a href="https://github.com/markean">
 <img src="https://avatars.githubusercontent.com/u/46692399?v=4" width="100px;" alt=""/>
 </a><br>
@@ -322,12 +329,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=n-kall">n-kall</a>
 </td>
-<td align="center">
-<a href="https://github.com/ateucher">
-<img src="https://avatars.githubusercontent.com/u/2816635?v=4" width="100px;" alt=""/>
-</a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=ateucher">ateucher</a>
-</td>
 </tr>
 
 
@@ -337,6 +338,12 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <img src="https://avatars.githubusercontent.com/u/4108564?v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=kellijohnson-NOAA">kellijohnson-NOAA</a>
+</td>
+<td align="center">
+<a href="https://github.com/e-kotov">
+<img src="https://avatars.githubusercontent.com/u/8681379?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=e-kotov">e-kotov</a>
 </td>
 <td align="center">
 <a href="https://github.com/annakrystalli">
@@ -402,7 +409,7 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <tr>
 <td align="center">
 <a href="https://github.com/Bisaloo">
-<img src="https://avatars.githubusercontent.com/u/10783929?u=38e3754466eaa200e20f0609709467b6331cdfbe&v=4" width="100px;" alt=""/>
+<img src="https://avatars.githubusercontent.com/u/10783929?u=92fdf68eafbcdcf8da283b460ab65a2cafb8c7fe&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3ABisaloo">Bisaloo</a>
 </td>
@@ -459,10 +466,10 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Asimpar1471">simpar1471</a>
 </td>
 <td align="center">
-<a href="https://github.com/e-kotov">
-<img src="https://avatars.githubusercontent.com/u/8681379?u=c8b4c28fff87ac785df67c71d668c5fa29dde948&v=4" width="100px;" alt=""/>
+<a href="https://github.com/etiennebacher">
+<img src="https://avatars.githubusercontent.com/u/52219252?u=66331618d799d2d4567ecab2812236c9928be368&v=4" width="100px;" alt=""/>
 </a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Ae-kotov">e-kotov</a>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Aetiennebacher">etiennebacher</a>
 </td>
 </tr>
 
@@ -528,7 +535,7 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 </td>
 <td align="center">
 <a href="https://github.com/b-rodrigues">
-<img src="https://avatars.githubusercontent.com/u/2998834?u=1067df184bd6f659befa96050717702842db557c&v=4" width="100px;" alt=""/>
+<img src="https://avatars.githubusercontent.com/u/2998834?u=815e6c1eedc0305ca7a62a89293efbe488583fce&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Ab-rodrigues">b-rodrigues</a>
 </td>
