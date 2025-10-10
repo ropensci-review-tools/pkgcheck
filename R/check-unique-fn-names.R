@@ -97,11 +97,35 @@ cache_fn_name_db <- function (force_update = FALSE) {
         return (f)
     }
 
+    requireNamespace ("jsonlite", quietly = TRUE)
+
     u <- paste0 (
-        "https://github.com/ropensci-review-tools/pkgstats/",
-        "releases/download/v0.1.2/pkgstats-fn-names.Rds"
+        "https://api.github.com/repos/",
+        "ropensci-review-tools/pkgstats/",
+        "releases/latest"
     )
-    utils::download.file (u, f, quiet = TRUE)
+
+    res <- curl::curl_fetch_memory (u)
+    hdrs <- curl::parse_headers (res$headers)
+    http_code <- as.integer (gsub (
+        "^http\\/[0-9]\\s?|\\s+$",
+        "",
+        hdrs [1],
+        ignore.case = TRUE
+    ))
+    if (http_code != 200L) {
+        cli::cli_abort (
+            "Call to GitHub failed with http error code [{http_code}]"
+        )
+    }
+
+    res <- jsonlite::fromJSON (rawToChar (res$content))
+    assets <- res$assets
+    i <- grep ("fn\\-names", assets$name)
+    dl_url <- assets$browser_download_url [i]
+    f <- fs::path (cache_path, basename (dl_url))
+
+    curl::curl_download (url = dl_url, destfile = f, quiet = TRUE)
 
     return (f)
 }
