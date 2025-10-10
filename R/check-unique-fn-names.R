@@ -25,6 +25,8 @@ pkgchk_unique_fn_names <- function (checks) {
 #' Check whether a function name exists in any CRAN packages
 #'
 #' @param fn_name Character vector of one or more function names to check.
+#' @param force_update If 'TRUE', locally-cached data of all function names
+#' from all CRAN packages will be updated to latest version.
 #'
 #' @return A `data.frame` of three columns, "package", "version", and
 #' "fn_name", identifying any other packages matching specified function
@@ -35,9 +37,9 @@ pkgchk_unique_fn_names <- function (checks) {
 #'
 #' @family extra
 #' @export
-fn_names_on_cran <- function (fn_name) {
+fn_names_on_cran <- function (fn_name, force_update = FALSE) {
 
-    fn_names_cran <- read_fn_names_data ()
+    fn_names_cran <- read_fn_names_data (force_update = force_update)
 
     fn_name <- fn_name [which (fn_name %in% fn_names_cran$fn_name)]
 
@@ -47,7 +49,7 @@ fn_names_on_cran <- function (fn_name) {
     return (res)
 }
 
-read_fn_names_data <- function () {
+read_fn_names_data <- function (force_update = FALSE) {
 
     # The cache_path is set to tempdir in tests. This tests is then switched off
     # to avoid downloading the database just for this test.
@@ -67,7 +69,7 @@ read_fn_names_data <- function () {
     f <- NULL
     if (!cache_is_temp) {
         f <- tryCatch (
-            cache_fn_name_db (),
+            cache_fn_name_db (force_update = force_update),
             error = function (e) NULL
         )
     }
@@ -82,7 +84,7 @@ read_fn_names_data <- function () {
     return (fn_names_cran)
 }
 
-cache_fn_name_db <- function () {
+cache_fn_name_db <- function (force_update = FALSE) {
 
     cache_path <- Sys.getenv ("PKGCHECK_CACHE_DIR")
     if (!fs::dir_exists (cache_path)) {
@@ -91,7 +93,7 @@ cache_fn_name_db <- function () {
 
     f <- fs::path (cache_path, "pkgstats-fn-names.Rds")
 
-    if (fs::file_exists (f)) {
+    if (fs::file_exists (f) && !force_update) {
         return (f)
     }
 
