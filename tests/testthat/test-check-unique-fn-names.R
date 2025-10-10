@@ -29,8 +29,9 @@ test_that ("check unique functions names", {
     expect_identical (sort (names (ci_out$print$obj)), sort (dat$fn_name))
 })
 
-# Extracting fn names database from local cache fails on GitHub windows runners:
+# Extracting fn names database from local cache fails on GitHub windows and mac runners:
 skip_on_os ("windows")
+skip_on_os ("mac")
 
 test_that ("check fn_names_on_cran fn", {
 
