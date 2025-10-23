@@ -23,6 +23,14 @@ Authors:
 \itemize{
   \item Maëlle Salmon
   \item Jacob Wujciak-Jens \email{jacob@wujciak.de} (\href{https://orcid.org/0000-0002-7281-3989}{ORCID})
+  \item Eunseop Kim \email{markean@pm.me} (\href{https://orcid.org/0009-0000-2138-788X}{ORCID})
+  \item Andy Teucher \email{andy.teucher@gmail.com} (\href{https://orcid.org/0000-0002-7840-692X}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Kelli F. Johnson \email{kelli.johnson@noaa.gov} (\href{https://orcid.org/0000-0002-5149-451X}{ORCID}) [contributor]
+  \item Katrina Brock \email{katrinabrock266@gmail.com} (\href{https://orcid.org/0009-0003-4678-9545}{ORCID}) [contributor]
 }
 
 }

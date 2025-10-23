@@ -2,8 +2,7 @@ LFILE = README
 YFILE = data-raw/insert-yaml-in-use-action
 VIGNETTE = extending-checks
 
-#all: insert knith #open 
-all: init readme vignette
+all: help
 
 doc: ## Update package documentation with `roxygen2`
 	Rscript -e "roxygen2::roxygenise()"; \
@@ -23,22 +22,23 @@ knith: $(LFILE).Rmd ## Render README as HTML
 knitr: $(LFILE).Rmd ## Render README as markdown
 	echo "rmarkdown::render('$(LFILE).Rmd',output_file='$(LFILE).md')" | R --no-save -q
 
-#open: $(LFILE).html
-#	xdg-open $(LFILE).html &
 open: ## Open main HTML vignette in browser
 	xdg-open docs/articles/$(VIGNETTE).html &
+
+allcon: ## Run 'allcontributors::add_contributors'
+	Rscript -e 'allcontributors::add_contributors()'
 
 check: ## Run `rcmdcheck`
 	Rscript -e 'rcmdcheck::rcmdcheck()'
 
-pkgcheck: ## Run `pkgcheck` and print results to screen.
-	Rscript -e 'library(pkgcheck); checks <- pkgcheck(); print(checks); summary (checks)'
-
 test: ## Run test suite
 	Rscript -e 'testthat::test_local()'
 
-clean:
-	rm -rf *.html *.png README_cache 
+pkgcheck: ## Run `pkgcheck` and print results to screen.
+	Rscript -e 'library(pkgcheck); checks <- pkgcheck(); print(checks); summary (checks)'
+
+clean: ## Clean all junk files, including all pkgdown docs
+	rm -rf *.html *.png README_cache docs/
 
 help: ## Show this help
 	@printf "Usage:\033[36m make [target]\033[0m\n"

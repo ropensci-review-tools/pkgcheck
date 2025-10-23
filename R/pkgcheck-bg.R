@@ -33,7 +33,7 @@
 #' }
 pkgcheck_bg <- function (path) {
 
-    requireNamespace ("callr")
+    requireNamespace ("callr", quietly = TRUE)
 
     logfiles <- logfile_names (path)
     stopfile <- gsub (

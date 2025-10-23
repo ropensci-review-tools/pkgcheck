@@ -21,7 +21,35 @@ pkgchk_has_vignette <- function (checks) {
     }
 
     is_html <- function (f) {
-        format <- rmarkdown::default_output_format (f)$name
+        format <- tryCatch (
+            rmarkdown::default_output_format (f)$name,
+            error = function (e) NULL
+        )
+        if (is.null (format)) {
+            # See https://yihui.org/litedown/#sec:yaml-syntax
+            # litedown uses "taml", which fails with yaml parsers
+            f_lines <- readLines (f)
+            requireNamespace ("xfun", quietly = TRUE)
+            # This can fail (xfun v0.53), so requires a fallback:
+            taml <- tryCatch (
+                xfun::taml_load (f_lines),
+                error = function (e) NULL
+            )
+            if (!is.null (taml)) {
+                format <- names (taml$output)
+            } else {
+                # manual taml parsing
+                taml_index <- grep ("^\\-\\-+", f_lines)
+                if (length (taml_index) >= 2L) {
+                    taml_content <- f_lines [seq (taml_index [1] + 1, taml_index [2] - 1)]
+                    index <- grep ("(output|vignette)\\:", taml_content)
+                    if (length (index) >= 2) {
+                        # the whole "output" fields which will contain format
+                        format <- taml_content [seq (index [1], index [2])]
+                    }
+                }
+            }
+        }
 
         # See suffix dictionary at
         # ropensci-review-tools/pkgstats/R/type-dict.R

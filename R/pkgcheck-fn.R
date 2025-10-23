@@ -36,14 +36,17 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
 
     # Ensure that ctags works properly (#54):
     if (interactive ()) {
-        if (!suppressMessages (pkgstats::ctags_test ())) {
-            stop (
-                "The 'pkgstats' package requires 'ctags' which does ",
-                "not seem to be installed correctly.\nSee ",
-                "https://docs.ropensci.org/pkgstats/articles/installation.html",
-                " for details on how to install 'ctags'."
-            )
-        }
+        tryCatch (
+            pkgstats::ctags_test (),
+            error = function (e) {
+                stop (
+                    "The 'pkgstats' package requires 'ctags' which does ",
+                    "not seem to be installed correctly.\nSee ",
+                    "https://docs.ropensci.org/pkgstats/articles/installation.html",
+                    " for details on how to install 'ctags'."
+                )
+            }
+        )
     }
 
     s <- pkgstats_info (path, use_cache)
@@ -85,6 +88,15 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
         use_cache = use_cache,
         renv_activated = checks$info$renv_activated
     )
+
+    from_cache <- s$from_cache || attr (checks$goodpractice, "from_cache")
+    if (from_cache) {
+        cli::cli_alert_info (paste0 (
+            "To re-generate, call 'pkgcheck' function with ",
+            "'use_cache = FALSE', or delete the cached files."
+        ))
+    }
+    attr (checks$goodpractice, "from_cache") <- NULL
 
     u <- pkginfo_url_from_desc (path, type = "URL")
     # hard-code to extract github URLs only:
@@ -148,101 +160,6 @@ checks_running_in_bg <- function (path) {
 
     return (stopvar == stopfile &&
         !file.exists (stopfile))
-}
-
-pkgstats_info <- function (path, use_cache) {
-
-    s <- suppressWarnings (
-        cache_pkgcheck_component (
-            path,
-            use_cache,
-            renv_activated = FALSE,
-            what = "pkgstats"
-        )
-    )
-    s$path <- path
-
-    out <- list ()
-    out$name <- pkginfo_pkg_name (s)
-    out$path <- path
-    out$version <- pkginfo_pkg_version (s)
-    out$url <- pkginfo_url_from_desc (path, type = "URL")
-    out$BugReports <- pkginfo_url_from_desc (path, type = "BugReports") # nolint
-    out$license <- pkginfo_pkg_license (s)
-
-    out$summary <- pkginfo_pkgstats_summary (s)
-    out$dependencies <- parse_pkg_deps (s)
-
-    out$git <- pkginfo_git_info (path)
-
-    out$srr <- pkginfo_srr_report (path)
-
-    out$pkgstats <- fmt_pkgstats_info (s)
-
-    out$fn_names <- pkgstats::pkgstats_fn_names (path)
-
-    return (list (
-        stats = s,
-        out = out
-    ))
-}
-
-#' Parse items of the "desc" part of `pkgstats` output
-#'
-#' @param s Result of `pkgstats::pkgstats()` call.
-#' @noRd
-parse_pkg_deps <- function (s) {
-
-    fields <- c ("depends", "imports", "suggests", "linking_to")
-
-    d <- lapply (fields, function (i) {
-        out <- cbind (
-            i,
-            strsplit (s$desc [[i]], ",\\s*") [[1]]
-        )
-        if (length (out) == 1) {
-            out <- c (out, "NA")
-        }
-        return (out)
-    })
-
-    d <- do.call (rbind, d)
-
-    out <- data.frame (
-        type = d [, 1],
-        package = d [, 2],
-        ncalls = NA_integer_,
-        stringsAsFactors = FALSE
-    )
-
-    # Then tally number of calls from 'external_calls' data
-    ex_tab <- table (s$external_calls$package)
-    index <- which (out$package %in% names (ex_tab))
-    out$ncalls [index] <- ex_tab [match (out$package [index], names (ex_tab))]
-
-    return (out)
-}
-
-#' Format \pkg{pkgstats} data
-#' @param s Output of \pkg{pkgstats} call.
-#' @return Report as formatted string
-#' @noRd
-fmt_pkgstats_info <- function (s) {
-
-    s_summ <- pkgstats::pkgstats_summary (s)
-    attr (s_summ, "path") <- s$path
-    stat_chks <- stats_checks (s_summ)
-    languages <- attr (stat_chks, "language")
-    # ignore large numbers of files:
-    stat_chks$noteworthy [grepl ("^files\\_", stat_chks$measure) &
-        stat_chks$percentile > 0.5] <- FALSE
-    # is_noteworthy <- any (stat_chks$noteworthy)
-    stat_chks$percentile <- 100 * stat_chks$percentile
-    stat_chks$noteworthy [which (!stat_chks$noteworthy)] <- ""
-
-    attr (stat_chks, "language") <- languages
-
-    return (stat_chks)
 }
 
 #' Collates results of all main `pkgchk_` functions

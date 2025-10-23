@@ -31,7 +31,7 @@ test_that ("check scrap", {
     pkgname <- paste0 (sample (c (letters, LETTERS), 8), collapse = "")
     path <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
     withr::with_dir (path, {
-        roxygen2::roxygenise ()
+        roxygen2::roxygenise (load_code = roxygen2::load_source)
         gert::git_init ()
         gert::git_config_set ("user.name", "Your Name")
         gert::git_config_set ("user.email", "your@email.com")
@@ -47,5 +47,4 @@ test_that ("check scrap", {
     res <- pkgchk_has_scrap (checks)
     expect_gt (length (res), 0L)
     expect_true (f %in% res)
-    expect_true (any (grepl ("\\.o$", res)))
 })

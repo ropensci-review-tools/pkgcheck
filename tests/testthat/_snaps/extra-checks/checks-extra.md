@@ -12,10 +12,11 @@ git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 - :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].
 - :heavy_check_mark:  Package has continuous integration checks, but no badges on README
-- :heavy_multiplication_x: Some goodpractice linters failed.
 - :heavy_multiplication_x: Package contains unexpected files.
 - :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
 - :heavy_check_mark: This is a statistical package which complies with all applicable standards
+- :heavy_multiplication_x: All examples use `\dontrun{}`.
+- :eyes: Some goodpractice linters failed.
 - :eyes: Package depends on the following obsolete packages: [blah,sp]
 
 **Important:** All failing checks above must be addressed prior to proceeding

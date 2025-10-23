@@ -7,17 +7,39 @@
 #' @noRd
 pkgchk_fns_have_exs <- function (checks) {
 
-    rd <- list.files (
-        fs::path (
-            checks$pkg$path, "man"
-        ),
-        pattern = "\\.Rd$",
-        full.names = TRUE
+    rd <- list_rd_files (checks$pkg$path) # utils.R
+
+    fns_have_exs(rd)
+}
+
+output_pkgchk_fns_have_exs <- function (checks) {
+
+    no_ex <- which (!checks$checks$fns_have_exs)
+    no_ex_fns <- names (checks$checks$fns_have_exs) [no_ex]
+
+    out <- list (
+        check_pass = length (no_ex) == 0L,
+        summary = "",
+        print = ""
+    ) # no print method
+
+    out$summary <- ifelse (out$check_pass,
+        "All functions have examples.",
+        paste0 (
+            "These functions do not have ",
+            "examples: [",
+            paste0 (no_ex_fns, collapse = ", "),
+            "]."
+        )
     )
 
-    # don't check for examples in datasets (#103), identified by keyword
+    return (out)
+}
+
+fns_have_exs <- function(rd_files) {
+  # don't check for examples in datasets (#103), identified by keyword
     what <- c ("name", "docType", "keyword", "examples")
-    rd_dat <- vapply (rd, function (i) {
+    rd_dat <- vapply (rd_files, function (i) {
         rd_i <- tools::parse_Rd (i, permissive = TRUE)
         dat <- lapply (what, function (j) {
             get_Rd_meta (rd_i, j)
@@ -49,28 +71,4 @@ pkgchk_fns_have_exs <- function (checks) {
     names (has_ex) <- rd_dat$name
 
     return (has_ex)
-}
-
-output_pkgchk_fns_have_exs <- function (checks) {
-
-    no_ex <- which (!checks$checks$fns_have_exs)
-    no_ex_fns <- names (checks$checks$fns_have_exs) [no_ex]
-
-    out <- list (
-        check_pass = length (no_ex) == 0L,
-        summary = "",
-        print = ""
-    ) # no print method
-
-    out$summary <- ifelse (out$check_pass,
-        "All functions have examples.",
-        paste0 (
-            "These functions do not have ",
-            "examples: [",
-            paste0 (no_ex_fns, collapse = ", "),
-            "]."
-        )
-    )
-
-    return (out)
 }

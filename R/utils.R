@@ -1,4 +1,5 @@
 #' Tick symbol for markdown output
+#'
 #' @noRd
 symbol_tck <- function () {
 
@@ -6,6 +7,7 @@ symbol_tck <- function () {
 }
 
 #' Cross symbol for markdown output
+#'
 #' @noRd
 symbol_crs <- function () {
 
@@ -19,8 +21,10 @@ get_Rd_meta <- utils::getFromNamespace (".Rd_get_metadata", "tools") # nolint
 #' @param quiet If `TRUE`, print all checks to screen. Function invisibly
 #' returns list of checks regardless.
 #' @return Character vector of names of all checks (invisibly)
+#'
 #' @examples
 #' list_pkgchecks ()
+#'
 #' @family extra
 #' @export
 list_pkgchecks <- function (quiet = FALSE) {
@@ -43,8 +47,32 @@ list_pkgchecks <- function (quiet = FALSE) {
     invisible (chks)
 }
 
+#' List all .Rd files, but exclude any that are in `.Rbuildignore`.
+#'
+#' See issue # 277 for roxygen2 'devtag'
+#' @noRd
+list_rd_files <- function (path) {
+
+    rd <- list.files (
+        fs::path (path, "man"),
+        pattern = "\\.Rd$",
+        full.names = TRUE
+    )
+    rb <- fs::path (path, ".Rbuildignore")
+    if (fs::file_exists (rb)) {
+        rb <- readLines (rb)
+        rb <- paste0 (grep ("^(\\^?)man", rb, value = TRUE), collapse = "|")
+        if (nzchar (rb)) {
+            rd_rel <- fs::path_rel (rd, path)
+            rd <- rd [which (!grepl (rb, rd_rel))]
+        }
+    }
+    return (rd)
+}
+
 #' Modified verion of getNamespaceExports` to exclude fns re-exported from other
 #' packages
+#'
 #' @noRd
 exported_fns <- function (path) {
 
@@ -72,6 +100,7 @@ exported_fns <- function (path) {
 #'
 #' Used in `collate_extra_env_checks` to convert package names into namespace
 #' environments.
+#'
 #' @noRd
 env2namespace <- function (e) {
 
@@ -97,6 +126,7 @@ env2namespace <- function (e) {
 #' That function fails when no CRAN mirror is set, which is generally the case
 #' on GitHub runners, even if set as "repos" option. In those cases, this
 #' returns `NULL`.
+#'
 #' @noRd
 get_available_packages <- function () {
     op <- options ()

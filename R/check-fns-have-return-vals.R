@@ -11,12 +11,7 @@
 #' @noRd
 pkgchk_fns_have_return_vals <- function (checks) {
 
-    flist <- list.files (
-        file.path (checks$pkg$path, "man"),
-        full.names = TRUE,
-        recursive = FALSE,
-        pattern = "\\.Rd$"
-    )
+    flist <- list_rd_files (checks$pkg$path) # utils.R
 
     get1tag <- function (tags, rd, what = "docType") {
         index <- grep (paste0 (what, "$"), tags)
