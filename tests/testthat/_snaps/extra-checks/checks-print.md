@@ -15,6 +15,7 @@ v All goodpractice linters passed.
 x Package contains unexpected files.
 x Default GitHub branch of 'master' is not acceptable.
 v This is a statistical package which complies with all applicable standards
+v All authors have ORCID IDs
 x All examples use `\dontrun`.
 i Package depends on the following obsolete packages: [blah,sp]
 
