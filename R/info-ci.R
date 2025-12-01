@@ -187,6 +187,7 @@ ci_results_gh <- function (path) {
     } else {
         # These lines can not be tested:
         body <- httr2::request (url) |>
+            httr2::req_url_query (event = "push") |>
             httr2::req_perform ()
         runs <- httr2::resp_body_json (body, simplify = TRUE)
     }
