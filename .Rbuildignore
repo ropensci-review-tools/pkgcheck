@@ -20,4 +20,5 @@
 ^makefile$
 ^vignettes/makefile$
 data-raw/
+^\.vscode$
 ^air\.toml$

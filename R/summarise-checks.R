@@ -163,6 +163,8 @@ order_checks <- function (fns) {
         "obsolete_pkg_deps",
         "unique_fn_names",
         "num_imports",
+        "has_orcid",
+        "has_ror",
         "uses_dontrun"
     )
 
@@ -171,6 +173,20 @@ order_checks <- function (fns) {
     fns <- fns [match (ord, fns)]
 
     return (fns)
+}
+
+watch_checks <- function (output_fns) {
+
+    all_checks <- order_checks (output_fns)
+    watch_list <- c (
+        "obsolete_pkg_deps",
+        "unique_fn_names",
+        "num_imports",
+        "has_orcid",
+        "has_ror"
+    )
+
+    all_checks [which (all_checks %in% watch_list)]
 }
 
 #' Generic function to summarise checks based on result of corresponding
