@@ -15,9 +15,9 @@ test_that ("check num imports", {
 
     checks$checks$pkgname_available <- FALSE
     ci_out <- output_pkgchk_pkgname (checks)
-    expect_false (ci_out$check_pass)
+    expect_true (ci_out$check_pass)
     expect_equal (
         ci_out$summary,
-        "Package name is not available (on CRAN)."
+        "Package is already on CRAN."
     )
 })
