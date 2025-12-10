@@ -217,7 +217,7 @@ ci_results_gh <- function (path) {
     # and logs may still return older version.
     # Code is a non-dply group_by |> summarise:
     dat <- lapply (
-        split (dat, f = as.factor (gusb ("\\.yaml$", "", dat$name))),
+        split (dat, f = as.factor (gsub ("\\.yaml$", "", dat$name))),
         function (i) {
             i [which.max (i$time_dbl), ]
         }
