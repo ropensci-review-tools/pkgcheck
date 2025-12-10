@@ -213,9 +213,11 @@ ci_results_gh <- function (path) {
 
     dat$time <- strptime (dat$time, "%Y-%m-%dT%H:%M:%SZ")
     dat$time_dbl <- as.double (dat$time)
-    # non-dply group_by %>% summarise:
+    # The r-lib actions workflows updated to append ".yaml" to workflow name,
+    # and logs may still return older version.
+    # Code is a non-dply group_by |> summarise:
     dat <- lapply (
-        split (dat, f = as.factor (dat$name)),
+        split (dat, f = as.factor (gsub ("\\.yaml$", "", dat$name))),
         function (i) {
             i [which.max (i$time_dbl), ]
         }

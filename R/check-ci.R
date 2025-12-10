@@ -6,9 +6,10 @@ output_pkgchk_ci <- function (checks) {
     check_pass <- has_workflows <- FALSE
     if (length (checks$info$github_workflows) > 0L) {
         wf <- checks$info$github_workflows
-        i <- grep ("check|cmd", wf$name, ignore.case = TRUE)
+        # Exclude 'pkgcheck' workflow to avoid recursive failure:
+        i <- grep ("cmd|coverage", wf$name, ignore.case = TRUE)
         has_workflows <- length (i) > 0L
-        check_pass <- any (wf$conclusion [i] == "success")
+        check_pass <- all (wf$conclusion [i] == "success")
         check_pass <- ifelse (is.na (check_pass), FALSE, check_pass)
     }
 
