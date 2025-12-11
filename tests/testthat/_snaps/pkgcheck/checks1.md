@@ -2,7 +2,7 @@
 
 git hash: [](/tree/)
 
-- :heavy_check_mark: Package name is available
+Package is already on CRAN
 - :heavy_multiplication_x: does not have a 'codemeta.json' file.
 - :heavy_multiplication_x: does not have a 'contributing' file.
 - :heavy_multiplication_x: The following function has no documented return value: [test_fn]

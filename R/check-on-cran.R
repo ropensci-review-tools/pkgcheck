@@ -36,6 +36,7 @@ pkgchk_on_cran <- function (checks) {
             error = function (e) e
         )
 
+        res <- as.logical (NA)
         same_title <- same_url <- FALSE
         if (!methods::is (x, "simpleError")) {
             h2 <- paste0 (rvest::html_elements (x, "h2"))
@@ -48,18 +49,22 @@ pkgchk_on_cran <- function (checks) {
             }
 
             tab <- rvest::html_table (x)
-            if (length (tab) > 0L) {
+            if (length (tab) > 0L && "URL" %in% names (desc)) {
                 tab <- tab [[1]]
                 if (ncol (tab) == 2) {
                     names (tab) <- c ("field", "value")
                     tab <- tab [grep ("^URL", tab$field), ]
-                    url <- paste0 (tab$value, collapse = ", ")
-                    url <- gsub ("\\n|\\s+", " ", url)
-                    same_url <- identical (url, desc$URL)
+                    parse_urls <- function (u) {
+                        u <- gsub ("\\n|\\s+|,", " ", u)
+                        strsplit (u, "\\s+") [[1]]
+                    }
+                    urls <- parse_urls (paste0 (tab$value, collapse = ", "))
+                    desc_urls <- parse_urls (desc$URL)
+                    same_url <- any (!is.na (match (desc_urls, urls)))
                 }
             }
+            res <- same_title || same_url
         }
-        res <- same_title || same_url
     }
 
     return (res)

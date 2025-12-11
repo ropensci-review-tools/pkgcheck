@@ -38,7 +38,7 @@ test_that ("extra checks", {
     # ***********************   SNAPSHOT TEST   ***********************
     # *****************************************************************
     #
-    md <- edit_markdown (md) # from clean-snapshots.R
+    md <- edit_markdown (md) # from helper-snapshots-clean.R
 
     md_dir <- withr::local_tempdir ()
     f_md <- fs::path (md_dir, "checks-extra.md")
@@ -90,7 +90,7 @@ test_that ("extra checks", {
     ex [which (!ex)] <- TRUE
     checks$checks$fns_have_exs <- ex
     checks$checks$branch_is_master <- FALSE
-    checks$checks$uses_dontrun[] <- "none"
+    checks$checks$uses_dontrun [] <- "none"
 
     set.seed (1L)
     x <- capture.output (summary (checks), type = "message")
