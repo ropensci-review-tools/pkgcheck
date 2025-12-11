@@ -36,7 +36,11 @@ output_pkgchk_pkgname <- function (checks) {
         print = ""
     ) # no print method
 
-    if (checks$checks$pkgname_available & !checks$checks$on_cran) {
+    if (is.na (checks$checks$on_cran)) {
+        out$summary <- "Could not check package name on CRAN"
+        out$check_pass <- FALSE
+        out$check_type <- "pass_watch"
+    } else if (checks$checks$pkgname_available & !checks$checks$on_cran) {
         out$summary <- "Package name is available"
     } else if (checks$checks$on_cran) {
         out$summary <- "Package is already on CRAN."

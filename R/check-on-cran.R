@@ -36,6 +36,7 @@ pkgchk_on_cran <- function (checks) {
             error = function (e) e
         )
 
+        res <- as.logical (NA)
         same_title <- same_url <- FALSE
         if (!methods::is (x, "simpleError")) {
             h2 <- paste0 (rvest::html_elements (x, "h2"))
@@ -62,8 +63,8 @@ pkgchk_on_cran <- function (checks) {
                     same_url <- any (!is.na (match (desc_urls, urls)))
                 }
             }
+            res <- same_title || same_url
         }
-        res <- same_title || same_url
     }
 
     return (res)
