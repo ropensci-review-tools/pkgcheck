@@ -186,9 +186,9 @@ ci_results_gh <- function (path) {
         runs <- list (total_count = nrow (wf), workflow_runs = wf)
     } else {
         # These lines can not be tested:
-        body <- httr2::request (url) |>
-            httr2::req_url_query (event = "push") |>
-            httr2::req_perform ()
+        qry <- httr2::request (url)
+        qry <- httr2::req_url_query (qry, event = "push")
+        body <- httr2::req_perform (qry)
         runs <- httr2::resp_body_json (body, simplify = TRUE)
     }
 
