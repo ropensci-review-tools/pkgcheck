@@ -264,7 +264,6 @@ summary (checks)
 cli::cli_h1 ("pkgstats 9.9")
 message ("")
 s <- c ("- :heavy_check_mark: Package name is available",
-        "- :heavy_multiplication_x: does not have a 'codemeta.json' file.",
         "- :heavy_multiplication_x: does not have a 'contributing' file.",
         "- :heavy_check_mark: uses 'roxygen2'.",
         "- :heavy_check_mark: 'DESCRIPTION' has a URL field.",
@@ -342,7 +341,6 @@ include them in our output:
 cli::cli_h1 ("pkgstats 9.9")
 message ("")
 s <- c ("- :heavy_check_mark: Package name is available",
-        "- :heavy_multiplication_x: does not have a 'codemeta.json' file.",
         "- :heavy_multiplication_x: does not have a 'contributing' file.",
         "- :heavy_check_mark: uses 'roxygen2'.",
         "- :heavy_check_mark: 'DESCRIPTION' has a URL field.",
