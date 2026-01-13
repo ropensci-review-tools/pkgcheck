@@ -3,7 +3,6 @@
 git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 
 - :heavy_check_mark: Package is already on CRAN.
-- :heavy_multiplication_x: does not have a 'codemeta.json' file.
 - :heavy_multiplication_x: does not have a 'contributing' file.
 - :heavy_multiplication_x: The following functions have no documented return values: [ctags_install, desc_stats, rd_stats, tags_data]
 - :heavy_check_mark: uses 'roxygen2'.
