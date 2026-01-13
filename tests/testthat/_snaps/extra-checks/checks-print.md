@@ -2,7 +2,6 @@
 -- pkgstats 9.9 ----------------------------------------------------------------
 
 v Package is already on CRAN.
-x does not have a 'codemeta.json' file.
 x does not have a 'contributing' file.
 x The following functions have no documented return values: [ctags_install, desc_stats, rd_stats, tags_data]
 v uses 'roxygen2'.

@@ -137,7 +137,6 @@ order_checks <- function (fns) {
         "pkgname",
         "license",
         "has_citation",
-        "has_codemeta",
         "has_contrib",
         "fns_have_return_vals",
         "uses_roxygen2",

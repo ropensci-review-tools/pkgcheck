@@ -83,8 +83,7 @@ test_that ("extra checks", {
     expect_true (any (grepl ("This package is not ready to be submitted", x)))
 
     # Fix up all failing checks:
-    checks$checks$has_contrib_md <- checks$checks$has_codemeta <-
-        checks$checks$has_vignette <- TRUE
+    checks$checks$has_contrib_md <- checks$checks$has_vignette <- TRUE
     checks$checks$fns_have_return_vals <- checks$checks$has_scrap <- NULL
     ex <- checks$checks$fns_have_exs
     ex [which (!ex)] <- TRUE
