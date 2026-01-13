@@ -1,21 +1,21 @@
 {
-    "sha": "27ea5519f5c327c6eee6e8f763c432bf5e24e531",
-    "url": "https://repos/27ea5519f5c327c6eee6e8f763c432bf5e24e531",
+    "sha": "1eff64d24bbd6a3bdac697daa9a112c2b85e63fe",
+    "url": "https://repos/1eff64d24bbd6a3bdac697daa9a112c2b85e63fe",
     "tree": [
         {
             "path": ".Rbuildignore",
             "mode": "100644",
             "type": "blob",
-            "sha": "26dfde619c848f407f72d243bfc18596a8dcb77a",
-            "size": 326,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/26dfde619c848f407f72d243bfc18596a8dcb77a"
+            "sha": "5b3bf4407203594c86e5e5437d9fd78f68d55675",
+            "size": 338,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/5b3bf4407203594c86e5e5437d9fd78f68d55675"
         },
         {
             "path": ".github",
             "mode": "040000",
             "type": "tree",
-            "sha": "d51835fe3ba2e9498c883151050ac153ecb047bd",
-            "url": "https://repos/d51835fe3ba2e9498c883151050ac153ecb047bd"
+            "sha": "2f7114f692be30245cb91993fb25cd272d606926",
+            "url": "https://repos/2f7114f692be30245cb91993fb25cd272d606926"
         },
         {
             "path": ".github/.gitignore",
@@ -37,32 +37,32 @@
             "path": ".github/workflows",
             "mode": "040000",
             "type": "tree",
-            "sha": "1aa62f5e1bd5d17a035c77cda8412a59d4a985c3",
-            "url": "https://repos/1aa62f5e1bd5d17a035c77cda8412a59d4a985c3"
+            "sha": "b86e04125da6f0d9fdd0ba909e9407f19958e176",
+            "url": "https://repos/b86e04125da6f0d9fdd0ba909e9407f19958e176"
         },
         {
             "path": ".github/workflows/R-CMD-check.yaml",
             "mode": "100644",
             "type": "blob",
-            "sha": "9b6999ed512b574649ae743fa82463ec8440509d",
+            "sha": "8ad0fe01d0a27716cae9b66124506bfd229eaf00",
             "size": 1821,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/9b6999ed512b574649ae743fa82463ec8440509d"
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8ad0fe01d0a27716cae9b66124506bfd229eaf00"
         },
         {
             "path": ".github/workflows/docker.yaml",
             "mode": "100644",
             "type": "blob",
-            "sha": "07ae921e0ecac22df07aa7f8a1612697a66bd8e5",
-            "size": 1616,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/07ae921e0ecac22df07aa7f8a1612697a66bd8e5"
+            "sha": "3f3ab1f0bc7bbe4359f548fb3dbf46b780164931",
+            "size": 1777,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/3f3ab1f0bc7bbe4359f548fb3dbf46b780164931"
         },
         {
             "path": ".github/workflows/monthly.yaml",
             "mode": "100644",
             "type": "blob",
-            "sha": "a42c607f328ca4f073d6e6345da7cd9199959b57",
+            "sha": "59c9229055d472ae8356092a5fbc19d5510aa41d",
             "size": 793,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/a42c607f328ca4f073d6e6345da7cd9199959b57"
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/59c9229055d472ae8356092a5fbc19d5510aa41d"
         },
         {
             "path": ".github/workflows/pkgcheck.yaml",
@@ -76,17 +76,17 @@
             "path": ".github/workflows/pr-commands.yaml",
             "mode": "100644",
             "type": "blob",
-            "sha": "6eaaa661bd6af342facb1dae29b72f8e41d4182a",
+            "sha": "b600a51c86c896700ab84353396b8d339c964bea",
             "size": 2133,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/6eaaa661bd6af342facb1dae29b72f8e41d4182a"
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/b600a51c86c896700ab84353396b8d339c964bea"
         },
         {
             "path": ".github/workflows/test-coverage.yaml",
             "mode": "100644",
             "type": "blob",
-            "sha": "c45472906b1deac946c3fd6617391416e96867d6",
+            "sha": "a7316a4ad3f03fcd5a0a8607b17b4262291bd05c",
             "size": 2213,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/c45472906b1deac946c3fd6617391416e96867d6"
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/a7316a4ad3f03fcd5a0a8607b17b4262291bd05c"
         },
         {
             "path": ".gitignore",
@@ -123,9 +123,9 @@
             "path": ".pre-commit-config.yaml",
             "mode": "100644",
             "type": "blob",
-            "sha": "2f34aeb57449fc284b31b64c3d73bec65f7a685d",
+            "sha": "9ea26516a1220ef8de7bf1340861384d642ed1fd",
             "size": 2620,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/2f34aeb57449fc284b31b64c3d73bec65f7a685d"
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/9ea26516a1220ef8de7bf1340861384d642ed1fd"
         },
         {
             "path": "CONTRIBUTING.md",
@@ -139,9 +139,9 @@
             "path": "DESCRIPTION",
             "mode": "100644",
             "type": "blob",
-            "sha": "221e5b162d17f42da2014b4375a62717e26afa9a",
-            "size": 1325,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/221e5b162d17f42da2014b4375a62717e26afa9a"
+            "sha": "f2b10d6b98dfbe1c66d04f708f95495708a80ccd",
+            "size": 1852,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/f2b10d6b98dfbe1c66d04f708f95495708a80ccd"
         },
         {
             "path": "Dockerfile",
@@ -155,32 +155,32 @@
             "path": "NAMESPACE",
             "mode": "100644",
             "type": "blob",
-            "sha": "9f737f83c0d133b8b2aa31ff91f119ed683e596b",
-            "size": 396,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/9f737f83c0d133b8b2aa31ff91f119ed683e596b"
+            "sha": "23a675bb9ea5c40e3b0f4953ee60cd445c1c221a",
+            "size": 421,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/23a675bb9ea5c40e3b0f4953ee60cd445c1c221a"
         },
         {
             "path": "R",
             "mode": "040000",
             "type": "tree",
-            "sha": "4c5cabbdaea214cb5efe9c609a52c0279f8ef94b",
-            "url": "https://repos/4c5cabbdaea214cb5efe9c609a52c0279f8ef94b"
+            "sha": "6d171580fdc11b66bcc9d8f9fb32e15039d2bffd",
+            "url": "https://repos/6d171580fdc11b66bcc9d8f9fb32e15039d2bffd"
         },
         {
             "path": "R/cache.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "994980f29107dccac438e40cb36eb5ce3464d319",
-            "size": 4374,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/994980f29107dccac438e40cb36eb5ce3464d319"
+            "sha": "ee92849755054756d2bd348c557c0c4046351735",
+            "size": 4851,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/ee92849755054756d2bd348c557c0c4046351735"
         },
         {
             "path": "R/check-ci.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "47a794405da08a20467a91071d6bc99fabff1d09",
-            "size": 2042,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/47a794405da08a20467a91071d6bc99fabff1d09"
+            "sha": "a882f1a621da54fc9cf7f0710a8c8ff1e976513d",
+            "size": 2111,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/a882f1a621da54fc9cf7f0710a8c8ff1e976513d"
         },
         {
             "path": "R/check-covr.R",
@@ -202,17 +202,17 @@
             "path": "R/check-fns-have-exs.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "d74b303b107cff7dc881ec22a70bf525d68a56ef",
-            "size": 2095,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/d74b303b107cff7dc881ec22a70bf525d68a56ef"
+            "sha": "2e99d2e0aaaab7ad92d5dd9a366c63c042340e57",
+            "size": 2064,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/2e99d2e0aaaab7ad92d5dd9a366c63c042340e57"
         },
         {
             "path": "R/check-fns-have-return-vals.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "483a0de3279e7d552e64f0a8ed9a737adf50af02",
-            "size": 2777,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/483a0de3279e7d552e64f0a8ed9a737adf50af02"
+            "sha": "63d0dd260c6b401b5ff3c4c06e3cde90362efdff",
+            "size": 2675,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/63d0dd260c6b401b5ff3c4c06e3cde90362efdff"
         },
         {
             "path": "R/check-has-citation.R",
@@ -223,20 +223,12 @@
             "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/ab14fafbda93c9dfd9fc7b1e7e51d2637f11ee3e"
         },
         {
-            "path": "R/check-has-codemeta.R",
-            "mode": "100644",
-            "type": "blob",
-            "sha": "6bc370872a7f63d642708914748596d9a2326f97",
-            "size": 826,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/6bc370872a7f63d642708914748596d9a2326f97"
-        },
-        {
             "path": "R/check-has-contrib.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "289b87146b71c56c950f717f63c742c5ff42ba29",
+            "sha": "2a880109b9b68f1cf1c21b52235e8330c3cf2a90",
             "size": 1393,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/289b87146b71c56c950f717f63c742c5ff42ba29"
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/2a880109b9b68f1cf1c21b52235e8330c3cf2a90"
         },
         {
             "path": "R/check-license.R",
@@ -247,28 +239,36 @@
             "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/3cfc0aa00bd35fb6f2aee3845332cdeaf38c8acc"
         },
         {
+            "path": "R/check-lintr.R",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "9848e4b917442b51b3eca6656584bc8ac2256038",
+            "size": 1029,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/9848e4b917442b51b3eca6656584bc8ac2256038"
+        },
+        {
             "path": "R/check-num-imports.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "1b366fae47fea2e1cdfda7f4db679ac2e94823c5",
-            "size": 1588,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/1b366fae47fea2e1cdfda7f4db679ac2e94823c5"
+            "sha": "62f3e2d4c14db8f694788a5a326e01190523ae1f",
+            "size": 1638,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/62f3e2d4c14db8f694788a5a326e01190523ae1f"
         },
         {
             "path": "R/check-obsolete-pkg-deps.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "679ebbeb8bbbb427afa103cd49fa72018572b39d",
-            "size": 2765,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/679ebbeb8bbbb427afa103cd49fa72018572b39d"
+            "sha": "90f9152d6900de564d30bc936ca3ddebf61f7ed0",
+            "size": 2815,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/90f9152d6900de564d30bc936ca3ddebf61f7ed0"
         },
         {
             "path": "R/check-on-cran.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "ab88a7417ee5693817098c2528a248c31ca6a8e3",
-            "size": 1895,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/ab88a7417ee5693817098c2528a248c31ca6a8e3"
+            "sha": "af7020d8e82a38a6331ed469ad937ec724b4d1da",
+            "size": 2414,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/af7020d8e82a38a6331ed469ad937ec724b4d1da"
         },
         {
             "path": "R/check-pkgdown.R",
@@ -282,9 +282,9 @@
             "path": "R/check-pkgname-available.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "bab2c32d9a83b7b46f0d333af54baf26b1a5f35c",
-            "size": 1158,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/bab2c32d9a83b7b46f0d333af54baf26b1a5f35c"
+            "sha": "c1072a1c0d34e263d6783227a33b47d5163cb939",
+            "size": 1339,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/c1072a1c0d34e263d6783227a33b47d5163cb939"
         },
         {
             "path": "R/check-renv.R",
@@ -298,49 +298,57 @@
             "path": "R/check-scrap.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "93cda66d786c36da3fdaeddb1e119c00e634ddc9",
-            "size": 1838,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/93cda66d786c36da3fdaeddb1e119c00e634ddc9"
+            "sha": "226cc89816f36dc94cce2f193a50906306b754e3",
+            "size": 1875,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/226cc89816f36dc94cce2f193a50906306b754e3"
         },
         {
             "path": "R/check-unique-fn-names.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "188f1636745eb8940c3fa0d0daa0485e9fa38269",
-            "size": 3199,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/188f1636745eb8940c3fa0d0daa0485e9fa38269"
+            "sha": "5ea1ddb43de39bca9377fafb67a2e4566ab7f92f",
+            "size": 5009,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/5ea1ddb43de39bca9377fafb67a2e4566ab7f92f"
         },
         {
             "path": "R/check-urls.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "0d1ac89bab6053c99b2ad33e1f8d32906109caec",
-            "size": 3554,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/0d1ac89bab6053c99b2ad33e1f8d32906109caec"
+            "sha": "e0a9d0ecc28bd07253b213fae5325b04877ff44f",
+            "size": 2661,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/e0a9d0ecc28bd07253b213fae5325b04877ff44f"
+        },
+        {
+            "path": "R/check-uses-dontrun.R",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "8aa95dcab9424af8e9327b9f9be109c68006bb95",
+            "size": 4241,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8aa95dcab9424af8e9327b9f9be109c68006bb95"
         },
         {
             "path": "R/check-uses-roxygen2.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "6ad6e2a4798528d59225a89839d6082c867d3284",
-            "size": 1203,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/6ad6e2a4798528d59225a89839d6082c867d3284"
+            "sha": "e85ae87a0e77372a114bd35cdd82dca705aed171",
+            "size": 1129,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/e85ae87a0e77372a114bd35cdd82dca705aed171"
         },
         {
             "path": "R/check-vignette.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "4e0c04e6b860297ffe8a26514a7bd4bbb0e1b091",
-            "size": 1634,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/4e0c04e6b860297ffe8a26514a7bd4bbb0e1b091"
+            "sha": "37f38d6354a999f55cbf349beaf1e27dbc548114",
+            "size": 2828,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/37f38d6354a999f55cbf349beaf1e27dbc548114"
         },
         {
             "path": "R/checks-goodpractice.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "5c512dabeeb09788392403a28b72966fb78a82f7",
-            "size": 13291,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/5c512dabeeb09788392403a28b72966fb78a82f7"
+            "sha": "f42a6f62bff9217a81c3bc74e605385f0922e76e",
+            "size": 13799,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/f42a6f62bff9217a81c3bc74e605385f0922e76e"
         },
         {
             "path": "R/checks-left-assign.R",
@@ -370,9 +378,9 @@
             "path": "R/github.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "0eacfbb0ccd7b42dd5c43d4c7d3e093d3c577de0",
-            "size": 10586,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/0eacfbb0ccd7b42dd5c43d4c7d3e093d3c577de0"
+            "sha": "5612413f279205d35089186bd6b0dac9b3051ff8",
+            "size": 10636,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/5612413f279205d35089186bd6b0dac9b3051ff8"
         },
         {
             "path": "R/info-call-network.R",
@@ -386,9 +394,17 @@
             "path": "R/info-ci.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "ba0f80f4b31ee9b144bbdf345adf29258063789d",
-            "size": 5444,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/ba0f80f4b31ee9b144bbdf345adf29258063789d"
+            "sha": "df5ee009b13f7e6adbc308923fdbd381af395e1b",
+            "size": 6307,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/df5ee009b13f7e6adbc308923fdbd381af395e1b"
+        },
+        {
+            "path": "R/info-from-desc.R",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "524fdace7c501097a602dc3085eb43c3677cce45",
+            "size": 1600,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/524fdace7c501097a602dc3085eb43c3677cce45"
         },
         {
             "path": "R/info-git.R",
@@ -402,17 +418,17 @@
             "path": "R/info-pkgdown.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "5d9bed4ff1497b486d8e61329cdc74011ccdf0d6",
-            "size": 593,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/5d9bed4ff1497b486d8e61329cdc74011ccdf0d6"
+            "sha": "b43ab1acc265b44b702144aaf8914cd6cbd03f54",
+            "size": 519,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/b43ab1acc265b44b702144aaf8914cd6cbd03f54"
         },
         {
             "path": "R/info-pkgstats.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "8f761388af0737b6b7f8a464e4f4fcf54515155d",
-            "size": 2462,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8f761388af0737b6b7f8a464e4f4fcf54515155d"
+            "sha": "c620283f5ac467d3c46607b973171689e99ad033",
+            "size": 3425,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/c620283f5ac467d3c46607b973171689e99ad033"
         },
         {
             "path": "R/info-renv.R",
@@ -426,9 +442,9 @@
             "path": "R/info-srr.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "cacc293e0f003c197da324af20abd6667b2a74e5",
-            "size": 4918,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/cacc293e0f003c197da324af20abd6667b2a74e5"
+            "sha": "a45ef6604755c692319d9b1d7099bcb7a5aeb0a8",
+            "size": 4963,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/a45ef6604755c692319d9b1d7099bcb7a5aeb0a8"
         },
         {
             "path": "R/license-list.R",
@@ -442,9 +458,9 @@
             "path": "R/path-fns.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "938c90f07bb3ee523b2c9a7b7ad9fff97635a746",
-            "size": 1120,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/938c90f07bb3ee523b2c9a7b7ad9fff97635a746"
+            "sha": "316b054aac1f62adab88b1a1e7c702c776fcad9c",
+            "size": 852,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/316b054aac1f62adab88b1a1e7c702c776fcad9c"
         },
         {
             "path": "R/pkg-deps.R",
@@ -458,25 +474,25 @@
             "path": "R/pkgcheck-bg.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "016a2e4891df4d79f6179cce51f3dbffcc859078",
-            "size": 2128,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/016a2e4891df4d79f6179cce51f3dbffcc859078"
+            "sha": "b1731b541d77965e65814d63e3ac384794ce6205",
+            "size": 2144,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/b1731b541d77965e65814d63e3ac384794ce6205"
         },
         {
             "path": "R/pkgcheck-fn.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "bb57ed3dff208cfdc776c5b44fd14eb430301fa0",
-            "size": 8974,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/bb57ed3dff208cfdc776c5b44fd14eb430301fa0"
+            "sha": "5ea06edc7db67ff00f366d2b52fc57b726aff741",
+            "size": 6995,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/5ea06edc7db67ff00f366d2b52fc57b726aff741"
         },
         {
             "path": "R/pkgcheck-methods.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "bdf477be5dd29c0f7db6bb3f81f492e4aee95e3d",
-            "size": 10989,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/bdf477be5dd29c0f7db6bb3f81f492e4aee95e3d"
+            "sha": "11a071c73a79efd53f1c8457ca89b4227c206718",
+            "size": 11072,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/11a071c73a79efd53f1c8457ca89b4227c206718"
         },
         {
             "path": "R/pkgcheck-package.R",
@@ -485,6 +501,14 @@
             "sha": "aa649d100e727c018708581e4afd474818560e60",
             "size": 259,
             "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/aa649d100e727c018708581e4afd474818560e60"
+        },
+        {
+            "path": "R/praise.R",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "caebad948fab60387a9a0b9b30cbae8630ad6ec0",
+            "size": 1263,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/caebad948fab60387a9a0b9b30cbae8630ad6ec0"
         },
         {
             "path": "R/read-books.R",
@@ -498,25 +522,25 @@
             "path": "R/stats-checks.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "9cd149c087fe9fbabb82ec8b672fc348395928d5",
-            "size": 7147,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/9cd149c087fe9fbabb82ec8b672fc348395928d5"
+            "sha": "fe6670a4da1136cd8d5bb4d6b704e33f7a008c72",
+            "size": 7148,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/fe6670a4da1136cd8d5bb4d6b704e33f7a008c72"
         },
         {
             "path": "R/summarise-checks.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "8dad6f378858abb3ac024a98e735dc9bb1c16904",
-            "size": 5637,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8dad6f378858abb3ac024a98e735dc9bb1c16904"
+            "sha": "9edd6e629a48aafa9ca92eb03641cd4482dd5c98",
+            "size": 6275,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/9edd6e629a48aafa9ca92eb03641cd4482dd5c98"
         },
         {
             "path": "R/utils.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "1c199d70a473cb6e800c64e94c485d0d6191ecb6",
-            "size": 3766,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/1c199d70a473cb6e800c64e94c485d0d6191ecb6"
+            "sha": "3117d8067f11589b3d1abb2faa77c57345d1f0e9",
+            "size": 3915,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/3117d8067f11589b3d1abb2faa77c57345d1f0e9"
         },
         {
             "path": "R/zzz.R",
@@ -530,17 +554,17 @@
             "path": "README.Rmd",
             "mode": "100644",
             "type": "blob",
-            "sha": "2ca1b3faf41d48fdbf294afc61ff897259287bf7",
-            "size": 20039,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/2ca1b3faf41d48fdbf294afc61ff897259287bf7"
+            "sha": "36643372e157fcecf6dbc1db45e286945791d978",
+            "size": 24065,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/36643372e157fcecf6dbc1db45e286945791d978"
         },
         {
             "path": "README.md",
             "mode": "100644",
             "type": "blob",
-            "sha": "658d7c37470bc23fb499999fd580b2e4e60d5059",
-            "size": 21254,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/658d7c37470bc23fb499999fd580b2e4e60d5059"
+            "sha": "83778b328ac62410514c8475fc0bc6dc1b190981",
+            "size": 25604,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/83778b328ac62410514c8475fc0bc6dc1b190981"
         },
         {
             "path": "_pkgdown.yml",
@@ -551,12 +575,20 @@
             "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/e9b7d84255bcff04693abe8edd04e69c128dab67"
         },
         {
+            "path": "air.toml",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "e0287c26659329a6408ba425c2147740ae034c3d",
+            "size": 25,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/e0287c26659329a6408ba425c2147740ae034c3d"
+        },
+        {
             "path": "codemeta.json",
             "mode": "100644",
             "type": "blob",
-            "sha": "7cec5337191020698a5fee89cfcda6802dbc9a84",
-            "size": 12067,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/7cec5337191020698a5fee89cfcda6802dbc9a84"
+            "sha": "e20f824302ea93b828f1696365e0c70958b4f55b",
+            "size": 12868,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/e20f824302ea93b828f1696365e0c70958b4f55b"
         },
         {
             "path": "data-raw",
@@ -585,23 +617,31 @@
             "path": "inst",
             "mode": "040000",
             "type": "tree",
-            "sha": "c50c2ab900227bc578f83c4328dfbe55cf66a008",
-            "url": "https://repos/c50c2ab900227bc578f83c4328dfbe55cf66a008"
+            "sha": "3fffc37b84aa28c2e5616631eced6f98f8e1ec66",
+            "url": "https://repos/3fffc37b84aa28c2e5616631eced6f98f8e1ec66"
+        },
+        {
+            "path": "inst/Rd-for-testing-dontrun.Rd",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "faca846e1ca492081e6f4a3aa8a0998f58ac2cc9",
+            "size": 864,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/faca846e1ca492081e6f4a3aa8a0998f58ac2cc9"
         },
         {
             "path": "inst/httptest2",
             "mode": "040000",
             "type": "tree",
-            "sha": "8466d172db0c35878bb68feff6ef986c548e8015",
-            "url": "https://repos/8466d172db0c35878bb68feff6ef986c548e8015"
+            "sha": "386b21de01872fd5a4389379dbf330cd094e8fb7",
+            "url": "https://repos/386b21de01872fd5a4389379dbf330cd094e8fb7"
         },
         {
             "path": "inst/httptest2/redact.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "4d2df971abd500ce9eacf746480eb72bc7594367",
-            "size": 159,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/4d2df971abd500ce9eacf746480eb72bc7594367"
+            "sha": "356504f83d2ac5be9443837426b30e1e38681622",
+            "size": 305,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/356504f83d2ac5be9443837426b30e1e38681622"
         },
         {
             "path": "inst/pkgcheck.yaml",
@@ -615,24 +655,32 @@
             "path": "makefile",
             "mode": "100644",
             "type": "blob",
-            "sha": "1ea3d5fa6549e0d7a66f33b760c08758657d656b",
-            "size": 1436,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/1ea3d5fa6549e0d7a66f33b760c08758657d656b"
+            "sha": "d3356dc79415d3f806e76e11354e3cba53aa5fda",
+            "size": 1510,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/d3356dc79415d3f806e76e11354e3cba53aa5fda"
         },
         {
             "path": "man",
             "mode": "040000",
             "type": "tree",
-            "sha": "dd669d0c603489bf484777cd5fde34dd8b0fa7e4",
-            "url": "https://repos/dd669d0c603489bf484777cd5fde34dd8b0fa7e4"
+            "sha": "784c1bfbde16a3ea4bb3141a69772d329802c419",
+            "url": "https://repos/784c1bfbde16a3ea4bb3141a69772d329802c419"
         },
         {
             "path": "man/checks_to_markdown.Rd",
             "mode": "100644",
             "type": "blob",
-            "sha": "8b6d23465952f62f111d44f5d3ef63daea9b0ae7",
-            "size": 865,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8b6d23465952f62f111d44f5d3ef63daea9b0ae7"
+            "sha": "0a5f0fe1293316e21c14d2bf50ab6897bea661c2",
+            "size": 899,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/0a5f0fe1293316e21c14d2bf50ab6897bea661c2"
+        },
+        {
+            "path": "man/fn_names_on_cran.Rd",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "22c6b9bc497ed53a88b8535218617d4807cb567c",
+            "size": 1010,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/22c6b9bc497ed53a88b8535218617d4807cb567c"
         },
         {
             "path": "man/get_default_github_branch.Rd",
@@ -662,33 +710,33 @@
             "path": "man/list_pkgchecks.Rd",
             "mode": "100644",
             "type": "blob",
-            "sha": "f6743e8bf6cb810ff6f3c4a140d6128546ccd8a2",
-            "size": 630,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/f6743e8bf6cb810ff6f3c4a140d6128546ccd8a2"
+            "sha": "0682d0921f318a93c7c6f6256479ae96c77389db",
+            "size": 665,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/0682d0921f318a93c7c6f6256479ae96c77389db"
         },
         {
             "path": "man/logfile_names.Rd",
             "mode": "100644",
             "type": "blob",
-            "sha": "858a6f0b253b4d8cc1f0d52f86b6449b22d90587",
-            "size": 1066,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/858a6f0b253b4d8cc1f0d52f86b6449b22d90587"
+            "sha": "55f8fcf35f654f4cda7713de5b62493d57d1f34e",
+            "size": 1100,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/55f8fcf35f654f4cda7713de5b62493d57d1f34e"
         },
         {
             "path": "man/pkgcheck-package.Rd",
             "mode": "100644",
             "type": "blob",
-            "sha": "861fffe07d4e974412b0de57d60920e85dc8910a",
-            "size": 844,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/861fffe07d4e974412b0de57d60920e85dc8910a"
+            "sha": "31cbe8aae3be2038933f5e33a84a1a56d579c4e7",
+            "size": 1327,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/31cbe8aae3be2038933f5e33a84a1a56d579c4e7"
         },
         {
             "path": "man/pkgcheck.Rd",
             "mode": "100644",
             "type": "blob",
-            "sha": "7674bcd92cbc316a8325afeeb4602b118822e16e",
-            "size": 1546,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/7674bcd92cbc316a8325afeeb4602b118822e16e"
+            "sha": "108bf9818d35c9d92cb00a24a7e28d71e8aa4113",
+            "size": 1595,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/108bf9818d35c9d92cb00a24a7e28d71e8aa4113"
         },
         {
             "path": "man/pkgcheck_bg.Rd",
@@ -718,9 +766,9 @@
             "path": "man/render_md2html.Rd",
             "mode": "100644",
             "type": "blob",
-            "sha": "d9f2ba3ac302180c3a5e61f2bf0a9260eeacd853",
-            "size": 990,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/d9f2ba3ac302180c3a5e61f2bf0a9260eeacd853"
+            "sha": "59a4cfbb1ff8ef15f3e904853a6773f0bae8956d",
+            "size": 1024,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/59a4cfbb1ff8ef15f3e904853a6773f0bae8956d"
         },
         {
             "path": "man/use_github_action_pkgcheck.Rd",
@@ -742,8 +790,8 @@
             "path": "tests",
             "mode": "040000",
             "type": "tree",
-            "sha": "e5861bb9b4138c87bf03536b932c342ea008c375",
-            "url": "https://repos/e5861bb9b4138c87bf03536b932c342ea008c375"
+            "sha": "b5ee76e2b7843560e31d3046b70c46b2e99fbb9e",
+            "url": "https://repos/b5ee76e2b7843560e31d3046b70c46b2e99fbb9e"
         },
         {
             "path": "tests/testthat.R",
@@ -757,46 +805,54 @@
             "path": "tests/testthat",
             "mode": "040000",
             "type": "tree",
-            "sha": "ede970afdeb9d9b73a63b7db60580966db6825c8",
-            "url": "https://repos/ede970afdeb9d9b73a63b7db60580966db6825c8"
+            "sha": "bcf0fde50840c32336a018fbd6405287b755a7a7",
+            "url": "https://repos/bcf0fde50840c32336a018fbd6405287b755a7a7"
         },
         {
             "path": "tests/testthat/_snaps",
             "mode": "040000",
             "type": "tree",
-            "sha": "2e4bfd575ecf3cc9671162739ebd362ca23f71a6",
-            "url": "https://repos/2e4bfd575ecf3cc9671162739ebd362ca23f71a6"
+            "sha": "17b0cbc837d755615367178e95fae79ef20e7d59",
+            "url": "https://repos/17b0cbc837d755615367178e95fae79ef20e7d59"
+        },
+        {
+            "path": "tests/testthat/_snaps/check-uses-dontrun.md",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "cc3c4a5591d01fbc9c1817a34021805b628c9cec",
+            "size": 214,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/cc3c4a5591d01fbc9c1817a34021805b628c9cec"
         },
         {
             "path": "tests/testthat/_snaps/extra-checks",
             "mode": "040000",
             "type": "tree",
-            "sha": "07852d7d742f9a44b6f2ba3a55c8861aafdd4f97",
-            "url": "https://repos/07852d7d742f9a44b6f2ba3a55c8861aafdd4f97"
+            "sha": "19bd10a3dd00259cd6e21b276bfad83db22bc2bf",
+            "url": "https://repos/19bd10a3dd00259cd6e21b276bfad83db22bc2bf"
         },
         {
             "path": "tests/testthat/_snaps/extra-checks/checks-extra.html",
             "mode": "100644",
             "type": "blob",
-            "sha": "df7165935a8bd33d8c4bba5d09f0ad77ba86f411",
-            "size": 14376,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/df7165935a8bd33d8c4bba5d09f0ad77ba86f411"
+            "sha": "8de0987dd5ea14877a0f904123bf2c23ca6f26c4",
+            "size": 14447,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8de0987dd5ea14877a0f904123bf2c23ca6f26c4"
         },
         {
             "path": "tests/testthat/_snaps/extra-checks/checks-extra.md",
             "mode": "100644",
             "type": "blob",
-            "sha": "21a7d82d25e0259825f6de6752259305a1f746fb",
-            "size": 6971,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/21a7d82d25e0259825f6de6752259305a1f746fb"
+            "sha": "3f4fa293f272fbeee764d65ca77c767779d3f6fc",
+            "size": 7024,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/3f4fa293f272fbeee764d65ca77c767779d3f6fc"
         },
         {
             "path": "tests/testthat/_snaps/extra-checks/checks-print.md",
             "mode": "100644",
             "type": "blob",
-            "sha": "11c3282c8f454a76d2d2489c645cac3744b54966",
-            "size": 1969,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/11c3282c8f454a76d2d2489c645cac3744b54966"
+            "sha": "61de040e13c0c3c693c99689ec4c1010c3e8ee72",
+            "size": 2014,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/61de040e13c0c3c693c99689ec4c1010c3e8ee72"
         },
         {
             "path": "tests/testthat/_snaps/github.md",
@@ -833,40 +889,40 @@
             "path": "tests/testthat/_snaps/pkgcheck",
             "mode": "040000",
             "type": "tree",
-            "sha": "b23abb7af8e8d3e030f425562acac45a45a66128",
-            "url": "https://repos/b23abb7af8e8d3e030f425562acac45a45a66128"
+            "sha": "97df0beeacfe9684c29595eb191c45eb3ebdcbd1",
+            "url": "https://repos/97df0beeacfe9684c29595eb191c45eb3ebdcbd1"
         },
         {
             "path": "tests/testthat/_snaps/pkgcheck/checks0.html",
             "mode": "100644",
             "type": "blob",
-            "sha": "f97495c7901656a59d96df68b3159271d3e753c7",
-            "size": 12763,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/f97495c7901656a59d96df68b3159271d3e753c7"
+            "sha": "3b4e032c4b1229507df6361a410372a9fe7fbe1c",
+            "size": 12649,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/3b4e032c4b1229507df6361a410372a9fe7fbe1c"
         },
         {
             "path": "tests/testthat/_snaps/pkgcheck/checks0.md",
             "mode": "100644",
             "type": "blob",
-            "sha": "cfd6a2d84d01551d5b52674a2f47d54200d305b6",
-            "size": 6966,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/cfd6a2d84d01551d5b52674a2f47d54200d305b6"
+            "sha": "62e6dc6a86b2c753a2419d9a843c4ea8d76ec764",
+            "size": 6935,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/62e6dc6a86b2c753a2419d9a843c4ea8d76ec764"
         },
         {
             "path": "tests/testthat/_snaps/pkgcheck/checks1.html",
             "mode": "100644",
             "type": "blob",
-            "sha": "84439a19fb10eaa1a6d4c1d1c3e15da9ef6a9436",
-            "size": 12866,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/84439a19fb10eaa1a6d4c1d1c3e15da9ef6a9436"
+            "sha": "8ae3b463781b4d54c5e6b8d957e3e5e90047cc85",
+            "size": 12738,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8ae3b463781b4d54c5e6b8d957e3e5e90047cc85"
         },
         {
             "path": "tests/testthat/_snaps/pkgcheck/checks1.md",
             "mode": "100644",
             "type": "blob",
-            "sha": "20455a27fd1c3ae0230a3c1cda5f0e8035d9e1d6",
-            "size": 7091,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/20455a27fd1c3ae0230a3c1cda5f0e8035d9e1d6"
+            "sha": "f8124c8e622041c3f422c9f16da43ae739019384",
+            "size": 7060,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/f8124c8e622041c3f422c9f16da43ae739019384"
         },
         {
             "path": "tests/testthat/ghbranch",
@@ -887,16 +943,16 @@
             "path": "tests/testthat/ghcommit",
             "mode": "040000",
             "type": "tree",
-            "sha": "561fd7ab782f029dddd090f1b4a5679ab4d6be22",
-            "url": "https://repos/561fd7ab782f029dddd090f1b4a5679ab4d6be22"
+            "sha": "8fb002fbec098f7314011786dd492ebd58b1b1d3",
+            "url": "https://repos/8fb002fbec098f7314011786dd492ebd58b1b1d3"
         },
         {
             "path": "tests/testthat/ghcommit/graphql-a49f65-POST.json",
             "mode": "100644",
             "type": "blob",
-            "sha": "731f1c9963daed2c08f6e7112e261af0eca3ef48",
-            "size": 671,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/731f1c9963daed2c08f6e7112e261af0eca3ef48"
+            "sha": "c6560d124dd0d308d686917dae91c2246652adb3",
+            "size": 670,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/c6560d124dd0d308d686917dae91c2246652adb3"
         },
         {
             "path": "tests/testthat/ghcommit/graphql-f4c59b-POST.json",
@@ -907,28 +963,74 @@
             "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/6c16ff72d24f18a049da4d706821e69b9753a8e1"
         },
         {
+            "path": "tests/testthat/ghworkflow",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "05a4c39d87f4a271c09fef2805e2e67f2fe3871e",
+            "url": "https://repos/05a4c39d87f4a271c09fef2805e2e67f2fe3871e"
+        },
+        {
+            "path": "tests/testthat/ghworkflow/graphql-f4c59b-POST.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "6c16ff72d24f18a049da4d706821e69b9753a8e1",
+            "size": 137,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/6c16ff72d24f18a049da4d706821e69b9753a8e1"
+        },
+        {
+            "path": "tests/testthat/ghworkflow/repos",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "72a43ebc577b357dc9a6fcf845554516f689ec50",
+            "url": "https://repos/72a43ebc577b357dc9a6fcf845554516f689ec50"
+        },
+        {
+            "path": "tests/testthat/ghworkflow/repos/main-3d409a.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "01acc3bbd56ecdb9c3062c02d4e6abc49483a720",
+            "size": 48260,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/01acc3bbd56ecdb9c3062c02d4e6abc49483a720"
+        },
+        {
             "path": "tests/testthat/helper-check-data.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "b69072010f8d548085784de69d4433d379cb189d",
-            "size": 1749,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/b69072010f8d548085784de69d4433d379cb189d"
+            "sha": "7652a6bd383c25884a004aade23e455d1c25b0a0",
+            "size": 1784,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/7652a6bd383c25884a004aade23e455d1c25b0a0"
+        },
+        {
+            "path": "tests/testthat/helper-path-fns.R",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "8bbef3346cb7b4dbac130c07f6f2c95ef71cc73f",
+            "size": 594,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8bbef3346cb7b4dbac130c07f6f2c95ef71cc73f"
         },
         {
             "path": "tests/testthat/helper-snapshots-clean.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "6b65886565cdfc63614f0d69b0571b554ca4813d",
-            "size": 5641,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/6b65886565cdfc63614f0d69b0571b554ca4813d"
+            "sha": "8d0ffd054b25629bd3b4245cc8cc60c59aefff83",
+            "size": 6013,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8d0ffd054b25629bd3b4245cc8cc60c59aefff83"
+        },
+        {
+            "path": "tests/testthat/test-cache.R",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "58ee24af71a4dd182636de11c3c77914359ccc01",
+            "size": 1044,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/58ee24af71a4dd182636de11c3c77914359ccc01"
         },
         {
             "path": "tests/testthat/test-check-ci.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "8e242dd7612a0c86fed4ce07272217fdd1de64d6",
-            "size": 2383,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8e242dd7612a0c86fed4ce07272217fdd1de64d6"
+            "sha": "b955886df879c8fc1731ea4673e7975783243926",
+            "size": 2255,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/b955886df879c8fc1731ea4673e7975783243926"
         },
         {
             "path": "tests/testthat/test-check-covr.R",
@@ -966,17 +1068,17 @@
             "path": "tests/testthat/test-check-goodpractice.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "5b71aa734225f3dbcbefe529945d4ae5c98ea507",
-            "size": 3024,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/5b71aa734225f3dbcbefe529945d4ae5c98ea507"
+            "sha": "fb95dcfb8c39ecd6f3473e70b38cfb63d374ac9d",
+            "size": 3107,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/fb95dcfb8c39ecd6f3473e70b38cfb63d374ac9d"
         },
         {
             "path": "tests/testthat/test-check-left-assign.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "82c26b20d3fa36f37db8476c2f05a75718f5d87b",
-            "size": 4695,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/82c26b20d3fa36f37db8476c2f05a75718f5d87b"
+            "sha": "52908379d2dc54075cd671564c048dcbc050ee0b",
+            "size": 4919,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/52908379d2dc54075cd671564c048dcbc050ee0b"
         },
         {
             "path": "tests/testthat/test-check-license.R",
@@ -990,41 +1092,41 @@
             "path": "tests/testthat/test-check-num-imports.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "e3151c2ffdeec570db2a2698000d544087bdb693",
-            "size": 606,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/e3151c2ffdeec570db2a2698000d544087bdb693"
+            "sha": "03c149cf2265cd5915fca6044624295576e8ebeb",
+            "size": 799,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/03c149cf2265cd5915fca6044624295576e8ebeb"
         },
         {
             "path": "tests/testthat/test-check-obsolete-pkg-deps.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "e4cb67e1d1527d0484d39f3c3f57fa4dc9426204",
-            "size": 686,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/e4cb67e1d1527d0484d39f3c3f57fa4dc9426204"
+            "sha": "abcc2b9e72e363235214aff716df837500590022",
+            "size": 879,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/abcc2b9e72e363235214aff716df837500590022"
         },
         {
             "path": "tests/testthat/test-check-pkgname-available.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "a394a5ecca8552ce41970f058d5689099157b13e",
-            "size": 594,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/a394a5ecca8552ce41970f058d5689099157b13e"
+            "sha": "e7155aae646b03d8f7a46dddc3a7172e8852cff4",
+            "size": 1200,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/e7155aae646b03d8f7a46dddc3a7172e8852cff4"
         },
         {
             "path": "tests/testthat/test-check-renv.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "047a807741b60b6a212d2a54dfef2cbb602055f1",
-            "size": 1538,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/047a807741b60b6a212d2a54dfef2cbb602055f1"
+            "sha": "9eb3e75681a7260652b37b430f2f9f725e0dd8b0",
+            "size": 1724,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/9eb3e75681a7260652b37b430f2f9f725e0dd8b0"
         },
         {
             "path": "tests/testthat/test-check-scrap.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "d8a5253f5296e26ccd5bced6a1efe358c4e26e60",
-            "size": 1738,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/d8a5253f5296e26ccd5bced6a1efe358c4e26e60"
+            "sha": "6e06eadb9d2f3e075d9a3adb4f2949e94e928e70",
+            "size": 1726,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/6e06eadb9d2f3e075d9a3adb4f2949e94e928e70"
         },
         {
             "path": "tests/testthat/test-check-srr.R",
@@ -1038,17 +1140,33 @@
             "path": "tests/testthat/test-check-unique-fn-names.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "420a50db8f976a48134cde596524b0bac761cdfa",
-            "size": 898,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/420a50db8f976a48134cde596524b0bac761cdfa"
+            "sha": "7489b5e764aeef682297f5f66d75ec1476b92090",
+            "size": 1625,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/7489b5e764aeef682297f5f66d75ec1476b92090"
+        },
+        {
+            "path": "tests/testthat/test-check-urls.R",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b3aea995a4d3da95e270047121779bc32407e529",
+            "size": 1056,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/b3aea995a4d3da95e270047121779bc32407e529"
+        },
+        {
+            "path": "tests/testthat/test-check-uses-dontrun.R",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "df7555c0e6e604e6384fedbc860000820cf281ea",
+            "size": 1564,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/df7555c0e6e604e6384fedbc860000820cf281ea"
         },
         {
             "path": "tests/testthat/test-extra-checks.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "da77f108d940cfa4ebe6be3c155a6aa7695755ad",
-            "size": 2419,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/da77f108d940cfa4ebe6be3c155a6aa7695755ad"
+            "sha": "b2bc5ba185110a30a0540a975f95a9b3a71e7577",
+            "size": 3864,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/b2bc5ba185110a30a0540a975f95a9b3a71e7577"
         },
         {
             "path": "tests/testthat/test-extra-env-check.R",
@@ -1062,17 +1180,17 @@
             "path": "tests/testthat/test-github.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "3ca3801e278b2ffd917c7e32e020799283719738",
-            "size": 3117,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/3ca3801e278b2ffd917c7e32e020799283719738"
+            "sha": "5a27c935cc662098775d24ceb9230ee037277a9e",
+            "size": 3119,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/5a27c935cc662098775d24ceb9230ee037277a9e"
         },
         {
             "path": "tests/testthat/test-goodpractice.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "52eaf78b7a5239e96d9c92d786e92eae52f9d5aa",
-            "size": 981,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/52eaf78b7a5239e96d9c92d786e92eae52f9d5aa"
+            "sha": "036454193a43b1285b35f75cd64c7bcd21815902",
+            "size": 976,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/036454193a43b1285b35f75cd64c7bcd21815902"
         },
         {
             "path": "tests/testthat/test-license-list.R",
@@ -1086,9 +1204,9 @@
             "path": "tests/testthat/test-list-checks.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "8bee83a7c633edb84629e6d3936a72d9d29a26f7",
+            "sha": "3f33a5f29c2f313db134cef9930bc3a8cafaf2fd",
             "size": 289,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8bee83a7c633edb84629e6d3936a72d9d29a26f7"
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/3f33a5f29c2f313db134cef9930bc3a8cafaf2fd"
         },
         {
             "path": "tests/testthat/test-order-checks.R",
@@ -1102,32 +1220,62 @@
             "path": "tests/testthat/test-path-fns.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "acc454a7d7c995fb323cd24928757e79a635be57",
-            "size": 699,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/acc454a7d7c995fb323cd24928757e79a635be57"
+            "sha": "60dd9054a24fd9b51f507527113509b784f6ea81",
+            "size": 3569,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/60dd9054a24fd9b51f507527113509b784f6ea81"
         },
         {
             "path": "tests/testthat/test-pkgcheck.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "c7c68f7caa1f59d16aeef190993c0c97d2a8211c",
-            "size": 3256,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/c7c68f7caa1f59d16aeef190993c0c97d2a8211c"
+            "sha": "2f9f6c598ddc672de7650295dc6193c00d1c94ed",
+            "size": 3614,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/2f9f6c598ddc672de7650295dc6193c00d1c94ed"
         },
         {
             "path": "tests/testthat/test-pkgcheck_bg.R",
             "mode": "100644",
             "type": "blob",
-            "sha": "f5ffb1b7277bcdb27ecc2db2d14b9a361f460d06",
-            "size": 1163,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/f5ffb1b7277bcdb27ecc2db2d14b9a361f460d06"
+            "sha": "0f0a1211b73a67c975e1636cf198758e03af7d63",
+            "size": 1198,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/0f0a1211b73a67c975e1636cf198758e03af7d63"
+        },
+        {
+            "path": "tests/testthat/url_false",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "e7b314a6ba1d71a5e98cdfcbe5961e9642ae5045",
+            "url": "https://repos/e7b314a6ba1d71a5e98cdfcbe5961e9642ae5045"
+        },
+        {
+            "path": "tests/testthat/url_false/thisdoesnotexist.R",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "4a62a78b4c3487503cc599d2f8f1f887cbb7965f",
+            "size": 1670,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/4a62a78b4c3487503cc599d2f8f1f887cbb7965f"
+        },
+        {
+            "path": "tests/testthat/url_true",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "7daf0bad33418d57aa98e328ade9ea7b0f204d84",
+            "url": "https://repos/7daf0bad33418d57aa98e328ade9ea7b0f204d84"
+        },
+        {
+            "path": "tests/testthat/url_true/archlinux.org.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "af1d56b623681dbafb52b0b0ec8c3c5ab9557926",
+            "size": 24420,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/af1d56b623681dbafb52b0b0ec8c3c5ab9557926"
         },
         {
             "path": "vignettes",
             "mode": "040000",
             "type": "tree",
-            "sha": "52245b3d3d51335344647fa2ef5ded58c5277ea0",
-            "url": "https://repos/52245b3d3d51335344647fa2ef5ded58c5277ea0"
+            "sha": "42893afa522d0fd6d216534177cfa1075dfd599e",
+            "url": "https://repos/42893afa522d0fd6d216534177cfa1075dfd599e"
         },
         {
             "path": "vignettes/_output.yml",
@@ -1157,9 +1305,9 @@
             "path": "vignettes/extending-checks.Rmd",
             "mode": "100644",
             "type": "blob",
-            "sha": "676b8d1be580678c143649df4eba3b09bef57ed7",
-            "size": 18597,
-            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/676b8d1be580678c143649df4eba3b09bef57ed7"
+            "sha": "8a2b1779fa1bf47498db27fcee0fc9a1639c1214",
+            "size": 21134,
+            "url": "https://repos/ropensci-review-tools/pkgcheck/git/blobs/8a2b1779fa1bf47498db27fcee0fc9a1639c1214"
         },
         {
             "path": "vignettes/list-checks.Rmd",
