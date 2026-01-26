@@ -53,7 +53,7 @@ i Package has
 * No internal data
 * 9 imported packages.
 * 11 exported functions (median 43 lines of code).
-* 120 non-exported functions (median 21 lines of code).
+* 53 non-exported functions (median 14 lines of code).
 * 12 C++ functions (median 16 lines of code).
 * 1 parameters per function (median).
 

@@ -188,7 +188,7 @@ The package has:
 - no internal data file
 - 1 imported package
 - 1 exported function (median 3 lines of code)
-- 2 non-exported functions in R (median 3 lines of code)
+- 1 non-exported function in R (median 3 lines of code)
 - 2 R functions (median 5 lines of code)
 
 ---
@@ -215,9 +215,9 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 |loc_src                 |    26|        2.7|TRUE       |
 |loc_tests               |     6|        5.1|           |
 |num_vignettes           |     0|        0.0|TRUE       |
-|n_fns_r                 |     3|        4.3|TRUE       |
+|n_fns_r                 |     2|        1.8|TRUE       |
 |n_fns_r_exported        |     1|        1.6|TRUE       |
-|n_fns_r_not_exported    |     2|        4.4|TRUE       |
+|n_fns_r_not_exported    |     1|        1.8|TRUE       |
 |n_fns_src               |     2|       12.0|           |
 |n_fns_per_file_r        |     1|        1.8|TRUE       |
 |n_fns_per_file_src      |     1|        7.3|           |
@@ -230,7 +230,8 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 |rel_whitespace_src      |    27|        4.9|TRUE       |
 |rel_whitespace_tests    |    17|        2.8|TRUE       |
 |doclines_per_fn_exp     |     6|        2.3|TRUE       |
-|doclines_per_fn_not_exp |     2|      100.0|TRUE       |
+|doclines_per_fn_not_exp |     4|      100.0|TRUE       |
+|doclines_per_fn_src     |     1|       73.6|           |
 |fn_call_network_size    |     1|       11.7|           |
 
 ---
