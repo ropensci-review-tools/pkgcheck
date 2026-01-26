@@ -307,7 +307,8 @@ RUN Rscript -e 'reticulate::virtualenv_create()'
 # Extra python packages:
 # ---- Authors: Please submit PRs which insert extra python requirements here,
 # ----  followed by package name and "#<ropensci/software-review issue number>":
-RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api # rgeeExtra #608
+# See rgeeExtra #608 for this one:
+RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api
 
 # arrow docs suggest this shouldn't be needed, but s3
 # support doesn't work without re-install/compile:
@@ -318,8 +319,9 @@ RUN Rscript -e 'arrow::install_arrow()'
 RUN Rscript -e 'bspm::disable();install.packages(c("sf","terra"));bspm::enable()'
 
 # Quarto binary:
-RUN wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.40/quarto-1.6.40-linux-amd64.tar.gz \
-    && mkdir ~/opt \
-    && tar -C ~/opt -xvzf quarto-1.6.40-linux-amd64.tar.gz \
-    && ln -s ~/opt/quarto-1.6.40/bin/quarto /usr/local/bin/quarto \
-    && rm quarto-1.6.40-linux-amd64.tar.gz
+RUN QUARTO_VERSION=$(curl -s https://api.github.com/repos/quarto-dev/quarto-cli/releases/latest | grep '"tag_name"' | sed -E 's/.*"tag_name": *"(v[^"]+)".*/\1/') \
+    && wget https://github.com/quarto-dev/quarto-cli/releases/download/${QUARTO_VERSION}/quarto-${QUARTO_VERSION#v}-linux-amd64.tar.gz \
+    && mkdir -p ~/opt \
+    && tar -C ~/opt -xvzf quarto-${QUARTO_VERSION#v}-linux-amd64.tar.gz \
+    && ln -s ~/opt/quarto-${QUARTO_VERSION#v}/bin/quarto /usr/local/bin/quarto \
+    && rm quarto-${QUARTO_VERSION#v}-linux-amd64.tar.gz
