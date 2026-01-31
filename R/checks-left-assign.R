@@ -182,7 +182,7 @@ rm_global_assign_in_memoise <- function (assigns, checks) {
         f_full <- fs::path (checks$pkg$path, f)
         tags_f <- tags [which (tags$file == f), ]
         onload_i <- which (tags_f$tag == ".onLoad")
-        if (length (onload_i == 1L)) {
+        if (length (onload_i) == 1L) {
             onload_index <- seq (tags_f$start [onload_i], tags_f$end [onload_i])
             tags_in_onload <- tags_f [tags_f$start %in% onload_index, ]
             memoise_assign <- grep ("<<\\-\\s?memoise", tags_in_onload$content)
