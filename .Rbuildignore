@@ -12,6 +12,7 @@
 ^\.travis\.yml$
 ^_pkgdown\.yml$
 ^aaa.Rmd$
+^air\.toml$
 ^appveyor\.yml$
 ^codemeta\.json$
 ^ctags$
@@ -20,4 +21,3 @@
 ^makefile$
 ^vignettes/makefile$
 data-raw/
-^air\.toml$
