@@ -35,7 +35,9 @@ This package is in the following category:
 Package can not be submitted because the following standards [v0.2.0] are missing from your code:
 
 G1.0
+G1.4
 G1.4a
+G1.5
 G1.6
 G2.0a
 G2.1a
