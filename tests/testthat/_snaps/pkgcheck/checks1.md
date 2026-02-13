@@ -35,9 +35,7 @@ This package is in the following category:
 Package can not be submitted because the following standards [v0.2.0] are missing from your code:
 
 G1.0
-G1.4
 G1.4a
-G1.5
 G1.6
 G2.0a
 G2.1a
@@ -235,7 +233,6 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 |rel_whitespace_tests    |    17|        2.8|TRUE       |
 |doclines_per_fn_exp     |     6|        2.3|TRUE       |
 |doclines_per_fn_not_exp |     4|      100.0|TRUE       |
-|doclines_per_fn_src     |     1|       73.6|           |
 |fn_call_network_size    |     1|       11.7|           |
 
 ---
