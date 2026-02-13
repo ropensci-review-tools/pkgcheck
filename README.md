@@ -137,7 +137,7 @@ summary (x)
 ## ℹ Some goodpractice linters failed.
 ## 
 ## ℹ Current status:
-## ✖ Frustration is a natural part of programming :)
+## ✖ Hmmm, not quite there yet ...
 ## 
 ## ℹ 'pkgcheck' version: 0.1.3.12
 ## 
@@ -305,8 +305,6 @@ project, you agree to abide by its terms.
 
 ## Contributors
 
-
-
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 
 <!-- prettier-ignore-start -->
@@ -423,12 +421,15 @@ specification. Contributions of any kind are welcome!
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=annakrystalli">annakrystalli</a>
 </td>
+
 <td align="center">
+
 <a href="https://github.com/etiennebacher">
 <img src="https://avatars.githubusercontent.com/u/52219252?v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=etiennebacher">etiennebacher</a>
 </td>
+
 </tr>
 
 </table>
@@ -574,6 +575,7 @@ specification. Contributions of any kind are welcome!
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Asimpar1471">simpar1471</a>
 </td>
+
 </tr>
 
 </table>
