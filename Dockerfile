@@ -206,6 +206,7 @@ RUN apt-get update -qq && apt-get install -y \
     python3-venv \
     r-base-dev \
     r-cran-rjava \
+    rustup \
     tesseract-ocr-eng \
     texlive-fonts-extra \
     texlive-fonts-recommended \
@@ -247,6 +248,8 @@ RUN wget https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh \
     && bash jill.sh -y \
     && rm jill.sh
 
+# Update from older, default Ubuntu cargo
+RUN rustup update stable
 
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
 ENV ARROW_S3="ON"
