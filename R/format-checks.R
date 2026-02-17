@@ -16,6 +16,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
 
     md_chks <- summarise_all_checks (checks)
 
+
     md_out <- c (
         paste0 (
             "## Checks for [", checks$pkg$name,
@@ -32,6 +33,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
             checks$info$git$HEAD,
             ")"
         ),
+        get_subdir_text (checks),
         "",
         md_chks,
         "",
@@ -201,6 +203,21 @@ checks_to_markdown <- function (checks, render = FALSE) {
     attr (md_out, "srr_report_file") <- checks$info$srr$report_file
 
     return (md_out)
+}
+
+get_subdir_text <- function (checks) {
+
+    subdir_txt <- NULL
+    if (checks$pkg$path != checks$pkg$repo_path) {
+        subdir <- fs::path_rel (checks$pkg$path, checks$pkg$repo_path)
+        subdir_txt <- c ("", paste0 (
+            "NOTE: R package is in the '",
+            subdir,
+            "' sub-directory"
+        ))
+    }
+
+    return (subdir_txt)
 }
 
 #' Summarise dependencies usage
@@ -556,7 +573,6 @@ visjs_description <- function (checks) {
 
     return (res)
 }
-
 
 
 #' render markdown-formatted input into 'html'
