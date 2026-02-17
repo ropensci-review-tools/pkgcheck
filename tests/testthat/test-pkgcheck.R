@@ -36,8 +36,8 @@ test_that ("pkgcheck", {
 
     items <- c (
         "name", "path", "version", "url", "BugReports",
-        "license", "summary", "dependencies", "external_calls",
-        "external_fns"
+        "license", "summary", "dependencies", "repo_path",
+        "external_calls", "external_fns"
     )
     expect_named (checks0$pkg, items)
     expect_named (checks1$pkg, items)

@@ -28,6 +28,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
 
     options (pkgcheck_extra_env = extra_env)
 
+    path_in <- path
     path <- convert_path (path)
 
     if (checks_running_in_bg (path)) {
@@ -62,6 +63,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
         "BugReports", "license", "summary",
         "dependencies"
     )]
+    checks$pkg$repo_path <- path_in
 
     ex <- s$stats$external_calls
     checks$pkg$external_calls <- sort (table (ex$package), decreasing = TRUE)

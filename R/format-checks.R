@@ -32,6 +32,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
             checks$info$git$HEAD,
             ")"
         ),
+        get_subdir_text (checks),
         "",
         md_chks,
         "",
@@ -69,82 +70,11 @@ checks_to_markdown <- function (checks, render = FALSE) {
         ""
     )
 
-    has_gp <- "goodpractice" %in% names (checks) && !is_test_env ()
-    if (has_gp) {
-        md_out <- c (
-            md_out,
-            "<details>",
-            paste0 (
-                "<summary>Details of goodpractice checks ",
-                "(click to open)</summary>"
-            ),
-            "<p>",
-            "",
-            print_check (checks, "ci"),
-            "",
-            "---",
-            "",
-            gp_checks_to_md (checks),
-            "",
-            "</p>",
-            "</details>"
-        )
-    } else {
-        md_out <- c (
-            md_out,
-            "('goodpractice' not included with these checks)"
-        )
-    }
-
-    extra <- extra_check_prints_from_env (checks)
-    has_extra <- length (extra$env) > 0L | sum (misc_check_counts (checks)) > 0L
-    if (has_extra) {
-        e <- env2namespace ("pkgcheck")
-        md_out <- c (
-            md_out,
-            "",
-            "---",
-            "",
-            paste0 ("### ", sec_num + 2, ". Other Checks"),
-            "",
-            "<details>",
-            paste0 (
-                "<summary>Details of other checks ",
-                "(click to open)</summary>"
-            ),
-            "<p>",
-            ""
-        )
-        extras <- misc_check_counts (checks)
-        extras <- extras [which (extras > 0L)]
-        for (ex in names (extras)) {
-            md_out <- c (
-                md_out,
-                print_check_md (
-                    checks,
-                    ex,
-                    env2namespace ("pkgcheck")
-                )
-            )
-        }
-
-        for (e in extra$env) {
-            for (p in extra$prints) {
-                md_out <- c (
-                    md_out,
-                    print_check_md (checks, p, e)
-                )
-            }
-        }
-
-        md_out <- c (
-            md_out,
-            "",
-            "</p>",
-            "</details>",
-            ""
-        )
-    }
+    md_out <- c (
+        md_out,
+        get_gp_text (checks),
+        get_extra_checks_text (checks, sec_num)
+    )
 
     v <- data.frame (
         package = names (checks$meta),
@@ -201,6 +131,104 @@ checks_to_markdown <- function (checks, render = FALSE) {
     attr (md_out, "srr_report_file") <- checks$info$srr$report_file
 
     return (md_out)
+}
+
+get_subdir_text <- function (checks) {
+
+    subdir_txt <- NULL
+    if (checks$pkg$path != checks$pkg$repo_path) {
+        subdir <- fs::path_rel (checks$pkg$path, checks$pkg$repo_path)
+        subdir_txt <- c ("", paste0 (
+            "NOTE: R package is in the '",
+            subdir,
+            "' sub-directory"
+        ))
+    }
+
+    return (subdir_txt)
+}
+
+get_gp_text <- function (checks) {
+
+    has_gp <- "goodpractice" %in% names (checks) && !is_test_env ()
+    if (has_gp) {
+        out <- c (
+            "<details>",
+            paste0 (
+                "<summary>Details of goodpractice checks ",
+                "(click to open)</summary>"
+            ),
+            "<p>",
+            "",
+            print_check (checks, "ci"),
+            "",
+            "---",
+            "",
+            gp_checks_to_md (checks),
+            "",
+            "</p>",
+            "</details>"
+        )
+    } else {
+        out <- "('goodpractice' not included with these checks)"
+    }
+
+    return (out)
+}
+
+get_extra_checks_text <- function (checks, sec_num) {
+
+    extra <- extra_check_prints_from_env (checks)
+    has_extra <- length (extra$env) > 0L | sum (misc_check_counts (checks)) > 0L
+    out <- NULL
+    if (has_extra) {
+        e <- env2namespace ("pkgcheck")
+        out <- c (
+            "",
+            "---",
+            "",
+            paste0 ("### ", sec_num + 2, ". Other Checks"),
+            "",
+            "<details>",
+            paste0 (
+                "<summary>Details of other checks ",
+                "(click to open)</summary>"
+            ),
+            "<p>",
+            ""
+        )
+        extras <- misc_check_counts (checks)
+        extras <- extras [which (extras > 0L)]
+        for (ex in names (extras)) {
+            out <- c (
+                out,
+                print_check_md (
+                    checks,
+                    ex,
+                    env2namespace ("pkgcheck")
+                )
+            )
+        }
+
+        for (e in extra$env) {
+            for (p in extra$prints) {
+                out <- c (
+                    out,
+                    print_check_md (checks, p, e)
+                )
+            }
+        }
+
+        out <- c (
+            out,
+            "",
+            "</p>",
+            "</details>",
+            ""
+        )
+    }
+
+    return (out)
 }
 
 #' Summarise dependencies usage
@@ -556,7 +584,6 @@ visjs_description <- function (checks) {
 
     return (res)
 }
-
 
 
 #' render markdown-formatted input into 'html'
