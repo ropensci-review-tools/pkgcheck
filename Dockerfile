@@ -122,7 +122,6 @@ RUN apt-get update -qq && apt-get install -y \
 RUN apt-get update -qq && apt-get install -y \
     apt-utils \
     build-essential \
-    cargo \
     cmake \
     coinor-libcbc-dev  \
     coinor-libsymphony-dev \
@@ -248,8 +247,8 @@ RUN wget https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh \
     && bash jill.sh -y \
     && rm jill.sh
 
-# Update from older, default Ubuntu cargo
-RUN rustup update stable
+# Use rustup to install cargo; newer version than std apt version
+RUN rustup default stable
 
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
 ENV ARROW_S3="ON"
