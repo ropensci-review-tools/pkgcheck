@@ -61,6 +61,7 @@ Remotes:
     ropensci-review-tools/pkgstats,
     ropensci-review-tools/srr
 Config/testthat/edition: 3
+Config/ropensci/maintainer: staff
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
