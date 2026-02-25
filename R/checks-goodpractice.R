@@ -225,7 +225,7 @@ extract_gp_components <- function (gp) {
         rcmd = rcmd,
         covr = covr,
         cyclocomp = cyc,
-        lint = lints
+        lintr = lints
     )
     res <- res [which (lengths (res) > 0)]
 }
@@ -247,7 +247,7 @@ convert_gp_components <- function (x,
                                        digits = 2
                                    )) {
 
-    rcmd <- covr <- cycl <- lint <- NULL
+    rcmd <- covr <- cycl <- lintr <- NULL
 
     if (any (grepl ("^rcmd", names (x)))) {
         rcmd <- rcmd_report (x)
@@ -259,10 +259,10 @@ convert_gp_components <- function (x,
         cycl <- cyclo_report (x, control)
     }
     if (any (grepl ("^lint", names (x)))) {
-        lint <- lintr_report (x)
+        lintr <- lintr_report (x)
     }
 
-    return (c (rcmd, covr, cycl, lint))
+    return (c (rcmd, covr, cycl, lintr))
 }
 
 
