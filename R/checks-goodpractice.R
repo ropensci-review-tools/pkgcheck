@@ -167,17 +167,27 @@ extract_gp_components <- function (gp) {
         lint_line <- vapply (gp$lintr, function (i) i$line_number, integer (1))
         lint_type <- vapply (gp$lintr, function (i) i$type, character (1))
         lint_message <- vapply (gp$lintr, function (i) i$message, character (1))
+        linter <- vapply (gp$lintr, function (i) i$linter, character (1))
         lints <- data.frame (
             file = lint_file,
             line = lint_line,
             type = lint_type,
             message = lint_message,
+            linter = linter,
             stringsAsFactors = FALSE
         )
         # lintr reports library calls in tests dir, which are okay
-        index <- which (grepl ("^tests", lints$file) &
-            grepl ("^Avoid library", lints$message))
-        lints <- lints [-index, ]
+        lint_files <- fs::path_split (lints$file)
+        files_in_this <- function (files, this) {
+            vapply (files, function (f) this %in% f, logical (1L))
+        }
+        files_in_tests <- files_in_this (lint_files, "tests")
+        files_in_vignettes <- files_in_this (lint_files, "vignettes")
+        index <- which (lints$linter == "library_require_linter" &
+            (files_in_tests | files_in_vignettes))
+        if (length (index) > 0) {
+            lints <- lints [-(index), ]
+        }
         if (nrow (lints) == 0) {
             lints <- list ()
         }
@@ -225,7 +235,7 @@ extract_gp_components <- function (gp) {
         rcmd = rcmd,
         covr = covr,
         cyclocomp = cyc,
-        lint = lints
+        lintr = lints
     )
     res <- res [which (lengths (res) > 0)]
 }
@@ -247,7 +257,7 @@ convert_gp_components <- function (x,
                                        digits = 2
                                    )) {
 
-    rcmd <- covr <- cycl <- lint <- NULL
+    rcmd <- covr <- cycl <- lintr <- NULL
 
     if (any (grepl ("^rcmd", names (x)))) {
         rcmd <- rcmd_report (x)
@@ -259,10 +269,10 @@ convert_gp_components <- function (x,
         cycl <- cyclo_report (x, control)
     }
     if (any (grepl ("^lint", names (x)))) {
-        lint <- lintr_report (x)
+        lintr <- lintr_report (x)
     }
 
-    return (c (rcmd, covr, cycl, lint))
+    return (c (rcmd, covr, cycl, lintr))
 }
 
 
@@ -494,6 +504,8 @@ lintr_report <- function (x) {
     }
 
     lintr <- as.data.frame (x$lintr)
+    # Reduce to 1st sentence of message only:
+    lintr$message <- gsub ("\\.\\s.*$", ".", lintr$message)
     msgs <- table (lintr$message)
     msgs <- data.frame (
         message = names (msgs),
