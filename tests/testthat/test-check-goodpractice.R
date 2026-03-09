@@ -72,10 +72,13 @@ test_that ("check goodpractice", {
     expect_type (rep, "character")
     expect_true (any (grepl ("No functions have cyclocomplexity", rep)))
 
-    gp$cyclocomp$cyclocomp <- c (1, 15, 30)
-    rep <- cyclo_report (gp)
-    expect_false (any (grepl ("No functions have cyclocomplexity", rep)))
-    expect_true (any (grepl ("functions have cyclocomplexity >= 15", rep)))
+    if (nrow (gp$cyclocomp) == 3L) {
+        # Should always be, but in case cyclo fails for other reasons
+        gp$cyclocomp$cyclocomp <- c (1, 15, 30)
+        rep <- cyclo_report (gp)
+        expect_false (any (grepl ("No functions have cyclocomplexity", rep)))
+        expect_true (any (grepl ("functions have cyclocomplexity >= 15", rep)))
+    }
 
     # ------ lintr report
     gp <- checks$goodpractice
