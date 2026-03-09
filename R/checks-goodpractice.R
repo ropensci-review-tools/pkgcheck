@@ -449,8 +449,8 @@ cyclo_report <- function (x,
 
     if (methods::is (cyc, "try-error")) {
         ret <- c (ret, paste0 (cyc))
-    } else {
-        cyc <- cyc [cyc$cyclocomp >= cyc_thr, ]
+    } else if (inherits (cyc, c ("matrix", "data.frame"))) {
+        cyc <- cyc [cyc$cyclocomp >= cyc_thr, , drop = FALSE]
 
         if (nrow (cyc) == 0) {
             ret <- c (
