@@ -251,16 +251,16 @@ RUN wget https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh \
 RUN rustup default stable
 
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
-ENV ARROW_S3="ON"
+ENV ARROW_S3 "ON"
 
 # ropensci-review-tools/pkgcheck/issues/134:
-#ENV R_REMOTES_UPGRADE="always"
-ENV NOT_CRAN="true"
-ENV CI="true"
-ENV ROPENSCI="true"
+#ENV R_REMOTES_UPGRADE "always"
+ENV NOT_CRAN "true"
+ENV CI "true"
+ENV ROPENSCI "true"
 
 # cmdstan path
-ENV CMDSTAN_PATH="/root/.cmdstan"
+ENV CMDSTAN_PATH "/root/.cmdstan"
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
