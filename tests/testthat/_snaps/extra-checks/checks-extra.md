@@ -53,7 +53,6 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 |internal   |stats      |     16|
 |internal   |graphics   |     10|
 |internal   |utils      |     10|
-|internal   |Matrix     |      2|
 |internal   |tools      |      2|
 |imports    |sys        |     13|
 |imports    |readr      |      8|
