@@ -146,6 +146,7 @@ order_checks <- function (fns) {
         "has_vignette",
         "fns_have_exs",
         "global_assign",
+        "no_r_subdir",
         "ci",
         "covr",
         "lintr",
