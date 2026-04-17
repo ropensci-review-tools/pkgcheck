@@ -19,7 +19,12 @@ pkginfo_github <- function (checks) {
         checks$info$github$repo_not_fork <- !x$data$repository$isFork
     }
     website <- x$data$repository$homepageUrl
-    checks$info$github$repo_has_website <- grepl ("^http(s?)\\:\\/", website)
+    if (length (website) == 0L) {
+        checks$info$github$repo_has_website <- FALSE
+    } else {
+        checks$info$github$repo_has_website <-
+            grepl ("^http(s?)\\:\\/", website)
+    }
 
     return (checks)
 }

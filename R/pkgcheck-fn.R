@@ -30,7 +30,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
 
     path_in <- path
     path <- convert_path (path)
-    pkgcheck_initial_checks (path)
+    chk <- pkgcheck_initial_checks (path)
 
     s <- pkgstats_info (path, use_cache)
     if (nrow (s$stats$objects) == 0L) {
