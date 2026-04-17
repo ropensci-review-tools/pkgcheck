@@ -92,29 +92,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
     }
     attr (checks$goodpractice, "from_cache") <- NULL
 
-    u <- pkginfo_url_from_desc (path, type = "URL")
-    # hard-code to extract github URLs only:
-    if (!grepl ("github", u, ignore.case = TRUE) |
-        grepl ("github\\.io", u, ignore.case = TRUE)) {
-        u <- pkginfo_url_from_desc (path, type = "BugReports")
-        if (grepl ("issues(\\/?)$", u)) {
-            u <- gsub ("issues(\\/?)$", "", u)
-        }
-    }
-
-    checks$info$badges <- list ()
-    has_token <- length (get_gh_token ()) > 0L
-    if (nzchar (u) & has_token) {
-        checks$info$badges <- pkgchk_ci_badges (u)
-        if (grepl ("github", u)) { # now redundant - remove!
-            checks$info$github_workflows <- suppressWarnings (
-                tryCatch (ci_results_gh (path), error = function (e) NULL)
-            )
-        }
-    }
-
     checks$meta <- version_info (is.null (checks$info$srr))
-
     checks$checks <- collate_checks (checks)
 
     stopfile <- Sys.getenv ("PKGCHECK_PXBG_STOP")
