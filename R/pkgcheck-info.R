@@ -44,7 +44,7 @@ pkgcheck_fill_info <- function (checks, path, stats) {
         }
     }
 
-    checks <- pkginfo_repo_not_fork (checks)
+    checks <- pkginfo_github (checks)
 
     return (checks)
 }
