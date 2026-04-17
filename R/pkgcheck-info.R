@@ -38,7 +38,7 @@ pkgcheck_fill_info <- function (checks, path, stats) {
     if (nzchar (u) & has_token) {
         checks$info$badges <- pkgchk_ci_badges (u)
         if (grepl ("github", u)) { # now redundant - remove!
-            checks$info$github_workflows <- suppressWarnings (
+            checks$info$github$workflows <- suppressWarnings (
                 tryCatch (ci_results_gh (path), error = function (e) NULL)
             )
         }
