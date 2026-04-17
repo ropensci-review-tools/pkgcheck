@@ -74,15 +74,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
     })
     names (checks$pkg$external_fns) <- names (pkgs)
 
-    info_items <- c ("fn_names", "git", "pkgstats")
-    if ("srr" %in% names (s$out)) {
-        info_items <- c (info_items, "srr")
-    }
-    checks$info <- s$out [info_items]
-
-    checks$info$pkgdown_concepts <- pkginfo_pkgdown (path)
-    checks$info$network_file <- fn_call_network (s)
-    checks$info$renv_activated <- pkginfo_renv_activated (path)
+    checks <- pkgcheck_fill_info (checks, path, s)
 
     checks$goodpractice <- pkgcheck_gp_report (
         path,
