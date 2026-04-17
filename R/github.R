@@ -34,6 +34,15 @@ commits_qry <- function (org, repo, branch = "main") {
     }")
 }
 
+repo_is_fork_qry <- function (org, repo) {
+
+    paste0 ("{
+        repository(owner:\"", org, "\", name:\"", repo, "\") {
+            isFork
+        }
+    }")
+}
+
 #' Get GitHub token
 #'
 #' @param token_name Optional name of token to use
