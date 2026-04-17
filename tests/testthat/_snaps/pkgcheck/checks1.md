@@ -10,6 +10,7 @@ Package is already on CRAN
 - :heavy_multiplication_x: 'DESCRIPTION' does not have a BugReports field.
 - :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [test_fn].
+- :heavy_check_mark: Repository has a website
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
 - :heavy_multiplication_x: Package coverage failed
 - :heavy_check_mark: All goodpractice linters passed.

@@ -147,6 +147,8 @@ order_checks <- function (fns) {
         "fns_have_exs",
         "global_assign",
         "no_r_subdir",
+        "repo_not_fork",
+        "repo_has_website",
         "ci",
         "covr",
         "lintr",

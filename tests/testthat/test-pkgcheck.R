@@ -46,6 +46,7 @@ test_that ("pkgcheck", {
         "badges",
         "fn_names",
         "git",
+        "github",
         "network_file",
         "pkgdown_concepts",
         "pkgstats",

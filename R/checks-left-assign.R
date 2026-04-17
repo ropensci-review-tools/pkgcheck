@@ -98,18 +98,11 @@ pkgchk_left_assign <- function (checks) {
 # Allow global assign in RefClass statement (#145)
 rm_global_assign_in_ref_class <- function (assigns, checks) {
 
-    global_row <- which (rownames (assigns) == "<<-")
-    global <- assigns [global_row, ]
-    global <- global [global > 0L]
-    if (length (global) == 0L) {
+    global <- get_global_assigns_table (assigns, checks)
+    if (is.null (global)) {
         return (assigns)
     }
-
-    global <- data.frame (
-        file = gsub (checks$pkg$path, "", colnames (assigns)),
-        n = as.integer (global)
-    )
-    global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
+    global_row <- which (rownames (assigns) == "<<-")
 
     loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")
     get_ctags <- utils::getFromNamespace ("get_ctags", "pkgstats")
@@ -156,18 +149,11 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
 # Remove any memoise global assigns in `.onLoad` functions (#167)
 rm_global_assign_in_memoise <- function (assigns, checks) {
 
-    global_row <- which (rownames (assigns) == "<<-")
-    global <- assigns [global_row, ]
-    global <- global [global > 0]
-    if (length (global) == 0L) {
+    global <- get_global_assigns_table (assigns, checks)
+    if (is.null (global)) {
         return (assigns)
     }
-
-    global <- data.frame (
-        file = gsub (checks$pkg$path, "", colnames (assigns)),
-        n = as.integer (global)
-    )
-    global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
+    global_row <- which (rownames (assigns) == "<<-")
 
     loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")
     get_ctags <- utils::getFromNamespace ("get_ctags", "pkgstats")
@@ -192,6 +178,23 @@ rm_global_assign_in_memoise <- function (assigns, checks) {
     }
 
     return (assigns)
+}
+
+get_global_assigns_table <- function (assigns, checks) {
+
+    global_row <- which (rownames (assigns) == "<<-")
+    global <- assigns [global_row, , drop = TRUE]
+    if (length (which (global > 0L)) == 0L) {
+        return (NULL)
+    }
+
+    global <- data.frame (
+        file = gsub (checks$pkg$path, "", colnames (assigns)),
+        n = as.integer (global)
+    )
+    global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
+
+    global [which (global$n > 0L), ]
 }
 
 

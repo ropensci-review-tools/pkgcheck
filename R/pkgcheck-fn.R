@@ -30,6 +30,36 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
 
     path_in <- path
     path <- convert_path (path)
+    chk <- pkgcheck_initial_checks (path)
+
+    s <- pkgstats_info (path, use_cache)
+    if (nrow (s$stats$objects) == 0L) {
+        # There are no R objects/fns; current goodpractice (1.0.2.9000) fails
+        goodpractice <- FALSE
+    }
+
+    checks <- pkgcheck_object ()
+    checks <- pkgcheck_fill_pkg (checks, path_in, s)
+    checks <- pkgcheck_fill_info (checks, path, s)
+    checks <- pkgcheck_fill_goodpractice (
+        checks, path, s, goodpractice, use_cache
+    )
+
+    checks$meta <- version_info (is.null (checks$info$srr))
+    checks$checks <- collate_checks (checks)
+
+    stopfile <- Sys.getenv ("PKGCHECK_PXBG_STOP")
+    if (stopfile != "") {
+        writeLines ("process stopped", con = stopfile)
+    }
+
+    return (checks)
+}
+
+#' Initial condition checks that must be fulfilled to continue.
+#'
+#' @noRd
+pkgcheck_initial_checks <- function (path) {
 
     if (checks_running_in_bg (path)) {
         stop ("Checks are still running in background process.")
@@ -49,88 +79,6 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
             }
         )
     }
-
-    s <- pkgstats_info (path, use_cache)
-
-    if (nrow (s$stats$objects) == 0L) {
-        # There are no R objects/fns; current goodpractice (1.0.2.9000) fails
-        goodpractice <- FALSE
-    }
-
-    checks <- pkgcheck_object ()
-    checks$pkg <- s$out [c (
-        "name", "path", "version", "url",
-        "BugReports", "license", "summary",
-        "dependencies"
-    )]
-    checks$pkg$repo_path <- path_in
-
-    ex <- s$stats$external_calls
-    checks$pkg$external_calls <- sort (table (ex$package), decreasing = TRUE)
-
-    pkgs <- sort (table (ex$package), decreasing = TRUE)
-    checks$pkg$external_fns <- lapply (names (pkgs), function (i) {
-        sort (table (ex$call [which (ex$package == i)]), decreasing = TRUE)
-    })
-    names (checks$pkg$external_fns) <- names (pkgs)
-
-    info_items <- c ("fn_names", "git", "pkgstats")
-    if ("srr" %in% names (s$out)) {
-        info_items <- c (info_items, "srr")
-    }
-    checks$info <- s$out [info_items]
-
-    checks$info$pkgdown_concepts <- pkginfo_pkgdown (path)
-    checks$info$network_file <- fn_call_network (s)
-    checks$info$renv_activated <- pkginfo_renv_activated (path)
-
-    checks$goodpractice <- pkgcheck_gp_report (
-        path,
-        gp_full = goodpractice,
-        use_cache = use_cache,
-        renv_activated = checks$info$renv_activated
-    )
-
-    from_cache <- s$from_cache || attr (checks$goodpractice, "from_cache")
-    if (from_cache) {
-        cli::cli_alert_info (paste0 (
-            "To re-generate, call 'pkgcheck' function with ",
-            "'use_cache = FALSE', or delete the cached files."
-        ))
-    }
-    attr (checks$goodpractice, "from_cache") <- NULL
-
-    u <- pkginfo_url_from_desc (path, type = "URL")
-    # hard-code to extract github URLs only:
-    if (!grepl ("github", u, ignore.case = TRUE) |
-        grepl ("github\\.io", u, ignore.case = TRUE)) {
-        u <- pkginfo_url_from_desc (path, type = "BugReports")
-        if (grepl ("issues(\\/?)$", u)) {
-            u <- gsub ("issues(\\/?)$", "", u)
-        }
-    }
-
-    checks$info$badges <- list ()
-    has_token <- length (get_gh_token ()) > 0L
-    if (nzchar (u) & has_token) {
-        checks$info$badges <- pkgchk_ci_badges (u)
-        if (grepl ("github", u)) { # now redundant - remove!
-            checks$info$github_workflows <- suppressWarnings (
-                tryCatch (ci_results_gh (path), error = function (e) NULL)
-            )
-        }
-    }
-
-    checks$meta <- version_info (is.null (checks$info$srr))
-
-    checks$checks <- collate_checks (checks)
-
-    stopfile <- Sys.getenv ("PKGCHECK_PXBG_STOP")
-    if (stopfile != "") {
-        writeLines ("process stopped", con = stopfile)
-    }
-
-    return (checks)
 }
 
 pkgcheck_object <- function () {
@@ -145,6 +93,55 @@ pkgcheck_object <- function () {
     class (out) <- append ("pkgcheck", class (out))
 
     return (out)
+}
+
+#' Fill the "pkg" component of `checks`
+#'
+#' @noRd
+pkgcheck_fill_pkg <- function (checks, path, stats) {
+
+    checks$pkg <- stats$out [c (
+        "name", "path", "version", "url",
+        "BugReports", "license", "summary",
+        "dependencies"
+    )]
+    checks$pkg$repo_path <- path
+
+    ex <- stats$stats$external_calls
+    checks$pkg$external_calls <- sort (table (ex$package), decreasing = TRUE)
+
+    pkgs <- sort (table (ex$package), decreasing = TRUE)
+    checks$pkg$external_fns <- lapply (names (pkgs), function (i) {
+        sort (table (ex$call [which (ex$package == i)]), decreasing = TRUE)
+    })
+    names (checks$pkg$external_fns) <- names (pkgs)
+
+    return (checks)
+}
+
+pkgcheck_fill_goodpractice <- function (checks,
+                                        path,
+                                        stats,
+                                        goodpractice,
+                                        use_cache) {
+
+    checks$goodpractice <- pkgcheck_gp_report (
+        path,
+        gp_full = goodpractice,
+        use_cache = use_cache,
+        renv_activated = checks$info$renv_activated
+    )
+
+    from_cache <- stats$from_cache || attr (checks$goodpractice, "from_cache")
+    if (from_cache) {
+        cli::cli_alert_info (paste0 (
+            "To re-generate, call 'pkgcheck' function with ",
+            "'use_cache = FALSE', or delete the cached files."
+        ))
+    }
+    attr (checks$goodpractice, "from_cache") <- NULL
+
+    return (checks)
 }
 
 checks_running_in_bg <- function (path) {
