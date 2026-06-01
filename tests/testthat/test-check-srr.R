@@ -57,10 +57,7 @@ test_that ("check srr", {
 
     ci_out <- output_pkgchk_srr_general_only (checks)
     expect_true (ci_out$check_pass)
-    expect_equal (
-        ci_out$summary,
-        "Package documents compliance only with general 'srr' standards"
-    )
+    expect_false (nzchar (ci_out$summary))
     expect_length (ci_out$print, 1L)
     expect_false (nzchar (ci_out$print))
 
