@@ -52,7 +52,7 @@ test_that ("check srr", {
     checks$info$srr$message <- orig_msg [!grepl (most_in_one_pattern, orig_msg, fixed = TRUE)]
     ci_out <- output_pkgchk_srr_most_in_one_file (checks)
     expect_true (ci_out$check_pass)
-    expect_length (ci_out$summary, 0L)
+    expect_false (nzchar (ci_out$summary))
     checks$info$srr$message <- orig_msg
 
     ci_out <- output_pkgchk_srr_general_only (checks)

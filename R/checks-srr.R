@@ -42,7 +42,7 @@ generate_srr_output <- function (checks,
                                  summary_ptn) {
 
     check_pass <- any (grepl (
-        regex_ptn, checks$info$srr_message,
+        regex_ptn, checks$info$srr$message,
         fixed = fixed
     ))
     if (invert) {
@@ -69,36 +69,41 @@ output_pkgchk_srr_todo <- function (checks,
         checks,
         regex_ptn = regex_ptn,
         fixed = fixed,
+        invert = TRUE,
         summary_ptn = summary_ptn
     )
 }
 
 output_pkgchk_srr_missing <- function (checks,
-                                       regex_ptn = "following standards \\[v.*\\] are missing",
+                                       regex_ptn = "following\\sstandards\\s\\[v.*\\]\\sare\\smissing",
                                        fixed = FALSE,
                                        summary_ptn = "Some statistical standards are missing") {
     generate_srr_output (
         checks,
         regex_ptn = regex_ptn,
         fixed = fixed,
+        invert = TRUE,
         summary_ptn = summary_ptn
     )
 }
 
-output_pkgchk_srr_most_in_one_file <- function (checks) {
-
-    srr <- checks$info$srr
-
-    warn_msg <- "should be documented in"
-    check_pass <- !any (grepl (warn_msg, srr$message, fixed = TRUE))
-
-    out <- list (
-        check_pass = check_pass,
-        summary = grep (warn_msg, srr$message, value = TRUE),
-        print = ""
+output_pkgchk_srr_most_in_one_file <- function (checks,
+                                                regex_ptn = "should be documented in",
+                                                fixed = TRUE,
+                                                invert = TRUE,
+                                                summary_ptn = grep (
+                                                "should be documented in",
+                                                    checks$info$srr$message,
+                                                    fixed = TRUE,
+                                                    value = TRUE
+                                                )) {
+    generate_srr_output (
+        checks,
+        regex_ptn = regex_ptn,
+        fixed = fixed,
+        invert = invert,
+        summary_ptn = summary_ptn
     )
-
-    return (out)
 }
 
 output_pkgchk_srr_general_only <- function (checks) {
