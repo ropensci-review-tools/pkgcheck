@@ -1,5 +1,3 @@
-skip_on_os ("windows")
-
 test_that ("check cache messages", {
 
     pkgname <- "cachecheckpkg"
