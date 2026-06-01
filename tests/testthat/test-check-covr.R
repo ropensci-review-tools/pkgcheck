@@ -1,6 +1,5 @@
-# paths sometimes fail on windows/mac
+# paths sometimes fail on windows
 skip_on_os ("windows")
-skip_on_os ("mac")
 
 test_that ("check covr", {
 
