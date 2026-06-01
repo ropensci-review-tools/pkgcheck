@@ -160,6 +160,7 @@ order_checks <- function (fns) {
         "srr_missing",
         "srr_todo",
         "srr_most_in_one_file",
+        "srr_general_only",
         # These are "watch" checks, not outright fails; they must be
         # additionally explicitly listed below in `watch_checks()`:
         "obsolete_pkg_deps",

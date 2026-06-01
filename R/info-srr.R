@@ -47,6 +47,13 @@ pkginfo_srr_report <- function (path) {
             gsub ("^S", "Statistical s", srr [grep (warn_msg, srr)])
         srr_okay <- FALSE
     }
+    # Any other warning messages:
+    fail_regex <- "^\\:heavy\\_multiplication\\_x\\:"
+    if (any (grepl (fail_regex, srr))) {
+        srr <- gsub (fail_regex, "", srr)
+        srr <- gsub ("^(\\s*)?Error\\:(\\s?)", "", srr)
+        srr_okay <- FALSE
+    }
 
     categories <- stds <- NULL
 

@@ -79,11 +79,27 @@ output_pkgchk_srr_most_in_one_file <- function (checks) {
     srr <- checks$info$srr
 
     warn_msg <- "should be documented in"
-    check_pass <- !any (grepl (warn_msg, srr$message))
+    check_pass <- !any (grepl (warn_msg, srr$message, fixed = TRUE))
 
     out <- list (
         check_pass = check_pass,
         summary = grep (warn_msg, srr$message, value = TRUE),
+        print = ""
+    )
+
+    return (out)
+}
+
+output_pkgchk_srr_general_only <- function (checks) {
+
+    srr <- checks$info$srr
+
+    warn_msg <- "documents compliance only with general standards"
+    check_pass <- !any (grepl (warn_msg, srr$message, fixed = TRUE))
+
+    out <- list (
+        check_pass = check_pass,
+        summary = "Package documents compliance only with general 'srr' standards",
         print = ""
     )
 
