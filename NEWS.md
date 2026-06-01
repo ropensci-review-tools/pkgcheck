@@ -4,6 +4,8 @@
 
 ### New checks and check improvements
 
+- Added check to make sure statistical standards document compliance for
+  at least one specific category, not just general.
 - Added check for packages using statistical standards only in a single
   directory or file (`check-srr`), improving detection of incomplete standards
   adoption.
