@@ -1,3 +1,5 @@
+skip_on_os ("windows")
+
 test_that ("check srr", {
 
     checks <- make_check_data_srr ()

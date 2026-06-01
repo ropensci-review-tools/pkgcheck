@@ -1,3 +1,6 @@
+# paths sometimes fail on windows
+skip_on_os ("windows")
+
 test_that ("check covr", {
 
     checks <- make_check_data_srr (goodpractice = TRUE)

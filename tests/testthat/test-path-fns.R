@@ -1,6 +1,6 @@
 # These all fail on GH mac and windows runners
-skip_on_os ("mac")
-skip_on_os ("windows")
+testthat::skip_on_os ("windows")
+testthat::skip_on_os ("mac")
 
 err_msg <- "Could not find unambiguous project root"
 
