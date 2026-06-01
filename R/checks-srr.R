@@ -90,9 +90,8 @@ output_pkgchk_srr_missing <- function (checks,
 output_pkgchk_srr_most_in_one_file <- function (checks,
                                                 regex_ptn = "should be documented in",
                                                 fixed = TRUE,
-                                                invert = TRUE,
                                                 summary_ptn = grep (
-                                                "should be documented in",
+                                                    "should be documented in",
                                                     checks$info$srr$message,
                                                     fixed = TRUE,
                                                     value = TRUE
@@ -101,30 +100,22 @@ output_pkgchk_srr_most_in_one_file <- function (checks,
         checks,
         regex_ptn = regex_ptn,
         fixed = fixed,
-        invert = invert,
+        invert = TRUE,
         summary_ptn = summary_ptn
     )
 }
 
-output_pkgchk_srr_general_only <- function (checks) {
-
-    srr <- checks$info$srr
-
-    warn_msg <- "documents compliance only with general standards"
-    check_pass <- !any (grepl (warn_msg, srr$message, fixed = TRUE))
-    summary <- ifelse (
-        check_pass,
-        "",
-        "Package documents compliance only with general 'srr' standards"
+output_pkgchk_srr_general_only <- function (checks,
+                                            regex_ptn = "documents compliance only with general standards",
+                                            fixed = TRUE,
+                                            summary_ptn = "Package documents compliance only with general 'srr' standards") {
+    generate_srr_output (
+        checks,
+        regex_ptn = regex_ptn,
+        fixed = fixed,
+        invert = TRUE,
+        summary_ptn = summary_ptn
     )
-
-    out <- list (
-        check_pass = check_pass,
-        summary = summary,
-        print = ""
-    )
-
-    return (out)
 }
 
 print_srr <- function (x) {
