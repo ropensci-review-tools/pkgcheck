@@ -163,7 +163,8 @@ srr_categories_from_report <- function (s) {
         "Regression and Supervised Learning",
         "Spatial",
         "Time Series",
-        "Dimensionality Reduction, Clustering and Unsupervised Learning"
+        "Dimensionality Reduction, Clustering and Unsupervised Learning",
+        "Probability Distributions"
     )
     cats <- cats [which (cats %in% prefixes)]
 
