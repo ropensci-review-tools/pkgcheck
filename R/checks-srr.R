@@ -96,10 +96,15 @@ output_pkgchk_srr_general_only <- function (checks) {
 
     warn_msg <- "documents compliance only with general standards"
     check_pass <- !any (grepl (warn_msg, srr$message, fixed = TRUE))
+    summary <- ifelse (
+        check_pass,
+        "",
+        "Package documents compliance only with general 'srr' standards"
+    )
 
     out <- list (
         check_pass = check_pass,
-        summary = "Package documents compliance only with general 'srr' standards",
+        summary = summary,
         print = ""
     )
 
