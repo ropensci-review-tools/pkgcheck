@@ -35,43 +35,54 @@ output_pkgchk_srr_okay <- function (checks) {
     return (out)
 }
 
-output_pkgchk_srr_todo <- function (checks) {
+generate_srr_output <- function (checks,
+                                 regex_ptn,
+                                 fixed = FALSE,
+                                 invert = FALSE,
+                                 summary_ptn) {
 
-    out <- list (
-        check_pass = !any (grepl (
-            "still has TODO standards",
-            checks$info$srr$message
-        )),
-        summary = grep ("still has TODO standards",
-            checks$info$srr$message,
-            value = TRUE
-        ),
-        print = ""
-    )
-
-    return (out)
-}
-
-output_pkgchk_srr_missing <- function (checks) {
-
-    srr <- checks$info$srr
-
-    check_pass <- !any (grepl (
-        "following standards \\[v.*\\] are missing",
-        srr$message
+    check_pass <- any (grepl (
+        regex_ptn, checks$info$srr_message,
+        fixed = fixed
     ))
-
-    out <- list (
-        check_pass = check_pass,
-        summary = "",
-        print = ""
-    )
-
-    if (!out$check_pass) {
-        out$summary <- "Some statistical standards are missing"
+    if (invert) {
+        check_pass <- !check_pass
     }
 
-    return (out)
+    list (
+        check_pass = check_pass,
+        summary = ifelse (check_pass, "", summary_ptn),
+        print = ""
+    )
+}
+
+output_pkgchk_srr_todo <- function (checks,
+                                    regex_ptn = "still has TODO standards",
+                                    fixed = TRUE,
+                                    summary_ptn = grep (
+                                        "still has TODO standards",
+                                        checks$info$srr$message,
+                                        value = TRUE
+                                    )) {
+
+    generate_srr_output (
+        checks,
+        regex_ptn = regex_ptn,
+        fixed = fixed,
+        summary_ptn = summary_ptn
+    )
+}
+
+output_pkgchk_srr_missing <- function (checks,
+                                       regex_ptn = "following standards \\[v.*\\] are missing",
+                                       fixed = FALSE,
+                                       summary_ptn = "Some statistical standards are missing") {
+    generate_srr_output (
+        checks,
+        regex_ptn = regex_ptn,
+        fixed = fixed,
+        summary_ptn = summary_ptn
+    )
 }
 
 output_pkgchk_srr_most_in_one_file <- function (checks) {
