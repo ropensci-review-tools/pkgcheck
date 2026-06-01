@@ -40,4 +40,33 @@ test_that ("check srr", {
         ci_out$summary,
         "This is a statistical package which complies with all applicable standards"
     )
+
+    most_in_one_pattern <- "should be documented in"
+    ci_out <- output_pkgchk_srr_most_in_one_file (checks)
+    expect_false (ci_out$check_pass)
+    expect_true (grepl (most_in_one_pattern, ci_out$summary, fixed = TRUE))
+    expect_length (ci_out$print, 1L)
+    expect_false (nzchar (ci_out$print))
+
+    orig_msg <- checks$info$srr$message
+    checks$info$srr$message <- orig_msg [!grepl (most_in_one_pattern, orig_msg, fixed = TRUE)]
+    ci_out <- output_pkgchk_srr_most_in_one_file (checks)
+    expect_true (ci_out$check_pass)
+    expect_false (nzchar (ci_out$summary))
+    checks$info$srr$message <- orig_msg
+
+    ci_out <- output_pkgchk_srr_general_only (checks)
+    expect_true (ci_out$check_pass)
+    expect_false (nzchar (ci_out$summary))
+    expect_length (ci_out$print, 1L)
+    expect_false (nzchar (ci_out$print))
+
+    gen_only_msg <- "This package documents compliance only with general standards"
+    checks$info$srr$message <- c (orig_msg, gen_only_msg)
+    ci_out <- output_pkgchk_srr_general_only (checks)
+    expect_false (ci_out$check_pass)
+    expect_equal (
+        ci_out$summary,
+        "Package documents compliance only with general 'srr' standards"
+    )
 })

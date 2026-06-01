@@ -35,8 +35,6 @@ i 'pkgcheck' version: 7.8.9
 
 -- rOpenSci Statistical Standards --
 
-i The package is in the following 0 categories:
-
 i Compliance with rOpenSci statistical standards:
 v srr message
 i 'srr' report is at [].

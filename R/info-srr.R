@@ -47,6 +47,12 @@ pkginfo_srr_report <- function (path) {
             gsub ("^S", "Statistical s", srr [grep (warn_msg, srr)])
         srr_okay <- FALSE
     }
+    # Any other warning messages:
+    err_regex <- "^Error\\:(\\s*)?"
+    if (any (grepl (err_regex, srr))) {
+        srr <- gsub (err_regex, "", srr)
+        srr_okay <- FALSE
+    }
 
     categories <- stds <- NULL
 
@@ -156,7 +162,8 @@ srr_categories_from_report <- function (s) {
         "Regression and Supervised Learning",
         "Spatial",
         "Time Series",
-        "Dimensionality Reduction, Clustering and Unsupervised Learning"
+        "Dimensionality Reduction, Clustering and Unsupervised Learning",
+        "Probability Distributions"
     )
     cats <- cats [which (cats %in% prefixes)]
 
