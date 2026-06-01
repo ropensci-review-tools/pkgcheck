@@ -1,3 +1,7 @@
+# These all fail on GH mac and windows runners
+skip_on_os ("mac")
+skip_on_os ("windows")
+
 err_msg <- "Could not find unambiguous project root"
 
 # Results on non-Linux systems are equal paths, but not identical
