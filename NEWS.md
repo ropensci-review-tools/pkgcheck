@@ -4,6 +4,7 @@
 
 ### New checks and check improvements
 
+- Removed numerous `skip_on_os()` conditions in tests (#378)
 - Added check to make sure statistical standards document compliance for
   at least one specific category, not just general.
 - Added check for packages using statistical standards only in a single
