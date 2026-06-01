@@ -35,6 +35,16 @@ output_pkgchk_srr_okay <- function (checks) {
     return (out)
 }
 
+# --------------------------------------
+# START Template function generator for 'output_pkgchk_srr_...' functions
+#
+# This is applied to 4 distinct functions:
+#   1. output_pkgchk_srr_todo()
+#   2. output_pkgchk_srr_missing()
+#   3. output_pkgchk_srr_most_in_one_file()
+#   4. output_pkgchk_srr_general_only()
+# --------------------------------------
+
 generate_srr_output <- function (checks,
                                  regex_ptn,
                                  fixed = FALSE,
@@ -118,18 +128,23 @@ output_pkgchk_srr_general_only <- function (checks,
     )
 }
 
+# --------------------------------------
+# END Template function generator for 'output_pkgchk_srr_...' functions
+# --------------------------------------
+
 print_srr <- function (x) {
 
     cli::cli_h2 ("rOpenSci Statistical Standards")
     ncats <- length (x$info$srr$categories) # nolint
-    cli::cli_alert_info ("The package is in the following {ncats} categor{?y/ies}:") # nolint
-    cli::cli_li (x$info$srr$categories)
-    cli::cli_text ("")
+    if (ncats > 0L) {
+        cli::cli_alert_info ("The package is in the following {ncats} categor{?y/ies}:") # nolint
+        cli::cli_li (x$info$srr$categories)
+        cli::cli_text ("")
+    }
     cli::cli_alert_info ("Compliance with rOpenSci statistical standards:")
 
-    while (!nzchar (x$info$srr$message [1])) {
-        x$info$srr$message <- x$info$srr$message [-1]
-    }
+    x$info$srr$message <-
+        x$info$srr$message [which (nzchar (x$info$srr$message))]
 
     if (x$info$srr$okay) {
         cli::cli_alert_success (x$info$srr$message)

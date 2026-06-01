@@ -48,10 +48,9 @@ pkginfo_srr_report <- function (path) {
         srr_okay <- FALSE
     }
     # Any other warning messages:
-    fail_regex <- "^\\:heavy\\_multiplication\\_x\\:"
-    if (any (grepl (fail_regex, srr))) {
-        srr <- gsub (fail_regex, "", srr)
-        srr <- gsub ("^(\\s*)?Error\\:(\\s?)", "", srr)
+    err_regex <- "^Error\\:(\\s*)?"
+    if (any (grepl (err_regex, srr))) {
+        srr <- gsub (err_regex, "", srr)
         srr_okay <- FALSE
     }
 
