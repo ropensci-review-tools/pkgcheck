@@ -149,9 +149,11 @@ cache_pkgcheck_component <- function (path,
 
         # writing to cache_dir fails on some GHA windows machines.
         if (fs::dir_exists (cache_dir)) {
-            chk <- tryCatch (
-                saveRDS (out, cache_file),
-                error = function (e) NULL
+            suppressWarnings (
+                chk <- tryCatch (
+                    saveRDS (out, cache_file),
+                    error = function (e) NULL
+                )
             )
         }
     }
