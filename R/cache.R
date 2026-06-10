@@ -97,8 +97,12 @@ cache_pkgcheck_component <- function (path,
 
     args <- list (path = path)
     if (what == "goodpractice" && !gp_full) {
-        index <- grep ("^(covr|cyclocomp|rcmdcheck)", goodpractice::all_checks ())
-        chks <- goodpractice::all_checks () [-index]
+        grps <- goodpractice::all_check_groups ()
+        rm <- c (
+            "covr", "cyclocomp", "lintr", "rcmdcheck", "revdep", "tidyverse"
+        )
+        grps <- setdiff (grps, rm)
+        chks <- goodpractice::checks_by_group (grps)
         args <- c (args, list (checks = chks))
     }
 
