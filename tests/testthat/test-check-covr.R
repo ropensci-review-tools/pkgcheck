@@ -3,7 +3,11 @@ skip_on_os ("windows")
 
 test_that ("check covr", {
 
-    checks <- make_check_data_srr (goodpractice = TRUE)
+    grps <- setdiff (goodpractice::all_check_groups (), "covr")
+    withr::with_options (
+        list (goodpractice.exclude_check_groups = grps),
+        checks <- make_check_data_srr (goodpractice = TRUE)
+    )
 
     ci_out <- output_pkgchk_covr (checks)
     expect_type (ci_out, "list")

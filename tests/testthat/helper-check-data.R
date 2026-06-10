@@ -8,7 +8,8 @@ make_check_data_internal <- function () {
             "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
             "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
             "GITHUB_ACTIONS" = "true",
-            "GITHUB_REPOSITORY" = "org/repo"
+            "GITHUB_REPOSITORY" = "org/repo",
+            "GP_EXCLUDE_CHECK_GROUPS" = "covr,cyclocomp,lintr,rcmdcheck"
         )
     )
 
@@ -21,15 +22,17 @@ make_check_data <- memoise::memoise (make_check_data_internal)
 
 make_check_data_srr_internal <- function (goodpractice = FALSE) {
 
-    withr::local_envvar (
-        list (
-            "PKGCHECK_SRR_REPORT_FILE" = "report.html",
-            "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
-            "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
-            "GITHUB_ACTIONS" = "true",
-            "GITHUB_REPOSITORY" = "org/repo"
-        )
+    evs <- list (
+        "PKGCHECK_SRR_REPORT_FILE" = "report.html",
+        "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
+        "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
+        "GITHUB_ACTIONS" = "true",
+        "GITHUB_REPOSITORY" = "org/repo"
     )
+    if (!goodpractice) {
+        evs$GP_EXCLUDE_CHECK_GROUPS <- "covr,cyclocomp,lintr,rcmdcheck"
+    }
+    withr::local_envvar (evs)
 
     pkgname <- paste0 (
         "testpkg", ifelse (goodpractice, "with", "no"), "gp"
@@ -41,19 +44,7 @@ make_check_data_srr_internal <- function (goodpractice = FALSE) {
         type = "message"
     )
 
-    checks <- pkgcheck (d, goodpractice = goodpractice, use_cache = FALSE)
-    if (goodpractice) {
-        class (checks$goodpractice$covr) <- c (
-            "try-error",
-            class (checks$goodpractice$covr)
-        )
-        class (checks$goodpractice$rcmdcheck) <- c (
-            "try-error",
-            class (checks$goodpractice$rcmdcheck)
-        )
-    }
-
-    return (checks)
+    pkgcheck (d, goodpractice = goodpractice, use_cache = FALSE)
 }
 
 make_check_data_srr <- memoise::memoise (make_check_data_srr_internal)
