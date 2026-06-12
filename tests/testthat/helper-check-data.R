@@ -1,6 +1,6 @@
 requireNamespace ("memoise", quietly = TRUE)
 
-make_check_data_internal <- function () {
+make_check_data_internal <- function (cleanup = TRUE) {
 
     withr::local_envvar (
         list (
@@ -15,12 +15,16 @@ make_check_data_internal <- function () {
 
     f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
     path <- pkgstats::extract_tarball (f)
+    if (cleanup) {
+        on.exit (fs::dir_delete (path), add = TRUE)
+    }
+
     pkgcheck (path, goodpractice = FALSE)
 }
 
 make_check_data <- memoise::memoise (make_check_data_internal)
 
-make_check_data_srr_internal <- function (goodpractice = FALSE) {
+make_check_data_srr_internal <- function (goodpractice = FALSE, cleanup = TRUE) {
 
     evs <- list (
         "PKGCHECK_SRR_REPORT_FILE" = "report.html",
@@ -38,6 +42,9 @@ make_check_data_srr_internal <- function (goodpractice = FALSE) {
         "testpkg", ifelse (goodpractice, "with", "no"), "gp"
     )
     d <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
+    if (cleanup) {
+        on.exit (fs::dir_delete (d), add = TRUE)
+    }
 
     x <- capture.output (
         roxygen2::roxygenise (d, load_code = roxygen2::load_source),
