@@ -18,8 +18,8 @@ test_that ("pkgcheck", {
         )
     )
 
-    checks0 <- make_check_data_srr (goodpractice = FALSE)
-    checks1 <- make_check_data_srr (goodpractice = TRUE)
+    checks0 <- make_check_data_srr (goodpractice = FALSE, cleanup = FALSE)
+    checks1 <- make_check_data_srr (goodpractice = TRUE, cleanup = FALSE)
 
     expect_s3_class (checks0, "pkgcheck")
     expect_s3_class (checks1, "pkgcheck")
@@ -101,4 +101,6 @@ test_that ("pkgcheck", {
     testthat::expect_snapshot_file (f_html1)
 
     fs::file_delete (c (f_md0, f_md1, f_html0, f_html1))
+    fs::dir_delete (checks0$pkg$path)
+    fs::dir_delete (checks1$pkg$path)
 })

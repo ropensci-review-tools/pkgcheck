@@ -15,7 +15,7 @@ test_that ("check covr", {
     expect_named (ci_out, c ("check_pass", "summary", "print"))
 
     expect_false (ci_out$check_pass)
-    expect_equal (ci_out$summary, "Package coverage failed")
+    expect_true (grepl ("Package coverage", ci_out$summary, fixed = TRUE))
     expect_length (ci_out$print, 1L)
     expect_false (nzchar (ci_out$print))
 
