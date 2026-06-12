@@ -17,9 +17,10 @@ test_that ("goodpractice", {
     expect_type (md, "character")
     expect_gt (length (md), 10L)
     expect_true (any (grepl ("`goodpractice` results", md)))
-    expect_true (any (grepl ("R CMD check", md)))
-    # expect_true (any (grepl ("Test Coverage", md)))
     expect_true (any (grepl ("Cyclocomplexity", md)))
+    expect_true (any (grepl ("Other goodpractice checks", md, fixed = TRUE)))
+    fails <- grep ("\\:heavy\\_multiplication\\_x\\:", md)
+    expect_true (length (fails) > 2)
 
     checks$goodpractice$rcmdcheck <- try (stop ("nope"), silent = TRUE)
     gp <- summarise_gp_checks (checks)

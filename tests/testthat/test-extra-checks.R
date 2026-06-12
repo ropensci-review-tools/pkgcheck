@@ -9,7 +9,7 @@ testthat::skip_on_os ("mac")
 
 test_that ("extra checks", {
 
-    checks <- make_check_data ()
+    checks <- make_check_data (cleanup = FALSE)
 
     # Checks on systems without the right API keys may fail checks which rely on
     # URL queries, so these are manually reset here:
@@ -68,6 +68,7 @@ test_that ("extra checks", {
     testthat::expect_snapshot_file (file.path (md_dir, "checks-print.md"))
 
     fs::file_delete (c (f_md, f_html, f_tmp, f_md2))
+    fs::dir_delete (checks$pkg$path)
 
     # *****************************************************************
     # *********   EXTRA CHECKS FOR PRAISE IN SUMMARY OUTPUT   *********
