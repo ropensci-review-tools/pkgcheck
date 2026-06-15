@@ -194,7 +194,7 @@ extract_gp_components <- function (gp) {
     }
 
     # -------------- rcmdcheck:
-    r <- gp$rcmd
+    r <- gp$rcmdcheck
     rcmd <- list ()
     if (methods::is (r, "try-error")) {
         rcmd$errors <- paste0 (r)
@@ -214,20 +214,29 @@ extract_gp_components <- function (gp) {
     }
 
     # -------------- any other components which fail:
-    checks <- vapply (
-        gp$checks, function (i) {
-            ret <- TRUE
-            if (is.logical (i) & length (i) == 1) {
-                ret <- i
-            }
-            return (ret)
-        },
-        logical (1)
+    rm <- c (
+        "path", "package", "extra_preps", "extra_checks", "exclude_path",
+        "covr", "cyclocomp", "lintr", "rcmdcheck", "checks"
     )
-    fails <- names (checks [which (!checks)])
-    if (length (fails) > 0) {
-        rcmd$check_fails <- fails
-    }
+    index <- which (!names (gp) %in% rm)
+    other_check_groups <- names (gp [index])
+    other_check_names <- unlist (lapply (
+        other_check_groups,
+        function (g) goodpractice::checks_by_group (g)
+    ))
+
+    check_pass <- vapply (gp$checks, function (i) i$status, logical (1L))
+    check_fails <- gp$checks [which (!check_pass)]
+    index <- which (names (check_fails) %in% other_check_names)
+    check_fails <- check_fails [index]
+    # But rm any fails on "RcppExports":
+    flist <- vapply (check_fails, function (i) {
+        if (length (i$positions) == 0L) {
+            return (NA_character_)
+        }
+        i$positions [[1]]$filename
+    }, character (1L))
+    check_fails <- check_fails [which (!grepl ("RcppExports", flist))]
 
     # return result
     res <- list (
@@ -235,9 +244,10 @@ extract_gp_components <- function (gp) {
         rcmd = rcmd,
         covr = covr,
         cyclocomp = cyc,
-        lintr = lints
+        lintr = lints,
+        other = check_fails
     )
-    res <- res [which (lengths (res) > 0)]
+    res [which (lengths (res) > 0)]
 }
 
 #' Convert \pkg{goodpractice} components into templated report
@@ -257,7 +267,7 @@ convert_gp_components <- function (x,
                                        digits = 2
                                    )) {
 
-    rcmd <- covr <- cycl <- lintr <- NULL
+    rcmd <- covr <- cycl <- lintr <- other <- NULL
 
     if (any (grepl ("^rcmd", names (x)))) {
         rcmd <- rcmd_report (x)
@@ -271,8 +281,11 @@ convert_gp_components <- function (x,
     if (any (grepl ("^lint", names (x)))) {
         lintr <- lintr_report (x)
     }
+    if ("other" %in% names (x)) {
+        other <- other_report (x)
+    }
 
-    return (c (rcmd, covr, cycl, lintr))
+    return (c (rcmd, covr, cycl, lintr, other))
 }
 
 
@@ -537,4 +550,22 @@ lintr_report <- function (x) {
     }
 
     return (c (ret, ""))
+}
+
+other_report <- function (x) {
+
+    failed_checks <- names (x$other)
+    failed_descs <- goodpractice::describe_check (failed_checks)
+    if (length (failed_checks) == 0L) {
+        return (NULL)
+    }
+    c (
+        "",
+        "#### Other goodpractice checks",
+        "",
+        unname (vapply (failed_descs, function (ch) {
+            paste0 (symbol_crs (), " ", ch)
+        }, character (1L))),
+        ""
+    )
 }

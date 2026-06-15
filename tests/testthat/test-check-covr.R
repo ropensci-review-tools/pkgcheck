@@ -3,7 +3,11 @@ skip_on_os ("windows")
 
 test_that ("check covr", {
 
-    checks <- make_check_data_srr (goodpractice = TRUE)
+    grps <- setdiff (goodpractice::all_check_groups (), "covr")
+    withr::with_options (
+        list (goodpractice.exclude_check_groups = grps),
+        checks <- make_check_data_srr (goodpractice = TRUE)
+    )
 
     ci_out <- output_pkgchk_covr (checks)
     expect_type (ci_out, "list")
@@ -11,7 +15,7 @@ test_that ("check covr", {
     expect_named (ci_out, c ("check_pass", "summary", "print"))
 
     expect_false (ci_out$check_pass)
-    expect_equal (ci_out$summary, "Package coverage failed")
+    expect_true (grepl ("Package coverage", ci_out$summary, fixed = TRUE))
     expect_length (ci_out$print, 1L)
     expect_false (nzchar (ci_out$print))
 

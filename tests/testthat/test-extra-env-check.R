@@ -2,7 +2,7 @@ test_that ("pkgcheck with extra env", {
 
     skip_on_os ("windows")
 
-    chk0 <- make_check_data_srr (goodpractice = FALSE)
+    chk0 <- make_check_data_srr (goodpractice = FALSE, cleanup = FALSE)
 
     nchks0 <- length (chk0$checks)
     md0 <- checks_to_markdown (chk0, render = FALSE)
@@ -50,4 +50,6 @@ test_that ("pkgcheck with extra env", {
     md1 <- checks_to_markdown (chk1, render = FALSE)
     nchks1_md <- length (grep ("^\\-\\s\\:heavy", md1))
     expect_equal (nchks1_md, nchks0_md + 1)
+
+    fs::dir_delete (chk0$pkg$path)
 })
