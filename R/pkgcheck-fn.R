@@ -34,7 +34,7 @@ pkgcheck <- function (path = ".", goodpractice = TRUE,
 
     s <- pkgstats_info (path, use_cache)
     if (nrow (s$stats$objects) == 0L) {
-        # There are no R objects/fns; current goodpractice (1.0.2.9000) fails
+        # No gp if no R objects:
         goodpractice <- FALSE
     }
 

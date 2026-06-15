@@ -6,7 +6,9 @@ skip_if (!test_all)
 
 test_that ("goodpractice", {
 
-    checks <- make_check_data_srr (goodpractice = TRUE)
+    checks <- make_check_data_srr_internal (
+        goodpractice = TRUE, cleanup = FALSE
+    )
 
     gp <- summarise_gp_checks (checks)
     expect_type (gp, "list")
@@ -17,12 +19,15 @@ test_that ("goodpractice", {
     expect_type (md, "character")
     expect_gt (length (md), 10L)
     expect_true (any (grepl ("`goodpractice` results", md)))
-    expect_true (any (grepl ("R CMD check", md)))
-    # expect_true (any (grepl ("Test Coverage", md)))
     expect_true (any (grepl ("Cyclocomplexity", md)))
+    expect_true (any (grepl ("Other goodpractice checks", md, fixed = TRUE)))
+    fails <- grep ("\\:heavy\\_multiplication\\_x\\:", md)
+    expect_true (length (fails) > 2)
 
     checks$goodpractice$rcmdcheck <- try (stop ("nope"), silent = TRUE)
     gp <- summarise_gp_checks (checks)
     expect_null (gp$rcmd_warns)
     expect_true (grepl ("R CMD check process failed", gp$rcmd_errs))
+
+    fs::dir_delete (checks$pkg$path)
 })
