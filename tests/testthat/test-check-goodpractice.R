@@ -42,7 +42,7 @@ test_that ("check goodpractice", {
 
     # ------ covr report
     checks <- make_check_data_srr (goodpractice = TRUE)
-    gp <- checks$goodpractice
+    gp <- extract_gp_components (checks$goodpractice)
     rep <- covr_report (gp)
     expect_gt (length (rep), 1L)
     expect_gt (length (grepl ("test coverage", rep, ignore.case = TRUE)), 1L)
