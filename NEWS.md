@@ -1,5 +1,9 @@
 # pkgcheck News
 
+## 0.1.3
+
+----
+
 ## 0.1.2
 
 ### New checks and check improvements

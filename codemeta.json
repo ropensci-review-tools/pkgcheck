@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.2.327",
+  "version": "0.1.3",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
+  "runtimePlatform": "R version 4.6.0 (2026-04-24)",
   "author": [
     {
       "@type": "Person",
@@ -53,10 +53,7 @@
   "contributor": [
     {
       "@type": "Person",
-      "givenName": [
-        "Kelli",
-        "F."
-      ],
+      "givenName": ["Kelli", "F."],
       "familyName": "Johnson",
       "email": "kelli.johnson@noaa.gov",
       "@id": "https://orcid.org/0000-0002-5149-451X"
@@ -102,6 +99,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=httptest2"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "jsonlite",
+      "name": "jsonlite",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
     {
       "@type": "SoftwareApplication",
@@ -325,6 +334,12 @@
       "@type": "SoftwareApplication",
       "identifier": "pkgstats",
       "name": "pkgstats",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
       "sameAs": "https://github.com/ropensci-review-tools/pkgstats"
     },
     "14": {
@@ -405,19 +420,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=withr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "520.34KB",
+  "fileSize": "478.734KB",
+  "releaseNotes": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/NEWS.md",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check",
-    "https://codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
+  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check", "https://codecov.io/gh/ropensci-review-tools/pkgcheck"],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "keywords": [
-    "compliance-automation",
-    "r",
-    "software-analysis",
-    "software-checking"
-  ]
+  "keywords": ["compliance-automation", "r", "software-analysis", "software-checking"]
 }
