@@ -12,14 +12,14 @@ Package is already on CRAN
 - :heavy_multiplication_x: These functions do not have examples: [test_fn].
 - :heavy_check_mark: Repository has a website
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
-- :heavy_multiplication_x: Package coverage failed
+- :heavy_multiplication_x: Package coverage is 0% (should be at least 75%).
 - :heavy_check_mark: All goodpractice linters passed.
 - :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
 - :heavy_multiplication_x: Some statistical standards are missing
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 - :heavy_multiplication_x: Statistical standards should be documented in most package files, yet are mostly only documented in one file.
-- :heavy_check_mark: R CMD check found no errors.
-- :heavy_check_mark: R CMD check found no warnings.
+- :heavy_multiplication_x: R CMD check found 1 error.
+- :heavy_multiplication_x: R CMD check found 1 warning.
 
 **Important:** All failing checks above must be addressed prior to proceeding
 
