@@ -9,7 +9,7 @@ testthat::skip_on_os ("mac")
 
 test_that ("extra checks", {
 
-    checks <- make_check_data (cleanup = FALSE)
+    checks <- make_check_data_internal (cleanup = FALSE)
 
     # Checks on systems without the right API keys may fail checks which rely on
     # URL queries, so these are manually reset here:

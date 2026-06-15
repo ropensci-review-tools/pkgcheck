@@ -108,16 +108,6 @@ x Document return values for exported (non-method) functions using `\\value`.
     'man/rd_stats.Rd'
     'man/tags_data.Rd'
 
-x define exported (user-facing) functions before internal helper functions
-  within each R source file.
-
-    'R/ctags-install.R:5'
-    'R/ctags-install.R:31'
-    'R/ctags-install.R:42'
-    'R/desc-stats.R:10'
-    'R/loc.R:12'
-    ... and 1 more line
-
 
 -- Other checks --
 
