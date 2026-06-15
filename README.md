@@ -11,7 +11,9 @@ Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repost
 
 Check whether a package is ready for submission to
 [rOpenSci](https://ropensci.org)’s peer review system. The primary
-function collates the output of
+function,
+[`pkgcheck()`](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html),
+collates the output of
 [`goodpractice`](https://github.com/ropensci-review-tools/goodpractice),
 including `R CMD check` results, a number of statistics via the
 [`pkgstats` package](https://github.com/ropensci-review-tools/pkgstats),
@@ -56,7 +58,7 @@ remotes::install_git ("https://codeberg.org/ropensci-review-tools/pkgcheck")
 remotes::install_git ("https://codefloe.com/ropensci-review-tools/pkgcheck")
 ```
 
-The package can then loaded for use with
+The package can then be loaded for use with:
 
 ``` r
 library (pkgcheck)
@@ -110,28 +112,13 @@ devtools::document (mydir, quiet = TRUE) # Generate documentation entries in "/m
 x <- pkgcheck (mydir)
 ```
 
-    ## 1/1
-
-    ## /usr/bin/pandoc +RTS -K512m -RTS file1ff6b535ae33a.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpT4vpzM/file1ff6b535ae33a.html --lua-filter /usr/lib/R/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/lib/R/library/rmarkdown/rmarkdown/lua/latex-div.lua --lua-filter /usr/lib/R/library/rmarkdown/rmarkdown/lua/table-classes.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/lib/R/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpT4vpzM/rmarkdown-str1ff6b73ee65b7.html
-
-    ## ── R CMD build ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-    ##      checking for file ‘/tmp/RtmpT4vpzM/remotes1ff6b590ba960/demo/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpT4vpzM/remotes1ff6b590ba960/demo/DESCRIPTION’
-    ##   ─  preparing ‘demo’:
-    ##    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
-    ## ─  cleaning src
-    ##   ─  checking for LF line-endings in source and make files and shell scripts
-    ##   ─  checking for empty or unneeded directories
-    ##   ─  building ‘demo_0.0.0.9000.tar.gz’
-    ##      
-    ## 
-
 That object has default `print` and `summary` methods. The latter can be
 used to simply check whether a package is ready for submission:
 
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ─────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package name is available
 ## ✖ does not have a 'contributing' file.
@@ -141,17 +128,18 @@ summary (x)
 ## ✖ 'DESCRIPTION' does not have a BugReports field.
 ## ✖ Package has no HTML vignettes
 ## ✖ These functions do not have examples: [test_fn].
+## ✖ Repository has no website
 ## ✖ Package has no continuous integration checks.
-## ✖ Package coverage failed
+## ✖ Package coverage is 0% (should be at least 75%).
 ## ✖ Statistical standards should be documented in most package files, yet are mostly only documented in one file.
 ## ✔ R CMD check found no errors.
-## ✔ R CMD check found no warnings.
+## ✖ R CMD check found 1 warning.
 ## ℹ Some goodpractice linters failed.
 ## 
 ## ℹ Current status:
-## ✖ Hmmm, not quite there yet ...
+## ✖ Sorry about those failing checks ...
 ## 
-## ℹ 'pkgcheck' version: 0.1.2.260
+## ℹ 'pkgcheck' version: 0.1.2.294
 ## 
 ```
 
@@ -174,8 +162,15 @@ perform before committing new functions and running a full `pkgcheck`:
 fn_names_on_cran (c ("min", "max"))
 ```
 
-    ## [1] package version fn_name
-    ## <0 rows> (or 0-length row.names)
+    ##       package version fn_name
+    ## 1    matlab2r   1.5.0     max
+    ## 2    matlab2r   1.5.0     min
+    ## 3      mosaic   1.9.2     max
+    ## 4      mosaic   1.9.2     min
+    ## 5 rapportools     1.2     max
+    ## 6 rapportools     1.2     min
+    ## 7      tidyna   0.4.0     max
+    ## 8      tidyna   0.4.0     min
 
 ## The `pkgcheck` GitHub action
 
@@ -255,7 +250,7 @@ function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 can be time-consuming, primarily because the
 [`goodpractice`](https://docs.ropensci.org/goodpractice) component runs
 both a full `R CMD check`, and calculates code coverage of all tests. To
-avoid re-generating these results each time, the package saves previous
+avoid re-generating these results each time, `pkgcheck` saves previous
 reports to a local cache directory defined in
 `Sys.getenv("PKGCHECK_CACHE_DIR")`.
 
@@ -299,10 +294,10 @@ Alternatively, as soon as the background process, the normal
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html)
 may be called to quickly re-load the cached results.
 
-## Prior Work
+## See Also
 
 [The `checklist` package](https://github.com/inbo/checklist) for
-“checking packages and R code”.
+“checking R packages and R code”.
 
 ## Code of Conduct
 
