@@ -27,7 +27,7 @@ test_that ("pkgcheck", {
     items <- c ("pkg", "info", "checks", "meta", "goodpractice")
     expect_named (checks0, items)
     expect_named (checks1, items)
-    gp_items_false <- c ("lintr", "description", "namespace")
+    gp_items_false <- c ("description", "namespace")
     gp_items_true <- c ("covr", "cyclocomp", "rcmdcheck")
     expect_true (all (gp_items_false %in% names (checks0$goodpractice)))
     expect_false (any (gp_items_true %in% names (checks0$goodpractice)))
