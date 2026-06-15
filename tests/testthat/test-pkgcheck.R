@@ -18,8 +18,13 @@ test_that ("pkgcheck", {
         )
     )
 
-    checks0 <- make_check_data_srr (goodpractice = FALSE, cleanup = FALSE)
-    checks1 <- make_check_data_srr (goodpractice = TRUE, cleanup = FALSE)
+    # Call the internal function shere to avoid re-loading memoised versions:
+    checks0 <- make_check_data_srr_internal (
+        goodpractice = FALSE, cleanup = FALSE
+    )
+    checks1 <- make_check_data_srr_internal (
+        goodpractice = TRUE, cleanup = FALSE
+    )
 
     expect_s3_class (checks0, "pkgcheck")
     expect_s3_class (checks1, "pkgcheck")

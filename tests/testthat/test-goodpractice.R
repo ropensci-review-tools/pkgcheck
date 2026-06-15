@@ -6,7 +6,9 @@ skip_if (!test_all)
 
 test_that ("goodpractice", {
 
-    checks <- make_check_data_srr (goodpractice = TRUE)
+    checks <- make_check_data_srr_internal (
+        goodpractice = TRUE, cleanup = FALSE
+    )
 
     gp <- summarise_gp_checks (checks)
     expect_type (gp, "list")
@@ -26,4 +28,6 @@ test_that ("goodpractice", {
     gp <- summarise_gp_checks (checks)
     expect_null (gp$rcmd_warns)
     expect_true (grepl ("R CMD check process failed", gp$rcmd_errs))
+
+    fs::dir_delete (checks$pkg$path)
 })

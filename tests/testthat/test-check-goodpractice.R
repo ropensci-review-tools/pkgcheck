@@ -3,7 +3,7 @@ skip_on_os ("windows")
 
 test_that ("check goodpractice", {
 
-    checks <- make_check_data_srr (goodpractice = TRUE)
+    checks <- make_check_data_srr_internal (goodpractice = TRUE, cleanup = FALSE)
 
     make_errors <- function (checks, n_errors = 2L) {
         checks$goodpractice$rcmdcheck <- list (
@@ -40,8 +40,10 @@ test_that ("check goodpractice", {
     rep <- rcmd_report (cmps)
     expect_length (grep ("rcmdcheck found no errors, warnings, or notes", rep), 1L)
 
+    fs::dir_delete (checks$pkg$path)
+
     # ------ covr report
-    checks <- make_check_data_srr (goodpractice = TRUE)
+    checks <- make_check_data_srr (goodpractice = TRUE, cleanup = FALSE)
     gp <- extract_gp_components (checks$goodpractice)
     rep <- covr_report (gp)
     expect_gt (length (rep), 1L)
@@ -93,4 +95,6 @@ test_that ("check goodpractice", {
     rep <- lintr_report (gp)
     expect_type (rep, "character")
     expect_true (any (grepl ("no issues with this package", rep)))
+
+    fs::dir_delete (checks$pkg$path)
 })
