@@ -283,6 +283,7 @@ project, you agree to abide by its terms.
 
 
 
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -340,6 +341,12 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 
 
 <tr>
+<td align="center">
+<a href="https://github.com/JesseAlderliesten">
+<img src="https://avatars.githubusercontent.com/u/59017087?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=JesseAlderliesten">JesseAlderliesten</a>
+</td>
 <td align="center">
 <a href="https://github.com/kellijohnson-NOAA">
 <img src="https://avatars.githubusercontent.com/u/4108564?v=4" width="100px;" alt=""/>
@@ -489,28 +496,22 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 
 <tr>
 <td align="center">
-<a href="https://github.com/ddbortoli">
-<img src="https://avatars.githubusercontent.com/u/25244497?v=4" width="100px;" alt=""/>
-</a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Addbortoli">ddbortoli</a>
-</td>
-<td align="center">
 <a href="https://github.com/dgkf">
 <img src="https://avatars.githubusercontent.com/u/18220321?u=bef717254e5b877159fa712e2b8ad6952c816064&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Adgkf">dgkf</a>
 </td>
 <td align="center">
-<a href="https://github.com/cboettig">
-<img src="https://avatars.githubusercontent.com/u/222586?u=dfbe54d3b4d538dc2a8c276bb5545fdf4684752f&v=4" width="100px;" alt=""/>
-</a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Acboettig">cboettig</a>
-</td>
-<td align="center">
 <a href="https://github.com/jhollist">
 <img src="https://avatars.githubusercontent.com/u/5438539?u=d4dbc2c80f13d256cefd941f9e07fa87fcc0425a&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Ajhollist">jhollist</a>
+</td>
+<td align="center">
+<a href="https://github.com/cboettig">
+<img src="https://avatars.githubusercontent.com/u/222586?u=dfbe54d3b4d538dc2a8c276bb5545fdf4684752f&v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Acboettig">cboettig</a>
 </td>
 <td align="center">
 <a href="https://github.com/PietrH">
@@ -526,20 +527,20 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 </td>
 <td align="center">
 <a href="https://github.com/bnicenboim">
-<img src="https://avatars.githubusercontent.com/u/5982330?u=ec5543c6d11255fd330fc03f5880a1d7bdefadd7&v=4" width="100px;" alt=""/>
+<img src="https://avatars.githubusercontent.com/u/5982330?u=1dabd202aad78990856de7259581f39470577168&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Abnicenboim">bnicenboim</a>
 </td>
-</tr>
-
-
-<tr>
 <td align="center">
 <a href="https://github.com/laijasmine">
 <img src="https://avatars.githubusercontent.com/u/13112379?u=3aac9303e17f9a8d356f1c9f37c6cc3a218f9433&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Alaijasmine">laijasmine</a>
 </td>
+</tr>
+
+
+<tr>
 <td align="center">
 <a href="https://github.com/b-rodrigues">
 <img src="https://avatars.githubusercontent.com/u/2998834?u=815e6c1eedc0305ca7a62a89293efbe488583fce&v=4" width="100px;" alt=""/>
