@@ -17,10 +17,11 @@ output:
 <!-- badges: end -->
 
 Check whether a package is ready for submission to
-[rOpenSci](https://ropensci.org)'s peer review system. The primary function
+[rOpenSci](https://ropensci.org)'s peer review system. The primary function,
+[`pkgcheck()`](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html),
 collates the output of
-[`goodpractice`](https://github.com/ropensci-review-tools/goodpractice), including `R CMD
-check` results, a number of statistics via the [`pkgstats`
+[`goodpractice`](https://github.com/ropensci-review-tools/goodpractice),
+including `R CMD check` results, a number of statistics via the [`pkgstats`
 package](https://github.com/ropensci-review-tools/pkgstats), and checks for
 package structure expected for rOpenSci submissions. The output of this
 function immediately indicates whether or not a package is "Ready to Submit".
@@ -61,7 +62,7 @@ remotes::install_git ("https://codeberg.org/ropensci-review-tools/pkgcheck")
 remotes::install_git ("https://codefloe.com/ropensci-review-tools/pkgcheck")
 ```
 
-The package can then loaded for use with
+The package can then be loaded for use with:
 
 ```{r library, eval = FALSE}
 library (pkgcheck)
@@ -217,7 +218,7 @@ function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) can
 be time-consuming, primarily because the
 [`goodpractice`](https://docs.ropensci.org/goodpractice) component runs
 both a full `R CMD check`, and calculates code coverage of all tests. To avoid
-re-generating these results each time, the package saves previous reports to
+re-generating these results each time, `pkgcheck` saves previous reports to
 a local cache directory defined in `Sys.getenv("PKGCHECK_CACHE_DIR")`.
 
 You may manually erase the contents of this `pkgcheck` subdirectory at any time
@@ -258,9 +259,8 @@ soon as the background process, the normal (foreground)
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) may
 be called to quickly re-load the cached results.
 
-## Prior Work
-
-[The `checklist` package](https://github.com/inbo/checklist) for "checking
+## See Also
+[The `checklist` package](https://github.com/inbo/checklist) for "checking R
 packages and R code".
 
 ## Code of Conduct
