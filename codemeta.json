@@ -53,10 +53,7 @@
   "contributor": [
     {
       "@type": "Person",
-      "givenName": [
-        "Kelli",
-        "F."
-      ],
+      "givenName": ["Kelli", "F."],
       "familyName": "Johnson",
       "email": "kelli.johnson@noaa.gov",
       "@id": "https://orcid.org/0000-0002-5149-451X"
@@ -417,7 +414,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=withr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
   "fileSize": "500.566KB",
   "releaseNotes": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/NEWS.md",
