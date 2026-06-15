@@ -130,14 +130,14 @@ summary (x)
 ## ✖ These functions do not have examples: [test_fn].
 ## ✖ Repository has no website
 ## ✖ Package has no continuous integration checks.
-## ✖ Package coverage failed
+## ✖ Package coverage is 0% (should be at least 75%).
 ## ✖ Statistical standards should be documented in most package files, yet are mostly only documented in one file.
 ## ✔ R CMD check found no errors.
-## ✔ R CMD check found no warnings.
+## ✖ R CMD check found 1 warning.
 ## ℹ Some goodpractice linters failed.
 ## 
 ## ℹ Current status:
-## ✖ Hmmm, not quite there yet ...
+## ✖ Sorry about those failing checks ...
 ## 
 ## ℹ 'pkgcheck' version: 0.1.3.12
 ## 
