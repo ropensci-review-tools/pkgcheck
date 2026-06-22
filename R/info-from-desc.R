@@ -59,6 +59,12 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
     if (length (u) > 1) {
         u <- u [which (!grepl ("\\.io", u))]
     }
+    if (type == "URL" && grepl ("github\\.io", u, ignore.case = TRUE)) {
+        u <- pkginfo_url_from_desc (path, type = "BugReports")
+        if (grepl ("issues(\\/?)$", u)) {
+            u <- gsub ("issues(\\/?)$", "", u)
+        }
+    }
 
     u <- gsub (",|\\s+", "", u)
 
