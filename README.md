@@ -2,9 +2,9 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/ropensci-review-tools/pkgcheck/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/ropensci-review-tools/pkgcheck/branch/main/graph/badge.svg)](https://codecov.io/gh/ropensci-review-tools/pkgcheck)
+[![R-CMD-check](https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/ropensci-review-tools/pkgcheck/graph/badge.svg)](https://app.codecov.io/gh/ropensci-review-tools/pkgcheck)
 [![Project Status:
 Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
@@ -118,7 +118,7 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package name is available
 ## ✖ does not have a 'contributing' file.
@@ -128,6 +128,7 @@ summary (x)
 ## ✖ 'DESCRIPTION' does not have a BugReports field.
 ## ✖ Package has no HTML vignettes
 ## ✖ These functions do not have examples: [test_fn].
+## ✖ Repository has no website
 ## ✖ Package has no continuous integration checks.
 ## ✖ Package coverage failed
 ## ✖ Statistical standards should be documented in most package files, yet are mostly only documented in one file.
@@ -136,9 +137,9 @@ summary (x)
 ## ℹ Some goodpractice linters failed.
 ## 
 ## ℹ Current status:
-## ✖ Hmmm, not quite there yet ...
+## ✖ Sorry about those failing checks ...
 ## 
-## ℹ 'pkgcheck' version: 0.1.2.257
+## ℹ 'pkgcheck' version: 0.1.2.313
 ## 
 ```
 
@@ -161,13 +162,17 @@ perform before committing new functions and running a full `pkgcheck`:
 fn_names_on_cran (c ("min", "max"))
 ```
 
-    ##       package version fn_name
-    ## 1    matlab2r   1.5.0     max
-    ## 2    matlab2r   1.5.0     min
-    ## 3 rapportools     1.2     max
-    ## 4 rapportools     1.2     min
-    ## 5      mosaic   1.9.2     max
-    ## 6      mosaic   1.9.2     min
+    ##        package version fn_name
+    ## 1     matlab2r   1.5.0     max
+    ## 2     matlab2r   1.5.0     min
+    ## 3       mosaic   1.9.2     max
+    ## 4       mosaic   1.9.2     min
+    ## 5  rapportools     1.2     max
+    ## 6  rapportools     1.2     min
+    ## 7       tidyna   0.4.0     max
+    ## 8       tidyna   0.4.0     min
+    ## 9         base   4.5.2     max
+    ## 10        base   4.5.2     min
 
 ## The `pkgcheck` GitHub action
 
