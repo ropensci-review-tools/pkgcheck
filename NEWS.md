@@ -1,6 +1,8 @@
 # pkgcheck News
 
-## 0.1.3
+## 0.1.3.00x (current dev version)
+
+- Fix bug in sub-directory check
 
 ----
 

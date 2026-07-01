@@ -136,7 +136,9 @@ checks_to_markdown <- function (checks, render = FALSE) {
 get_subdir_text <- function (checks) {
 
     subdir_txt <- NULL
-    if (checks$pkg$path != checks$pkg$repo_path) {
+    path <- fs::path_abs (checks$pkg$path)
+    repo_path <- fs::path_abs (checks$pkg$repo_path)
+    if (!identical (path, repo_path)) {
         subdir <- fs::path_rel (checks$pkg$path, checks$pkg$repo_path)
         subdir_txt <- c ("", paste0 (
             "NOTE: R package is in the '",
