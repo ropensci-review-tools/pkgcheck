@@ -7,7 +7,8 @@ on:
       - main
   schedule:
      - cron: "0 0 * * 1"
-    
+  workflow_dispatch:
+
 name: docker
 
 jobs:
@@ -21,8 +22,9 @@ jobs:
 
     if: |
       github.event_name == 'schedule' ||
-      (github.event_name != 'schedule' &&
-      contains(github.event.head_commit.message, 'docker build'))
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' &&
+      contains(toJSON(github.event.commits), 'docker build'))
 
     steps:
 
