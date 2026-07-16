@@ -289,6 +289,7 @@ RUN install2.r \
   terra \
   tidymodels \
   tidyverse \
+  torch \
   xts \
   zoo
 
@@ -315,6 +316,9 @@ RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api
 # arrow docs suggest this shouldn't be needed, but s3
 # support doesn't work without re-install/compile:
 RUN Rscript -e 'arrow::install_arrow()'
+
+# Other general-purpose installation commands:
+RUN Rscript -e 'torch::install_torch()'
 
 # Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
 # need to reinstall both 'sf' and 'terra' without bspm:
