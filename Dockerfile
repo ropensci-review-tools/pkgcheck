@@ -289,6 +289,7 @@ RUN install2.r \
   terra \
   tidymodels \
   tidyverse \
+  torch \
   xts \
   zoo
 
@@ -317,10 +318,7 @@ RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api
 RUN Rscript -e 'arrow::install_arrow()'
 
 # Other general-purpose installation commands:
-# torch requires LibTorch to be installed within the image,
-# otherwise package builds and tests fail. See kindling #784:
-RUN install2.r torch && \
-  Rscript -e 'torch::install_torch()'
+RUN Rscript -e 'torch::install_torch()'
 
 # Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
 # need to reinstall both 'sf' and 'terra' without bspm:
