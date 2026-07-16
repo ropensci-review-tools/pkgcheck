@@ -316,6 +316,12 @@ RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api
 # support doesn't work without re-install/compile:
 RUN Rscript -e 'arrow::install_arrow()'
 
+# Other general-purpose installation commands:
+# torch requires LibTorch to be installed within the image,
+# otherwise package builds and tests fail. See kindling #784:
+RUN install2.r torch && \
+  Rscript -e 'torch::install_torch()'
+
 # Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
 # need to reinstall both 'sf' and 'terra' without bspm:
 RUN Rscript -e 'bspm::disable();install.packages(c("sf","terra"));bspm::enable()'
