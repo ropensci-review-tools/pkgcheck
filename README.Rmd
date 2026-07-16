@@ -284,6 +284,7 @@ project, you agree to abide by its terms.
 
 
 
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -341,6 +342,12 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 
 
 <tr>
+<td align="center">
+<a href="https://github.com/AntoineSoetewey">
+<img src="https://avatars.githubusercontent.com/u/17910063?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=AntoineSoetewey">AntoineSoetewey</a>
+</td>
 <td align="center">
 <a href="https://github.com/JesseAlderliesten">
 <img src="https://avatars.githubusercontent.com/u/59017087?v=4" width="100px;" alt=""/>
