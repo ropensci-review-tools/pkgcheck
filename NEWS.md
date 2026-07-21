@@ -2,7 +2,7 @@
 
 ## 0.1.3.00x (current dev version)
 
-## Minor changes
+### Minor changes
 
 - Fix bug in sub-directory check
 - Update network plot to align with new pkgstats d3.js plots (pkgstats#118)
