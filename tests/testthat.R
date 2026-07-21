@@ -1,6 +1,5 @@
 library (testthat)
 library (pkgcheck)
-library (visNetwork)
 
 options (repos = c (
     ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
