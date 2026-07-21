@@ -1,6 +1,6 @@
 Package: pkgcheck
 Title: rOpenSci Package Checks
-Version: 0.1.3.008
+Version: 0.1.3.009
 Authors@R: c(
     person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2172-5265")),
@@ -53,7 +53,6 @@ Suggests:
     pkgbuild,
     roxygen2,
     testthat (>= 3.0.0),
-    visNetwork,
     xfun
 VignetteBuilder: 
     knitr

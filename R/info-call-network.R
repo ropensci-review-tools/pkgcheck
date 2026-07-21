@@ -1,8 +1,7 @@
-
 #' Plot function call network from \pkg{pkgstats} objects
 #'
 #' @param s Result of \pkg{pkgstats} call
-#' @return Local path to 'visjs' HTML diagram of call network.
+#' @return Local path to 'd3js' HTML diagram of call network.
 #' @noRd
 fn_call_network <- function (s) {
 
@@ -10,51 +9,33 @@ fn_call_network <- function (s) {
         return (NULL)
     }
 
-    visjs_dir <- fs::path (
+    d3js_dir <- fs::path (
         Sys.getenv ("PKGCHECK_CACHE_DIR"),
         "static"
     )
-    if (!dir.exists (visjs_dir)) {
-        dir.create (visjs_dir, recursive = TRUE)
+    if (!dir.exists (d3js_dir)) {
+        dir.create (d3js_dir, recursive = TRUE)
     }
 
-    visjs_file <- paste0 (
+    d3js_file <- paste0 (
         s$out$name,
         "_pkgstats",
         substring (s$out$git$HEAD, 1, 8),
         ".html"
     )
-    visjs_path <- fs::path (visjs_dir, visjs_file)
+    d3js_path <- fs::path (d3js_dir, d3js_file)
 
     # clean up any older ones
     flist <- list.files (
-        visjs_dir,
+        d3js_dir,
         pattern = paste0 (s$out$package, "_pkgstats"),
         full.names = TRUE
     )
 
-    if (!visjs_path %in% flist) {
+    if (!d3js_path %in% flist) {
         unlink (flist, recursive = TRUE)
-        pkgstats::plot_network (s$stats, vis_save = visjs_path)
-        # visNetwork renames the generic `lib` folder to the specific name, so
-        # needs to be cleaned up:
-        flist <- list.files (
-            visjs_dir,
-            pattern = paste0 (s$out$package, "_pkgstats"),
-            full.names = TRUE
-        )
-        libdir <- flist [which (dir.exists (flist))]
-        if (!"lib" %in% list.files (visjs_dir)) {
-            if (length (libdir) > 0) {
-                libdir <- libdir [1]
-                fpath <- fs::path (libdir, "..")
-                newlibdir <- fs::path (fs::path_norm (fpath), "lib")
-                file.rename (libdir, newlibdir)
-            }
-        } else {
-            unlink (libdir)
-        }
+        pkgstats::plot_network (s$stats, vis_save = d3js_path)
     }
 
-    return (visjs_path)
+    return (d3js_path)
 }
