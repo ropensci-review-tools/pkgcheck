@@ -318,7 +318,17 @@ RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api
 RUN Rscript -e 'arrow::install_arrow()'
 
 # Other general-purpose installation commands:
-RUN Rscript -e 'torch::install_torch()'
+# torch::install_torch() has segfaulted at process exit on the rOpenSci
+# build server even when the installation itself completed
+# (ropensci/software-review#784). Tolerate an exit-time crash so a completed
+# installation is not discarded with the layer; the sitrep layer records the
+# resulting state in the build log; and TORCH_INSTALL=1 lets torch install
+# itself at first load in case the files really are missing.
+ENV TORCH_INSTALL "1"
+RUN Rscript -e 'torch::install_torch()' \
+    || echo "WARNING: install_torch() exited non-zero; relying on TORCH_INSTALL=1 fallback"
+RUN Rscript -e 'torch::install_torch_sitrep()' \
+    || echo "WARNING: install_torch_sitrep() exited non-zero"
 
 # Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
 # need to reinstall both 'sf' and 'terra' without bspm:
