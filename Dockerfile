@@ -261,6 +261,8 @@ ENV ROPENSCI "true"
 
 # cmdstan path
 ENV CMDSTAN_PATH "/root/.cmdstan"
+# https://github.com/ropensci-review-tools/pkgcheck/pull/397
+ENV TORCH_INSTALL "1"
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
