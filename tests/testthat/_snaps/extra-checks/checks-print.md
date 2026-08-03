@@ -86,7 +86,6 @@ x remove or use internal functions that are defined but never called. Dead code
 
     'R/ctags-test.R:142'
     'R/ctags-test.R:150'
-    'R/onload.R:2'
 
 x add a 'README.md' (or 'README.Rmd') file to the top-level directory. A good
   README describes what the package does, how to install it, and includes a
