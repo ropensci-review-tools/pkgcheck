@@ -115,9 +115,10 @@ gp_checks_to_md <- function (checks,
     gp <- extract_gp_components (checks$goodpractice)
 
 
+    sec_num <- 3L + "srr" %in% names (checks$info)
     c (
         "",
-        "#### 3b. `goodpractice` results",
+        paste0 ("#### ", sec_num, "b. `goodpractice` results"),
         "",
         "",
         convert_gp_components (gp, control = control),

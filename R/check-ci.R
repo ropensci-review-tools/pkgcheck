@@ -47,8 +47,10 @@ output_pkgchk_ci <- function (checks) {
             has_badges <- !is.na (checks$info$badges [1])
         }
 
+        # Sec. num = 3 for standard, but 4 for stats packages:
+        sec_num <- 3L + "srr" %in% names (checks$info)
         out$print <- c (
-            "#### 3a. Continuous Integration Badges",
+            paste0 ("#### ", sec_num, "a. Continuous Integration Badges"),
             "",
             unlist (checks$info$badges),
             ""

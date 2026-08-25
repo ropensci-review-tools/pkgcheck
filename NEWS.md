@@ -6,6 +6,7 @@
 
 - Fix bug in sub-directory check
 - Update network plot to align with new pkgstats d3.js plots (pkgstats#118)
+- Fix goodpractice section numbering for srr pkgs (#400; thanks to @adamhsparks)
 
 ----
 
