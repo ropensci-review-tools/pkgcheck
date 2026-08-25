@@ -7,6 +7,7 @@
 - Fix bug in sub-directory check
 - Update network plot to align with new pkgstats d3.js plots (pkgstats#118)
 - Fix goodpractice section numbering for srr pkgs (#400; thanks to @adamhsparks)
+- Wrap markdown-rendered gp Roxygen2 tags in backticks to avoid pinging on GitHub (#402; thanks to @adamhsparks).
 
 ----
 

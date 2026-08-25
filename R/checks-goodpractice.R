@@ -557,6 +557,7 @@ other_report <- function (x) {
 
     failed_checks <- names (x$other)
     failed_descs <- goodpractice::describe_check (failed_checks)
+    failed_descs <- gsub ("(@[[:alpha:]]+)", "`\\1`", failed_descs)
     if (length (failed_checks) == 0L) {
         return (NULL)
     }
