@@ -46,8 +46,8 @@ checks <- ps$get_result ()
 }
 }
 \seealso{
-Other pkgcheck_fns: 
-\code{\link{pkgcheck}()},
-\code{\link{print.pkgcheck}()}
+Other pkgcheck_fns:
+\code{\link[=pkgcheck]{pkgcheck()}},
+\code{\link[=print.pkgcheck]{print.pkgcheck()}}
 }
 \concept{pkgcheck_fns}

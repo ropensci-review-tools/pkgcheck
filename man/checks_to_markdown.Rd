@@ -26,10 +26,10 @@ md <- checks_to_markdown (checks, render = TRUE) # HTML version
 }
 }
 \seealso{
-Other extra: 
-\code{\link{fn_names_on_cran}()},
-\code{\link{list_pkgchecks}()},
-\code{\link{logfile_names}()},
-\code{\link{render_md2html}()}
+Other extra:
+\code{\link[=fn_names_on_cran]{fn_names_on_cran()}},
+\code{\link[=list_pkgchecks]{list_pkgchecks()}},
+\code{\link[=logfile_names]{logfile_names()}},
+\code{\link[=render_md2html]{render_md2html()}}
 }
 \concept{extra}
