@@ -33,9 +33,9 @@ commit <- get_latest_commit (org, repo)
 }
 }
 \seealso{
-Other github: 
-\code{\link{get_default_github_branch}()},
-\code{\link{get_gh_token}()},
-\code{\link{use_github_action_pkgcheck}()}
+Other github:
+\code{\link[=get_default_github_branch]{get_default_github_branch()}},
+\code{\link[=get_gh_token]{get_gh_token()}},
+\code{\link[=use_github_action_pkgcheck]{use_github_action_pkgcheck()}}
 }
 \concept{github}

@@ -1,6 +1,12 @@
 # pkgcheck News
 
-## 0.1.3.00x (current dev version)
+## 0.2.0.00x (current dev version)
+
+### Major changes
+
+- Removed all `remotes` deps on other `ropensci-review-tools` pkgs in preparation for CRAN release
+
+## 0.1.3
 
 ### Minor changes
 
