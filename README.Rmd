@@ -30,7 +30,7 @@ function immediately indicates whether or not a package is "Ready to Submit".
 ## Installation
 
 The easiest way to install this package is via the [associated
-`r-universe`](https://ropensci-review-tools.r-universe.dev/ui#builds). As
+`r-universe`](https://ropensci-review-tools.r-universe.dev/#builds). As
 shown there, simply enable the universe with
 
 ```{r options, eval = FALSE}
@@ -77,7 +77,7 @@ also requires the system libraries [`ctags`](https://ctags.io) and [GNU
 install these libraries on various operating systems are described in a
 [`pkgstats`
 vignette](https://docs.ropensci.org/pkgstats/articles/installation.html). This
-package also uses the [GitHub GraphQL API](https://developer.github.com/v4)
+package also uses the [GitHub GraphQL API](https://docs.github.com/v4)
 which requires a local GitHub token to be stored with an unambiguous name
 including `GITHUB`, such as `GITHUB_TOKEN` (recommended), or `GITHUB_PAT` (for
 Personal Authorization Token). This can be obtained from GitHub (via your user
@@ -216,7 +216,7 @@ to your local clipboard with `write_clip(md)`, where `md` is the output of
 Running the [`pkgcheck`
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) can
 be time-consuming, primarily because the
-[`goodpractice`](https://docs.ropensci.org/goodpractice) component runs
+[`goodpractice`](https://docs.ropensci.org/goodpractice/) component runs
 both a full `R CMD check`, and calculates code coverage of all tests. To avoid
 re-generating these results each time, `pkgcheck` saves previous reports to
 a local cache directory defined in `Sys.getenv("PKGCHECK_CACHE_DIR")`.
@@ -250,7 +250,7 @@ returns a handle to the [`callr::r_bg()`
 process](https://callr.r-lib.org/reference/r_bg.html) in which the checks are
 running. Typing the name of the returned object will immediately indicate
 whether the checks are still running, or whether they have finished. That
-handle is itself an [`R6` object](http://r6.r-lib.org/) with a number of
+handle is itself an [`R6` object](https://r6.r-lib.org/) with a number of
 methods, notably including
 [`get_result()`](https://callr.r-lib.org/reference/get_result.html) which can
 be used to access the checks once the process has finished. Alternatively, as
