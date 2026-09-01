@@ -65,7 +65,7 @@ object, by convention named `checks`. This object is a list of four main items:
 
 `pkgcheck` objects generally also include a fifth item, `goodpractice`,
 containing the results of [`goodpractice`
-checks](https://github.com/MangoTheCat/goodpractice). The `checks` item passed
+checks](https://github.com/ropensci-review-tools/goodpractice). The `checks` item passed
 to each `pkgchk_...()` function contains all information on the `package`,
 `info`, `meta`, and (optionally) `goodpractice` items. Checks may use any of
 this information, or even add additional information as demonstrated below. The
@@ -79,7 +79,7 @@ used in any way within `pkgchk_...()` functions.
 
 This is the output of applying `pkgcheck` to a package generated with the
 [`srr` function
-`srr_stats_pkg_skeleton()`](https://docs.ropensci.org/srr/reference/srr_stats_pkg_skeleton.html),
+`srr_stats_pkg_skeleton()`](https://docs.ropensci.org/srr//reference/srr_stats_pkg_skeleton.html),
 with `goodpractice = FALSE` to suppress that part of the results.
 
 ```{r check_file, echo = FALSE}
@@ -459,7 +459,7 @@ the default value returned from the output function is first tested, and then
 the `checks` value is modified by,
 
 For checks which require either `goodpractice` or [`srr` (software review
-roclets)](https://docs.ropensci.org/srr) for statistical software, initial
+roclets)](https://docs.ropensci.org/srr/) for statistical software, initial
 check values should be constructed with an alternative helper function,
 `make_check_data_srr()`, which accepts an additional parameter, `goodpractice`,
 which can be specified as `FALSE` (default) or `TRUE` to return full
