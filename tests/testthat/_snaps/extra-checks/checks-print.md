@@ -16,7 +16,6 @@ x Package contains unexpected files.
 x Default GitHub branch of 'master' is not acceptable.
 v This is a statistical package which complies with all applicable standards
 v All authors have ORCID IDs
-x All examples use `\dontrun`.
 i Package depends on the following obsolete packages: [blah,sp]
 
 i Current status:
@@ -87,6 +86,7 @@ x remove or use internal functions that are defined but never called. Dead code
 
     'R/ctags-test.R:142'
     'R/ctags-test.R:150'
+    'R/onload.R:2'
 
 x add a 'README.md' (or 'README.Rmd') file to the top-level directory. A good
   README describes what the package does, how to install it, and includes a
