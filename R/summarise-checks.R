@@ -165,6 +165,7 @@ order_checks <- function (fns) {
         # additionally explicitly listed below in `watch_checks()`:
         "obsolete_pkg_deps",
         "unique_fn_names",
+        "uses_dontrun",
         "num_imports",
         "has_orcid",
         "has_ror"
