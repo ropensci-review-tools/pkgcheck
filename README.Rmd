@@ -11,16 +11,17 @@ output:
 # pkgcheck
 
 <!-- badges: start -->
-[![R build status](https://github.com/ropensci-review-tools/pkgcheck/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci-review-tools/pkgcheck/actions?query=workflow%3AR-CMD-check)
-[![codecov](https://codecov.io/gh/ropensci-review-tools/pkgcheck/branch/main/graph/badge.svg)](https://codecov.io/gh/ropensci-review-tools/pkgcheck)
+[![R-CMD-check](https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/ropensci-review-tools/pkgcheck/graph/badge.svg)](https://app.codecov.io/gh/ropensci-review-tools/pkgcheck)
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 Check whether a package is ready for submission to
-[rOpenSci](https://ropensci.org)'s peer review system. The primary function
+[rOpenSci](https://ropensci.org)'s peer review system. The primary function,
+[`pkgcheck()`](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html),
 collates the output of
-[`goodpractice`](https://github.com/ropensci-review-tools/goodpractice), including `R CMD
-check` results, a number of statistics via the [`pkgstats`
+[`goodpractice`](https://github.com/ropensci-review-tools/goodpractice),
+including `R CMD check` results, a number of statistics via the [`pkgstats`
 package](https://github.com/ropensci-review-tools/pkgstats), and checks for
 package structure expected for rOpenSci submissions. The output of this
 function immediately indicates whether or not a package is "Ready to Submit".
@@ -29,7 +30,7 @@ function immediately indicates whether or not a package is "Ready to Submit".
 ## Installation
 
 The easiest way to install this package is via the [associated
-`r-universe`](https://ropensci-review-tools.r-universe.dev/ui#builds). As
+`r-universe`](https://ropensci-review-tools.r-universe.dev/#builds). As
 shown there, simply enable the universe with
 
 ```{r options, eval = FALSE}
@@ -49,13 +50,19 @@ Alternatively, the package can be installed by first installing either the
 [remotes](https://remotes.r-lib.org) or [pak](https://pak.r-lib.org/) packages
 and running one of the following lines:
 
-
 ```{r remotes, eval = FALSE}
 remotes::install_github ("ropensci-review-tools/pkgcheck")
 pak::pkg_install ("ropensci-review-tools/pkgcheck")
 ```
 
-The package can then loaded for use with
+The package may also be installed from locations other than GitHub, with any of
+the following options:
+``` r
+remotes::install_git ("https://codeberg.org/ropensci-review-tools/pkgcheck")
+remotes::install_git ("https://codefloe.com/ropensci-review-tools/pkgcheck")
+```
+
+The package can then be loaded for use with:
 
 ```{r library, eval = FALSE}
 library (pkgcheck)
@@ -70,7 +77,7 @@ also requires the system libraries [`ctags`](https://ctags.io) and [GNU
 install these libraries on various operating systems are described in a
 [`pkgstats`
 vignette](https://docs.ropensci.org/pkgstats/articles/installation.html). This
-package also uses the [GitHub GraphQL API](https://developer.github.com/v4)
+package also uses the [GitHub GraphQL API](https://docs.github.com/v4)
 which requires a local GitHub token to be stored with an unambiguous name
 including `GITHUB`, such as `GITHUB_TOKEN` (recommended), or `GITHUB_PAT` (for
 Personal Authorization Token). This can be obtained from GitHub (via your user
@@ -209,9 +216,9 @@ to your local clipboard with `write_clip(md)`, where `md` is the output of
 Running the [`pkgcheck`
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) can
 be time-consuming, primarily because the
-[`goodpractice`](https://docs.ropensci.org/goodpractice) component runs
+[`goodpractice`](https://docs.ropensci.org/goodpractice/) component runs
 both a full `R CMD check`, and calculates code coverage of all tests. To avoid
-re-generating these results each time, the package saves previous reports to
+re-generating these results each time, `pkgcheck` saves previous reports to
 a local cache directory defined in `Sys.getenv("PKGCHECK_CACHE_DIR")`.
 
 You may manually erase the contents of this `pkgcheck` subdirectory at any time
@@ -243,7 +250,7 @@ returns a handle to the [`callr::r_bg()`
 process](https://callr.r-lib.org/reference/r_bg.html) in which the checks are
 running. Typing the name of the returned object will immediately indicate
 whether the checks are still running, or whether they have finished. That
-handle is itself an [`R6` object](http://r6.r-lib.org/) with a number of
+handle is itself an [`R6` object](https://r6.r-lib.org/) with a number of
 methods, notably including
 [`get_result()`](https://callr.r-lib.org/reference/get_result.html) which can
 be used to access the checks once the process has finished. Alternatively, as
@@ -252,9 +259,8 @@ soon as the background process, the normal (foreground)
 function](https://docs.ropensci.org/pkgcheck/reference/pkgcheck.html) may
 be called to quickly re-load the cached results.
 
-## Prior Work
-
-[The `checklist` package](https://github.com/inbo/checklist) for "checking
+## See Also
+[The `checklist` package](https://github.com/inbo/checklist) for "checking R
 packages and R code".
 
 ## Code of Conduct
@@ -264,6 +270,9 @@ Conduct](https://ropensci.org/code-of-conduct/). By contributing to this
 project, you agree to abide by its terms.
 
 ## Contributors
+
+
+
 
 
 
@@ -334,6 +343,18 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 
 <tr>
 <td align="center">
+<a href="https://github.com/AntoineSoetewey">
+<img src="https://avatars.githubusercontent.com/u/17910063?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=AntoineSoetewey">AntoineSoetewey</a>
+</td>
+<td align="center">
+<a href="https://github.com/JesseAlderliesten">
+<img src="https://avatars.githubusercontent.com/u/59017087?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=JesseAlderliesten">JesseAlderliesten</a>
+</td>
+<td align="center">
 <a href="https://github.com/kellijohnson-NOAA">
 <img src="https://avatars.githubusercontent.com/u/4108564?v=4" width="100px;" alt=""/>
 </a><br>
@@ -350,6 +371,12 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 <img src="https://avatars.githubusercontent.com/u/5583057?v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=annakrystalli">annakrystalli</a>
+</td>
+<td align="center">
+<a href="https://github.com/etiennebacher">
+<img src="https://avatars.githubusercontent.com/u/52219252?v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/commits?author=etiennebacher">etiennebacher</a>
 </td>
 </tr>
 
@@ -399,7 +426,7 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 </td>
 <td align="center">
 <a href="https://github.com/s3alfisc">
-<img src="https://avatars.githubusercontent.com/u/19531450?u=26be80705a31079d973246c98bf3b26d9131e7d3&v=4" width="100px;" alt=""/>
+<img src="https://avatars.githubusercontent.com/u/19531450?u=c8eeb926eb3de9d4d7ebb8a1f642bbd3cb2ad036&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3As3alfisc">s3alfisc</a>
 </td>
@@ -465,12 +492,6 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Asimpar1471">simpar1471</a>
 </td>
-<td align="center">
-<a href="https://github.com/etiennebacher">
-<img src="https://avatars.githubusercontent.com/u/52219252?u=66331618d799d2d4567ecab2812236c9928be368&v=4" width="100px;" alt=""/>
-</a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+author%3Aetiennebacher">etiennebacher</a>
-</td>
 </tr>
 
 </table>
@@ -482,28 +503,22 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 
 <tr>
 <td align="center">
-<a href="https://github.com/ddbortoli">
-<img src="https://avatars.githubusercontent.com/u/25244497?v=4" width="100px;" alt=""/>
-</a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Addbortoli">ddbortoli</a>
-</td>
-<td align="center">
 <a href="https://github.com/dgkf">
 <img src="https://avatars.githubusercontent.com/u/18220321?u=bef717254e5b877159fa712e2b8ad6952c816064&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Adgkf">dgkf</a>
 </td>
 <td align="center">
-<a href="https://github.com/cboettig">
-<img src="https://avatars.githubusercontent.com/u/222586?u=dfbe54d3b4d538dc2a8c276bb5545fdf4684752f&v=4" width="100px;" alt=""/>
-</a><br>
-<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Acboettig">cboettig</a>
-</td>
-<td align="center">
 <a href="https://github.com/jhollist">
 <img src="https://avatars.githubusercontent.com/u/5438539?u=d4dbc2c80f13d256cefd941f9e07fa87fcc0425a&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Ajhollist">jhollist</a>
+</td>
+<td align="center">
+<a href="https://github.com/cboettig">
+<img src="https://avatars.githubusercontent.com/u/222586?u=dfbe54d3b4d538dc2a8c276bb5545fdf4684752f&v=4" width="100px;" alt=""/>
+</a><br>
+<a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Acboettig">cboettig</a>
 </td>
 <td align="center">
 <a href="https://github.com/PietrH">
@@ -519,20 +534,20 @@ All contributions to this project are gratefully acknowledged using the [`allcon
 </td>
 <td align="center">
 <a href="https://github.com/bnicenboim">
-<img src="https://avatars.githubusercontent.com/u/5982330?u=ec5543c6d11255fd330fc03f5880a1d7bdefadd7&v=4" width="100px;" alt=""/>
+<img src="https://avatars.githubusercontent.com/u/5982330?u=1dabd202aad78990856de7259581f39470577168&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Abnicenboim">bnicenboim</a>
 </td>
-</tr>
-
-
-<tr>
 <td align="center">
 <a href="https://github.com/laijasmine">
 <img src="https://avatars.githubusercontent.com/u/13112379?u=3aac9303e17f9a8d356f1c9f37c6cc3a218f9433&v=4" width="100px;" alt=""/>
 </a><br>
 <a href="https://github.com/ropensci-review-tools/pkgcheck/issues?q=is%3Aissue+commenter%3Alaijasmine">laijasmine</a>
 </td>
+</tr>
+
+
+<tr>
 <td align="center">
 <a href="https://github.com/b-rodrigues">
 <img src="https://avatars.githubusercontent.com/u/2998834?u=815e6c1eedc0305ca7a62a89293efbe488583fce&v=4" width="100px;" alt=""/>

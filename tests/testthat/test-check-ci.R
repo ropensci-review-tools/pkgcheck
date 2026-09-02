@@ -23,8 +23,8 @@ test_that ("check ci", {
 
     skip_on_os ("mac")
 
-    i <- grep ("CMD", checks$info$github_workflows$name)
-    checks$info$github_workflows$conclusion [i] <- "fail"
+    i <- grep ("CMD", checks$info$github$workflows$name)
+    checks$info$github$workflows$conclusion [i] <- "fail"
     ci_out <- output_pkgchk_ci (checks)
     expect_false (ci_out$check_pass)
     expect_equal (
@@ -59,7 +59,7 @@ test_that ("check ci", {
     expect_length (ci_out$print, 1L)
     expect_true (!nzchar (ci_out$print))
 
-    checks$info$github_workflows$conclusion <- "success"
+    checks$info$github$workflows$conclusion <- "success"
     ci_out <- output_pkgchk_ci (checks)
     expect_true (ci_out$check_pass)
     expect_equal (

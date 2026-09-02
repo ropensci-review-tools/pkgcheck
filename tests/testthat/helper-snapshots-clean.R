@@ -71,6 +71,11 @@ edit_markdown <- function (md, print_method = FALSE) {
         md <- md [-index]
     }
 
+    # The 'on_cran' check in "extra-checks" makes direct calls to
+    # cran.r-project.org which can fail, and then render unpredictable results.
+    i <- grep ("(Package\\sname\\sis)|(Package\\s\\is\\already)", md)
+    md [i] <- "Package is already on CRAN"
+
     # and for some reason, the covr environment pulls in an extra external
     # package which must be removed to align snapshots:
     i <- grep ("\\|mgcv", md)

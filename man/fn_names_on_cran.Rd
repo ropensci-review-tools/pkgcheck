@@ -25,10 +25,10 @@ fn_names_on_cran (c ("min", "max"))
 
 }
 \seealso{
-Other extra: 
-\code{\link{checks_to_markdown}()},
-\code{\link{list_pkgchecks}()},
-\code{\link{logfile_names}()},
-\code{\link{render_md2html}()}
+Other extra:
+\code{\link[=checks_to_markdown]{checks_to_markdown()}},
+\code{\link[=list_pkgchecks]{list_pkgchecks()}},
+\code{\link[=logfile_names]{logfile_names()}},
+\code{\link[=render_md2html]{render_md2html()}}
 }
 \concept{extra}

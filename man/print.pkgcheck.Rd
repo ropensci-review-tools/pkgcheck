@@ -28,8 +28,8 @@ summary (checks) # print summary only
 }
 }
 \seealso{
-Other pkgcheck_fns: 
-\code{\link{pkgcheck}()},
-\code{\link{pkgcheck_bg}()}
+Other pkgcheck_fns:
+\code{\link[=pkgcheck]{pkgcheck()}},
+\code{\link[=pkgcheck_bg]{pkgcheck_bg()}}
 }
 \concept{pkgcheck_fns}

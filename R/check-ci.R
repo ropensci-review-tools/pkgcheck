@@ -4,11 +4,12 @@ output_pkgchk_ci <- function (checks) {
 
     has_badges <- length (checks$info$badges) > 0L
     check_pass <- has_workflows <- FALSE
-    if (length (checks$info$github_workflows) > 0L) {
-        wf <- checks$info$github_workflows
-        i <- grep ("check|cmd", wf$name, ignore.case = TRUE)
+    if (length (checks$info$github$workflows) > 0L) {
+        wf <- checks$info$github$workflows
+        # Exclude 'pkgcheck' workflow to avoid recursive failure:
+        i <- grep ("cmd|coverage", wf$name, ignore.case = TRUE)
         has_workflows <- length (i) > 0L
-        check_pass <- any (wf$conclusion [i] == "success")
+        check_pass <- all (wf$conclusion [i] == "success")
         check_pass <- ifelse (is.na (check_pass), FALSE, check_pass)
     }
 
@@ -46,19 +47,21 @@ output_pkgchk_ci <- function (checks) {
             has_badges <- !is.na (checks$info$badges [1])
         }
 
+        # Sec. num = 3 for standard, but 4 for stats packages:
+        sec_num <- 3L + "srr" %in% names (checks$info)
         out$print <- c (
-            "#### 3a. Continuous Integration Badges",
+            paste0 ("#### ", sec_num, "a. Continuous Integration Badges"),
             "",
             unlist (checks$info$badges),
             ""
         )
 
-        if (!is.null (checks$info$github_workflows)) {
+        if (!is.null (checks$info$github$workflows)) {
             out$print <- c (
                 out$print,
                 "**GitHub Workflow Results**",
                 "",
-                knitr::kable (checks$info$github_workflows)
+                knitr::kable (checks$info$github$workflows)
             )
         }
     }

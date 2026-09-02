@@ -45,8 +45,8 @@ summary (checks)
 }
 }
 \seealso{
-Other pkgcheck_fns: 
-\code{\link{pkgcheck_bg}()},
-\code{\link{print.pkgcheck}()}
+Other pkgcheck_fns:
+\code{\link[=pkgcheck_bg]{pkgcheck_bg()}},
+\code{\link[=print.pkgcheck]{print.pkgcheck()}}
 }
 \concept{pkgcheck_fns}

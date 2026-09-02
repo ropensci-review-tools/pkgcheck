@@ -35,73 +35,116 @@ output_pkgchk_srr_okay <- function (checks) {
     return (out)
 }
 
-output_pkgchk_srr_todo <- function (checks) {
+# --------------------------------------
+# START Template function generator for 'output_pkgchk_srr_...' functions
+#
+# This is applied to 4 distinct functions:
+#   1. output_pkgchk_srr_todo()
+#   2. output_pkgchk_srr_missing()
+#   3. output_pkgchk_srr_most_in_one_file()
+#   4. output_pkgchk_srr_general_only()
+# --------------------------------------
 
-    out <- list (
-        check_pass = !any (grepl (
-            "still has TODO standards",
-            checks$info$srr$message
-        )),
-        summary = grep ("still has TODO standards",
-            checks$info$srr$message,
-            value = TRUE
-        ),
-        print = ""
-    )
+generate_srr_output <- function (checks,
+                                 regex_ptn,
+                                 fixed = FALSE,
+                                 invert = FALSE,
+                                 summary_ptn) {
 
-    return (out)
-}
-
-output_pkgchk_srr_missing <- function (checks) {
-
-    srr <- checks$info$srr
-
-    check_pass <- !any (grepl (
-        "following standards \\[v.*\\] are missing",
-        srr$message
+    check_pass <- any (grepl (
+        regex_ptn, checks$info$srr$message,
+        fixed = fixed
     ))
-
-    out <- list (
-        check_pass = check_pass,
-        summary = "",
-        print = ""
-    )
-
-    if (!out$check_pass) {
-        out$summary <- "Some statistical standards are missing"
+    if (invert) {
+        check_pass <- !check_pass
     }
 
-    return (out)
-}
-
-output_pkgchk_srr_most_in_one_file <- function (checks) {
-
-    srr <- checks$info$srr
-
-    warn_msg <- "should be documented in"
-    check_pass <- !any (grepl (warn_msg, srr$message))
-
-    out <- list (
+    list (
         check_pass = check_pass,
-        summary = grep (warn_msg, srr$message, value = TRUE),
+        summary = ifelse (check_pass, "", summary_ptn),
         print = ""
     )
-
-    return (out)
 }
+
+output_pkgchk_srr_todo <- function (checks,
+                                    regex_ptn = "still has TODO standards",
+                                    fixed = TRUE,
+                                    summary_ptn = grep (
+                                        "still has TODO standards",
+                                        checks$info$srr$message,
+                                        value = TRUE
+                                    )) {
+
+    generate_srr_output (
+        checks,
+        regex_ptn = regex_ptn,
+        fixed = fixed,
+        invert = TRUE,
+        summary_ptn = summary_ptn
+    )
+}
+
+output_pkgchk_srr_missing <- function (checks,
+                                       regex_ptn = "following\\sstandards\\s\\[v.*\\]\\sare\\smissing",
+                                       fixed = FALSE,
+                                       summary_ptn = "Some statistical standards are missing") {
+    generate_srr_output (
+        checks,
+        regex_ptn = regex_ptn,
+        fixed = fixed,
+        invert = TRUE,
+        summary_ptn = summary_ptn
+    )
+}
+
+output_pkgchk_srr_most_in_one_file <- function (checks,
+                                                regex_ptn = "should be documented in",
+                                                fixed = TRUE,
+                                                summary_ptn = grep (
+                                                    "should be documented in",
+                                                    checks$info$srr$message,
+                                                    fixed = TRUE,
+                                                    value = TRUE
+                                                )) {
+    generate_srr_output (
+        checks,
+        regex_ptn = regex_ptn,
+        fixed = fixed,
+        invert = TRUE,
+        summary_ptn = summary_ptn
+    )
+}
+
+output_pkgchk_srr_general_only <- function (checks,
+                                            regex_ptn = "documents compliance only with general standards",
+                                            fixed = TRUE,
+                                            summary_ptn = "Package documents compliance only with general 'srr' standards") {
+    generate_srr_output (
+        checks,
+        regex_ptn = regex_ptn,
+        fixed = fixed,
+        invert = TRUE,
+        summary_ptn = summary_ptn
+    )
+}
+
+# --------------------------------------
+# END Template function generator for 'output_pkgchk_srr_...' functions
+# --------------------------------------
 
 print_srr <- function (x) {
 
     cli::cli_h2 ("rOpenSci Statistical Standards")
     ncats <- length (x$info$srr$categories) # nolint
-    cli::cli_alert_info ("The package is in the following {ncats} categor{?y/ies}:") # nolint
-    cli::cli_li (x$info$srr$categories)
-    cli::cli_text ("")
+    if (ncats > 0L) {
+        cli::cli_alert_info ("The package is in the following {ncats} categor{?y/ies}:") # nolint
+        cli::cli_li (x$info$srr$categories)
+        cli::cli_text ("")
+    }
     cli::cli_alert_info ("Compliance with rOpenSci statistical standards:")
 
-    while (!nzchar (x$info$srr$message [1])) {
-        x$info$srr$message <- x$info$srr$message [-1]
-    }
+    x$info$srr$message <-
+        x$info$srr$message [which (nzchar (x$info$srr$message))]
 
     if (x$info$srr$okay) {
         cli::cli_alert_success (x$info$srr$message)

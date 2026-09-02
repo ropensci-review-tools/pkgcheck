@@ -2,8 +2,7 @@
 
 git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 
-- :heavy_check_mark: Package name is available
-- :heavy_multiplication_x: does not have a 'codemeta.json' file.
+- :heavy_check_mark: Package is already on CRAN.
 - :heavy_multiplication_x: does not have a 'contributing' file.
 - :heavy_multiplication_x: The following functions have no documented return values: [ctags_install, desc_stats, rd_stats, tags_data]
 - :heavy_check_mark: uses 'roxygen2'.
@@ -11,13 +10,14 @@ git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 - :heavy_check_mark: 'DESCRIPTION' has a BugReports field.
 - :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].
+- :heavy_check_mark: Repository has a website
 - :heavy_check_mark:  Package has continuous integration checks, but no badges on README
+- :heavy_check_mark: All goodpractice linters passed.
 - :heavy_multiplication_x: Package contains unexpected files.
 - :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
 - :heavy_check_mark: This is a statistical package which complies with all applicable standards
 - :heavy_check_mark: All authors have ORCID IDs
 - :heavy_multiplication_x: All examples use `\dontrun{}`.
-- :eyes: Some goodpractice linters failed.
 - :eyes: Package depends on the following obsolete packages: [blah,sp]
 
 **Important:** All failing checks above must be addressed prior to proceeding
@@ -105,7 +105,7 @@ The package has:
 - no internal data file
 - 9 imported packages
 - 11 exported functions (median 43 lines of code)
-- 120 non-exported functions in R (median 21 lines of code)
+- 53 non-exported functions in R (median 14 lines of code)
 - 12 R functions (median 16 lines of code)
 
 ---
@@ -132,22 +132,22 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 |loc_src                 |   277|       34.4|           |
 |loc_tests               |   266|       61.0|           |
 |num_vignettes           |     0|        0.0|TRUE       |
-|n_fns_r                 |   131|       82.3|           |
+|n_fns_r                 |    64|       64.5|           |
 |n_fns_r_exported        |    11|       49.4|           |
-|n_fns_r_not_exported    |   120|       86.6|           |
+|n_fns_r_not_exported    |    53|       69.2|           |
 |n_fns_src               |    12|       42.5|           |
-|n_fns_per_file_r        |     4|       59.9|           |
+|n_fns_per_file_r        |     4|       58.0|           |
 |n_fns_per_file_src      |     4|       47.5|           |
 |num_params_per_fn       |     1|        1.7|TRUE       |
-|loc_per_fn_r            |    23|       66.5|           |
+|loc_per_fn_r            |    17|       52.5|           |
 |loc_per_fn_r_exp        |    43|       75.4|           |
-|loc_per_fn_r_not_exp    |    22|       67.4|           |
+|loc_per_fn_r_not_exp    |    14|       46.9|           |
 |loc_per_fn_src          |    16|       56.9|           |
 |rel_whitespace_R        |    19|       88.6|           |
 |rel_whitespace_src      |    24|       44.2|           |
 |rel_whitespace_tests    |    27|       64.5|           |
 |doclines_per_fn_exp     |    31|       36.1|           |
-|doclines_per_fn_not_exp |     0|        0.0|TRUE       |
+|doclines_per_fn_not_exp |     3|      100.0|TRUE       |
 |fn_call_network_size    |   111|       80.8|           |
 
 ---

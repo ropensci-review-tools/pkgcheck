@@ -122,7 +122,6 @@ RUN apt-get update -qq && apt-get install -y \
 RUN apt-get update -qq && apt-get install -y \
     apt-utils \
     build-essential \
-    cargo \
     cmake \
     coinor-libcbc-dev  \
     coinor-libsymphony-dev \
@@ -206,6 +205,7 @@ RUN apt-get update -qq && apt-get install -y \
     python3-venv \
     r-base-dev \
     r-cran-rjava \
+    rustup \
     tesseract-ocr-eng \
     texlive-fonts-extra \
     texlive-fonts-recommended \
@@ -247,18 +247,22 @@ RUN wget https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh \
     && bash jill.sh -y \
     && rm jill.sh
 
+# Use rustup to install cargo; newer version than std apt version
+RUN rustup default stable
 
 # https://arrow.apache.org/docs/r/articles/install.html#s3-support
 ENV ARROW_S3="ON"
 
 # ropensci-review-tools/pkgcheck/issues/134:
-#ENV R_REMOTES_UPGRADE="always"
+#ENV R_REMOTES_UPGRADE "always"
 ENV NOT_CRAN="true"
 ENV CI="true"
 ENV ROPENSCI="true"
 
 # cmdstan path
 ENV CMDSTAN_PATH="/root/.cmdstan"
+# https://github.com/ropensci-review-tools/pkgcheck/pull/397
+ENV TORCH_INSTALL="1"
 
 # A selection of R packages, including extra stats packages
 RUN install2.r \
@@ -287,6 +291,7 @@ RUN install2.r \
   terra \
   tidymodels \
   tidyverse \
+  torch \
   xts \
   zoo
 
@@ -307,19 +312,24 @@ RUN Rscript -e 'reticulate::virtualenv_create()'
 # Extra python packages:
 # ---- Authors: Please submit PRs which insert extra python requirements here,
 # ----  followed by package name and "#<ropensci/software-review issue number>":
-RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api # rgeeExtra #608
+# See rgeeExtra #608 for this one:
+RUN /root/.virtualenvs/r-reticulate/bin/pip install earthengine-api
 
 # arrow docs suggest this shouldn't be needed, but s3
 # support doesn't work without re-install/compile:
 RUN Rscript -e 'arrow::install_arrow()'
+
+# Other general-purpose installation commands:
+RUN Rscript -e 'torch::install_torch()'
 
 # Plus current ubuntu-unstable versions cause failed linkage of sf to GEOS, so
 # need to reinstall both 'sf' and 'terra' without bspm:
 RUN Rscript -e 'bspm::disable();install.packages(c("sf","terra"));bspm::enable()'
 
 # Quarto binary:
-RUN wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.40/quarto-1.6.40-linux-amd64.tar.gz \
-    && mkdir ~/opt \
-    && tar -C ~/opt -xvzf quarto-1.6.40-linux-amd64.tar.gz \
-    && ln -s ~/opt/quarto-1.6.40/bin/quarto /usr/local/bin/quarto \
-    && rm quarto-1.6.40-linux-amd64.tar.gz
+RUN QUARTO_VERSION=$(curl -s https://api.github.com/repos/quarto-dev/quarto-cli/releases/latest | grep '"tag_name"' | sed -E 's/.*"tag_name": *"(v[^"]+)".*/\1/') \
+    && wget https://github.com/quarto-dev/quarto-cli/releases/download/${QUARTO_VERSION}/quarto-${QUARTO_VERSION#v}-linux-amd64.tar.gz \
+    && mkdir -p ~/opt \
+    && tar -C ~/opt -xvzf quarto-${QUARTO_VERSION#v}-linux-amd64.tar.gz \
+    && ln -s ~/opt/quarto-${QUARTO_VERSION#v}/bin/quarto /usr/local/bin/quarto \
+    && rm quarto-${QUARTO_VERSION#v}-linux-amd64.tar.gz

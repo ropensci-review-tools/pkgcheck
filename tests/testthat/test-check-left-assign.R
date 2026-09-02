@@ -1,7 +1,3 @@
-# paths sometimes fail on windows/mac
-skip_on_os ("windows")
-skip_on_os ("mac")
-
 test_all <- identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
     identical (Sys.getenv ("GITHUB_JOB"), "test-coverage")
 

@@ -18,8 +18,13 @@ test_that ("pkgcheck", {
         )
     )
 
-    checks0 <- make_check_data_srr (goodpractice = FALSE)
-    checks1 <- make_check_data_srr (goodpractice = TRUE)
+    # Call the internal function shere to avoid re-loading memoised versions:
+    checks0 <- make_check_data_srr_internal (
+        goodpractice = FALSE, cleanup = FALSE
+    )
+    checks1 <- make_check_data_srr_internal (
+        goodpractice = TRUE, cleanup = FALSE
+    )
 
     expect_s3_class (checks0, "pkgcheck")
     expect_s3_class (checks1, "pkgcheck")
@@ -27,7 +32,7 @@ test_that ("pkgcheck", {
     items <- c ("pkg", "info", "checks", "meta", "goodpractice")
     expect_named (checks0, items)
     expect_named (checks1, items)
-    gp_items_false <- c ("lintr", "description", "namespace")
+    gp_items_false <- c ("description", "namespace")
     gp_items_true <- c ("covr", "cyclocomp", "rcmdcheck")
     expect_true (all (gp_items_false %in% names (checks0$goodpractice)))
     expect_false (any (gp_items_true %in% names (checks0$goodpractice)))
@@ -36,8 +41,8 @@ test_that ("pkgcheck", {
 
     items <- c (
         "name", "path", "version", "url", "BugReports",
-        "license", "summary", "dependencies", "external_calls",
-        "external_fns"
+        "license", "summary", "dependencies", "repo_path",
+        "external_calls", "external_fns"
     )
     expect_named (checks0$pkg, items)
     expect_named (checks1$pkg, items)
@@ -46,6 +51,7 @@ test_that ("pkgcheck", {
         "badges",
         "fn_names",
         "git",
+        "github",
         "network_file",
         "pkgdown_concepts",
         "pkgstats",
@@ -100,4 +106,6 @@ test_that ("pkgcheck", {
     testthat::expect_snapshot_file (f_html1)
 
     fs::file_delete (c (f_md0, f_md1, f_html0, f_html1))
+    fs::dir_delete (checks0$pkg$path)
+    fs::dir_delete (checks1$pkg$path)
 })

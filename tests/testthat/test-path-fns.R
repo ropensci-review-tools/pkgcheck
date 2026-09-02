@@ -1,3 +1,4 @@
+# These all fail on GH mac and windows runners
 testthat::skip_on_os ("windows")
 testthat::skip_on_os ("mac")
 
@@ -73,13 +74,13 @@ test_that ("convert_path works with description in multiple subdirs", {
     ))
     with_descriptions (sub_dirs, {
         expect_error (convert_path (pkg_root), err_msg)
-        expect_identical (convert_path (sub_dirs[1]), sub_dirs[1])
-        expect_identical (convert_path (sub_dirs[2]), sub_dirs[2])
+        expect_identical (convert_path (sub_dirs [1]), sub_dirs [1])
+        expect_identical (convert_path (sub_dirs [2]), sub_dirs [2])
     })
     gert::git_init (pkg_root)
     with_descriptions (sub_dirs, {
         expect_error (convert_path (pkg_root), err_msg)
-        expect_identical (convert_path (sub_dirs[1]), sub_dirs[1])
-        expect_identical (convert_path (sub_dirs[2]), sub_dirs[2])
+        expect_identical (convert_path (sub_dirs [1]), sub_dirs [1])
+        expect_identical (convert_path (sub_dirs [2]), sub_dirs [2])
     })
 })

@@ -22,9 +22,9 @@ token <- get_gh_token ()
 }
 }
 \seealso{
-Other github: 
-\code{\link{get_default_github_branch}()},
-\code{\link{get_latest_commit}()},
-\code{\link{use_github_action_pkgcheck}()}
+Other github:
+\code{\link[=get_default_github_branch]{get_default_github_branch()}},
+\code{\link[=get_latest_commit]{get_latest_commit()}},
+\code{\link[=use_github_action_pkgcheck]{use_github_action_pkgcheck()}}
 }
 \concept{github}

@@ -1,3 +1,5 @@
+PKGSTATS_RELEASE_VERSION <- "v0.1.6"
+
 #' Check whether all function names are unique.
 #'
 #' Uses the database of function names from all CRAN packages associated with
@@ -102,7 +104,8 @@ cache_fn_name_db <- function (force_update = FALSE) {
     u <- paste0 (
         "https://api.github.com/repos/",
         "ropensci-review-tools/pkgstats/",
-        "releases/latest"
+        "releases/tags/",
+        PKGSTATS_RELEASE_VERSION
     )
 
     res <- curl::curl_fetch_memory (u)

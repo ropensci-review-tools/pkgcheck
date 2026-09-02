@@ -115,9 +115,10 @@ gp_checks_to_md <- function (checks,
     gp <- extract_gp_components (checks$goodpractice)
 
 
+    sec_num <- 3L + "srr" %in% names (checks$info)
     c (
         "",
-        "#### 3b. `goodpractice` results",
+        paste0 ("#### ", sec_num, "b. `goodpractice` results"),
         "",
         "",
         convert_gp_components (gp, control = control),
@@ -167,24 +168,34 @@ extract_gp_components <- function (gp) {
         lint_line <- vapply (gp$lintr, function (i) i$line_number, integer (1))
         lint_type <- vapply (gp$lintr, function (i) i$type, character (1))
         lint_message <- vapply (gp$lintr, function (i) i$message, character (1))
+        linter <- vapply (gp$lintr, function (i) i$linter, character (1))
         lints <- data.frame (
             file = lint_file,
             line = lint_line,
             type = lint_type,
             message = lint_message,
+            linter = linter,
             stringsAsFactors = FALSE
         )
         # lintr reports library calls in tests dir, which are okay
-        index <- which (grepl ("^tests", lints$file) &
-            grepl ("^Avoid library", lints$message))
-        lints <- lints [-index, ]
+        lint_files <- fs::path_split (lints$file)
+        files_in_this <- function (files, this) {
+            vapply (files, function (f) this %in% f, logical (1L))
+        }
+        files_in_tests <- files_in_this (lint_files, "tests")
+        files_in_vignettes <- files_in_this (lint_files, "vignettes")
+        index <- which (lints$linter == "library_require_linter" &
+            (files_in_tests | files_in_vignettes))
+        if (length (index) > 0) {
+            lints <- lints [-(index), ]
+        }
         if (nrow (lints) == 0) {
             lints <- list ()
         }
     }
 
     # -------------- rcmdcheck:
-    r <- gp$rcmd
+    r <- gp$rcmdcheck
     rcmd <- list ()
     if (methods::is (r, "try-error")) {
         rcmd$errors <- paste0 (r)
@@ -204,20 +215,29 @@ extract_gp_components <- function (gp) {
     }
 
     # -------------- any other components which fail:
-    checks <- vapply (
-        gp$checks, function (i) {
-            ret <- TRUE
-            if (is.logical (i) & length (i) == 1) {
-                ret <- i
-            }
-            return (ret)
-        },
-        logical (1)
+    rm <- c (
+        "path", "package", "extra_preps", "extra_checks", "exclude_path",
+        "covr", "cyclocomp", "lintr", "rcmdcheck", "checks"
     )
-    fails <- names (checks [which (!checks)])
-    if (length (fails) > 0) {
-        rcmd$check_fails <- fails
-    }
+    index <- which (!names (gp) %in% rm)
+    other_check_groups <- names (gp [index])
+    other_check_names <- unlist (lapply (
+        other_check_groups,
+        function (g) goodpractice::checks_by_group (g)
+    ))
+
+    check_pass <- vapply (gp$checks, function (i) i$status, logical (1L))
+    check_fails <- gp$checks [which (!check_pass)]
+    index <- which (names (check_fails) %in% other_check_names)
+    check_fails <- check_fails [index]
+    # But rm any fails on "RcppExports":
+    flist <- vapply (check_fails, function (i) {
+        if (length (i$positions) == 0L) {
+            return (NA_character_)
+        }
+        i$positions [[1]]$filename
+    }, character (1L))
+    check_fails <- check_fails [which (!grepl ("RcppExports", flist))]
 
     # return result
     res <- list (
@@ -225,9 +245,10 @@ extract_gp_components <- function (gp) {
         rcmd = rcmd,
         covr = covr,
         cyclocomp = cyc,
-        lint = lints
+        lintr = lints,
+        other = check_fails
     )
-    res <- res [which (lengths (res) > 0)]
+    res [which (lengths (res) > 0)]
 }
 
 #' Convert \pkg{goodpractice} components into templated report
@@ -247,7 +268,7 @@ convert_gp_components <- function (x,
                                        digits = 2
                                    )) {
 
-    rcmd <- covr <- cycl <- lint <- NULL
+    rcmd <- covr <- cycl <- lintr <- other <- NULL
 
     if (any (grepl ("^rcmd", names (x)))) {
         rcmd <- rcmd_report (x)
@@ -259,10 +280,13 @@ convert_gp_components <- function (x,
         cycl <- cyclo_report (x, control)
     }
     if (any (grepl ("^lint", names (x)))) {
-        lint <- lintr_report (x)
+        lintr <- lintr_report (x)
+    }
+    if ("other" %in% names (x)) {
+        other <- other_report (x)
     }
 
-    return (c (rcmd, covr, cycl, lint))
+    return (c (rcmd, covr, cycl, lintr, other))
 }
 
 
@@ -439,8 +463,8 @@ cyclo_report <- function (x,
 
     if (methods::is (cyc, "try-error")) {
         ret <- c (ret, paste0 (cyc))
-    } else {
-        cyc <- cyc [cyc$cyclocomp >= cyc_thr, ]
+    } else if (inherits (cyc, c ("matrix", "data.frame"))) {
+        cyc <- cyc [cyc$cyclocomp >= cyc_thr, , drop = FALSE]
 
         if (nrow (cyc) == 0) {
             ret <- c (
@@ -494,6 +518,8 @@ lintr_report <- function (x) {
     }
 
     lintr <- as.data.frame (x$lintr)
+    # Reduce to 1st sentence of message only:
+    lintr$message <- gsub ("\\.\\s.*$", ".", lintr$message)
     msgs <- table (lintr$message)
     msgs <- data.frame (
         message = names (msgs),
@@ -525,4 +551,23 @@ lintr_report <- function (x) {
     }
 
     return (c (ret, ""))
+}
+
+other_report <- function (x) {
+
+    failed_checks <- names (x$other)
+    failed_descs <- goodpractice::describe_check (failed_checks)
+    failed_descs <- gsub ("(@[[:alpha:]]+)", "`\\1`", failed_descs)
+    if (length (failed_checks) == 0L) {
+        return (NULL)
+    }
+    c (
+        "",
+        "#### Other goodpractice checks",
+        "",
+        unname (vapply (failed_descs, function (ch) {
+            paste0 (symbol_crs (), " ", ch)
+        }, character (1L))),
+        ""
+    )
 }

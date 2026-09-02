@@ -137,7 +137,6 @@ order_checks <- function (fns) {
         "pkgname",
         "license",
         "has_citation",
-        "has_codemeta",
         "has_contrib",
         "fns_have_return_vals",
         "uses_roxygen2",
@@ -147,6 +146,9 @@ order_checks <- function (fns) {
         "has_vignette",
         "fns_have_exs",
         "global_assign",
+        "no_r_subdir",
+        "repo_not_fork",
+        "repo_has_website",
         "ci",
         "covr",
         "lintr",
@@ -158,14 +160,14 @@ order_checks <- function (fns) {
         "srr_missing",
         "srr_todo",
         "srr_most_in_one_file",
+        "srr_general_only",
         # These are "watch" checks, not outright fails; they must be
         # additionally explicitly listed below in `watch_checks()`:
         "obsolete_pkg_deps",
         "unique_fn_names",
         "num_imports",
         "has_orcid",
-        "has_ror",
-        "uses_dontrun"
+        "has_ror"
     )
 
     fns <- fns [which (fns %in% ord)]

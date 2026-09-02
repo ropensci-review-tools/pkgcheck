@@ -21,10 +21,10 @@ list_pkgchecks ()
 
 }
 \seealso{
-Other extra: 
-\code{\link{checks_to_markdown}()},
-\code{\link{fn_names_on_cran}()},
-\code{\link{logfile_names}()},
-\code{\link{render_md2html}()}
+Other extra:
+\code{\link[=checks_to_markdown]{checks_to_markdown()}},
+\code{\link[=fn_names_on_cran]{fn_names_on_cran()}},
+\code{\link[=logfile_names]{logfile_names()}},
+\code{\link[=render_md2html]{render_md2html()}}
 }
 \concept{extra}

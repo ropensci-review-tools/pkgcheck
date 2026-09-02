@@ -186,8 +186,9 @@ ci_results_gh <- function (path) {
         runs <- list (total_count = nrow (wf), workflow_runs = wf)
     } else {
         # These lines can not be tested:
-        body <- httr2::request (url) |>
-            httr2::req_perform ()
+        qry <- httr2::request (url)
+        qry <- httr2::req_url_query (qry, event = "push")
+        body <- httr2::req_perform (qry)
         runs <- httr2::resp_body_json (body, simplify = TRUE)
     }
 
@@ -212,9 +213,11 @@ ci_results_gh <- function (path) {
 
     dat$time <- strptime (dat$time, "%Y-%m-%dT%H:%M:%SZ")
     dat$time_dbl <- as.double (dat$time)
-    # non-dply group_by %>% summarise:
+    # The r-lib actions workflows updated to append ".yaml" to workflow name,
+    # and logs may still return older version.
+    # Code is a non-dply group_by |> summarise:
     dat <- lapply (
-        split (dat, f = as.factor (dat$name)),
+        split (dat, f = as.factor (gsub ("\\.yaml$", "", dat$name))),
         function (i) {
             i [which.max (i$time_dbl), ]
         }

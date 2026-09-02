@@ -32,6 +32,7 @@ checks_to_markdown <- function (checks, render = FALSE) {
             checks$info$git$HEAD,
             ")"
         ),
+        get_subdir_text (checks),
         "",
         md_chks,
         "",
@@ -69,82 +70,11 @@ checks_to_markdown <- function (checks, render = FALSE) {
         ""
     )
 
-    has_gp <- "goodpractice" %in% names (checks) && !is_test_env ()
-    if (has_gp) {
-        md_out <- c (
-            md_out,
-            "<details>",
-            paste0 (
-                "<summary>Details of goodpractice checks ",
-                "(click to open)</summary>"
-            ),
-            "<p>",
-            "",
-            print_check (checks, "ci"),
-            "",
-            "---",
-            "",
-            gp_checks_to_md (checks),
-            "",
-            "</p>",
-            "</details>"
-        )
-    } else {
-        md_out <- c (
-            md_out,
-            "('goodpractice' not included with these checks)"
-        )
-    }
-
-    extra <- extra_check_prints_from_env (checks)
-    has_extra <- length (extra$env) > 0L | sum (misc_check_counts (checks)) > 0L
-    if (has_extra) {
-        e <- env2namespace ("pkgcheck")
-        md_out <- c (
-            md_out,
-            "",
-            "---",
-            "",
-            paste0 ("### ", sec_num + 2, ". Other Checks"),
-            "",
-            "<details>",
-            paste0 (
-                "<summary>Details of other checks ",
-                "(click to open)</summary>"
-            ),
-            "<p>",
-            ""
-        )
-        extras <- misc_check_counts (checks)
-        extras <- extras [which (extras > 0L)]
-        for (ex in names (extras)) {
-            md_out <- c (
-                md_out,
-                print_check_md (
-                    checks,
-                    ex,
-                    env2namespace ("pkgcheck")
-                )
-            )
-        }
-
-        for (e in extra$env) {
-            for (p in extra$prints) {
-                md_out <- c (
-                    md_out,
-                    print_check_md (checks, p, e)
-                )
-            }
-        }
-
-        md_out <- c (
-            md_out,
-            "",
-            "</p>",
-            "</details>",
-            ""
-        )
-    }
+    md_out <- c (
+        md_out,
+        get_gp_text (checks),
+        get_extra_checks_text (checks, sec_num)
+    )
 
     v <- data.frame (
         package = names (checks$meta),
@@ -203,6 +133,106 @@ checks_to_markdown <- function (checks, render = FALSE) {
     return (md_out)
 }
 
+get_subdir_text <- function (checks) {
+
+    subdir_txt <- NULL
+    path <- fs::path_abs (checks$pkg$path)
+    repo_path <- fs::path_abs (checks$pkg$repo_path)
+    if (!identical (path, repo_path)) {
+        subdir <- fs::path_rel (checks$pkg$path, checks$pkg$repo_path)
+        subdir_txt <- c ("", paste0 (
+            "NOTE: R package is in the '",
+            subdir,
+            "' sub-directory"
+        ))
+    }
+
+    return (subdir_txt)
+}
+
+get_gp_text <- function (checks) {
+
+    has_gp <- "goodpractice" %in% names (checks) && !is_test_env ()
+    if (has_gp) {
+        out <- c (
+            "<details>",
+            paste0 (
+                "<summary>Details of goodpractice checks ",
+                "(click to open)</summary>"
+            ),
+            "<p>",
+            "",
+            print_check (checks, "ci"),
+            "",
+            "---",
+            "",
+            gp_checks_to_md (checks),
+            "",
+            "</p>",
+            "</details>"
+        )
+    } else {
+        out <- "('goodpractice' not included with these checks)"
+    }
+
+    return (out)
+}
+
+get_extra_checks_text <- function (checks, sec_num) {
+
+    extra <- extra_check_prints_from_env (checks)
+    has_extra <- length (extra$env) > 0L | sum (misc_check_counts (checks)) > 0L
+    out <- NULL
+    if (has_extra) {
+        e <- env2namespace ("pkgcheck")
+        out <- c (
+            "",
+            "---",
+            "",
+            paste0 ("### ", sec_num + 2, ". Other Checks"),
+            "",
+            "<details>",
+            paste0 (
+                "<summary>Details of other checks ",
+                "(click to open)</summary>"
+            ),
+            "<p>",
+            ""
+        )
+        extras <- misc_check_counts (checks)
+        extras <- extras [which (extras > 0L)]
+        for (ex in names (extras)) {
+            out <- c (
+                out,
+                print_check_md (
+                    checks,
+                    ex,
+                    env2namespace ("pkgcheck")
+                )
+            )
+        }
+
+        for (e in extra$env) {
+            for (p in extra$prints) {
+                out <- c (
+                    out,
+                    print_check_md (checks, p, e)
+                )
+            }
+        }
+
+        out <- c (
+            out,
+            "",
+            "</p>",
+            "</details>",
+            ""
+        )
+    }
+
+    return (out)
+}
+
 #' Summarise dependencies usage
 #' @param checks Result of main \link{pkgcheck} function
 #' @param sec_num Section numbering to use (1 for non-srr packages; otherwise
@@ -212,6 +242,10 @@ checks_to_markdown <- function (checks, render = FALSE) {
 pkgdeps_format <- function (checks, sec_num) {
 
     deps <- pkgdeps_as_table (checks)
+    if (Sys.getenv ("GITHUB_ACTIONS") == "true" || is_test_env ()) {
+        # R 4.5.3 changed reporting of Matrix calls, so remove that in tests:
+        deps <- deps [which (!deps$package == "Matrix"), ]
+    }
 
     import_note <- NULL
     imported_fns <- deps [deps$type == "imports", ]
@@ -476,13 +510,13 @@ pkg_network <- function (checks, sec_num) {
     }
 
     cache_dir <- Sys.getenv ("PKGCHECK_CACHE_DIR")
-    visjs_dir <- fs::path (cache_dir, "static") # in api.R
-    if (!dir.exists (visjs_dir)) {
-        dir.create (visjs_dir, recursive = TRUE)
+    d3js_dir <- fs::path (cache_dir, "static") # in api.R
+    if (!dir.exists (d3js_dir)) {
+        dir.create (d3js_dir, recursive = TRUE)
     }
 
     flist <- list.files (
-        visjs_dir,
+        d3js_dir,
         pattern = paste0 (checks$pkg$name, "_pkgstats"),
         full.names = TRUE
     )
@@ -491,33 +525,33 @@ pkg_network <- function (checks, sec_num) {
 
         unlink (flist, recursive = TRUE)
 
-        if (!dir.exists (visjs_dir)) {
-            dir.create (visjs_dir, recursive = TRUE)
+        if (!dir.exists (d3js_dir)) {
+            dir.create (d3js_dir, recursive = TRUE)
         }
 
-        visjs_ptn <- basename (checks$info$network_file)
-        visjs_ptn <- tools::file_path_sans_ext (visjs_ptn)
+        d3js_ptn <- basename (checks$info$network_file)
+        d3js_ptn <- tools::file_path_sans_ext (d3js_ptn)
         flist <- list.files (dirname (checks$info$network_file),
-            pattern = visjs_ptn,
+            pattern = d3js_ptn,
             full.names = TRUE,
             recursive = TRUE
         )
 
-        file.copy (flist, visjs_dir, recursive = TRUE)
+        file.copy (flist, d3js_dir, recursive = TRUE)
     }
 
     return (c (
         out,
-        visjs_description (checks)
+        d3js_description (checks)
     ))
 }
 
-#' Default "click to see ..." instructions for `visjs` output, but modified if
+#' Default "click to see ..." instructions for `d3js` output, but modified if
 #' generated by `pkgcheck-action` on GitHub runners to explain how to view
 #' output (#127). Relies on detecting envvars:
 #' https://docs.github.com/en/actions/learn-github-actions/environment-variables
 #' @noRd
-visjs_description <- function (checks) {
+d3js_description <- function (checks) {
 
     if (Sys.getenv ("GITHUB_ACTIONS") == "true" && !is_test_env ()) {
 
@@ -556,7 +590,6 @@ visjs_description <- function (checks) {
 
     return (res)
 }
-
 
 
 #' render markdown-formatted input into 'html'
