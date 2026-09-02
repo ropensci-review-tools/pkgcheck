@@ -644,8 +644,6 @@ specification. Contributions of any kind are welcome!
 
 </tr>
 
-</tr>
-
 <tr>
 
 <td align="center">
