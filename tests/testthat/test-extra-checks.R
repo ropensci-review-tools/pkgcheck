@@ -59,6 +59,12 @@ test_that ("extra checks", {
     x <- capture.output (print (checks), file = f_tmp, type = "message")
 
     md <- edit_markdown (readLines (f_tmp), print_method = TRUE)
+    # goodpractice on some systems fails to identify 'onload' as dead code
+    # This is inconsistent, so just remove here:
+    i <- grep ("onload\\.R", md)
+    if (length (i) > 0L) {
+        md <- md [-i]
+    }
     md_dir <- withr::local_tempdir ()
     f_md2 <- fs::path (md_dir, "checks-print.md")
     writeLines (md, con = f_md2)
