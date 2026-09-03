@@ -1,4 +1,3 @@
-
 repo_is_git <- function (path) {
 
     path <- convert_path (path)

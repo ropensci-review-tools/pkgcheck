@@ -1,4 +1,3 @@
-
 #' Check whether renv is activated
 #'
 #' The actual check is whether \package{renv} is actually activated, which is

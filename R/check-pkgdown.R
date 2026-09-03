@@ -1,4 +1,3 @@
-
 # This check is currently active, but can be modified and switched on to check
 # pkgdown-related aspects of package documentation.
 output_pkgchk_pkgdown <- function (checks) {

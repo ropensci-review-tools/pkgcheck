@@ -9,7 +9,7 @@ pkgchk_fns_have_exs <- function (checks) {
 
     rd <- list_rd_files (checks$pkg$path) # utils.R
 
-    fns_have_exs(rd)
+    fns_have_exs (rd)
 }
 
 output_pkgchk_fns_have_exs <- function (checks) {
@@ -36,8 +36,8 @@ output_pkgchk_fns_have_exs <- function (checks) {
     return (out)
 }
 
-fns_have_exs <- function(rd_files) {
-  # don't check for examples in datasets (#103), identified by keyword
+fns_have_exs <- function (rd_files) {
+    # don't check for examples in datasets (#103), identified by keyword
     what <- c ("name", "docType", "keyword", "examples")
     rd_dat <- vapply (rd_files, function (i) {
         rd_i <- tools::parse_Rd (i, permissive = TRUE)

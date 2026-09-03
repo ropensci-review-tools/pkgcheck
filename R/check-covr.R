@@ -1,4 +1,3 @@
-
 output_pkgchk_covr <- function (checks) {
 
     out <- list (

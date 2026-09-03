@@ -1,4 +1,3 @@
-
 test_that ("license-list", {
 
     expect_silent (x <- license_list ())
