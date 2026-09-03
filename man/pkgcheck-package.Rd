@@ -3,9 +3,9 @@
 \docType{package}
 \name{pkgcheck-package}
 \alias{pkgcheck-package}
-\title{pkgcheck: rOpenSci Package Checks}
+\title{pkgcheck: Package Checks for 'rOpenSci'}
 \description{
-Check whether a package is ready for submission to rOpenSci's peer review system.
+Check whether a package is ready for submission to the 'rOpenSci' peer review system ('rOpenSci' authors, 2021; \doi{10.5281/zenodo.5556756}). Incorporates the 'goodpractice' package and many additional checks, including aspects related to maintenance of online public code repositories.
 }
 \seealso{
 Useful links:

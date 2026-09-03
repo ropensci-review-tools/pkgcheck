@@ -2,13 +2,13 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "pkgcheck",
-  "description": "Check whether a package is ready for submission to rOpenSci's peer review system.",
+  "description": "Check whether a package is ready for submission to the 'rOpenSci' peer review system ('rOpenSci' authors, 2021; <doi:10.5281/zenodo.5556756>). Incorporates the 'goodpractice' package and many additional checks, including aspects related to maintenance of online public code repositories.",
   "name": "pkgcheck: rOpenSci Package Checks",
   "relatedLink": "https://docs.ropensci.org/pkgcheck/",
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.2.0.020",
+  "version": "0.2.0.021",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -395,7 +395,7 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "493.595KB",
+  "fileSize": "494.774KB",
   "releaseNotes": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/NEWS.md",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
   "contIntegration": [
