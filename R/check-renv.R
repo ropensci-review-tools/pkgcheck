@@ -1,4 +1,3 @@
-
 #' For packages which use 'renv', check that it is de-activated.
 #'
 #' Although we do not generally recommend 'renv' for package developement,

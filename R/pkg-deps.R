@@ -1,4 +1,3 @@
-
 #' Format package dependencies as a single table
 #'
 #' @param checks Result of main \link{pkgcheck} function
@@ -61,7 +60,7 @@ pkgdeps_as_table <- function (checks) {
 #' `importFrom` can accept multiple fns.
 #'
 #' @param path Local path to package source
-#' @return A `data.frame` of [package, fn] detailing original source of all
+#' @return A `data.frame` of (package, fn) detailing original source of all
 #' re-exported functions.
 #' @noRd
 get_re_exports <- function (path) {
@@ -76,29 +75,29 @@ get_re_exports <- function (path) {
     index <- cbind (rev (op), rev (cl))
     if (any ((cl - op) > 1L)) {
         nmsp <- apply (index, 1, function (i) {
-                paste0 (nmsp [seq (i [1], i [2])], collapse = "")
-            })
+            paste0 (nmsp [seq (i [1], i [2])], collapse = "")
+        })
     }
 
     imports <- grep ("^importFrom", nmsp, value = TRUE)
     import_fns <- gsub ("^importFrom\\(|\\)$", "", imports)
     import_pkgs <- vapply (import_fns, function (i) {
-            strsplit (i, ",") [[1]] [1]
-        },
+        strsplit (i, ",") [[1]] [1]
+    },
     character (1),
     USE.NAMES = FALSE
     )
     import_pkgs <- gsub ("\"", "", import_pkgs)
     import_fns <- lapply (strsplit (import_fns, ","), function (i) i [-1])
     import_fns <- lapply (seq_along (import_pkgs), function (i) {
-            cbind (
-                rep (
-                    import_pkgs [[i]],
-                    length (import_fns [[i]])
-                ),
-                import_fns [[i]]
-            )
-        })
+        cbind (
+            rep (
+                import_pkgs [[i]],
+                length (import_fns [[i]])
+            ),
+            import_fns [[i]]
+        )
+    })
     import_fns <- do.call (rbind, import_fns)
     import_fns <- data.frame (
         package = import_fns [, 1],

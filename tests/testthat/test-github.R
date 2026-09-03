@@ -40,11 +40,12 @@ test_that ("use_github_action_pkgcheck", {
 
 test_that ("yaml branch", {
 
-    yaml <- system.file (
+    f <- system.file (
         "pkgcheck.yaml",
         package = "pkgcheck",
         mustWork = TRUE
-    ) %>% readLines ()
+    )
+    yaml <- readLines (f)
 
     expect_true (any (grepl ("^\\s+\\-\\s*main$", yaml)))
 

@@ -78,11 +78,12 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
         )
     }
 
-    yaml <- system.file (
+    f <- system.file (
         "pkgcheck.yaml",
         package = "pkgcheck",
         mustWork = TRUE
-    ) %>% readLines ()
+    )
+    yaml <- readLines (f)
 
     if (!is.null (inputs)) {
         if (!is.list (inputs) || is.null (names (inputs))) {
@@ -110,8 +111,8 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
         }
 
         # YAML indentation uses space not tabs
-        with <- glue::glue ("        with:")
-        inputs <- glue::glue ("          {names (inputs)}: {inputs}")
+        with <- "        with:"
+        inputs <- paste0 ("          ", names (inputs), ": ", inputs)
         inputs <- c (with, inputs)
     }
 
@@ -179,9 +180,9 @@ pkgcheck_workflow_branch <- function (org, repo) {
         default_branch,
         "?recursive=1"
     )
-    req <- httr2::request (u) %>%
-        httr2::req_perform ()
-    x <- httr2::resp_body_json (req)
+    req <- httr2::request (u)
+    resp <- httr2::req_perform (req)
+    x <- httr2::resp_body_json (resp)
 
     paths <- vapply (x$tree, function (i) i$path, character (1))
     workflows <- grep ("^\\.github\\/workflows", paths, value = TRUE)
