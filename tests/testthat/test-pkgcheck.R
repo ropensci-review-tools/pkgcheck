@@ -25,6 +25,11 @@ test_that ("pkgcheck", {
     checks1 <- make_check_data_srr_internal (
         goodpractice = TRUE, cleanup = FALSE
     )
+    # Snapshot with goodpractice can fail because of covr calling gcov on src
+    # files with no active code. This is unpredictable and depends on versions
+    # of gcov and other OS-specific things. It also causes fails in 'rcmdcheck'
+    # so that's also removed here.
+    checks1$goodpractice$covr <- checks1$goodpractice$rcmdcheck <- NULL
 
     expect_s3_class (checks0, "pkgcheck")
     expect_s3_class (checks1, "pkgcheck")
@@ -34,6 +39,7 @@ test_that ("pkgcheck", {
     expect_named (checks1, items)
     gp_items_false <- c ("description", "namespace")
     gp_items_true <- c ("covr", "cyclocomp", "rcmdcheck")
+    gp_items_true <- c ("cyclocomp") # no covr or rcmdcheck
     expect_true (all (gp_items_false %in% names (checks0$goodpractice)))
     expect_false (any (gp_items_true %in% names (checks0$goodpractice)))
     expect_true (all (gp_items_false %in% names (checks1$goodpractice)))

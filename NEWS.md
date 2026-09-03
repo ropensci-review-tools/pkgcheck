@@ -6,6 +6,12 @@
 
 - Removed all `remotes` deps on other `ropensci-review-tools` pkgs in preparation for CRAN release
 
+### New checks added
+
+- Checks for ROR and ORCID entries, to make sure they resolve correctly (#243; thanks to @Aariq).
+
+---
+
 ## 0.1.3
 
 ### Minor changes
