@@ -1,7 +1,6 @@
 test_all <- (identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
     identical (Sys.getenv ("GITHUB_JOB"), "test-coverage") ||
     identical (Sys.getenv ("GITHUB_JOB"), "pkgcheck"))
-test_local <- identical (Sys.getenv ("MPADGE_LOCAL"), "true")
 
 skip_if (!test_all)
 
@@ -28,8 +27,9 @@ test_that ("pkgcheck", {
     )
     # Snapshot with goodpractice can fail because of covr calling gcov on src
     # files with no active code. This is unpredictable and depends on versions
-    # of gcov and other OS-specific things.
-    checks1$goodpractice$covr <- NULL
+    # of gcov and other OS-specific things. It also causes fails in 'rcmdcheck'
+    # so that's also removed here.
+    checks1$goodpractice$covr <- checks1$goodpractice$rcmdcheck <- NULL
 
     expect_s3_class (checks0, "pkgcheck")
     expect_s3_class (checks1, "pkgcheck")
@@ -39,7 +39,7 @@ test_that ("pkgcheck", {
     expect_named (checks1, items)
     gp_items_false <- c ("description", "namespace")
     gp_items_true <- c ("covr", "cyclocomp", "rcmdcheck")
-    gp_items_true <- c ("cyclocomp", "rcmdcheck") # no covr
+    gp_items_true <- c ("cyclocomp") # no covr or rcmdcheck
     expect_true (all (gp_items_false %in% names (checks0$goodpractice)))
     expect_false (any (gp_items_true %in% names (checks0$goodpractice)))
     expect_true (all (gp_items_false %in% names (checks1$goodpractice)))

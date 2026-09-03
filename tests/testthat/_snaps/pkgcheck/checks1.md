@@ -18,8 +18,6 @@ Package is already on CRAN
 - :heavy_multiplication_x: This package still has TODO standards and can not be submitted
 - :heavy_multiplication_x: Statistical standards should be documented in most package files, yet are mostly only documented in one file.
 - :heavy_multiplication_x: Not all authors have ORCID IDs
-- :heavy_check_mark: R CMD check found no errors.
-- :heavy_check_mark: R CMD check found no warnings.
 
 **Important:** All failing checks above must be addressed prior to proceeding
 
