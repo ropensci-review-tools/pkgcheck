@@ -1,5 +1,4 @@
 #' @keywords internal
-#' @importFrom magrittr %>%
 #' @aliases pkgcheck-package
 "_PACKAGE"
 
