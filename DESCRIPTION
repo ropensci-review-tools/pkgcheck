@@ -1,6 +1,6 @@
 Package: pkgcheck
-Title: rOpenSci Package Checks
-Version: 0.2.0.020
+Title: Package Checks for 'rOpenSci'
+Version: 0.2.0.021
 Authors@R: c(
     person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2172-5265")),
@@ -16,8 +16,11 @@ Authors@R: c(
     person("Andy", "Teucher", , "andy.teucher@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0002-7840-692X"))
   )
-Description: Check whether a package is ready for submission to rOpenSci's
-    peer review system.
+Description: Check whether a package is ready for submission to the 'rOpenSci'
+    peer review system ('rOpenSci' authors, 2021;
+    <doi:10.5281/zenodo.5556756>). Incorporates the 'goodpractice' package and
+    many additional checks, including aspects related to maintenance of online
+    public code repositories.
 License: GPL-3
 URL: https://docs.ropensci.org/pkgcheck/,
     https://github.com/ropensci-review-tools/pkgcheck
