@@ -26,6 +26,10 @@ test_that ("pkgcheck", {
     checks1 <- make_check_data_srr_internal (
         goodpractice = TRUE, cleanup = FALSE
     )
+    # Snapshot with goodpractice can fail because of covr calling gcov on src
+    # files with no active code. This is unpredictable and depends on versions
+    # of gcov and other OS-specific things.
+    checks1$goodpractice$covr <- NULL
 
     expect_s3_class (checks0, "pkgcheck")
     expect_s3_class (checks1, "pkgcheck")
@@ -35,6 +39,7 @@ test_that ("pkgcheck", {
     expect_named (checks1, items)
     gp_items_false <- c ("description", "namespace")
     gp_items_true <- c ("covr", "cyclocomp", "rcmdcheck")
+    gp_items_true <- c ("cyclocomp", "rcmdcheck") # no covr
     expect_true (all (gp_items_false %in% names (checks0$goodpractice)))
     expect_false (any (gp_items_true %in% names (checks0$goodpractice)))
     expect_true (all (gp_items_false %in% names (checks1$goodpractice)))
@@ -91,10 +96,7 @@ test_that ("pkgcheck", {
 
     # Redact out variable git hashes:
     testthat::expect_snapshot_file (f_md0)
-    # Snapshot with goodpractice can fail because of covr calling gcov on src
-    # files with no active code. This is unpredictable and depends on versions
-    # of gcov and other OS-specific things.
-    # testthat::expect_snapshot_file (f_md1)
+    testthat::expect_snapshot_file (f_md1)
 
     h0 <- render_md2html (md0, open = FALSE)
     f_html0 <- file.path (md_dir, "checks0.html")
@@ -107,7 +109,7 @@ test_that ("pkgcheck", {
     edit_html (f_html1) # from clean-snapshots.R
 
     testthat::expect_snapshot_file (f_html0)
-    # testthat::expect_snapshot_file (f_html1)
+    testthat::expect_snapshot_file (f_html1)
 
     fs::file_delete (c (f_md0, f_md1, f_html0, f_html1))
     fs::dir_delete (checks0$pkg$path)

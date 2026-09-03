@@ -12,7 +12,6 @@ Package is already on CRAN
 - :heavy_multiplication_x: These functions do not have examples: [test_fn].
 - :heavy_check_mark: Repository has a website
 - :heavy_multiplication_x: Continuous integration checks unavailable (no URL in 'DESCRIPTION').
-- :heavy_multiplication_x: Package coverage failed
 - :heavy_check_mark: All goodpractice linters passed.
 - :heavy_multiplication_x: Default GitHub branch of 'master' is not acceptable.
 - :heavy_multiplication_x: Some statistical standards are missing
