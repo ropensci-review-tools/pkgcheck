@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.2.0.017",
+  "version": "0.2.0.18",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -53,10 +53,7 @@
   "contributor": [
     {
       "@type": "Person",
-      "givenName": [
-        "Kelli",
-        "F."
-      ],
+      "givenName": ["Kelli", "F."],
       "familyName": "Johnson",
       "email": "kelli.johnson@noaa.gov",
       "@id": "https://orcid.org/0000-0002-5149-451X"
@@ -270,18 +267,6 @@
     },
     "8": {
       "@type": "SoftwareApplication",
-      "identifier": "glue",
-      "name": "glue",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=glue"
-    },
-    "9": {
-      "@type": "SoftwareApplication",
       "identifier": "goodpractice",
       "name": "goodpractice",
       "provider": {
@@ -292,7 +277,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=goodpractice"
     },
-    "10": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "httr2",
       "name": "httr2",
@@ -304,24 +289,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httr2"
     },
-    "11": {
-      "@type": "SoftwareApplication",
-      "identifier": "magrittr",
-      "name": "magrittr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=magrittr"
-    },
-    "12": {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "13": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "pkgstats",
       "name": "pkgstats",
@@ -333,7 +306,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=pkgstats"
     },
-    "14": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "praise",
       "name": "praise",
@@ -345,7 +318,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=praise"
     },
-    "15": {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "rappdirs",
       "name": "rappdirs",
@@ -357,7 +330,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rappdirs"
     },
-    "16": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
@@ -369,7 +342,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     },
-    "17": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "rprojroot",
       "name": "rprojroot",
@@ -381,7 +354,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rprojroot"
     },
-    "18": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "rvest",
       "name": "rvest",
@@ -393,7 +366,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rvest"
     },
-    "19": {
+    "17": {
       "@type": "SoftwareApplication",
       "identifier": "srr",
       "name": "srr",
@@ -405,7 +378,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=srr"
     },
-    "20": {
+    "18": {
       "@type": "SoftwareApplication",
       "identifier": "withr",
       "name": "withr",
@@ -417,13 +390,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=withr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "500.566KB",
+  "fileSize": "493.595KB",
   "releaseNotes": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/NEWS.md",
-  "contIntegration": [
-    "https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml",
-    "https://app.codecov.io/gh/ropensci-review-tools/pkgcheck"
-  ],
-  "developmentStatus": "https://www.repostatus.org/#active"
+  "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
+  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/ropensci-review-tools/pkgcheck"],
+  "developmentStatus": "https://www.repostatus.org/#active",
+  "keywords": ["compliance-automation", "r", "software-analysis", "software-checking"]
 }

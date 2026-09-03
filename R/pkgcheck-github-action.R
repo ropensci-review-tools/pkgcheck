@@ -111,8 +111,8 @@ use_github_action_pkgcheck <- function (dir = ".github/workflows",
         }
 
         # YAML indentation uses space not tabs
-        with <- glue::glue ("        with:")
-        inputs <- glue::glue ("          {names (inputs)}: {inputs}")
+        with <- "        with:"
+        inputs <- paste0 ("          ", names (inputs), ": ", inputs)
         inputs <- c (with, inputs)
     }
 
