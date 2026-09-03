@@ -1,7 +1,7 @@
 test_all <- (identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
     identical (Sys.getenv ("GITHUB_JOB"), "test-coverage") ||
     identical (Sys.getenv ("GITHUB_JOB"), "pkgcheck"))
-test_local <- (identical (Sys.getenv ("MPADGE_LOCAL"), "true")
+test_local <- identical (Sys.getenv ("MPADGE_LOCAL"), "true")
 
 skip_if (!test_all)
 
