@@ -1,4 +1,6 @@
-test_that ("check num imports", {
+skip_on_cran ()
+
+test_that ("check obsolete pkg deps", {
 
     checks <- make_check_data ()
 

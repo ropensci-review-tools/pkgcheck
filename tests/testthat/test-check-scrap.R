@@ -2,6 +2,8 @@ test_all <- (identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
     identical (Sys.getenv ("GITHUB_JOB"), "test-coverage") ||
     identical (Sys.getenv ("GITHUB_JOB"), "pkgcheck"))
 
+skip_on_cran ()
+
 test_that ("check scrap", {
 
     checks <- make_check_data ()

@@ -1,6 +1,8 @@
 test_all <- identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
     identical (Sys.getenv ("GITHUB_JOB"), "test-coverage")
 
+skip_on_cran ()
+
 test_that ("check left and global assign", {
 
     checks <- make_check_data ()

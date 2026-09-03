@@ -1,3 +1,5 @@
+skip_on_cran ()
+
 test_that ("check ORCID ID", {
     checks <- make_check_data ()
     ci_out <- output_pkgchk_has_orcid (checks)
