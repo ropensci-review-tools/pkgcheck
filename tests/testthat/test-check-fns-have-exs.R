@@ -1,3 +1,5 @@
+skip_on_cran ()
+
 test_that ("check functions have exs", {
 
     checks <- make_check_data ()

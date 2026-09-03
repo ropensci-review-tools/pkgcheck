@@ -1,3 +1,5 @@
+skip_on_cran ()
+
 test_that ("check examples dont use dontrun", {
 
     checks <- make_check_data ()

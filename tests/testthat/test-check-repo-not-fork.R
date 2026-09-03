@@ -1,3 +1,5 @@
+skip_on_cran ()
+
 test_that ("check repo is not a fork", {
 
     checks <- make_check_data ()

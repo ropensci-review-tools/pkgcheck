@@ -251,7 +251,7 @@ This allows specific checks to be defined locally, and run by passing the name
 of the environment in which those checks are defined in this parameter. This
 section illustrates the process using the bundled "tarball" (that is, `.tar.gz`
 file) of one version of [the `pkgstats`
-package](https://github.com/ropensc-review-tools/pkgstats) included with that
+package](https://github.com/ropensci-review-tools/pkgstats) included with that
 package.
 
 ```{r pkgstats-check, eval = FALSE}

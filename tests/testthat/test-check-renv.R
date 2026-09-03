@@ -1,3 +1,5 @@
+skip_on_cran ()
+
 test_that ("check num imports", {
 
     checks <- make_check_data ()

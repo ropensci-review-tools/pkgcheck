@@ -1,3 +1,5 @@
+skip_on_cran ()
+
 test_that ("check subdir in R dir", {
 
     checks <- make_check_data ()

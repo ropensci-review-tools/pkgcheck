@@ -1,3 +1,5 @@
+skip_on_cran ()
+
 test_that ("check fns have return values", {
 
     checks <- make_check_data ()

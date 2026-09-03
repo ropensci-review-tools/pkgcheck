@@ -1,3 +1,5 @@
+skip_on_cran ()
+
 test_that ("check repo has a website", {
 
     checks <- make_check_data ()

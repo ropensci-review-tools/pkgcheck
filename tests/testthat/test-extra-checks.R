@@ -1,6 +1,8 @@
 test_all <- identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
     identical (Sys.getenv ("GITHUB_JOB"), "test-coverage")
 
+skip_on_cran ()
+
 test_that ("extra checks", {
 
     checks <- make_check_data_internal (cleanup = FALSE)
