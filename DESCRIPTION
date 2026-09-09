@@ -14,7 +14,9 @@ Authors@R: c(
     person("Katrina", "Brock", , "katrinabrock266@gmail.com", role = "ctb",
            comment = c(ORCID = "0009-0003-4678-9545")),
     person("Andy", "Teucher", , "andy.teucher@gmail.com", role = "aut",
-           comment = c(ORCID = "0000-0002-7840-692X"))
+           comment = c(ORCID = "0000-0002-7840-692X")),
+    person("Eric R.", "Scott", role = "aut",
+           comment = c(ORCID = "0000-0002-7430-7879"))
   )
 Description: Check whether a package is ready for submission to the 'rOpenSci'
     peer review system ('rOpenSci' authors, 2021;
