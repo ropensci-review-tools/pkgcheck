@@ -75,7 +75,7 @@ This is the output of applying `pkgcheck` to a package generated with the
 `srr_stats_pkg_skeleton()`](https://docs.ropensci.org/srr//reference/srr_stats_pkg_skeleton.html),
 with `goodpractice = FALSE` to suppress that part of the results.
 
-```{r check_file, echo = FALSE}
+```{r check_file, echo = FALSE, cache = FALSE}
 check_file <- fs::path (fs::path_temp (), "checks.Rds")
 ```
 
@@ -84,11 +84,12 @@ check_file <- fs::path (fs::path_temp (), "checks.Rds")
 d <- srr::srr_stats_pkg_skeleton (pkg_name = "dummypkg")
 roxygen2::roxygenise (d)
 checks <- pkgcheck::pkgcheck (d, goodpractice = FALSE)
+checks$goodpractice <- NULL
 saveRDS (checks, check_file)
 ```
                        
 ```{r pkgcheck-str, echo = FALSE, cache = FALSE, warning = FALSE}
-print (str (readRDS (check_file)))
+print (str (readRDS (check_file), max.level = 3L))
 ```
 
 </p></details>
