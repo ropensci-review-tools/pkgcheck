@@ -4,6 +4,7 @@ test_that ("check ORCID ID", {
     checks <- make_check_data ()
     ci_out <- output_pkgchk_has_orcid (checks)
 
+    expect_named (ci_out, c ("check_pass", "summary", "print"))
     expect_true (ci_out$check_pass)
     expect_length (ci_out$summary, 1L)
     expect_equal (ci_out$summary, "All authors have ORCID IDs")
@@ -23,11 +24,13 @@ test_that ("Check ROR", {
     checks <- make_check_data ()
     ci_out <- output_pkgchk_has_ror (checks)
 
+    expect_named (ci_out, c ("check_pass", "summary", "print", "check_type"))
     expect_true (ci_out$check_pass)
     expect_length (ci_out$summary, 1L)
     expect_false (nzchar (ci_out$summary))
     expect_length (ci_out$print, 1L)
     expect_false (nzchar (ci_out$print))
+    expect_identical (ci_out$check_type, "none_watch")
 
     checks$checks$has_ror <- c ("rOpenSci" = FALSE)
     ci_out <- output_pkgchk_has_ror (checks)

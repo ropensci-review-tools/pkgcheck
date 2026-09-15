@@ -2,10 +2,11 @@
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
-#' @return Names of any items which should not be present; otherwise an empty
-#' character.
+#' @return A named vector of binary flags indicating whether or not authors
+#' have ORCID entries.
 #' @noRd
 pkgchk_has_orcid <- function (checks) {
+
     desc <- data.frame (
         read.dcf (fs::path (
             checks$pkg$path,
@@ -13,15 +14,18 @@ pkgchk_has_orcid <- function (checks) {
         )),
         stringsAsFactors = FALSE
     )
+
     authors <- eval (str2lang (desc$Authors.R))
-    authors <- authors [!vapply (authors, is_institution, FUN.VALUE = TRUE)]
+    # Only examine roles of "cre", "aut", "ctb":
+    cres <- which (auts_are_role (authors, "cre"))
+    auts <- which (auts_are_role (authors, "aut"))
+    ctbs <- which (auts_are_role (authors, "ctb"))
+    authors <- authors [unique (c (cres, auts, ctbs))]
 
     has_orcid <- vapply (
         authors,
-        function (x) {
-            !is.null (x$comment ["ORCID"])
-        },
-        FUN.VALUE = TRUE
+        function (x) "ORCID" %in% names (x$comment),
+        logical (1L)
     )
 
     # TODO check if the ORCID is valid. If not, suggest fixing it.
@@ -59,7 +63,7 @@ output_pkgchk_has_orcid <- function (checks) {
     return (out)
 }
 
-#' Check if instutitions (if there are any) have RORs
+#' Check whether any instutitions listed as `role = "fnd"` have RORs
 #'
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
@@ -76,22 +80,20 @@ pkgchk_has_ror <- function (checks) {
         stringsAsFactors = FALSE
     )
     authors <- eval (str2lang (desc$Authors.R))
-    institutions <- authors [is_institution (authors)]
+    funders <- authors [which (auts_are_role (authors, "fnd"))]
 
     has_ror <- vapply (
-        institutions,
+        funders,
         function (x) {
-            !is.null (x$comment ["ROR"])
+            "ROR" %in% names (x$comment)
         },
-        FUN.VALUE = TRUE
+        logical (1L)
     )
 
-    # TODO check if ROR is valid and matches institution name
-
     names (has_ror) <- vapply (
-        institutions,
+        funders,
         function (x) x$given,
-        FUN.VALUE = "a"
+        character (1L)
     )
 
     return (has_ror)
@@ -101,7 +103,8 @@ output_pkgchk_has_ror <- function (checks) {
     out <- list (
         check_pass = all (checks$checks$has_ror), # safe because all(list()) returns TRUE
         summary = "", # silent if passing, since most packages won't have institutions as authors
-        print = ""
+        print = "",
+        check_type = "none_watch"
     )
 
     if (!out$check_pass) {
@@ -118,7 +121,11 @@ output_pkgchk_has_ror <- function (checks) {
     return (out)
 }
 
-# Helper function to determine if an author is an institution
-is_institution <- function (person) {
-    is.null (person$family) & any (person$role %in% c ("cph", "fnd"))
+# Helper function to match a vector of authors to a defined role
+auts_are_role <- function (authors, role = "fnd") {
+    vapply (
+        authors,
+        function (a) any (a$role %in% role),
+        logical (1L)
+    )
 }
