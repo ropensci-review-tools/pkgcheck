@@ -10,6 +10,10 @@
 
 - Checks for ROR and ORCID entries (#243; thanks to @Aariq).
 
+### Minor changes
+
+- Removed internal `get_gh_token()` fn, replaced with `gh::gh_token()`.
+
 ---
 
 ## 0.1.3

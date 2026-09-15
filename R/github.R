@@ -44,51 +44,6 @@ repo_info_qry <- function (org, repo) {
     }")
 }
 
-#' Get GitHub token
-#'
-#' @param token_name Optional name of token to use
-#' @return The value of the GitHub access token extracted from environment
-#' variables.
-#' @family github
-#' @export
-#' @examples
-#' \dontrun{
-#' token <- get_gh_token ()
-#' }
-get_gh_token <- function (token_name = "") {
-
-    e <- Sys.getenv ()
-
-    if (token_name != "") {
-
-        toks <- unique (e [grep (token_name, names (e))])
-    } else {
-
-        toks <- e [grep ("GITHUB", names (e))]
-        if (length (unique (toks)) > 1) {
-            toks <- toks [grep ("TOKEN|PAT", names (toks))]
-        }
-        # GitHub runners have "GITHUB_PATH" and "GITHUB_EVENT_PATH"
-        if (length (unique (toks)) > 1) {
-            toks <- toks [grep ("TOKEN$|PAT$", names (toks))]
-        }
-    }
-
-    if (length (unique (toks)) > 1) {
-
-        stop (
-            "There are ",
-            length (unique (toks)),
-            " possible tokens named [",
-            paste0 (names (toks), collapse = ", "),
-            "]; please ensure one distinct ",
-            "token named 'GITHUB_TOKEN' or similar."
-        )
-    }
-
-    return (unique (toks))
-}
-
 #' get_default_github_branch
 #'
 #' @note This function is not intended to be called directly, and is only
