@@ -16,7 +16,6 @@ knitr::opts_chunk$set (
     fig.retina = 2,
     fig.path = "README-"
 )
-library (pkgcheck)
 ```
 
 This vignette describes how to modify or add new checks to the existing suite of checks
@@ -64,38 +63,6 @@ to each `pkgchk_...()` function contains all information on the `package`,
 this information, or even add additional information as demonstrated below. The
 `checks$checks` list represents the output of check functions, and may not be
 used in any way within `pkgchk_...()` functions.
-
-<details>
-<summary>Click here to see structure of full `pkgcheck` object</summary>
-<p>
-
-
-This is the output of applying `pkgcheck` to a package generated with the
-[`srr` function
-`srr_stats_pkg_skeleton()`](https://docs.ropensci.org/srr//reference/srr_stats_pkg_skeleton.html),
-with `goodpractice = FALSE` to suppress that part of the results.
-
-```{r check_file, echo = FALSE, cache = FALSE}
-check_file <- fs::path (fs::path_temp (), "checks.Rds")
-```
-
-
-```{r pkgcheck-dummy-data, echo = FALSE, eval = !file.exists (check_file), message = FALSE, warning = FALSE}
-d <- srr::srr_stats_pkg_skeleton (pkg_name = "dummypkg")
-roxygen2::roxygenise (d)
-checks <- pkgcheck::pkgcheck (d, goodpractice = FALSE)
-checks$goodpractice <- NULL
-saveRDS (checks, check_file)
-```
-                       
-```{r pkgcheck-str, echo = FALSE, cache = FALSE, warning = FALSE}
-print (str (readRDS (check_file), max.level = 3L))
-```
-
-</p></details>
-
-
-
 
 ## 1. The check function
 
