@@ -11,12 +11,7 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set (
-    collapse = TRUE,
-    warning = TRUE,
-    message = TRUE,
-    width = 120,
-    comment = "#>",
-    fig.retina = 2
+    collapse = TRUE
 )
 ```
 
@@ -101,7 +96,6 @@ for (i in seq_along (g)) {
     cat (out)
 }
 ```
-
 
 ### Changes in response to `goodpractice`
 

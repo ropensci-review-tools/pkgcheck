@@ -16,19 +16,22 @@
 #' @family pkgcheck_fns
 #' @export
 #' @examples
-#' \dontrun{
+#' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+#' path <- pkgstats::extract_tarball (f)
+#' on.exit (fs::dir_delete (path))
+#'
+#' \donttest{
 #' # Foreground checks as "blocking" process which will return
 #' # only after all checks have finished:
-#' checks <- pkgcheck ("/path/to/my/package")
+#' checks <- pkgcheck (path, goodpractice = FALSE)
+#' }
 #'
 #' # Or run process in background, do other things in the meantime,
 #' # and obtain checks once they have finished:
-#' ps <- pkgcheck_bg ("/path/to/my/package")
+#' \dontrun{
+#' ps <- pkgcheck_bg (path)
 #' ps # print status to screen, same as 'ps$print()'
-#' # To examine process state while running:
-#' f <- ps$get_output_file ()
-#' readLines (f) # or directly open file with local file viewer
-#' # ... ultimately wait until 'running' changes to 'finished', then:
+#' # Once finished, 'pkgcheck' results can be extracted with:
 #' checks <- ps$get_result ()
 #' }
 pkgcheck_bg <- function (path) {

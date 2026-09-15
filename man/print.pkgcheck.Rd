@@ -21,10 +21,14 @@ Nothing. Method called purely for side-effect of printing to screen.
 Generic print method for 'pkgcheck' objects.
 }
 \examples{
-\dontrun{
-checks <- pkgcheck ("/path/to/my/package")
-print (checks) # print full checks, starting with summary
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+path <- pkgstats::extract_tarball (f)
+on.exit (fs::dir_delete (path))
+
+\donttest{
+checks <- pkgcheck (path, goodpractice = FALSE)
 summary (checks) # print summary only
+# print (checks) # print full checks, starting with summary
 }
 }
 \seealso{

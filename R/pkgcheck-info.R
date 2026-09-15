@@ -34,7 +34,7 @@ pkgcheck_fill_info <- function (checks, path, stats) {
     }
 
     checks$info$badges <- list ()
-    has_token <- length (get_gh_token ()) > 0L
+    has_token <- length (gh::gh_token ()) > 0L
     if (nzchar (u) & has_token) {
         checks$info$badges <- pkgchk_ci_badges (u)
         if (grepl ("github", u)) { # now redundant - remove!

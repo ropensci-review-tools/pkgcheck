@@ -9,7 +9,7 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' read_pkg_guide ()
 #' }
 read_pkg_guide <- function (which = c ("release", "dev")) {

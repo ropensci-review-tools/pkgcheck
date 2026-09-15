@@ -22,15 +22,14 @@ This function is not intended to be called directly, and is only
 exported to enable it to be used within the \pkg{plumber} API.
 }
 \examples{
-\dontrun{
 org <- "ropensci-review-tools"
 repo <- "pkgcheck"
+\donttest{
 branch <- get_default_github_branch (org, repo)
 }
 }
 \seealso{
 Other github:
-\code{\link[=get_gh_token]{get_gh_token()}},
 \code{\link[=get_latest_commit]{get_latest_commit()}},
 \code{\link[=use_github_action_pkgcheck]{use_github_action_pkgcheck()}}
 }

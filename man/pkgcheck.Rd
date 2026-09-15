@@ -35,12 +35,14 @@ Generate report on package compliance with rOpenSci Statistical Software
 requirements
 }
 \examples{
-\dontrun{
-checks <- pkgcheck ("/path/to/my/package") # default full check
-summary (checks)
-# Or to run only checks implemented in 'pkgcheck' and not the
-# additional \pkg{goodpractice} checks:
-checks <- pkgcheck ("/path/to/my/package", goodpractice = FALSE)
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+path <- pkgstats::extract_tarball (f)
+on.exit (fs::dir_delete (path))
+
+# Skip the optional full 'goodpractice' checks, which can take a long
+# time:
+\donttest{
+checks <- pkgcheck (path, goodpractice = FALSE)
 summary (checks)
 }
 }

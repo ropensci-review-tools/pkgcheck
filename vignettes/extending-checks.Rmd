@@ -12,17 +12,10 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set (
     collapse = TRUE,
-    warning = TRUE,
-    message = TRUE,
     width = 120,
-    comment = "#>",
     fig.retina = 2,
     fig.path = "README-"
 )
-options (repos = c (
-    ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
-    CRAN = "https://cloud.r-project.org"
-))
 library (pkgcheck)
 ```
 
@@ -82,21 +75,21 @@ This is the output of applying `pkgcheck` to a package generated with the
 `srr_stats_pkg_skeleton()`](https://docs.ropensci.org/srr//reference/srr_stats_pkg_skeleton.html),
 with `goodpractice = FALSE` to suppress that part of the results.
 
-```{r check_file, echo = FALSE}
-here <- rprojroot::find_root (rprojroot::is_r_package)
-check_file <- file.path (here, "vignettes", "checks.Rds")
+```{r check_file, echo = FALSE, cache = FALSE}
+check_file <- fs::path (fs::path_temp (), "checks.Rds")
 ```
 
 
-```{r pkgcheck-dummy-data, echo = FALSE, eval = !file.exists (check_file)}
+```{r pkgcheck-dummy-data, echo = FALSE, eval = !file.exists (check_file), message = FALSE, warning = FALSE}
 d <- srr::srr_stats_pkg_skeleton (pkg_name = "dummypkg")
 roxygen2::roxygenise (d)
 checks <- pkgcheck::pkgcheck (d, goodpractice = FALSE)
+checks$goodpractice <- NULL
 saveRDS (checks, check_file)
 ```
                        
-```{r pkgcheck-str, echo = FALSE, cache = FALSE}
-print (str (readRDS (check_file)))
+```{r pkgcheck-str, echo = FALSE, cache = FALSE, warning = FALSE}
+print (str (readRDS (check_file), max.level = 3L))
 ```
 
 </p></details>
@@ -110,7 +103,7 @@ print (str (readRDS (check_file)))
 
 An example is the
 check for whether a package has a citation, [defined in
-`R/check_has_citation.R`](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-has-citation.R):
+`R/check-has-citation.R`](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-has-citation.R):
 
 ```{r, cache = FALSE, echo = FALSE}
 knitr::read_chunk ("../R/check-has-citation.R")
@@ -175,9 +168,9 @@ create this data.
 construct `summary` or `print` output.
 :::
 
-The `output_pkgchk_has_citation()` function looks like this:
+The `output_pkgchk_has_scrap()` function looks like this:
 
-```{r output-pkgchk-citation}
+```{r output-pkgchk-scrap}
 ```
 
 The first lines are common to all `output_pkgchk_...()` functions, and define
@@ -203,18 +196,12 @@ result of the main `pkgchk_has_citation()` call, and is converted into a green
 tick if `TRUE`, or a red cross if `FALSE`.
 
 Checks for which `print` information is desired require a non-empty `print`
-item, as in the [`output_pkgchk_has_scrap()`
-function](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/check-scrap.R):
-
-```{r output-pkgchk-scrap}
-```
-
-In this case, both `summary` and `print` methods are only triggered `if
+item. In this case, both `summary` and `print` methods are only triggered `if
 (!out$check_pass)` -- so only if the check fails. The `print` method generates
 the heading specified in `out$print$msg_pre`, with any vector-valued objects
-stored in the corresponding `obj` list item displayed as formatted lists.
-A package with "scrap" files, `"a"` and `"b"`, would thus have `out$print$obj
-<- c ("a", "b")`, and when printed would look like this:
+stored in the corresponding `obj` list item displayed as formatted lists. A
+package with "scrap" files, `"a"` and `"b"`, would thus have `out$print$obj <-
+c ("a", "b")`, and when printed would look like this:
 
 ```{r scrap-out, echo = FALSE}
 cli::cli_alert_danger ("Package contains the following unexpected files:")
@@ -263,17 +250,19 @@ summary (checks)
 ```{r pkgstats-check-out, echo = FALSE, eval = TRUE}
 cli::cli_h1 ("pkgstats 9.9")
 message ("")
-s <- c ("- :heavy_check_mark: Package name is available",
-        "- :heavy_multiplication_x: does not have a 'contributing' file.",
-        "- :heavy_check_mark: uses 'roxygen2'.",
-        "- :heavy_check_mark: 'DESCRIPTION' has a URL field.",
-        "- :heavy_check_mark: 'DESCRIPTION' has a BugReports field.",
-        "- :heavy_multiplication_x: Package has no HTML vignettes",
-        "- :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].",
-        "- :heavy_check_mark: Package has continuous integration checks.",
-        "- :heavy_multiplication_x: Package coverage failed",
-        "- :heavy_multiplication_x: R CMD check found 1 error.",
-        "- :heavy_check_mark: R CMD check found no warnings.")
+s <- c (
+    "- :heavy_check_mark: Package name is available",
+    "- :heavy_multiplication_x: does not have a 'contributing' file.",
+    "- :heavy_check_mark: uses 'roxygen2'.",
+    "- :heavy_check_mark: 'DESCRIPTION' has a URL field.",
+    "- :heavy_check_mark: 'DESCRIPTION' has a BugReports field.",
+    "- :heavy_multiplication_x: Package has no HTML vignettes",
+    "- :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].",
+    "- :heavy_check_mark: Package has continuous integration checks.",
+    "- :heavy_multiplication_x: Package coverage failed",
+    "- :heavy_multiplication_x: R CMD check found 1 error.",
+    "- :heavy_check_mark: R CMD check found no warnings."
+)
 
 for (i in s) {
     msg <- strsplit (i, "(mark|\\_x):\\s+") [[1]] [2]
@@ -314,20 +303,24 @@ We then need to define the output functions:
 output_pkgchk_starts_with_aa <- function (checks) {
 
     out <- list (
-                 check_pass = grepl ("^aa",
-                                     checks$checks$starts_with_aa,
-                                     ignore.case = TRUE),
-                 summary = "",
-                 print = ""
+        check_pass = grepl ("^aa",
+            checks$checks$starts_with_aa,
+            ignore.case = TRUE
+        ),
+        summary = "",
+        print = ""
     )
 
-    out$summary <- paste0 ("Package name [",
-                           checks$checks$starts_with_aa,
-                           "] does ",
-                           ifelse (out$check_pass,
-                                   "",
-                                   "NOT"),
-                           " start with 'aa'")
+    out$summary <- paste0 (
+        "Package name [",
+        checks$checks$starts_with_aa,
+        "] does ",
+        ifelse (out$check_pass,
+            "",
+            "NOT"
+        ),
+        " start with 'aa'"
+    )
 
     return (out)
 }
@@ -340,18 +333,20 @@ include them in our output:
 ```{r pkgstats-check-out2, echo = FALSE, eval = TRUE}
 cli::cli_h1 ("pkgstats 9.9")
 message ("")
-s <- c ("- :heavy_check_mark: Package name is available",
-        "- :heavy_multiplication_x: does not have a 'contributing' file.",
-        "- :heavy_check_mark: uses 'roxygen2'.",
-        "- :heavy_check_mark: 'DESCRIPTION' has a URL field.",
-        "- :heavy_check_mark: 'DESCRIPTION' has a BugReports field.",
-        "- :heavy_multiplication_x: Package has no HTML vignettes",
-        "- :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].",
-        "- :heavy_check_mark: Package has continuous integration checks.",
-        "- :heavy_multiplication_x: Package coverage failed",
-        "- :heavy_multiplication_x: Package name [pkgstats] does NOT start with 'aa'",
-        "- :heavy_multiplication_x: R CMD check found 1 error.",
-        "- :heavy_check_mark: R CMD check found no warnings.")
+s <- c (
+    "- :heavy_check_mark: Package name is available",
+    "- :heavy_multiplication_x: does not have a 'contributing' file.",
+    "- :heavy_check_mark: uses 'roxygen2'.",
+    "- :heavy_check_mark: 'DESCRIPTION' has a URL field.",
+    "- :heavy_check_mark: 'DESCRIPTION' has a BugReports field.",
+    "- :heavy_multiplication_x: Package has no HTML vignettes",
+    "- :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].",
+    "- :heavy_check_mark: Package has continuous integration checks.",
+    "- :heavy_multiplication_x: Package coverage failed",
+    "- :heavy_multiplication_x: Package name [pkgstats] does NOT start with 'aa'",
+    "- :heavy_multiplication_x: R CMD check found 1 error.",
+    "- :heavy_check_mark: R CMD check found no warnings."
+)
 
 for (i in s) {
     msg <- strsplit (i, "(mark|\\_x):\\s+") [[1]] [2]
@@ -417,7 +412,7 @@ The `out` value returned from all `output_pkgchk_...` functions is a list that
 must include `check_pass`, `summary`, and `print` items, like in the example
 above. Non-default check types can be defined by an optional extra list-item
 named `check_type`, specified as a string with conditions for
-`"<pass>"_"<fail>"`, where a value of `"watch"` will replace the default
+`"(pass)"_"(fail)"`, where a value of `"watch"` will replace the default
 &#9989; or &#10060; symbols with &#128064;. For example, a check which should
 issue &#9989; on pass yet &#128064; on fail would be specified as,
 ```{r, eval = FALSE}
@@ -445,7 +440,7 @@ checks start with the following lines:
 
 ```{r test-structure, eval = FALSE}
 checks <- make_check_data ()
-ci_out <- output_pkgchk_<fn-name> (checks)
+ci_out <- output_pkgchk_my_fn (checks)
 ```
 
 Data from any newly-added checks will automatically appear in the result of

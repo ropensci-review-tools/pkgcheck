@@ -18,8 +18,12 @@ render_md2html(md, open = TRUE)
 render markdown-formatted input into 'html'
 }
 \examples{
-\dontrun{
-checks <- pkgcheck ("/path/to/my/package")
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+path <- pkgstats::extract_tarball (f)
+on.exit (fs::dir_delete (path))
+
+\donttest{
+checks <- pkgcheck (path, goodpractice = FALSE)
 # Generate standard markdown-formatted character vector:
 md <- checks_to_markdown (checks)
 

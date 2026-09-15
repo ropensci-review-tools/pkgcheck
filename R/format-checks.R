@@ -7,8 +7,12 @@
 #' @family extra
 #' @export
 #' @examples
-#' \dontrun{
-#' checks <- pkgcheck ("/path/to/my/package")
+#' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+#' path <- pkgstats::extract_tarball (f)
+#' on.exit (fs::dir_delete (path))
+#'
+#' \donttest{
+#' checks <- pkgcheck (path, goodpractice = FALSE)
 #' md <- checks_to_markdown (checks) # markdown-formatted character vector
 #' md <- checks_to_markdown (checks, render = TRUE) # HTML version
 #' }
@@ -600,8 +604,12 @@ d3js_description <- function (checks) {
 #' @family extra
 #' @export
 #' @examples
-#' \dontrun{
-#' checks <- pkgcheck ("/path/to/my/package")
+#' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+#' path <- pkgstats::extract_tarball (f)
+#' on.exit (fs::dir_delete (path))
+#'
+#' \donttest{
+#' checks <- pkgcheck (path, goodpractice = FALSE)
 #' # Generate standard markdown-formatted character vector:
 #' md <- checks_to_markdown (checks)
 #'

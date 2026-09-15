@@ -7,10 +7,14 @@
 #' @family pkgcheck_fns
 #' @export
 #' @examples
-#' \dontrun{
-#' checks <- pkgcheck ("/path/to/my/package")
-#' print (checks) # print full checks, starting with summary
+#' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+#' path <- pkgstats::extract_tarball (f)
+#' on.exit (fs::dir_delete (path))
+#'
+#' \donttest{
+#' checks <- pkgcheck (path, goodpractice = FALSE)
 #' summary (checks) # print summary only
+#' # print (checks) # print full checks, starting with summary
 #' }
 print.pkgcheck <- function (x, deps = FALSE, ...) {
 

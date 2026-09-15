@@ -18,7 +18,7 @@ A convenience function to automatically open the web page of rOpenSci's
 "Package Development Guide" in the default browser.
 }
 \examples{
-\dontrun{
+\donttest{
 read_pkg_guide ()
 }
 }
