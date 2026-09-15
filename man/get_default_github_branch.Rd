@@ -22,9 +22,9 @@ This function is not intended to be called directly, and is only
 exported to enable it to be used within the \pkg{plumber} API.
 }
 \examples{
-\dontrun{
 org <- "ropensci-review-tools"
 repo <- "pkgcheck"
+\donttest{
 branch <- get_default_github_branch (org, repo)
 }
 }

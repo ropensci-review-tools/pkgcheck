@@ -31,6 +31,8 @@ checks.
 \examples{
 f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
 path <- pkgstats::extract_tarball (f)
+on.exit (fs::dir_delete (path))
+
 \donttest{
 # Foreground checks as "blocking" process which will return
 # only after all checks have finished:

@@ -26,9 +26,9 @@ GitHub, which will not necessarily be the same as information returned from
 same default branch.
 }
 \examples{
-\dontrun{
 org <- "ropensci-review-tools"
 repo <- "pkgcheck"
+\donttest{
 commit <- get_latest_commit (org, repo)
 }
 }

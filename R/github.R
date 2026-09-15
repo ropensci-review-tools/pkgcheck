@@ -55,9 +55,9 @@ repo_info_qry <- function (org, repo) {
 #' @family github
 #' @export
 #' @examples
-#' \dontrun{
 #' org <- "ropensci-review-tools"
 #' repo <- "pkgcheck"
+#' \donttest{
 #' branch <- get_default_github_branch (org, repo)
 #' }
 get_default_github_branch <- function (org, repo) {
@@ -85,9 +85,9 @@ get_default_github_branch <- function (org, repo) {
 #' @family github
 #' @export
 #' @examples
-#' \dontrun{
 #' org <- "ropensci-review-tools"
 #' repo <- "pkgcheck"
+#' \donttest{
 #' commit <- get_latest_commit (org, repo)
 #' }
 get_latest_commit <- function (org, repo, branch = NULL) {
