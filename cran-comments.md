@@ -7,7 +7,9 @@ This submission fixes issues identified in previous initial submission attempt, 
 - The DOI entry in DESCRIPTION has been fixed as instructed.
 - Stopped one vignette writing to non-tempdir location.
 - I think warnings about unexecutable code have been fixed, although I was unable to reproduce those.
-- Almost all `dontrun{}` fences converted to `donttest{}`, except one remaining use in `pkgcheck_bg()`, because that function launches a background process which will run for an undefined length of time.
+- Almost all `dontrun{}` fences converted to `donttest{}`, except:
+  - In `pkgcheck_bg()` which launches a background process which will run for an undefined length of time.
+  - In `use_github_action_pkgcheck()` which downloads remote files.
 
 ## R CMD check results
 
