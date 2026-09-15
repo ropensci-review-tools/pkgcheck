@@ -4,7 +4,12 @@ This is a new submission. Note that many tests have `testthat::skip_on_cran()` f
 
 This submission fixes issues identified in previous initial submission attempt, including:
 
-- The DOI entry in DESCRIPTION has been fixed as instructed
+- The DOI entry in DESCRIPTION has been fixed as instructed.
+- Stopped one vignette writing to non-tempdir location.
+- I think warnings about unexecutable code have been fixed, although I was unable to reproduce those.
+- Almost all `dontrun{}` fences converted to `donttest{}`, with the following exceptions:
+  - `pkgcheck_bg()`, because that function launches a background process which
+  will run for an undefined length of time.
 
 ## R CMD check results
 
