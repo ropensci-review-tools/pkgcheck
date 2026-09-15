@@ -24,10 +24,12 @@ process are stored in the cache directory so they can be inspected via their
 own distinct endpoint calls.
 }
 \examples{
-\dontrun{
-logfiles <- logfiles_namnes ("/path/to/my/package")
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+path <- pkgstats::extract_tarball (f)
+on.exit (fs::dir_delete (path))
+
+logfiles <- logfile_names (path)
 print (logfiles)
-}
 }
 \seealso{
 Other extra:

@@ -12,10 +12,12 @@
 #' @family extra
 #' @export
 #' @examples
-#' \dontrun{
-#' logfiles <- logfiles_namnes ("/path/to/my/package")
+#' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+#' path <- pkgstats::extract_tarball (f)
+#' on.exit (fs::dir_delete (path))
+#'
+#' logfiles <- logfile_names (path)
 #' print (logfiles)
-#' }
 logfile_names <- function (path) {
 
     temp_dir <- fs::path (Sys.getenv ("PKGCHECK_CACHE_DIR"), "templogs")
