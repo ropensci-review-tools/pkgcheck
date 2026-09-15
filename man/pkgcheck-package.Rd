@@ -26,6 +26,7 @@ Authors:
   \item Jacob Wujciak-Jens \email{jacob@wujciak.de} (\href{https://orcid.org/0000-0002-7281-3989}{ORCID})
   \item Eunseop Kim \email{markean@pm.me} (\href{https://orcid.org/0009-0000-2138-788X}{ORCID})
   \item Andy Teucher \email{andy.teucher@gmail.com} (\href{https://orcid.org/0000-0002-7840-692X}{ORCID})
+  \item Eric R. Scott (\href{https://orcid.org/0000-0002-7430-7879}{ORCID})
 }
 
 Other contributors:
