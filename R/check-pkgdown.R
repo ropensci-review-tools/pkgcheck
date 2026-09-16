@@ -2,9 +2,12 @@
 # pkgdown-related aspects of package documentation.
 output_pkgchk_pkgdown <- function (checks) {
 
+    # Skip pkgdown checks if number of .Rd files is below this threshold.
+    ref_threshold <- 10L
+
     # Grouped concepts must mean at least 2, so check is > 1:
     out <- list (
-        check_pass = length (checks$info$pkgdown_concepts) > 1L,
+        check_pass = length (checks$info$pkgdown) > 1L,
         summary = "",
         print = ""
     )
