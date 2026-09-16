@@ -9,6 +9,7 @@
 ### New checks added
 
 - Checks for ROR and ORCID entries (#243; thanks to @Aariq).
+- Check for pkgdown structure finally refined and activated (#100; thanks to @maelle).
 
 ### Minor changes
 
