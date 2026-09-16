@@ -17,6 +17,7 @@
 ^codemeta\.json$
 ^cran-comments\.md$
 ^ctags$
+^docs$
 ^inst/WORDLIST$
 ^inst/precommit$
 ^makefile$
