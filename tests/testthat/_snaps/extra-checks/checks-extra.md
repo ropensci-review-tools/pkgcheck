@@ -11,6 +11,7 @@ git hash: [](https://github.com/ropensci-review-tools/pkgstats/tree/)
 - :heavy_multiplication_x: Package has no HTML vignettes
 - :heavy_multiplication_x: These functions do not have examples: [pkgstats_from_archive].
 - :heavy_check_mark: Repository has a website
+- :heavy_multiplication_x: Package has no '_pkgdown.yml' file
 - :heavy_check_mark:  Package has continuous integration checks, but no badges on README
 - :heavy_check_mark: All goodpractice linters passed.
 - :heavy_multiplication_x: Package contains unexpected files.
