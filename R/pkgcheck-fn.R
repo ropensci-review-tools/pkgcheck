@@ -17,14 +17,12 @@
 #' @examples
 #' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
 #' path <- pkgstats::extract_tarball (f)
-#' on.exit (fs::dir_delete (path))
 #'
-#' # Skip the optional full 'goodpractice' checks, which can take a long
-#' # time:
-#' \donttest{
-#' checks <- pkgcheck (path, goodpractice = FALSE)
+#' \dontrun{
+#' checks <- pkgcheck (path)
 #' summary (checks)
 #' }
+#' fs::dir_delete (path)
 pkgcheck <- function (path = ".", goodpractice = TRUE,
                       use_cache = TRUE, extra_env = .GlobalEnv) {
 

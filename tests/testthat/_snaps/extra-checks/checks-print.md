@@ -10,6 +10,7 @@ v 'DESCRIPTION' has a BugReports field.
 x Package has no HTML vignettes
 x These functions do not have examples: [pkgstats_from_archive].
 v Repository has a website
+x Package has no '_pkgdown.yml' file
 v Package has continuous integration checks, but no badges on README
 v All goodpractice linters passed.
 x Package contains unexpected files.

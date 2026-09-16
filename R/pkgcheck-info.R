@@ -19,7 +19,7 @@ pkgcheck_fill_info <- function (checks, path, stats) {
     }
     checks$info <- stats$out [info_items]
 
-    checks$info$pkgdown_concepts <- pkginfo_pkgdown (path)
+    checks$info$pkgdown <- pkginfo_pkgdown (path)
     checks$info$network_file <- fn_call_network (stats)
     checks$info$renv_activated <- pkginfo_renv_activated (path)
 

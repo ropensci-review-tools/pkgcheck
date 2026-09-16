@@ -9,13 +9,13 @@
 #' @examples
 #' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
 #' path <- pkgstats::extract_tarball (f)
-#' on.exit (fs::dir_delete (path))
 #'
-#' \donttest{
+#' \dontrun{
 #' checks <- pkgcheck (path, goodpractice = FALSE)
 #' md <- checks_to_markdown (checks) # markdown-formatted character vector
 #' md <- checks_to_markdown (checks, render = TRUE) # HTML version
 #' }
+#' fs::dir_delete (path)
 checks_to_markdown <- function (checks, render = FALSE) {
 
     md_chks <- summarise_all_checks (checks)
@@ -606,9 +606,8 @@ d3js_description <- function (checks) {
 #' @examples
 #' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
 #' path <- pkgstats::extract_tarball (f)
-#' on.exit (fs::dir_delete (path))
 #'
-#' \donttest{
+#' \dontrun{
 #' checks <- pkgcheck (path, goodpractice = FALSE)
 #' # Generate standard markdown-formatted character vector:
 #' md <- checks_to_markdown (checks)
@@ -619,6 +618,7 @@ d3js_description <- function (checks) {
 #' # Or convert markdown-formatted version to HTML:
 #' h <- render_md2html (md)
 #' }
+#' fs::dir_delete (path)
 render_md2html <- function (md, open = TRUE) {
 
     md <- gsub ("\\:heavy\\_check\\_mark\\:", "&#9989;", md)

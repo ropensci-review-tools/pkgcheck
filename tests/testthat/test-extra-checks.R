@@ -99,6 +99,7 @@ test_that ("extra checks", {
     checks$checks$fns_have_exs <- ex
     checks$checks$branch_is_master <- FALSE
     checks$checks$uses_dontrun [] <- "none"
+    checks$checks$pkgdown <- list (check_pass = TRUE, summary = "")
 
     set.seed (1L)
     x <- capture.output (summary (checks), type = "message")

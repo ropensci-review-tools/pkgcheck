@@ -9,13 +9,13 @@
 #' @examples
 #' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
 #' path <- pkgstats::extract_tarball (f)
-#' on.exit (fs::dir_delete (path))
 #'
-#' \donttest{
-#' checks <- pkgcheck (path, goodpractice = FALSE)
+#' \dontrun{
+#' checks <- pkgcheck (path)
 #' summary (checks) # print summary only
-#' # print (checks) # print full checks, starting with summary
+#' print (checks) # print full checks, starting with summary
 #' }
+#' fs::dir_delete (path)
 print.pkgcheck <- function (x, deps = FALSE, ...) {
 
     requireNamespace ("goodpractice", quietly = TRUE)
@@ -70,10 +70,10 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
     pkg_env <- env2namespace ("pkgcheck")
     if (sum (misc_check_counts (x)) > 0L) {
         cli::cli_h2 ("Other checks")
+        print_check_screen (x, "pkgdown", pkg_env)
         print_check_screen (x, "unique_fn_names", pkg_env)
         print_check_screen (x, "has_scrap", pkg_env)
         print_check_screen (x, "renv_activated", pkg_env)
-        print_check_screen (x, "branch_is_master", pkg_env)
         print_check_screen (x, "obsolete_pkg_deps", pkg_env)
         print_check_screen (x, "has_orcid", pkg_env)
     }

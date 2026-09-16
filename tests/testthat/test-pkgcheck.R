@@ -59,7 +59,7 @@ test_that ("pkgcheck", {
         "git",
         "github",
         "network_file",
-        "pkgdown_concepts",
+        "pkgdown",
         "pkgstats",
         "renv_activated",
         "srr"
