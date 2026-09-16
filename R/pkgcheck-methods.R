@@ -9,13 +9,13 @@
 #' @examples
 #' f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
 #' path <- pkgstats::extract_tarball (f)
-#' on.exit (fs::dir_delete (path))
 #'
-#' \donttest{
-#' checks <- pkgcheck (path, goodpractice = FALSE)
+#' \dontrun{
+#' checks <- pkgcheck (path)
 #' summary (checks) # print summary only
-#' # print (checks) # print full checks, starting with summary
+#' print (checks) # print full checks, starting with summary
 #' }
+#' fs::dir_delete (path)
 print.pkgcheck <- function (x, deps = FALSE, ...) {
 
     requireNamespace ("goodpractice", quietly = TRUE)

@@ -21,13 +21,13 @@ Convert checks to markdown-formatted report
 \examples{
 f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
 path <- pkgstats::extract_tarball (f)
-on.exit (fs::dir_delete (path))
 
-\donttest{
+\dontrun{
 checks <- pkgcheck (path, goodpractice = FALSE)
 md <- checks_to_markdown (checks) # markdown-formatted character vector
 md <- checks_to_markdown (checks, render = TRUE) # HTML version
 }
+fs::dir_delete (path)
 }
 \seealso{
 Other extra:

@@ -34,6 +34,9 @@ allcon: ## Run 'allcontributors::add_contributors'
 check: ## Run `rcmdcheck`
 	Rscript -e 'rcmdcheck::rcmdcheck()'
 
+checkcran: ## Run `rcmdcheck with '--as-cran'`
+	Rscript -e 'rcmdcheck::rcmdcheck(args = list("--as-cran", "--run-donttest"))'
+
 test: ## Run test suite
 	Rscript -e 'testthat::test_local()'
 
