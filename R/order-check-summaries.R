@@ -46,8 +46,9 @@ order_checks_sequence <- c (
 order_checks <- function (fns) {
 
     fns <- fns [which (fns %in% order_checks_sequence)]
-    ord <- ord [which (order_checks_sequence %in% fns)] # b/c 'covr' is removed w/o gp
-    fns <- fns [match (order_checks_sequence, fns)]
+    # This line needed b/c 'covr' is removed w/o gp:
+    ord <- order_checks_sequence [which (order_checks_sequence %in% fns)]
+    fns <- fns [match (ord, fns)]
 
     return (fns)
 }
