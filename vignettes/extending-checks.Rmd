@@ -333,13 +333,15 @@ Customised personal checks can be incorporated by defining them in a local
 package, loading that into the workspace, and passing the name of the package
 to the `extra_env` parameter.
 
+---
+
 ### 3.2 New `pkgcheck` Checks (*for `pkgcheck` developers*)
 
 New checks can be added to this package by creating new files in the `/R`
 directory prefixed with `pkgchk_`, and including the two functions described
 above (a check and an output function). The check name will then need to be
-included in [the `order_checks()` function in the `R/summarise-checks.R`
-file](https://github.com/ropensci-review-tools/pkgcheck/blob/6c99a804cea99af4fca8e27e41784ecd6b7f1501/R/summarise-checks.R#L92-L114),
+included in [the `order_checks()` function in the `R/order-check-summaries.R`
+file](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/order-check-summaries.R),
 which determines the order of checks in the `summary` output. Checks which are
 not defined in this ordering, including any defined via `extra_env` parameters,
 appear *after* all of the standard checks, and prior to the `R CMD check`
