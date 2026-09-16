@@ -62,4 +62,6 @@ test_that ("check functions have exs", {
     expect_true (checks$info$pkgdown$has_reference)
     expect_true (checks$checks$pkgdown$check_pass)
     expect_false (nzchar (checks$checks$pkgdown$summary))
+
+    fs::dir_delete (checks$pkg$path)
 })
