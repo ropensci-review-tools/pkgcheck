@@ -71,16 +71,13 @@ examples.
 }
 
 \examples{
-dir <- fs::path_temp ()
-f <- use_github_action_pkgcheck (
-    dir = dir,
-    inputs = list (`post-to-issue` = "false")
-)
+# These functions will by default create new files in the default `.dir`.
+\dontrun{
+f <- use_github_action_pkgcheck (inputs = list (`post-to-issue` = "false"))
 readLines (f)
-fs::file_delete (f)
 
-f <- use_github_action_pkgcheck (dir = dir, branch = "main")
-fs::file_delete (f)
+f <- use_github_action_pkgcheck (branch = "main")
+}
 
 }
 \seealso{
