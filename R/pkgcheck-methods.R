@@ -70,10 +70,10 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
     pkg_env <- env2namespace ("pkgcheck")
     if (sum (misc_check_counts (x)) > 0L) {
         cli::cli_h2 ("Other checks")
+        print_check_screen (x, "pkgdown", pkg_env)
         print_check_screen (x, "unique_fn_names", pkg_env)
         print_check_screen (x, "has_scrap", pkg_env)
         print_check_screen (x, "renv_activated", pkg_env)
-        print_check_screen (x, "branch_is_master", pkg_env)
         print_check_screen (x, "obsolete_pkg_deps", pkg_env)
         print_check_screen (x, "has_orcid", pkg_env)
     }
