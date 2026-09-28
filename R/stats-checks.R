@@ -15,8 +15,11 @@ stats_checks <- function (s, threshold = 0.05) {
         s$npars_exported_md <- 0L
     }
 
-
-    dat <- get_pkgstats_data ()
+    if (is_test_env ()) {
+        dat <- fake_pkgstats_test_data (s)
+    } else {
+        dat <- get_pkgstats_data ()
+    }
 
     # convert blank line measures into relative
     b_s <- grep ("^blank\\_lines", names (s))
@@ -224,4 +227,62 @@ dl_pkgstats_data <- function (f_path) {
     }
 
     return (f_path)
+}
+
+#' To avoid downloading full `pkgstats` data in tests, this takes the
+#' `pkgstats_summary()` result, `s`, as input and returns an equivalent fake
+#' version.
+#'
+#' @noRd
+fake_pkgstats_test_data <- function (s, n = 100) {
+
+    out <- cbind (s, rep (row.names (s), each = n))
+
+    out$files_R <- rnorm (n = n, mean = 8.77, sd = 16.6)
+    out$files_src <- rnorm (n = n, mean = 5.54, sd = 98.6)
+    out$files_inst <- rnorm (n = n, mean = 2.25, sd = 16.1)
+    out$files_vignettes <- rnorm (n = n, mean = 0.58, sd = 1.8)
+    out$files_tests <- rnorm (n = n, mean = 1.96, sd = 8.1)
+    out$num_data_files <- rnorm (n = n, mean = 6.32, sd = 18.5)
+
+    out$loc_R <- rnorm (n = n, mean = 671, sd = 2126)
+    out$loc_src <- rnorm (n = n, mean = 5073, 39032)
+    out$loc_inst <- rnorm (n = n, mean = 875, 7220)
+    out$loc_vignettes <- rnorm (n = n, mean = 341, 995)
+    out$loc_tests <- rnorm (n = n, mean = 428, 2071)
+    out$loc_per_fn_r_mn <- rnorm (n = n, mean = 34, 141)
+    out$loc_per_fn_r_md <- rnorm (n = n, mean = 27, 137)
+    out$loc_per_fn_r_exp_mn <- rnorm (n = n, mean = 34, 130)
+    out$loc_per_fn_r_exp_md <- rnorm (n = n, mean = 28, 126)
+    out$loc_per_fn_r_not_exp_mn <- rnorm (n = n, mean = 16, 91)
+    out$loc_per_fn_r_not_exp_md <- rnorm (n = n, mean = 12, 89)
+    out$loc_per_fn_src_mn <- rnorm (n = n, mean = 6.6, 26)
+    out$loc_per_fn_src_md <- rnorm (n = n, mean = 4.1, 22)
+
+    out$data_size_total <- rnorm (n = n, mean = 722702, 218470)
+    out$data_size_median <- rnorm (n = n, mean = 1782499, 740378)
+    out$num_vignettes <- rnorm (n = n, mean = 0.59, sd = 1.69)
+
+    out$n_fns_r <- rnorm (n = n, mean = 25, sd = 95)
+    out$n_fns_r_exported <- rnorm (n = n, mean = 15, sd = 47)
+    out$n_fns_r_not_exported <- rnorm (n = n, mean = 12, sd = 63)
+    out$n_fns_src <- rnorm (n = n, mean = 59, sd = 629)
+    out$n_fns_per_file_r <- rnorm (n = n, mean = 2., sd = 8.2)
+    out$n_fns_per_file_src <- rnorm (n = n, mean = 1.4, sd = 5.0)
+
+    out$npars_exported_mn <- rnorm (n = n, mean = 2.7, sd = 5.9)
+    out$npars_exported_md <- rnorm (n = n, mean = 2.4, sd = 5.8)
+
+    out$doclines_per_fn_exp_mn <- rnorm (n = n, mean = 34, sd = 60)
+    out$doclines_per_fn_exp_md <- rnorm (n = n, mean = 32, sd = 61)
+    out$doclines_per_fn_not_exp_mn <- rnorm (n = n, mean = 2.2, sd = 7.9)
+    out$doclines_per_fn_not_exp_md <- rnorm (n = n, mean = 1.47, sd = 7.3)
+    out$doclines_per_fn_src_mn <- rnorm (n = n, mean = 0.28, sd = 1.4)
+    out$doclines_per_fn_src_md <- rnorm (n = n, mean = 0.09, sd = 0.6)
+
+    out$n_edges <- rnorm (n = n, mean = 238, sd = 3224)
+    out$n_edges_r <- rnorm (n = n, mean = 37, sd = 178)
+    out$n_edges_src <- rnorm (n = n, mean = 201, sd = 3218)
+
+    return (out)
 }
