@@ -4,7 +4,9 @@ pkginfo_github <- function (checks) {
     checks$info$github$repo_has_website <- TRUE
 
     u <- checks$pkg$url
-    if (length (u) == 0L || !nzchar (u)) {
+    has_token <- nzchar (as.character (gh::gh_token ()))
+    if (length (u) == 0L || !nzchar (u) ||
+        !has_token || !curl::has_internet ()) {
         return (checks)
     }
 

@@ -21,15 +21,18 @@ pkginfo_git_info <- function (path) {
 
     u <- pkginfo_url_from_desc (path)
 
-    branch <- NULL
+    branch_default <- branch <- NULL
+    if (repo_is_git (path)) {
+        branch <- gert::git_branch (path)
+    }
 
     if (length (u) > 0L) {
 
         repo <- utils::tail (strsplit (u, "/") [[1]], 1)
         org <- utils::tail (strsplit (u, "/") [[1]], 2) [1]
-        has_token <- length (gh::gh_token ()) > 0L
-        if (curl::has_internet () & has_token) {
-            branch <- get_default_github_branch (org, repo)
+        has_token <- nzchar (as.character (gh::gh_token ()))
+        if (curl::has_internet () && has_token) {
+            branch_default <- get_default_github_branch (org, repo)
         }
     }
 
@@ -42,14 +45,10 @@ pkginfo_git_info <- function (path) {
         # use email addresses to identify unique authors
         auts <- gsub ("^.*<|>$", "", unique (gitlog$author))
 
-        if (is.null (branch)) { # no remote, so assume local head
-
-            branch <- gert::git_info (path)$shorthand
-        }
-
         ret <- list (
             HEAD = gitlog$commit [1],
             branch = branch,
+            branch_default = branch_default,
             num_commits = nrow (gitlog),
             since = min (gitlog$time),
             num_authors = length (unique (auts))
