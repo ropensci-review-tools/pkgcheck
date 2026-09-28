@@ -1,16 +1,6 @@
-## pkgcheck version 0.3.0
+## pkgcheck version 0.3.1
 
-This submission fixes issues identified in previous initial submission attempt, including:
-
-- The DOI entry in DESCRIPTION has been fixed as instructed.
-- Stopped one vignette writing to non-tempdir location.
-- I think warnings about unexecutable code have been fixed, although I was unable to reproduce those.
-- Almost all `dontrun{}` fences converted to `donttest{}`, except:
-  - In `pkgcheck_bg()` which launches a background process which will run for an undefined length of time.
-  - In `use_github_action_pkgcheck()` which downloads remote files.
-  - Five other functions which run the main `pkgcheck()` function on an example R package and take > 5s on most machines tested.
-
-Note that many tests have `testthat::skip_on_cran()` flags, because the package performs many checks specific to GitHub, the platform used for rOpenSci's software review. These require an API token. As many tests as possible are nevertheless run on CRAN machines, including thorough checks of the general input/output structures of this package, and all main workflow stages.
+This submission fixes all failing tests flagged in email from 28th Sep 2026. All of these tests now entirely avoid external API calls, so will always "fail gracefully" on all test systems.
 
 ## R CMD check results
 

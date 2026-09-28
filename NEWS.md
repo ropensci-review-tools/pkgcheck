@@ -1,6 +1,15 @@
 # pkgcheck News
 
-## 0.2.0.00x (current dev version)
+## 0.3.1
+
+### Minor changes
+
+- Tests updated to never make external GitHub API calls.
+- New `fake_pkgstats_test_data()` fn to avoid downloading pkgstats results in tests.
+
+## 0.3.0
+
+Initial CRAN release
 
 ### Major changes
 
