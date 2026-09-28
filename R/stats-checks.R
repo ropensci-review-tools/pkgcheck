@@ -234,7 +234,12 @@ dl_pkgstats_data <- function (f_path) {
 #' version.
 #'
 #' @noRd
-fake_pkgstats_test_data <- function (s, n = 100) {
+fake_pkgstats_test_data <- function (s, n = 100, seed = 1L) {
+
+    withr::with_seed (seed, fake_pkgstats_test_data_impl (s, n = n))
+}
+
+fake_pkgstats_test_data_impl <- function (s, n = 100) {
 
     out <- cbind (s, rep (row.names (s), each = n))
 
