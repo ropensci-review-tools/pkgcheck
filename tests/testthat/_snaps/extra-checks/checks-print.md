@@ -109,6 +109,10 @@ x Document return values for exported (non-method) functions using `\\value`.
     'man/rd_stats.Rd'
     'man/tags_data.Rd'
 
+i run revdepcheck::revdep_check() before CRAN submission. This package has 1
+  reverse dependency on CRAN: pkgcheck.
+
+
 
 -- Other checks --
 
