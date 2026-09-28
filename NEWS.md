@@ -14,6 +14,7 @@
 ### Minor changes
 
 - Removed internal `get_gh_token()` fn, replaced with `gh::gh_token()`.
+- New internal `fake_pkgstats_test_data()` fn to avoid large dl in tests.
 
 ---
 
