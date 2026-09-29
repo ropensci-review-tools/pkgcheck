@@ -34,10 +34,17 @@ pkgchk_has_orcid <- function (checks) {
     names (has_orcid) <- vapply (
         authors,
         function (x) {
-            paste (x$given, x$family)
+            paste0 (x$given, x$family, collapse = " ")
         },
         FUN.VALUE = "a"
     )
+
+    # But remove any that have RORs:
+    has_ror <- pkgchk_has_ror (checks)
+    index <- which (names (has_orcid) %in% names (has_ror))
+    if (length (index) > 0L) {
+        has_orcid <- has_orcid [-(index)]
+    }
 
     return (has_orcid)
 }

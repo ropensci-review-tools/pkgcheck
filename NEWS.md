@@ -2,6 +2,12 @@
 
 ## 0.3.1.00x (current dev version)
 
+### Minor changes
+
+- Update `has_orcid` check to exclude any 'aut' with ROR.
+
+---
+
 ## 0.3.1
 
 ### Minor changes
