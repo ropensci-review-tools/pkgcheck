@@ -15,11 +15,11 @@ test_that ("check ci", {
         ci_out$summary,
         " Package has continuous integration checks."
     )
-    expect_gt (length (ci_out$print), 5L)
-    # Most 'print' lines have something:
-    nlines <- length (ci_out$print)
-    non_empty_lines <- length (which (nzchar (ci_out$print)))
-    expect_gt (non_empty_lines / nlines, 0.6)
+    expect_length (ci_out$print, 3L)
+    expect_named (ci_out$print, c ("msg_pre", "obj", "msg_post"))
+    expect_length (ci_out$print$msg_pre, 1L)
+    expect_length (ci_out$print$obj, 1L)
+    expect_gt (length (ci_out$print$msg_post), 3L)
 
     skip_on_os ("mac")
 

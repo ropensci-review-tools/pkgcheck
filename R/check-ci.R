@@ -49,16 +49,14 @@ output_pkgchk_ci <- function (checks) {
 
         # Sec. num = 3 for standard, but 4 for stats packages:
         sec_num <- 3L + "srr" %in% names (checks$info)
-        out$print <- c (
-            paste0 ("#### ", sec_num, "a. Continuous Integration Badges"),
-            "",
-            unlist (checks$info$badges),
-            ""
+        out$print <- list (
+            msg_pre = paste0 ("#### ", sec_num, "a. Continuous Integration Badges"),
+            obj = checks$info$badges,
+            msg_post = character (0L)
         )
 
         if (!is.null (checks$info$github$workflows)) {
-            out$print <- c (
-                out$print,
+            out$print$msg_post <- paste0 (
                 "**GitHub Workflow Results**",
                 "",
                 knitr::kable (checks$info$github$workflows)

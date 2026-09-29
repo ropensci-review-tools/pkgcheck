@@ -346,15 +346,7 @@ which determines the order of checks in the `summary` output. Checks which are
 not defined in this ordering, including any defined via `extra_env` parameters,
 appear *after* all of the standard checks, and prior to the `R CMD check`
 results which always appear last. This order may only be modified by editing
-the list in that function. The order of check results in the `print` method is
-also hard-coded, defined in the [main `print.pkgcheck`
-method](https://github.com/ropensci-review-tools/pkgcheck/blob/main/R/pkgcheck-methods.R).
-As explicitly stated in that function, any new checks should also be included
-in the `print` method just after [the first reference to `"misc_checks"`](https://github.com/ropensci-review-tools/pkgcheck/blob/2e025c276c84b45bc46f72ec5d8b029de83ac211/R/pkgcheck-methods.R#L65-L71), via an additional line:
-
-```{r new-check-print, eval = FALSE}
-print_check_screen (x, "<name-of-new-check>", pkg_env)
-```
+the list in that function.
 
 The `print_check_screen()` function will then automatically activate the
 `print` method of any new checks. This line should be added even if a new check

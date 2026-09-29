@@ -185,7 +185,8 @@ get_gp_text <- function (checks) {
 get_extra_checks_text <- function (checks, sec_num) {
 
     extra <- extra_check_prints_from_env (checks)
-    has_extra <- length (extra$env) > 0L | sum (misc_check_counts (checks)) > 0L
+    has_print <- output_has_print (checks)
+    has_extra <- length (extra$env) > 0L || length (has_print) > 0L
     out <- NULL
     if (has_extra) {
         e <- env2namespace ("pkgcheck")
@@ -203,9 +204,7 @@ get_extra_checks_text <- function (checks, sec_num) {
             "<p>",
             ""
         )
-        extras <- misc_check_counts (checks)
-        extras <- extras [which (extras > 0L)]
-        for (ex in names (extras)) {
+        for (ex in has_print) {
             out <- c (
                 out,
                 print_check_md (

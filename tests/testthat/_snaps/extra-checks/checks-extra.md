@@ -174,6 +174,17 @@ Click to see the [interactive network visualisation of calls between objects in 
 <p>
 
 
+:heavy_check_mark: #### 4a. Continuous Integration Badges
+
+- (There do not appear to be any)
+
+
+**GitHub Workflow Results**| id|name               |conclusion |sha    | run_number|date       |
+**GitHub Workflow Results**|--:|:------------------|:----------|:------|----------:|:----------|
+**GitHub Workflow Results**|  1|R-CMD-check.yaml   |success    |abcdef |        101|2025-01-01 |
+**GitHub Workflow Results**|  2|test-coverage.yaml |success    |123456 |        102|2025-01-01 |
+
+
 :heavy_multiplication_x: Package contains the following unexpected files:
 
 - a
@@ -188,6 +199,20 @@ Click to see the [interactive network visualisation of calls between objects in 
 
 
 See our [Recommended Scaffolding](https://devguide.ropensci.org/building.html?q=scaffol#recommended-scaffolding) for alternatives.
+
+
+:heavy_multiplication_x: All of your functions' examples use `\dontrun{}`:
+
+- ctags_install
+- ctags_test
+- desc_stats
+- extract_tarball
+- loc_stats
+- pkgstats
+- pkgstats_summary
+- plot_network
+- rd_stats
+- tags_data
 
 
 </p>

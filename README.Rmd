@@ -14,6 +14,8 @@ output:
 [![R-CMD-check](https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/ropensci-review-tools/pkgcheck/graph/badge.svg)](https://app.codecov.io/gh/ropensci-review-tools/pkgcheck)
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/pkgcheck)](https://cran.r-project.org/package=pkgcheck/) 
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/pkgcheck?color=orange)](https://cran.r-project.org/package=pkgcheck)
 <!-- badges: end -->
 
 Check whether a package is ready for submission to

@@ -61,6 +61,34 @@ i Package has
 -- Package statistics --
 
 
+-- Other checks --
+
+
+x Package contains the following unexpected files:
+  * a
+  * b
+
+x Package contains the following (potentially) obsolete packages:
+  * blah
+  * sp
+  * rgdal
+
+See our [Recommended
+Scaffolding](https://devguide.ropensci.org/building.html?q=scaffol#recommended-scaffolding)
+for alternatives.
+
+x All of your functions' examples use `\dontrun`:
+  * ctags_install
+  * ctags_test
+  * desc_stats
+  * extract_tarball
+  * loc_stats
+  * pkgstats
+  * pkgstats_summary
+  * plot_network
+  * rd_stats
+  * tags_data
+
 i Package network diagram is not here.
 
 
@@ -113,20 +141,6 @@ i run revdepcheck::revdep_check() before CRAN submission. This package has 1
   reverse dependency on CRAN: pkgcheck.
 
 
-
--- Other checks --
-
-x Package contains the following unexpected files:
-  * a
-  * b
-x Package contains the following (potentially) obsolete packages:
-  * blah
-  * sp
-  * rgdal
-
-See our [Recommended
-Scaffolding](https://devguide.ropensci.org/building.html?q=scaffol#recommended-scaffolding)
-for alternatives.
 
 -- Package Versions --
 
