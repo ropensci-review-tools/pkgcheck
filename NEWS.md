@@ -2,6 +2,10 @@
 
 ## 0.3.1.00x (current dev version)
 
+### Major changes
+
+- Rewrite check print methods to automatically pick up all failing checks with `print` methods
+
 ### Minor changes
 
 - Update `has_orcid` check to exclude any 'aut' with ROR.

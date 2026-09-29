@@ -45,13 +45,10 @@ output_pkgchk_uses_dontrun <- function (checks) {
             )
         } else {
             out$summary <- "Examples should not use `\\dontrun{}` unless really necessary."
-            out$print <- paste0 (
-                "The following functions have examples that use `\\dontrun{}`:\n'",
-                paste (
-                    names (checks$checks$uses_dontrun [checks$checks$uses_dontrun != "none"]),
-                    collapse = "', '"
-                ),
-                out$print
+            out$print <- list (
+                msg_pre = "The following functions have examples that use `\\dontrun{}`:",
+                obj = names (checks$checks$uses_dontrun [checks$checks$uses_dontrun != "none"]),
+                msg_post = character (0L)
             )
             out$check_type <- "none_watch"
         }

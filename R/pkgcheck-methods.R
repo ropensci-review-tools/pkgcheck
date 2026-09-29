@@ -35,23 +35,23 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
         print_deps (x)
     }
 
-    pkg_fns <- ls ("package:pkgcheck", envir = loadNamespace ("pkgcheck"))
-    output_fns <- gsub (
-        "^output\\_pkgchk\\_", "",
-        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
-    )
-    has_covr <- "covr" %in% names (x$goodpractice)
-    if (!has_covr) {
-        output_fns <- output_fns [which (!grepl ("covr", output_fns))]
-    }
-    out <- lapply (output_fns, function (i) print_check (x, i))
-    out <- do.call (c, out [which (nchar (out) > 0L)])
+    output_fns <- list_pkgchk_output_fns (x)
 
     cli::cli_h2 ("Package statistics")
     x$info$pkgstats$value <- round (x$info$pkgstats$value, digits = 1)
     x$info$pkgstats$percentile <- round (x$info$pkgstats$percentile, digits = 1)
     print (x$info$pkgstats)
     message ("")
+
+    has_print <- output_has_print (x)
+    if (length (has_print) > 0L) {
+        pkg_env <- env2namespace ("pkgcheck")
+        cli::cli_h2 ("Other checks")
+        for (p in has_print) {
+            print_check_screen (x, p, pkg_env)
+            message ("")
+        }
+    }
 
     if ("network_file" %in% names (x$info)) {
         cli::cli_alert_info (
@@ -66,17 +66,6 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
 
     cli::cli_h2 ("goodpractice")
     print (x$goodpractice)
-
-    pkg_env <- env2namespace ("pkgcheck")
-    if (sum (misc_check_counts (x)) > 0L) {
-        cli::cli_h2 ("Other checks")
-        print_check_screen (x, "pkgdown", pkg_env)
-        print_check_screen (x, "unique_fn_names", pkg_env)
-        print_check_screen (x, "has_scrap", pkg_env)
-        print_check_screen (x, "renv_activated", pkg_env)
-        print_check_screen (x, "obsolete_pkg_deps", pkg_env)
-        print_check_screen (x, "has_orcid", pkg_env)
-    }
 
     # additional external checks:
     extra <- extra_check_prints_from_env (x)
@@ -95,16 +84,33 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
     cli::cli_dl (x$meta)
 }
 
-# internal misc checks; modify condition when more checks are added
-# But only add checks which have PRINT methods!
-misc_check_counts <- function (x) {
+list_pkgchk_output_fns <- function (x) {
 
-    c (
-        has_scrap = length (x$checks$has_scrap),
-        obsolete_pkg_deps = length (x$checks$obsolete_pkg_deps),
-        unique_fn_names = nrow (x$checks$unique_fn_names)
-        # renv_activated = as.integer (x$checks$renv_activated) # summary only
+    pkg_fns <- ls ("package:pkgcheck", envir = loadNamespace ("pkgcheck"))
+    output_fns <- gsub (
+        "^output\\_pkgchk\\_", "",
+        grep ("^output\\_pkgchk\\_", pkg_fns, value = TRUE)
     )
+    has_covr <- "covr" %in% names (x$goodpractice)
+    if (!has_covr) {
+        output_fns <- output_fns [which (!grepl ("covr", output_fns))]
+    }
+
+    return (output_fns)
+}
+
+#' List all checks with active 'print' methods
+#' @noRd
+output_has_print <- function (x) {
+
+    output_fns <- list_pkgchk_output_fns (x)
+    has_print <- vapply (output_fns, function (f) {
+        this_fn <- paste0 ("output_pkgchk_", f)
+        this_out <- do.call (this_fn, list (x))
+        any (nzchar (unlist (this_out$print)))
+    }, logical (1L))
+
+    names (has_print) [which (has_print)]
 }
 
 #' @export
@@ -311,7 +317,8 @@ print_check_screen <- function (checks, what, pkg_env) {
 
     chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
 
-    has_print <- all (nzchar (chk_output$print)) | length (chk_output$print) > 1L
+    has_print <- all (nzchar (chk_output$print)) ||
+        length (chk_output$print) > 1L
     if (!has_print) {
         return ()
     }
