@@ -7,6 +7,9 @@
 coverage](https://codecov.io/gh/ropensci-review-tools/pkgcheck/graph/badge.svg)](https://app.codecov.io/gh/ropensci-review-tools/pkgcheck)
 [![Project Status:
 Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/pkgcheck)](https://cran.r-project.org/package=pkgcheck/)
+[![CRAN
+Downloads](https://cranlogs.r-pkg.org/badges/grand-total/pkgcheck?color=orange)](https://cran.r-project.org/package=pkgcheck)
 <!-- badges: end -->
 
 Check whether a package is ready for submission to
@@ -118,7 +121,7 @@ used to simply check whether a package is ready for submission:
 ``` r
 summary (x)
 ## 
-## ── demo 0.0.0.9000 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── demo 0.0.0.9000 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## ✔ Package name is available
 ## ✖ does not have a 'contributing' file.
@@ -132,14 +135,15 @@ summary (x)
 ## ✖ Package has no continuous integration checks.
 ## ✖ Package coverage failed
 ## ✖ Statistical standards should be documented in most package files, yet are mostly only documented in one file.
+## ✖ Not all authors have ORCID IDs
 ## ✔ R CMD check found no errors.
 ## ✔ R CMD check found no warnings.
 ## ℹ Some goodpractice linters failed.
 ## 
 ## ℹ Current status:
-## ✖ Frustration is a natural part of programming :)
+## ✖ Sorry about that, but your package is not quite ready ...
 ## 
-## ℹ 'pkgcheck' version: 0.1.3.12
+## ℹ 'pkgcheck' version: 0.3.1
 ## 
 ```
 
@@ -162,13 +166,17 @@ perform before committing new functions and running a full `pkgcheck`:
 fn_names_on_cran (c ("min", "max"))
 ```
 
-    ##       package version fn_name
-    ## 1    matlab2r   1.5.0     max
-    ## 2    matlab2r   1.5.0     min
-    ## 3 rapportools     1.2     max
-    ## 4 rapportools     1.2     min
-    ## 5      mosaic   1.9.2     max
-    ## 6      mosaic   1.9.2     min
+    ##        package version fn_name
+    ## 1     matlab2r   1.5.0     max
+    ## 2     matlab2r   1.5.0     min
+    ## 3       mosaic   1.9.2     max
+    ## 4       mosaic   1.9.2     min
+    ## 5  rapportools     1.2     max
+    ## 6  rapportools     1.2     min
+    ## 7       tidyna   0.4.0     max
+    ## 8       tidyna   0.4.0     min
+    ## 9         base   4.5.2     max
+    ## 10        base   4.5.2     min
 
 ## The `pkgcheck` GitHub action
 
