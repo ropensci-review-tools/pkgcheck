@@ -39,9 +39,12 @@ output_pkgchk_uses_dontrun <- function (checks) {
         out$print <- "'.\nConsider using `@examplesIf()` to conditionally run examples instead."
         if (all (checks$checks$uses_dontrun == "all")) {
             out$summary <- "All examples use `\\dontrun{}`."
-            out$print <- paste0 (
-                "All of your functions' examples use `\\dontrun{}`:\n'",
-                out$print
+            out$print <- list (
+                msg_pre = "All of your functions' examples use `\\dontrun{}`:",
+                obj = names (checks$checks$uses_dontrun [
+                    which (checks$checks$uses_dontrun == "all")
+                ]),
+                msg_post = character (0L)
             )
         } else {
             out$summary <- "Examples should not use `\\dontrun{}` unless really necessary."
