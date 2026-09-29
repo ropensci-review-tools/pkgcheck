@@ -252,6 +252,24 @@ Click to see the [interactive network visualisation of calls between objects in 
 
 ---
 
+### 5. Other Checks
+
+<details>
+<summary>Details of other checks (click to open)</summary>
+<p>
+
+
+:heavy_multiplication_x: The following authors are missing ORCID IDs:
+
+- FirstLast
+
+
+</p>
+</details>
+
+
+---
+
 <details>
 <summary>Package Versions</summary>
 <p>
