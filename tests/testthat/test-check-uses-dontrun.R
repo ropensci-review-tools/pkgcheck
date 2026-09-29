@@ -15,7 +15,7 @@ test_that ("check examples dont use dontrun", {
         ci_out$summary,
         "All examples use `\\dontrun{}`."
     )
-    expect_length (ci_out$print, 1L)
+    expect_length (ci_out$print, 3L)
     expect_snapshot (ci_out$print)
 
     # Some examples use `\dontrun{}`
