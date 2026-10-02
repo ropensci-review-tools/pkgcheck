@@ -70,9 +70,7 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
     # additional external checks:
     extra <- extra_check_prints_from_env (x)
     if (length (extra$env) > 0L) {
-        if (sum (misc_check_counts) == 0L) {
-            cli::cli_h2 ("Other checks")
-        }
+        cli::cli_h2 ("Other checks")
         for (e in extra$env) {
             for (p in extra$prints) {
                 print_check_screen (x, p, e)
