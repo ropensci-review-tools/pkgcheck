@@ -9,6 +9,7 @@
 ### Minor changes
 
 - Update `has_orcid` check to exclude any 'aut' with ROR.
+- Fix final `has_token` check to avoid calling GH for badge info on CRAN machines
 
 ---
 
