@@ -1,6 +1,6 @@
-## pkgcheck version 0.3.1
+## pkgcheck version 0.3.2
 
-This submission fixes all failing tests flagged in email from 28th Sep 2026. All of these tests now entirely avoid external API calls, so will always "fail gracefully" on all test systems.
+This submission fixes one failing test on current CRAN version.
 
 ## R CMD check results
 

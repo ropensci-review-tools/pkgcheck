@@ -1,6 +1,6 @@
 # pkgcheck News
 
-## 0.3.1.00x (current dev version)
+## 0.3.2
 
 ### Major changes
 
