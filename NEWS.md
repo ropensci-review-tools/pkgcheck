@@ -1,5 +1,11 @@
 # pkgcheck News
 
+## 0.3.2.00x (current dev version)
+
+### Minor changes
+
+- Change `has_orcid` to :eyes: only, not hard fail.
+
 ## 0.3.2
 
 ### Major changes

@@ -50,6 +50,7 @@ pkgchk_has_orcid <- function (checks) {
 }
 
 output_pkgchk_has_orcid <- function (checks) {
+
     out <- list (
         check_pass = all (checks$checks$has_orcid),
         summary = "All authors have ORCID IDs",
@@ -57,7 +58,9 @@ output_pkgchk_has_orcid <- function (checks) {
     )
 
     if (!out$check_pass) {
+
         out$summary <- "Not all authors have ORCID IDs"
+
         out$print <- list (
             msg_pre = paste0 (
                 "The following authors are missing ORCID IDs:"
@@ -66,6 +69,8 @@ output_pkgchk_has_orcid <- function (checks) {
             msg_post = character (0)
         )
     }
+
+    out$check_type <- "none_watch" # (pass_fail)
 
     return (out)
 }

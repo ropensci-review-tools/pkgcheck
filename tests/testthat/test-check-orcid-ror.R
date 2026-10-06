@@ -4,7 +4,7 @@ test_that ("check ORCID ID", {
     checks <- make_check_data ()
     ci_out <- output_pkgchk_has_orcid (checks)
 
-    expect_named (ci_out, c ("check_pass", "summary", "print"))
+    expect_named (ci_out, c ("check_pass", "summary", "print", "check_type"))
     expect_true (ci_out$check_pass)
     expect_length (ci_out$summary, 1L)
     expect_equal (ci_out$summary, "All authors have ORCID IDs")
