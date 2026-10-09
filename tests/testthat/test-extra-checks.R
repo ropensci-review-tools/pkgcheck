@@ -1,4 +1,4 @@
-test_all <- identical (Sys.getenv ("MPADGE_LOCAL"), "true") ||
+test_all <- identical (Sys.getenv ("RRT_TEST_ALL"), "true") ||
     identical (Sys.getenv ("GITHUB_JOB"), "test-coverage")
 
 skip_on_cran ()

@@ -4,11 +4,14 @@
   "identifier": "pkgcheck",
   "description": "Check whether a package is ready for submission to the 'rOpenSci' peer review system ('rOpenSci' authors (2026) <doi:10.5281/zenodo.2553043> \"'rOpenSci' Packages: Development, Maintenance, and Peer Review\"). Incorporates the 'goodpractice' package and many additional checks, including aspects related to maintenance of online public code repositories.",
   "name": "pkgcheck: Package Checks for 'rOpenSci'",
-  "relatedLink": ["https://docs.ropensci.org/pkgcheck/", "https://CRAN.R-project.org/package=pkgcheck"],
+  "relatedLink": [
+    "https://docs.ropensci.org/pkgcheck/",
+    "https://CRAN.R-project.org/package=pkgcheck"
+  ],
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.3.3",
+  "version": "0.3.3.001",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -65,7 +68,10 @@
   "contributor": [
     {
       "@type": "Person",
-      "givenName": ["Kelli", "F."],
+      "givenName": [
+        "Kelli",
+        "F."
+      ],
       "familyName": "Johnson",
       "email": "kelli.johnson@noaa.gov",
       "@id": "https://orcid.org/0000-0002-5149-451X"
@@ -402,12 +408,20 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=withr"
     },
-    "SystemRequirements": null
+    "SystemRequirements": {}
   },
   "fileSize": "500.402KB",
   "releaseNotes": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/NEWS.md",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
-  "contIntegration": ["https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/ropensci-review-tools/pkgcheck"],
+  "contIntegration": [
+    "https://github.com/ropensci-review-tools/pkgcheck/actions/workflows/R-CMD-check.yaml",
+    "https://app.codecov.io/gh/ropensci-review-tools/pkgcheck"
+  ],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "keywords": ["compliance-automation", "r", "software-analysis", "software-checking"]
+  "keywords": [
+    "compliance-automation",
+    "r",
+    "software-analysis",
+    "software-checking"
+  ]
 }
