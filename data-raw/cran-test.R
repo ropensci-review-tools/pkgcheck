@@ -17,12 +17,12 @@
 
 Sys.unsetenv (c (
     "GITHUB_PAT", "GITHUB_TOKEN", "GITHUB_PAT_GITHUB_COM",
-    "MPADGE_LOCAL", "GITHUB_JOB", "GITHUB_ACTIONS"
+    "RRT_TEST_ALL", "GITHUB_JOB", "GITHUB_ACTIONS"
 ))
 stopifnot (
     "GITHUB_PAT is still set" = !nzchar (Sys.getenv ("GITHUB_PAT")),
     "GITHUB_TOKEN is still set" = !nzchar (Sys.getenv ("GITHUB_TOKEN")),
-    "MPADGE_LOCAL is still set" = !nzchar (Sys.getenv ("MPADGE_LOCAL"))
+    "RRT_TEST_ALL is still set" = !nzchar (Sys.getenv ("RRT_TEST_ALL"))
 )
 
 # ---- Neutralise any locally-stored git credential helper -----------------
@@ -115,7 +115,7 @@ test_result <- tryCatch (
 # ---- Report ----------------------------------------------------------------
 cat ("\n\n==================== cran-test.R summary ====================\n")
 cat ("GITHUB_PAT set:    ", nzchar (Sys.getenv ("GITHUB_PAT")), "\n")
-cat ("MPADGE_LOCAL set:  ", nzchar (Sys.getenv ("MPADGE_LOCAL")), "\n")
+cat ("RRT_TEST_ALL set:  ", nzchar (Sys.getenv ("RRT_TEST_ALL")), "\n")
 
 is_api_call <- vapply (gh_call_log$calls, `[[`, logical (1), "is_api")
 api_calls <- gh_call_log$calls [is_api_call]
