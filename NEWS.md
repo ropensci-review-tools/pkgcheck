@@ -2,6 +2,8 @@
 
 ## 0.3.3.00x (current dev version)
 
+- Convert character columns of downloaded 'pkgstats' data back to numeric; data uploaded on 2026-10-09 had every column as character, which made `pkgcheck()` fail with "non-numeric argument to binary operator".
+
 ## 0.3.3
 
 ### Minor changes

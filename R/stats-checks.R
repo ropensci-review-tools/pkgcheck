@@ -178,7 +178,27 @@ get_pkgstats_data <- function () {
 
     f_path <- dl_pkgstats_data (f_path)
 
-    readRDS (f_path)
+    numeric_pkgstats_cols (readRDS (f_path))
+}
+
+#' Convert character columns of 'pkgstats' data which hold only numbers back
+#' to numeric. The data uploaded on 2026-10-09 had every column as character,
+#' and 'stats_checks()' then failed with "non-numeric argument to binary
+#' operator".
+#' @noRd
+numeric_pkgstats_cols <- function (dat) {
+
+    for (i in names (dat) [vapply (dat, is.character, logical (1L))]) {
+        if (i %in% c ("package", "version", "date")) {
+            next
+        }
+        v <- suppressWarnings (as.numeric (dat [[i]]))
+        if (!any (is.na (v) & !is.na (dat [[i]]) & dat [[i]] != "NaN")) {
+            dat [[i]] <- v
+        }
+    }
+
+    return (dat)
 }
 
 dl_pkgstats_data <- function (f_path) {
