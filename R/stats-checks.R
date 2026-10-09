@@ -35,7 +35,7 @@ stats_checks <- function (s, threshold = 0.05) {
         rel_white_pkg [[nm]] <- as.numeric (unname (
             s [[b_s [i]]] / s [[c_s [i]]]
         ))
-        tmp <- as.numeric (unname (dat [[b_d [i]]] / s [[c_d [i]]]))
+        tmp <- as.numeric (unname (dat [[b_d [i]]] / dat [[c_d [i]]]))
         rel_white_all [[nm]] <- tmp [which (!is.na (tmp))]
     }
 

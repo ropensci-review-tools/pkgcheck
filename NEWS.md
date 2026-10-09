@@ -3,6 +3,7 @@
 ## 0.3.3.00x (current dev version)
 
 - Convert character columns of downloaded 'pkgstats' data back to numeric; data uploaded on 2026-10-09 had every column as character, which made `pkgcheck()` fail with "non-numeric argument to binary operator".
+- Relative white space of all CRAN packages is now each package's blank lines divided by its own lines of code; it was divided by the lines of code of the package being checked, which skewed the reported percentiles.
 
 ## 0.3.3
 
