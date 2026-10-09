@@ -1,6 +1,6 @@
-## pkgcheck version 0.3.2
+## pkgcheck version 0.3.3
 
-This submission fixes one failing test on current CRAN version.
+This submission fixes failing tests on current CRAN version.
 
 ## R CMD check results
 

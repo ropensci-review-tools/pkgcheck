@@ -1,3 +1,5 @@
+skip_on_cran ()
+
 # This fails to find cache paths on GitHub windows runners
 skip_on_os ("windows")
 
