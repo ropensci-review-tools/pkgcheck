@@ -1,0 +1,26 @@
+#!/usr/bin/env Rscript
+
+d0 <- rprojroot::find_root("DESCRIPTION")
+wfs <- fs::dir_ls (
+    fs::path (d0, ".github", "workflows"),
+    type = "file",
+    regexp = "\\.yaml$"
+)
+wf_names <- vapply (
+    wfs,
+    function (w) yaml::read_yaml (w)$name,
+    character (1L),
+    USE.NAMES = FALSE
+)
+readme <- readLines (fs::path (d0, "README.md"))
+index <- grep ("badges\\:\\s+(start|end)", readme)
+badges <- readme [seq (index [1], index [2])]
+urls <- regmatches (badges, gregexpr ("\\(https\\:\\/\\/.*?\\)", badges))
+urls <- gsub ("^\\(|\\)$", "", unlist (urls))
+wf_urls <- grep ("workflow.*badge\\.svg", urls, value = TRUE)
+readme_wf_names <- gsub ("^.*\\/workflows\\/|\\/badge\\.svg$", "", wf_urls)
+index <- which (!readme_wf_names %in% wf_names)
+if (length (index) > 0L) {
+    n <- readme_wf_names [index]
+    cli::cli_abort ("README badge to workflow {n} differs from workflow names in .github/")
+}
