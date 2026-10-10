@@ -2,6 +2,11 @@ skip_on_os ("windows")
 
 test_that ("check cache messages", {
 
+    withr::local_envvar (
+        "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
+        "PKGCHECK_TESTS" = "true"
+    )
+
     pkgname <- "cachecheckpkg"
     path <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)
     o <- capture.output (

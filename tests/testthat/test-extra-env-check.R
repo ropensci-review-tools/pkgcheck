@@ -39,7 +39,10 @@ test_that ("pkgcheck with extra env", {
         "PKGCHECK_CACHE_DIR" =
             file.path (tempdir (), "pkgcheck")
     ))
-    withr::local_envvar (list ("GITHUB_ACTIONS" = "true"))
+    withr::local_envvar (list (
+        "GITHUB_ACTIONS" = "true",
+        "PKGCHECK_TESTS" = "true"
+    ))
 
     chk1 <- pkgcheck (chk0$pkg$path, goodpractice = FALSE, extra_env = e)
 

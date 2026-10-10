@@ -29,6 +29,12 @@ test_that ("check scrap", {
 
     skip_if (!test_all)
 
+    # Ensure `is_test_env()` is TRUE so fake 'pkgstats' data are used:
+    withr::local_envvar (
+        "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
+        "PKGCHECK_TESTS" = "true"
+    )
+
     # This function needs a fresh repo:
     pkgname <- paste0 (sample (c (letters, LETTERS), 8), collapse = "")
     path <- srr::srr_stats_pkg_skeleton (pkg_name = pkgname)

@@ -177,6 +177,14 @@ get_pkgstats_data <- function () {
     f_path <- fs::path_norm (fs::path (cache_path, f_name))
 
     f_path <- dl_pkgstats_data (f_path)
+    if (is.null (f_path)) {
+        cli::cli_abort (
+            paste0 (
+                "Unable to download 'pkgstats' data from GitHub; ",
+                "please try again later."
+            )
+        )
+    }
 
     out <- readRDS (f_path)
     force_col_types <- utils::getFromNamespace ("force_col_types", "pkgstats")
@@ -219,6 +227,8 @@ dl_pkgstats_data <- function (f_path) {
     if (!latest) {
         req <- httr2::request (url)
         req <- httr2::req_headers (req, "Accept" = "application/octet-stream")
+        # Disable default error on HTTP failure so the check below is reached:
+        req <- httr2::req_error (req, is_error = \(resp) FALSE)
         resp <- httr2::req_perform (req)
 
         if (httr2::resp_is_error (resp)) {
