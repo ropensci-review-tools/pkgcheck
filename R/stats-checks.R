@@ -178,7 +178,9 @@ get_pkgstats_data <- function () {
 
     f_path <- dl_pkgstats_data (f_path)
 
-    readRDS (f_path)
+    out <- readRDS (f_path)
+    force_col_types <- utils::getFromNamespace ("force_col_types", "pkgstats")
+    force_col_types (out)
 }
 
 dl_pkgstats_data <- function (f_path) {
