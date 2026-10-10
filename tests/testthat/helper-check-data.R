@@ -7,9 +7,7 @@ make_check_data_internal <- function (cleanup = TRUE) {
             "PKGCHECK_SRR_REPORT_FILE" = "report.html",
             "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
             "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
-            "GITHUB_ACTIONS" = "true",
             "PKGCHECK_TESTS" = "true",
-            "GITHUB_REPOSITORY" = "org/repo",
             "GP_EXCLUDE_CHECK_GROUPS" = "covr,cyclocomp,lintr,rcmdcheck"
         )
     )
@@ -31,9 +29,7 @@ make_check_data_srr_internal <- function (goodpractice = FALSE, cleanup = TRUE) 
         "PKGCHECK_SRR_REPORT_FILE" = "report.html",
         "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
         "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
-        "GITHUB_ACTIONS" = "true",
-        "PKGCHECK_TESTS" = "true",
-        "GITHUB_REPOSITORY" = "org/repo"
+        "PKGCHECK_TESTS" = "true"
     )
     if (!goodpractice) {
         evs$GP_EXCLUDE_CHECK_GROUPS <- "covr,cyclocomp,lintr,rcmdcheck"

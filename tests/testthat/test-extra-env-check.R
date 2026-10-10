@@ -40,7 +40,6 @@ test_that ("pkgcheck with extra env", {
             file.path (tempdir (), "pkgcheck")
     ))
     withr::local_envvar (list (
-        "GITHUB_ACTIONS" = "true",
         "PKGCHECK_TESTS" = "true"
     ))
 

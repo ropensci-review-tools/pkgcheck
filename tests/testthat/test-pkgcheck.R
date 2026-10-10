@@ -13,9 +13,7 @@ test_that ("pkgcheck", {
             "PKGCHECK_SRR_REPORT_FILE" = "report.html",
             "PKGCHECK_TEST_NETWORK_FILE" = "network.html",
             "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
-            "GITHUB_ACTIONS" = "true",
-            "PKGCHECK_TESTS" = "true",
-            "GITHUB_REPOSITORY" = "org/repo"
+            "PKGCHECK_TESTS" = "true"
         )
     )
 

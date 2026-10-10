@@ -24,7 +24,6 @@ test_that ("extra checks", {
     withr::local_envvar (
         list (
             "PKGCHECK_CACHE_DIR" = file.path (tempdir (), "pkgcheck"),
-            "GITHUB_ACTIONS" = "true",
             "PKGCHECK_TESTS" = "true"
         )
     )
