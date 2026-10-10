@@ -245,18 +245,18 @@ fake_pkgstats_test_data_impl <- function (s, n = 100) {
 
     out <- cbind (s, rep (row.names (s), each = n))
 
-    out$files_R <- stats::rnorm (n = n, mean = 8.77, sd = 16.6)
-    out$files_src <- stats::rnorm (n = n, mean = 5.54, sd = 98.6)
-    out$files_inst <- stats::rnorm (n = n, mean = 2.25, sd = 16.1)
-    out$files_vignettes <- stats::rnorm (n = n, mean = 0.58, sd = 1.8)
-    out$files_tests <- stats::rnorm (n = n, mean = 1.96, sd = 8.1)
-    out$num_data_files <- stats::rnorm (n = n, mean = 6.32, sd = 18.5)
+    out$files_R <- ceiling (stats::rnorm (n = n, mean = 8.77, sd = 16.6))
+    out$files_src <- ceiling (stats::rnorm (n = n, mean = 5.54, sd = 98.6))
+    out$files_inst <- ceiling (stats::rnorm (n = n, mean = 2.25, sd = 16.1))
+    out$files_vignettes <- ceiling (stats::rnorm (n = n, mean = 0.58, sd = 1.8))
+    out$files_tests <- ceiling (stats::rnorm (n = n, mean = 1.96, sd = 8.1))
+    out$num_data_files <- ceiling (stats::rnorm (n = n, mean = 6.32, sd = 18.5))
 
-    out$loc_R <- stats::rnorm (n = n, mean = 671, sd = 2126)
-    out$loc_src <- stats::rnorm (n = n, mean = 5073, 39032)
-    out$loc_inst <- stats::rnorm (n = n, mean = 875, 7220)
-    out$loc_vignettes <- stats::rnorm (n = n, mean = 341, 995)
-    out$loc_tests <- stats::rnorm (n = n, mean = 428, 2071)
+    out$loc_R <- ceiling (stats::rnorm (n = n, mean = 671, sd = 2126))
+    out$loc_src <- ceiling (stats::rnorm (n = n, mean = 5073, 39032))
+    out$loc_inst <- ceiling (stats::rnorm (n = n, mean = 875, 7220))
+    out$loc_vignettes <- ceiling (stats::rnorm (n = n, mean = 341, 995))
+    out$loc_tests <- ceiling (stats::rnorm (n = n, mean = 428, 2071))
     out$loc_per_fn_r_mn <- stats::rnorm (n = n, mean = 34, 141)
     out$loc_per_fn_r_md <- stats::rnorm (n = n, mean = 27, 137)
     out$loc_per_fn_r_exp_mn <- stats::rnorm (n = n, mean = 34, 130)
@@ -266,14 +266,16 @@ fake_pkgstats_test_data_impl <- function (s, n = 100) {
     out$loc_per_fn_src_mn <- stats::rnorm (n = n, mean = 6.6, 26)
     out$loc_per_fn_src_md <- stats::rnorm (n = n, mean = 4.1, 22)
 
-    out$data_size_total <- stats::rnorm (n = n, mean = 722702, 218470)
-    out$data_size_median <- stats::rnorm (n = n, mean = 1782499, 740378)
-    out$num_vignettes <- stats::rnorm (n = n, mean = 0.59, sd = 1.69)
+    out$data_size_total <- ceiling (stats::rnorm (n = n, mean = 722702, 218470))
+    out$data_size_median <-
+        ceiling (stats::rnorm (n = n, mean = 1782499, 740378))
+    out$num_vignettes <- ceiling (stats::rnorm (n = n, mean = 0.59, sd = 1.69))
 
-    out$n_fns_r <- stats::rnorm (n = n, mean = 25, sd = 95)
-    out$n_fns_r_exported <- stats::rnorm (n = n, mean = 15, sd = 47)
-    out$n_fns_r_not_exported <- stats::rnorm (n = n, mean = 12, sd = 63)
-    out$n_fns_src <- stats::rnorm (n = n, mean = 59, sd = 629)
+    out$n_fns_r <- ceiling (stats::rnorm (n = n, mean = 25, sd = 95))
+    out$n_fns_r_exported <- ceiling (stats::rnorm (n = n, mean = 15, sd = 47))
+    out$n_fns_r_not_exported <-
+        ceiling (stats::rnorm (n = n, mean = 12, sd = 63))
+    out$n_fns_src <- ceiling (stats::rnorm (n = n, mean = 59, sd = 629))
     out$n_fns_per_file_r <- stats::rnorm (n = n, mean = 2., sd = 8.2)
     out$n_fns_per_file_src <- stats::rnorm (n = n, mean = 1.4, sd = 5.0)
 
@@ -283,13 +285,14 @@ fake_pkgstats_test_data_impl <- function (s, n = 100) {
     out$doclines_per_fn_exp_mn <- stats::rnorm (n = n, mean = 34, sd = 60)
     out$doclines_per_fn_exp_md <- stats::rnorm (n = n, mean = 32, sd = 61)
     out$doclines_per_fn_not_exp_mn <- stats::rnorm (n = n, mean = 2.2, sd = 7.9)
-    out$doclines_per_fn_not_exp_md <- stats::rnorm (n = n, mean = 1.47, sd = 7.3)
+    out$doclines_per_fn_not_exp_md <-
+        stats::rnorm (n = n, mean = 1.47, sd = 7.3)
     out$doclines_per_fn_src_mn <- stats::rnorm (n = n, mean = 0.28, sd = 1.4)
     out$doclines_per_fn_src_md <- stats::rnorm (n = n, mean = 0.09, sd = 0.6)
 
-    out$n_edges <- stats::rnorm (n = n, mean = 238, sd = 3224)
-    out$n_edges_r <- stats::rnorm (n = n, mean = 37, sd = 178)
-    out$n_edges_src <- stats::rnorm (n = n, mean = 201, sd = 3218)
+    out$n_edges <- ceiling (stats::rnorm (n = n, mean = 238, sd = 3224))
+    out$n_edges_r <- ceiling (stats::rnorm (n = n, mean = 37, sd = 178))
+    out$n_edges_src <- ceiling (stats::rnorm (n = n, mean = 201, sd = 3218))
 
     return (out)
 }
