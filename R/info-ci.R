@@ -12,8 +12,7 @@
 #' @noRd
 pkgchk_ci_badges <- function (u) {
 
-    has_token <- nzchar (as.character (gh::gh_token ()))
-    if (!(curl::has_internet () && has_token)) {
+    if (!has_gh_access ()) {
         return (NULL)
     }
 

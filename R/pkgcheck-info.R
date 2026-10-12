@@ -34,8 +34,7 @@ pkgcheck_fill_info <- function (checks, path, stats) {
     }
 
     checks$info$badges <- list ()
-    has_token <- nzchar (as.character (gh::gh_token ()))
-    if (nzchar (u) && has_token) {
+    if (nzchar (u) && has_gh_access (check_internet = FALSE)) {
         checks$info$badges <- pkgchk_ci_badges (u)
         if (grepl ("github", u)) { # now redundant - remove!
             checks$info$github$workflows <- suppressWarnings (

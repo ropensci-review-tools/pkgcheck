@@ -143,6 +143,18 @@ get_available_packages <- function () {
     return (ap)
 }
 
+# Whether GitHub can be queried. Network access is disabled by setting the
+# envvar "PKGCHECK_NO_NETWORK" to "true", as done in tests unless all tests are
+# to be run.
+has_gh_access <- function (check_internet = TRUE) {
+
+    if (identical (Sys.getenv ("PKGCHECK_NO_NETWORK", ""), "true")) {
+        return (FALSE)
+    }
+    has_token <- nzchar (as.character (gh::gh_token ()))
+    has_token && (!check_internet || curl::has_internet ())
+}
+
 is_test_env <- function () {
 
     if (identical (Sys.getenv ("PKGCHECK_TESTS", ""), "true")) {

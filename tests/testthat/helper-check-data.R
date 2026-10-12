@@ -53,3 +53,14 @@ make_check_data_srr_internal <- function (goodpractice = FALSE, cleanup = TRUE) 
 }
 
 make_check_data_srr <- memoise::memoise (make_check_data_srr_internal)
+
+# Unless all tests are to be run, ensure that nothing is downloaded:
+test_all <- identical (Sys.getenv ("RRT_TEST_ALL"), "true") ||
+    identical (Sys.getenv ("GITHUB_JOB"), "test-coverage") ||
+    identical (Sys.getenv ("GITHUB_JOB"), "pkgcheck")
+if (!test_all) {
+    withr::local_envvar (
+        list ("PKGCHECK_NO_NETWORK" = "true"),
+        .local_envir = testthat::teardown_env ()
+    )
+}
