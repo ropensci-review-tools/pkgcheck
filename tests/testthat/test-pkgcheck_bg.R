@@ -5,7 +5,9 @@ test_that ("pkgcheck_bg() works", {
 
     withr::local_envvar (list (
         "PKGCHECK_CACHE_DIR" =
-            file.path (tempdir (), "pkgcheck")
+            file.path (tempdir (), "pkgcheck"),
+        # Ensure fake 'pkgstats' data are used, and nothing is downloaded:
+        "PKGCHECK_TESTS" = "true"
     ))
 
     pkgname <- paste0 (sample (c (letters, LETTERS), 8), collapse = "")

@@ -1,7 +1,7 @@
-skip_on_cran ()
-
-# This fails to find cache paths on GitHub windows runners
-skip_on_os ("windows")
+# CI workflows and badges are only available with network access:
+test_all <- identical (Sys.getenv ("RRT_TEST_ALL"), "true") ||
+    identical (Sys.getenv ("GITHUB_JOB"), "test-coverage")
+skip_if (!test_all)
 
 test_that ("check ci", {
 

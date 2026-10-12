@@ -228,7 +228,7 @@ dl_pkgstats_data <- function (f_path) {
         req <- httr2::request (url)
         req <- httr2::req_headers (req, "Accept" = "application/octet-stream")
         # Disable default error on HTTP failure so the check below is reached:
-        req <- httr2::req_error (req, is_error = \(resp) FALSE)
+        req <- httr2::req_error (req, is_error = function (resp) FALSE)
         resp <- httr2::req_perform (req)
 
         if (httr2::resp_is_error (resp)) {

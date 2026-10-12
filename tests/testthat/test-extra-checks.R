@@ -2,6 +2,7 @@ test_all <- identical (Sys.getenv ("RRT_TEST_ALL"), "true") ||
     identical (Sys.getenv ("GITHUB_JOB"), "test-coverage")
 
 skip_on_cran ()
+skip_if (!test_all)
 
 test_that ("extra checks", {
 
@@ -103,11 +104,11 @@ test_that ("extra checks", {
 
     set.seed (1L)
     x <- capture.output (summary (checks), type = "message")
-    expect_true (any (grepl ("great work", x)))
+    expect_true (any (grepl ("great work", x, fixed = TRUE)))
     withr::with_envvar (
         list ("ROPENSCI_REVIEW_BOT" = "true"),
         x <- capture.output (summary (checks), type = "message")
     )
-    expect_false (any (grepl ("great work", x)))
-    expect_true (any (grepl ("This package may be submitted", x)))
+    expect_false (any (grepl ("great work", x, fixed = TRUE)))
+    expect_true (any (grepl ("This package may be submitted", x, fixed = TRUE)))
 })
