@@ -103,11 +103,14 @@ test_that ("extra checks", {
 
     set.seed (1L)
     x <- capture.output (summary (checks), type = "message")
-    expect_true (any (grepl ("great work", x)))
+    # Status should be ✔:
+    status_line <- grep ("Current status:", x, fixed = TRUE) [1]
+    expect_true (grepl ("✔", x [status_line + 1L]))
     withr::with_envvar (
         list ("ROPENSCI_REVIEW_BOT" = "true"),
         x <- capture.output (summary (checks), type = "message")
     )
-    expect_false (any (grepl ("great work", x)))
-    expect_true (any (grepl ("This package may be submitted", x)))
+    status_line <- grep ("Current status:", x, fixed = TRUE) [1]
+    expect_true (grepl ("✔", x [status_line + 1L]))
+    expect_true (grepl ("This package may be submitted", x [status_line + 1L]))
 })
