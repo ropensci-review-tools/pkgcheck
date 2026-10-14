@@ -1,6 +1,14 @@
 # pkgcheck News
 
-## 0.3.3.00x (current dev version)
+## 0.3.4
+
+### Minor changes
+
+- Force column types of downloaded `pkgstats` data (pkgstats#121).
+- Fix HTTP-error handling in the download function.
+- Update dummy `pkgstats` test data to have integer-valued count columns.
+- Improve test-environment detection in `is_test_env()` via new `PKGCHECK_TESTS` envvar.
+- Local test envvar checks all now use `RRT_TEST_ALL`.
 
 ## 0.3.3
 
