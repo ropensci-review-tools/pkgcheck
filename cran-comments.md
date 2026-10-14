@@ -1,6 +1,8 @@
-## pkgcheck version 0.3.3
+## pkgcheck version 0.3.4
 
-This submission fixes failing tests on current CRAN version.
+The previous submission was failing, although it is no longer. I nevertheless received a resubmit-or-archive email, and so am submitting this updated version.
+
+Note that the previous failures were test failures from external calls which did not "fail gracefully." I have made every effort to ensure this package is as fully testable on CRAN as possible. I firmly believe that this submission now fails gracefully on all attempts at external calls within the entire test suite.
 
 ## R CMD check results
 
