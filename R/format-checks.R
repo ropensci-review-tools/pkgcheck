@@ -401,39 +401,37 @@ pkg_stat_desc <- function (checks) {
     langs <- gsub ("\\:.*$", "", loc)
     files <- gsub (".*\\:\\s?", "", files)
 
+    src_langs <- paste0 (langs [langs != "R"], collapse = ", ")
     langs <- paste0 (langs, " (", loc_pc, " in ", files, " files)")
 
-    code <- paste0 ("- code in ", langs [1])
-    langs <- langs [-1]
-    langs_first <- ""
-    langs_last <- langs [length (langs)]
-    if (length (langs) > 1) {
-        langs_first <- paste0 (
-            ", ",
-            paste0 (langs [-length (langs)],
-                collapse = ", "
-            )
+    out <- paste0 ("- code in ", langs [1])
+    if (length (langs) > 1L) {
+        out <- paste0 (
+            "- code in ",
+            paste0 (langs [-length (langs)], collapse = ", "),
+            " and ",
+            langs [length (langs)]
         )
     }
-    out <- paste0 (code, langs_first, " and ", langs_last)
 
     s <- checks$pkg$summary
     summarise_one <- function (s, what, pre_text, type) {
-        ifelse (s [[what]] == 0L,
-            paste0 ("- no ", pre_text, " ", type),
-            paste0 (
-                "- ", s [[what]], " ", pre_text, " ",
+        txt <- ifelse (s [[what]] == 0L,
+            paste ("no", pre_text, type),
+            paste (
+                s [[what]], pre_text,
                 ifelse (s [[what]] == 1L,
                     type,
                     paste0 (type, "s")
                 )
             )
         )
+        paste0 ("- ", gsub ("\\s+", " ", txt))
     }
 
     out <- c (
         out,
-        paste0 ("- ", s$num_authors, " authors"),
+        summarise_one (s, "num_authors", "", "author"),
         summarise_one (s, "num_vignettes", "", "vignette"),
         summarise_one (s, "num_data", "internal", "data file"),
         summarise_one (s, "imported_pkgs", "imported", "package"),
@@ -469,14 +467,13 @@ pkg_stat_desc <- function (checks) {
     }
 
     if (s$num_src_fns > 0L) {
-        lang_names <- gsub ("\\s.*$", "", langs)
         out <- c (
             out,
             paste0 (
                 summarise_one (
                     s,
                     "num_src_fns",
-                    lang_names,
+                    src_langs,
                     "function"
                 ),
                 " (median ",

@@ -188,13 +188,13 @@ This package features some noteworthy statistical properties which may need to b
 The package has:
 
 - code in C++ (72% in 2 files) and R (28% in 4 files)
-- 1 authors
-- no  vignette
+- 1 author
+- no vignette
 - no internal data file
 - 1 imported package
 - 1 exported function (median 3 lines of code)
 - 1 non-exported function in R (median 3 lines of code)
-- 2 R functions (median 5 lines of code)
+- 2 C++ functions (median 5 lines of code)
 
 ---
 
