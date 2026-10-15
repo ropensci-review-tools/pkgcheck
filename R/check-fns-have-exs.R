@@ -47,11 +47,12 @@ fns_have_exs <- function (rd_files) {
         if (length (dat [[2]]) == 0L) {
             dat [[2]] <- ""
         }
-        if (length (dat [[3]]) == 0L) {
-            dat [[3]] <- ""
-        }
-        dat [[4]] <- length (dat [[4]])
-        unlist (dat) [1:4]
+        c (
+            dat [[1]] [1],
+            dat [[2]] [1],
+            paste0 (dat [[3]], collapse = ","),
+            length (dat [[4]])
+        )
     },
     character (4),
     USE.NAMES = TRUE
@@ -64,7 +65,7 @@ fns_have_exs <- function (rd_files) {
     names (rd_dat) <- what
 
     # rm internal and datasets, where all re-exported fns should be internal.
-    rd_dat <- rd_dat [which (!rd_dat$keyword %in% c ("internal", "datasets")), ]
+    rd_dat <- rd_dat [which (!grepl ("(^|,)(internal|datasets)(,|$)", rd_dat$keyword)), ]
     rd_dat <- rd_dat [which (!rd_dat$docType %in% c ("package", "data")), ]
 
     has_ex <- rd_dat$examples > 0L
