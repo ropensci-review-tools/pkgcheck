@@ -22,6 +22,9 @@ pkgchk_on_cran <- function (checks) {
     pkg <- desc$Package
 
     ap <- get_available_packages ()
+    if (is.null (ap)) {
+        return (NA)
+    }
     res <- pkg %in% ap$Package
 
     if (res) {
