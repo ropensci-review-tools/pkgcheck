@@ -51,12 +51,11 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 
 |type       |package    | ncalls|
 |:----------|:----------|------:|
-|internal   |base       |    441|
-|internal   |pkgstats   |     98|
-|internal   |stats      |     13|
+|internal   |base       |    447|
+|internal   |pkgstats   |     99|
+|internal   |stats      |     16|
 |internal   |graphics   |     10|
-|internal   |utils      |      8|
-|internal   |nlme       |      2|
+|internal   |utils      |     10|
 |internal   |tools      |      2|
 |imports    |sys        |     13|
 |imports    |readr      |      8|
@@ -148,8 +147,8 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 |rel_whitespace_src      |    24|       99.0|TRUE       |
 |rel_whitespace_tests    |    27|       96.0|TRUE       |
 |doclines_per_fn_exp     |    31|       42.0|           |
-|doclines_per_fn_not_exp |     1|       44.0|           |
-|fn_call_network_size    |    84|       50.0|           |
+|doclines_per_fn_not_exp |     3|       51.0|           |
+|fn_call_network_size    |   111|       50.0|           |
 
 ---
 

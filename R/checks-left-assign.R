@@ -111,12 +111,10 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
     }
     global_row <- which (rownames (assigns) == "<<-")
 
-    loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")
-    get_ctags <- utils::getFromNamespace ("get_ctags", "pkgstats")
-
-    loc <- loc_stats (checks$pkg$path)
-    has_tabs <- any (loc$ntabs > 0L)
-    tags <- withr::with_dir (checks$pkg$path, get_ctags ("R", has_tabs))
+    tags <- r_ctags (checks$pkg$path)
+    if (is.null (tags)) {
+        return (assigns)
+    }
     tags <- tags [which (tags$file %in% global$file &
         grepl ("RefClass", tags$content)), ]
 
@@ -162,12 +160,10 @@ rm_global_assign_in_memoise <- function (assigns, checks) {
     }
     global_row <- which (rownames (assigns) == "<<-")
 
-    loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")
-    get_ctags <- utils::getFromNamespace ("get_ctags", "pkgstats")
-
-    loc <- loc_stats (checks$pkg$path)
-    has_tabs <- any (loc$ntabs > 0L)
-    tags <- withr::with_dir (checks$pkg$path, get_ctags ("R", has_tabs))
+    tags <- r_ctags (checks$pkg$path)
+    if (is.null (tags)) {
+        return (assigns)
+    }
     tags <- tags [which (tags$file %in% global$file), ]
 
     for (f in unique (tags$file)) {
@@ -239,4 +235,19 @@ output_pkgchk_left_assign <- function (checks) {
     }
 
     return (out)
+}
+
+#' ctags of R code, or `NULL` if ctags is not available or fails, in which
+#' case global assignments can not be excluded.
+#' @noRd
+r_ctags <- function (path) {
+
+    loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")
+    get_ctags <- utils::getFromNamespace ("get_ctags", "pkgstats")
+
+    tryCatch ({
+        loc <- loc_stats (path)
+        has_tabs <- any (loc$ntabs > 0L)
+        withr::with_dir (path, get_ctags ("R", has_tabs))
+    }, error = function (e) NULL)
 }

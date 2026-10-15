@@ -291,3 +291,19 @@ test_that ("network description on GitHub actions", {
     out <- d3js_description (list ())
     expect_true (grepl ("(https://github.com/org/repo/actions)", out, fixed = TRUE))
 })
+
+test_that ("global assign checks without ctags", {
+
+    local_mocked_bindings (
+        get_ctags = function (...) stop ("no ctags"),
+        .package = "pkgstats"
+    )
+    path <- withr::local_tempdir ()
+    fs::dir_create (fs::path (path, "R"))
+    writeLines (
+        c ("f <- function () {", "    x <<- 1", "}"),
+        fs::path (path, "R", "f.R")
+    )
+    out <- pkgchk_left_assign (list (pkg = list (path = path)))
+    expect_true (out$global)
+})

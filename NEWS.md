@@ -19,7 +19,7 @@
 - 'srr' reports include the Probability Distributions category.
 - Extra-environment checks may return vectors, and output functions with empty summaries.
 - "_pkgdown.yml" files in "pkgdown" or "inst" directories are found.
-- Assignment checks work in non-interactive sessions, where `keep.source` is `FALSE`, and in packages with an empty "R" directory.
+- Assignment checks work in non-interactive sessions, where `keep.source` is `FALSE`, in packages with an empty "R" directory, and where ctags is not available.
 - Coverage reports list files with low coverage below the same 75% threshold as the coverage check.
 - Network files of other packages are no longer deleted from the cache.
 - Rd files which can not be parsed are skipped with a warning.

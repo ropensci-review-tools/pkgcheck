@@ -194,7 +194,7 @@ The package has:
 - 1 imported package
 - 1 exported function (median 3 lines of code)
 - 1 non-exported function in R (median 3 lines of code)
-- 3 C++ functions (median 4 lines of code)
+- 2 C++ functions (median 5 lines of code)
 
 ---
 
@@ -223,14 +223,14 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 |n_fns_r                 |     2|       42.0|           |
 |n_fns_r_exported        |     1|       33.0|           |
 |n_fns_r_not_exported    |     1|       38.0|           |
-|n_fns_src               |     3|       53.5|           |
+|n_fns_src               |     2|       53.0|           |
 |n_fns_per_file_r        |     1|       43.0|           |
-|n_fns_per_file_src      |     2|       50.0|           |
+|n_fns_per_file_src      |     1|       45.0|           |
 |num_params_per_fn       |     0|       29.0|           |
 |loc_per_fn_r            |     3|       35.0|           |
 |loc_per_fn_r_exp        |     3|       42.0|           |
 |loc_per_fn_r_not_exp    |     3|       47.0|           |
-|loc_per_fn_src          |     4|       49.0|           |
+|loc_per_fn_src          |     5|       50.0|           |
 |rel_whitespace_R        |    40|      100.0|TRUE       |
 |rel_whitespace_src      |    27|      100.0|TRUE       |
 |rel_whitespace_tests    |    17|      100.0|TRUE       |
