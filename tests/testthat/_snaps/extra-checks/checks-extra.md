@@ -51,11 +51,12 @@ The table below tallies all function calls to all packages ('ncalls'), both inte
 
 |type       |package    | ncalls|
 |:----------|:----------|------:|
-|internal   |base       |    447|
-|internal   |pkgstats   |     99|
-|internal   |stats      |     16|
+|internal   |base       |    441|
+|internal   |pkgstats   |     98|
+|internal   |stats      |     13|
 |internal   |graphics   |     10|
-|internal   |utils      |     10|
+|internal   |utils      |      8|
+|internal   |nlme       |      2|
 |internal   |tools      |      2|
 |imports    |sys        |     13|
 |imports    |readr      |      8|
@@ -100,13 +101,13 @@ This package features some noteworthy statistical properties which may need to b
 The package has:
 
 - code in C++ (9% in 3 files) and R (91% in 19 files)
-- 1 authors
-- no  vignette
+- 1 author
+- no vignette
 - no internal data file
 - 9 imported packages
 - 11 exported functions (median 43 lines of code)
 - 53 non-exported functions in R (median 14 lines of code)
-- 12 R functions (median 16 lines of code)
+- 12 C++ functions (median 16 lines of code)
 
 ---
 
@@ -124,18 +125,18 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 
 |measure                 | value| percentile|noteworthy |
 |:-----------------------|-----:|----------:|:----------|
-|files_R                 |    19|       66.0|           |
-|files_src               |     3|       58.0|           |
-|files_vignettes         |     0|       17.0|           |
-|files_tests             |     7|       67.0|           |
+|files_R                 |    19|       69.5|           |
+|files_src               |     3|       58.5|           |
+|files_vignettes         |     0|       26.0|           |
+|files_tests             |     7|       71.0|           |
 |loc_R                   |  2698|       87.6|           |
 |loc_src                 |   277|       45.5|           |
 |loc_tests               |   266|       45.8|           |
-|num_vignettes           |     0|       16.0|           |
+|num_vignettes           |     0|       27.5|           |
 |n_fns_r                 |    64|       67.0|           |
-|n_fns_r_exported        |    11|       39.0|           |
+|n_fns_r_exported        |    11|       40.0|           |
 |n_fns_r_not_exported    |    53|       67.0|           |
-|n_fns_src               |    12|       54.0|           |
+|n_fns_src               |    12|       54.5|           |
 |n_fns_per_file_r        |     4|       56.0|           |
 |n_fns_per_file_src      |     4|       68.0|           |
 |num_params_per_fn       |     1|       34.0|           |
@@ -143,12 +144,12 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 |loc_per_fn_r_exp        |    43|       52.0|           |
 |loc_per_fn_r_not_exp    |    14|       52.0|           |
 |loc_per_fn_src          |    16|       63.0|           |
-|rel_whitespace_R        |    19|        0.0|TRUE       |
-|rel_whitespace_src      |    24|        0.0|TRUE       |
-|rel_whitespace_tests    |    27|        0.0|TRUE       |
+|rel_whitespace_R        |    19|       59.0|           |
+|rel_whitespace_src      |    24|       99.0|TRUE       |
+|rel_whitespace_tests    |    27|       96.0|TRUE       |
 |doclines_per_fn_exp     |    31|       42.0|           |
-|doclines_per_fn_not_exp |     3|       51.0|           |
-|fn_call_network_size    |   111|       50.0|           |
+|doclines_per_fn_not_exp |     1|       44.0|           |
+|fn_call_network_size    |    84|       50.0|           |
 
 ---
 

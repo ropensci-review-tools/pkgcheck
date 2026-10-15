@@ -7,15 +7,10 @@
 #' @noRd
 pkgchk_has_orcid <- function (checks) {
 
-    desc <- data.frame (
-        read.dcf (fs::path (
-            checks$pkg$path,
-            "DESCRIPTION"
-        )),
-        stringsAsFactors = FALSE
-    )
-
-    authors <- eval (str2lang (desc$Authors.R))
+    authors <- desc_authors (checks$pkg$path)
+    if (length (authors) == 0L) {
+        return (logical (0L))
+    }
     # Only examine roles of "cre", "aut", "ctb":
     cres <- which (auts_are_role (authors, "cre"))
     auts <- which (auts_are_role (authors, "aut"))
@@ -33,9 +28,7 @@ pkgchk_has_orcid <- function (checks) {
 
     names (has_orcid) <- vapply (
         authors,
-        function (x) {
-            paste0 (x$given, x$family, collapse = " ")
-        },
+        person_name,
         FUN.VALUE = "a"
     )
 
@@ -84,14 +77,10 @@ output_pkgchk_has_orcid <- function (checks) {
 #' @noRd
 pkgchk_has_ror <- function (checks) {
 
-    desc <- data.frame (
-        read.dcf (fs::path (
-            checks$pkg$path,
-            "DESCRIPTION"
-        )),
-        stringsAsFactors = FALSE
-    )
-    authors <- eval (str2lang (desc$Authors.R))
+    authors <- desc_authors (checks$pkg$path)
+    if (length (authors) == 0L) {
+        return (logical (0L))
+    }
     funders <- authors [which (auts_are_role (authors, "fnd"))]
 
     has_ror <- vapply (
@@ -104,7 +93,7 @@ pkgchk_has_ror <- function (checks) {
 
     names (has_ror) <- vapply (
         funders,
-        function (x) x$given,
+        person_name,
         character (1L)
     )
 
@@ -140,4 +129,25 @@ auts_are_role <- function (authors, role = "fnd") {
         function (a) any (a$role %in% role),
         logical (1L)
     )
+}
+
+#' Authors of a package as a 'person' object, or `NULL` if there is no
+#' "Authors@R" field
+#' @noRd
+desc_authors <- function (path) {
+
+    desc <- data.frame (
+        read.dcf (fs::path (path, "DESCRIPTION")),
+        stringsAsFactors = FALSE
+    )
+    if (!"Authors.R" %in% names (desc)) {
+        return (NULL)
+    }
+    eval (str2lang (desc$Authors.R))
+}
+
+# Full name of a single 'person', including persons with multiple given names,
+# and institutions with only "given" or "family" names.
+person_name <- function (x) {
+    paste (c (x$given, x$family), collapse = " ")
 }

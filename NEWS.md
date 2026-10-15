@@ -1,5 +1,30 @@
 # pkgcheck News
 
+## 0.3.4.00x (current dev version)
+
+### Bug fixes (@rootcoder007)
+
+- The CRAN distribution of relative white space divides blank lines by lines of code of each CRAN package, not of the package being checked.
+- `pkgcheck()` no longer errors on "URL" fields with "http" URLs or with multiple URLs, nor for repositories hosted neither on GitHub nor GitLab.
+- GitLab CI badges are linked to pipelines, and GitLab "BugReports" URLs ending in "/-/issues" are recognised.
+- ORCID and ROR checks handle packages without "Authors@R", persons with multiple given names, and funders with only family names.
+- CI check fails when no R CMD check or coverage workflows are present.
+- Package-name and CRAN checks report "Could not check" when available packages can not be retrieved, including when no CRAN mirror is set, and package names are validated as whole strings.
+- Statistical percentiles count ties as half, so measures which are zero for most packages are no longer flagged as noteworthy.
+- Language summaries name the compiled languages of source functions, with no dangling "and" for R-only packages.
+- Packages with no imports report 0 imported packages.
+- Rd files with multiple keywords and no examples are reported as having no examples.
+- Contributing files in top-level "renv" directories are ignored.
+- Default-branch check uses the default branch of the repository, not the local branch.
+- 'srr' reports include the Probability Distributions category.
+- Extra-environment checks may return vectors, and output functions with empty summaries.
+- "_pkgdown.yml" files in "pkgdown" or "inst" directories are found.
+- Assignment checks work in non-interactive sessions, where `keep.source` is `FALSE`, and in packages with an empty "R" directory.
+- Coverage reports list files with low coverage below the same 75% threshold as the coverage check.
+- Network files of other packages are no longer deleted from the cache.
+- Rd files which can not be parsed are skipped with a warning.
+- Requires 'pkgstats' >= 0.2.5, for `force_col_types()`.
+
 ## 0.3.4
 
 ### Minor changes

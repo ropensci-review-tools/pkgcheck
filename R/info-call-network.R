@@ -28,7 +28,7 @@ fn_call_network <- function (s) {
     # clean up any older ones
     flist <- list.files (
         d3js_dir,
-        pattern = paste0 (s$out$package, "_pkgstats"),
+        pattern = paste0 ("^", s$out$name, "_pkgstats"),
         full.names = TRUE
     )
 

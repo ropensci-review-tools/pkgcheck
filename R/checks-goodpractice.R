@@ -387,7 +387,7 @@ covr_report <- function (x,
     if ("covr_threshold" %in% names (control)) {
         covr_threshold <- control$covr_threshold
     } else {
-        covr_threshold <- 70
+        covr_threshold <- 75
     }
 
     if ("digits" %in% names (control)) {

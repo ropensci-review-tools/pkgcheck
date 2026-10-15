@@ -188,13 +188,13 @@ This package features some noteworthy statistical properties which may need to b
 The package has:
 
 - code in C++ (72% in 2 files) and R (28% in 4 files)
-- 1 authors
-- no  vignette
+- 1 author
+- no vignette
 - no internal data file
 - 1 imported package
 - 1 exported function (median 3 lines of code)
 - 1 non-exported function in R (median 3 lines of code)
-- 2 R functions (median 5 lines of code)
+- 3 C++ functions (median 4 lines of code)
 
 ---
 
@@ -212,28 +212,28 @@ The final measure (`fn_call_network_size`) is the total number of calls between 
 
 |measure                 | value| percentile|noteworthy |
 |:-----------------------|-----:|----------:|:----------|
-|files_R                 |     4|       31.0|           |
-|files_src               |     2|       57.0|           |
-|files_vignettes         |     0|       17.0|           |
-|files_tests             |     2|       50.0|           |
+|files_R                 |     4|       32.0|           |
+|files_src               |     2|       57.5|           |
+|files_vignettes         |     0|       26.0|           |
+|files_tests             |     2|       53.5|           |
 |loc_R                   |    10|       47.4|           |
 |loc_src                 |    26|       44.4|           |
 |loc_tests               |     6|       41.7|           |
-|num_vignettes           |     0|       16.0|           |
+|num_vignettes           |     0|       27.5|           |
 |n_fns_r                 |     2|       42.0|           |
-|n_fns_r_exported        |     1|       32.0|           |
+|n_fns_r_exported        |     1|       33.0|           |
 |n_fns_r_not_exported    |     1|       38.0|           |
-|n_fns_src               |     2|       53.0|           |
+|n_fns_src               |     3|       53.5|           |
 |n_fns_per_file_r        |     1|       43.0|           |
-|n_fns_per_file_src      |     1|       45.0|           |
+|n_fns_per_file_src      |     2|       50.0|           |
 |num_params_per_fn       |     0|       29.0|           |
 |loc_per_fn_r            |     3|       35.0|           |
 |loc_per_fn_r_exp        |     3|       42.0|           |
 |loc_per_fn_r_not_exp    |     3|       47.0|           |
-|loc_per_fn_src          |     5|       50.0|           |
-|rel_whitespace_R        |    40|        0.0|TRUE       |
-|rel_whitespace_src      |    27|        0.0|TRUE       |
-|rel_whitespace_tests    |    17|        0.0|TRUE       |
+|loc_per_fn_src          |     4|       49.0|           |
+|rel_whitespace_R        |    40|      100.0|TRUE       |
+|rel_whitespace_src      |    27|      100.0|TRUE       |
+|rel_whitespace_tests    |    17|      100.0|TRUE       |
 |doclines_per_fn_exp     |     6|       29.0|           |
 |doclines_per_fn_not_exp |     4|       56.0|           |
 |fn_call_network_size    |     1|       50.0|           |
@@ -264,7 +264,7 @@ Click to see the [interactive network visualisation of calls between objects in 
 
 :heavy_multiplication_x: The following authors are missing ORCID IDs:
 
-- FirstLast
+- First Last
 
 
 </p>

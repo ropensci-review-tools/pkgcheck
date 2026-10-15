@@ -14,18 +14,17 @@ pkgchk_pkgname_available <- function (checks) {
     )
     pkg <- desc$Package
 
-    pkg_grepped <- grep (
-        .standard_regexps ()$valid_package_name,
-        pkg,
-        value = TRUE
+    valid_name <- grepl (
+        paste0 ("^", .standard_regexps ()$valid_package_name, "$"),
+        pkg
     )
 
     ap <- get_available_packages ()
+    if (is.null (ap)) {
+        return (NA)
+    }
 
-    return (
-        !pkg %in% ap$Package &
-            pkg == pkg_grepped
-    )
+    return (valid_name && !pkg %in% ap$Package)
 }
 
 output_pkgchk_pkgname <- function (checks) {

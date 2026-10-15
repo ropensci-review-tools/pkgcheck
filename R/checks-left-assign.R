@@ -21,15 +21,17 @@
 #' @noRd
 pkgchk_left_assign <- function (checks) {
 
+    no_assigns <- list (
+        global = FALSE,
+        usage = c (
+            "<-" = 0L,
+            "=" = 0L
+        )
+    )
+
     rdir <- fs::path (checks$pkg$path, "R")
     if (!fs::dir_exists (rdir)) {
-        return (list (
-            global = FALSE,
-            usage = c (
-                "<-" = 0L,
-                "=" = 0L
-            )
-        ))
+        return (no_assigns)
     }
 
     rdir <- fs::path_abs (rdir)
@@ -37,13 +39,18 @@ pkgchk_left_assign <- function (checks) {
         regexp = "\\.q$|\\.r$|\\.s$",
         ignore.case = TRUE
     )
+    if (length (flist) == 0L) {
+        return (no_assigns)
+    }
 
     assigns <- vapply (flist, function (i) {
 
         # NOTE that this call always fails in R CMD check environments,
         # although it succeeds in individual calls to testthat::test_file().
         # This means that assigns are always all zero in test results.
-        p <- tryCatch (utils::getParseData (parse (i)),
+        # 'keep.source' is FALSE in non-interactive sessions, which then return
+        # no parse data.
+        p <- tryCatch (utils::getParseData (parse (i, keep.source = TRUE)),
             error = function (e) NULL
         )
 
@@ -127,7 +134,7 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
         code <- suppressWarnings (readLines (f))
         code <- code [seq (tags$start [i], tags$end [i])]
         code <- tryCatch (
-            utils::getParseData (parse (text = code)),
+            utils::getParseData (parse (text = code, keep.source = TRUE)),
             error = function (e) NULL
         )
 
@@ -189,7 +196,7 @@ get_global_assigns_table <- function (assigns, checks) {
     }
 
     global <- data.frame (
-        file = gsub (checks$pkg$path, "", colnames (assigns)),
+        file = gsub (checks$pkg$path, "", colnames (assigns), fixed = TRUE),
         n = as.integer (global)
     )
     global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)

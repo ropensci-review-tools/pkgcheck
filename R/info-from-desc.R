@@ -51,19 +51,20 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
         return ("")
     }
 
-    u <- strsplit (d [[type]], "\\s+") [[1]]
-    u <- grep ("^https", u, value = TRUE)
-    if (length (u) > 1) {
+    u <- strsplit (d [[type]], "[,[:space:]]+") [[1]]
+    u <- grep ("^https?\\:\\/\\/", u, value = TRUE)
+    if (length (u) > 1 && any (grepl ("git", u))) {
         u <- grep ("git", u, value = TRUE)
     }
-    if (length (u) > 1) {
+    if (length (u) > 1 && !all (grepl ("\\.io", u))) {
         u <- u [which (!grepl ("\\.io", u))]
     }
+    u <- u [1]
+    if (is.na (u)) {
+        return ("")
+    }
     if (type == "URL" && grepl ("github\\.io", u, ignore.case = TRUE)) {
-        u <- pkginfo_url_from_desc (path, type = "BugReports")
-        if (grepl ("issues(\\/?)$", u)) {
-            u <- gsub ("issues(\\/?)$", "", u)
-        }
+        u <- rm_issues_from_url (pkginfo_url_from_desc (path, type = "BugReports"))
     }
 
     u <- gsub (",|\\s+", "", u)
@@ -73,4 +74,13 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
     }
 
     return (u [1])
+}
+
+#' Reduce a 'BugReports' URL to the repository URL
+#'
+#' Removes trailing "issues", along with the "/-/" of GitLab URLs such as
+#' "https://gitlab.com/org/repo/-/issues".
+#' @noRd
+rm_issues_from_url <- function (u) {
+    gsub ("(\\/\\-)?\\/issues(\\/?)$", "", u)
 }
