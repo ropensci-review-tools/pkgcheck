@@ -131,9 +131,6 @@ auts_are_role <- function (authors, role = "fnd") {
     )
 }
 
-#' Authors of a package as a 'person' object, or `NULL` if there is no
-#' "Authors@R" field
-#' @noRd
 desc_authors <- function (path) {
 
     desc <- data.frame (
@@ -146,8 +143,6 @@ desc_authors <- function (path) {
     eval (str2lang (desc$Authors.R))
 }
 
-# Full name of a single 'person', including persons with multiple given names,
-# and institutions with only "given" or "family" names.
 person_name <- function (x) {
     paste (c (x$given, x$family), collapse = " ")
 }

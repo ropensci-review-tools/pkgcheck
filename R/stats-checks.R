@@ -304,11 +304,6 @@ fake_pkgstats_test_data_impl <- function (s, n = 100) {
     return (out)
 }
 
-#' Percentile of 'x' within distribution 'd', with ties counted as half
-#'
-#' Many measures are zero for large proportions of all packages, and would
-#' otherwise be reported at percentiles of zero, and flagged as noteworthy.
-#' @noRd
 mid_rank_percentile <- function (d, x) {
     if (is.na (x) || length (d) == 0L) {
         return (NA_real_)

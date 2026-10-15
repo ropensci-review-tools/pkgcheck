@@ -48,8 +48,6 @@ pkgchk_left_assign <- function (checks) {
         # NOTE that this call always fails in R CMD check environments,
         # although it succeeds in individual calls to testthat::test_file().
         # This means that assigns are always all zero in test results.
-        # 'keep.source' is FALSE in non-interactive sessions, which then return
-        # no parse data.
         p <- tryCatch (utils::getParseData (parse (i, keep.source = TRUE)),
             error = function (e) NULL
         )
@@ -237,9 +235,6 @@ output_pkgchk_left_assign <- function (checks) {
     return (out)
 }
 
-#' ctags of R code, or `NULL` if ctags is not available or fails, in which
-#' case global assignments can not be excluded.
-#' @noRd
 r_ctags <- function (path) {
 
     loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")

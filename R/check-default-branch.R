@@ -37,8 +37,6 @@ output_pkgchk_branch_is_master <- function (checks) {
     return (out)
 }
 
-#' Default branch from GitHub where available, otherwise local branch
-#' @noRd
 git_default_branch <- function (git) {
     b <- git$branch_default
     if (length (b) != 1L || is.na (b) || !nzchar (b)) {

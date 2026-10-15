@@ -76,11 +76,6 @@ pkginfo_url_from_desc <- function (path, type = "URL") {
     return (u [1])
 }
 
-#' Reduce a 'BugReports' URL to the repository URL
-#'
-#' Removes trailing "issues", along with the "/-/" of GitLab URLs such as
-#' "https://gitlab.com/org/repo/-/issues".
-#' @noRd
 rm_issues_from_url <- function (u) {
     gsub ("(\\/\\-)?\\/issues(\\/?)$", "", u)
 }

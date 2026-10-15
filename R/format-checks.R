@@ -426,7 +426,6 @@ pkg_stat_desc <- function (checks) {
                 )
             )
         )
-        # 'pre_text' may be empty:
         paste0 ("- ", gsub ("\\s+", " ", txt))
     }
 

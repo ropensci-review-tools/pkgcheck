@@ -13,7 +13,6 @@ pkginfo_pkgdown <- function (path) {
         has_reference = FALSE
     )
 
-    # pkgdown looks for config in these locations:
     yml_dirs <- fs::path (path, c ("", "pkgdown", "inst"))
     yml_dirs <- yml_dirs [which (fs::dir_exists (yml_dirs))]
     pkgdown_yml_path <- fs::dir_ls (

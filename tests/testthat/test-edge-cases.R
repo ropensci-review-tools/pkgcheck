@@ -71,7 +71,6 @@ test_that ("ORCID and ROR checks", {
         c ("Wellcome Trust" = FALSE, "Big Funder" = TRUE)
     )
 
-    # No 'Authors@R' field:
     path <- local_pkg_dir (list (Author = "A B", Maintainer = "A B <a@b.c>"))
     checks <- list (pkg = list (path = path))
     expect_length (pkgchk_has_orcid (checks), 0L)
@@ -102,7 +101,6 @@ test_that ("package names when CRAN can not be checked", {
     local_mocked_bindings (
         get_available_packages = function () data.frame (Package = "ggplot2")
     )
-    # Invalid name:
     expect_false (pkgchk_pkgname_available (checks))
 })
 
@@ -265,7 +263,7 @@ test_that ("unreadable Rd files", {
 
     path <- withr::local_tempdir ()
     f <- fs::path (path, "man.Rd")
-    fs::dir_create (f) # a directory, not a file
+    fs::dir_create (f)
     msgs <- character (0L)
     rds <- withCallingHandlers (
         parse_rd_files (f),
