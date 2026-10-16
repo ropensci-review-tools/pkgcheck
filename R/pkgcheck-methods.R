@@ -102,6 +102,8 @@ list_pkgchk_output_fns <- function (x) {
 output_has_print <- function (x) {
 
     output_fns <- list_pkgchk_output_fns (x)
+    # CI badges and workflow results go in the goodpractice section:
+    output_fns <- output_fns [which (output_fns != "ci")]
     has_print <- vapply (output_fns, function (f) {
         this_fn <- paste0 ("output_pkgchk_", f)
         this_out <- do.call (this_fn, list (x))
