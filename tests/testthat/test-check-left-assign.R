@@ -95,8 +95,7 @@ test_that ("rm_global_assign_in_ref_class", {
     assigns2 <- rm_global_assign_in_ref_class (assigns, checks)
     i <- which (rownames (assigns) == "<<-")
     # assigns2 should have one less global count because of RefClass:
-    # (but again, getParseData fails, so this test doesn't work)
-    # expect_equal (assigns [i, 1], assigns2 [i, 1] + 1L)
+    expect_equal (assigns [i, 1], assigns2 [i, 1] + 1L)
 
     fs::dir_delete (path)
 })

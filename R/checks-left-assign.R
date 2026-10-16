@@ -45,9 +45,6 @@ pkgchk_left_assign <- function (checks) {
 
     assigns <- vapply (flist, function (i) {
 
-        # NOTE that this call always fails in R CMD check environments,
-        # although it succeeds in individual calls to testthat::test_file().
-        # This means that assigns are always all zero in test results.
         p <- tryCatch (utils::getParseData (parse (i, keep.source = TRUE)),
             error = function (e) NULL
         )
