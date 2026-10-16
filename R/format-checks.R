@@ -564,7 +564,7 @@ d3js_description <- function (checks) {
         repo <- utils::tail (orgrepo, 1)
         msg <- paste0 (
             "[latest 'pkgcheck' action](",
-            "https://github.com", org, "/", repo,
+            "https://github.com/", org, "/", repo,
             "/actions)"
         )
 

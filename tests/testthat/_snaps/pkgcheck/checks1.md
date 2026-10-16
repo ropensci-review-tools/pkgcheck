@@ -264,7 +264,7 @@ Click to see the [interactive network visualisation of calls between objects in 
 
 :heavy_multiplication_x: The following authors are missing ORCID IDs:
 
-- FirstLast
+- First Last
 
 
 </p>

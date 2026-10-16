@@ -161,7 +161,7 @@ print_git <- function (x) {
     since <- strftime (x$info$git$since, "%d-%m-%Y") # nolint
     gitstats <- c (
         "HEAD: {substring (x$info$git$HEAD, 1, 8)}",
-        "Default branch: {x$info$git$branch}",
+        "Default branch: {git_default_branch (x$info$git)}",
         "Number of commits: {x$info$git$num_commits}",
         "First commit: {since}",
         "Number of authors: {x$info$git$num_authors}"
