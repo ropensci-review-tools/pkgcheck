@@ -1,5 +1,11 @@
 # pkgcheck News
 
+## 0.3.4.001
+
+### Minor changes
+
+- CI badges and workflow results are written to the markdown report as text, once (#444, @rootcoder007).
+
 ## 0.3.4
 
 ### Minor changes

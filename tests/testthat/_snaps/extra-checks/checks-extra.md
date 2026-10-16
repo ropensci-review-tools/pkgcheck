@@ -174,17 +174,6 @@ Click to see the [interactive network visualisation of calls between objects in 
 <p>
 
 
-:heavy_check_mark: #### 4a. Continuous Integration Badges
-
-- (There do not appear to be any)
-
-
-**GitHub Workflow Results**| id|name               |conclusion |sha    | run_number|date       |
-**GitHub Workflow Results**|--:|:------------------|:----------|:------|----------:|:----------|
-**GitHub Workflow Results**|  1|R-CMD-check.yaml   |success    |abcdef |        101|2025-01-01 |
-**GitHub Workflow Results**|  2|test-coverage.yaml |success    |123456 |        102|2025-01-01 |
-
-
 :heavy_multiplication_x: Package contains the following unexpected files:
 
 - a
