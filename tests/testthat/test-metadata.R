@@ -93,8 +93,15 @@ test_that ("ORCID and ROR checks", {
 
     path <- local_pkg_dir (list (Author = "A B", Maintainer = "A B <a@b.c>"))
     checks <- list (pkg = list (path = path))
-    expect_length (pkgchk_has_orcid (checks), 0L)
+    expect_identical (pkgchk_has_orcid (checks), NA)
     expect_length (pkgchk_has_ror (checks), 0L)
+    path <- local_pkg_dir (list (`Authors@R` = "person ()"))
+    expect_identical (pkgchk_has_orcid (list (pkg = list (path = path))), NA)
+    out <- output_pkgchk_has_orcid (list (checks = list (has_orcid = NA)))
+    expect_false (out$check_pass)
+    expect_equal (out$summary, "Could not check ORCID IDs (no 'Authors@R' field)")
+    expect_identical (out$print, "")
+    expect_equal (out$check_type, "none_watch")
 })
 
 test_that ("package names when CRAN can not be checked", {

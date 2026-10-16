@@ -9,7 +9,7 @@ pkgchk_has_orcid <- function (checks) {
 
     authors <- desc_authors (checks$pkg$path)
     if (length (authors) == 0L) {
-        return (logical (0L))
+        return (NA)
     }
     # Only examine roles of "cre", "aut", "ctb":
     cres <- which (auts_are_role (authors, "cre"))
@@ -50,7 +50,12 @@ output_pkgchk_has_orcid <- function (checks) {
         print = ""
     )
 
-    if (!out$check_pass) {
+    if (identical (checks$checks$has_orcid, NA)) {
+
+        out$check_pass <- FALSE
+        out$summary <- "Could not check ORCID IDs (no 'Authors@R' field)"
+
+    } else if (!out$check_pass) {
 
         out$summary <- "Not all authors have ORCID IDs"
 
