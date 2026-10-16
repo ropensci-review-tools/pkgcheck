@@ -1,3 +1,5 @@
+covr_threshold_default <- 75
+
 output_pkgchk_covr <- function (checks) {
 
     out <- list (
@@ -15,12 +17,14 @@ output_pkgchk_covr <- function (checks) {
 
         coverage <- round (checks$goodpractice$covr$pct_by_line, digits = 1)
 
-        if (coverage < 75) {
+        if (coverage < covr_threshold_default) {
             out$check_pass <- FALSE
             out$summary <- paste0 (
                 "Package coverage is ",
                 coverage,
-                "% (should be at least 75%)."
+                "% (should be at least ",
+                covr_threshold_default,
+                "%)."
             )
         } else {
             out$summary <- paste0 ("Package coverage is ", coverage, "%.")

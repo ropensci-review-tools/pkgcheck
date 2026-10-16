@@ -35,16 +35,14 @@ stats_checks <- function (s, threshold = 0.05) {
         rel_white_pkg [[nm]] <- as.numeric (unname (
             s [[b_s [i]]] / s [[c_s [i]]]
         ))
-        tmp <- as.numeric (unname (dat [[b_d [i]]] / s [[c_d [i]]]))
-        rel_white_all [[nm]] <- tmp [which (!is.na (tmp))]
+        tmp <- as.numeric (unname (dat [[b_d [i]]] / dat [[c_d [i]]]))
+        rel_white_all [[nm]] <- tmp [which (is.finite (tmp))]
     }
 
     index <- which (!is.na (rel_white_pkg))
     rel_white_score <- vapply (
         seq_along (rel_white_pkg), function (i) {
-            s <- sort (rel_white_all [[i]])
-            length (which (s < rel_white_pkg [[i]])) /
-                length (s)
+            mid_rank_percentile (rel_white_all [[i]], rel_white_pkg [[i]])
         },
         numeric (1)
     )
@@ -78,8 +76,7 @@ stats_checks <- function (s, threshold = 0.05) {
         if (is.na (s [[i]])) {
             return (NA)
         }
-        return (length (which (dists [[i]] < s [[i]])) /
-            length (dists [[i]]))
+        return (mid_rank_percentile (dists [[i]], s [[i]]))
     }, double (1))
 
     index <- match (names (pc), names (s))
@@ -128,7 +125,7 @@ stats_checks <- function (s, threshold = 0.05) {
     rownames (pc) <- NULL
 
     # additional tidying & removal:
-    if (pc$percentile [pc$measure == "data_size_total"] == 0.0) {
+    if (pc$value [pc$measure == "data_size_total"] == 0.0) {
         pc <- pc [which (!grepl ("^data\\_", pc$measure)), ]
     }
     if (pc$value [pc$measure == "files_inst"] == 0.0) {
@@ -305,4 +302,11 @@ fake_pkgstats_test_data_impl <- function (s, n = 100) {
     out$n_edges_src <- ceiling (stats::rnorm (n = n, mean = 201, sd = 3218))
 
     return (out)
+}
+
+mid_rank_percentile <- function (d, x) {
+    if (is.na (x) || length (d) == 0L) {
+        return (NA_real_)
+    }
+    (length (which (d < x)) + 0.5 * length (which (d == x))) / length (d)
 }
