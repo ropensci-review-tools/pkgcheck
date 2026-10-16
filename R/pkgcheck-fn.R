@@ -205,7 +205,7 @@ collate_extra_env_checks <- function (checks) {
 
         return (out)
     })
-    chks <- do.call (c, chks)
+    chks <- do.call (c, unname (chks))
 
     not_empty <- vapply (
         chks,

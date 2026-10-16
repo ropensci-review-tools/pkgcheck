@@ -515,11 +515,8 @@ pkg_network <- function (checks, sec_num) {
         dir.create (d3js_dir, recursive = TRUE)
     }
 
-    flist <- list.files (
-        d3js_dir,
-        pattern = paste0 (checks$pkg$name, "_pkgstats"),
-        full.names = TRUE
-    )
+    flist <- list.files (d3js_dir, full.names = TRUE)
+    flist <- flist [which (startsWith (basename (flist), paste0 (checks$pkg$name, "_pkgstats")))]
 
     if (!checks$info$network_file %in% flist) {
 

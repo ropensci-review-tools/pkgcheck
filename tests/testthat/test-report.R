@@ -59,6 +59,85 @@ test_that ("extra env checks", {
     chks <- collate_extra_env_checks (list ())
     expect_identical (chks, list (bad_files = c ("R/a.R", "R/b.R"), flag = TRUE))
 
+    withr::local_options (pkgcheck_extra_env = list (myenv = e))
+    expect_identical (
+        names (collate_extra_env_checks (list ())),
+        c ("bad_files", "flag")
+    )
+
     checks <- list (checks = chks)
     expect_null (summarise_extra_env_checks (checks))
+})
+
+test_that ("function call network files", {
+
+    cache <- withr::local_tempdir ()
+    withr::local_envvar (PKGCHECK_CACHE_DIR = cache)
+    static <- fs::path (cache, "static")
+
+    s <- list (
+        stats = list (network = data.frame (from = "a", to = "b"), objects = data.frame ()),
+        out = list (name = "data.table", git = list (HEAD = "0123456789abcdef"))
+    )
+    expect_null (fn_call_network (list (
+        stats = list (network = data.frame (), objects = data.frame ()),
+        out = s$out
+    )))
+
+    plotted <- 0L
+    local_mocked_bindings (
+        plot_network = function (s, vis_save) {
+            plotted <<- plotted + 1L
+            writeLines ("", vis_save)
+        },
+        .package = "pkgstats"
+    )
+
+    old <- fs::path (static, "data.table_pkgstatsfedcba98.html")
+    other <- fs::path (static, "dataXtable_pkgstats01234567.html")
+    dir.create (static, recursive = TRUE)
+    writeLines ("", old)
+    writeLines ("", other)
+
+    path <- fn_call_network (s)
+    expect_equal (basename (path), "data.table_pkgstats01234567.html")
+    expect_true (file.exists (path))
+    expect_false (file.exists (old))
+    expect_true (file.exists (other))
+    expect_equal (plotted, 1L)
+
+    expect_equal (fn_call_network (s), path)
+    expect_equal (plotted, 1L)
+})
+
+test_that ("network section copies files by package-name prefix", {
+
+    cache <- withr::local_tempdir ()
+    withr::local_envvar (PKGCHECK_CACHE_DIR = cache)
+    static <- fs::path (cache, "static")
+    src <- withr::local_tempdir ()
+
+    net <- fs::path (src, "data.table_pkgstats01234567.html")
+    writeLines ("", net)
+    old <- fs::path (static, "data.table_pkgstatsfedcba98.html")
+    other <- fs::path (static, "dataXtable_pkgstats01234567.html")
+    dir.create (static, recursive = TRUE)
+    writeLines ("", old)
+    writeLines ("", other)
+
+    checks <- list (
+        pkg = list (name = "data.table"),
+        info = list (network_file = net)
+    )
+    out <- pkg_network (checks, 1)
+    expect_true (any (grepl ("Network visualisation", out)))
+    expect_true (file.exists (fs::path (static, basename (net))))
+    expect_false (file.exists (old))
+    expect_true (file.exists (other))
+
+    expect_match (
+        pkg_network (list (pkg = checks$pkg, info = list ()), 1),
+        "no function call network",
+        all = FALSE
+    )
 })
