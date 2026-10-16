@@ -1,5 +1,14 @@
 # pkgcheck News
 
+## 0.3.4.001
+
+### Minor changes
+
+- Summary text: language lists, plurals and imported-package counts (#440, @rootcoder007).
+- `srr` probability-distribution standards (`PD`) are reported (#440, @rootcoder007).
+- Function-call network files are matched by package-name prefix, not regex (#440, @rootcoder007).
+- Checks from named `pkgcheck_extra_env` lists keep their check names (#440, @rootcoder007).
+
 ## 0.3.4
 
 ### Minor changes

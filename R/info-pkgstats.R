@@ -101,7 +101,7 @@ pkginfo_pkgstats_summary <- function (s) {
         num_authors = s$desc$aut,
         num_vignettes = unname (s$vignettes [1]),
         num_data = unname (s$data_stats [1]),
-        imported_pkgs = length (strsplit (s$desc$imports, ",") [[1]]),
+        imported_pkgs = num_imported_pkgs (s$desc$imports),
         num_exported_fns = as.integer (num_exported_fns),
         num_non_exported_fns = as.integer (num_non_exported_fns),
         num_src_fns = as.integer (num_src_fns),
@@ -111,4 +111,10 @@ pkginfo_pkgstats_summary <- function (s) {
         num_params_per_fn = as.integer (num_params_per_fn),
         languages = attr (pkgstats, "language")
     )
+}
+
+num_imported_pkgs <- function (imports) {
+    imports <- strsplit (imports, ",") [[1]]
+    imports <- trimws (imports [which (!is.na (imports))])
+    length (which (nzchar (imports) & imports != "NA"))
 }
