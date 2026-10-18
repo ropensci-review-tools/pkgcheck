@@ -10,6 +10,10 @@
 - The default-branch check and print method use the repository's default branch (#439, @rootcoder007).
 - `pkgchk_on_cran()` and the package-name check return `NA` when the CRAN package list can not be read, including when the `repos` option is `@CRAN@`; package names are matched as whole valid names (#439, @rootcoder007).
 - `_pkgdown.yml` is also found in `pkgdown/` and `inst/`; `renv` paths and GitHub repository links are matched exactly (#439, @rootcoder007).
+- The left-assignment check parses files with `keep.source = TRUE`, so it counts assignments under `Rscript` and `R CMD check`; it also handles an empty `R/` directory and a missing `ctags` (#438, @rootcoder007).
+- Relative white-space statistics divide by the right column, percentiles use mid-ranks for ties, and the data-size check reads the value rather than the percentile (#438, @rootcoder007).
+- Coverage reports and the coverage check share one default threshold of 75% (#438, @rootcoder007).
+- Rd checks handle several keywords per file and name the right file when an Rd file fails to parse (#438, @rootcoder007).
 
 ## 0.3.4
 
