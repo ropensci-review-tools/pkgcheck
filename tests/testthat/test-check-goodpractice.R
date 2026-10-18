@@ -65,6 +65,14 @@ test_that ("check goodpractice", {
     rep2 <- covr_report (gp, control = list ())
     expect_identical (rep, rep2)
 
+    gp$covr <- data.frame (
+        source = c ("package", "R/a.R", "R/b.R"),
+        percent = c (72, 72, 90)
+    )
+    rep <- covr_report (gp)
+    expect_true ("R/a.R | 72%" %in% rep)
+    expect_false (any (grepl ("R/b.R", rep, fixed = TRUE)))
+
     # Some of these fail on windows
     skip_on_os ("windows")
 

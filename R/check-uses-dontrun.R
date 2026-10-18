@@ -88,12 +88,13 @@ parse_rd_files <- function (rd_files) {
                     permissive = TRUE
                 ),
                 error = function (e) {
-                    warning (sprintf ("Error parsing Rd file '%s': %s", file, e$message))
+                    warning (sprintf ("Error parsing Rd file '%s': %s", f, e$message))
                     NULL
                 }
             )
         }
     )
+    rds <- rds [which (!vapply (rds, is.null, logical (1L)))]
     nms <- vapply (rds, get_Rd_meta, FUN.VALUE = character (1), "name")
     stats::setNames (rds, nms)
 }
