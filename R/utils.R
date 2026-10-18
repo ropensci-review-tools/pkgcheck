@@ -130,7 +130,8 @@ env2namespace <- function (e) {
 #' @noRd
 get_available_packages <- function () {
     op <- options ()
-    if (is.null (getOption ("repos"))) {
+    repos <- getOption ("repos")
+    if (is.null (repos) || any (repos == "@CRAN@")) {
         # Needed for GitHub runners, because avail.pkgs fails with no mirror set
         options (repos = c (CRAN = "https://cloud.r-project.org"))
     }

@@ -7,7 +7,9 @@
 #' @param checks A 'pkgcheck' object with full \pkg{pkgstats} summary and
 #' \pkg{goodpractice} results.
 #' @return A single logical value indicating whether a package is on CRAN
-#' (`TRUE`), or not (`FALSE`).
+#' (`TRUE`), or not (`FALSE`), or `NA` when that can not be determined (the
+#' list of CRAN packages can not be read, or the CRAN page of a package of the
+#' same name can not be).
 #' @noRd
 pkgchk_on_cran <- function (checks) {
 
@@ -22,6 +24,9 @@ pkgchk_on_cran <- function (checks) {
     pkg <- desc$Package
 
     ap <- get_available_packages ()
+    if (is.null (ap)) {
+        return (NA)
+    }
     res <- pkg %in% ap$Package
 
     if (res) {

@@ -23,6 +23,7 @@ pkgchk_ci_badges <- function (u) {
     # mirrored on github!
     branch <- get_default_github_branch (org, repo)
 
+    u_readme <- NULL
     if (grepl ("github", u)) {
 
         u_readme <- paste0 (
@@ -48,7 +49,7 @@ pkgchk_ci_badges <- function (u) {
         )
     }
 
-    if (!url_exists (u_readme, quiet = TRUE)) {
+    if (is.null (u_readme) || !url_exists (u_readme, quiet = TRUE)) {
         return (NULL)
     }
 
@@ -58,7 +59,7 @@ pkgchk_ci_badges <- function (u) {
 
     badges <- unlist (regmatches (
         readme,
-        gregexpr ("https.*\\.svg", readme)
+        gregexpr ("https[^[:space:]()\"']*\\.svg", readme)
     ))
     if (length (badges) == 0) {
         return (NULL)
@@ -73,8 +74,6 @@ pkgchk_ci_badges <- function (u) {
     for (p in platforms) {
 
         index <- grep (p, badges)
-        p_u <- p
-        p_no_regex <- gsub ("\\\\", "", p)
 
         if (p == "https\\:\\/\\/github") {
 
@@ -93,6 +92,16 @@ pkgchk_ci_badges <- function (u) {
                 "/actions"
             )
 
+        } else {
+
+            wf_nms <- rep ("pipeline", length (index))
+            p_u <- paste0 (
+                "https://gitlab.com/",
+                org,
+                "/",
+                repo,
+                "/-/pipelines"
+            )
         }
 
         badges [index] <- paste0 (
