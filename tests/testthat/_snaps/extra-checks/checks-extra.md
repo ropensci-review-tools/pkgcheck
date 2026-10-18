@@ -100,13 +100,13 @@ This package features some noteworthy statistical properties which may need to b
 The package has:
 
 - code in C++ (9% in 3 files) and R (91% in 19 files)
-- 1 authors
-- no  vignette
+- 1 author
+- no vignette
 - no internal data file
 - 9 imported packages
 - 11 exported functions (median 43 lines of code)
 - 53 non-exported functions in R (median 14 lines of code)
-- 12 R functions (median 16 lines of code)
+- 12 C++ functions (median 16 lines of code)
 
 ---
 

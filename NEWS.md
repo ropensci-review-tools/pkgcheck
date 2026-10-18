@@ -4,6 +4,10 @@
 
 ### Minor changes
 
+- Summary text: language lists, plurals and imported-package counts (#440, @rootcoder007).
+- `srr` probability-distribution standards (`PD`) are reported (#440, @rootcoder007).
+- Function-call network files are matched by package-name prefix, not regex (#440, @rootcoder007).
+- Checks from named `pkgcheck_extra_env` lists keep their check names (#440, @rootcoder007).
 - URL checks parse `http` addresses, several URLs and GitLab `/-/issues` links, and read CI badges from README and GitLab (#439, @rootcoder007).
 - Improve ORCID and ROR checks, including "unable to check" ORCID report instead of passing (#439, @rootcoder007).
 - CI check passes only when workflows exist (#439, @rootcoder007).
