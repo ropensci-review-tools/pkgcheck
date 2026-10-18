@@ -19,7 +19,7 @@ pkgchk_has_contrib_md <- function (checks) {
 
     # remove any renv files (#141). The 'pattern' param of
     # flist only works as positive filter.
-    ptn <- paste0 (.Platform$file.sep, "renv", .Platform$file.sep)
+    ptn <- "(^|\\/)renv\\/"
     flist <- flist [which (!grepl (ptn, flist))]
 
     flist <- vapply (flist, function (i) {

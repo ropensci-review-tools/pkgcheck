@@ -27,10 +27,7 @@ pkgcheck_fill_info <- function (checks, path, stats) {
     # hard-code to extract github URLs only:
     if (!grepl ("github", u, ignore.case = TRUE) |
         grepl ("github\\.io", u, ignore.case = TRUE)) {
-        u <- pkginfo_url_from_desc (path, type = "BugReports")
-        if (grepl ("issues(\\/?)$", u)) {
-            u <- gsub ("issues(\\/?)$", "", u)
-        }
+        u <- rm_issues_from_url (pkginfo_url_from_desc (path, type = "BugReports"))
     }
 
     checks$info$badges <- list ()

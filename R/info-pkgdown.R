@@ -13,14 +13,17 @@ pkginfo_pkgdown <- function (path) {
         has_reference = FALSE
     )
 
+    yml_dirs <- fs::path (path, c ("", "pkgdown", "inst"))
+    yml_dirs <- yml_dirs [which (fs::dir_exists (yml_dirs))]
     pkgdown_yml_path <- fs::dir_ls (
-        path,
+        yml_dirs,
         type = "file",
-        regexp = "\\_pkgdown\\."
+        regexp = "\\_pkgdown\\.ya?ml$"
     )
-    if (length (pkgdown_yml_path) != 1L) {
+    if (length (pkgdown_yml_path) == 0L) {
         return (out)
     }
+    pkgdown_yml_path <- pkgdown_yml_path [1]
 
     if (fs::file_exists (pkgdown_yml_path)) {
         out$yaml_path <- pkgdown_yml_path
