@@ -26,11 +26,8 @@ fn_call_network <- function (s) {
     d3js_path <- fs::path (d3js_dir, d3js_file)
 
     # clean up any older ones
-    flist <- list.files (
-        d3js_dir,
-        pattern = paste0 (s$out$package, "_pkgstats"),
-        full.names = TRUE
-    )
+    flist <- list.files (d3js_dir, full.names = TRUE)
+    flist <- flist [which (startsWith (basename (flist), paste0 (s$out$name, "_pkgstats")))]
 
     if (!d3js_path %in% flist) {
         unlink (flist, recursive = TRUE)

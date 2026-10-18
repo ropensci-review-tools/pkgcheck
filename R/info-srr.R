@@ -154,7 +154,7 @@ srr_categories_from_report <- function (s) {
     cats <- unique (gsub ("[0-9].*$", "", cats))
     cats <- cats [which (!cats == "G")]
 
-    prefixes <- c ("BS", "EA", "ML", "RE", "SP", "TS", "UL")
+    prefixes <- c ("BS", "EA", "ML", "RE", "SP", "TS", "UL", "PD")
     categories <- c (
         "Bayesian and Monte Carlo",
         "Exploratory Data Analysis",

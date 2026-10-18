@@ -108,7 +108,7 @@ summarise_gp_checks <- function (checks) {
 gp_checks_to_md <- function (checks,
                              control = list (
                                  cyclocomp_threshold = 15,
-                                 covr_threshold = 70,
+                                 covr_threshold = covr_threshold_default,
                                  digits = 2
                              )) {
 
@@ -264,7 +264,7 @@ extract_gp_components <- function (gp) {
 convert_gp_components <- function (x,
                                    control = list (
                                        cyclocomp_threshold = 15,
-                                       covr_threshold = 70,
+                                       covr_threshold = covr_threshold_default,
                                        digits = 2
                                    )) {
 
@@ -360,7 +360,7 @@ dump_one_rcmd_type <- function (rcmd, type = "errors") {
 covr_report <- function (x,
                          control = list (
                              cyclocomp_threshold = 15,
-                             covr_threshold = 70,
+                             covr_threshold = covr_threshold_default,
                              digits = 2
                          )) {
 
@@ -387,7 +387,7 @@ covr_report <- function (x,
     if ("covr_threshold" %in% names (control)) {
         covr_threshold <- control$covr_threshold
     } else {
-        covr_threshold <- 70
+        covr_threshold <- covr_threshold_default
     }
 
     if ("digits" %in% names (control)) {
@@ -441,7 +441,7 @@ covr_report <- function (x,
 cyclo_report <- function (x,
                           control = list (
                               cyclocomp_threshold = 15,
-                              covr_threshold = 70,
+                              covr_threshold = covr_threshold_default,
                               digits = 2
                           )) {
 

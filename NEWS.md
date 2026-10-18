@@ -4,7 +4,21 @@
 
 ### Minor changes
 
-- CI badges and workflow results are written to the markdown report as text, once (#444, @rootcoder007).
+- `ci_checks_to_md()` writes CI badges and workflow results to the markdown report as text, once (#444, @rootcoder007).
+- Summary text: language lists, plurals and imported-package counts (#440, @rootcoder007).
+- `srr` probability-distribution standards (`PD`) are reported (#440, @rootcoder007).
+- Function-call network files are matched by package-name prefix, not regex (#440, @rootcoder007).
+- Checks from named `pkgcheck_extra_env` lists keep their check names (#440, @rootcoder007).
+- URL checks parse `http` addresses, several URLs and GitLab `/-/issues` links, and read CI badges from README and GitLab (#439, @rootcoder007).
+- Improve ORCID and ROR checks, including "unable to check" ORCID report instead of passing (#439, @rootcoder007).
+- CI check passes only when workflows exist (#439, @rootcoder007).
+- Default-branch check and print method always use the repository's default branch (#439, @rootcoder007).
+- `pkgchk_on_cran()` and the package-name check return `NA` when the CRAN can not be read (#439, @rootcoder007).
+- Improve `_pkgdown.yml` and `renv` identification (#439, @rootcoder007).
+- Left-assignment check parses files with `keep.source = TRUE`, so it counts assignments under `Rscript` and `R CMD check`; it also handles an empty `R/` directory and a missing `ctags` (#438, @rootcoder007).
+- Relative white-space statistics divide by the right column, percentiles use mid-ranks for ties, and the data-size check reads the value rather than the percentile (#438, @rootcoder007).
+- Coverage reports and the coverage check share one default threshold of 75% (#438, @rootcoder007).
+- Rd checks handle several keywords per file and name the right file when an Rd file fails to parse (#438, @rootcoder007).
 
 ## 0.3.4
 

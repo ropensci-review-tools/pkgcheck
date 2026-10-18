@@ -21,15 +21,17 @@
 #' @noRd
 pkgchk_left_assign <- function (checks) {
 
+    no_assigns <- list (
+        global = FALSE,
+        usage = c (
+            "<-" = 0L,
+            "=" = 0L
+        )
+    )
+
     rdir <- fs::path (checks$pkg$path, "R")
     if (!fs::dir_exists (rdir)) {
-        return (list (
-            global = FALSE,
-            usage = c (
-                "<-" = 0L,
-                "=" = 0L
-            )
-        ))
+        return (no_assigns)
     }
 
     rdir <- fs::path_abs (rdir)
@@ -37,13 +39,13 @@ pkgchk_left_assign <- function (checks) {
         regexp = "\\.q$|\\.r$|\\.s$",
         ignore.case = TRUE
     )
+    if (length (flist) == 0L) {
+        return (no_assigns)
+    }
 
     assigns <- vapply (flist, function (i) {
 
-        # NOTE that this call always fails in R CMD check environments,
-        # although it succeeds in individual calls to testthat::test_file().
-        # This means that assigns are always all zero in test results.
-        p <- tryCatch (utils::getParseData (parse (i)),
+        p <- tryCatch (utils::getParseData (parse (i, keep.source = TRUE)),
             error = function (e) NULL
         )
 
@@ -104,12 +106,10 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
     }
     global_row <- which (rownames (assigns) == "<<-")
 
-    loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")
-    get_ctags <- utils::getFromNamespace ("get_ctags", "pkgstats")
-
-    loc <- loc_stats (checks$pkg$path)
-    has_tabs <- any (loc$ntabs > 0L)
-    tags <- withr::with_dir (checks$pkg$path, get_ctags ("R", has_tabs))
+    tags <- r_ctags (checks$pkg$path)
+    if (is.null (tags)) {
+        return (assigns)
+    }
     tags <- tags [which (tags$file %in% global$file &
         grepl ("RefClass", tags$content)), ]
 
@@ -127,7 +127,7 @@ rm_global_assign_in_ref_class <- function (assigns, checks) {
         code <- suppressWarnings (readLines (f))
         code <- code [seq (tags$start [i], tags$end [i])]
         code <- tryCatch (
-            utils::getParseData (parse (text = code)),
+            utils::getParseData (parse (text = code, keep.source = TRUE)),
             error = function (e) NULL
         )
 
@@ -155,12 +155,10 @@ rm_global_assign_in_memoise <- function (assigns, checks) {
     }
     global_row <- which (rownames (assigns) == "<<-")
 
-    loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")
-    get_ctags <- utils::getFromNamespace ("get_ctags", "pkgstats")
-
-    loc <- loc_stats (checks$pkg$path)
-    has_tabs <- any (loc$ntabs > 0L)
-    tags <- withr::with_dir (checks$pkg$path, get_ctags ("R", has_tabs))
+    tags <- r_ctags (checks$pkg$path)
+    if (is.null (tags)) {
+        return (assigns)
+    }
     tags <- tags [which (tags$file %in% global$file), ]
 
     for (f in unique (tags$file)) {
@@ -189,7 +187,7 @@ get_global_assigns_table <- function (assigns, checks) {
     }
 
     global <- data.frame (
-        file = gsub (checks$pkg$path, "", colnames (assigns)),
+        file = gsub (checks$pkg$path, "", colnames (assigns), fixed = TRUE),
         n = as.integer (global)
     )
     global$file <- gsub (paste0 ("^", .Platform$file.sep), "", global$file)
@@ -232,4 +230,16 @@ output_pkgchk_left_assign <- function (checks) {
     }
 
     return (out)
+}
+
+r_ctags <- function (path) {
+
+    loc_stats <- utils::getFromNamespace ("loc_stats", "pkgstats")
+    get_ctags <- utils::getFromNamespace ("get_ctags", "pkgstats")
+
+    tryCatch ({
+        loc <- loc_stats (path)
+        has_tabs <- any (loc$ntabs > 0L)
+        withr::with_dir (path, get_ctags ("R", has_tabs))
+    }, error = function (e) NULL)
 }
