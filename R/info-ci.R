@@ -219,6 +219,11 @@ ci_results_gh <- function (path) {
         time = runs$workflow_runs$created_at,
         stringsAsFactors = FALSE
     )
+    # Runs still in progress have no conclusion yet (#449):
+    dat <- dat [which (dat$status == "completed"), ]
+    if (nrow (dat) == 0L) {
+        return (NULL)
+    }
 
     dat$time <- strptime (dat$time, "%Y-%m-%dT%H:%M:%SZ")
     dat$time_dbl <- as.double (dat$time)

@@ -4,6 +4,7 @@
 
 ### Minor changes
 
+- `ci_results_gh()` only uses completed workflow runs (#449, @rootcoder007).
 - Summary text: language lists, plurals and imported-package counts (#440, @rootcoder007).
 - `srr` probability-distribution standards (`PD`) are reported (#440, @rootcoder007).
 - Function-call network files are matched by package-name prefix, not regex (#440, @rootcoder007).
