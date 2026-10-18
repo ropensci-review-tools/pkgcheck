@@ -37,6 +37,13 @@ test_that ("ci results in markdown report", {
     md <- get_extra_checks_text (checks, 2L)
     expect_false (any (grepl ("Continuous Integration Badges", md)))
 
+    pkg_env <- asNamespace ("pkgcheck")
+    md <- print_check_md (checks, "ci", pkg_env)
+    expect_length (grep ("Continuous Integration Badges", md), 1L)
+    checks_no_ci <- checks
+    checks_no_ci$checks$ci <- NULL
+    expect_null (print_check_screen (checks_no_ci, "ci", pkg_env))
+
     checks$info$github$workflows$conclusion [1] <- "failure"
     expect_identical (ci_checks_to_md (checks), "")
 })
