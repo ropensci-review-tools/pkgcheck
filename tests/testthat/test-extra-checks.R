@@ -59,7 +59,8 @@ test_that ("extra checks", {
     requireNamespace ("goodpractice")
     f_tmp <- tempfile (fileext = ".md")
     set.seed (1L) # for praise.R random sample output
-    x <- capture.output (print (checks), file = f_tmp, type = "message")
+    x <- capture.output (res <- print (checks), file = f_tmp, type = "message")
+    expect_identical (res, checks)
 
     md <- edit_markdown (readLines (f_tmp), print_method = TRUE)
     # goodpractice on some systems fails to identify 'onload' as dead code

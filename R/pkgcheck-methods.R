@@ -3,7 +3,7 @@
 #' @param deps If 'TRUE', include details of dependency packages and function
 #' usage.
 #' @param ... Further arguments pass to or from other methods (not used here).
-#' @return Nothing. Method called purely for side-effect of printing to screen.
+#' @return The input object `x`, invisibly.
 #' @family pkgcheck_fns
 #' @export
 #' @examples
@@ -38,9 +38,10 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
     output_fns <- list_pkgchk_output_fns (x)
 
     cli::cli_h2 ("Package statistics")
-    x$info$pkgstats$value <- round (x$info$pkgstats$value, digits = 1)
-    x$info$pkgstats$percentile <- round (x$info$pkgstats$percentile, digits = 1)
-    print (x$info$pkgstats)
+    stats <- x$info$pkgstats
+    stats$value <- round (stats$value, digits = 1)
+    stats$percentile <- round (stats$percentile, digits = 1)
+    print (stats)
     message ("")
 
     has_print <- output_has_print (x)
@@ -80,6 +81,8 @@ print.pkgcheck <- function (x, deps = FALSE, ...) {
 
     cli::cli_h2 ("Package Versions")
     cli::cli_dl (x$meta)
+
+    return (invisible (x))
 }
 
 list_pkgchk_output_fns <- function (x) {
