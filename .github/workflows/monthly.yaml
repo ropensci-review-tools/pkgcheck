@@ -40,7 +40,7 @@ jobs:
             github.rest.issues.createComment({
               owner: "ropensci-review-tools",
               repo: "pkgcheck",
-              issue_number: 123,
+              issue_number: 453,
               body: 
                 `@maelle It's time to renew your 'RRT_TOKEN'
 
