@@ -46,34 +46,15 @@ output_pkgchk_ci <- function (checks) {
         } else {
             has_badges <- !is.na (checks$info$badges [1])
         }
+    }
 
-        # Sec. num = 3 for standard, but 4 for stats packages:
-        sec_num <- 3L + "srr" %in% names (checks$info)
+    if (has_workflows) {
+        msg_post <- c ("**GitHub Workflow Results**", "", knitr::kable (wf))
         out$print <- list (
-            msg_pre = paste0 ("#### ", sec_num, "a. Continuous Integration Badges"),
+            msg_pre = "Continuous Integration Badges",
             obj = checks$info$badges,
-            msg_post = ""
+            msg_post = paste (msg_post, collapse = "\n")
         )
-    }
-
-    return (out)
-}
-
-#' CI badges and workflow results as markdown lines for the goodpractice
-#' section of the report.
-#' @noRd
-ci_checks_to_md <- function (checks) {
-
-    ci <- print_check (checks, "ci")
-    if (!is.list (ci)) {
-        return (ci)
-    }
-
-    out <- c (ci$msg_pre, "", ci$obj, "")
-
-    wf <- checks$info$github$workflows
-    if (!is.null (wf)) {
-        out <- c (out, "**GitHub Workflow Results**", "", knitr::kable (wf), "")
     }
 
     return (out)

@@ -1,6 +1,6 @@
 skip_on_cran ()
 
-test_that ("ci results in markdown report", {
+test_that ("ci results in screen and markdown output", {
 
     checks <- make_check_data ()
     checks$checks$has_url <- TRUE
@@ -19,33 +19,32 @@ test_that ("ci results in markdown report", {
 
     ci_out <- output_pkgchk_ci (checks)
     expect_true (ci_out$check_pass)
-    expect_identical (ci_out$print$msg_post, "")
+    msg_post <- ci_out$print$msg_post
+    expect_length (msg_post, 1L)
+    msg_lines <- strsplit (msg_post, "\n") [[1]]
+    expect_identical (msg_lines [1], "**GitHub Workflow Results**")
+    expect_length (grep ("^\\|", msg_lines), 4L) # header, rule, two rows
 
-    md <- ci_checks_to_md (checks)
-    expect_type (md, "character")
-    expect_length (grep ("GitHub Workflow Results", md), 1L)
-    expect_length (grep ("^\\|", md), 4L) # header, rule and two workflow rows
-    expect_true (checks$info$badges %in% md)
+    pkg_env <- asNamespace ("pkgcheck")
+    x <- capture.output (
+        print_check_screen (checks, "ci", pkg_env),
+        type = "message"
+    )
+    expect_length (grep ("Continuous Integration Badges", x), 1L)
+    expect_true (all (msg_lines [-2] %in% x))
 
     withr::local_envvar (
         list ("PKGCHECK_TESTS" = "false", "GITHUB_ACTIONS" = "false")
     )
-    md <- get_gp_text (checks)
-    expect_type (md, "character")
-    expect_length (grep ("Continuous Integration Badges", md), 1L)
-    expect_true (checks$info$badges %in% md)
-
-    expect_true ("ci" %in% output_has_print (checks))
+    expect_false (any (grepl ("Continuous Integration", get_gp_text (checks))))
     md <- get_extra_checks_text (checks, 2L)
-    expect_false (any (grepl ("GitHub Workflow Results", md)))
-
-    pkg_env <- asNamespace ("pkgcheck")
-    md <- print_check_md (checks, "ci", pkg_env)
     expect_length (grep ("Continuous Integration Badges", md), 1L)
-    checks_no_ci <- checks
-    checks_no_ci$checks$ci <- NULL
-    expect_null (print_check_screen (checks_no_ci, "ci", pkg_env))
+    expect_length (grep ("GitHub Workflow Results", md), 1L)
 
     checks$info$github$workflows$conclusion [1] <- "failure"
-    expect_identical (ci_checks_to_md (checks), "")
+    ci_out <- output_pkgchk_ci (checks)
+    expect_false (ci_out$check_pass)
+    expect_true (grepl ("|failure ", ci_out$print$msg_post, fixed = TRUE))
+    md <- print_check_md (checks, "ci", pkg_env)
+    expect_true (any (grepl (symbol_crs (), md, fixed = TRUE)))
 })

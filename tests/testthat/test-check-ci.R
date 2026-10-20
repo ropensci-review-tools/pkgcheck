@@ -22,11 +22,8 @@ test_that ("check ci", {
     expect_length (ci_out$print$msg_pre, 1L)
     expect_length (ci_out$print$obj, 1L)
     expect_length (ci_out$print$msg_post, 1L)
-
-    md <- ci_checks_to_md (checks)
-    expect_type (md, "character")
-    expect_length (grep ("GitHub Workflow Results", md), 1L)
-    expect_gt (length (grep ("^\\|", md)), 3L)
+    msg_lines <- strsplit (ci_out$print$msg_post, "\n") [[1]]
+    expect_gt (length (grep ("^\\|", msg_lines)), 3L)
 
     skip_on_os ("mac")
 
@@ -49,8 +46,7 @@ test_that ("check ci", {
             "(no URL in 'DESCRIPTION')."
         )
     )
-    expect_length (ci_out$print, 1L)
-    expect_true (!nzchar (ci_out$print))
+    expect_length (ci_out$print, 3L)
     checks$checks$has_url <- TRUE
 
     checks$info$badges <- character (0L)
@@ -63,8 +59,7 @@ test_that ("check ci", {
             "and has no badges on README"
         )
     )
-    expect_length (ci_out$print, 1L)
-    expect_true (!nzchar (ci_out$print))
+    expect_length (ci_out$print, 3L)
 
     checks$info$github$workflows$conclusion <- "success"
     ci_out <- output_pkgchk_ci (checks)
