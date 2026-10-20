@@ -174,6 +174,14 @@ Click to see the [interactive network visualisation of calls between objects in 
 <p>
 
 
+:heavy_check_mark: #### 4a. Continuous Integration Badges
+
+- (There do not appear to be any)
+
+
+
+
+
 :heavy_multiplication_x: Package contains the following unexpected files:
 
 - a

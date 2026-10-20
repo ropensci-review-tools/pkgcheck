@@ -21,7 +21,12 @@ test_that ("check ci", {
     expect_named (ci_out$print, c ("msg_pre", "obj", "msg_post"))
     expect_length (ci_out$print$msg_pre, 1L)
     expect_length (ci_out$print$obj, 1L)
-    expect_gt (length (ci_out$print$msg_post), 3L)
+    expect_length (ci_out$print$msg_post, 1L)
+
+    md <- ci_checks_to_md (checks)
+    expect_type (md, "character")
+    expect_length (grep ("GitHub Workflow Results", md), 1L)
+    expect_gt (length (grep ("^\\|", md)), 3L)
 
     skip_on_os ("mac")
 

@@ -182,18 +182,6 @@ get_gp_text <- function (checks) {
     return (out)
 }
 
-#' Format the 'print' list of `output_pkgchk_ci()` as markdown lines
-#' @noRd
-ci_checks_to_md <- function (checks) {
-
-    ci <- print_check (checks, "ci")
-    if (!is.list (ci)) {
-        return (ci)
-    }
-
-    c (ci$msg_pre, "", unlist (ci$obj), "", ci$msg_post)
-}
-
 get_extra_checks_text <- function (checks, sec_num) {
 
     extra <- extra_check_prints_from_env (checks)

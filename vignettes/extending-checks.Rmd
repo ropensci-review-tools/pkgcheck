@@ -153,6 +153,12 @@ items:
     - A `msg_post` to display at the end of the `print` result following the
       `object`.
 
+`msg_pre` and `msg_post` are single strings. A check whose report output needs
+markdown formatting, such as a table, keeps `msg_post` as a single string and
+builds the markdown lines in a separate function in its own `R/check-<name>.R`
+file; `ci_checks_to_md()` in `R/check-ci.R` does this for the CI check, and
+`get_gp_text()` calls it when it writes the report.
+
 `summary` and `print` methods may be suppressed by assigning values of `""`.
 The above example of `pkgcheck_has_citation` has `print = ""`, and so no
 information from this check will appear as output of the `print` method. The

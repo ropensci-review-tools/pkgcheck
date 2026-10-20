@@ -19,11 +19,13 @@ test_that ("ci results in markdown report", {
 
     ci_out <- output_pkgchk_ci (checks)
     expect_true (ci_out$check_pass)
-    expect_identical (
-        ci_out$print$msg_post [1:2],
-        c ("**GitHub Workflow Results**", "")
-    )
-    expect_length (grep ("GitHub Workflow Results", ci_out$print$msg_post), 1L)
+    expect_identical (ci_out$print$msg_post, "")
+
+    md <- ci_checks_to_md (checks)
+    expect_type (md, "character")
+    expect_length (grep ("GitHub Workflow Results", md), 1L)
+    expect_length (grep ("^\\|", md), 4L) # header, rule and two workflow rows
+    expect_true (checks$info$badges %in% md)
 
     withr::local_envvar (
         list ("PKGCHECK_TESTS" = "false", "GITHUB_ACTIONS" = "false")
@@ -33,9 +35,9 @@ test_that ("ci results in markdown report", {
     expect_length (grep ("Continuous Integration Badges", md), 1L)
     expect_true (checks$info$badges %in% md)
 
-    expect_false ("ci" %in% output_has_print (checks))
+    expect_true ("ci" %in% output_has_print (checks))
     md <- get_extra_checks_text (checks, 2L)
-    expect_false (any (grepl ("Continuous Integration Badges", md)))
+    expect_false (any (grepl ("GitHub Workflow Results", md)))
 
     pkg_env <- asNamespace ("pkgcheck")
     md <- print_check_md (checks, "ci", pkg_env)

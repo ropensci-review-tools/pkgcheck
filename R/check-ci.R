@@ -52,16 +52,28 @@ output_pkgchk_ci <- function (checks) {
         out$print <- list (
             msg_pre = paste0 ("#### ", sec_num, "a. Continuous Integration Badges"),
             obj = checks$info$badges,
-            msg_post = character (0L)
+            msg_post = ""
         )
+    }
 
-        if (!is.null (checks$info$github$workflows)) {
-            out$print$msg_post <- c (
-                "**GitHub Workflow Results**",
-                "",
-                knitr::kable (checks$info$github$workflows)
-            )
-        }
+    return (out)
+}
+
+#' CI badges and workflow results as markdown lines for the goodpractice
+#' section of the report.
+#' @noRd
+ci_checks_to_md <- function (checks) {
+
+    ci <- output_pkgchk_ci (checks)$print
+    if (!is.list (ci)) {
+        return (ci)
+    }
+
+    out <- c (ci$msg_pre, "", ci$obj, "")
+
+    wf <- checks$info$github$workflows
+    if (!is.null (wf)) {
+        out <- c (out, "**GitHub Workflow Results**", "", knitr::kable (wf), "")
     }
 
     return (out)
