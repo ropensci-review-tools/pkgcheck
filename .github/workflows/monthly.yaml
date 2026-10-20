@@ -1,3 +1,20 @@
+# What 'RRT_TOKEN' does:
+# The 'docker.yaml' workflow in this repo builds and pushes the 'pkgcheck'
+# docker image. 'RRT_TOKEN' is needed to dispatch the 'publish.yaml' workflow
+# in 'ropensci-review-tools/pkgcheck-action', which rebuilds the
+# 'pkgcheck-action' docker image on top of the freshly-built 'pkgcheck' image.
+#
+# Why it is necessary:
+# Default 'GITHUB_TOKEN's are scoped to single repositories running workflows,
+# and can not trigger workflows in different repositories. This token is needed
+# to enable `pkgcheck` here to trigger the build action in `pkgcheck-action`.
+#
+# What happens if it expires:
+# The 'Trigger pkgcheck-action build' step in 'docker.yaml' will fail with an
+# authentication error. The 'pkgcheck' image will still be built, but
+# 'pkgcheck-action' will silently keep running a stale 'pkgcheck' until its own
+# image is next rebuilt. Users would then get outdated checks.
+
 name: Renew token issue
 on:
   schedule:
@@ -25,7 +42,7 @@ jobs:
               repo: "pkgcheck",
               issue_number: 123,
               body: 
-                `@mpadge It's time to renew your 'RRT_TOKEN'
+                `@maelle It's time to renew your 'RRT_TOKEN'
 
                  - (Re-)Generate **personal** token called 'RRT_TOKEN', with 90 day expiry
                  - grant both repo and workflow access
