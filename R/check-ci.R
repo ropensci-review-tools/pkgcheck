@@ -64,7 +64,7 @@ output_pkgchk_ci <- function (checks) {
 #' @noRd
 ci_checks_to_md <- function (checks) {
 
-    ci <- output_pkgchk_ci (checks)$print
+    ci <- print_check (checks, "ci")
     if (!is.list (ci)) {
         return (ci)
     }
