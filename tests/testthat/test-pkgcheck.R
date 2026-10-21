@@ -83,6 +83,10 @@ test_that ("pkgcheck", {
 
     # paths in these snapshots are not stable on windows, so skipped here
     skip_on_os ("windows")
+    # These are also hard-coded to standards version, so will fail whenever
+    # stats-devguide version is upgraded. Skip on CRAN to avoid whole package
+    # suddenly failing there.
+    skip_on_cran ()
 
     md0 <- edit_markdown (md0) # from clean-snapshots.R
     md1 <- edit_markdown (md1) # from clean-snapshots.R
