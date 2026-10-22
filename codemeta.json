@@ -11,7 +11,7 @@
   "codeRepository": "https://github.com/ropensci-review-tools/pkgcheck",
   "issueTracker": "https://github.com/ropensci-review-tools/pkgcheck/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.3.4.003",
+  "version": "0.3.4.005",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -394,7 +394,7 @@
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=srr"
+      "sameAs": "https://github.com/ropensci-review-tools/srr"
     },
     "18": {
       "@type": "SoftwareApplication",
@@ -410,7 +410,7 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "500.402KB",
+  "fileSize": "557.467KB",
   "releaseNotes": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/NEWS.md",
   "readme": "https://github.com/ropensci-review-tools/pkgcheck/blob/main/README.md",
   "contIntegration": [
