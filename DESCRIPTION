@@ -59,6 +59,8 @@ Suggests:
     roxygen2,
     testthat (>= 3.0.0),
     xfun
+Remotes:
+    ropensci-review-tools/srr@70_prep-v1.1.0
 VignetteBuilder: 
     knitr
 Config/ropensci/maintainer: staff
