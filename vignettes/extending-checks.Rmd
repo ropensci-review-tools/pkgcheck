@@ -153,6 +153,12 @@ items:
     - A `msg_post` to display at the end of the `print` result following the
       `object`.
 
+`msg_pre` and `msg_post` are each a single string. Join several lines with
+`paste (..., collapse = "\n")`. Lines may contain markdown, such as a table.
+The `print` method shows a multi-line `msg_post` as it is, and the markdown
+report includes it unchanged. `output_pkgchk_ci()` in `R/check-ci.R` puts a
+table of GitHub workflow results in `msg_post` this way.
+
 `summary` and `print` methods may be suppressed by assigning values of `""`.
 The above example of `pkgcheck_has_citation` has `print = ""`, and so no
 information from this check will appear as output of the `print` method. The
