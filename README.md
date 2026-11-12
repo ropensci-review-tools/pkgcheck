@@ -26,7 +26,13 @@ is “Ready to Submit”.
 
 ## Installation
 
-The easiest way to install this package is via the [associated
+The easiest way to install this package is via CRAN
+
+``` r
+install.packages("pkgcheck")
+```
+
+Or the [associated
 `r-universe`](https://ropensci-review-tools.r-universe.dev/#builds). As
 shown there, simply enable the universe with
 
@@ -43,22 +49,11 @@ And then install the usual way with,
 install.packages ("pkgcheck")
 ```
 
-Alternatively, the package can be installed by first installing either
-the [remotes](https://remotes.r-lib.org) or
-[pak](https://pak.r-lib.org/) packages and running one of the following
-lines:
+Alternatively, the package can be installed by first installing
+[pak](https://pak.r-lib.org/) package and running:
 
 ``` r
-remotes::install_github ("ropensci-review-tools/pkgcheck")
-pak::pkg_install ("ropensci-review-tools/pkgcheck")
-```
-
-The package may also be installed from locations other than GitHub, with
-any of the following options:
-
-``` r
-remotes::install_git ("https://codeberg.org/ropensci-review-tools/pkgcheck")
-remotes::install_git ("https://codefloe.com/ropensci-review-tools/pkgcheck")
+pak::pak ("ropensci-review-tools/pkgcheck")
 ```
 
 The package can then be loaded for use with:
