@@ -56,6 +56,41 @@ Please discuss any proposed new checks by opening an issue on the GitHub
 repository.
 
 
+## Notes for maintainers: tokens and secrets
+
+### `RRT_TOKEN`
+
+"RRT" stands for "rOpenSci Review Tools". `RRT_TOKEN` is a personal access
+token stored as a secret in this repository. The [Docker
+workflow](https://github.com/ropensci-review-tools/pkgcheck/blob/main/.github/workflows/docker.yaml)
+uses it, after building and pushing the `pkgcheck` Docker image, to trigger the
+`publish.yaml` workflow of
+[`pkgcheck-action`](https://github.com/ropensci-review-tools/pkgcheck-action).
+The default `GITHUB_TOKEN` can't do that, because it only has access to the
+repository the workflow runs in.
+
+The token must be generated from the personal GitHub settings of someone with
+admin rights on both repositories. Give it a short expiry (60 days at most).
+When it expires, the "Trigger pkgcheck-action build" step of the Docker
+workflow fails. To renew it, generate a new token and paste it into the
+`RRT_TOKEN` secret of this repository. A copy of the token is also stored as a
+secret in `pkgcheck-action`, but none of that repository's workflows currently
+use it.
+
+### Other secrets
+
+The Docker image is pushed to the GitHub Container Registry
+(`ghcr.io/ropensci-review-tools/pkgcheck`) with the default `GITHUB_TOKEN`, so
+it needs no other secret. The image is the base of [the `roreviewapi`
+Dockerfile](https://github.com/ropensci-review-tools/roreviewapi/blob/main/Dockerfile),
+so any change to where the image is published must also be made there.
+
+`CODECOV_TOKEN` is used by the test coverage workflow. The other secrets in this
+repository (`DOCKER_USERNAME`, `DOCKER_PASSWORD`, `EMAIL`, `GH_TOKEN`, `GLPW`,
+`NETLIFY_AUTH_TOKEN`, `NETLIFY_SITE_ID` and `UNAME`) are not used by any current
+workflow.
+
+
 ## Code of Conduct
 
 We want to encourage a warm, welcoming, and safe environment for contributing to
