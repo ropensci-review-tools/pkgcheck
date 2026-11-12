@@ -4,6 +4,11 @@
 
 ### Minor changes
 
+- Changed CI check `msg_post` from a character vector to a single markdown string (#445, @rootcoder007).
+- Changed CI results in markdown report from goodpractice and "Other Checks" sections to "Other Checks" only (#445, @rootcoder007).
+- Changed CI `print` details from passing checks only to all checks with workflows (#445, @rootcoder007).
+- Changed `print` method from omitting CI results to including them (#445, @rootcoder007).
+- Changed `print` method from wrapping multi-line `msg_post` to printing it verbatim (#445, @rootcoder007).
 - `ci_results_gh()` only uses completed workflow runs (#449, @rootcoder007).
 - `print.pkgcheck()` returns its input invisibly (#449, @rootcoder007).
 - Summary text: language lists, plurals and imported-package counts (#440, @rootcoder007).
