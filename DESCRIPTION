@@ -1,10 +1,11 @@
 Package: pkgcheck
 Title: Package Checks for 'rOpenSci'
-Version: 0.3.4.005
+Version: 0.3.5
 Authors@R: c(
-    person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre"),
+    person("Maëlle", "Salmon", , "reviewtools@ropensci.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-2815-0399")),
+    person("Mark", "Padgham", , "mark.padgham@email.com", role = "aut",
            comment = c(ORCID = "0000-0003-2172-5265")),
-    person("Maëlle", "Salmon", role = "aut"),
     person("Jacob", "Wujciak-Jens", , "jacob@wujciak.de", role = "aut",
            comment = c(ORCID = "0000-0002-7281-3989")),
     person(c("Kelli", "F."), "Johnson", , "kelli.johnson@noaa.gov", role = "ctb",
@@ -18,12 +19,12 @@ Authors@R: c(
     person("Eric R.", "Scott", role = "aut",
            comment = c(ORCID = "0000-0002-7430-7879"))
   )
-Description: Check whether a package is ready for submission to the 'rOpenSci'
-    peer review system ('rOpenSci' authors (2026) <doi:10.5281/zenodo.2553043>
-    "'rOpenSci' Packages: Development, Maintenance, and Peer Review").
-    Incorporates the 'goodpractice' package and many additional checks,
-    including aspects related to maintenance of online public code
-    repositories.
+Description: Check whether a package is ready for submission to the
+    'rOpenSci' peer review system ('rOpenSci' authors (2026)
+    <doi:10.5281/zenodo.2553043> "'rOpenSci' Packages: Development,
+    Maintenance, and Peer Review").  Incorporates the 'goodpractice'
+    package and many additional checks, including aspects related to
+    maintenance of online public code repositories.
 License: GPL-3
 URL: https://docs.ropensci.org/pkgcheck/,
     https://github.com/ropensci-review-tools/pkgcheck
@@ -58,15 +59,13 @@ Suggests:
     roxygen2,
     testthat (>= 3.0.0),
     xfun
-Remotes:
-    ropensci-review-tools/srr
 VignetteBuilder: 
     knitr
-Config/testthat/edition: 3
 Config/ropensci/maintainer: staff
+Config/roxygen2/version: 8.1.0
+Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
 NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)
-Config/roxygen2/version: 8.1.0
