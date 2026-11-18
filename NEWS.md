@@ -1,9 +1,10 @@
 # pkgcheck News
 
-## 0.3.4.001
+## 0.3.5
 
 ### Minor changes
 
+- The new maintainer is now Maëlle Salmon (reviewtools@ropensci.org).
 - `ci_results_gh()` only uses completed workflow runs (#449, @rootcoder007).
 - `print.pkgcheck()` returns its input invisibly (#449, @rootcoder007).
 - Summary text: language lists, plurals and imported-package counts (#440, @rootcoder007).
