@@ -63,6 +63,15 @@ i Package has
 
 -- Other checks --
 
+v Continuous Integration Badges
+  * (There do not appear to be any)
+
+**GitHub Workflow Results**
+
+| id|name               |conclusion |sha    | run_number|date       |
+|--:|:------------------|:----------|:------|----------:|:----------|
+|  1|R-CMD-check.yaml   |success    |abcdef |        101|2025-01-01 |
+|  2|test-coverage.yaml |success    |123456 |        102|2025-01-01 |
 
 x Package contains the following unexpected files:
   * a

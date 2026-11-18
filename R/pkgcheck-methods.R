@@ -285,34 +285,7 @@ print_deps <- function (checks) {
     }
 }
 
-#' Generic function to print checks based on result of corresponding
-#' `output_pkgchk_` function.
-#'
-#' @param checks Full result of `pkgcheck()` call
-#' @param what Name of check which must also correspond to an internal function
-#' named `output_pkgchk_<name>`.
-#' @return Check formatted to apepar in `print` method
-#' @noRd
-print_check <- function (checks, what) {
-
-    pkg_env <- asNamespace ("pkgcheck")
-    pkg_fns <- ls (envir = pkg_env)
-
-    output_fn <- paste0 ("output_pkgchk_", what)
-    if (!output_fn %in% pkg_fns) {
-        return (NULL)
-    }
-
-    chk_output <- do.call (output_fn, list (checks), envir = pkg_env)
-
-    return (chk_output$print)
-}
-
 print_check_screen <- function (checks, what, pkg_env) {
-
-    if (length (checks$checks [[what]]) == 0L) {
-        return ()
-    }
 
     output_fn <- get (paste0 ("output_pkgchk_", what), envir = pkg_env)
 
@@ -338,7 +311,11 @@ print_check_screen <- function (checks, what, pkg_env) {
 
     if (length (chk_output$print$msg_post) > 0L) {
         cli::cli_text ()
-        cli::cli_text (chk_output$print$msg_post)
+        if (grepl ("\n", chk_output$print$msg_post)) {
+            cli::cli_verbatim (chk_output$print$msg_post)
+        } else {
+            cli::cli_text (chk_output$print$msg_post)
+        }
     }
 }
 
