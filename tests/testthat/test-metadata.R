@@ -60,6 +60,25 @@ test_that ("CI check needs CI workflows", {
     expect_equal (out$summary, " Package has no continuous integration checks.")
 })
 
+test_that ("CI section of markdown report is a character vector", {
+
+    wf <- data.frame (name = "R-CMD-check", conclusion = "success")
+    badge <- "[![R-CMD-check](badge.svg)](actions)"
+    checks <- list (
+        checks = list (has_url = TRUE),
+        info = list (badges = badge, github = list (workflows = wf))
+    )
+    md <- ci_checks_to_md (checks)
+    expect_type (md, "character")
+    expect_equal (md [1], "#### 3a. Continuous Integration Badges")
+    expect_true (badge %in% md)
+    expect_equal (sum (grepl ("GitHub Workflow Results", md)), 1L)
+    expect_true (any (grepl ("^\\|R-CMD-check\\s*\\|success", md)))
+
+    checks$info$github$workflows$conclusion <- "failure"
+    expect_equal (ci_checks_to_md (checks), "")
+})
+
 test_that ("network description on GitHub actions", {
 
     withr::local_envvar (list (GITHUB_ACTIONS = "true", GITHUB_REPOSITORY = "org/repo"))

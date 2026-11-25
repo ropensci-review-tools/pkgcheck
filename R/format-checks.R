@@ -166,7 +166,7 @@ get_gp_text <- function (checks) {
             ),
             "<p>",
             "",
-            print_check (checks, "ci"),
+            ci_checks_to_md (checks),
             "",
             "---",
             "",
@@ -180,6 +180,22 @@ get_gp_text <- function (checks) {
     }
 
     return (out)
+}
+
+#' Markdown lines for the CI badges and workflow results
+#'
+#' `output_pkgchk_ci()` returns its 'print' item as a list of `msg_pre`,
+#' `obj`, and `msg_post` when CI checks pass, and as an empty string
+#' otherwise.
+#' @noRd
+ci_checks_to_md <- function (checks) {
+
+    ci <- print_check (checks, "ci")
+    if (!is.list (ci)) {
+        return (ci)
+    }
+
+    c (ci$msg_pre, "", unlist (ci$obj), "", ci$msg_post)
 }
 
 get_extra_checks_text <- function (checks, sec_num) {

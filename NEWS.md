@@ -4,6 +4,7 @@
 
 ### Minor changes
 
+- `checks_to_markdown()` returns a character vector again when CI checks pass, so pkgcheck-action no longer fails writing `summary.md`; the workflow results table in the CI section is no longer prefixed on every row (#444, @wolski).
 - `ci_results_gh()` only uses completed workflow runs (#449, @rootcoder007).
 - `print.pkgcheck()` returns its input invisibly (#449, @rootcoder007).
 - Summary text: language lists, plurals and imported-package counts (#440, @rootcoder007).
