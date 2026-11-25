@@ -56,7 +56,7 @@ output_pkgchk_ci <- function (checks) {
         )
 
         if (!is.null (checks$info$github$workflows)) {
-            out$print$msg_post <- paste0 (
+            out$print$msg_post <- c (
                 "**GitHub Workflow Results**",
                 "",
                 knitr::kable (checks$info$github$workflows)
